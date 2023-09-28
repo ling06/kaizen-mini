@@ -2,23 +2,20 @@
 
 namespace app\models;
 
-use app\modules\log\models\Log;
-use app\modules\news\models\News;
+use app\models\queries\UserQuery;
 use yii\db\ActiveRecord;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
 
+    public const ROLE_USER = 'user';
+    public const ROLE_TRAINER = 'trainer';
+    public const ROLE_ADMIN = 'admin';
 
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
+    public static function findIdentity($id): ?static
     {
         return static::findOne($id);
     }
@@ -26,7 +23,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): ?static
     {
         return null;
     }
@@ -37,7 +34,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username): ?static
     {
         return static::findOne(['username' => $username]);
     }
@@ -45,7 +42,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -53,7 +50,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey()
+    public function getAuthKey(): ?string
     {
         return null;
     }
@@ -61,7 +58,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey): bool
     {
         return false;
     }
@@ -72,12 +69,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword(string $password): bool
     {
         return false;
     }
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'user';
     }
@@ -85,51 +82,39 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['name'], 'string', 'max' => 100],
+            [['name'], 'string', 'max' => 200],
+            [['username'], 'string', 'max' => 100],
+            [['role'], 'string', 'max' => 50],
+            [['isActive'], 'boolean'],
+            [['lastAction'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя',
+            'username' => 'Логин',
+            'role' => 'Роль',
+            'isActive' => 'Активен ли пользователь',
+            'lastAction' => 'Дата последнего действия',
         ];
     }
 
     /**
-     * Gets query for [[Logs]].
-     *
-     * @return \yii\db\ActiveQuery|\app\modules\log\models\queries\LogQuery
-     */
-    public function getLogs()
-    {
-        return $this->hasMany(Log::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[News]].
-     *
-     * @return \yii\db\ActiveQuery|\app\modules\news\models\queries\NewsQuery
-     */
-    public function getNews()
-    {
-        return $this->hasMany(News::class, ['user_id' => 'id']);
-    }
-
-    /**
      * {@inheritdoc}
-     * @return \app\models\queries\UserQuery the active query used by this AR class.
+     * @return UserQuery the active query used by this AR class.
      */
-    public static function find()
+    public static function find(): UserQuery
     {
-        return new \app\models\queries\UserQuery(get_called_class());
+        return new UserQuery(static::class);
     }
 
 }
