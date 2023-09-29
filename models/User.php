@@ -15,7 +15,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id): ?static
+    public static function findIdentity($id): ?self
     {
         return static::findOne($id);
     }
@@ -23,7 +23,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentityByAccessToken($token, $type = null): ?static
+    public static function findIdentityByAccessToken($token, $type = null): ?self
     {
         return null;
     }
@@ -34,7 +34,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername(string $username): ?static
+    public static function findByUsername(string $username): ?self
     {
         return static::findOne(['username' => $username]);
     }
@@ -90,6 +90,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             [['role'], 'string', 'max' => 50],
             [['isActive'], 'boolean'],
             [['lastAction'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
+
+            [['role'], 'default', 'value' => static::ROLE_USER],
+            [['isActive'], 'default', 'value' => true],
+            [['lastAction'], 'default', 'value' => date('Y-m-d H:i:s')],
         ];
     }
 

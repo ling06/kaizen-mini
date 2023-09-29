@@ -2,6 +2,8 @@
 
 namespace app\modules\news\controllers;
 
+use app\components\actions\CreateAction;
+use app\components\actions\UpdateAction;
 use Yii;
 use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
@@ -21,6 +23,17 @@ class DefaultController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['get-one', 'get-all'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'permissions' => [News::PERMISSION_CREATE],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'permissions' => [News::PERMISSION_UPDATE],
                     ],
                 ],
             ]
@@ -46,9 +59,17 @@ class DefaultController extends Controller
                     ? []
                     : ['published'],
             ],
-            'save' => [
-                'class' => SaveAction::class,
+            'create' => [
+                'class' => CreateAction::class,
                 'modelName' => News::class,
+                'attributes' => Yii::$app->request->post(),
+                'formName' => '',
+            ],
+            'update' => [
+                'class' => UpdateAction::class,
+                'modelName' => News::class,
+                'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
         ];
     }

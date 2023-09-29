@@ -43,12 +43,13 @@ class News extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['user_id', 'status'], 'integer'],
-            [['status'], 'default', 'value' => static::STATUS_DRAFT],
+            [['user_id'], 'integer'],
+            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED, static::STATUS_DELETED]],
             [['text'], 'string'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 250],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['status'], 'default', 'value' => static::STATUS_DRAFT],
         ];
     }
 
