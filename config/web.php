@@ -24,7 +24,8 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'class' => \app\components\WebUser::class,
+            'identityClass' => \app\models\User::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -50,7 +51,10 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                'news' => 'news/default/get-all',
+                'news/<id:\d+>' => 'news/default/get-one',
+            ],
         ],
         'authManager' => [
             'class' => \yii\rbac\DbManager::class,

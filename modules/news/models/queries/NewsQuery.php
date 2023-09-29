@@ -16,7 +16,7 @@ class NewsQuery extends \yii\db\ActiveQuery
     {
         return $this
             ->andWhere(['status' => News::STATUS_PUBLISHED])
-            ->andWhere(['>=', 'date', date('Y-m-d H:i:s')]);
+            ->andWhere(['<=', 'date', date('Y-m-d H:i:s')]);
     }
 
 }

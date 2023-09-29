@@ -25,9 +25,9 @@ class News extends \yii\db\ActiveRecord
     public const PERMISSION_UPDATE = 'news-update';
     public const PERMISSION_DELETE = 'news-delete';
 
-    public const STATUS_NEW = 0;
-    public const STATUS_DRAFT = 1;
-    public const STATUS_PUBLISHED = 2;
+    public const STATUS_DRAFT = 0;
+    public const STATUS_PUBLISHED = 1;
+    public const STATUS_DELETED = 2;
 
     /**
      * {@inheritdoc}
@@ -44,6 +44,7 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'status'], 'integer'],
+            [['status'], 'default', 'value' => static::STATUS_DRAFT],
             [['text'], 'string'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 250],
@@ -84,4 +85,5 @@ class News extends \yii\db\ActiveRecord
     {
         return new NewsQuery(static::class);
     }
+
 }
