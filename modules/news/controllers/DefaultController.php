@@ -3,6 +3,8 @@
 namespace app\modules\news\controllers;
 
 use app\components\actions\CreateAction;
+use app\components\actions\DeleteAction;
+use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
 use Yii;
 use app\components\actions\GetAllAction;
@@ -35,29 +37,44 @@ class DefaultController extends Controller
                         'actions' => ['update'],
                         'permissions' => [News::PERMISSION_UPDATE],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete', 'restore'],
+                        'permissions' => [News::PERMISSION_DELETE],
+                    ],
                 ],
             ]
         ];
     }
 
+    public function beforeAction($action): bool
+    {
+        $this->enableCsrfValidation = (YII_ENV === 'prod');
+        return parent::beforeAction($action);
+    }
+
     public function actions(): array
     {
+        $scopes = [];
+        if (!Yii::$app->user->can(News::PERMISSION_UPDATE)) {
+            $scopes[] = 'published';
+        }
+        if (!Yii::$app->user->can(News::PERMISSION_DELETE)) {
+            $scopes[] = 'notDeleted';
+        }
+
         return [
             'get-one' => [
                 'class' => GetOneAction::class,
                 'modelName' => News::class,
                 'modelPk' => Yii::$app->request->get('id'),
-                'scopes' => Yii::$app->user->can(News::PERMISSION_UPDATE)
-                    ? []
-                    : ['published'],
+                'scopes' => $scopes,
             ],
             'get-all' => [
                 'class' => GetAllAction::class,
                 'modelName' => News::class,
                 'page' => Yii::$app->request->get('page', 1),
-                'scopes' => Yii::$app->user->can(News::PERMISSION_UPDATE)
-                    ? []
-                    : ['published'],
+                'scopes' => $scopes,
             ],
             'create' => [
                 'class' => CreateAction::class,
@@ -70,6 +87,17 @@ class DefaultController extends Controller
                 'modelName' => News::class,
                 'attributes' => Yii::$app->request->post(),
                 'formName' => '',
+            ],
+            'delete' => [
+                'class' => DeleteAction::class,
+                'modelName' => News::class,
+                'modelPk' => Yii::$app->request->post('id'),
+                'isSoft' => true,
+            ],
+            'restore' => [
+                'class' => RestoreAction::class,
+                'modelName' => News::class,
+                'modelPk' => Yii::$app->request->post('id'),
             ],
         ];
     }

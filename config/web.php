@@ -27,6 +27,7 @@ $config = [
             'class' => \app\components\WebUser::class,
             'identityClass' => \app\models\User::class,
             'enableAutoLogin' => true,
+            'enableSession' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -54,10 +55,11 @@ $config = [
             'rules' => [
                 'news' => 'news/default/get-all',
                 'news/<id:\d+>' => 'news/default/get-one',
+                'news/<action:\w+>' => 'news/default/<action>',
             ],
         ],
         'authManager' => [
-            'class' => \yii\rbac\DbManager::class,
+            'class' => \app\components\DbManager::class,
         ],
     ],
     'params' => $params,

@@ -2,13 +2,16 @@
 
 namespace app\components;
 
+use app\models\User;
 use yii\httpclient\Client;
 use Yii;
-use yii\web\User;
 
-class WebUser extends User
+class WebUser extends \yii\web\User
 {
 
+    /**
+     * @inheritDoc
+     */
     public function loginRequired($checkAjax = true, $checkAcceptHeader = true)
     {
         $returnUrl = Yii::$app->getRequest()->getHostInfo() . Yii::$app->getRequest()->getUrl();
@@ -16,9 +19,12 @@ class WebUser extends User
         return Yii::$app->getResponse()->redirect($url);
     }
 
-    public function getIsGuest(): bool
+    /**
+     * @inheritDoc
+     */
+    protected function renewAuthStatus()
     {
-        if (isset($_COOKIE['orders_borboza_sid']) && $this->identity === null) {
+        if (isset($_COOKIE['orders_borboza_sid']) && $this->getIdentity() === null) {
             $passportResponse = (new Client())->createRequest()
                 ->setUrl('https://passport.borboza.com/passport/check-user-login')
                 ->setMethod('POST')
@@ -38,23 +44,23 @@ class WebUser extends User
             if ($passportResponse->content !== 'ERR') {
                 $uData = unserialize($passportResponse->content);
                 if (isset($uData['user_id'])) {
-                    $user = \app\models\User::findOne($uData['user_id']);
+                    $user = User::findOne($uData['user_id']);
                     if (!$user) {
                         $uInfo = unserialize($uData['user_info']);
-                        $user = new \app\models\User([
+                        $user = new User([
                             'name' => mb_convert_encoding($uInfo['name'], 'utf8', 'cp1251'),
                             'username' => $uInfo['login'],
                         ]);
                         $user->id = $uInfo['user_id'];
                         $user->save();
                     }
-                    $this->identity = $user;
-                    return false;
+                    $this->setIdentity($user);
+                    return;
                 }
             }
         }
 
-        return $this->identity === null;
+        $this->setIdentity(null);
     }
 
 }

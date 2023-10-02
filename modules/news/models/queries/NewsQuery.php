@@ -19,4 +19,10 @@ class NewsQuery extends \yii\db\ActiveQuery
             ->andWhere(['<=', 'date', date('Y-m-d H:i:s')]);
     }
 
+    public function notDeleted(): self
+    {
+        return $this
+            ->andWhere(['is_deleted' => false]);
+    }
+
 }

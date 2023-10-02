@@ -2,6 +2,7 @@
 
 namespace app\modules\news\models;
 
+use app\components\behaviors\DeleteSoftBehavior;
 use app\models\queries\UserQuery;
 use app\models\User;
 use app\modules\news\models\queries\NewsQuery;
@@ -14,6 +15,8 @@ use app\modules\news\models\queries\NewsQuery;
  * @property string|null $title Заголовок
  * @property string|null $text Полный текст
  * @property string|null $date Дата публикации
+ * @property int $status [int(4)]  Статус
+ * @property bool $is_deleted [tinyint(1)]
  *
  * @property User $user
  */
@@ -27,7 +30,6 @@ class News extends \yii\db\ActiveRecord
 
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
-    public const STATUS_DELETED = 2;
 
     /**
      * {@inheritdoc}
@@ -44,12 +46,14 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'integer'],
-            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED, static::STATUS_DELETED]],
+            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
             [['text'], 'string'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 250],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['status'], 'default', 'value' => static::STATUS_DRAFT],
+            [['is_deleted'], 'boolean'],
+            [['is_deleted'], 'default', 'value' => false],
         ];
     }
 
@@ -85,6 +89,23 @@ class News extends \yii\db\ActiveRecord
     public static function find(): NewsQuery
     {
         return new NewsQuery(static::class);
+    }
+
+    public function scenarios(): array
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[DeleteSoftBehavior::SCENARIO_DELETE_SOFT] = ['is_deleted'];
+        $scenarios[DeleteSoftBehavior::SCENARIO_RESTORE] = ['is_deleted'];
+        return $scenarios;
+    }
+
+    public function behaviors(): array
+    {
+        return [
+            'deleteSoft' => [
+                'class' => DeleteSoftBehavior::class,
+            ],
+        ];
     }
 
 }
