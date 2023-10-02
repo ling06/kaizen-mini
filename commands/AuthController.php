@@ -4,6 +4,7 @@ namespace app\commands;
 
 use app\models\User;
 use app\modules\news\models\News;
+use app\modules\news\models\NewsCategory;
 use yii\console\Controller;
 
 class AuthController extends Controller
@@ -23,12 +24,18 @@ class AuthController extends Controller
                 News::PERMISSION_READ,
                 News::PERMISSION_UPDATE,
                 News::PERMISSION_DELETE,
+                NewsCategory::PERMISSION_CREATE,
+                NewsCategory::PERMISSION_UPDATE,
+                NewsCategory::PERMISSION_DELETE,
             ],
             User::ROLE_ADMIN => [
                 News::PERMISSION_CREATE,
                 News::PERMISSION_READ,
                 News::PERMISSION_UPDATE,
                 News::PERMISSION_DELETE,
+                NewsCategory::PERMISSION_CREATE,
+                NewsCategory::PERMISSION_UPDATE,
+                NewsCategory::PERMISSION_DELETE,
             ],
         ];
 

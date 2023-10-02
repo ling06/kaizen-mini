@@ -14,6 +14,7 @@ class GetOneAction extends Action
     public $modelPk;
     public $fields;
     public $scopes = [];
+    public $relations = [];
 
     public function run()
     {

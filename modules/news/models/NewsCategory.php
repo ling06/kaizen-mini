@@ -3,45 +3,37 @@
 namespace app\modules\news\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
-use app\components\behaviors\RelationBehavior;
 use app\models\queries\UserQuery;
 use app\models\User;
 use app\modules\news\models\queries\NewsCategoryQuery;
 use app\modules\news\models\queries\NewsQuery;
 use yii\behaviors\BlameableBehavior;
-use yii\db\ActiveQuery;
 
 /**
- * This is the model class for table "news".
+ * This is the model class for table "news_category".
  *
  * @property int $id
  * @property int|null $user_id Id автора
  * @property string|null $title Заголовок
- * @property string|null $text Полный текст
- * @property string|null $date Дата публикации
- * @property int $status [int(4)]  Статус
  * @property bool $is_deleted [tinyint(1)]
  *
  * @property User $user
- * @property NewsCategory[] $categories
+ * @property NewsCategories[] $newsCategories
+ * @property News[] $news
  */
-class News extends \yii\db\ActiveRecord
+class NewsCategory extends \yii\db\ActiveRecord
 {
 
-    public const PERMISSION_READ = 'news-read';
-    public const PERMISSION_CREATE = 'news-create';
-    public const PERMISSION_UPDATE = 'news-update';
-    public const PERMISSION_DELETE = 'news-delete';
-
-    public const STATUS_DRAFT = 0;
-    public const STATUS_PUBLISHED = 1;
+    public const PERMISSION_CREATE = 'news-category-create';
+    public const PERMISSION_UPDATE = 'news-category-update';
+    public const PERMISSION_DELETE = 'news-category-delete';
 
     /**
      * {@inheritdoc}
      */
     public static function tableName(): string
     {
-        return 'news';
+        return 'news_category';
     }
 
     /**
@@ -50,13 +42,8 @@ class News extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
-            [['text'], 'string'],
-            [['date'], 'safe'],
             [['title'], 'string', 'max' => 250],
             [['is_deleted'], 'boolean'],
-            [['status'], 'default', 'value' => static::STATUS_DRAFT],
-            [['date'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['is_deleted'], 'default', 'value' => false],
         ];
     }
@@ -70,9 +57,6 @@ class News extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'Id автора',
             'title' => 'Заголовок',
-            'text' => 'Полный текст',
-            'date' => 'Дата публикации',
-            'status' => 'Статус',
         ];
     }
 
@@ -87,20 +71,28 @@ class News extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     * @return NewsQuery the active query used by this AR class.
+     * @return \yii\db\ActiveQuery
      */
-    public static function find(): NewsQuery
+    public function getNewsCategories(): \yii\db\ActiveQuery
     {
-        return new NewsQuery(static::class);
+        return $this->hasMany(NewsCategories::class, ['news_category_id' => 'id']);
     }
 
     /**
-     * @return NewsCategoryQuery
+     * @return \yii\db\ActiveQuery|NewsQuery
      */
-    public function getCategories(): ActiveQuery
+    public function getNews(): NewsQuery
     {
-        return $this->hasMany(NewsCategory::class, ['news_id' => 'id']);
+        return $this->hasMany(News::class, ['news_id' => 'id'])->via('newsCategories');
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return NewsCategoryQuery the active query used by this AR class.
+     */
+    public static function find(): NewsCategoryQuery
+    {
+        return new NewsCategoryQuery(static::class);
     }
 
     public function scenarios(): array
@@ -121,19 +113,6 @@ class News extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
-            ],
-            'relations' => [
-                'class' => RelationBehavior::class,
-                'relations' => [
-                    'category' => [
-                        'className' => NewsCategory::class,
-                        'relationClassName' => NewsCategories::class,
-                        'relation' => [
-                            News::class => 'news_id',
-                            NewsCategory::class => 'news_category_id',
-                        ],
-                    ],
-                ],
             ],
         ];
     }

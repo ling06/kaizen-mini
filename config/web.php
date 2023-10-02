@@ -56,6 +56,8 @@ $config = [
                 'news' => 'news/default/get-all',
                 'news/<id:\d+>' => 'news/default/get-one',
                 'news/<action:\w+>' => 'news/default/<action>',
+                'news-category' => 'news/category/get-all',
+                'news-category/<action:\w+>' => 'news/category/<action>',
             ],
         ],
         'authManager' => [
