@@ -14,10 +14,10 @@ $config = [
     'modules' => [
         'news' => ['class' => \app\modules\news\Module::class],
         'log' => ['class' => \app\modules\log\Module::class],
+        'course' => ['class' => \app\modules\course\Module::class],
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'okjRtT_YXm5xSXBrJ84XpP-JCaxp-4mm',
         ],
         'cache' => [
@@ -53,11 +53,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'news' => 'news/default/get-all',
-                'news/<id:\d+>' => 'news/default/get-one',
-                'news/<action:\w+>' => 'news/default/<action>',
+                'news' => 'news/news/get-all',
+                'news/<id:\d+>' => 'news/news/get-one',
+                'news/<action:\w+>' => 'news/news/<action>',
                 'news-category' => 'news/category/get-all',
                 'news-category/<action:\w+>' => 'news/category/<action>',
+                'course' => 'course/default/get-all',
+                'course/<id:\d+>' => 'course/default/get-one',
+                'course/<action:\w+>' => 'course/course/<action>',
             ],
         ],
         'authManager' => [

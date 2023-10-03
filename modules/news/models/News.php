@@ -125,7 +125,7 @@ class News extends \yii\db\ActiveRecord
             'relations' => [
                 'class' => RelationBehavior::class,
                 'relations' => [
-                    'category' => [
+                    'categories' => [
                         'className' => NewsCategory::class,
                         'relationClassName' => NewsCategories::class,
                         'relation' => [

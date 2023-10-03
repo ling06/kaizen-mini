@@ -6,6 +6,8 @@ use app\components\actions\CreateAction;
 use app\components\actions\DeleteAction;
 use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
+use app\modules\news\models\NewsCategories;
+use app\modules\news\models\NewsCategory;
 use Yii;
 use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
@@ -13,7 +15,7 @@ use app\modules\news\models\News;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class DefaultController extends Controller
+class NewsController extends Controller
 {
 
     public function behaviors(): array
@@ -55,6 +57,7 @@ class DefaultController extends Controller
 
     public function actions(): array
     {
+        $newsModel = new News();
         $scopes = [];
         if (!Yii::$app->user->can(News::PERMISSION_UPDATE)) {
             $scopes[] = 'published';
@@ -80,24 +83,24 @@ class DefaultController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => News::class,
                 'attributes' => Yii::$app->request->post(),
-                'formName' => '',
+                'relations' => ['categories' => NewsCategory::class],
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => News::class,
                 'attributes' => Yii::$app->request->post(),
-                'formName' => '',
+                'relations' => ['categories' => NewsCategory::class],
             ],
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->post($newsModel->formName())['id'] ?? null,
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->post($newsModel->formName())['id'] ?? null,
             ],
         ];
     }

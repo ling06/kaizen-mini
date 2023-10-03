@@ -3,6 +3,7 @@
 namespace app\commands;
 
 use app\models\User;
+use app\modules\course\models\Course;
 use app\modules\news\models\News;
 use app\modules\news\models\NewsCategory;
 use yii\console\Controller;
@@ -18,6 +19,7 @@ class AuthController extends Controller
         $permissions = [
             User::ROLE_USER => [
                 News::PERMISSION_READ,
+                Course::PERMISSION_READ,
             ],
             User::ROLE_TRAINER => [
                 News::PERMISSION_CREATE,
@@ -27,6 +29,10 @@ class AuthController extends Controller
                 NewsCategory::PERMISSION_CREATE,
                 NewsCategory::PERMISSION_UPDATE,
                 NewsCategory::PERMISSION_DELETE,
+                Course::PERMISSION_CREATE,
+                Course::PERMISSION_READ,
+                Course::PERMISSION_UPDATE,
+                Course::PERMISSION_DELETE,
             ],
             User::ROLE_ADMIN => [
                 News::PERMISSION_CREATE,
@@ -36,6 +42,10 @@ class AuthController extends Controller
                 NewsCategory::PERMISSION_CREATE,
                 NewsCategory::PERMISSION_UPDATE,
                 NewsCategory::PERMISSION_DELETE,
+                Course::PERMISSION_CREATE,
+                Course::PERMISSION_READ,
+                Course::PERMISSION_UPDATE,
+                Course::PERMISSION_DELETE,
             ],
         ];
 

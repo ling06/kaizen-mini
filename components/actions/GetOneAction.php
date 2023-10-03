@@ -28,7 +28,11 @@ class GetOneAction extends Action
             $query->select($this->fields);
         }
         foreach ($this->scopes as $scope) {
-            $query->$scope();
+            if (is_callable($scope)) {
+                $scope($query);
+            } elseif (is_string($scope)) {
+                $query->$scope();
+            }
         }
         $model = $query->asArray()->one();
 

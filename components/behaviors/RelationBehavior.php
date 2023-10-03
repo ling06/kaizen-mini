@@ -61,6 +61,7 @@ class RelationBehavior extends Behavior
 
     public function addRelations(): void
     {
+        $ownerClass = get_class($this->owner);
         foreach ($this->relations as $relationName => $relationOptions) {
             if ($relationsData = $this->getRelationData($relationName)) {
 
@@ -68,7 +69,7 @@ class RelationBehavior extends Behavior
                 $relationClassName = $relationOptions['relationClassName'];
 
                 // удаляем связанные модели
-                $relationClassName::deleteAll([($this->owner)::primaryKey()[0] => $this->owner->primaryKey]);
+                $relationClassName::deleteAll([$relationOptions['relation'][$ownerClass] => $this->owner->primaryKey]);
 
                 foreach ($relationsData as $relationData) {
 
@@ -76,7 +77,7 @@ class RelationBehavior extends Behavior
                     if (!isset($relationData[$className::primaryKey()[0]])) {
                         // если не передан ключ связанной модели - создаем ее
                         $classModel = new $className();
-                        $classModel->load($relationData);
+                        $classModel->load($relationData, '');
                         $classModel->save();
                         $relationId = $classModel->primaryKey;
                     } else {
@@ -87,8 +88,8 @@ class RelationBehavior extends Behavior
                     if ($relationId) {
                         // если есть ключ связанной модели - создаем связь
                         $relation = new $relationClassName([
-                            $relationOptions[get_class($this->owner)] => $this->owner->primaryKey,
-                            $relationOptions[$className] => $relationId,
+                            $relationOptions['relation'][$ownerClass] => $this->owner->primaryKey,
+                            $relationOptions['relation'][$className] => $relationId,
                         ]);
                         $relation->save();
                     }
