@@ -3,7 +3,6 @@
 namespace app\modules\news\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
-use app\components\behaviors\RelationBehavior;
 use app\models\queries\UserQuery;
 use app\models\User;
 use app\modules\news\models\queries\NewsCategoryQuery;
@@ -121,19 +120,6 @@ class News extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
-            ],
-            'relations' => [
-                'class' => RelationBehavior::class,
-                'relations' => [
-                    'categories' => [
-                        'className' => NewsCategory::class,
-                        'relationClassName' => NewsCategories::class,
-                        'relation' => [
-                            News::class => 'news_id',
-                            NewsCategory::class => 'news_category_id',
-                        ],
-                    ],
-                ],
             ],
         ];
     }

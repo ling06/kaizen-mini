@@ -15,7 +15,6 @@ class UpdateAction extends Action
     public $modelName;
     public $attributes = [];
     public $formName;
-    public $relations = [];
 
     public function run()
     {
@@ -30,10 +29,6 @@ class UpdateAction extends Action
         }
 
         $model->load($this->attributes);
-        foreach ($this->relations as $relationName => $relationClass) {
-            $relationModel = new $relationClass();
-            $model->setRelationData($relationName, $this->attributes[$relationModel->formName()] ?? []);
-        }
         $model->save();
 
         if ($model->hasErrors()) {

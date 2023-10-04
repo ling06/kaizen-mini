@@ -83,13 +83,11 @@ class NewsController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => News::class,
                 'attributes' => Yii::$app->request->post(),
-                'relations' => ['categories' => NewsCategory::class],
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => News::class,
                 'attributes' => Yii::$app->request->post(),
-                'relations' => ['categories' => NewsCategory::class],
             ],
             'delete' => [
                 'class' => DeleteAction::class,
