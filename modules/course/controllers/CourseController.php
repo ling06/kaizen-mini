@@ -32,9 +32,9 @@ class CourseController extends Controller
                         'allow' => true,
                         'actions' => [
                             'get-one', 'get-all',
-                            'get-chapter', 'get-chapters',
-                            'get-theme', 'get-themes',
-                            'get-lesson', 'get-lessons',
+                            'get-chapter',
+                            'get-theme',
+                            'get-lesson',
                         ],
                         'roles' => ['@'],
                     ],
@@ -52,9 +52,9 @@ class CourseController extends Controller
                         'allow' => true,
                         'actions' => [
                             'delete', 'restore',
-                            'delete-chapter', 'restore-theme',
-                            'delete-lesson', 'restore-chapter',
-                            'delete-theme', 'restore-lesson',
+                            'delete-chapter', 'restore-chapter',
+                            'delete-lesson', 'restore-lesson',
+                            'delete-theme', 'restore-theme',
                         ],
                         'permissions' => [Course::PERMISSION_DELETE],
                     ],
@@ -109,13 +109,94 @@ class CourseController extends Controller
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => Course::class,
-                'modelPk' => Yii::$app->request->post($courseModel->formName())['id'] ?? null,
+                'modelPk' => Yii::$app->request->post('id'),
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => Course::class,
-                'modelPk' => Yii::$app->request->post($courseModel->formName())['id'] ?? null,
+                'modelPk' => Yii::$app->request->post('id'),
+            ],
+            'get-chapter' => [
+                'class' => GetOneAction::class,
+                'modelName' => Chapter::class,
+                'modelPk' => Yii::$app->request->get('id'),
+                'scopes' => $scopes,
+            ],
+            'create-chapter' => [
+                'class' => CreateAction::class,
+                'modelName' => Chapter::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'update-chapter' => [
+                'class' => UpdateAction::class,
+                'modelName' => Chapter::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'delete-chapter' => [
+                'class' => DeleteAction::class,
+                'modelName' => Chapter::class,
+                'modelPk' => Yii::$app->request->post('id'),
+                'isSoft' => true,
+            ],
+            'restore-chapter' => [
+                'class' => RestoreAction::class,
+                'modelName' => Chapter::class,
+                'modelPk' => Yii::$app->request->post('id'),
+            ],
+            'get-theme' => [
+                'class' => GetOneAction::class,
+                'modelName' => Theme::class,
+                'modelPk' => Yii::$app->request->get('id'),
+                'scopes' => $scopes,
+            ],
+            'create-theme' => [
+                'class' => CreateAction::class,
+                'modelName' => Theme::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'update-theme' => [
+                'class' => UpdateAction::class,
+                'modelName' => Theme::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'delete-theme' => [
+                'class' => DeleteAction::class,
+                'modelName' => Theme::class,
+                'modelPk' => Yii::$app->request->post('id'),
+                'isSoft' => true,
+            ],
+            'restore-theme' => [
+                'class' => RestoreAction::class,
+                'modelName' => Theme::class,
+                'modelPk' => Yii::$app->request->post('id'),
+            ],
+            'get-lesson' => [
+                'class' => GetOneAction::class,
+                'modelName' => Lesson::class,
+                'modelPk' => Yii::$app->request->get('id'),
+                'scopes' => $scopes,
+            ],
+            'create-lesson' => [
+                'class' => CreateAction::class,
+                'modelName' => Lesson::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'update-lesson' => [
+                'class' => UpdateAction::class,
+                'modelName' => Lesson::class,
+                'attributes' => Yii::$app->request->post(),
+            ],
+            'delete-lesson' => [
+                'class' => DeleteAction::class,
+                'modelName' => Lesson::class,
+                'modelPk' => Yii::$app->request->post('id'),
+                'isSoft' => true,
+            ],
+            'restore-lesson' => [
+                'class' => RestoreAction::class,
+                'modelName' => Lesson::class,
+                'modelPk' => Yii::$app->request->post('id'),
             ],
         ];
     }

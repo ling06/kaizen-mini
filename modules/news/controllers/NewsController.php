@@ -92,13 +92,13 @@ class NewsController extends Controller
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post($newsModel->formName())['id'] ?? null,
+                'modelPk' => Yii::$app->request->post('id'),
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post($newsModel->formName())['id'] ?? null,
+                'modelPk' => Yii::$app->request->post('id'),
             ],
         ];
     }
