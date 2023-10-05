@@ -16,6 +16,7 @@ class GetAllAction extends Action
     public $pageSize = 20;
     public $page = 1;
     public $scopes = [];
+    public $with = [];
 
     public function run()
     {
@@ -32,6 +33,9 @@ class GetAllAction extends Action
             } elseif (is_string($scope)) {
                 $query->$scope();
             }
+        }
+        if ($this->with) {
+            $query->with($this->with);
         }
         $count = $query->count();
         $pagesCount = ceil($count / $this->pageSize);

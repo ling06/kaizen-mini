@@ -22,7 +22,14 @@ class UpdateAction extends Action
         /** @var ActiveRecord $model */
         $model = new $this->modelName();
 
-        $id = $this->attributes[$this->formName ?? $model->formName()]['id'] ?? null;
+        $formName = $this->formName ?? $model->formName();
+        if ($formName !== '') {
+            $id = $this->attributes[$formName]['id'] ?? null;
+        } else {
+            $id = $this->attributes['id'] ?? null;
+        }
+
+
         $model = ($this->modelName)::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException();

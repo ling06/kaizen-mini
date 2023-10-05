@@ -6,8 +6,10 @@ use app\components\actions\CreateAction;
 use app\components\actions\DeleteAction;
 use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
+use app\modules\news\forms\NewsForm;
 use app\modules\news\models\NewsCategories;
 use app\modules\news\models\NewsCategory;
+use app\modules\news\models\queries\NewsQuery;
 use Yii;
 use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
@@ -57,13 +59,18 @@ class NewsController extends Controller
 
     public function actions(): array
     {
-        $newsModel = new News();
         $scopes = [];
         if (!Yii::$app->user->can(News::PERMISSION_UPDATE)) {
             $scopes[] = 'published';
         }
         if (!Yii::$app->user->can(News::PERMISSION_DELETE)) {
             $scopes[] = 'notDeleted';
+        }
+
+        if ($categoryId = (int)Yii::$app->request->get('category')) {
+            $scopes[] = static function (NewsQuery $query) use ($categoryId) {
+                $query->category($categoryId);
+            };
         }
 
         return [
@@ -78,15 +85,16 @@ class NewsController extends Controller
                 'modelName' => News::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
+                'with' => ['categories'],
             ],
             'create' => [
                 'class' => CreateAction::class,
-                'modelName' => News::class,
+                'modelName' => NewsForm::class,
                 'attributes' => Yii::$app->request->post(),
             ],
             'update' => [
                 'class' => UpdateAction::class,
-                'modelName' => News::class,
+                'modelName' => NewsForm::class,
                 'attributes' => Yii::$app->request->post(),
             ],
             'delete' => [

@@ -7,6 +7,7 @@ use app\models\User;
 use app\modules\course\models\queries\ChapterQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 
 /**
@@ -15,7 +16,6 @@ use yii\db\ActiveQuery;
  * @property int $id
  * @property int|null $course_id Id курса
  * @property string|null $name Название
- * @property int|null $status Статус
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удалена ли глава
@@ -41,11 +41,14 @@ class Chapter extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['course_id', 'status', 'user_id', 'is_deleted'], 'integer'],
+            [['course_id', 'status', 'user_id'], 'integer'],
             [['date'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
+            [['is_deleted'], 'boolean'],
+            [['is_deleted'], 'default', 'value' => false],
         ];
     }
 
@@ -58,7 +61,6 @@ class Chapter extends \yii\db\ActiveRecord
             'id' => 'ID',
             'course_id' => 'Id курса',
             'name' => 'Название',
-            'status' => 'Статус',
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удалена ли глава',
@@ -122,6 +124,12 @@ class Chapter extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
+            ],
+            'date' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'date',
+                'updatedAtAttribute' => null,
+                'value' => date('Y-m-d H:i:s'),
             ],
         ];
     }

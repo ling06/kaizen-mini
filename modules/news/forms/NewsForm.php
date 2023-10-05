@@ -33,10 +33,10 @@ class NewsForm extends News
     {
         NewsCategories::deleteAll(['news_id' => $this->id]);
         foreach ($this->categories as $categoryData) {
-            if ($categoryData['id']) {
+            if (isset($categoryData['id'])) {
                 $newsCategories = new NewsCategories([
                     'news_id' => $this->id,
-                    'news_categories_id' => $categoryData['id'],
+                    'news_category_id' => $categoryData['id'],
                 ]);
                 $newsCategories->save();
             } else {
@@ -46,7 +46,7 @@ class NewsForm extends News
                 if ($newsCategory->save()) {
                     $newsCategories = new NewsCategories([
                         'news_id' => $this->id,
-                        'news_categories_id' => $newsCategory->id,
+                        'news_category_id' => $newsCategory->id,
                     ]);
                     $newsCategories->save();
                 }

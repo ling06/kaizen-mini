@@ -14,7 +14,7 @@ class GetOneAction extends Action
     public $modelPk;
     public $fields;
     public $scopes = [];
-    public $relations = [];
+    public $with = [];
 
     public function run()
     {
@@ -33,6 +33,9 @@ class GetOneAction extends Action
             } elseif (is_string($scope)) {
                 $query->$scope();
             }
+        }
+        if ($this->with) {
+            $query->with($this->with);
         }
         $model = $query->asArray()->one();
 

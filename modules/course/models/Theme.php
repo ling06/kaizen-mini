@@ -6,6 +6,7 @@ use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\ThemeQuery;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 
 /**
@@ -14,7 +15,6 @@ use yii\db\ActiveQuery;
  * @property int $id
  * @property int|null $chapter_id Id главы
  * @property string|null $name Название
- * @property int|null $status Статус
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удалена ли тема
@@ -40,11 +40,14 @@ class Theme extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['chapter_id', 'status', 'user_id', 'is_deleted'], 'integer'],
+            [['chapter_id', 'status', 'user_id'], 'integer'],
             [['date'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['chapter_id'], 'exist', 'skipOnError' => true, 'targetClass' => Chapter::class, 'targetAttribute' => ['chapter_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
+            [['is_deleted'], 'boolean'],
+            [['is_deleted'], 'default', 'value' => false],
         ];
     }
 
@@ -57,7 +60,6 @@ class Theme extends \yii\db\ActiveRecord
             'id' => 'ID',
             'chapter_id' => 'Id главы',
             'name' => 'Название',
-            'status' => 'Статус',
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удалена ли тема',
@@ -121,6 +123,12 @@ class Theme extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
+            ],
+            'date' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'date',
+                'updatedAtAttribute' => null,
+                'value' => date('Y-m-d H:i:s'),
             ],
         ];
     }

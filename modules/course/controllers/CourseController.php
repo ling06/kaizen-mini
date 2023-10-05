@@ -71,10 +71,6 @@ class CourseController extends Controller
 
     public function actions(): array
     {
-        $courseModel = new Course();
-        $chapterModel = new Chapter();
-        $themeModel = new Theme();
-        $lessonModel = new Lesson();
         $scopes = [];
         if (!Yii::$app->user->can(Course::PERMISSION_UPDATE)) {
             $scopes[] = 'published';
@@ -100,11 +96,13 @@ class CourseController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => Course::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => Course::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'delete' => [
                 'class' => DeleteAction::class,

@@ -6,6 +6,7 @@ use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\LessonQuery;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 
 /**
@@ -15,6 +16,7 @@ use yii\db\ActiveQuery;
  * @property int|null $theme_id Id темы
  * @property string|null $name Название
  * @property string|null $description Описание
+ * @property string|null $description_autosave Автосохраненное описание
  * @property int|null $status Статус
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
@@ -25,6 +27,9 @@ use yii\db\ActiveQuery;
  */
 class Lesson extends \yii\db\ActiveRecord
 {
+
+    public const STATUS_DRAFT = 0;
+    public const STATUS_PUBLISHED = 1;
 
     /**
      * {@inheritdoc}
@@ -40,12 +45,17 @@ class Lesson extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['theme_id', 'status', 'user_id', 'is_deleted'], 'integer'],
+            [['theme_id', 'status', 'user_id'], 'integer'],
             [['description'], 'string'],
             [['date'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Theme::class, 'targetAttribute' => ['theme_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
+            [['status'], 'default', 'value' => static::STATUS_DRAFT],
+            [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
+            [['is_deleted'], 'boolean'],
+            [['is_deleted'], 'default', 'value' => false],
         ];
     }
 
@@ -113,6 +123,12 @@ class Lesson extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
+            ],
+            'date' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'date',
+                'updatedAtAttribute' => null,
+                'value' => date('Y-m-d H:i:s'),
             ],
         ];
     }

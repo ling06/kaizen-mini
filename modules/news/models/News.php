@@ -22,6 +22,7 @@ use yii\db\ActiveQuery;
  * @property bool $is_deleted [tinyint(1)]
  *
  * @property User $user
+ * @property NewsCategories[] $newsCategories
  * @property NewsCategory[] $categories
  */
 class News extends \yii\db\ActiveRecord
@@ -99,7 +100,15 @@ class News extends \yii\db\ActiveRecord
      */
     public function getCategories(): ActiveQuery
     {
-        return $this->hasMany(NewsCategory::class, ['news_id' => 'id']);
+        return $this->hasMany(NewsCategory::class, ['id' => 'news_category_id'])->via('newsCategories');
+    }
+
+    /**
+     * @return NewsCategoryQuery
+     */
+    public function getNewsCategories(): ActiveQuery
+    {
+        return $this->hasMany(NewsCategories::class, ['news_id' => 'id']);
     }
 
     public function scenarios(): array

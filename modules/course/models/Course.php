@@ -7,6 +7,7 @@ use app\models\User;
 use app\modules\course\models\queries\CourseQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 
 /**
@@ -50,10 +51,15 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['is_open', 'status', 'user_id', 'is_deleted'], 'integer'],
+            [['is_open', 'status', 'user_id'], 'integer'],
             [['date'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
+            [['status'], 'default', 'value' => static::STATUS_DRAFT],
+            [['is_open'], 'default', 'value' => 1],
+            [['is_deleted'], 'boolean'],
+            [['is_deleted'], 'default', 'value' => false],
         ];
     }
 
@@ -121,6 +127,12 @@ class Course extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => null,
+            ],
+            'date' => [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'date',
+                'updatedAtAttribute' => null,
+                'value' => date('Y-m-d H:i:s'),
             ],
         ];
     }

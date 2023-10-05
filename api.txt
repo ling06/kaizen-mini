@@ -1,0 +1,91 @@
+Модели:
+
+News:
+[
+    id: int - id
+    status: int - статус (0 - черновик, 1 - опубликована)
+    title: string - заголовок
+    text: string - текст
+    date: string - дата публикации в формате yyyy-MM-DD HH:mm:ss
+    user_id: int - id автора
+    is_deleted: int - удалена ли новость
+    <categories>: NewsCategory[] - список привязанных категорий
+]
+
+NewsCategory:
+[
+    id: int - id
+    title: string - название
+    user_id: int - id автора
+    is_deleted: int - удалена ли категория
+]
+
+
+
+URL'ы:
+
+/news [GET]
+Возвращает новости с категориями и постраничной разбивкой. Админы видят даже удаленные новости.
+Request: [
+    <page>: int - страница
+    <category>: int - категория новостей
+]
+Response: [
+    data: News[] - список новостей
+    count: int - количество новостей
+    page: int - текущая страница
+    pagesCount: int - количество страниц
+    <prevPage>: string - ссылка на предыдущую страницу, если возможно
+    <nextPage>: string - ссылка на следующую страницу, если возможно
+]
+
+/news/<id> [GET]
+Возвращает данные об одной новости с id = <id>. Если новость не найдена, возвращает 404.
+[
+    data: News - данные о новости
+    result: bool - успешно ли получены данные
+]
+
+/news/create [POST]
+Создать новость.
+Request: [
+    title: string - заголовок новости
+    text: string - текст новости
+    <NewsCategory>: [[<title|id>: <string|int>]] - категории новостей. Для каждой категории надо указать либо title новой категории, либо id уже существующей.
+]
+Response: [
+    data: News - данные о созданной новости
+    result: bool - успешно ли создана новость
+]
+
+/news/update [POST]
+Редактировать новость. Уже привязанные категории будут отвязаны, поэтому NewsCategory надо передавать при каждом запросе.
+Request: [
+    <title>: string - заголовок новости
+    <text>: string - текст новости
+    <status>: int - статус новости
+    <date>: string - дата публикации новости
+    <NewsCategory>: [[<title|id>: <string|int>]] - категории новостей. Для каждой категории надо указать либо title новой категории, либо id уже существующей.
+]
+Response: [
+    data: News - данные о созданной новости
+    result: bool - успешно ли создана новость
+]
+
+/news/delete [POST]
+Удалить новость.
+Request: [
+    id: int - id новости
+]
+Response: [
+    result: bool - успешно ли удалена новость
+]
+
+/news/restore [POST]
+Восстановить новость.
+Request: [
+    id: int - id новости
+]
+Response: [
+    result: bool - успешно ли восстановлена новость
+]

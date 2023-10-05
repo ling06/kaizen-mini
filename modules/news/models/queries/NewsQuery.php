@@ -25,4 +25,11 @@ class NewsQuery extends \yii\db\ActiveQuery
             ->andWhere(['is_deleted' => false]);
     }
 
+    public function category(int $categoryId): self
+    {
+        return $this
+            ->leftJoin(['news_categories' => 'news_categories'], 'news_categories.news_id = news.id')
+            ->andWhere(['news_categories.news_category_id' => $categoryId]);
+    }
+
 }
