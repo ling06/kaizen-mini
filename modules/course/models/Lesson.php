@@ -5,6 +5,7 @@ namespace app\modules\course\models;
 use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\LessonQuery;
+use yii\base\Model;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -14,7 +15,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property int|null $theme_id Id темы
- * @property string|null $name Название
+ * @property string|null $title Название
  * @property string|null $description Описание
  * @property string|null $description_autosave Автосохраненное описание
  * @property int|null $status Статус
@@ -25,8 +26,10 @@ use yii\db\ActiveQuery;
  * @property Theme $theme
  * @property User $user
  */
-class Lesson extends \yii\db\ActiveRecord
+class Lesson extends \app\components\ActiveRecord
 {
+
+    public const SCENARIO_AUTOSAVE = 'autosave';
 
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
@@ -48,7 +51,7 @@ class Lesson extends \yii\db\ActiveRecord
             [['theme_id', 'status', 'user_id'], 'integer'],
             [['description'], 'string'],
             [['date'], 'safe'],
-            [['name'], 'string', 'max' => 200],
+            [['title'], 'string', 'max' => 200],
             [['theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Theme::class, 'targetAttribute' => ['theme_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
@@ -67,7 +70,7 @@ class Lesson extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'theme_id' => 'Id темы',
-            'name' => 'Название',
+            'title' => 'Название',
             'description' => 'Описание',
             'status' => 'Статус',
             'user_id' => 'Id создателя',
@@ -110,7 +113,16 @@ class Lesson extends \yii\db\ActiveRecord
         $scenarios = parent::scenarios();
         $scenarios[DeleteSoftBehavior::SCENARIO_DELETE_SOFT] = ['is_deleted'];
         $scenarios[DeleteSoftBehavior::SCENARIO_RESTORE] = ['is_deleted'];
+        $scenarios[static::SCENARIO_AUTOSAVE] = ['description_autosave'];
         return $scenarios;
+    }
+
+    public function beforeSave($insert): bool
+    {
+        if ($this->scenario === Model::SCENARIO_DEFAULT) {
+            $this->description = $this->description_autosave;
+        }
+        return parent::beforeSave($insert);
     }
 
     public function behaviors(): array

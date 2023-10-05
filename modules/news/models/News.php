@@ -25,7 +25,7 @@ use yii\db\ActiveQuery;
  * @property NewsCategories[] $newsCategories
  * @property NewsCategory[] $categories
  */
-class News extends \yii\db\ActiveRecord
+class News extends \app\components\ActiveRecord
 {
 
     public const PERMISSION_READ = 'news-read';

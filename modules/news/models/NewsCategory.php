@@ -21,7 +21,7 @@ use yii\behaviors\BlameableBehavior;
  * @property NewsCategories[] $newsCategories
  * @property News[] $news
  */
-class NewsCategory extends \yii\db\ActiveRecord
+class NewsCategory extends \app\components\ActiveRecord
 {
 
     public const PERMISSION_CREATE = 'news-category-create';
