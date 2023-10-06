@@ -29,13 +29,12 @@ class UpdateAction extends Action
             $id = $this->attributes['id'] ?? null;
         }
 
-
         $model = ($this->modelName)::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException();
         }
 
-        $model->load($this->attributes);
+        $model->load($this->attributes, $formName);
 //        var_dump($this->attributes);
 //        var_dump($model);exit;
         $model->save();
