@@ -5,7 +5,6 @@ namespace app\modules\course\models;
 use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\ChapterQuery;
-use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -15,7 +14,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property int|null $course_id Id курса
- * @property string|null $name Название
+ * @property string|null $title Название
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удалена ли глава
@@ -24,7 +23,7 @@ use yii\db\ActiveQuery;
  * @property User $user
  * @property Theme[] $themes
  */
-class Chapter extends \yii\db\ActiveRecord
+class Chapter extends \app\components\ActiveRecord
 {
 
     /**
@@ -41,9 +40,9 @@ class Chapter extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['course_id', 'status', 'user_id'], 'integer'],
+            [['course_id', 'user_id'], 'integer'],
             [['date'], 'safe'],
-            [['name'], 'string', 'max' => 200],
+            [['title'], 'string', 'max' => 200],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
@@ -60,7 +59,7 @@ class Chapter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'course_id' => 'Id курса',
-            'name' => 'Название',
+            'title' => 'Название',
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удалена ли глава',

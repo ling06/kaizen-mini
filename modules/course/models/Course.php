@@ -5,7 +5,6 @@ namespace app\modules\course\models;
 use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\CourseQuery;
-use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -14,7 +13,7 @@ use yii\db\ActiveQuery;
  * This is the model class for table "course".
  *
  * @property int $id
- * @property string|null $name Название
+ * @property string|null $title Название
  * @property string|null $description Описание
  * @property int|null $is_open Все ли главы доступны сразу
  * @property int|null $status Статус
@@ -25,7 +24,7 @@ use yii\db\ActiveQuery;
  * @property Chapter[] $chapters
  * @property User $user
  */
-class Course extends \yii\db\ActiveRecord
+class Course extends \app\components\ActiveRecord
 {
 
     public const PERMISSION_READ = 'course-read';
@@ -53,7 +52,7 @@ class Course extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['is_open', 'status', 'user_id'], 'integer'],
             [['date'], 'safe'],
-            [['name'], 'string', 'max' => 200],
+            [['title'], 'string', 'max' => 200],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
             [['status'], 'default', 'value' => static::STATUS_DRAFT],
@@ -70,7 +69,7 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'title' => 'Название',
             'description' => 'Описание',
             'is_open' => 'Все ли главы доступны сразу',
             'status' => 'Статус',

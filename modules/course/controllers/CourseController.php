@@ -15,6 +15,8 @@ use app\components\actions\UpdateAction;
 use app\modules\course\models\Course;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Default controller for the `course` module
@@ -45,7 +47,7 @@ class CourseController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson'],
+                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson'],
                         'permissions' => [Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -69,6 +71,22 @@ class CourseController extends Controller
         return parent::beforeAction($action);
     }
 
+    public function actionAutosaveLesson(): array
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $lesson = Lesson::findOne($id);
+        if (!$lesson) {
+            throw new NotFoundHttpException();
+        }
+
+        $lesson->scenario = Lesson::SCENARIO_AUTOSAVE;
+        $lesson->description_autosave = Yii::$app->request->post('description');
+        return [
+            'result' => $lesson->save(),
+        ];
+    }
+
     public function actions(): array
     {
         $scopes = [];
@@ -85,6 +103,11 @@ class CourseController extends Controller
                 'modelName' => Course::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
+                'with' => [
+                    'chapters',
+                    'chapters.themes',
+                    'chapters.themes.lessons',
+                ],
             ],
             'get-all' => [
                 'class' => GetAllAction::class,
@@ -115,7 +138,7 @@ class CourseController extends Controller
                 'modelName' => Course::class,
                 'modelPk' => Yii::$app->request->post('id'),
             ],
-            'get-chapter' => [
+            'chapter' => [
                 'class' => GetOneAction::class,
                 'modelName' => Chapter::class,
                 'modelPk' => Yii::$app->request->get('id'),
@@ -125,11 +148,13 @@ class CourseController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => Chapter::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'update-chapter' => [
                 'class' => UpdateAction::class,
                 'modelName' => Chapter::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'delete-chapter' => [
                 'class' => DeleteAction::class,
@@ -142,7 +167,7 @@ class CourseController extends Controller
                 'modelName' => Chapter::class,
                 'modelPk' => Yii::$app->request->post('id'),
             ],
-            'get-theme' => [
+            'theme' => [
                 'class' => GetOneAction::class,
                 'modelName' => Theme::class,
                 'modelPk' => Yii::$app->request->get('id'),
@@ -152,11 +177,13 @@ class CourseController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => Theme::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'update-theme' => [
                 'class' => UpdateAction::class,
                 'modelName' => Theme::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'delete-theme' => [
                 'class' => DeleteAction::class,
@@ -169,7 +196,7 @@ class CourseController extends Controller
                 'modelName' => Theme::class,
                 'modelPk' => Yii::$app->request->post('id'),
             ],
-            'get-lesson' => [
+            'lesson' => [
                 'class' => GetOneAction::class,
                 'modelName' => Lesson::class,
                 'modelPk' => Yii::$app->request->get('id'),
@@ -179,11 +206,13 @@ class CourseController extends Controller
                 'class' => CreateAction::class,
                 'modelName' => Lesson::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'update-lesson' => [
                 'class' => UpdateAction::class,
                 'modelName' => Lesson::class,
                 'attributes' => Yii::$app->request->post(),
+                'formName' => '',
             ],
             'delete-lesson' => [
                 'class' => DeleteAction::class,
