@@ -14,7 +14,7 @@ use app\modules\news\models\queries\NewsQuery;
  * @property News $news
  * @property NewsCategory $newsCategory
  */
-class NewsCategories extends \yii\db\ActiveRecord
+class NewsCategories extends \app\components\ActiveRecord
 {
 
     /**

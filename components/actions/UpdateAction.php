@@ -36,6 +36,8 @@ class UpdateAction extends Action
         }
 
         $model->load($this->attributes);
+//        var_dump($this->attributes);
+//        var_dump($model);exit;
         $model->save();
 
         if ($model->hasErrors()) {

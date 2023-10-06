@@ -3,11 +3,22 @@
 git clone git@github.com:ling06/kaizen-mini.git
 ~~~
 
+Затем надо скопировать все файлы из папки /development в корень проекта.  
+В /config/db.php настроить доступы к БД.
+
 Затем в консоли в директории проекта последовательно выполнить следующие команды.
 
 Для установки зависимостей:
 ~~~
 composer install
+# или php composer.phar install
+~~~
+
+В mysql создать БД kaizen:
+~~~
+mysql -u root -p
+create database kaizen;
+exit;
 ~~~
 
 Для создания структуры БД:

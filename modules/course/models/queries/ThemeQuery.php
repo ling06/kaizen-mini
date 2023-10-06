@@ -9,26 +9,16 @@ namespace app\modules\course\models\queries;
  */
 class ThemeQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
 
-    /**
-     * {@inheritdoc}
-     * @return \app\modules\course\models\Theme[]|array
-     */
-    public function all($db = null)
+    public function published(): self
     {
-        return parent::all($db);
+        return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     * @return \app\modules\course\models\Theme|array|null
-     */
-    public function one($db = null)
+    public function notDeleted(): self
     {
-        return parent::one($db);
+        return $this
+            ->andWhere(['is_deleted' => false]);
     }
+
 }

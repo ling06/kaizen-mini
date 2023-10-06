@@ -1,6 +1,6 @@
 ========== [ Модели ] ==========
 
-News:
+News: - новость
 [
     id: int - id
     status: int - статус (0 - черновик, 1 - опубликована)
@@ -12,13 +12,63 @@ News:
     <categories>: NewsCategory[] - список привязанных категорий
 ]
 
-NewsCategory:
+NewsCategory: - категория новости
 [
     id: int - id
     title: string - название
     user_id: int - id автора
     is_deleted: int - удалена ли категория
 ]
+
+Course: - курс
+[
+    id: int - id
+    title: string - название
+    description: string - описание
+    is_open: int - все ли главы доступны сразу
+    status: int - статус (0 - черновик, 1 - опубликована)
+    user_id : int - id автора
+    date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
+    is_deleted: int - удален ли курс
+    <chapters>: Chapter - список глав
+]
+
+Chapter: - глава
+[
+    id: int - id
+    course_id: int - id курса
+    title: string - название
+    user_id : int - id автора
+    date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
+    is_deleted: int - удалена ли глава
+    <themes>: Theme - список тем
+]
+
+Theme: - тема
+[
+    id: int - id
+    chapter_id: int - id главы
+    title: string - название
+    user_id : int - id автора
+    date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
+    is_deleted: int - удалена ли тема
+    <lessons>: Lesson - список уроков
+]
+
+Lesson: - урок
+[
+    id: int - id
+    theme_id: int - id темы
+    title: string - название
+    description: string - описание
+    description_autosave: string - автосохраненное описание
+    status: int - статус (0 - черновик, 1 - опубликована)
+    user_id : int - id автора
+    date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
+    is_deleted: int - удален ли урок
+]
+
+
 
 
 
@@ -93,6 +143,7 @@ Response: [
 ]
 
 
+
 ---------- [ Категории новостей ] ----------
 
 /news-category [GET]
@@ -145,4 +196,235 @@ Request: [
 ]
 Response: [
     result: bool - успешно ли восстановлена категория
+]
+
+
+
+---------- [ Курсы ] ----------
+
+/course [GET]
+Получить список курсов. Админы видят даже удаленные курсы.
+Request: [
+    <page>: int - страница
+]
+Response: [
+    data: Course[] - список курсов
+    count: int - количество курсов
+    page: int - текущая страница
+    pagesCount: int - количество страниц
+    <prevPage>: string - ссылка на предыдущую страницу, если возможно
+    <nextPage>: string - ссылка на следующую страницу, если возможно
+]
+
+/course/<id> [GET]
+Возвращает данные об одном курсе с id = <id> с главами, темами и уроками. Если курс не найден, возвращает 404.
+[
+    data: Course - данные о курсе
+    result: bool - успешно ли получены данные
+]
+
+/course/create [POST]
+Создать курс.
+Request: [
+    title: string - название курса
+    description: string - текст курса
+    is_open: int - доступны ли все главы курса сразу
+]
+Response: [
+    data: Course - данные о созданном курсе
+    result: bool - успешно ли создан курс
+]
+
+/course/update [POST]
+Редактировать курс.
+Request: [
+    title: string - название курса
+    description: string - текст курса
+    is_open: int - доступны ли все главы курса сразу
+    status: int - статус курса
+]
+Response: [
+    data: Course - данные об отредактированом курсе
+    result: bool - успешно ли отредактирован курс
+]
+
+/course/delete [POST]
+Удалить курс.
+Request: [
+    id: int - id курса
+]
+Response: [
+    result: bool - успешно ли удален курс
+]
+
+/course/restore [POST]
+Восстановить курс.
+Request: [
+    id: int - id курса
+]
+Response: [
+    result: bool - успешно ли восстановлен курс
+]
+
+
+
+---------- [ Главы ] ----------
+
+/chapter/<id> [GET]
+Возвращает данные об одной главе с id = <id>. Если глава не найдена, возвращает 404.
+[
+    data: Chapter - данные о главе
+    result: bool - успешно ли получены данные
+]
+
+/course/create-chapter [POST]
+Создать главу.
+Request: [
+    title: string - название главы
+    course_id: int - id курса
+]
+Response: [
+    data: Chapter - данные о созданной главе
+    result: bool - успешно ли создана глава
+]
+
+/course/update-chapter [POST]
+Редактировать главу.
+Request: [
+    title: string - название главы
+]
+Response: [
+    data: Chapter - данные об отредактированой главе
+    result: bool - успешно ли отредактирована глава
+]
+
+/course/delete-chapter [POST]
+Удалить главу.
+Request: [
+    id: int - id главы
+]
+Response: [
+    result: bool - успешно ли удалена глава
+]
+
+/course/restore-chapter [POST]
+Восстановить главу.
+Request: [
+    id: int - id главы
+]
+Response: [
+    result: bool - успешно ли восстановлена глава
+]
+
+
+
+---------- [ Темы ] ----------
+
+/theme/<id> [GET]
+Возвращает данные об одной теме с id = <id>. Если тема не найдена, возвращает 404.
+[
+    data: Theme - данные о теме
+    result: bool - успешно ли получены данные
+]
+
+/course/create-theme [POST]
+Создать тему.
+Request: [
+    title: string - название темы
+    chapter_id: int - id главы
+]
+Response: [
+    data: Theme - данные о созданной теме
+    result: bool - успешно ли создана тема
+]
+
+/course/update-theme [POST]
+Редактировать тему.
+Request: [
+    title: string - название темы
+]
+Response: [
+    data: Theme - данные об отредактированой теме
+    result: bool - успешно ли отредактирована тема
+]
+
+/course/delete-theme [POST]
+Удалить тему.
+Request: [
+    id: int - id темы
+]
+Response: [
+    result: bool - успешно ли удалена тема
+]
+
+/course/restore-theme [POST]
+Восстановить тему.
+Request: [
+    id: int - id темы
+]
+Response: [
+    result: bool - успешно ли восстановлена тема
+]
+
+
+
+---------- [ Уроки ] ----------
+
+/lesson/<id> [GET]
+Возвращает данные об одном уроке с id = <id>. Если урок не найден, возвращает 404.
+[
+    data: Lesson - данные об уроке
+    result: bool - успешно ли получены данные
+]
+
+/course/create-lesson [POST]
+Создать урок.
+Request: [
+    title: string - название урока
+    theme_id: int - id темы
+    description: string - текст урока
+]
+Response: [
+    data: Lesson - данные о созданном уроке
+    result: bool - успешно ли создан урок
+]
+
+/course/update-lesson [POST]
+Редактировать урок.
+Request: [
+    title: string - название урока
+    theme_id: int - id темы
+    description: string - текст урока
+    status: int - статус урока
+]
+Response: [
+    data: Theme - данные об отредактированом уроке
+    result: bool - успешно ли отредактирован урок
+]
+
+/course/autosave-lesson [POST]
+Автосохранить урок.
+Request: [
+    description: string - текст урока
+]
+Response: [
+    result: bool - успешно ли автосохранен урок
+]
+
+/course/delete-lesson [POST]
+Удалить урок.
+Request: [
+    id: int - id темы
+]
+Response: [
+    result: bool - успешно ли удалена тема
+]
+
+/course/restore-lesson [POST]
+Восстановить урок.
+Request: [
+    id: int - id темы
+]
+Response: [
+    result: bool - успешно ли восстановлена тема
 ]

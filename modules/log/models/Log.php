@@ -5,7 +5,6 @@ namespace app\modules\log\models;
 use app\models\queries\UserQuery;
 use app\models\User;
 use app\modules\log\models\queries\LogQuery;
-use Yii;
 
 /**
  * This is the model class for table "log".
@@ -20,7 +19,7 @@ use Yii;
  *
  * @property User $user
  */
-class Log extends \yii\db\ActiveRecord
+class Log extends \app\components\ActiveRecord
 {
     /**
      * {@inheritdoc}

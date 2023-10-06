@@ -14,7 +14,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property int|null $chapter_id Id главы
- * @property string|null $name Название
+ * @property string|null $title Название
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удалена ли тема
@@ -23,7 +23,7 @@ use yii\db\ActiveQuery;
  * @property Chapter $chapter
  * @property User $user
  */
-class Theme extends \yii\db\ActiveRecord
+class Theme extends \app\components\ActiveRecord
 {
 
     /**
@@ -40,9 +40,9 @@ class Theme extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['chapter_id', 'status', 'user_id'], 'integer'],
+            [['chapter_id', 'user_id'], 'integer'],
             [['date'], 'safe'],
-            [['name'], 'string', 'max' => 200],
+            [['title'], 'string', 'max' => 200],
             [['chapter_id'], 'exist', 'skipOnError' => true, 'targetClass' => Chapter::class, 'targetAttribute' => ['chapter_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
@@ -59,7 +59,7 @@ class Theme extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'chapter_id' => 'Id главы',
-            'name' => 'Название',
+            'title' => 'Название',
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удалена ли тема',
