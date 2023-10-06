@@ -2,8 +2,11 @@
 
 namespace app\modules\course\controllers;
 
+use app\components\Controller;
 use app\modules\course\models\Chapter;
 use app\modules\course\models\Lesson;
+use app\modules\course\models\Question;
+use app\modules\course\models\Test;
 use app\modules\course\models\Theme;
 use Yii;
 use app\components\actions\CreateAction;
@@ -14,8 +17,6 @@ use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
 use app\modules\course\models\Course;
 use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -52,6 +53,11 @@ class CourseController extends Controller
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['add-test', 'update-test'],
+                        'permissions' => [Course::PERMISSION_CREATE, Course::PERMISSION_UPDATE],
+                    ],
+                    [
+                        'allow' => true,
                         'actions' => [
                             'delete', 'restore',
                             'delete-chapter', 'restore-chapter',
@@ -74,16 +80,32 @@ class CourseController extends Controller
     public function actionAutosaveLesson(): array
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $id = Yii::$app->request->post('id');
-        $lesson = Lesson::findOne($id);
-        if (!$lesson) {
-            throw new NotFoundHttpException();
-        }
-
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
         $lesson->scenario = Lesson::SCENARIO_AUTOSAVE;
         $lesson->description_autosave = Yii::$app->request->post('description');
         return [
             'result' => $lesson->save(),
+        ];
+    }
+
+    public function actionAddTest()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('lesson_id'));
+        $test = $lesson->test ?? new Test([
+            'lesson_id' => $lesson->id,
+            'is_active' => false,
+        ]);
+
+        if ($test->save()) {
+            return [
+                'result' => true,
+                'data' => $test->toArray(),
+            ];
+        }
+        return [
+            'result' => true,
+            'data' => $test->getErrors(),
         ];
     }
 
@@ -223,6 +245,23 @@ class CourseController extends Controller
             'restore-lesson' => [
                 'class' => RestoreAction::class,
                 'modelName' => Lesson::class,
+                'modelPk' => Yii::$app->request->post('id'),
+            ],
+            'update-test' => [
+                'class' => UpdateAction::class,
+                'modelName' => Test::class,
+                'attributes' => Yii::$app->request->post(),
+                'formName' => '',
+            ],
+            'create-question' => [
+                'class' => UpdateAction::class,
+                'modelName' => Question::class,
+                'attributes' => Yii::$app->request->post(),
+                'formName' => '',
+            ],
+            'delete-question' => [
+                'class' => DeleteAction::class,
+                'modelName' => Question::class,
                 'modelPk' => Yii::$app->request->post('id'),
             ],
         ];

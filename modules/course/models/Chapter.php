@@ -31,7 +31,7 @@ class Chapter extends \app\components\ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'chapter';
+        return 'course_chapter';
     }
 
     /**

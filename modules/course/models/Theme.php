@@ -31,7 +31,7 @@ class Theme extends \app\components\ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'theme';
+        return 'course_theme';
     }
 
     /**
