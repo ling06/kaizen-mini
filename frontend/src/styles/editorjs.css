@@ -1,0 +1,11 @@
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
+}
+
+.ce-block__content {
+  max-width: unset !important;
+}
+
+.ce-toolbar__content {
+  max-width: unset !important;
+}
