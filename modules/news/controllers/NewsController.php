@@ -7,15 +7,13 @@ use app\components\actions\DeleteAction;
 use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
 use app\modules\news\forms\NewsForm;
-use app\modules\news\models\NewsCategories;
-use app\modules\news\models\NewsCategory;
 use app\modules\news\models\queries\NewsQuery;
 use Yii;
 use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
 use app\modules\news\models\News;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\Controller;
 
 class NewsController extends Controller
 {

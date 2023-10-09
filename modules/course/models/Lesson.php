@@ -25,6 +25,7 @@ use yii\db\ActiveQuery;
  *
  * @property Theme $theme
  * @property User $user
+ * @property Test $test
  */
 class Lesson extends \app\components\ActiveRecord
 {
@@ -39,7 +40,7 @@ class Lesson extends \app\components\ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'lesson';
+        return 'course_lesson';
     }
 
     /**
@@ -97,6 +98,14 @@ class Lesson extends \app\components\ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * @return ActiveQuery|\app\modules\course\models\queries\TestQuery
+     */
+    public function getTest(): ActiveQuery
+    {
+        return $this->hasOne(Test::class, ['lesson_id' => 'id']);
     }
 
     /**

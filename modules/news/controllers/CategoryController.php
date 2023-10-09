@@ -9,10 +9,8 @@ use app\components\actions\UpdateAction;
 use app\modules\news\models\NewsCategory;
 use Yii;
 use app\components\actions\GetAllAction;
-use app\components\actions\GetOneAction;
-use app\modules\news\models\News;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\Controller;
 
 class CategoryController extends Controller
 {

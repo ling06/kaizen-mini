@@ -76,7 +76,7 @@ Lesson: - урок
 
 ---------- [ Новости ] ----------
 
-/news [GET]
+/api/news [GET]
 Возвращает новости с категориями и постраничной разбивкой. Админы видят даже удаленные новости.
 Request: [
     <page>: int - страница
@@ -91,14 +91,14 @@ Response: [
     <nextPage>: string - ссылка на следующую страницу, если возможно
 ]
 
-/news/<id> [GET]
+/api/news/<id> [GET]
 Возвращает данные об одной новости с id = <id>. Если новость не найдена, возвращает 404.
 [
     data: News - данные о новости
     result: bool - успешно ли получены данные
 ]
 
-/news/create [POST]
+/api/news/create [POST]
 Создать новость.
 Request: [
     title: string - заголовок новости
@@ -110,7 +110,7 @@ Response: [
     result: bool - успешно ли создана новость
 ]
 
-/news/update [POST]
+/api/news/update [POST]
 Редактировать новость. Уже привязанные категории будут отвязаны, поэтому NewsCategory надо передавать при каждом запросе.
 Request: [
     <title>: string - заголовок новости
@@ -124,7 +124,7 @@ Response: [
     result: bool - успешно ли создана новость
 ]
 
-/news/delete [POST]
+/api/news/delete [POST]
 Удалить новость.
 Request: [
     id: int - id новости
@@ -133,7 +133,7 @@ Response: [
     result: bool - успешно ли удалена новость
 ]
 
-/news/restore [POST]
+/api/news/restore [POST]
 Восстановить новость.
 Request: [
     id: int - id новости
@@ -146,7 +146,7 @@ Response: [
 
 ---------- [ Категории новостей ] ----------
 
-/news-category [GET]
+/api/news-category [GET]
 Получить список категорий новостей. Админы видят даже удаленные категории.
 Request: [
     <page>: int - страница, обычно не важна: на страницу приходится 10000 категорий
@@ -160,7 +160,7 @@ Response: [
     <nextPage>: string - ссылка на следующую страницу, если возможно
 ]
 
-/news-category/create [POST]
+/api/news-category/create [POST]
 Создать категорию новостей.
 Request: [
     title: string - название категории
@@ -170,7 +170,7 @@ Response: [
     result: bool - успешно ли создана категория
 ]
 
-/news-category/update [POST]
+/api/news-category/update [POST]
 Редактировать категорию новостей.
 Request: [
     title: string - название категории
@@ -180,7 +180,7 @@ Response: [
     result: bool - успешно ли отредактирована категория
 ]
 
-/news-category/delete [POST]
+/api/news-category/delete [POST]
 Удалить категорию новостей.
 Request: [
     id: int - id категории
@@ -189,7 +189,7 @@ Response: [
     result: bool - успешно ли удалена категория
 ]
 
-/news-category/restore [POST]
+/api/news-category/restore [POST]
 Восстановить категорию новостей.
 Request: [
     id: int - id категории
@@ -202,7 +202,7 @@ Response: [
 
 ---------- [ Курсы ] ----------
 
-/course [GET]
+/api/course [GET]
 Получить список курсов. Админы видят даже удаленные курсы.
 Request: [
     <page>: int - страница
@@ -216,14 +216,14 @@ Response: [
     <nextPage>: string - ссылка на следующую страницу, если возможно
 ]
 
-/course/<id> [GET]
+/api/course/<id> [GET]
 Возвращает данные об одном курсе с id = <id> с главами, темами и уроками. Если курс не найден, возвращает 404.
 [
     data: Course - данные о курсе
     result: bool - успешно ли получены данные
 ]
 
-/course/create [POST]
+/api/course/create [POST]
 Создать курс.
 Request: [
     title: string - название курса
@@ -235,7 +235,7 @@ Response: [
     result: bool - успешно ли создан курс
 ]
 
-/course/update [POST]
+/api/course/update [POST]
 Редактировать курс.
 Request: [
     title: string - название курса
@@ -248,7 +248,7 @@ Response: [
     result: bool - успешно ли отредактирован курс
 ]
 
-/course/delete [POST]
+/api/course/delete [POST]
 Удалить курс.
 Request: [
     id: int - id курса
@@ -257,7 +257,7 @@ Response: [
     result: bool - успешно ли удален курс
 ]
 
-/course/restore [POST]
+/api/course/restore [POST]
 Восстановить курс.
 Request: [
     id: int - id курса
@@ -270,14 +270,14 @@ Response: [
 
 ---------- [ Главы ] ----------
 
-/chapter/<id> [GET]
+/api/chapter/<id> [GET]
 Возвращает данные об одной главе с id = <id>. Если глава не найдена, возвращает 404.
 [
     data: Chapter - данные о главе
     result: bool - успешно ли получены данные
 ]
 
-/course/create-chapter [POST]
+/api/course/create-chapter [POST]
 Создать главу.
 Request: [
     title: string - название главы
@@ -288,7 +288,7 @@ Response: [
     result: bool - успешно ли создана глава
 ]
 
-/course/update-chapter [POST]
+/api/course/update-chapter [POST]
 Редактировать главу.
 Request: [
     title: string - название главы
@@ -298,7 +298,7 @@ Response: [
     result: bool - успешно ли отредактирована глава
 ]
 
-/course/delete-chapter [POST]
+/api/course/delete-chapter [POST]
 Удалить главу.
 Request: [
     id: int - id главы
@@ -307,7 +307,7 @@ Response: [
     result: bool - успешно ли удалена глава
 ]
 
-/course/restore-chapter [POST]
+/api/course/restore-chapter [POST]
 Восстановить главу.
 Request: [
     id: int - id главы
@@ -320,14 +320,14 @@ Response: [
 
 ---------- [ Темы ] ----------
 
-/theme/<id> [GET]
+/api/theme/<id> [GET]
 Возвращает данные об одной теме с id = <id>. Если тема не найдена, возвращает 404.
 [
     data: Theme - данные о теме
     result: bool - успешно ли получены данные
 ]
 
-/course/create-theme [POST]
+/api/course/create-theme [POST]
 Создать тему.
 Request: [
     title: string - название темы
@@ -338,7 +338,7 @@ Response: [
     result: bool - успешно ли создана тема
 ]
 
-/course/update-theme [POST]
+/api/course/update-theme [POST]
 Редактировать тему.
 Request: [
     title: string - название темы
@@ -348,7 +348,7 @@ Response: [
     result: bool - успешно ли отредактирована тема
 ]
 
-/course/delete-theme [POST]
+/api/course/delete-theme [POST]
 Удалить тему.
 Request: [
     id: int - id темы
@@ -357,7 +357,7 @@ Response: [
     result: bool - успешно ли удалена тема
 ]
 
-/course/restore-theme [POST]
+/api/course/restore-theme [POST]
 Восстановить тему.
 Request: [
     id: int - id темы
@@ -370,14 +370,14 @@ Response: [
 
 ---------- [ Уроки ] ----------
 
-/lesson/<id> [GET]
+/api/lesson/<id> [GET]
 Возвращает данные об одном уроке с id = <id>. Если урок не найден, возвращает 404.
 [
     data: Lesson - данные об уроке
     result: bool - успешно ли получены данные
 ]
 
-/course/create-lesson [POST]
+/api/course/create-lesson [POST]
 Создать урок.
 Request: [
     title: string - название урока
@@ -389,7 +389,7 @@ Response: [
     result: bool - успешно ли создан урок
 ]
 
-/course/update-lesson [POST]
+/api/course/update-lesson [POST]
 Редактировать урок.
 Request: [
     title: string - название урока
@@ -402,7 +402,7 @@ Response: [
     result: bool - успешно ли отредактирован урок
 ]
 
-/course/autosave-lesson [POST]
+/api/course/autosave-lesson [POST]
 Автосохранить урок.
 Request: [
     description: string - текст урока
@@ -411,7 +411,7 @@ Response: [
     result: bool - успешно ли автосохранен урок
 ]
 
-/course/delete-lesson [POST]
+/api/course/delete-lesson [POST]
 Удалить урок.
 Request: [
     id: int - id темы
@@ -420,7 +420,7 @@ Response: [
     result: bool - успешно ли удалена тема
 ]
 
-/course/restore-lesson [POST]
+/api/course/restore-lesson [POST]
 Восстановить урок.
 Request: [
     id: int - id темы
