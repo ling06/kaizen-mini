@@ -10,11 +10,20 @@ import { CreateCourseForm } from './components/CreateCourseForm';
 import { CreateChapterForm } from './components/CreateChapterForm';
 import { CreateThemeForm } from './components/CreateThemeForm';
 import { CreateLesson } from './pages/CreateLesson';
+import { useEffect } from 'react';
+import { useActions } from './hooks/useActions';
 
 function App() {
+  const { setAuthToken } = useActions();
   const { isModalOpen, modalType } = useSelector<RootState, IModalInitialState>(
     (state) => state.modal
   );
+
+    useEffect(() => {
+      const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.content;
+      setAuthToken(CSRF_TOKEN);
+    })
+
   return (
     <BrowserRouter>
       <Layout>

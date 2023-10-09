@@ -1,20 +1,25 @@
 import { Link } from 'react-router-dom';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
+import { INews } from '@/types';
 
-export function NewsEl({ title, imgUrl, newsId, date, author }) {
+interface INewsElProps {
+  data: INews;
+}
+
+export function NewsEl({ data }: INewsElProps) {
   return (
     <S.Container>
       <S.Title>
-        НОВИНКА! Прибор для профилактики акне и омоложения кожи лица Yamaguchi Plasma Skin Care
+        {data.title}
       </S.Title>
-      {imgUrl && <S.Image src={imgUrl} />}
+      {/* {imgUrl && <S.Image src={imgUrl} />} */}
       <S.Footer>
-        <Link to={`/news/${newsId}`} style={{display: 'block', marginRight: 'auto'}}>
+        <Link to={`/news/${data.id}`} style={{display: 'block', marginRight: 'auto'}}>
           <S.MoreBtn>Подробнее</S.MoreBtn>
         </Link>
-        <S.Date>{date}</S.Date>
-        <S.Author>{author}</S.Author>
+        <S.Date>{data.date}</S.Date>
+        <S.Author>{data.user_id}</S.Author>
 
         <AdminBtn
           type="edit"
