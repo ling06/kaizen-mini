@@ -69,6 +69,9 @@ $config = [
         'authManager' => [
             'class' => \app\components\DbManager::class,
         ],
+        'assetManager' => [
+            'basePath' => '@webroot/std',
+        ],
     ],
     'params' => $params,
 ];
