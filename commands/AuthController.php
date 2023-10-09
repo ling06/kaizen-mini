@@ -33,6 +33,7 @@ class AuthController extends Controller
                 Course::PERMISSION_READ,
                 Course::PERMISSION_UPDATE,
                 Course::PERMISSION_DELETE,
+                Course::PERMISSION_CHECK_ANSWERS,
             ],
             User::ROLE_ADMIN => [
                 News::PERMISSION_CREATE,
@@ -46,6 +47,7 @@ class AuthController extends Controller
                 Course::PERMISSION_READ,
                 Course::PERMISSION_UPDATE,
                 Course::PERMISSION_DELETE,
+                Course::PERMISSION_CHECK_ANSWERS,
             ],
         ];
 

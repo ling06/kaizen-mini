@@ -8,6 +8,8 @@ use app\modules\course\models\Lesson;
 use app\modules\course\models\Question;
 use app\modules\course\models\Test;
 use app\modules\course\models\Theme;
+use app\modules\course\models\UserCheck;
+use app\modules\course\models\UserTestAnswer;
 use Yii;
 use app\components\actions\CreateAction;
 use app\components\actions\DeleteAction;
@@ -38,6 +40,7 @@ class CourseController extends Controller
                             'get-chapter',
                             'get-theme',
                             'get-lesson',
+                            'send-answer',
                         ],
                         'roles' => ['@'],
                     ],
@@ -53,7 +56,7 @@ class CourseController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['add-test', 'update-test'],
+                        'actions' => ['add-test', 'update-test', 'create-question', 'update-question', 'delete-question'],
                         'permissions' => [Course::PERMISSION_CREATE, Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -65,6 +68,11 @@ class CourseController extends Controller
                             'delete-theme', 'restore-theme',
                         ],
                         'permissions' => [Course::PERMISSION_DELETE],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['get-user-answers', 'check-answer'],
+                        'permissions' => [Course::PERMISSION_CHECK_ANSWERS],
                     ],
                 ],
             ]
@@ -104,10 +112,76 @@ class CourseController extends Controller
             ];
         }
         return [
-            'result' => true,
+            'result' => false,
             'data' => $test->getErrors(),
         ];
     }
+
+    public function actionCheckLesson()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
+        $checkParams = [
+            'user_id' => Yii::$app->user->id,
+            'model_name' => Lesson::class,
+            'model_pk' => $lesson->id,
+        ];
+        $check = UserCheck::findOne($checkParams) ?? new UserCheck($checkParams);
+        return [
+            'result' => $check->isNewRecord ? $check->save() : true,
+        ];
+    }
+
+    public function actionSendAnswer()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        /** @var Question $question */
+        $question = $this->findModel(Question::class, (int)Yii::$app->request->post('question_id'));
+        $answer = Yii::$app->request->post('answer');
+        if (!$answer) {
+            return [
+                'result' => false,
+                'message' => 'А где ответ?',
+            ];
+        }
+
+        $params = [
+            'test_question_id' => $question->id,
+            'user_id' => Yii::$app->user->id,
+        ];
+        $userTestAnswer = UserTestAnswer::findOne($params);
+        if ($userTestAnswer) {
+            return [
+                'result' => false,
+                'message' => 'Вы уже ответили на этот вопрос',
+            ];
+        }
+
+        $params['answer'] = $answer;
+        $params['is_right'] = UserTestAnswer::ANSWER_IS_UNKNOWN;
+        if ($question->right_answer) {
+            $params['is_right'] = $question->right_answer === $answer
+                ? UserTestAnswer::ANSWER_IS_RIGHT
+                : UserTestAnswer::ANSWER_IS_WRONG;
+        }
+
+        $variants = $question->answersList;
+
+        $userTestAnswer = new UserTestAnswer($params);
+        return [
+            'result' => $userTestAnswer->save(),
+            'data' => [
+                'isRight' => $params['is_right'],
+                'message' => $params['is_right'] === UserTestAnswer::ANSWER_IS_RIGHT
+                    ? $variants[$answer]->rightText ?? ''
+                    : $variants[$answer]->wrongText ?? '',
+            ],
+        ];
+    }
+
+    /* @todo пока что нет в ТЗ (да и ТЗ тоже нет, чего уж там) */
+    public function actionCheckAnswer() {}
+    public function actionGetUserAnswers() {}
 
     public function actions(): array
     {
@@ -254,7 +328,13 @@ class CourseController extends Controller
                 'formName' => '',
             ],
             'create-question' => [
-                'class' => UpdateAction::class,
+                'class' => CreateAction::class,
+                'modelName' => Question::class,
+                'attributes' => Yii::$app->request->post(),
+                'formName' => '',
+            ],
+            'update-question' => [
+                'class' => CreateAction::class,
                 'modelName' => Question::class,
                 'attributes' => Yii::$app->request->post(),
                 'formName' => '',

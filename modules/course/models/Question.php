@@ -12,6 +12,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property int|null $test_id Id теста
+ * @property int|null $is_open Открытый ли вопрос
  * @property string|null $text Текст вопроса
  * @property string|null $answers Варианты ответов, json
  * @property string|null $right_answer Правильный ответ
@@ -21,6 +22,7 @@ use yii\db\ActiveQuery;
  * @property Test $test
  * @property User $user
  * @property UserTestAnswer[] $userTestAnswers
+ * @property-read Answer[] $answersList
  * @property User[] $users
  */
 class Question extends \app\components\ActiveRecord
@@ -47,6 +49,8 @@ class Question extends \app\components\ActiveRecord
             [['date'], 'safe'],
             [['test_id'], 'exist', 'skipOnError' => true, 'targetClass' => Test::class, 'targetAttribute' => ['test_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['is_open'], 'boolean'],
+            [['is_open'], 'default', 'value' => false],
         ];
     }
 
@@ -58,6 +62,7 @@ class Question extends \app\components\ActiveRecord
         return [
             'id' => 'ID',
             'test_id' => 'Id теста',
+            'is_open' => 'Открытый ли вопрос',
             'text' => 'Текст вопроса',
             'answers' => 'Варианты ответов, json',
             'right_answer' => 'Правильный ответ',
@@ -123,6 +128,22 @@ class Question extends \app\components\ActiveRecord
         ];
     }
 
+    /**
+     * @return Answer[]
+     */
+    public function getAnswersList(): array
+    {
+        $ret = [];
+        $answers = $this->_answers ?? $this->answers;
+        if (!is_array($answers)) {
+            $answers = json_decode($answers, true);
+        }
+        foreach ($answers as $answerData) {
+            $ret[$answerData['text']] = new Answer($answerData);
+        }
+        return $ret;
+    }
+
     public function load($data, $formName = null): bool
     {
         if ($formName) {
@@ -139,6 +160,9 @@ class Question extends \app\components\ActiveRecord
 
     public function validate($attributeNames = null, $clearErrors = true): bool
     {
+        if (!is_array($this->_answers)) {
+            $this->_answers = json_decode($this->_answers, true);
+        }
         foreach ($this->_answers as $answerData) {
             $answer = new Answer($answerData);
             if (!$answer->validate()) {

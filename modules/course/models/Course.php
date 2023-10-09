@@ -32,6 +32,8 @@ class Course extends \app\components\ActiveRecord
     public const PERMISSION_UPDATE = 'course-update';
     public const PERMISSION_DELETE = 'course-delete';
 
+    public const PERMISSION_CHECK_ANSWERS = 'course-check_answers';
+
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
 

@@ -68,6 +68,34 @@ Lesson: - урок
     is_deleted: int - удален ли урок
 ]
 
+Test: - тест в уроке
+[
+    id: int - id
+    lesson_id: int - id урока
+    is_active: int - активен ли тест
+    user_id: int - id создателя теста
+    date: string - дата добавления
+]
+
+Question: - вопрос теста
+[
+    id: int - id
+    test_id: int - id теста
+    is_open: int - открытый ли вопрос (открытый не требует вариантов)
+    text: string - текст вопроса
+    answers: string - варианты ответов, json
+    right_answer: string - правильный ответ
+    user_id: int - id создателя теста
+    date: string - дата добавления
+]
+
+Answer: - вариант ответа на тест
+[
+    text: string - текст вопроса
+    rightText: string - комментарий при правильном ответе
+    wrongText: string - комментарий при неправильном ответе
+]
+
 
 
 
@@ -427,4 +455,87 @@ Request: [
 ]
 Response: [
     result: bool - успешно ли восстановлена тема
+]
+
+
+
+---------- [ Тесты ] ----------
+
+/api/course/add-test [POST]
+Добавить тест к уроку.
+Request: [
+    lesson_id: int - id урока
+]
+Response: [
+    result: bool - успешно ли добавлен тест
+    data: Test|array - либо данные о тесте, либо текст ошибок
+]
+
+/api/course/update-test [POST]
+Редактировать тест.
+Request: [
+    is_active: int - активен ли тест
+]
+Response: [
+    result: bool - успешно ли добавлен тест
+    data: Test - данные о тесте
+]
+
+/api/course/create-question [POST]
+Добавить вопрос к тесту.
+Request: [
+    test_id: int - id теста
+    text: string - текст вопроса
+    answers: string|Answer[] - варианты ответов в формате json или в виде массива. Каждый вариант должен иметь вид модели Answer
+    right_answer: string - правильный ответ
+]
+Response: [
+    result: bool - успешно ли добавлен вопрос
+    data: Question - данные о вопросе
+]
+
+/api/course/update-question [POST]
+Редактировать вопрос теста.
+Request: [
+    id: int - id вопроса
+    text: string - текст вопроса
+    answers: string|Answer[] - варианты ответов в формате json или в виде массива. Каждый вариант должен иметь вид модели Answer
+    right_answer: string - правильный ответ
+]
+Response: [
+    result: bool - успешно ли отредактирован вопрос
+    data: Question - данные о вопросе
+]
+
+/api/course/delete-question [POST]
+Удалить вопрос теста.
+Request: [
+    id: int - id вопроса
+]
+Response: [
+    result: bool - успешно ли удален вопрос
+]
+
+/api/course/check-lesson [POST]
+Отметить урок пройденным.
+Request: [
+    id: int - id урока
+]
+Response: [
+    result: bool - отмечен ли урок
+]
+
+/api/course/send-answer [POST]
+Отправить ответ на вопрос теста.
+Request: [
+    question_id: int - id вопроса
+    answer: string - ответ
+]
+Response: [
+    result: bool - сохранен ли ответ
+    message: string - сообщение при ошибке сохранения
+    data: [
+        isRight: int - правильный ли ответ (0 - нет, 1 - да, 2 - пока не известно)
+        message: string - дополнительный комментарий
+    ]
 ]

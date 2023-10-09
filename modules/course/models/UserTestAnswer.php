@@ -20,6 +20,11 @@ use yii\db\ActiveQuery;
  */
 class UserTestAnswer extends \app\components\ActiveRecord
 {
+
+    public const ANSWER_IS_RIGHT = 1;
+    public const ANSWER_IS_WRONG = 0;
+    public const ANSWER_IS_UNKNOWN = 2; // не проверен или нет правильного ответа
+
     /**
      * {@inheritdoc}
      */
@@ -41,6 +46,7 @@ class UserTestAnswer extends \app\components\ActiveRecord
             [['test_question_id', 'user_id'], 'unique', 'targetAttribute' => ['test_question_id', 'user_id']],
             [['test_question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::class, 'targetAttribute' => ['test_question_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['is_right'], 'default', 'value' => static::ANSWER_IS_UNKNOWN],
         ];
     }
 

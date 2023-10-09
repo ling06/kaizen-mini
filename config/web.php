@@ -71,6 +71,7 @@ $config = [
         ],
         'assetManager' => [
             'basePath' => '@webroot/std',
+            'baseUrl' => '@web/std',
         ],
     ],
     'params' => $params,

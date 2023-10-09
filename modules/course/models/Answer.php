@@ -8,7 +8,6 @@ class Answer extends Model
 {
 
     public $text = '';
-    public $isOpen = false;
     public $rightText = '';
     public $wrongText = '';
 
