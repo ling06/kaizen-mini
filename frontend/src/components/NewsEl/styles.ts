@@ -27,7 +27,7 @@ export const Footer = styled(C.FlexContainer)`
 
 export const MoreBtn = styled(C.DefaultBtn)`
   min-height: 44px;
-  margin-right: auto;
+  padding: 0 20%;
 `;
 
 export const Date = styled.p`
