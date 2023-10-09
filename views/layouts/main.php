@@ -10,8 +10,9 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-AppAsset::register($this);
-$this->registerJsFile('@web/js/index.js', ['position' => \yii\web\View::POS_END]);
+// AppAsset::register($this);
+$this->registerJsFile('@web/assets/index.js', ['position' => \yii\web\View::POS_END]);
+$this->registerCssFile('@web/assets/index.css', ['position' => \yii\web\View::POS_HEAD]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

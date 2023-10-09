@@ -40,3 +40,41 @@ export interface IBaseTheme {
 export interface ILayoutProps {
   children: React.ReactNode;
 }
+
+export interface INewsCategory {
+  id: number;
+  title: string;
+  user_id: string;
+  is_deleted: number;
+}
+
+export interface INews {
+  id: number;
+  status: number;
+  title: string;
+  text: string;
+  date: string;
+  user_id: number;
+  is_deleted: number;
+  categories?: Array<INewsCategory>;
+}
+
+export interface IGetAllNews {
+  data: Array<INews>;
+  count: number;
+  page: number;
+  pagesCount: number;
+  prevPage?: string;
+  nextPage?: string;
+}
+
+export interface IGetNewsById {
+  data: INews;
+  result: boolean;
+}
+
+export interface ICreateNews {
+  title: string;
+  text: string;
+  NewsCategory?: [];
+}

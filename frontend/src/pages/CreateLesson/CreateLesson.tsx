@@ -9,8 +9,8 @@ interface ICreateLessonProps {
 export function CreateLesson({ type }: ICreateLessonProps) {
   return (
     <>
-      <S.ChangeBodyBg />    
       <C.DefaultContainer>
+      <S.ChangeBodyBg />    
         <CreateLessonForm type={type}/>
       </C.DefaultContainer>
     </>
