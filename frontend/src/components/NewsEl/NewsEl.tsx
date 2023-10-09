@@ -10,7 +10,7 @@ export function NewsEl({ title, imgUrl, newsId, date, author }) {
       </S.Title>
       {imgUrl && <S.Image src={imgUrl} />}
       <S.Footer>
-        <Link to={`/news/${newsId}`}>
+        <Link to={`/news/${newsId}`} style={{display: 'block', marginRight: 'auto'}}>
           <S.MoreBtn>Подробнее</S.MoreBtn>
         </Link>
         <S.Date>{date}</S.Date>

@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import dns from 'dns';
+
+dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
   plugins: [react()],
@@ -12,6 +15,7 @@ export default defineConfig({
     },
   },
   build: {
+    manifest: true,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name].js`,
@@ -19,7 +23,9 @@ export default defineConfig({
         assetFileNames: `assets/[name].[ext]`,
       },
     },
+    watch: {},
     outDir: '../web',
-    emptyOutDir: true,
+    // emptyOutDir: true,
   },
 });
+

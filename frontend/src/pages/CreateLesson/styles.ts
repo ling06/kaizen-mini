@@ -1,8 +1,8 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 
 export const ChangeBodyBg = createGlobalStyle`
   body {
-    background-color: ${(props) => props.theme.colors.realWhite};
+    background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
 `;
