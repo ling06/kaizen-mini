@@ -18,8 +18,6 @@ class CreateAction extends Action
 
     public function run()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-
         /** @var ActiveRecord $model */
         $model = new $this->modelName();
         $model->load($this->attributes, $this->formName);

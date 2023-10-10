@@ -18,8 +18,6 @@ class GetOneAction extends Action
 
     public function run()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-
         $modelName = $this->modelName;
 
         /** @var ActiveQuery $query */

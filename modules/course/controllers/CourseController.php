@@ -2,7 +2,7 @@
 
 namespace app\modules\course\controllers;
 
-use app\components\Controller;
+use app\components\ApiController;
 use app\modules\course\models\Chapter;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Question;
@@ -24,7 +24,7 @@ use yii\web\Response;
 /**
  * Default controller for the `course` module
  */
-class CourseController extends Controller
+class CourseController extends ApiController
 {
 
     public function behaviors(): array
@@ -79,15 +79,8 @@ class CourseController extends Controller
         ];
     }
 
-    public function beforeAction($action): bool
-    {
-        $this->enableCsrfValidation = (YII_ENV === 'prod');
-        return parent::beforeAction($action);
-    }
-
     public function actionAutosaveLesson(): array
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
         $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
         $lesson->scenario = Lesson::SCENARIO_AUTOSAVE;
         $lesson->description_autosave = Yii::$app->request->post('description');
@@ -98,7 +91,6 @@ class CourseController extends Controller
 
     public function actionAddTest()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
         $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('lesson_id'));
         $test = $lesson->test ?? new Test([
             'lesson_id' => $lesson->id,
@@ -119,7 +111,6 @@ class CourseController extends Controller
 
     public function actionCheckLesson()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
         $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
         $checkParams = [
             'user_id' => Yii::$app->user->id,
@@ -134,7 +125,6 @@ class CourseController extends Controller
 
     public function actionSendAnswer()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
         /** @var Question $question */
         $question = $this->findModel(Question::class, (int)Yii::$app->request->post('question_id'));
         $answer = Yii::$app->request->post('answer');

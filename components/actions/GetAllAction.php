@@ -20,8 +20,6 @@ class GetAllAction extends Action
 
     public function run()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-
         /** @var ActiveQuery $query */
         $query = ($this->modelName)::find($this->id);
         if ($this->fields) {

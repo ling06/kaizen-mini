@@ -18,7 +18,6 @@ class UpdateAction extends Action
 
     public function run()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
         /** @var ActiveRecord $model */
         $model = new $this->modelName();
 
@@ -35,8 +34,6 @@ class UpdateAction extends Action
         }
 
         $model->load($this->attributes, $formName);
-//        var_dump($this->attributes);
-//        var_dump($model);exit;
         $model->save();
 
         if ($model->hasErrors()) {

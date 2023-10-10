@@ -56,12 +56,12 @@ class m231006_091825_create_tests extends Migration
         $this->addPrimaryKey('user_test_answer_pkey', 'user_test_answer', ['test_question_id', 'user_id']);
         $this->addForeignKey('user_test_answer_test_question_id_fkey', 'user_test_answer', 'test_question_id', 'test_question', 'id');
         $this->addForeignKey('user_test_answer_user_id_fkey', 'user_test_answer', 'user_id', 'user', 'id');
-        $this->addCommentOnTable('test_question', 'Ответы пользователей на вопросы тестов');
-        $this->addCommentOnColumn('test_question', 'test_question_id', 'Id вопроса');
-        $this->addCommentOnColumn('test_question', 'user_id', 'Id отвечающего');
-        $this->addCommentOnColumn('test_question', 'answer', 'Ответ');
-        $this->addCommentOnColumn('test_question', 'is_right', 'Правильность ответа');
-        $this->addCommentOnColumn('test_question', 'date', 'Дата ответа');
+        $this->addCommentOnTable('user_test_answer', 'Ответы пользователей на вопросы тестов');
+        $this->addCommentOnColumn('user_test_answer', 'test_question_id', 'Id вопроса');
+        $this->addCommentOnColumn('user_test_answer', 'user_id', 'Id отвечающего');
+        $this->addCommentOnColumn('user_test_answer', 'answer', 'Ответ');
+        $this->addCommentOnColumn('user_test_answer', 'is_right', 'Правильность ответа');
+        $this->addCommentOnColumn('user_test_answer', 'date', 'Дата ответа');
     }
 
     /**

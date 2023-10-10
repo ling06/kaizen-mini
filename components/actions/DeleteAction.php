@@ -18,8 +18,6 @@ class DeleteAction extends Action
 
     public function run()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-
         /** @var ActiveRecord $model */
         $model = ($this->modelName)::findOne($this->modelPk);
         if (!$model) {

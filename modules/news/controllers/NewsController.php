@@ -13,9 +13,10 @@ use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
 use app\modules\news\models\News;
 use yii\filters\AccessControl;
-use app\components\Controller;
+use app\components\ApiController;
+use yii\web\Response;
 
-class NewsController extends Controller
+class NewsController extends ApiController
 {
 
     public function behaviors(): array
@@ -47,12 +48,6 @@ class NewsController extends Controller
                 ],
             ]
         ];
-    }
-
-    public function beforeAction($action): bool
-    {
-        $this->enableCsrfValidation = (YII_ENV === 'prod');
-        return parent::beforeAction($action);
     }
 
     public function actions(): array
@@ -88,23 +83,23 @@ class NewsController extends Controller
             'create' => [
                 'class' => CreateAction::class,
                 'modelName' => NewsForm::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => NewsForm::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
             ],
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => News::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
         ];
     }

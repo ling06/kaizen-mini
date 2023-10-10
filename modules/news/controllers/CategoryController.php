@@ -10,9 +10,9 @@ use app\modules\news\models\NewsCategory;
 use Yii;
 use app\components\actions\GetAllAction;
 use yii\filters\AccessControl;
-use app\components\Controller;
+use app\components\ApiController;
 
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
 
     public function behaviors(): array
