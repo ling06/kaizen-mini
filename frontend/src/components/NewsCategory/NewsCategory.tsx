@@ -1,9 +1,14 @@
+import { INewsCategory } from '@/types';
 import * as S from './styles';
 
-export function NewsCategory({ data }) {
+interface INewsCategoryProps {
+  data: INewsCategory;
+}
+
+export function NewsCategory({ data }:INewsCategoryProps) {
   return (
     <S.Category>
-      {data.name}
+      {data.title}
     </S.Category>
   );
 }

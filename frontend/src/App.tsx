@@ -12,6 +12,7 @@ import { CreateThemeForm } from './components/CreateThemeForm';
 import { CreateLesson } from './pages/CreateLesson';
 import { useEffect } from 'react';
 import { useActions } from './hooks/useActions';
+import { CreateNews } from './pages/CreateNews';
 
 function App() {
   const { setAuthToken } = useActions();
@@ -19,10 +20,13 @@ function App() {
     (state) => state.modal
   );
 
-    useEffect(() => {
-      const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.content;
+  useEffect(() => {
+    const csrfHolder: HTMLMetaElement | null = document.querySelector('meta[name="csrf-token"]');
+    if(csrfHolder) {
+      const CSRF_TOKEN = csrfHolder.content;
       setAuthToken(CSRF_TOKEN);
-    })
+    }
+  }, [setAuthToken]);
 
   return (
     <BrowserRouter>
@@ -32,7 +36,11 @@ function App() {
             path="/*"
             element={<Main />}
           />
-          <Route path={'/courses/:courseId/:chapterId/:themeId/create-lesson/:lessonId'} element={<CreateLesson type='create'/>}/>
+          <Route
+            path={'/courses/:courseId/:chapterId/:themeId/create-lesson/:lessonId'}
+            element={<CreateLesson type="create" />}
+          />
+          <Route path={'/news/create-news'} element={<CreateNews type={'create'}/>}/>
         </Routes>
         {isModalOpen && (
           <ModalLayout modalType={modalType}>

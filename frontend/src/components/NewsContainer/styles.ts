@@ -17,11 +17,6 @@ export const Title = styled(C.Text)`
 
 export const ContentWrapper = styled(C.FlexContainer)``;
 
-export const Categories = styled(C.FlexContainer)`
-  flex-direction: column;
-  row-gap: 22px;
-  width: 25%;
-`;
 
 export const News = styled(C.FlexContainer)`
   width: 75%;

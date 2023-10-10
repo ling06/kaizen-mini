@@ -1,3 +1,5 @@
+import { OutputData } from "@editorjs/editorjs";
+
 export interface IBaseTheme {
   colors: {
     realWhite: string;
@@ -52,7 +54,7 @@ export interface INews {
   id: number;
   status: number;
   title: string;
-  text: string;
+  text: OutputData['blocks'];
   date: string;
   user_id: number;
   is_deleted: number;
@@ -68,7 +70,7 @@ export interface IGetAllNews {
   nextPage?: string;
 }
 
-export interface IGetNewsById {
+export interface INewsResponse {
   data: INews;
   result: boolean;
 }
@@ -77,4 +79,32 @@ export interface ICreateNews {
   title: string;
   text: string;
   NewsCategory?: [];
+}
+
+export type TUpdateNews = Omit<INews, 'user_id' | 'is_deleted'>;
+
+export interface IDeleteByIdRes {
+  id: number;
+}
+
+export interface IDeleteByIdReq {
+  result: boolean;
+}
+
+export interface IGetAllNewsCategory {
+  data: Array<INewsCategory>;
+  count: number;
+  page: number;
+  pagesCount: number;
+  prevPage?: string;
+  nextPage?: string;
+}
+
+export interface INewsCategoryMutationRes {
+  data: INewsCategory;
+  result: boolean;
+}
+
+export interface INewsCategoryMutationReq {
+  title: string;
 }
