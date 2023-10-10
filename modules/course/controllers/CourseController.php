@@ -81,9 +81,9 @@ class CourseController extends ApiController
 
     public function actionAutosaveLesson(): array
     {
-        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->getBodyParam('id'));
         $lesson->scenario = Lesson::SCENARIO_AUTOSAVE;
-        $lesson->description_autosave = Yii::$app->request->post('description');
+        $lesson->description_autosave = Yii::$app->request->getBodyParam('description');
         return [
             'result' => $lesson->save(),
         ];
@@ -91,7 +91,7 @@ class CourseController extends ApiController
 
     public function actionAddTest()
     {
-        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('lesson_id'));
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->getBodyParam('lesson_id'));
         $test = $lesson->test ?? new Test([
             'lesson_id' => $lesson->id,
             'is_active' => false,
@@ -111,7 +111,7 @@ class CourseController extends ApiController
 
     public function actionCheckLesson()
     {
-        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->post('id'));
+        $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->getBodyParam('id'));
         $checkParams = [
             'user_id' => Yii::$app->user->id,
             'model_name' => Lesson::class,
@@ -126,8 +126,8 @@ class CourseController extends ApiController
     public function actionSendAnswer()
     {
         /** @var Question $question */
-        $question = $this->findModel(Question::class, (int)Yii::$app->request->post('question_id'));
-        $answer = Yii::$app->request->post('answer');
+        $question = $this->findModel(Question::class, (int)Yii::$app->request->getBodyParam('question_id'));
+        $answer = Yii::$app->request->getBodyParam('answer');
         if (!$answer) {
             return [
                 'result' => false,
@@ -204,25 +204,25 @@ class CourseController extends ApiController
             'create' => [
                 'class' => CreateAction::class,
                 'modelName' => Course::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => Course::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => Course::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => Course::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
             'chapter' => [
                 'class' => GetOneAction::class,
@@ -233,25 +233,25 @@ class CourseController extends ApiController
             'create-chapter' => [
                 'class' => CreateAction::class,
                 'modelName' => Chapter::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-chapter' => [
                 'class' => UpdateAction::class,
                 'modelName' => Chapter::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete-chapter' => [
                 'class' => DeleteAction::class,
                 'modelName' => Chapter::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore-chapter' => [
                 'class' => RestoreAction::class,
                 'modelName' => Chapter::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
             'theme' => [
                 'class' => GetOneAction::class,
@@ -262,25 +262,25 @@ class CourseController extends ApiController
             'create-theme' => [
                 'class' => CreateAction::class,
                 'modelName' => Theme::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-theme' => [
                 'class' => UpdateAction::class,
                 'modelName' => Theme::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete-theme' => [
                 'class' => DeleteAction::class,
                 'modelName' => Theme::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore-theme' => [
                 'class' => RestoreAction::class,
                 'modelName' => Theme::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
             'lesson' => [
                 'class' => GetOneAction::class,
@@ -291,48 +291,48 @@ class CourseController extends ApiController
             'create-lesson' => [
                 'class' => CreateAction::class,
                 'modelName' => Lesson::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-lesson' => [
                 'class' => UpdateAction::class,
                 'modelName' => Lesson::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete-lesson' => [
                 'class' => DeleteAction::class,
                 'modelName' => Lesson::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore-lesson' => [
                 'class' => RestoreAction::class,
                 'modelName' => Lesson::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
             'update-test' => [
                 'class' => UpdateAction::class,
                 'modelName' => Test::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'create-question' => [
                 'class' => CreateAction::class,
                 'modelName' => Question::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-question' => [
                 'class' => CreateAction::class,
                 'modelName' => Question::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete-question' => [
                 'class' => DeleteAction::class,
                 'modelName' => Question::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
         ];
     }
