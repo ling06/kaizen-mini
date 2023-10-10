@@ -14,7 +14,6 @@ use app\components\actions\GetOneAction;
 use app\modules\news\models\News;
 use yii\filters\AccessControl;
 use app\components\ApiController;
-use yii\web\Response;
 
 class NewsController extends ApiController
 {
@@ -71,6 +70,11 @@ class NewsController extends ApiController
                 'class' => GetOneAction::class,
                 'modelName' => News::class,
                 'modelPk' => Yii::$app->request->get('id'),
+                'with' => [
+                    'user' => static function ($query) {
+                        $query->select('id, name');
+                    },
+                ],
                 'scopes' => $scopes,
             ],
             'get-all' => [
@@ -78,7 +82,12 @@ class NewsController extends ApiController
                 'modelName' => News::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
-                'with' => ['categories'],
+                'with' => [
+                    'categories',
+                    'user' => static function ($query) {
+                        $query->select('id, name');
+                    },
+                ],
             ],
             'create' => [
                 'class' => CreateAction::class,

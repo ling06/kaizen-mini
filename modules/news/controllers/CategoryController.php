@@ -63,25 +63,25 @@ class CategoryController extends ApiController
             'create' => [
                 'class' => CreateAction::class,
                 'modelName' => NewsCategory::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => NewsCategory::class,
-                'attributes' => Yii::$app->request->post(),
+                'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'delete' => [
                 'class' => DeleteAction::class,
                 'modelName' => NewsCategory::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
                 'isSoft' => true,
             ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => NewsCategory::class,
-                'modelPk' => Yii::$app->request->post('id'),
+                'modelPk' => Yii::$app->request->getBodyParam('id'),
             ],
         ];
     }

@@ -10,6 +10,10 @@ News: - новость
     user_id: int - id автора
     is_deleted: int - удалена ли новость
     <categories>: NewsCategory[] - список привязанных категорий
+    <user>: [ - данные об авторе
+        id: id автора
+        name: имя автора
+    ]
 ]
 
 NewsCategory: - категория новости
@@ -461,7 +465,7 @@ Response: [
 
 ---------- [ Тесты ] ----------
 
-/api/course/add-test [POST]
+/api/test/add-test [POST]
 Добавить тест к уроку.
 Request: [
     lesson_id: int - id урока
@@ -471,7 +475,7 @@ Response: [
     data: Test|array - либо данные о тесте, либо текст ошибок
 ]
 
-/api/course/update-test [POST]
+/api/test/update-test [POST]
 Редактировать тест.
 Request: [
     is_active: int - активен ли тест
@@ -481,7 +485,7 @@ Response: [
     data: Test - данные о тесте
 ]
 
-/api/course/create-question [POST]
+/api/test/create-question [POST]
 Добавить вопрос к тесту.
 Request: [
     test_id: int - id теста
@@ -494,7 +498,7 @@ Response: [
     data: Question - данные о вопросе
 ]
 
-/api/course/update-question [POST]
+/api/test/update-question [POST]
 Редактировать вопрос теста.
 Request: [
     id: int - id вопроса
@@ -507,7 +511,7 @@ Response: [
     data: Question - данные о вопросе
 ]
 
-/api/course/delete-question [POST]
+/api/test/delete-question [POST]
 Удалить вопрос теста.
 Request: [
     id: int - id вопроса
@@ -516,7 +520,7 @@ Response: [
     result: bool - успешно ли удален вопрос
 ]
 
-/api/course/check-lesson [POST]
+/api/test/check-lesson [POST]
 Отметить урок пройденным.
 Request: [
     id: int - id урока
@@ -525,7 +529,7 @@ Response: [
     result: bool - отмечен ли урок
 ]
 
-/api/course/send-answer [POST]
+/api/test/send-answer [POST]
 Отправить ответ на вопрос теста.
 Request: [
     question_id: int - id вопроса

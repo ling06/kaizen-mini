@@ -67,6 +67,7 @@ $config = [
                 'api/theme/<id:\d+>' => 'course/course/get-theme',
                 'api/lesson/<id:\d+>' => 'course/course/get-lesson',
                 'api/course/<action:[-\w]+>' => 'course/course/<action>',
+                'api/test/<action:\w+>' => 'course/test/<action>',
             ],
         ],
         'authManager' => [
