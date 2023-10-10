@@ -145,6 +145,7 @@ Response: [
 /api/news/update [POST]
 Редактировать новость. Уже привязанные категории будут отвязаны, поэтому NewsCategory надо передавать при каждом запросе.
 Request: [
+    id: int - id новости
     <title>: string - заголовок новости
     <text>: string - текст новости
     <status>: int - статус новости
@@ -205,7 +206,8 @@ Response: [
 /api/news-category/update [POST]
 Редактировать категорию новостей.
 Request: [
-    title: string - название категории
+    id: int - id категории
+    <title>: string - название категории
 ]
 Response: [
     data: NewsCategory - данные о категории
@@ -270,10 +272,11 @@ Response: [
 /api/course/update [POST]
 Редактировать курс.
 Request: [
-    title: string - название курса
-    description: string - текст курса
-    is_open: int - доступны ли все главы курса сразу
-    status: int - статус курса
+    id: int - id курса
+    <title>: string - название курса
+    <description>: string - текст курса
+    <is_open>: int - доступны ли все главы курса сразу
+    <status>: int - статус курса
 ]
 Response: [
     data: Course - данные об отредактированом курсе
@@ -323,7 +326,8 @@ Response: [
 /api/course/update-chapter [POST]
 Редактировать главу.
 Request: [
-    title: string - название главы
+    id: int - id главы
+    <title>: string - название главы
 ]
 Response: [
     data: Chapter - данные об отредактированой главе
@@ -373,7 +377,8 @@ Response: [
 /api/course/update-theme [POST]
 Редактировать тему.
 Request: [
-    title: string - название темы
+    id: int - id темы
+    <title>: string - название темы
 ]
 Response: [
     data: Theme - данные об отредактированой теме
@@ -424,10 +429,10 @@ Response: [
 /api/course/update-lesson [POST]
 Редактировать урок.
 Request: [
-    title: string - название урока
-    theme_id: int - id темы
-    description: string - текст урока
-    status: int - статус урока
+    id: int - id урока
+    <title>: string - название урока
+    <description>: string - текст урока
+    <status>: int - статус урока
 ]
 Response: [
     data: Theme - данные об отредактированом уроке
@@ -478,7 +483,8 @@ Response: [
 /api/test/update-test [POST]
 Редактировать тест.
 Request: [
-    is_active: int - активен ли тест
+    id: int - id теста
+    <is_active>: int - активен ли тест
 ]
 Response: [
     result: bool - успешно ли добавлен тест
@@ -502,9 +508,9 @@ Response: [
 Редактировать вопрос теста.
 Request: [
     id: int - id вопроса
-    text: string - текст вопроса
-    answers: string|Answer[] - варианты ответов в формате json или в виде массива. Каждый вариант должен иметь вид модели Answer
-    right_answer: string - правильный ответ
+    <text>: string - текст вопроса
+    <answers>: string|Answer[] - варианты ответов в формате json или в виде массива. Каждый вариант должен иметь вид модели Answer
+    <right_answer>: string - правильный ответ
 ]
 Response: [
     result: bool - успешно ли отредактирован вопрос
