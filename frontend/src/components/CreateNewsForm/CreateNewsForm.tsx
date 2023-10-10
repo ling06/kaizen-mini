@@ -37,6 +37,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
     if(status.isSuccess) {
       editor?.clear();
+      editor = undefined;
       navigation('/news');
     }
 
@@ -67,7 +68,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
   const controlsData = {
     names: {
-      confirm: 'Создать урок',
+      confirm: 'Создать новость',
       cancel: 'Отмена',
     },
     handlers: {
