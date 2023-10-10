@@ -14,7 +14,6 @@ use app\components\actions\GetOneAction;
 use app\modules\news\models\News;
 use yii\filters\AccessControl;
 use app\components\ApiController;
-use yii\web\Response;
 
 class NewsController extends ApiController
 {
