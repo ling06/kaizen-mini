@@ -83,7 +83,12 @@ class NewsController extends ApiController
                 'modelName' => News::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
-                'with' => ['categories'],
+                'with' => [
+                    'categories',
+                    'user' => static function ($query) {
+                        $query->select('id, name');
+                    },
+                ],
             ],
             'create' => [
                 'class' => CreateAction::class,
