@@ -1,16 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
 
-const API_URL = 'http://kaizen.borboza.com/api/';
+const API_URL = '/api/';
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['News', 'NewsById'],
+  tagTypes: ['News', 'NewsById', 'NewsCategory', 'Courses', 'CourseById'],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
-    prepareHeaders: (headers: Headers, api): Headers => {
-      const token = api.getState().auth.token;
-      console.log(token);
-      headers.set('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8");
+    prepareHeaders: (headers: Headers, { getState }): Headers => {
+      const token = (getState() as RootState).auth.token;
       if(token) {
         headers.set('X-CSRFToken', token);
       }

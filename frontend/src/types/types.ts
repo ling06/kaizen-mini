@@ -1,3 +1,5 @@
+import { OutputData } from "@editorjs/editorjs";
+
 export interface IBaseTheme {
   colors: {
     realWhite: string;
@@ -52,7 +54,7 @@ export interface INews {
   id: number;
   status: number;
   title: string;
-  text: string;
+  text: OutputData['blocks'];
   date: string;
   user_id: number;
   is_deleted: number;
@@ -68,7 +70,7 @@ export interface IGetAllNews {
   nextPage?: string;
 }
 
-export interface IGetNewsById {
+export interface INewsResponse {
   data: INews;
   result: boolean;
 }
@@ -78,3 +80,92 @@ export interface ICreateNews {
   text: string;
   NewsCategory?: [];
 }
+
+export type TUpdateNews = Omit<INews, 'user_id' | 'is_deleted'>;
+
+export interface IDeleteByIdRes {
+  id: number;
+}
+
+export interface IDeleteByIdReq {
+  result: boolean;
+}
+
+export interface IGetAllNewsCategory {
+  data: Array<INewsCategory>;
+  count: number;
+  page: number;
+  pagesCount: number;
+  prevPage?: string;
+  nextPage?: string;
+}
+
+export interface INewsCategoryMutationRes {
+  data: INewsCategory;
+  result: boolean;
+}
+
+export interface INewsCategoryMutationReq {
+  title: string;
+}
+
+export interface ILesson {
+  id: number;
+  theme_id: number;
+  title: string;
+  description: string;
+  description_autosave: string;
+  status: number;
+  user_id: number;
+  date: string;
+  is_deleted: number;
+}
+
+export interface ITheme {
+  id: number;
+  chapter_id: number;
+  title: string;
+  user_id: number;
+  date: string;
+  is_deleted: number;
+  lessons?: Array<ILesson>;
+}
+
+export interface IChapter {
+  id: number;
+  course_id: number;
+  title: string;
+  user_id: number;
+  date: string;
+  is_deleted: number;
+  themes?: Array<ITheme>;
+}
+
+export interface ICourse {
+  id: number;
+  title: string;
+  description: string;
+  is_open: number;
+  status: number;
+  user_id: number;
+  date: string;
+  is_deleted: number;
+  chapters?: Array<IChapter>
+}
+
+export interface IGetCourses {
+  data: Array<ICourse>;
+  count: number;
+  page: number;
+  pagesCount: number;
+  prevPage?: string;
+  nextPage?: string
+}
+
+export interface IGetCourseByIdRes {
+  data: ICourse;
+  result: boolean;
+}
+
+export type ICreateCourse = Pick<ICourse, 'title' | 'description' | 'is_open'>;
+export type IUpdateCourse = Pick<ICourse, 'title' | 'description' | 'is_open' | 'status'>

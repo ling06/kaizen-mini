@@ -1,8 +1,9 @@
 import { useGetAllNewsQuery } from '@/store/api/news.api';
 import { AdminBtn } from '../AdminBtn';
-import { NewsCategory } from '../NewsCategory';
 import { NewsEl } from '../NewsEl';
 import * as S from './styles';
+import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
+import { Link } from 'react-router-dom';
 
 export function NewsContainer() {
   const { data, isError, isLoading } = useGetAllNewsQuery();
@@ -11,20 +12,15 @@ export function NewsContainer() {
     <S.Container>
       <S.Title>
         Новости
-        <AdminBtn
-          type="add"
-          onClick={() => {}}
-        />
+        <Link to={'/news/create-news'}>
+          <AdminBtn
+            type="add"
+            onClick={() => {}}
+          />
+        </Link>
       </S.Title>
       <S.ContentWrapper>
-        <S.Categories>
-          <NewsCategory data={{ name: 'Категория А' }} />
-          <NewsCategory data={{ name: 'Категория А' }} />
-          <NewsCategory data={{ name: 'Категория А' }} />
-          <NewsCategory data={{ name: 'Категория А' }} />
-          <NewsCategory data={{ name: 'Категория А' }} />
-          <NewsCategory data={{ name: 'Категория А' }} />
-        </S.Categories>
+        <NewsCategoryWrapper />
         <S.News>
           {isError && <div>Ошибка!</div>}
           {isLoading && <div>Загрузка...</div>}

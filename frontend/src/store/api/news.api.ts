@@ -1,4 +1,11 @@
-import { ICreateNews, IGetAllNews, IGetNewsById } from '@/types';
+import {
+  ICreateNews,
+  IDeleteByIdReq,
+  IDeleteByIdRes,
+  IGetAllNews,
+  INewsResponse,
+  TUpdateNews,
+} from '@/types';
 import { api } from './api';
 
 export const newsApi = api.injectEndpoints({
@@ -11,7 +18,7 @@ export const newsApi = api.injectEndpoints({
         },
       ],
     }),
-    getNewsById: builder.query<IGetNewsById, number>({
+    getNewsById: builder.query<INewsResponse, number>({
       query: (id) => `news/${id}`,
       providesTags: () => [
         {
@@ -19,11 +26,11 @@ export const newsApi = api.injectEndpoints({
         },
       ],
     }),
-    createNews: builder.mutation<IGetNewsById, ICreateNews>({
+    createNews: builder.mutation<INewsResponse, ICreateNews>({
       query: (news) => ({
-        body: news,
         url: 'news/create',
         method: 'POST',
+        body: news,
       }),
       invalidatesTags: () => [
         {
@@ -31,8 +38,41 @@ export const newsApi = api.injectEndpoints({
         },
       ],
     }),
+    updateNews: builder.mutation<INewsResponse, TUpdateNews>({
+      query: (updateNews) => ({
+        url: 'news/update',
+        method: 'POST',
+        body: updateNews,
+      }),
+      invalidatesTags: () => [
+        {
+          type: 'News',
+        },
+      ],
+    }),
+    deleteNews: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+      query: (id) => ({
+        url: 'news/delete',
+        method: 'POST',
+        body: id,
+      }),
+    }),
+    restoreNews: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+      query: (id) => ({
+        url: 'news/restore',
+        method: 'POST',
+        body: id,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetAllNewsQuery, useCreateNewsMutation, useGetNewsByIdQuery } = newsApi;
+export const {
+  useGetAllNewsQuery,
+  useCreateNewsMutation,
+  useGetNewsByIdQuery,
+  useDeleteNewsMutation,
+  useRestoreNewsMutation,
+  useUpdateNewsMutation,
+} = newsApi;
