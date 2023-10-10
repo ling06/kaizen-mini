@@ -5,7 +5,7 @@ const API_URL = '/api/';
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['News', 'NewsById', 'NewsCategory'],
+  tagTypes: ['News', 'NewsById', 'NewsCategory', 'Courses', 'CourseById'],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers: Headers, { getState }): Headers => {

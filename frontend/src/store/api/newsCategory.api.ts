@@ -52,6 +52,7 @@ export const newsCategoryApi = api.injectEndpoints({
       }),
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {
