@@ -2,15 +2,16 @@ import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
 import * as S from './styles';
 import { AdminBtn } from '../AdminBtn';
 import { useActions } from '@/hooks/useActions';
-import { ICourse } from '@/types';
-import { CustomSelect } from '../CustomSelect';
+import { CustomSelect, IOption } from '../CustomSelect';
+import { ICourse } from '@/types/course.types';
+import { SingleValue } from 'react-select';
 
 interface ICourseSelectProps {
   data: Array<ICourse>;
 }
 
 export function CourseSelect({ data }: ICourseSelectProps) {
-  const { setModalOpen, setModalType } = useActions();
+  const { setModalOpen, setModalType, setCourseData } = useActions();
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
@@ -24,9 +25,15 @@ export function CourseSelect({ data }: ICourseSelectProps) {
     setModalOpen(true);
   };
 
+  const handleChange = (option: SingleValue<IOption>) => {
+    if(!option) return;
+    const activeCourseData = data.find((course) => course.id === option.value);
+    setCourseData(activeCourseData);
+  }
+
   return (
     <S.Container>
-      <CustomSelect options={selectOptions} defaultValue={selectOptions[0]}/>
+      <CustomSelect onChange={handleChange} options={selectOptions} defaultValue={selectOptions[0]}/>
       <AdminBtn
         type={ADMIN_BTN_TYPES.add}
         onClick={openCreateCourseModal}

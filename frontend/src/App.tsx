@@ -37,7 +37,7 @@ function App() {
             element={<Main />}
           />
           <Route
-            path={'/courses/:courseId/:chapterId/:themeId/create-lesson/:lessonId'}
+            path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
             element={<CreateLesson type="create" />}
           />
           <Route path={'/news/create-news'} element={<CreateNews type={'create'}/>}/>

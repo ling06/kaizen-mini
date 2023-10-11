@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as S from './styles';
 import Select, { SingleValue, components } from 'react-select';
 
-interface IOption {
+export interface IOption {
   value: string | number;
   label: string | number;
 }
@@ -10,7 +10,7 @@ interface IOption {
 interface ICustomSelectProps {
   options: Array<IOption>;
   defaultValue: IOption;
-  onChange: () => void;
+  onChange: (value: SingleValue<IOption>) => void;
 }
 
 export function CustomSelect({ options, defaultValue, onChange=()=>{} }: ICustomSelectProps) {
@@ -18,9 +18,9 @@ export function CustomSelect({ options, defaultValue, onChange=()=>{} }: ICustom
     defaultValue
   );
 
-  const handleChange = (value: SingleValue<IOption>) => {
-    setSelectedOption(value);
-    onChange();
+  const handleChange = (option: SingleValue<IOption>) => {
+    setSelectedOption(option);
+    onChange(option);
   }
 
   const selectStyles = {

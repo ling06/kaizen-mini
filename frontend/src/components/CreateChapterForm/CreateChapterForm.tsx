@@ -8,8 +8,9 @@ import { useActions } from '@/hooks/useActions';
 
 export function CreateChapterForm() {
   const courseId = useTypedSelector(state => state.course.id);
-  const {setModalOpen} = useActions();
-  const [createChapter, status] = useCreateChapterMutation();
+  const {setModalOpen, addChapter} = useActions();
+  const [createChapter] = useCreateChapterMutation();
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [chapterName, setChapterName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
@@ -29,11 +30,19 @@ export function CreateChapterForm() {
     }
 
     if(courseId) {
+      setLoading(true);
       createChapter({
         title: chapterName,
         course_id: courseId,
-      }).then(() => {
+      }).then((res) => {
+        if('data' in res && res.data.result) {
+          addChapter(res.data.data);
+        }
+        setLoading(false);
         setModalOpen(false);
+      }).catch((err) => {
+        console.error(err);
+        setLoading(false);
       });
     }
   }
@@ -65,7 +74,7 @@ export function CreateChapterForm() {
         placeholder="Введите название главы (обязательно)"
       />
       <S.AddChapterImg>Обложка главы</S.AddChapterImg>
-      {status.isLoading && <Loading />}
+      {isLoading && <Loading />}
     </ModalForm>
   );
 }

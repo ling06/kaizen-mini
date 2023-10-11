@@ -9,3 +9,14 @@ export interface ILesson {
   date: string;
   is_deleted: number;
 }
+
+export interface ICreateLessonData {
+  title: string;
+  theme_id: number;
+  description: string;
+}
+
+export interface IUpdateLessonData extends ICreateLessonData {
+  id: number;
+  status?: number;
+}

@@ -31,6 +31,7 @@ export interface IBaseTheme {
       modalControls: string;
       darkOverlay: string;
       overDarkOverlay: string;
+      loading: string;
     };
   };
 

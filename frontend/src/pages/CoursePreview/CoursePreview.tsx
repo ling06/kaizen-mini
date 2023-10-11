@@ -9,17 +9,18 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import { useEffect } from 'react';
 import { useActions } from '@/hooks/useActions';
 
+let init = true;
+
 export function CoursePreview() {
   const { data, isError, isLoading } = useGetCoursesQuery();
   const { setCourseData } = useActions();
 
   useEffect(() => {
-    if(data) {
+    if(data && init) {
       setCourseData(data.data[0]);
+      init = false;
     }
   }, [data, setCourseData]);
-
-  console.log(data);
 
   return (
     <C.DefaultContainer>

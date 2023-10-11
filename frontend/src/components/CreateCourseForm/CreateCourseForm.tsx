@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './styles';
 import { CustomCheckbox } from '../CustomCheckbox';
 import { ModalForm } from '../ModalForm';
 import '@styles/editorjs.css';
 import { useCreateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/hooks/useActions';
+import { Loading } from '../Loading';
 
 export function CreateCourseForm() {
   const { setModalOpen } = useActions();
@@ -13,12 +14,6 @@ export function CreateCourseForm() {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [createCourse, status] = useCreateCourseMutation();
-
-  useEffect(() => {
-    if(status.isSuccess) {
-      setModalOpen(false);
-    }
-  }, [setModalOpen, status.isSuccess])
   
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -42,7 +37,7 @@ export function CreateCourseForm() {
       title: courseName,
       description: courseDescription,
       is_open: 1,
-    });
+    }).then(() => setModalOpen(false))
 
   };
 
@@ -61,6 +56,7 @@ export function CreateCourseForm() {
       width="1240px"
       handlers={handlers}
       names={names}>
+        {status.isLoading && <Loading />}
       <S.NameInput
         type="text"
         $isValid={isValidName}

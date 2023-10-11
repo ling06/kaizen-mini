@@ -5,8 +5,13 @@ import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ITheme } from '@/types/theme.types';
 
-export function CourseNavTheme() {
+interface ICourseNavTheme {
+  data: ITheme;
+}
+
+export function CourseNavTheme({ data }: ICourseNavTheme) {
   const [isAccordionOpen, setAccordionOpen] = useState<boolean>(false);
   const [accordionWrapperHeight, setAccordionWrapperHeight] = useState<string>('0px');
   const lessonsList = useRef<HTMLDivElement>(null);
@@ -22,7 +27,7 @@ export function CourseNavTheme() {
   };
 
   const addLesson = () => {
-    navigate(currentLocation.pathname + '/chapterId/themeId/create-lesson/lessonId');
+    navigate(currentLocation.pathname + `${data.id}/create-lesson`);
   };
 
   return (
@@ -34,7 +39,7 @@ export function CourseNavTheme() {
         />
         <S.OpenAccordion onClick={toggleAccordion}>
           <C.AccordionIcon $active={isAccordionOpen} />
-          <C.CourseNavText $active={true}>Имя Дмитрия Нагиева</C.CourseNavText>
+          <C.CourseNavText $active={true}>{data.title}</C.CourseNavText>
         </S.OpenAccordion>
         <C.DoneIcon />
         <AdminBtn
@@ -47,12 +52,7 @@ export function CourseNavTheme() {
         $active={isAccordionOpen}
         $height={accordionWrapperHeight}>
         <S.LessonsList ref={lessonsList}>
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
+          {data.lessons && data.lessons.map((lesson) => <CourseNavLesson data={lesson} key={lesson.id}/>)}
         </S.LessonsList>
       </S.AccordionWrapper>
     </S.Container>

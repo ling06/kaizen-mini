@@ -10,7 +10,7 @@ export function Courses() {
           path="/"
           element={<CoursePreview />}
         />
-        <Route path="/:courseId" element={<Course />}/>
+        <Route path="/:courseId/:chapterId/:themeId?/:lessonId?" element={<Course />}/>
       </Routes>
     </>
   );

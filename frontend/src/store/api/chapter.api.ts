@@ -4,7 +4,7 @@ import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/com
 
 type IChapterRes = IDefaultResWithData<IChapter>;
 
-export const courseApi = api.injectEndpoints({
+export const chapterApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getChapterById: builder.query<IChapterRes, number>({
       query: (id) => `chapter/${id}`,
@@ -57,5 +57,5 @@ export const {
   useGetChapterByIdQuery,
   useRestoreChapterMutation,
   useUpdateChapterMutation
-} = courseApi;
+} = chapterApi;
 

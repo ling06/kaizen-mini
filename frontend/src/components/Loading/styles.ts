@@ -5,15 +5,16 @@ export const Overlay = styled(C.FlexContainer)`
   align-items: center;
   justify-content: center;
   position: fixed;
+  z-index: ${props => props.theme.utils.zIndex.loading};
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  animation: 0.3s ease-out 0s 1 normal forwards overlayEntrance;
+  animation: 0.3s ease-out 0s 1 normal forwards overlayEnt;
 
-  @keyframes overlayEntrance {
+  @keyframes overlayEnt {
     100% {
       opacity: 1;
     }

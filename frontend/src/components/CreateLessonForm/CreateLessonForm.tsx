@@ -5,18 +5,25 @@ import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
+import { useCreateLessonMutation } from '@/store/api/lesson.api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Loading } from '../Loading';
 
 interface ICreateLessonFormProps {
   type: string;
 }
 
+let editor: undefined | EditorJS;
+
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
+  const [createLesson, status] = useCreateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [isTest, setTest] = useState<boolean>(false);
+  const navigation = useNavigate();
+  const { themeId } = useParams();
 
-  let editor: undefined | EditorJS;
 
   useEffect(() => {
     if (!editor) {
@@ -41,19 +48,43 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     }
   };
 
+  const handleConfirm = async () => {
+    const editorData = await editor?.save().then((data) => data);
+
+    if (!isValidName) {
+      setChangedName(true);
+      return;
+    }
+
+    createLesson({
+      title: lessonName,
+      theme_id: Number(themeId),
+      description: JSON.stringify(editorData ? editorData.blocks : []),
+    })
+      .then(() => {
+        editor?.clear();
+        editor = undefined;
+        navigation(-1);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const controlsData = {
     names: {
       confirm: 'Создать урок',
       cancel: 'Отмена',
     },
     handlers: {
-      confirm: () => {},
+      confirm: handleConfirm,
       cancel: () => {},
     },
   };
 
   return (
     <>
+      {status.isLoading && <Loading />}
       <S.Title>{type === 'create' ? 'Создание урока' : 'Редактирование урока'}</S.Title>
       <S.LessonNameInput
         $isValid={isValidName}
