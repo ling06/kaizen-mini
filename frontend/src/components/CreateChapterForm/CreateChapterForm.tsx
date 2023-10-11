@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { ModalForm } from '../ModalForm';
 import * as S from './styles';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useCreateChapterMutation } from '@/store/api/chapter.api';
+import { Loading } from '../Loading';
+import { useActions } from '@/hooks/useActions';
 
 export function CreateChapterForm() {
+  const courseId = useTypedSelector(state => state.course.id);
+  const {setModalOpen} = useActions();
+  const [createChapter, status] = useCreateChapterMutation();
   const [chapterName, setChapterName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
@@ -15,9 +22,29 @@ export function CreateChapterForm() {
     }
   };
 
+  const handleConfirm = () => {
+    if(!isValidName) {
+      setChangedName(true);
+      return;
+    }
+
+    if(courseId) {
+      createChapter({
+        title: chapterName,
+        course_id: courseId,
+      }).then(() => {
+        setModalOpen(false);
+      });
+    }
+  }
+
+  const handleCancel = () => {
+    setModalOpen(false);
+  }
+
   const handlers = {
-    cancel: () => {},
-    confirm: () => {},
+    cancel: handleCancel,
+    confirm: handleConfirm,
   };
 
   const names = {
@@ -35,9 +62,10 @@ export function CreateChapterForm() {
         $isChanged={isChangedName}
         value={chapterName}
         onChange={handleChange}
-        placeholder="Введите название курса (обязательно)"
+        placeholder="Введите название главы (обязательно)"
       />
       <S.AddChapterImg>Обложка главы</S.AddChapterImg>
+      {status.isLoading && <Loading />}
     </ModalForm>
   );
 }

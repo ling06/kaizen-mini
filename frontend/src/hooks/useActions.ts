@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions as modalActions } from '@/store/modal/modal.slice';
 import { actions as authActions } from '@/store/auth/auth.slice';
+import { actions as courseActions } from '@/store/course/course.slice';
 
 const rootActions = {
   ...authActions,
   ...modalActions,
+  ...courseActions,
 };
 
 export const useActions = () => {

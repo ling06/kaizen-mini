@@ -11,11 +11,19 @@ export const Card = styled(C.FlexContainer)`
   border-radius: ${(props) => props.theme.utils.br};
 `;
 
-export const Img = styled.img`
-  display: block;
+export const imgWrapper = styled.div`
   width: 100%;
   height: 180px;
   margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: ${props => props.theme.utils.br};
+  background-color: ${props => props.theme.colors.greyEO};
+`;
+
+export const Img = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 

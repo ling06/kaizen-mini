@@ -3,7 +3,7 @@ import * as S from './styles';
 import { AdminBtn } from '../AdminBtn';
 import { useActions } from '@/hooks/useActions';
 import { ICourse } from '@/types';
-import Select, { components } from 'react-select';
+import { CustomSelect } from '../CustomSelect';
 
 interface ICourseSelectProps {
   data: Array<ICourse>;
@@ -14,26 +14,10 @@ export function CourseSelect({ data }: ICourseSelectProps) {
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
-      label: course.title,
+      label: `Курс: ${course.title}`,
     };
   });
-  const selectStyles = {
-    container: (baseStyles) => ({
-      ...baseStyles,
-      backgroundColor: 'transparent',
-      width: '50%',
-      border: '0',
-      color: '#000',
-      fontSize: '24.923px',
-      fontWeight: '700',
-      lineHeight: '120%',
-    }),
-    control: (baseStyles, state) => ({
-      ...baseStyles,
-      backgroundColor: 'transparent',
-      border: '0',
-    }),
-  };
+
 
   const openCreateCourseModal = () => {
     setModalType(MODAL_TYPES.createCourse);
@@ -42,10 +26,7 @@ export function CourseSelect({ data }: ICourseSelectProps) {
 
   return (
     <S.Container>
-      <Select
-        options={selectOptions}
-        styles={selectStyles}
-      />
+      <CustomSelect options={selectOptions} defaultValue={selectOptions[0]}/>
       <AdminBtn
         type={ADMIN_BTN_TYPES.add}
         onClick={openCreateCourseModal}

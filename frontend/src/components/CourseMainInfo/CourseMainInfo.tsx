@@ -8,7 +8,7 @@ export function CourseMainInfo() {
     <S.Container>
       <S.Wrapper>
         <CourseBreadcrumb
-          containerStyles={{marginBottom: '30px'}}
+          containerStyles={{ marginBottom: '30px' }}
           chapter={{ name: '', position: '1', allQuantity: '5' }}
           theme={{ name: 'Наша новая капец какая тема', position: '3', allQuantity: '5' }}
           lesson={{ name: '', position: '3', allQuantity: '5' }}

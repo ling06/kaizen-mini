@@ -20,17 +20,3 @@ export const Progress = styled.div`
 export const CourseName = styled(C.Text)`
   font-weight: 24.923px;
 `;
-
-export const Select = styled.select`
-  align-items: center;
-  margin-right: auto;
-  width: 50%;
-  color: ${(props) => props.theme.colors.realBlack};
-  font-size: 24.923px;
-  font-weight: 700;
-  line-height: 120%;
-  background-color: transparent;
-  border: 0;
-`;
-
-export const Option = styled.option``;
