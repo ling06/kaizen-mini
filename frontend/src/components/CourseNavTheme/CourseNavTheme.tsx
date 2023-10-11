@@ -27,7 +27,7 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
   };
 
   const addLesson = () => {
-    navigate(currentLocation.pathname + '/chapterId/themeId/create-lesson/lessonId');
+    navigate(currentLocation.pathname + `${data.id}/create-lesson`);
   };
 
   return (
@@ -52,12 +52,7 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
         $active={isAccordionOpen}
         $height={accordionWrapperHeight}>
         <S.LessonsList ref={lessonsList}>
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
-          <CourseNavLesson />
+          {data.lessons && data.lessons.map((lesson) => <CourseNavLesson data={lesson} key={lesson.id}/>)}
         </S.LessonsList>
       </S.AccordionWrapper>
     </S.Container>

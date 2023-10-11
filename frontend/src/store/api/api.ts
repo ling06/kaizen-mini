@@ -13,6 +13,7 @@ export const api = createApi({
     'ThemeById',
     'CourseById',
     'ChapterById',
+    'LessonById',
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
