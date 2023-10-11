@@ -3,6 +3,7 @@
 namespace app\modules\course\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
+use app\components\behaviors\ImageBehavior;
 use app\models\User;
 use app\modules\course\models\queries\ChapterQuery;
 use yii\behaviors\BlameableBehavior;
@@ -41,7 +42,7 @@ class Chapter extends \app\components\ActiveRecord
     {
         return [
             [['course_id', 'user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'image'], 'safe'],
             [['title'], 'string', 'max' => 200],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
@@ -63,6 +64,7 @@ class Chapter extends \app\components\ActiveRecord
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удалена ли глава',
+            'image' => 'Изображение',
         ];
     }
 
@@ -129,6 +131,9 @@ class Chapter extends \app\components\ActiveRecord
                 'createdAtAttribute' => 'date',
                 'updatedAtAttribute' => null,
                 'value' => date('Y-m-d H:i:s'),
+            ],
+            'image' => [
+                'class' => ImageBehavior::class,
             ],
         ];
     }

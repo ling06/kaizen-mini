@@ -3,6 +3,7 @@
 namespace app\modules\course\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
+use app\components\behaviors\ImageBehavior;
 use app\models\User;
 use app\modules\course\models\queries\CourseQuery;
 use yii\behaviors\BlameableBehavior;
@@ -53,7 +54,7 @@ class Course extends \app\components\ActiveRecord
         return [
             [['description'], 'string'],
             [['is_open', 'status', 'user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'image'], 'safe'],
             [['title'], 'string', 'max' => 200],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['status'], 'in', 'range' => [static::STATUS_DRAFT, static::STATUS_PUBLISHED]],
@@ -78,6 +79,7 @@ class Course extends \app\components\ActiveRecord
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удален ли курс',
+            'image' => 'Изображение',
         ];
     }
 
@@ -134,6 +136,9 @@ class Course extends \app\components\ActiveRecord
                 'createdAtAttribute' => 'date',
                 'updatedAtAttribute' => null,
                 'value' => date('Y-m-d H:i:s'),
+            ],
+            'image' => [
+                'class' => ImageBehavior::class,
             ],
         ];
     }

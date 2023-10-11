@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use app\components\behaviors\DeleteSoftBehavior;
 use app\components\KaizenHelper;
 use app\models\queries\ImageQuery;
@@ -30,7 +31,7 @@ use yii\web\UploadedFile;
 class Image extends \app\components\ActiveRecord
 {
 
-    public const UPLOAD_DIR = '@web/images/upload';
+    public const UPLOAD_DIR = '@webroot/images/upload';
     public const IMAGE_DIR = '/images/upload';
 
     /** @var UploadedFile загруженный файл */
@@ -38,6 +39,9 @@ class Image extends \app\components\ActiveRecord
 
     /** @var string файл в base64 */
     public $fileData;
+
+    /** @var string расширение файла, если он в base64 */
+    public $extension;
 
     /**
      * {@inheritdoc}
@@ -61,7 +65,8 @@ class Image extends \app\components\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['is_deleted'], 'boolean'],
             [['is_deleted'], 'default', 'value' => false],
-            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png,jpg,webp'],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg,webp'],
+            [['fileData'], 'string'],
         ];
     }
 
@@ -106,15 +111,15 @@ class Image extends \app\components\ActiveRecord
 
     public function upload(): array
     {
-        $this->server = $_SERVER['SCRIPT_NAME'];
+        $this->server = KaizenHelper::getServerName();
         $this->directory = static::IMAGE_DIR;
-        $this->name = KaizenHelper::guidv4() . '.' . $this->file->extension;
+        $this->name = KaizenHelper::guidv4() . '.' . ($this->file->extension ?? $this->extension);
         if ($this->file) {
             $this->original_name = $this->file->baseName . '.' . $this->file->extension;
-            $this->file->saveAs(static::UPLOAD_DIR . '/' . $this->name);
+            $this->file->saveAs($this->getPath());
         } elseif ($this->fileData) {
             $this->original_name = $this->name;
-            file_put_contents(static::UPLOAD_DIR . '/' . $this->name, base64_decode($this->fileData));
+            file_put_contents($this->getPath(), base64_decode($this->fileData));
         }
         if ($this->save()) {
             return [
@@ -125,12 +130,22 @@ class Image extends \app\components\ActiveRecord
             ];
         }
 
-        $filePath = static::UPLOAD_DIR . '/' . $this->name;
+        $filePath = $this->getPath();
         if (is_file($filePath)) unlink($filePath);
         return [
             'result' => false,
             'data' => $this->errors,
         ];
+    }
+
+    public function getPath(): string
+    {
+        return Yii::getAlias(static::UPLOAD_DIR) . '/' . $this->name;
+    }
+
+    public function getUrl(): string
+    {
+        return static::IMAGE_DIR . '/' . $this->name;
     }
 
     public function scenarios(): array

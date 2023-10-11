@@ -15,11 +15,14 @@ class CreateAction extends Action
     public $modelName;
     public $attributes = [];
     public $formName;
+    public $with = [];
 
     public function run()
     {
+        $modelName = $this->modelName;
+
         /** @var ActiveRecord $model */
-        $model = new $this->modelName();
+        $model = new $modelName();
         $model->load($this->attributes, $this->formName);
         $model->save();
 
@@ -29,9 +32,14 @@ class CreateAction extends Action
                 'data' => $model->errors,
             ];
         } else {
+            $query = $modelName::find()
+                ->where([$modelName::primaryKey()[0] => $model->primaryKey]);
+            if ($this->with) {
+                $query->with($this->with);
+            }
             $result = [
                 'result' => true,
-                'data' => $model->toArray(),
+                'data' => $query->asArray()->one(),
             ];
         }
 

@@ -14,4 +14,13 @@ class KaizenHelper
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
+    public static function getServerName(): string
+    {
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'
+            ? 'https'
+            : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        return $protocol . '://' . $host;
+    }
+
 }

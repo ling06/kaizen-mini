@@ -2,6 +2,7 @@
 
 namespace app\modules\news\forms;
 
+use app\components\behaviors\ImageBehavior;
 use app\modules\news\models\News;
 use app\modules\news\models\NewsCategories;
 use app\modules\news\models\NewsCategory;
@@ -14,8 +15,15 @@ class NewsForm extends News
     public function rules(): array
     {
         $rules = parent::rules();
-        $rules[] = [['id'], 'safe'];
+        $rules[] = [['id', 'image'], 'safe'];
         return $rules;
+    }
+
+    public function attributeLabels(): array
+    {
+        return array_merge(parent::attributeLabels(), [
+            'image' => 'Изображение',
+        ]);
     }
 
     public function formName(): string
@@ -53,6 +61,15 @@ class NewsForm extends News
             }
         }
         parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function behaviors(): array
+    {
+        return array_merge(parent::behaviors(), [
+            'image' => [
+                'class' => ImageBehavior::class,
+            ],
+        ]);
     }
 
 }
