@@ -121,6 +121,9 @@ class CourseController extends ApiController
                 'modelName' => Course::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
+                'with' => [
+                    'chapters',
+                ],
             ],
             'create' => [
                 'class' => CreateAction::class,
