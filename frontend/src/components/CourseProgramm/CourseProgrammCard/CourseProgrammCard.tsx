@@ -4,15 +4,22 @@ import * as C from '@styles/components';
 import defaultCardImg from '@assets/images/defaultCardImg.png';
 import { ADMIN_BTN_TYPES } from '@/constants';
 import { IChapter } from '@/types/chapter.types';
+import { useNavigate } from 'react-router-dom';
 
 interface ICourseProgrammCard {
   data: IChapter;
 }
 
 export function CourseProgrammCard({ data }: ICourseProgrammCard) {
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    navigation(`/courses/${data.course_id}/${data.id}/`)
+  }
+
   return (
     <S.Card>
-      <S.imgWrapper>
+      <S.imgWrapper onClick={handleClick}>
         <S.Img src={defaultCardImg} />
       </S.imgWrapper>
       <S.Title>{data.title}</S.Title>

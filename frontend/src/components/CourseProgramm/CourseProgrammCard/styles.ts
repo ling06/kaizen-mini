@@ -18,6 +18,12 @@ export const imgWrapper = styled.div`
   overflow: hidden;
   border-radius: ${props => props.theme.utils.br};
   background-color: ${props => props.theme.colors.greyEO};
+  cursor: pointer;
+  transition: transform .3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const Img = styled.img`

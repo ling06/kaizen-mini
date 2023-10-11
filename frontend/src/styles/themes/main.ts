@@ -31,6 +31,7 @@ const baseTheme: IBaseTheme = {
       modalControls: '200',
       darkOverlay: '500',
       overDarkOverlay: '501',
+      loading: '1000',
     }
   },
 

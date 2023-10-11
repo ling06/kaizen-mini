@@ -3,5 +3,5 @@ import styled from 'styled-components';
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
-  padding: 60px 0 90px 0;
+  padding: 60px 0 150px 0;
 `;

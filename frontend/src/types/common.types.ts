@@ -1,3 +1,4 @@
+
 export interface IDefaultRes {
   result: boolean;
 }
@@ -8,5 +9,10 @@ export interface IDefaultResWithData<T> extends IDefaultRes{
 
 
 export interface IDefaultRes {
+  id: string | number;
+}
+
+
+export interface IDefaultReqWithId {
   id: string | number;
 }

@@ -10,3 +10,12 @@ export interface ITheme {
   is_deleted: number;
   lessons?: Array<ILesson>;
 }
+
+export interface ICreateThemeData {
+  title: string;
+  chapter_id: number;
+}
+
+export interface IUpdateThemeData extends ICreateThemeData {
+  id: number;
+}
