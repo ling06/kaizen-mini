@@ -75,4 +75,29 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionGetYamaguchiStats()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        /**
+         * @todo
+         * Сделать здесь запросы в Борбозу для получения статов пользователя (на макете сверху от новостей).
+         * В rules в web.php прописать 'api/stats' => 'site/get-yamaguchi-stats'.
+         * Описать все в api.txt.
+         * примерный ответ:
+         */
+        return [
+            'planPercentage' => 100,
+            'salary' => 999999,
+            'app' => 233,
+            'zebr' => [
+                'count' => 2,
+                'total' => 33,
+            ],
+            'stars' => [
+                'count' => 4,
+                'total' => 6,
+            ],
+        ];
+    }
+
 }
