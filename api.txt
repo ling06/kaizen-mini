@@ -14,6 +14,7 @@ News: - новость
         id: id автора
         name: имя автора
     ]
+    <image>: Image - изображение новости
 ]
 
 NewsCategory: - категория новости
@@ -35,6 +36,7 @@ Course: - курс
     date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
     is_deleted: int - удален ли курс
     <chapters>: Chapter - список глав
+    <image>: Image - изображение курса
 ]
 
 Chapter: - глава
@@ -46,6 +48,7 @@ Chapter: - глава
     date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
     is_deleted: int - удалена ли глава
     <themes>: Theme - список тем
+    <image>: Image - изображение главы
 ]
 
 Theme: - тема
@@ -100,6 +103,27 @@ Answer: - вариант ответа на тест
     wrongText: string - комментарий при неправильном ответе
 ]
 
+UploadedImage: - загружаемое изображение
+[
+    data: string - изображение в base64
+    extension: string - разрешение изображения
+]
+
+Image: - изображение
+[
+    id: int - id
+    server: string - сервер где хранится изображение
+    directory: string - директория изображения
+    name: string - имя файла изображения
+    original_name: string - оригинальное название изображения
+    user_id: int - Id пользователя, загрузившего изображение
+    date: string - дата загрузки
+    model_name: string - модель, для которой предназначается изображение
+    model_pk: string - Id модели, для которой предназначается изображение
+    type: string - тип изображения
+    is_deleted: int - удалено ли изображение
+]
+
 
 
 
@@ -136,6 +160,7 @@ Request: [
     title: string - заголовок новости
     text: string - текст новости
     <NewsCategory>: [[<title|id>: <string|int>]] - категории новостей. Для каждой категории надо указать либо title новой категории, либо id уже существующей.
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: News - данные о созданной новости
@@ -151,6 +176,7 @@ Request: [
     <status>: int - статус новости
     <date>: string - дата публикации новости
     <NewsCategory>: [[<title|id>: <string|int>]] - категории новостей. Для каждой категории надо указать либо title новой категории, либо id уже существующей.
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: News - данные о созданной новости
@@ -263,6 +289,7 @@ Request: [
     title: string - название курса
     description: string - текст курса
     is_open: int - доступны ли все главы курса сразу
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: Course - данные о созданном курсе
@@ -277,6 +304,7 @@ Request: [
     <description>: string - текст курса
     <is_open>: int - доступны ли все главы курса сразу
     <status>: int - статус курса
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: Course - данные об отредактированом курсе
@@ -317,6 +345,7 @@ Response: [
 Request: [
     title: string - название главы
     course_id: int - id курса
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: Chapter - данные о созданной главе
@@ -328,6 +357,7 @@ Response: [
 Request: [
     id: int - id главы
     <title>: string - название главы
+    <image>: UploadedImage - данные об изображении
 ]
 Response: [
     data: Chapter - данные об отредактированой главе
