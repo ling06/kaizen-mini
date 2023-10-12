@@ -48,6 +48,11 @@ class NewsCategory extends \app\components\ActiveRecord
         ];
     }
 
+    public function fields(): array
+    {
+        return ['id', 'title'];
+    }
+
     /**
      * {@inheritdoc}
      */

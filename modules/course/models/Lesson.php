@@ -25,6 +25,7 @@ use yii\db\ActiveQuery;
  *
  * @property Theme $theme
  * @property User $user
+ * @property-read bool $isChecked
  * @property Test $test
  */
 class Lesson extends \app\components\ActiveRecord
@@ -34,6 +35,14 @@ class Lesson extends \app\components\ActiveRecord
 
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
+
+    public static function getExtraFields(): array
+    {
+        return [
+            'test' => 'test',
+            'isChecked' => 'isChecked',
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -106,6 +115,15 @@ class Lesson extends \app\components\ActiveRecord
     public function getTest(): ActiveQuery
     {
         return $this->hasOne(Test::class, ['lesson_id' => 'id']);
+    }
+
+    public function getIsChecked(): bool
+    {
+        return UserCheck::find()->where([
+            'model_name' => static::class,
+            'model_pk' => $this->id,
+            'user_id' => \Yii::$app->user->id,
+        ])->exists();
     }
 
     /**

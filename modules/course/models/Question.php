@@ -19,16 +19,24 @@ use yii\db\ActiveQuery;
  * @property int|null $user_id Id автора
  * @property string|null $date Дата создания
  *
- * @property Test $test
- * @property User $user
- * @property UserTestAnswer[] $userTestAnswers
+ * @property-read Test $test
+ * @property-read User $user
+ * @property-read UserTestAnswer[] $userTestAnswers
+ * @property-read UserTestAnswer $userTestAnswer
  * @property-read Answer[] $answersList
- * @property User[] $users
+ * @property-read User[] $users
  */
 class Question extends \app\components\ActiveRecord
 {
 
     private $_answers;
+
+    public static function getExtraFields(): array
+    {
+        return [
+            'userTestAnswer' => 'userTestAnswer',
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -109,6 +117,12 @@ class Question extends \app\components\ActiveRecord
     public function getUsers(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_test_answer', ['test_question_id' => 'id']);
+    }
+
+    public function getUserTestAnswer(): ActiveQuery
+    {
+        return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
+            ->andWhere(['user_id' => \Yii::$app->user->id]);
     }
 
     public function behaviors(): array

@@ -71,15 +71,6 @@ class NewsController extends ApiController
                 'class' => GetOneAction::class,
                 'modelName' => NewsForm::class,
                 'modelPk' => Yii::$app->request->get('id'),
-                'with' => [
-                    'categories',
-                    'user' => static function (ActiveQuery $query) {
-                        $query->select('id, name');
-                    },
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
                 'scopes' => $scopes,
             ],
             'get-all' => [
@@ -87,43 +78,16 @@ class NewsController extends ApiController
                 'modelName' => NewsForm::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
-                'with' => [
-                    'categories',
-                    'user' => static function (ActiveQuery $query) {
-                        $query->select('id, name');
-                    },
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'create' => [
                 'class' => CreateAction::class,
                 'modelName' => NewsForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
-                'with' => [
-                    'categories',
-                    'user' => static function (ActiveQuery $query) {
-                        $query->select('id, name');
-                    },
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => NewsForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
-                'with' => [
-                    'categories',
-                    'user' => static function (ActiveQuery $query) {
-                        $query->select('id, name');
-                    },
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'delete' => [
                 'class' => DeleteAction::class,

@@ -27,6 +27,13 @@ use yii\db\ActiveQuery;
 class Chapter extends \app\components\ActiveRecord
 {
 
+    public static function getExtraFields(): array
+    {
+        return [
+            'themes' => 'themes',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

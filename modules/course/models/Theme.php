@@ -8,6 +8,7 @@ use app\modules\course\models\queries\ThemeQuery;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "theme".
@@ -21,10 +22,18 @@ use yii\db\ActiveQuery;
  *
  * @property Lesson[] $lessons
  * @property Chapter $chapter
+ * @property-read bool $isCompleted
  * @property User $user
  */
 class Theme extends \app\components\ActiveRecord
 {
+
+    public static function getExtraFields(): array
+    {
+        return [
+            'lessons' => 'lessons',
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -94,6 +103,30 @@ class Theme extends \app\components\ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getIsCompleted(): bool
+    {
+        $lessons = Lesson::find()
+            ->alias('lesson')
+            ->leftJoin(['theme' => Theme::tableName()], 'theme.id = lesson.theme_id')
+            ->where([
+                'lesson.is_deleted' => false,
+                'theme.is_deleted' => $this->id,
+            ])
+            ->asArray()
+            ->all();
+        $lessonsCount = count($lessons);
+
+        $checkedLessonsCount = UserCheck::find()
+            ->where([
+                'user_id' => \Yii::$app->user->id,
+                'model_name' => Lesson::class,
+                'model_pk' => ArrayHelper::getColumn($lessons, 'id'),
+            ])
+            ->count();
+
+        return $checkedLessonsCount === $lessonsCount;
     }
 
     /**

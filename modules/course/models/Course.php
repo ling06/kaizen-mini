@@ -9,6 +9,7 @@ use app\modules\course\models\queries\CourseQuery;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "course".
@@ -23,6 +24,7 @@ use yii\db\ActiveQuery;
  * @property int|null $is_deleted Удален ли курс
  *
  * @property Chapter[] $chapters
+ * @property-read array $percentage
  * @property User $user
  */
 class Course extends \app\components\ActiveRecord
@@ -37,6 +39,21 @@ class Course extends \app\components\ActiveRecord
 
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
+
+    public static function getExtraFields(): array
+    {
+        return [
+            'percentage' => 'percentage',
+            'chapters' => 'chapters',
+            'user' => static function ($model) {
+                return $model->getUser()->select('id, name')->one();
+            },
+            'image' => static function ($model) {
+                return $model->getImage()->select('server, directory, name')->one();
+            },
+        ];
+    }
+
 
     /**
      * {@inheritdoc}
@@ -101,6 +118,45 @@ class Course extends \app\components\ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * Получить прогресс курса
+     * @return array
+     */
+    public function getPercentage(): array
+    {
+        $lessons = Lesson::find()
+            ->alias('lesson')
+            ->leftJoin(['theme' => Theme::tableName()], 'theme.id = lesson.theme_id')
+            ->leftJoin(['chapter' => Chapter::tableName()], 'chapter.id = theme.chapter_id')
+            ->leftJoin(['course' => Course::tableName()], 'course.id = chapter.course_id')
+            ->where([
+                'lesson.is_deleted' => false,
+                'theme.is_deleted' => false,
+                'chapter.is_deleted' => false,
+                'course.is_deleted' => false,
+                'course.id' => $this->id,
+            ])
+            ->asArray()
+            ->all();
+        $lessonsCount = count($lessons);
+
+        $checkedLessonsCount = UserCheck::find()
+            ->where([
+                'user_id' => \Yii::$app->user->id,
+                'model_name' => Lesson::class,
+                'model_pk' => ArrayHelper::getColumn($lessons, 'id'),
+            ])
+            ->count();
+
+        return [
+            'lessonsCount' => $lessonsCount,
+            'checkedLessonsCount' => $checkedLessonsCount,
+            'percentage' => $lessonsCount
+                ? floor($checkedLessonsCount / $lessonsCount * 100)
+                : 0,
+        ];
     }
 
     /**

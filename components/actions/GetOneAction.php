@@ -35,7 +35,7 @@ class GetOneAction extends Action
         if ($this->with) {
             $query->with($this->with);
         }
-        $model = $query->asArray()->one();
+        $model = $query->one();
 
         if (!$model) {
             \Yii::$app->response->statusCode = 404;

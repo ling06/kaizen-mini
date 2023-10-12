@@ -37,6 +37,12 @@ Course: - курс
     is_deleted: int - удален ли курс
     <chapters>: Chapter - список глав
     <image>: Image - изображение курса
+    <user>: User - создатель курса
+    <percentage>: [ - прогресс обучения
+        lessonsCount: int - количество уроков в курсе
+        checkedLessonsCount: int - количество пройденных уроков в курсе
+        percentage: int - процент пройденных уроков в курсе
+    ]
 ]
 
 Chapter: - глава
@@ -73,6 +79,8 @@ Lesson: - урок
     user_id : int - id автора
     date: string - дата создания в формате yyyy-MM-DD HH:mm:ss
     is_deleted: int - удален ли урок
+    <test>: Test - прикрепленный тест
+    <isChecked>: bool - пройден ли урок
 ]
 
 Test: - тест в уроке
@@ -94,6 +102,16 @@ Question: - вопрос теста
     right_answer: string - правильный ответ
     user_id: int - id создателя теста
     date: string - дата добавления
+    <userTestAnswer>: UserTestAnswer - ответ пользователя на вопрос
+]
+
+UserTestAnswer:
+[
+    test_question_id: int - id вопроса
+    user_id: int - id отвечающего
+    answer: string - ответ
+    is_right: int - правильный ли ответ (0 - нет, 1 - да, 2 - пока не известно)
+    date: string - дата ответа
 ]
 
 Answer: - вариант ответа на тест

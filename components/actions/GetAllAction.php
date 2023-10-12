@@ -40,7 +40,6 @@ class GetAllAction extends Action
         $models = $query
             ->limit($this->pageSize)
             ->offset($this->pageSize * ($this->page - 1))
-            ->asArray()
             ->all();
 
         $result = [

@@ -36,6 +36,19 @@ class News extends \app\components\ActiveRecord
     public const STATUS_DRAFT = 0;
     public const STATUS_PUBLISHED = 1;
 
+    public static function getExtraFields(): array
+    {
+        return [
+            'categories' => 'categories',
+            'user' => static function ($model) {
+                return $model->getUser()->select('id, name')->one();
+            },
+            'image' => static function ($model) {
+                return $model->getImage()->select('server, directory, name')->one();
+            },
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

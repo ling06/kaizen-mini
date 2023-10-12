@@ -95,6 +95,14 @@ class CourseController extends ApiController
         ];
     }
 
+    public function beforeAction($action): bool
+    {
+        if ($action->id === 'get-all') {
+            Chapter::useExtraFields([]);
+        }
+        return parent::beforeAction($action);
+    }
+
     public function actions(): array
     {
         $scopes = [];
@@ -111,48 +119,24 @@ class CourseController extends ApiController
                 'modelName' => Course::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
-                'with' => [
-                    'chapters',
-                    'chapters.themes',
-                    'chapters.themes.lessons',
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'get-all' => [
                 'class' => GetAllAction::class,
                 'modelName' => Course::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
-                'with' => [
-                    'chapters',
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'create' => [
                 'class' => CreateAction::class,
                 'modelName' => Course::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
-                'with' => [
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'modelName' => Course::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
-                'with' => [
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'delete' => [
                 'class' => DeleteAction::class,
@@ -170,33 +154,18 @@ class CourseController extends ApiController
                 'modelName' => Chapter::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
-                'with' => [
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'create-chapter' => [
                 'class' => CreateAction::class,
                 'modelName' => Chapter::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
-                'with' => [
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'update-chapter' => [
                 'class' => UpdateAction::class,
                 'modelName' => Chapter::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
-                'with' => [
-                    'image' => static function (ActiveQuery $query) {
-                        $query->select('server, directory, name, model_name, model_pk');
-                    },
-                ],
             ],
             'delete-chapter' => [
                 'class' => DeleteAction::class,
