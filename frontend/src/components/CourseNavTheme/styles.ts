@@ -10,6 +10,10 @@ export const Theme = styled(C.FlexContainer)`
   margin-bottom: 30px;
 `;
 
+export const AccSum = styled(C.FlexContainer)`
+  align-items: center;
+`;
+
 export const OpenAccordion = styled.button`
   display: flex;
   align-items: center;

@@ -2,14 +2,47 @@ import { ILesson } from '@/types/lesson.types';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
+import { useActions } from '@/hooks/useActions';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useEffect, useState } from 'react';
 
 interface ICourseNavLessonProps {
   data: ILesson;
 }
 
+
 export function CourseNavLesson({ data }: ICourseNavLessonProps) {
+  const [isInit, setInit] = useState<boolean>(true);
+  const courseId = useTypedSelector(state => state.course.id);
+  const chapterId = useTypedSelector(state => state.course.activeChapterId);
+  const { setActiveLesson } = useActions();
+  const navigate = useNavigate();
+  const {lessonId} = useParams();
+  const handleClick = () => {
+    setActiveLesson(data);
+    const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
+      courseId: String(courseId),
+      chapterId: String(chapterId),
+      themeId: String(data.theme_id),
+      lessonId: String(data.id),
+    });
+    navigate(lessonPath);
+  }
+
+  useEffect(() => {
+    if(isInit && lessonId) {
+      console.log(data.id, lessonId);
+      
+      if(data.id === Number(lessonId)) {
+        setActiveLesson(data);
+      }
+      setInit(false);
+    }
+  }, [data, isInit, lessonId, setActiveLesson])  
+
   return (
-    <S.Container>
+    <S.Container onClick={handleClick}>
       <S.LessonName $active={false}>{data.title}</S.LessonName>
       <C.DoneIcon />
       <AdminBtn

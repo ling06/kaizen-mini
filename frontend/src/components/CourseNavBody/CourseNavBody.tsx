@@ -8,7 +8,8 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 export function CourseNavBody() {
   const { setModalType, setModalOpen } = useActions();
   const { activeChapterId, chapters } = useTypedSelector((state) => state.course);
-  const chapterData = chapters?.find((chapter) => chapter.id === activeChapterId);
+  const chapterData = chapters?.find((chapter) => chapter.id == activeChapterId);
+  
 
   const openCreateThemeModal = () => {
     setModalType(MODAL_TYPES.createTheme);
