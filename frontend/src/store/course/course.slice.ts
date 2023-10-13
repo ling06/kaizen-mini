@@ -1,8 +1,12 @@
 import { ICourse } from '@/types/course.types';
+import { ILesson } from '@/types/lesson.types';
+import { ITheme } from '@/types/theme.types';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ICourseInitialState extends Partial<ICourse> {
   activeChapterId: null | number;
+  activeTheme: ITheme | null;
+  activeLesson: ILesson | null;
 }
 
 const courseInitialState: ICourseInitialState = {
@@ -16,6 +20,8 @@ const courseInitialState: ICourseInitialState = {
   is_deleted: undefined,
   chapters: undefined,
   activeChapterId: null,
+  activeTheme: null,
+  activeLesson: null,
 };
 
 export const courseSlice = createSlice({
@@ -28,7 +34,13 @@ export const courseSlice = createSlice({
     },
     addChapter: (state, { payload }) => {
       state.chapters?.push(payload);
-    }
+    },
+    setActiveTheme: (state, { payload }) => {
+      state.activeTheme = { ...payload };
+    },
+    setActiveLesson: (state, { payload }) => {
+      state.activeLesson = { ...payload };
+    },
   },
 });
 

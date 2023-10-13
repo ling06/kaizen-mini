@@ -1,60 +1,78 @@
-import { useRef, useState } from 'react';
 import { AdminBtn } from '../AdminBtn';
 import { CourseNavLesson } from '../CourseNavLesson';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ITheme } from '@/types/theme.types';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { useActions } from '@/hooks/useActions';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 interface ICourseNavTheme {
   data: ITheme;
 }
 
 export function CourseNavTheme({ data }: ICourseNavTheme) {
-  const [isAccordionOpen, setAccordionOpen] = useState<boolean>(false);
-  const [accordionWrapperHeight, setAccordionWrapperHeight] = useState<string>('0px');
-  const lessonsList = useRef<HTMLDivElement>(null);
+  const courseId = useTypedSelector((state) => state.course.id);
+  const { setActiveTheme } = useActions();
   const navigate = useNavigate();
-  const currentLocation = useLocation();
+  const location = useLocation();
+  const { themeId } = useParams();
 
-  const toggleAccordion = () => {
-    setAccordionOpen(!isAccordionOpen);
-    if (lessonsList.current) {
-      const lessonsListHeight = lessonsList.current.getBoundingClientRect();
-      setAccordionWrapperHeight(`${lessonsListHeight.height}px`);
-    }
+  const handleChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setActiveTheme(data);
+    const themePath = generatePath(`/courses/:courseId/:chapterId/${isExpanded ? ':themeId' : ''}`, {
+      courseId: String(courseId),
+      chapterId: String(data.chapter_id),
+      themeId: panel ? String(panel) : '',
+    });
+    navigate(themePath);
   };
 
   const addLesson = () => {
-    navigate(currentLocation.pathname + `${data.id}/create-lesson`);
+    navigate(location.pathname + `${data.id}/create-lesson`);
   };
 
   return (
     <S.Container>
       <S.Theme>
-        <DndBtn
-          onClick={() => {}}
-          styles={{ marginRight: '20px' }}
-        />
-        <S.OpenAccordion onClick={toggleAccordion}>
-          <C.AccordionIcon $active={isAccordionOpen} />
-          <C.CourseNavText $active={true}>{data.title}</C.CourseNavText>
-        </S.OpenAccordion>
-        <C.DoneIcon />
-        <AdminBtn
-          type={'edit'}
-          onClick={() => {}}
-          popupHandlers={{ onAdd: addLesson }}
-        />
+        <Accordion
+          sx={{ width: '100%', boxShadow: 'unset' }}
+          expanded={Number(themeId) === data.id}
+          onChange={handleChange(data.id)}>
+          <AccordionSummary
+            expandIcon={<div style={{ display: 'none' }}></div>}
+            aria-controls={`${data.id}_content`}
+            id={`${data.id}_header`}>
+            <S.AccSum>
+              <DndBtn
+                onClick={() => {}}
+                styles={{ marginRight: '20px' }}
+              />
+              <C.AccordionIcon $active={Number(themeId) === data.id} />
+              <C.CourseNavText $active={true}>{data.title}</C.CourseNavText>
+              <C.DoneIcon />
+              <AdminBtn
+                type={'edit'}
+                onClick={() => {}}
+                popupHandlers={{ onAdd: addLesson }}
+              />
+            </S.AccSum>
+          </AccordionSummary>
+          <AccordionDetails sx={{ paddingLeft: '120px' }}>
+            {data.lessons &&
+              data.lessons.map((lesson) => (
+                <CourseNavLesson
+                  key={lesson.id}
+                  data={lesson}
+                />
+              ))}
+          </AccordionDetails>
+        </Accordion>
       </S.Theme>
-      <S.AccordionWrapper
-        $active={isAccordionOpen}
-        $height={accordionWrapperHeight}>
-        <S.LessonsList ref={lessonsList}>
-          {data.lessons && data.lessons.map((lesson) => <CourseNavLesson data={lesson} key={lesson.id}/>)}
-        </S.LessonsList>
-      </S.AccordionWrapper>
     </S.Container>
   );
 }

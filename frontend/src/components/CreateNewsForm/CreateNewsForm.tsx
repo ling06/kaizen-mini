@@ -45,7 +45,6 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
   const handleConfirm = async () => {
     const editorData = await editor?.save().then((data) => data);
-    console.log(editorData);
 
     if (!isValidName) {
       setChangedName(true);

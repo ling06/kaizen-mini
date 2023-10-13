@@ -7,10 +7,11 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
+import { CourseContent } from '@/components/CourseContent';
 
 export function Course() {
   const { setCourseData, setActiveChapterId } = useActions();
-  const { courseId, chapterId } = useParams();
+  const { courseId, chapterId, lessonId } = useParams();
   const { data, isError, isLoading } = useGetCourseByIdQuery(Number(courseId));
   
   useEffect(() => {
@@ -18,7 +19,7 @@ export function Course() {
       setCourseData(data.data);
       setActiveChapterId(chapterId);
     }
-  }, [chapterId, data, setActiveChapterId, setCourseData]);
+  }, [chapterId, data, lessonId, setActiveChapterId, setCourseData]);
 
   return (
     <>
@@ -29,7 +30,9 @@ export function Course() {
           <CourseNavHead />
           <CourseNavBody />
         </S.NavContainer>
-        <S.ContentContainer></S.ContentContainer>
+        <S.ContentContainer>
+          <CourseContent />
+        </S.ContentContainer>
       </S.Container>
     </>
   );
