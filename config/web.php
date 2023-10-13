@@ -69,6 +69,10 @@ $config = [
                 'api/course/<action:[-\w]+>' => 'course/course/<action>',
                 'api/test/<action:\w+>' => 'course/test/<action>',
                 'api/whoami' => 'user/whoami',
+
+                '<controller:\w+>' => 'site/index',
+                '<controller:\w+>/<action:\w+>' => 'site/index',
+                '<controller:\w+>/<id:\d+>' => 'site/index',
             ],
         ],
         'authManager' => [
