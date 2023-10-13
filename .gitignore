@@ -36,3 +36,4 @@ config/db.php
 web/index.php
 web/images/upload/*
 commands/TestController.php
+node_modules
