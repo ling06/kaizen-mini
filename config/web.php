@@ -68,7 +68,7 @@ $config = [
                 'api/lesson/<id:\d+>' => 'course/course/get-lesson',
                 'api/course/<action:[-\w]+>' => 'course/course/<action>',
                 'api/test/<action:\w+>' => 'course/test/<action>',
-                'api/whoami' => 'site/whoami',
+                'api/whoami' => 'user/whoami',
             ],
         ],
         'authManager' => [

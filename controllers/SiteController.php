@@ -4,11 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use app\components\ApiController;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 
-class SiteController extends ApiController
+class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -95,16 +95,6 @@ class SiteController extends ApiController
                 'count' => 4,
                 'total' => 6,
             ],
-        ];
-    }
-
-    public function actionWhoami()
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        if (Yii::$app->user->isGuest) return [];
-        return [
-            'user' => Yii::$app->user->identity->toArray(),
-            'permissions' => array_keys(Yii::$app->authManager->getPermissionsByUser(Yii::$app->user->id)),
         ];
     }
 
