@@ -30,6 +30,7 @@ export function AdminBtn({ type, onClick, popupHandlers }: IAdminBtnProps) {
   };
 
   const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     onClick(event);
     if (type === ADMIN_BTN_TYPES.edit) {
       if (isPopup) {

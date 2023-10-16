@@ -3,7 +3,7 @@ import { CourseNavLesson } from '../CourseNavLesson';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
-import { generatePath, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { ITheme } from '@/types/theme.types';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -19,7 +19,6 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
   const courseId = useTypedSelector((state) => state.course.id);
   const { setActiveTheme } = useActions();
   const navigate = useNavigate();
-  const location = useLocation();
   const { themeId } = useParams();
 
   const handleChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -33,7 +32,12 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
   };
 
   const addLesson = () => {
-    navigate(location.pathname + `${data.id}/create-lesson`);
+    const createLessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/create-lesson/`, {
+      courseId: String(courseId),
+      chapterId: String(data.chapter_id),
+      themeId: String(data.id),
+    })
+    navigate(createLessonPath);
   };
 
   return (
