@@ -10411,12 +10411,65 @@ function Nav() {
     }
   )) }) });
 }
+const BoxHeaderElements$1 = ut$1.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0 11px;
+`;
+const CounterHeader$1 = ut$1.p`
+  display: flex;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.yRed};
+
+  font-family: "Montserrat";
+  font-size: 14.537px;
+  font-weight: 700;
+  line-height: 120%;
+  color: #fff;
+`;
+function CounterHeader() {
+  const [count, setCount] = reactExports.useState(0);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(CounterHeader$1, { children: count });
+}
+const Profail$1 = ut$1.img`
+  width: 42px;
+  height: 43px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background-color: #e0e0e0;
+`;
+function Profail() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Profail$1, {});
+}
+const Search$1 = ut$1.img`
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+`;
+const serchHeader = "/assets/search-header.svg";
+console.log(111);
+function Search() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Search$1, { src: serchHeader });
+}
+function BoxHeaderElements() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(BoxHeaderElements$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Search, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CounterHeader, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Profail, {})
+  ] });
+}
 function Header() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Поиск" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Профиль" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
   ] });
 }
 const Container$n = ut$1(FlexContainer)`

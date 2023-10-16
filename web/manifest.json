@@ -80,6 +80,7 @@
       "assets/mainLogo.svg",
       "assets/done.svg",
       "assets/accordionIcon.svg",
+      "assets/search-header.svg",
       "assets/editIcon.svg",
       "assets/addIcon.svg",
       "assets/hideIcon.svg",
@@ -281,6 +282,10 @@
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
     "src": "src/assets/images/moreIcon.svg"
+  },
+  "src/assets/images/search-header.svg": {
+    "file": "assets/search-header.svg",
+    "src": "src/assets/images/search-header.svg"
   },
   "src/assets/images/star.svg": {
     "file": "assets/star.svg",
