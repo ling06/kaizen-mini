@@ -12,11 +12,12 @@ interface IAdminBtnProps {
     onEdit?: (event?: React.MouseEvent) => void;
     onDelete?: (event?: React.MouseEvent) => void;
   };
+  styles?: {[key: string]: string};
 }
 
 const body = document.body;
 
-export function AdminBtn({ type, onClick, popupHandlers }: IAdminBtnProps) {
+export function AdminBtn({ type, onClick, popupHandlers, styles = {} }: IAdminBtnProps) {
   const [isPopup, setPopup] = useState<boolean>();
   const ref = useRef<HTMLButtonElement>(null);
   const popupInnerRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,7 @@ export function AdminBtn({ type, onClick, popupHandlers }: IAdminBtnProps) {
 
   return (
     <S.AdminBtn
+      style={styles}
       ref={ref}
       $type={type}
       onClick={handleClick}>

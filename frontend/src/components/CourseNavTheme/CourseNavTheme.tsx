@@ -10,6 +10,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useMemo } from 'react';
 
 interface ICourseNavTheme {
   data: ITheme;
@@ -21,13 +22,25 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
   const navigate = useNavigate();
   const { themeId } = useParams();
 
+  const isThemeChecked = useMemo(() => {
+    if (data.lessons) {
+      const uncheckedLessons = data.lessons.filter((lesson) => lesson.isChecked !== true);
+      console.log(uncheckedLessons);
+
+      return uncheckedLessons.length === 0;
+    }
+  }, [data.lessons]);
+
   const handleChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setActiveTheme(data);
-    const themePath = generatePath(`/courses/:courseId/:chapterId/${isExpanded ? ':themeId' : ''}`, {
-      courseId: String(courseId),
-      chapterId: String(data.chapter_id),
-      themeId: panel ? String(panel) : '',
-    });
+    const themePath = generatePath(
+      `/courses/:courseId/:chapterId/${isExpanded ? ':themeId' : ''}`,
+      {
+        courseId: String(courseId),
+        chapterId: String(data.chapter_id),
+        themeId: panel ? String(panel) : '',
+      }
+    );
     navigate(themePath);
   };
 
@@ -36,7 +49,7 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
       courseId: String(courseId),
       chapterId: String(data.chapter_id),
       themeId: String(data.id),
-    })
+    });
     navigate(createLessonPath);
   };
 
@@ -57,9 +70,10 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
                 styles={{ marginRight: '20px' }}
               />
               <C.AccordionIcon $active={Number(themeId) === data.id} />
-              <C.CourseNavText $active={true}>{data.title}</C.CourseNavText>
-              <C.DoneIcon />
+              <C.CourseNavText $active={!isThemeChecked}>{data.title}</C.CourseNavText>
+              {isThemeChecked && <C.DoneIcon />}
               <AdminBtn
+                styles={{ marginLeft: 'auto' }}
                 type={'edit'}
                 onClick={() => {}}
                 popupHandlers={{ onAdd: addLesson }}

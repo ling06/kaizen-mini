@@ -8,6 +8,8 @@ export interface ILesson {
   user_id: number;
   date: string;
   is_deleted: number;
+  test?: string;
+  isChecked: boolean;
 }
 
 export interface ICreateLessonData {
@@ -19,4 +21,5 @@ export interface ICreateLessonData {
 export interface IUpdateLessonData extends ICreateLessonData {
   id: number;
   status?: number;
+  isChecked?: boolean;
 }

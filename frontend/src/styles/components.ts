@@ -161,7 +161,7 @@ export const Icon = styled.div`
 
 export const DoneIcon = styled(Icon)`
   margin-right: 26px;
-  margin-left: auto;
+  /* margin-left: auto; */
   background-image: url(${doneIcon});
 `;
 
@@ -177,4 +177,9 @@ export const AccordionIcon = styled(Icon)<IAccordionIcon>`
   transition: ${(props) => props.theme.utils.transition};
   transform: ${(props) => (props.$active ? 'rotate(-180deg)' : 'none')};
   background-image: url(${accrodionIcon});
+`;
+
+export const EditorParagraph = styled(Text)`
+  margin-bottom: 30px;
+  font-weight: 400;
 `;

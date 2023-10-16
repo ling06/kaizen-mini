@@ -23,6 +23,7 @@ export default defineConfig({
         assetFileNames: `assets/[name].[ext]`,
       },
     },
+    minify: false,
     watch: {},
     outDir: '../web',
     // emptyOutDir: true,

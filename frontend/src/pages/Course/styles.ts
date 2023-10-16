@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as C from '@styles/components';
 
 export const Container = styled(C.FlexContainer)`
-  height: 100vh;
+  height: calc(100vh - 62.25px);
   background-color: ${props => props.theme.colors.realWhite};
 `;
 
@@ -15,6 +15,9 @@ export const NavContainer = styled(C.FlexContainer)`
 
 export const ContentContainer = styled(C.FlexContainer)`
   flex-direction: column;
+  position: relative;
   width: calc(100% - 33.25%);
+  max-height: 100vh;
+  overflow-y: scroll;
   padding: 20px 35px 80px;
 `;
