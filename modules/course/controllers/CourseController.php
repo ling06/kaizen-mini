@@ -34,9 +34,9 @@ class CourseController extends ApiController
                         'allow' => true,
                         'actions' => [
                             'get-one', 'get-all',
-                            'get-chapter',
-                            'get-theme',
-                            'get-lesson',
+                            'chapter',
+                            'theme',
+                            'lesson',
                             'send-answer',
                         ],
                         'roles' => ['@'],
