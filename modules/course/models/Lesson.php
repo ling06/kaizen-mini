@@ -59,7 +59,7 @@ class Lesson extends \app\components\ActiveRecord
     {
         return [
             [['theme_id', 'status', 'user_id'], 'integer'],
-            [['description'], 'string'],
+            [['description', 'description_autosave'], 'string'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 200],
             [['theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Theme::class, 'targetAttribute' => ['theme_id' => 'id']],
@@ -82,6 +82,7 @@ class Lesson extends \app\components\ActiveRecord
             'theme_id' => 'Id темы',
             'title' => 'Название',
             'description' => 'Описание',
+            'description_autosave' => 'Описание',
             'status' => 'Статус',
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
@@ -146,7 +147,7 @@ class Lesson extends \app\components\ActiveRecord
 
     public function beforeSave($insert): bool
     {
-        if ($this->scenario === Model::SCENARIO_DEFAULT) {
+        if ($this->scenario === Model::SCENARIO_DEFAULT && $this->description_autosave) {
             $this->description = $this->description_autosave;
         }
         return parent::beforeSave($insert);
