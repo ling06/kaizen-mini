@@ -33,6 +33,7 @@ export function CourseSelect({ data }: ICourseSelectProps) {
 
   return (
     <S.Container>
+      
       <CustomSelect onChange={handleChange} options={selectOptions} defaultValue={selectOptions[0]}/>
       <AdminBtn
         type={ADMIN_BTN_TYPES.add}

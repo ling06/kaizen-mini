@@ -1,7 +1,7 @@
 import * as S from './styles';
 import { MainLogo } from '../MainLogo';
 import { Nav } from './Nav';
-
+import { BoxHeaderElements } from '../BoxHeaderElement/BoxHeaderElement';
 export function Header() {
   // const $styles = `margin-right: auto`;
 
@@ -9,8 +9,7 @@ export function Header() {
     <S.Header>
       <MainLogo />
       <Nav />
-      <div>Поиск</div>
-      <div>Профиль</div>
+      <BoxHeaderElements />
     </S.Header>
   );
 }
