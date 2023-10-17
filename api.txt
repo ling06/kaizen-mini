@@ -100,6 +100,7 @@ Test: - тест в уроке
     is_active: int - активен ли тест
     user_id: int - id создателя теста
     date: string - дата добавления
+    <testQuestions>: Question[] - вопросы теста
 ]
 
 Question: - вопрос теста
