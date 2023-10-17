@@ -2,11 +2,11 @@ import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/com
 import { ICreateThemeData, ITheme, IUpdateThemeData } from '@/types/theme.types';
 import { api } from './api';
 
-type IThemeRes = IDefaultResWithData<ITheme>;
+type TThemeRes = IDefaultResWithData<ITheme>;
 
 export const themeApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getThemeById: builder.query<IThemeRes, number>({
+    getThemeById: builder.query<TThemeRes, number>({
       query: (id) => `theme/${id}`,
       providesTags: () => [
         {
@@ -14,7 +14,7 @@ export const themeApi = api.injectEndpoints({
         },
       ],
     }),
-    createTheme: builder.mutation<IThemeRes, ICreateThemeData>({
+    createTheme: builder.mutation<TThemeRes, ICreateThemeData>({
       query: (data) => ({
         url: 'course/create-theme',
         method: 'POST',
@@ -26,7 +26,7 @@ export const themeApi = api.injectEndpoints({
         },
       ],
     }),
-    updateTheme: builder.mutation<IThemeRes, IUpdateThemeData>({
+    updateTheme: builder.mutation<TThemeRes, IUpdateThemeData>({
       query: (data) => ({
         url: 'course/update-theme',
         method: 'POST',

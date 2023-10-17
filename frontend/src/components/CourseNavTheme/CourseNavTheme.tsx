@@ -23,12 +23,12 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
   const { themeId } = useParams();
 
   const isThemeChecked = useMemo(() => {
-    if (data.lessons) {
+    if (data.lessons && data.lessons.length > 0) {
       const uncheckedLessons = data.lessons.filter((lesson) => lesson.isChecked !== true);
-      console.log(uncheckedLessons);
-
       return uncheckedLessons.length === 0;
     }
+
+    return false;
   }, [data.lessons]);
 
   const handleChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -61,6 +61,7 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
           expanded={Number(themeId) === data.id}
           onChange={handleChange(data.id)}>
           <AccordionSummary
+            sx={{ padding: 0 }}
             expandIcon={<div style={{ display: 'none' }}></div>}
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>
@@ -80,7 +81,7 @@ export function CourseNavTheme({ data }: ICourseNavTheme) {
               />
             </S.AccSum>
           </AccordionSummary>
-          <AccordionDetails sx={{ paddingLeft: '120px' }}>
+          <AccordionDetails sx={{ paddingLeft: '102px', paddingRight: 0 }}>
             {data.lessons &&
               data.lessons.map((lesson) => (
                 <CourseNavLesson

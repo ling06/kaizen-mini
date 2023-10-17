@@ -13,8 +13,11 @@ import { CreateLesson } from './pages/CreateLesson';
 import { useEffect } from 'react';
 import { useActions } from './hooks/useActions';
 import { CreateNews } from './pages/CreateNews';
+import { useCheckUserQuery } from './store/api/user.api';
+import { Loading } from './components/Loading';
 
 function App() {
+  const { isLoading } = useCheckUserQuery();
   const { setAuthToken } = useActions();
   const { isModalOpen, modalType } = useSelector<RootState, IModalInitialState>(
     (state) => state.modal
@@ -31,6 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
+        {isLoading && <Loading />}
         <Routes>
           <Route
             path="/*"

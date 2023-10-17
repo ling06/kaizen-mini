@@ -60,12 +60,12 @@ export function CourseContent() {
             <S.EditorOutup>
               {editorData.map((block) => {
                 if (block.type === 'paragraph') {
-                  return <C.EditorParagraph>{block.data.text}</C.EditorParagraph>;
+                  return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
                 }
                 if (block.type === 'list') {
                   if (block.data.style === 'ordered') {
                     return (
-                      <S.UnorderedList>
+                      <S.UnorderedList key={block.id}>
                         {block.data.items?.map((item) => (
                           <S.ListItem>{item}</S.ListItem>
                         ))}

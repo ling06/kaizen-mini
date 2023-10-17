@@ -17,3 +17,8 @@ export const CREATE_LESSON_TYPES = {
   create: 'create',
   edit: 'edit',
 };
+
+export const USER_ROLES = {
+  admin: 'admin',
+  user: 'user',
+};

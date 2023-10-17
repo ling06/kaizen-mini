@@ -6,20 +6,28 @@ import { Loading } from '@/components/Loading';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CourseContent } from '@/components/CourseContent';
+import { ICourse } from '@/types/course.types';
 
 export function Course() {
   const { setCourseData, setActiveChapterId } = useActions();
   const { courseId, chapterId, lessonId } = useParams();
   const { data, isError, isLoading } = useGetCourseByIdQuery(Number(courseId));
+  const [course, setCourse] = useState<null | ICourse>(null);
+  const [activeChapterId, setActiveChapter] = useState<typeof chapterId>(undefined);
   
   useEffect(() => {
     if (data) {
-      setCourseData(data.data);
-      setActiveChapterId(chapterId);
+      setCourse(data.data);
+      setActiveChapter(chapterId);
     }
-  }, [chapterId, data, lessonId, setActiveChapterId, setCourseData]);
+ }, [chapterId, data, lessonId]);
+
+ useEffect(() => {
+    setCourseData(course);
+    setActiveChapterId(activeChapterId);
+ }, [course, activeChapterId, setCourseData, setActiveChapterId]);
 
   return (
     <>
@@ -37,3 +45,5 @@ export function Course() {
     </>
   );
 }
+
+

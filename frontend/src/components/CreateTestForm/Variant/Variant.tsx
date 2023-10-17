@@ -3,20 +3,34 @@ import { Title } from '../Title';
 import * as S from './styles';
 
 interface IVariantProps {
-  number: number | string;
+  data: {}
 }
 
-export function Variant({ number = '',  }: IVariantProps) {
+export function Variant({ data }: IVariantProps) {
   const [variantValue, setVariantValue] = useState<string>('');
+  const [isValid, setValid] = useState<boolean>(false);
+  const [isChanged, setChanged] = useState<boolean>(false);
 
   const handleVariantValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVariantValue(event.target.value);
+    if (event.target.value.length > 0) {
+      setValid(true);
+    }
+    if (!isChanged) {
+      setChanged(true);
+    }
   };
-  
+
   return (
     <S.Container>
-      <Title value={`Вариант ${number}`}/> 
-      <S.VariantInput type="text" value={variantValue} onChange={handleVariantValueChange}/>
+      <Title value={`Вариант ${number}`} />
+      <S.VariantInput
+        type="text"
+        value={variantValue}
+        onChange={handleVariantValueChange}
+        $isChanged={isChanged}
+        $isValid={isValid}
+      />
     </S.Container>
   );
 }
