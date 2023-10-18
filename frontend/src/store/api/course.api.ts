@@ -65,3 +65,5 @@ export const {
   useRestoreCourseMutation,
   useUpdateCourseMutation,
 } = courseApi;
+
+export const selectCourse = courseApi.endpoints.getCourses.select();

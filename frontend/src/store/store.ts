@@ -2,12 +2,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as authReducer } from './auth/auth.slice';
 import { reducer as modalReducer } from './modal/modal.slice';
 import { reducer as courseReducer } from './course/course.slice';
+import { reducer as loaderReducer } from './loader/loader.slice';
 import { api } from './api/api';
 
 const reducer = combineReducers({
   auth: authReducer,
   modal: modalReducer,
   course: courseReducer,
+  loader: loaderReducer,
   [api.reducerPath]: api.reducer,
 });
 

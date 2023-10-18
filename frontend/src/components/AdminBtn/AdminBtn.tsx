@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import * as S from './styles';
 import { ADMIN_BTN_TYPES, USER_ROLES } from '@/constants';
-import { ControlsPopup } from '../ControlsPopup';
+import { ControlsPopup, IControlsPopup } from '../ControlsPopup';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 
-interface IAdminBtnProps {
+export interface IAdminBtnProps {
   type: string;
   onClick: (event: React.MouseEvent) => void;
-  popupHandlers?: {
-    onHide?: (event?: React.MouseEvent) => void;
-    onAdd?: (event?: React.MouseEvent) => void;
-    onEdit?: (event?: React.MouseEvent) => void;
-    onDelete?: (event?: React.MouseEvent) => void;
-  };
+  popupHandlers?: Omit<IControlsPopup, 'name' | 'innerRef'>;
   styles?: { [key: string]: string };
 }
 

@@ -1,5 +1,5 @@
 import { api } from './api';
-import { IChapter, ICreateChapterData, IUpdateChapterData} from '@/types/chapter.types';
+import { IChapter, ICreateChapterData, IUpdateChapterData } from '@/types/chapter.types';
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/common.types';
 
 type IChapterRes = IDefaultResWithData<IChapter>;
@@ -39,6 +39,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['CourseById'],
     }),
     restoreChapter: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -46,6 +47,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['CourseById'],
     }),
   }),
   overrideExisting: false,
@@ -56,6 +58,5 @@ export const {
   useDeleteChapterMutation,
   useGetChapterByIdQuery,
   useRestoreChapterMutation,
-  useUpdateChapterMutation
+  useUpdateChapterMutation,
 } = chapterApi;
-

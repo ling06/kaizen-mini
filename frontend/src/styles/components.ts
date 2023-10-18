@@ -183,3 +183,17 @@ export const EditorParagraph = styled(Text)`
   margin-bottom: 30px;
   font-weight: 400;
 `;
+
+export const ProgrammCardSkeleton = styled(FlexContainer)`
+  width: 310px;
+  height: 400px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${props => props.theme.colors.grey93};
+  animation: pulse .5s ease-in-out infinite alternate;
+
+  @keyframes pulse {
+    100% {
+      background-color: ${props => props.theme.colors.greyEO};
+    }
+  }
+`;

@@ -4,28 +4,27 @@ import * as C from '@styles/components';
 import { CourseMainInfo } from '@/components/CourseMainInfo';
 import { CourseProgramm } from '@/components/CourseProgramm';
 import { useGetCoursesQuery } from '@/store/api/course.api';
-import { Loading } from '@/components/Loading';
 import { ErrorBlock } from '@/components/ErrorBlock';
-import { useEffect } from 'react';
 import { useActions } from '@/hooks/useActions';
-
-let init = true;
+import { useEffect } from 'react';
 
 export function CoursePreview() {
   const { data, isError, isLoading } = useGetCoursesQuery();
-  const { setCourseData } = useActions();
+  const { setActiveCourseId, setLoaderActive } = useActions();
 
   useEffect(() => {
-    if(data && init) {
-      setCourseData(data.data[0]);
-      init = false;
+    setLoaderActive(isLoading);
+  }, [isLoading, setLoaderActive])
+
+  useEffect(() => {
+    if (data) {
+      setActiveCourseId(data.data[0].id);
     }
-  }, [data, setCourseData]);
+  }, [data, setActiveCourseId]);
 
   return (
     <C.DefaultContainer>
       <S.Container>
-        {isLoading && <Loading />}
         {isError && <ErrorBlock />}
         {data && (
           <>

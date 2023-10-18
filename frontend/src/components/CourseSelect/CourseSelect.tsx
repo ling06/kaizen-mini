@@ -11,7 +11,7 @@ interface ICourseSelectProps {
 }
 
 export function CourseSelect({ data }: ICourseSelectProps) {
-  const { setModalOpen, setModalType, setCourseData } = useActions();
+  const { setModalOpen, setModalType, setActiveCourseId } = useActions();
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
@@ -27,8 +27,7 @@ export function CourseSelect({ data }: ICourseSelectProps) {
 
   const handleChange = (option: SingleValue<IOption>) => {
     if(!option) return;
-    const activeCourseData = data.find((course) => course.id === option.value);
-    setCourseData(activeCourseData);
+    setActiveCourseId(Number(option.value));
   }
 
   return (
