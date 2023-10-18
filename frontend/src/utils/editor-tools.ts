@@ -31,7 +31,7 @@ export const EDITOR_JS_TOOLS = {
     inlineToolbar: true,
     config: {
       endpoints: {
-        // byFile: 'http://127.0.0.1:5173/assets/images/',
+        byFile: '/api/course/upload-temp-image',
         // byUrl: 'http://127.0.0.1:5173/assets/images/',
       },
     },
