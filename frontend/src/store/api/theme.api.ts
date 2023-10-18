@@ -22,7 +22,7 @@ export const themeApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [
         {
-          type: 'CourseById',
+          type: 'ChapterById',
         },
       ],
     }),

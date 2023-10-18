@@ -26143,10 +26143,8 @@ const Title$8 = st$1.h4`
   line-height: 100%;
   color: ${(props) => props.theme.colors.grey93};
 `;
-function CourseNavBody() {
+function CourseNavBody({ data }) {
   const { setModalType, setModalOpen } = useActions();
-  const { activeChapterId, chapters } = useTypedSelector((state) => state.course);
-  const chapterData = chapters == null ? void 0 : chapters.find((chapter) => chapter.id == activeChapterId);
   const openCreateThemeModal = () => {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
@@ -26162,7 +26160,7 @@ function CourseNavBody() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$d, { children: (chapterData == null ? void 0 : chapterData.themes) && chapterData.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$d, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseNavTheme,
       {
         data: theme
@@ -26204,13 +26202,10 @@ const Title$7 = st$1(Text$3)`
 const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
-function CourseNavHead() {
-  var _a;
-  const course = useTypedSelector((state) => state.course);
-  const chapterData = (_a = course.chapters) == null ? void 0 : _a.find((chapter) => chapter.id == Number(course.activeChapterId));
+function CourseNavHead({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { as: "h3", children: chapterData == null ? void 0 : chapterData.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -26223,54 +26218,6 @@ function CourseNavHead() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar, { $progress: "70" })
   ] });
 }
-const Overlay = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: ${(props) => props.theme.utils.zIndex.loading};
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity .2s ease-in-out;
-`;
-const Container$a = st$1(FlexContainer)`
-  align-items: center;
-  width: fit-content;
-  padding: 18px 24px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-const Logo = st$1.img`
-  width: 30px;
-  margin-right: 15px;
-`;
-const Text$1 = st$1(Text$3)`
-  font-size: 22.714px;
-`;
-const loadingLogo = "/assets/loadingLogo.svg";
-function Loading({ styles = {}, state, innerRef }) {
-  const modalRoot = document.getElementById("modal-root");
-  if (!modalRoot)
-    return;
-  return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Overlay,
-      {
-        $state: state,
-        style: styles,
-        ref: innerRef,
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
-        ] })
-      }
-    ),
-    modalRoot
-  );
-}
 const Title$6 = st$1(Text$3)`
   display: flex;
   align-items: center;
@@ -26278,7 +26225,7 @@ const Title$6 = st$1(Text$3)`
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$9 = st$1(FlexContainer)`
+const Container$a = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -26366,6 +26313,54 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
+const Overlay = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: ${(props) => props.theme.utils.zIndex.loading};
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity .2s ease-in-out;
+`;
+const Container$9 = st$1(FlexContainer)`
+  align-items: center;
+  width: fit-content;
+  padding: 18px 24px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const Logo = st$1.img`
+  width: 30px;
+  margin-right: 15px;
+`;
+const Text$1 = st$1(Text$3)`
+  font-size: 22.714px;
+`;
+const loadingLogo = "/assets/loadingLogo.svg";
+function Loading({ styles = {}, state, innerRef }) {
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot)
+    return;
+  return ReactDOM.createPortal(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Overlay,
+      {
+        $state: state,
+        style: styles,
+        ref: innerRef,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
+        ] })
+      }
+    ),
+    modalRoot
+  );
+}
 function CourseContent() {
   const { lessonId } = useParams();
   const [editorData, setEditorData] = reactExports.useState([]);
@@ -26395,7 +26390,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtnContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
           {
@@ -26420,28 +26415,24 @@ function CourseContent() {
   ] });
 }
 function Course() {
-  const { setCourseData, setActiveChapterId } = useActions();
-  const { courseId, chapterId, lessonId } = useParams();
-  const { data, isError, isLoading } = useGetCourseByIdQuery(Number(courseId));
-  const [course, setCourse] = reactExports.useState(null);
+  const { setActiveChapterId } = useActions();
+  const { chapterId, lessonId } = useParams();
+  const { data, isError } = useGetChapterByIdQuery(Number(chapterId));
   const [activeChapterId, setActiveChapter] = reactExports.useState(void 0);
   reactExports.useEffect(() => {
     if (data) {
-      setCourse(data.data);
       setActiveChapter(chapterId);
     }
   }, [chapterId, data, lessonId]);
   reactExports.useEffect(() => {
-    setCourseData(course);
     setActiveChapterId(activeChapterId);
-  }, [course, activeChapterId, setCourseData, setActiveChapterId]);
+  }, [activeChapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(Loading, {}),
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+    data && /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, {})
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
     ] })
@@ -32520,7 +32511,7 @@ const themeApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [
         {
-          type: "CourseById"
+          type: "ChapterById"
         }
       ]
     }),
@@ -46193,7 +46184,7 @@ const EDITOR_JS_TOOLS = {
     inlineToolbar: true,
     config: {
       endpoints: {
-        // byFile: 'http://127.0.0.1:5173/assets/images/',
+        byFile: "/api/course/upload-temp-image"
         // byUrl: 'http://127.0.0.1:5173/assets/images/',
       }
     }
