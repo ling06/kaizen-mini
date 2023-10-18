@@ -14,7 +14,7 @@ class m231005_103035_change_some_course_fields extends Migration
     {
         $this->dropColumn('chapter', 'status');
         $this->dropColumn('theme', 'status');
-        $this->addColumn('lesson', 'description_autosave', $this->text());
+        $this->addColumn('lesson', 'description_autosave', $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'));
         $this->addCommentOnColumn('lesson', 'description_autosave', 'Автосохраненное описание');
     }
 

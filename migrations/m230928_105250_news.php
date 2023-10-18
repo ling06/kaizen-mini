@@ -15,8 +15,8 @@ class m230928_105250_news extends Migration
         $this->createTable('news', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
-            'title' => $this->string(250),
-            'text' => $this->text(),
+            'title' => $this->string(250)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'text' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'date' => $this->dateTime(),
         ]);
         $this->addForeignKey('news_user_id_fkey', 'news', 'user_id', 'user', 'id');

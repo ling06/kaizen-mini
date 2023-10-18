@@ -15,7 +15,7 @@ class m231002_133503_create_news_category extends Migration
         $this->createTable('news_category', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
-            'title' => $this->string(100),
+            'title' => $this->string(100)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'is_deleted' => $this->boolean(),
         ]);
         $this->addCommentOnTable('news_category', 'Категории новостей');
