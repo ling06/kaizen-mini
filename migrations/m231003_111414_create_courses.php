@@ -15,9 +15,9 @@ class m231003_111414_create_courses extends Migration
         $this->createTable('image', [
             'id' => $this->primaryKey(),
             'server' => $this->string(200),
-            'directory' => $this->text(),
-            'name' => $this->string(200),
-            'original_name' => $this->string(200),
+            'directory' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'original_name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'user_id' => $this->integer(),
             'date' => $this->dateTime(),
             'modelName' => $this->string(200),
