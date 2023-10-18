@@ -1,3 +1,4 @@
+import { IChapter } from '@/types/chapter.types';
 import { ICourse } from '@/types/course.types';
 import { ILesson } from '@/types/lesson.types';
 import { ITheme } from '@/types/theme.types';
@@ -8,6 +9,7 @@ export interface ICourseInitialState extends Partial<ICourse> {
   activeChapterId: null | number;
   activeTheme: ITheme | null;
   activeLesson: ILesson | null;
+  updatingChapterData: IChapter | null;
 }
 
 const courseInitialState: ICourseInitialState = {
@@ -15,6 +17,7 @@ const courseInitialState: ICourseInitialState = {
   activeChapterId: null,
   activeTheme: null,
   activeLesson: null,
+  updatingChapterData: null,
 };
 
 export const courseSlice = createSlice({
@@ -35,6 +38,9 @@ export const courseSlice = createSlice({
     },
     setActiveLesson: (state, { payload }) => {
       state.activeLesson = { ...payload };
+    },
+    setUpdatingChapterData: (state, { payload }: PayloadAction<IChapter>) => {
+      state.updatingChapterData = { ...payload };
     },
   },
 });

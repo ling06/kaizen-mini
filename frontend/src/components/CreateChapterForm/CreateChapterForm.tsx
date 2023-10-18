@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalForm } from '../ModalForm';
 import * as S from './styles';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { useCreateChapterMutation } from '@/store/api/chapter.api';
-import { Loading } from '../Loading';
+import { useCreateChapterMutation, useGetChapterByIdQuery } from '@/store/api/chapter.api';
 import { useActions } from '@/hooks/useActions';
+import { selectCourse } from '@/store/api/course.api';
 
 export function CreateChapterForm() {
-  const courseId = useTypedSelector(state => state.course.id);
+  const courseId = useTypedSelector(state => selectCourse(state).data?.data.id);
+  const formType = useTypedSelector(state => state.modal.modalType);
+  // const {data} = useGetChapterByIdQuery();
   const {setModalOpen, addChapter} = useActions();
   const [createChapter] = useCreateChapterMutation();
-  const [isLoading, setLoading] = useState<boolean>(false);
+
   const [chapterName, setChapterName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
+
+  useEffect(() => {
+
+  }, [])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -30,7 +36,6 @@ export function CreateChapterForm() {
     }
 
     if(courseId) {
-      setLoading(true);
       createChapter({
         title: chapterName,
         course_id: courseId,
@@ -38,11 +43,9 @@ export function CreateChapterForm() {
         if('data' in res && res.data.result) {
           addChapter(res.data.data);
         }
-        setLoading(false);
         setModalOpen(false);
       }).catch((err) => {
         console.error(err);
-        setLoading(false);
       });
     }
   }
@@ -74,7 +77,6 @@ export function CreateChapterForm() {
         placeholder="Введите название главы (обязательно)"
       />
       <S.AddChapterImg>Обложка главы</S.AddChapterImg>
-      {isLoading && <Loading />}
     </ModalForm>
   );
 }

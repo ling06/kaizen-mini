@@ -3,7 +3,6 @@ import { AdminBtn } from '../AdminBtn';
 import { CourseNavTheme } from '../CourseNavTheme';
 import * as S from './styles';
 import { MODAL_TYPES } from '@/constants';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { IChapter } from '@/types/chapter.types';
 
 interface ICourseNavBodyProps {
@@ -31,6 +30,7 @@ export function CourseNavBody({ data }: ICourseNavBodyProps) {
           data.themes.map((theme) => (
             <CourseNavTheme
               data={theme}
+              courseId={data.course_id}
               key={theme.id}
             />
           ))}

@@ -2,7 +2,7 @@ import { AdminBtn } from '@/components/AdminBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
 import defaultCardImg from '@assets/images/defaultCardImg.png';
-import { ADMIN_BTN_TYPES } from '@/constants';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
 import { IChapter } from '@/types/chapter.types';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
@@ -15,21 +15,21 @@ interface ICourseProgrammCard {
 
 export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   const navigation = useNavigate();
-  const [ deleteChapter ] = useDeleteChapterMutation();
+  const [deleteChapter] = useDeleteChapterMutation();
   const [restoreChapter] = useRestoreChapterMutation();
   const [isDeleted, setDeleted] = useState<boolean>(false);
-  const {setLoaderActive} = useActions();
+  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
 
   useEffect(() => {
     data.is_deleted == 0 ? setDeleted(false) : setDeleted(true);
-  }, [data.is_deleted])
+  }, [data.is_deleted]);
 
   const handleClick = () => {
     navigation(`/courses/${data.course_id}/${data.id}/`);
   };
 
   const handleDeleteChapter = () => {
-    deleteChapter({id: data.id}).then(() => {
+    deleteChapter({ id: data.id }).then(() => {
       setLoaderActive(false);
       setDeleted(true);
     });
@@ -37,11 +37,17 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   };
 
   const handleRestoreChapter = () => {
-    restoreChapter({id: data.id}).then(() => {
+    restoreChapter({ id: data.id }).then(() => {
       setLoaderActive(false);
       setDeleted(false);
     });
     setLoaderActive(true);
+  };
+
+  const handleEditChapter = () => {
+    setModalType(MODAL_TYPES.editChapter);
+    setUpdatingChapterData(data);
+    setModalOpen(true);
   }
 
   return (
@@ -59,6 +65,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
             popupHandlers={{
               onDelete: isDeleted ? undefined : handleDeleteChapter,
               onRestore: isDeleted ? handleRestoreChapter : undefined,
+              onEdit: handleEditChapter,
             }}
           />
         </S.ProgressStatusWrapper>

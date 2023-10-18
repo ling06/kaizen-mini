@@ -22,7 +22,7 @@ export const lessonApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [
         {
-          type: 'CourseById',
+          type: 'ChapterById',
         },
       ],
     }),

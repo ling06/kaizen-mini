@@ -10,7 +10,7 @@ import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
 export function Course() {
   const { setActiveChapterId } = useActions();
-  const { chapterId, lessonId } = useParams();
+  const { chapterId } = useParams();
   const { data, isError } = useGetChapterByIdQuery(Number(chapterId));
   const [activeChapterId, setActiveChapter] = useState<typeof chapterId>(undefined);
 
@@ -18,7 +18,7 @@ export function Course() {
     if (data) {
       setActiveChapter(chapterId);
     }
-  }, [chapterId, data, lessonId]);
+  }, [chapterId, data]);
 
   useEffect(() => {
     setActiveChapterId(activeChapterId);
@@ -27,17 +27,19 @@ export function Course() {
   return (
     <>
       {isError && <ErrorBlock />}
-      {data && (
-        <S.Container>
-          <S.NavContainer>
-            <CourseNavHead data={data.data} />
-            <CourseNavBody data={data.data}/>
-          </S.NavContainer>
-          <S.ContentContainer>
-            <CourseContent />
-          </S.ContentContainer>
-        </S.Container>
-      )}
+      <S.Container>
+        <S.NavContainer>
+          {data && (
+            <>
+              <CourseNavHead data={data.data} />
+              <CourseNavBody data={data.data} />
+            </>
+          )}
+        </S.NavContainer>
+        <S.ContentContainer>
+          <CourseContent />
+        </S.ContentContainer>
+      </S.Container>
     </>
   );
 }

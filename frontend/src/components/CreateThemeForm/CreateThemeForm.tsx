@@ -4,7 +4,6 @@ import * as S from './styles';
 import { useCreateThemeMutation } from '@/store/api/theme.api';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
-import { Loading } from '../Loading';
 
 export function CreateThemeForm() {
   const { setModalOpen } = useActions();
@@ -13,7 +12,6 @@ export function CreateThemeForm() {
   const [themeName, setThemeName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -28,7 +26,6 @@ export function CreateThemeForm() {
       setChangedName(true);
       return;
     }
-    setIsLoading(true);
     createTheme({
       title: themeName,
       chapter_id: chapterId ? chapterId : 0,
@@ -40,7 +37,6 @@ export function CreateThemeForm() {
       .catch((error) => {
         console.log(error);
         alert('Что-то пошло не так');
-        setIsLoading(false);
       });
   };
 
@@ -71,7 +67,6 @@ export function CreateThemeForm() {
         onChange={handleChange}
         placeholder="Введите название темы (обязательно)"
       />
-      {isLoading && <Loading />}
     </ModalForm>
   );
 }

@@ -9,15 +9,14 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { useActions } from '@/hooks/useActions';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useMemo } from 'react';
 
 interface ICourseNavTheme {
   data: ITheme;
+  courseId: number;
 }
 
-export function CourseNavTheme({ data }: ICourseNavTheme) {
-  const courseId = useTypedSelector((state) => state.course.id);
+export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
   const { setActiveTheme } = useActions();
   const navigate = useNavigate();
   const { themeId } = useParams();
