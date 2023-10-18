@@ -71,8 +71,8 @@ export const SvgIcon = styled.svg.attrs({
 `;
 
 interface IInputWithStateProps {
-  $isChanged: boolean;
-  $isValid: boolean;
+  $isChanged?: boolean;
+  $isValid?: boolean;
 }
 
 export const InputWithState = styled(Input)<IInputWithStateProps>`

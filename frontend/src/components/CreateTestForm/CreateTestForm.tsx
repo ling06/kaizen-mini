@@ -2,13 +2,14 @@ import { useState } from 'react';
 import * as S from './styles';
 import { Title } from './Title';
 import { Variant } from './Variant';
+import { ICreateTest } from '@/types/lessonTest.types';
 
 
 
-export function CreateTestForm() {
+ export function CreateTestForm() {
   const [testName, setTestName] = useState<string>('');
   const [isChanged, setChanged] = useState<boolean>(false);
-  const [testVariantsData, setTestVariantsData] = useState();
+  
 
   const handleChangeTestName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTestName(event.target.value);
@@ -28,6 +29,8 @@ export function CreateTestForm() {
         $isChanged={isChanged}
       />
       <S.Variants>
+
+
 
       </S.Variants>
     </S.Container>

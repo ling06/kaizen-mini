@@ -51,6 +51,7 @@ function App() {
             {modalType === MODAL_TYPES.createCourse && <CreateCourseForm />}
             {modalType === MODAL_TYPES.createChapter && <CreateChapterForm />}
             {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
+            {modalType === MODAL_TYPES.editCourse && <CreateCourseForm type='edit'/>}
           </ModalLayout>
         )}
       </Layout>

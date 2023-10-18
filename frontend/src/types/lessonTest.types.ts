@@ -4,6 +4,7 @@ export interface ITest {
   is_active: number;
   user_id: number;
   date: string;
+  testQuestions: Array<IQuestion>;
 }
 
 export interface IQuestion {

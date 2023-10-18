@@ -9,6 +9,7 @@ export const MODAL_TYPES = {
   createCourse: 'createCourse',
   createChapter: 'createChapter',
   createTheme: 'createTheme',
+  editCourse: 'editCourse',
 };
 
 export const IS_MOBILE: boolean = window.matchMedia('(max-width: 768px)').matches;

@@ -7,7 +7,11 @@ import { useCreateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/hooks/useActions';
 import { Loading } from '../Loading';
 
-export function CreateCourseForm() {
+interface ICreateCourseForm {
+  type?: string;
+}
+
+export function CreateCourseForm({ type }: ICreateCourseForm) {
   const { setModalOpen } = useActions();
   const [courseName, setCourseName] = useState<string>('');
   const [courseDescription, setCourseDescription] = useState<string>('');
@@ -48,7 +52,7 @@ export function CreateCourseForm() {
 
   const names = {
     cancel: 'Отмена',
-    confirm: 'Создать курс',
+    confirm:  `${type === 'edit' ? 'Изменить' : 'Создать'} курс`,
   };
 
   return (

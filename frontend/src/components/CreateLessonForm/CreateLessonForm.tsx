@@ -24,7 +24,6 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
   const navigation = useNavigate();
   const { themeId } = useParams();
 
-
   useEffect(() => {
     if (!editor) {
       try {
@@ -50,11 +49,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
 
   const handleConfirm = async () => {
     const editorData = await editor?.save().then((data) => data);
-    
     const editorBlocksData = JSON.stringify(editorData?.blocks || []);
-
-    console.log(editorBlocksData);
-    
 
     if (!isValidName) {
       setChangedName(true);
@@ -121,5 +116,3 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     </>
   );
 }
-
-  

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Title } from '../Title';
 import * as S from './styles';
+import { DeleteBtn } from '../DeleteBtn';
 
 interface IVariantProps {
   data: {}
@@ -23,7 +24,9 @@ export function Variant({ data }: IVariantProps) {
 
   return (
     <S.Container>
-      <Title value={`Вариант ${number}`} />
+      <Title value={`Вариант ${number}`}>
+        <DeleteBtn onClick={() => {}}/>
+      </Title>
       <S.VariantInput
         type="text"
         value={variantValue}

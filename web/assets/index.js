@@ -10191,7 +10191,8 @@ const DEFAULT_WIDTH = "1267px";
 const MODAL_TYPES = {
   createCourse: "createCourse",
   createChapter: "createChapter",
-  createTheme: "createTheme"
+  createTheme: "createTheme",
+  editCourse: "editCourse"
 };
 window.matchMedia("(max-width: 768px)").matches;
 const USER_ROLES = {
@@ -32278,7 +32279,7 @@ function ModalForm({
   );
 }
 const editorjs = "";
-function CreateCourseForm() {
+function CreateCourseForm({ type }) {
   const { setModalOpen } = useActions();
   const [courseName, setCourseName] = reactExports.useState("");
   const [courseDescription, setCourseDescription] = reactExports.useState("");
@@ -32313,7 +32314,7 @@ function CreateCourseForm() {
   };
   const names = {
     cancel: "Отмена",
-    confirm: "Создать курс"
+    confirm: `${type === "edit" ? "Изменить" : "Создать"} курс`
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     ModalForm,
@@ -46298,13 +46299,15 @@ const Title$2 = ut$1.h5`
   line-height: 120%;
   color: ${(props) => props.theme.colors.grey57};
 `;
-function Title$1({ value }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Title$2, { children: value });
+function Title$1({ value, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$2, { children: [
+    value,
+    children
+  ] });
 }
 function CreateTestForm() {
   const [testName, setTestName] = reactExports.useState("");
   const [isChanged, setChanged] = reactExports.useState(false);
-  reactExports.useState();
   const handleChangeTestName = (event) => {
     setTestName(event.target.value);
     if (!isChanged) {
@@ -46359,7 +46362,6 @@ function CreateLessonForm({ type }) {
   const handleConfirm = async () => {
     const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data) => data));
     const editorBlocksData = JSON.stringify((editorData == null ? void 0 : editorData.blocks) || []);
-    console.log(editorBlocksData);
     if (!isValidName) {
       setChangedName(true);
       return;
@@ -46594,7 +46596,8 @@ function App() {
     isModalOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
       modalType === MODAL_TYPES.createCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
-      modalType === MODAL_TYPES.createTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {})
+      modalType === MODAL_TYPES.createTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {}),
+      modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, { type: "edit" })
     ] })
   ] }) });
 }
