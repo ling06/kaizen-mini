@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import { CounterHeader } from "../CounterHeader/CounterHeader";
-import { Profail } from "../Profail/Profail";
+import { Profile } from "../Profile/Profile";
 import { Search } from "../Search/index";
 
 export function BoxHeaderElements() {
@@ -8,7 +8,7 @@ export function BoxHeaderElements() {
     <S.BoxHeaderElements>
       <Search />
       <CounterHeader />
-      <Profail />
+      <Profile />
     </S.BoxHeaderElements>
   );
 }

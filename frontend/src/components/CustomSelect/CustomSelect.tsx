@@ -55,7 +55,7 @@ export function CustomSelect({ options, defaultValue, onChange=()=>{} }: ICustom
   );
 
   return (
-    <Select
+    <Select 
       defaultValue={selectedOption}
       onChange={handleChange}
       options={options}
