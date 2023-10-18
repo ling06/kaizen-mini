@@ -67,4 +67,3 @@ export const {
 } = courseApi;
 
 export const selectCourses = courseApi.endpoints.getCourses.select();
-export const selectCourse = courseApi.endpoints.getCourseById.select();

@@ -21458,7 +21458,6 @@ const {
   useUpdateCourseMutation
 } = courseApi;
 courseApi.endpoints.getCourses.select();
-const selectCourse = courseApi.endpoints.getCourseById.select();
 function CourseProgramm() {
   const { setModalOpen, setModalType } = useActions();
   const courseId = useTypedSelector((state) => state.course.activeCourseId);
@@ -32431,17 +32430,22 @@ const AddChapterImg = st$1(DefaultBtn)`
   background-size: 24px;
 `;
 function CreateChapterForm() {
-  const courseId = useTypedSelector((state) => {
-    var _a;
-    return (_a = selectCourse(state).data) == null ? void 0 : _a.data.id;
-  });
-  useTypedSelector((state) => state.modal.modalType);
+  const { id: id2, updatingChapterData } = useTypedSelector((state) => state.course);
+  const formType = useTypedSelector((state) => state.modal.modalType);
   const { setModalOpen, addChapter } = useActions();
   const [createChapter] = useCreateChapterMutation();
+  const [updateChapter] = useUpdateChapterMutation();
   const [chapterName, setChapterName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
+  const [isEditForm, setEditForm] = reactExports.useState(false);
   reactExports.useEffect(() => {
+    if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
+      setEditForm(true);
+      setChapterName(updatingChapterData.title);
+      setValidName(true);
+      setChangedName(true);
+    }
   }, []);
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
@@ -32455,10 +32459,10 @@ function CreateChapterForm() {
       setChangedName(true);
       return;
     }
-    if (courseId) {
+    if (id2 && !isEditForm) {
       createChapter({
         title: chapterName,
-        course_id: courseId
+        course_id: id2
       }).then((res) => {
         if ("data" in res && res.data.result) {
           addChapter(res.data.data);
@@ -32466,6 +32470,13 @@ function CreateChapterForm() {
         setModalOpen(false);
       }).catch((err) => {
         console.error(err);
+      });
+    }
+    if (isEditForm && updatingChapterData && id2) {
+      updateChapter({
+        course_id: id2,
+        id: Number(updatingChapterData.id),
+        title: chapterName
       });
     }
   };
