@@ -603,6 +603,9 @@ Request: [
     id: int - id урока
 ]
 Response: [
+    data: [
+        theme_id: int - id темы урока
+    ]
     result: bool - отмечен ли урок
 ]
 

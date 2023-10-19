@@ -87,6 +87,7 @@ class CourseController extends ApiController
 
     public function actionCheckLesson()
     {
+        /** @var Lesson $lesson */
         $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->getBodyParam('id'));
         $checkParams = [
             'user_id' => Yii::$app->user->id,
@@ -95,6 +96,9 @@ class CourseController extends ApiController
         ];
         $check = UserCheck::findOne($checkParams) ?? new UserCheck($checkParams);
         return [
+            'data' => [
+                'theme_id' => $lesson->theme_id,
+            ],
             'result' => $check->isNewRecord ? $check->save() : true,
         ];
     }
