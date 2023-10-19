@@ -45,7 +45,7 @@ class UpdateAction extends Action
             ];
         } else {
             $query = $modelName::find()
-                ->where([$modelName::primaryKey() => $model->primaryKey]);
+                ->where([$modelName::primaryKey()[0] => $model->primaryKey]);
             if ($this->with) {
                 $query->with($this->with);
             }
