@@ -4,7 +4,7 @@ import { CourseNavHead } from '@/components/CourseNavHead';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 

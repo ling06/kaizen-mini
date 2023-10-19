@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Profail = styled.img`
+export const Profile = styled.img`
   width: 42px;
   height: 43px;
   border-radius: 50%;
