@@ -23,6 +23,14 @@ use yii\db\ActiveQuery;
  */
 class Test extends \app\components\ActiveRecord
 {
+
+    public static function getExtraFields(): array
+    {
+        return [
+            'test' => 'testQuestions',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

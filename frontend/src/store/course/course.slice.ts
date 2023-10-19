@@ -1,34 +1,32 @@
+import { IChapter } from '@/types/chapter.types';
 import { ICourse } from '@/types/course.types';
 import { ILesson } from '@/types/lesson.types';
 import { ITheme } from '@/types/theme.types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface ICourseInitialState extends Partial<ICourse> {
+  activeCourseId: null | number;
   activeChapterId: null | number;
   activeTheme: ITheme | null;
   activeLesson: ILesson | null;
+  updatingChapterData: IChapter | null;
 }
 
 const courseInitialState: ICourseInitialState = {
-  id: undefined,
-  title: undefined,
-  description: undefined,
-  is_open: undefined,
-  status: undefined,
-  user_id: undefined,
-  date: undefined,
-  is_deleted: undefined,
-  chapters: undefined,
+  activeCourseId: null,
   activeChapterId: null,
   activeTheme: null,
   activeLesson: null,
+  updatingChapterData: null,
 };
 
 export const courseSlice = createSlice({
   name: 'course',
   initialState: courseInitialState,
   reducers: {
-    setCourseData: (state, { payload }) => ({ ...payload }),
+    setActiveCourseId: (state, { payload }: PayloadAction<number>) => {
+      state.activeCourseId = payload;
+    },
     setActiveChapterId: (state, { payload }) => {
       state.activeChapterId = payload;
     },
@@ -40,6 +38,9 @@ export const courseSlice = createSlice({
     },
     setActiveLesson: (state, { payload }) => {
       state.activeLesson = { ...payload };
+    },
+    setUpdatingChapterData: (state, { payload }: PayloadAction<IChapter>) => {
+      state.updatingChapterData = { ...payload };
     },
   },
 });

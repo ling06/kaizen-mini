@@ -12,7 +12,7 @@ interface ICourseSelectProps {
 }
 
 export function CourseSelect({ data }: ICourseSelectProps) {
-  const { setModalOpen, setModalType, setCourseData } = useActions();
+  const { setModalOpen, setModalType, setActiveCourseId } = useActions();
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
@@ -27,10 +27,16 @@ export function CourseSelect({ data }: ICourseSelectProps) {
   };
 
   const handleChange = (option: SingleValue<IOption>) => {
+<<<<<<< HEAD
     if (!option) return;
     const activeCourseData = data.find((course) => course.id === option.value);
     setCourseData(activeCourseData);
   };
+=======
+    if(!option) return;
+    setActiveCourseId(Number(option.value));
+  }
+>>>>>>> 41a44fda842a8f98c7021860c5ce59d68dfb2999
 
   return (
     <S.Container>

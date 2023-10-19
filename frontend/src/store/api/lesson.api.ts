@@ -6,7 +6,7 @@ type ILessonRes = IDefaultResWithData<ILesson>;
 
 export const lessonApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getLessonById: builder.query<ILessonRes, number>({
+    getLessonById: builder.query<ILessonRes, string>({
       query: (id) => `lesson/${id}`,
       providesTags: () => [
         {
@@ -22,7 +22,7 @@ export const lessonApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [
         {
-          type: 'CourseById',
+          type: 'ChapterById',
         },
       ],
     }),

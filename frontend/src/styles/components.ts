@@ -71,8 +71,8 @@ export const SvgIcon = styled.svg.attrs({
 `;
 
 interface IInputWithStateProps {
-  $isChanged: boolean;
-  $isValid: boolean;
+  $isChanged?: boolean;
+  $isValid?: boolean;
 }
 
 export const InputWithState = styled(Input)<IInputWithStateProps>`
@@ -161,7 +161,7 @@ export const Icon = styled.div`
 
 export const DoneIcon = styled(Icon)`
   margin-right: 26px;
-  margin-left: auto;
+  /* margin-left: auto; */
   background-image: url(${doneIcon});
 `;
 
@@ -177,4 +177,23 @@ export const AccordionIcon = styled(Icon)<IAccordionIcon>`
   transition: ${(props) => props.theme.utils.transition};
   transform: ${(props) => (props.$active ? 'rotate(-180deg)' : 'none')};
   background-image: url(${accrodionIcon});
+`;
+
+export const EditorParagraph = styled(Text)`
+  margin-bottom: 30px;
+  font-weight: 400;
+`;
+
+export const ProgrammCardSkeleton = styled(FlexContainer)`
+  width: 310px;
+  height: 400px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${props => props.theme.colors.grey93};
+  animation: pulse .5s ease-in-out infinite alternate;
+
+  @keyframes pulse {
+    100% {
+      background-color: ${props => props.theme.colors.greyEO};
+    }
+  }
 `;

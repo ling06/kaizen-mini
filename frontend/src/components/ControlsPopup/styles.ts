@@ -14,7 +14,7 @@ export const Container = styled(C.FlexContainer)`
   z-index: ${props => props.theme.utils.zIndex.popup};
   padding: 15px 10px 10px;
   width: 320px;
-  min-height: 316px;
+  /* min-height: 316px; */
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.greyF1};
   filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
@@ -55,6 +55,7 @@ export const DeleteBtn = styled(Btn)`
   color: ${props => props.theme.colors.yRed};
 `;
 
+export const RestoreBtn = styled(Btn)``;
 
 export const BtnIcon = styled(C.Icon)`
   margin-right: 15px;

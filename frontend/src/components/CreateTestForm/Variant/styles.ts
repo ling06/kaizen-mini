@@ -10,6 +10,6 @@ export const Container = styled(C.FlexContainer)`
 `;
 
 export const VariantInput = styled(C.InputWithState)`
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 `;
 

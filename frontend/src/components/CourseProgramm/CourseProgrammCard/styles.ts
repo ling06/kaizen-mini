@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
 
-export const Card = styled(C.FlexContainer)`
+interface ICard {
+  $isDeleted: boolean;
+}
+
+export const Card = styled(C.FlexContainer)<ICard>`
   flex-direction: column;
   width: 310px;
   height: 400px;
   padding: 20px;
   padding-bottom: 15px;
-  background-color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
 `;
 

@@ -2,27 +2,33 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './layouts/Layout';
 import { Main } from './pages/Main';
 import { ModalLayout } from './layouts/ModalLayout';
-import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
-import { IModalInitialState } from './store/modal/modal.slice';
 import { MODAL_TYPES } from './constants';
 import { CreateCourseForm } from './components/CreateCourseForm';
 import { CreateChapterForm } from './components/CreateChapterForm';
 import { CreateThemeForm } from './components/CreateThemeForm';
 import { CreateLesson } from './pages/CreateLesson';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useActions } from './hooks/useActions';
 import { CreateNews } from './pages/CreateNews';
+import { useCheckUserQuery } from './store/api/user.api';
+import { Loading } from './components/Loading';
+import { useTypedSelector } from './hooks/useTypedSelector';
+import { Transition } from 'react-transition-group';
 
 function App() {
-  const { setAuthToken } = useActions();
-  const { isModalOpen, modalType } = useSelector<RootState, IModalInitialState>(
-    (state) => state.modal
-  );
+  const { isLoading } = useCheckUserQuery();
+  const { setAuthToken, setLoaderActive: setActive } = useActions();
+  const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const active = useTypedSelector((state) => state.loader.active);
+  const loaderRef = useRef(null);
+
+  useEffect(() => {
+    setActive(isLoading);
+  }, [isLoading, setActive]);
 
   useEffect(() => {
     const csrfHolder: HTMLMetaElement | null = document.querySelector('meta[name="csrf-token"]');
-    if(csrfHolder) {
+    if (csrfHolder) {
       const CSRF_TOKEN = csrfHolder.content;
       setAuthToken(CSRF_TOKEN);
     }
@@ -40,15 +46,24 @@ function App() {
             path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
             element={<CreateLesson type="create" />}
           />
-          <Route path={'/news/create-news'} element={<CreateNews type={'create'}/>}/>
+          <Route
+            path={'/news/create-news'}
+            element={<CreateNews type={'create'} />}
+          />
         </Routes>
         {isModalOpen && (
           <ModalLayout modalType={modalType}>
             {modalType === MODAL_TYPES.createCourse && <CreateCourseForm />}
             {modalType === MODAL_TYPES.createChapter && <CreateChapterForm />}
             {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
+            {modalType === MODAL_TYPES.editCourse && <CreateCourseForm type="edit" />}
           </ModalLayout>
         )}
+        <Transition unmountOnExit nodeRef={loaderRef} timeout={300} in={active}>
+          {state => (
+              <Loading innerRef={loaderRef} state={state}/>
+          )}
+        </Transition>
       </Layout>
     </BrowserRouter>
   );

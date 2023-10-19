@@ -1,34 +1,40 @@
 import { CourseNavBody } from '@/components/CourseNavBody';
 import * as S from './styles';
 import { CourseNavHead } from '@/components/CourseNavHead';
-import { useGetCourseByIdQuery } from '@/store/api/course.api';
-import { Loading } from '@/components/Loading';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CourseContent } from '@/components/CourseContent';
+import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
 export function Course() {
-  const { setCourseData, setActiveChapterId } = useActions();
-  const { courseId, chapterId, lessonId } = useParams();
-  const { data, isError, isLoading } = useGetCourseByIdQuery(Number(courseId));
-  
+  const { setActiveChapterId } = useActions();
+  const { chapterId } = useParams();
+  const { data, isError } = useGetChapterByIdQuery(Number(chapterId));
+  const [activeChapterId, setActiveChapter] = useState<typeof chapterId>(undefined);
+
   useEffect(() => {
     if (data) {
-      setCourseData(data.data);
-      setActiveChapterId(chapterId);
+      setActiveChapter(chapterId);
     }
-  }, [chapterId, data, lessonId, setActiveChapterId, setCourseData]);
+  }, [chapterId, data]);
+
+  useEffect(() => {
+    setActiveChapterId(activeChapterId);
+  }, [activeChapterId, setActiveChapterId]);
 
   return (
     <>
-      {isLoading && <Loading />}
       {isError && <ErrorBlock />}
       <S.Container>
         <S.NavContainer>
-          <CourseNavHead />
-          <CourseNavBody />
+          {data && (
+            <>
+              <CourseNavHead data={data.data} />
+              <CourseNavBody data={data.data} />
+            </>
+          )}
         </S.NavContainer>
         <S.ContentContainer>
           <CourseContent />

@@ -14,7 +14,7 @@ class m230928_104834_init extends Migration
     {
         $this->createTable('user', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(200),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'username' => $this->string(100),
         ]);
     }

@@ -14,6 +14,7 @@ export const api = createApi({
     'CourseById',
     'ChapterById',
     'LessonById',
+    'User',
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,

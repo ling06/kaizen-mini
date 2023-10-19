@@ -4,14 +4,14 @@ import Embed from '@editorjs/embed';
 import Table from '@editorjs/table';
 import List from '@editorjs/list';
 import Warning from '@editorjs/warning';
-import Code from '@editorjs/code';
-import LinkTool from '@editorjs/link';
+// import Code from '@editorjs/code';
+// import LinkTool from '@editorjs/link';
 import Image from '@editorjs/image';
-import Raw from '@editorjs/raw';
-import Header from '@editorjs/header';
-import Quote from '@editorjs/quote';
-import Marker from '@editorjs/marker';
-import CheckList from '@editorjs/checklist';
+// import Raw from '@editorjs/raw';
+// import Header from '@editorjs/header';
+// import Quote from '@editorjs/quote';
+// import Marker from '@editorjs/marker';
+// import CheckList from '@editorjs/checklist';
 import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
 // import SimpleImage from '@editorjs/simple-image';
@@ -24,23 +24,23 @@ export const EDITOR_JS_TOOLS = {
     inlineToolbar: true,
   },
   warning: Warning,
-  code: Code,
-  linkTool: { class: LinkTool, inlineToolbar: true },
+  // code: Code,
+  // linkTool: { class: LinkTool, inlineToolbar: true },
   image: {
     class: Image,
     inlineToolbar: true,
     config: {
       endpoints: {
-        // byFile: 'http://127.0.0.1:5173/assets/images/',
+        byFile: '/api/course/upload-temp-image',
         // byUrl: 'http://127.0.0.1:5173/assets/images/',
       },
     },
   },
-  raw: { class: Raw, inlineToolbar: true },
-  header: { class: Header, inlineToolbar: true },
-  quote: Quote,
-  marker: Marker,
-  checklist: { class: CheckList, inlineToolbar: true },
+  // raw: { class: Raw, inlineToolbar: true },
+  // header: { class: Header, inlineToolbar: true },
+  // quote: Quote,
+  // marker: Marker,
+  // checklist: { class: CheckList, inlineToolbar: true },
   delimiter: Delimiter,
   inlineCode: InlineCode,
   // image: { class: SimpleImage, inlineToolbar: true },
@@ -78,17 +78,17 @@ export const EDITOR_INTERNATIONALIZATION_CONFIG = {
      */
     toolNames: {
       Text: 'Параграф',
-      Heading: 'Заголовок',
+      // Heading: 'Заголовок',
       List: 'Список',
       Warning: 'Примечание',
-      Checklist: 'Чеклист',
-      Quote: 'Цитата',
-      Code: 'Код',
+      // Checklist: 'Чеклист',
+      // Quote: 'Цитата',
+      // Code: 'Код',
       Delimiter: 'Разделитель',
-      'Raw HTML': 'HTML-фрагмент',
+      // 'Raw HTML': 'HTML-фрагмент',
       Table: 'Таблица',
       Link: 'Ссылка',
-      Marker: 'Маркер',
+      // Marker: 'Маркер',
       Bold: 'Полужирный',
       Italic: 'Курсив',
       InlineCode: 'Моноширинный',

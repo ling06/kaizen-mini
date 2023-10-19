@@ -10,3 +10,7 @@ export const TestName = styled(C.InputWithState)`
   margin-bottom: 30px;
 `;
 
+export const Variants = styled(C.FlexContainer)`
+  flex-direction: column;
+`;
+

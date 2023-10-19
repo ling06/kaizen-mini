@@ -3,6 +3,8 @@
 namespace app\modules\course\controllers;
 
 use app\components\ApiController;
+use app\components\KaizenHelper;
+use app\models\Image;
 use app\modules\course\models\Chapter;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Theme;
@@ -17,6 +19,8 @@ use app\components\actions\UpdateAction;
 use app\modules\course\models\Course;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * Default controller for the `course` module
@@ -43,12 +47,12 @@ class CourseController extends ApiController
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson'],
+                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image'],
                         'permissions' => [Course::PERMISSION_CREATE],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson'],
+                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image'],
                         'permissions' => [Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -93,6 +97,25 @@ class CourseController extends ApiController
         return [
             'result' => $check->isNewRecord ? $check->save() : true,
         ];
+    }
+
+    public function actionUploadTempImage()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $file = UploadedFile::getInstanceByName('image');
+        $uploadDir = Yii::getAlias(Image::UPLOAD_DIR) . '/' . 'editorJsTmp/';
+        $fileName = KaizenHelper::guidv4() . '.' . $this->getExtension($file);
+        if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);
+        $file->saveAs($uploadDir . $fileName);
+
+        return ['success' => 1, 'file' => ['url' => '/images/upload/editorJsTmp/' . $fileName]];
+
+    }
+
+    public function getExtension($file)
+    {
+        return strtolower(pathinfo($file->name, PATHINFO_EXTENSION));
     }
 
     public function beforeAction($action): bool

@@ -11,14 +11,13 @@ interface ICourseNavLessonProps {
   data: ILesson;
 }
 
-
 export function CourseNavLesson({ data }: ICourseNavLessonProps) {
   const [isInit, setInit] = useState<boolean>(true);
-  const courseId = useTypedSelector(state => state.course.id);
-  const chapterId = useTypedSelector(state => state.course.activeChapterId);
+  const courseId = useTypedSelector((state) => state.course.id);
+  const chapterId = useTypedSelector((state) => state.course.activeChapterId);
   const { setActiveLesson } = useActions();
   const navigate = useNavigate();
-  const {lessonId} = useParams();
+  const { lessonId } = useParams();
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -28,24 +27,25 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
       lessonId: String(data.id),
     });
     navigate(lessonPath);
-  }
+  };
 
   useEffect(() => {
-    if(isInit && lessonId) {
+    if (isInit && lessonId) {
       console.log(data.id, lessonId);
-      
-      if(data.id === Number(lessonId)) {
+
+      if (data.id === Number(lessonId)) {
         setActiveLesson(data);
       }
       setInit(false);
     }
-  }, [data, isInit, lessonId, setActiveLesson])  
+  }, [data, isInit, lessonId, setActiveLesson]);
 
   return (
     <S.Container onClick={handleClick}>
-      <S.LessonName $active={false}>{data.title}</S.LessonName>
-      <C.DoneIcon />
+      <S.LessonName $active={!data.isChecked}>{data.title}</S.LessonName>
+      {data.isChecked && <C.DoneIcon />}
       <AdminBtn
+        styles={{ marginLeft: 'auto' }}
         type={'edit'}
         onClick={() => {}}
       />
