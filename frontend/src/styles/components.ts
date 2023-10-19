@@ -2,6 +2,7 @@ import { DEFAULT_WIDTH } from '@/constants';
 import styled, { css } from 'styled-components';
 import doneIcon from '@assets/images/done.svg';
 import accrodionIcon from '@assets/images/accordionIcon.svg';
+import { TextStyles } from './base-styles';
 
 interface IBackDropBlurredProps {
   $maxWidth: string;
@@ -182,6 +183,7 @@ export const AccordionIcon = styled(Icon)<IAccordionIcon>`
 export const EditorParagraph = styled(Text)`
   margin-bottom: 30px;
   font-weight: 400;
+  line-height: 150%;
 `;
 
 export const ProgrammCardSkeleton = styled(FlexContainer)`
@@ -196,4 +198,31 @@ export const ProgrammCardSkeleton = styled(FlexContainer)`
       background-color: ${props => props.theme.colors.greyEO};
     }
   }
+`;
+
+
+export const OrderedList = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  list-style: decimal inside;
+`;
+
+export const UnorderedList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  list-style: disc inside;
+`;
+
+export const ListItem = styled.li`
+  display: list-item;
+  ${TextStyles}
+  font-weight: 400;
+`;
+export const EditorImg = styled.img`
+  width: 100%;
+  margin-bottom: 30px;
 `;

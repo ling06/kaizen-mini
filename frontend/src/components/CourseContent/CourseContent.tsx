@@ -6,7 +6,8 @@ import { AdminBtn } from '../AdminBtn';
 import { useEffect, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
-import { Loading } from '../Loading';
+import { useActions } from '@/hooks/useActions';
+import { useCheckLessonMutation } from '@/store/api/lessonTest.api';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
   description: {
@@ -14,6 +15,9 @@ interface IEditorLessonData extends Omit<ILesson, 'description'> {
       text?: string;
       items?: string[];
       style?: string;
+      file?: {
+        url: string;
+      };
     };
     id: string;
     type: string;
@@ -21,20 +25,30 @@ interface IEditorLessonData extends Omit<ILesson, 'description'> {
 }
 
 export function CourseContent() {
+  const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
-  const { data, isError, isLoading, isFetching } = useGetLessonByIdQuery(lessonId || '');
+  const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
+    skip: lessonId ? false : true,
+  });
+  const [checkLesson] = useCheckLessonMutation();
 
   useEffect(() => {
     if (data?.data.description && !isFetching) {
       const parsedData = JSON.parse(data?.data.description);
       setEditorData(parsedData);
-    } else if (!isFetching) {
-      setEditorData([]);
     }
-  }, [data, isFetching]);
+    setLoaderActive(isFetching);
+  }, [data, isFetching, setLoaderActive]);
 
-  console.log(editorData);
+  const handleCheckLesson = () => {
+    if (data && data.data.id) {
+      checkLesson({ id: data.data.id }).then(() => {
+        setLoaderActive(false);
+      });
+      setLoaderActive(true);
+    }
+  };
 
   return (
     <>
@@ -42,7 +56,6 @@ export function CourseContent() {
       {lessonId && isError && <ErrorBlock />}
       {lessonId && data && (
         <>
-        {(isLoading || isFetching) && <Loading/>}
           <S.Title as={'h2'}>
             {data.data.title}
             <AdminBtn
@@ -65,16 +78,22 @@ export function CourseContent() {
                 if (block.type === 'list') {
                   if (block.data.style === 'ordered') {
                     return (
-                      <S.UnorderedList key={block.id}>
+                      <C.UnorderedList key={block.id}>
                         {block.data.items?.map((item) => (
-                          <S.ListItem>{item}</S.ListItem>
+                          <C.ListItem>{item}</C.ListItem>
                         ))}
-                      </S.UnorderedList>
+                      </C.UnorderedList>
                     );
                   }
                 }
+                if (block.type === 'image') {
+                  return <C.EditorImg src={block.data.file?.url} />;
+                }
               })}
             </S.EditorOutup>
+            {editorData && !isFetching && !data.data.isChecked && (
+              <S.ForwardBtn onClick={handleCheckLesson}>Вперёд</S.ForwardBtn>
+            )}
           </S.Container>
         </>
       )}

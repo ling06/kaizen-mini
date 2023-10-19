@@ -7,7 +7,7 @@ import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
 
 export function CreateChapterForm() {
-  const { id, updatingChapterData } = useTypedSelector(state => state.course);
+  const { activeCourseId, updatingChapterData } = useTypedSelector(state => state.course);
   const formType = useTypedSelector(state => state.modal.modalType);
   const {setModalOpen, addChapter} = useActions();
   const [createChapter] = useCreateChapterMutation();
@@ -41,10 +41,10 @@ export function CreateChapterForm() {
       return;
     }
 
-    if(id && !isEditForm) {
+    if(activeCourseId && !isEditForm) {
       createChapter({
         title: chapterName,
-        course_id: id,
+        course_id: activeCourseId,
       }).then((res) => {
         if('data' in res && res.data.result) {
           addChapter(res.data.data);
@@ -55,9 +55,12 @@ export function CreateChapterForm() {
       });
     }
 
-    if(isEditForm && updatingChapterData && id) {
+    console.log(isEditForm, updatingChapterData, activeCourseId);
+    
+
+    if(isEditForm && updatingChapterData && activeCourseId) {
       updateChapter({
-        course_id: id,
+        course_id: activeCourseId,
         id: Number(updatingChapterData.id),
         title: chapterName,
       })

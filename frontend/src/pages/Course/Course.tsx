@@ -9,20 +9,19 @@ import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
 export function Course() {
-  const { setActiveChapterId } = useActions();
+  const { setActiveChapterId, setLoaderActive } = useActions();
   const { chapterId } = useParams();
-  const { data, isError } = useGetChapterByIdQuery(Number(chapterId));
-  const [activeChapterId, setActiveChapter] = useState<typeof chapterId>(undefined);
+  const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
 
   useEffect(() => {
-    if (data) {
-      setActiveChapter(chapterId);
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
+
+  useEffect(() => {
+    if (chapterId) {
+      setActiveChapterId(chapterId);
     }
-  }, [chapterId, data]);
-
-  useEffect(() => {
-    setActiveChapterId(activeChapterId);
-  }, [activeChapterId, setActiveChapterId]);
+  }, [chapterId, setActiveChapterId]);
 
   return (
     <>

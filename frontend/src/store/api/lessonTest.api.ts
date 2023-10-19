@@ -54,7 +54,7 @@ export const lessonTestApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [{ type: 'LessonById' }],
+      invalidatesTags: () => ['LessonById', 'LessonById'],
     }),
     checkLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -62,7 +62,7 @@ export const lessonTestApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [{ type: 'CourseById' }],
+      invalidatesTags: () => [{ type: 'ChapterById' }],
     }),
     sendAnswer: builder.mutation<ISendAnswerResData, ISendAnswerData>({
       query: (data) => ({

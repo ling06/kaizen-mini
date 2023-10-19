@@ -57,6 +57,7 @@ function App() {
             {modalType === MODAL_TYPES.createChapter && <CreateChapterForm />}
             {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
             {modalType === MODAL_TYPES.editCourse && <CreateCourseForm type="edit" />}
+            {modalType === MODAL_TYPES.editChapter && <CreateChapterForm />}
           </ModalLayout>
         )}
         <Transition unmountOnExit nodeRef={loaderRef} timeout={300} in={active}>
