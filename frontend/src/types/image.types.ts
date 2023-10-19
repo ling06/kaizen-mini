@@ -3,7 +3,7 @@ export interface IUploadedImage {
   extension: string;
 }
 
-export interface Image {
+export interface IImage {
   id: number;
   server: string;
   directory: string;

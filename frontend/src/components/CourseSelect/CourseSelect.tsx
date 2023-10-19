@@ -1,11 +1,11 @@
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from "@/constants";
-import * as S from "./styles";
-import { useActions } from "@/hooks/useActions";
-import { CustomSelect, IOption } from "../CustomSelect";
-import { ICourse } from "@/types/course.types";
-import { SingleValue } from "react-select";
-import { AdminBtn } from "../AdminBtn";
-import { CustomSelectOpions } from "../CustomSelectOpions/CustomSelectOpions";
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import * as S from './styles';
+import { useActions } from '@/hooks/useActions';
+import { CustomSelect, IOption } from '../CustomSelect';
+import { ICourse } from '@/types/course.types';
+import { SingleValue } from 'react-select';
+import { AdminBtn } from '../AdminBtn';
+import { CustomSelectOption } from '../CustomSelectOption/CustomSelectOption';
 
 interface ICourseSelectProps {
   data: Array<ICourse>;
@@ -17,7 +17,11 @@ export function CourseSelect({ data }: ICourseSelectProps) {
     return {
       value: course.id,
       // label: `Курс: ${course.title}`,
-      label: <CustomSelectOpions text={course.title} percentage={0} />,
+      label: (
+        <CustomSelectOption
+          data={course}
+        />
+      ),
     };
   });
 
@@ -27,9 +31,9 @@ export function CourseSelect({ data }: ICourseSelectProps) {
   };
 
   const handleChange = (option: SingleValue<IOption>) => {
-    if(!option) return;
+    if (!option) return;
     setActiveCourseId(Number(option.value));
-  }
+  };
 
   return (
     <S.Container>
@@ -38,7 +42,10 @@ export function CourseSelect({ data }: ICourseSelectProps) {
         options={selectOptions}
         defaultValue={selectOptions[0]}
       />
-      <AdminBtn type={ADMIN_BTN_TYPES.add} onClick={openCreateCourseModal} />
+      <AdminBtn
+        type={ADMIN_BTN_TYPES.add}
+        onClick={openCreateCourseModal}
+      />
     </S.Container>
   );
 }

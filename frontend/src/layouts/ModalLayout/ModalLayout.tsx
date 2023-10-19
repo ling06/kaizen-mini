@@ -19,12 +19,15 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
       case MODAL_TYPES.createCourse:
         name = 'Создание курса';
         break;
+      case MODAL_TYPES.editCourse:
+        name = 'Изменение курса';
+        break;
       case MODAL_TYPES.createChapter:
         name = 'Создание главы';
         break;
       case MODAL_TYPES.createTheme:
         name = 'Создание Темы';
-        break;  
+        break;
       default:
         console.error(`Unknown modal type: ${type}`);
     }

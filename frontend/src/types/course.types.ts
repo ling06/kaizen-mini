@@ -1,4 +1,6 @@
-import { IChapter } from "./chapter.types";
+import { IChapter } from './chapter.types';
+import { IImage, IUploadedImage } from './image.types';
+import { IUser } from './user.types';
 
 export interface ICourse {
   id: number;
@@ -9,7 +11,14 @@ export interface ICourse {
   user_id: number;
   date: string;
   is_deleted: number;
-  chapters?: Array<IChapter>
+  chapters?: Array<IChapter>;
+  image?: IImage;
+  user?: IUser;
+  percentage?: {
+    lessonCount: number;
+    checkedLessonCount: number;
+    percentage: number;
+  }
 }
 
 export interface IGetCourses {
@@ -18,7 +27,7 @@ export interface IGetCourses {
   page: number;
   pagesCount: number;
   prevPage?: string;
-  nextPage?: string
+  nextPage?: string;
 }
 
 export interface IGetCourseByIdRes {
@@ -27,4 +36,11 @@ export interface IGetCourseByIdRes {
 }
 
 export type ICreateCourse = Pick<ICourse, 'title' | 'description' | 'is_open'>;
-export type IUpdateCourse = Pick<ICourse, 'title' | 'description' | 'is_open' | 'status'>
+export interface IUpdateCourse {
+  id: number;
+  title?: string;
+  description?: string;
+  is_open?: number;
+  status?: number;
+  image?: IUploadedImage;
+}

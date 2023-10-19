@@ -9,6 +9,7 @@ export interface ICourseInitialState extends Partial<ICourse> {
   activeChapterId: null | number;
   activeTheme: ITheme | null;
   activeLesson: ILesson | null;
+  editCourseData: ICourse | null;
   updatingChapterData: IChapter | null;
 }
 
@@ -17,6 +18,7 @@ const courseInitialState: ICourseInitialState = {
   activeChapterId: null,
   activeTheme: null,
   activeLesson: null,
+  editCourseData: null,
   updatingChapterData: null,
 };
 
@@ -38,6 +40,9 @@ export const courseSlice = createSlice({
     },
     setActiveLesson: (state, { payload }) => {
       state.activeLesson = { ...payload };
+    },
+    setEditCourseData: (state, { payload }: PayloadAction<ICourse>) => {
+      state.editCourseData = { ...payload };
     },
     setUpdatingChapterData: (state, { payload }: PayloadAction<IChapter>) => {
       state.updatingChapterData = { ...payload };

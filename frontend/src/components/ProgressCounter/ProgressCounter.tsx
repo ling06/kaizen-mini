@@ -4,7 +4,7 @@ interface IProgressCounterProps {
   percentage: number;
 }
 
-export function ProgressCounter({ percentage }: IProgressCounterProps) {
+export function ProgressCounter({ percentage = 0 }: IProgressCounterProps) {
 
   const isStart = percentage > 0;
 

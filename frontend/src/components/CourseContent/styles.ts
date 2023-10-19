@@ -1,4 +1,3 @@
-import { star } from '@assets/images/star.svg';
 import styled from 'styled-components';
 import * as C from '@styles/components';
 import forwardIcon from '@assets/images/forwardIcon.svg';

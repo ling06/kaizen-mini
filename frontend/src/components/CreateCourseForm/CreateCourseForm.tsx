@@ -1,24 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { CustomCheckbox } from '../CustomCheckbox';
 import { ModalForm } from '../ModalForm';
 import '@styles/editorjs.css';
-import { useCreateCourseMutation } from '@/store/api/course.api';
+import { useCreateCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/hooks/useActions';
-import { Loading } from '../Loading';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { MODAL_TYPES } from '@/constants';
 
-interface ICreateCourseForm {
-  type?: string;
-}
-
-export function CreateCourseForm({ type }: ICreateCourseForm) {
+export function CreateCourseForm() {
   const { setModalOpen } = useActions();
+  const modalType = useTypedSelector((state) => state.modal.modalType);
+  const editCourse = useTypedSelector((state) => state.course.editCourseData);
+
   const [courseName, setCourseName] = useState<string>('');
-  const [courseDescription, setCourseDescription] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
-  const [createCourse, status] = useCreateCourseMutation();
+  const [isEditForm, setEditForm] = useState<boolean>(false);
   
+  const [courseDescription, setCourseDescription] = useState<string>('');
+
+  const [createCourse] = useCreateCourseMutation();
+  const [updateCourse] = useUpdateCourseMutation();
+
+  useEffect(() => {
+    const isEdit = modalType === MODAL_TYPES.editCourse;
+    setEditForm(isEdit);
+    if (isEdit && editCourse) {
+      setCourseName(editCourse.title);
+      setChangedName(true);
+      setValidName(true);
+      setCourseDescription(editCourse.description);
+    }
+  }, [editCourse, modalType]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -30,29 +44,43 @@ export function CreateCourseForm({ type }: ICreateCourseForm) {
 
   const handleTeaxtAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCourseDescription(event.target.value);
-  }
+  };
 
   const handleConfirm = () => {
-    if(!isValidName) {
+    if (!isValidName) {
       setChangedName(true);
       return;
     }
-    createCourse({
-      title: courseName,
-      description: courseDescription,
-      is_open: 1,
-    }).then(() => setModalOpen(false))
 
+    if (!isEditForm) {
+      createCourse({
+        title: courseName,
+        description: courseDescription,
+        is_open: 1,
+      }).then(() => setModalOpen(false));
+    }
+
+    if (isEditForm && editCourse && editCourse.id) {
+      updateCourse({
+        id: editCourse.id,
+        title: courseName,
+        description: courseDescription,
+      }).then(() => setModalOpen(false));
+    }
+  };
+
+  const handleCancel = () => {
+    setModalOpen(false);
   };
 
   const handlers = {
-    cancel: () => {},
+    cancel: handleCancel,
     confirm: handleConfirm,
   };
 
   const names = {
     cancel: 'Отмена',
-    confirm:  `${type === 'edit' ? 'Изменить' : 'Создать'} курс`,
+    confirm: `${modalType === 'edit' ? 'Изменить' : 'Создать'} курс`,
   };
 
   return (
@@ -60,7 +88,6 @@ export function CreateCourseForm({ type }: ICreateCourseForm) {
       width="1240px"
       handlers={handlers}
       names={names}>
-        {status.isLoading && <Loading />}
       <S.NameInput
         type="text"
         $isValid={isValidName}
@@ -69,7 +96,10 @@ export function CreateCourseForm({ type }: ICreateCourseForm) {
         onChange={handleChange}
         placeholder="Введите название курса (обязательно)"
       />
-      <S.Textarea as={'textarea'} onChange={handleTeaxtAreaChange} value={courseDescription}></S.Textarea>
+      <S.Textarea
+        as={'textarea'}
+        onChange={handleTeaxtAreaChange}
+        value={courseDescription}></S.Textarea>
       <S.AddCourseImg>Обложка курса</S.AddCourseImg>
       <CustomCheckbox descr={'Все главы доступны сразу '} />
     </ModalForm>
