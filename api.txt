@@ -537,6 +537,18 @@ Response: [
     result: bool - успешно ли восстановлена тема
 ]
 
+/api/course/check-lesson [POST]
+Отметить урок пройденным.
+Request: [
+    id: int - id урока
+]
+Response: [
+    data: [
+        theme_id: int - id темы урока
+    ]
+    result: bool - отмечен ли урок
+]
+
 
 
 ---------- [ Тесты ] ----------
@@ -595,18 +607,6 @@ Request: [
 ]
 Response: [
     result: bool - успешно ли удален вопрос
-]
-
-/api/test/check-lesson [POST]
-Отметить урок пройденным.
-Request: [
-    id: int - id урока
-]
-Response: [
-    data: [
-        theme_id: int - id темы урока
-    ]
-    result: bool - отмечен ли урок
 ]
 
 /api/test/send-answer [POST]
