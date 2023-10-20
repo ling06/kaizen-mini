@@ -2,17 +2,20 @@ import { useState } from 'react';
 import * as S from './styles';
 import { Title } from './Title';
 import { Variant } from './Variant';
-import { ICreateTest } from '@/types/lessonTest.types';
+import { ITest } from '@/types/lessonTest.types';
+import { useActions } from '@/hooks/useActions';
 
+interface ICreateTestFormProps {
+  data: ITest;
+}
 
-
- export function CreateTestForm() {
-  const [testName, setTestName] = useState<string>('');
+ export function CreateTestForm({ data }: ICreateTestFormProps) {
+  const { changeTestQuestion } = useActions();
   const [isChanged, setChanged] = useState<boolean>(false);
   
 
   const handleChangeTestName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTestName(event.target.value);
+    changeTestQuestion({id: data.id, question: event.target.value})
     if (!isChanged) {
       setChanged(true);
     }
@@ -23,15 +26,13 @@ import { ICreateTest } from '@/types/lessonTest.types';
       <Title value={'Заголовок теста (необязательно)'} />
       <S.TestName
         type="text"
-        value={testName}
+        value={data.question}
         onChange={handleChangeTestName}
         $isValid={true}
         $isChanged={isChanged}
       />
       <S.Variants>
-
-
-
+        {data.answers.length > 0 && data.answers.map((answer, index) => <Variant data={answer} number={index + 1}/>)}
       </S.Variants>
     </S.Container>
   );

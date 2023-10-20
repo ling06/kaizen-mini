@@ -10523,7 +10523,7 @@ function Header() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
   ] });
 }
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -13212,7 +13212,7 @@ const modalSlice = createSlice({
     }
   }
 });
-const { actions: actions$3, reducer: reducer$4 } = modalSlice;
+const { actions: actions$4, reducer: reducer$5 } = modalSlice;
 const AuthInitialState = {
   token: null
 };
@@ -13225,7 +13225,7 @@ const authSlice = createSlice({
     }
   }
 });
-const { actions: actions$2, reducer: reducer$3 } = authSlice;
+const { actions: actions$3, reducer: reducer$4 } = authSlice;
 const courseInitialState = {
   data: {
     id: 0,
@@ -13284,7 +13284,7 @@ const courseSlice = createSlice({
     }
   }
 });
-const { actions: actions$1, reducer: reducer$2 } = courseSlice;
+const { actions: actions$2, reducer: reducer$3 } = courseSlice;
 const loaderInitialState = {
   active: false
 };
@@ -13297,10 +13297,47 @@ const loaderSlice = createSlice({
     }
   }
 });
-const { reducer: reducer$1, actions } = loaderSlice;
+const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+const lessonInitialState = {
+  tests: []
+};
+const emptyTest = {
+  id: "",
+  question: "",
+  answers: [
+    {
+      id: "",
+      answer: "",
+      right_answer: false,
+      text: ""
+    }
+  ]
+};
+const lessonSlice = createSlice({
+  name: "lesson",
+  initialState: lessonInitialState,
+  reducers: {
+    addEmptyTest: (state) => {
+      emptyTest.id = nanoid();
+      emptyTest.answers[0].id = nanoid();
+      state.tests.push(emptyTest);
+    },
+    setTestsData: (state, { payload }) => {
+      state.tests = [...state.tests, ...payload];
+    },
+    changeTestQuestion: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1)
+        return;
+      state.tests[testIndex].question = payload.question;
+    }
+  }
+});
+const { reducer: reducer$1, actions } = lessonSlice;
 const rootActions = {
-  ...actions$2,
   ...actions$3,
+  ...actions$4,
+  ...actions$2,
   ...actions$1,
   ...actions
 };
@@ -13325,7 +13362,7 @@ const addIcon = "/assets/addIconBlack.svg";
 const editIcon = "/assets/editIconRed.svg";
 const deleteIcon = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -13365,7 +13402,7 @@ const HideBtn = st$1(Btn)``;
 const VisibleBtn = st$1(Btn)``;
 const AddBtn = st$1(Btn)``;
 const EditBtn = st$1(Btn)``;
-const DeleteBtn = st$1(Btn)`
+const DeleteBtn$2 = st$1(Btn)`
   color: ${(props) => props.theme.colors.yRed};
 `;
 const RestoreBtn = st$1(Btn)``;
@@ -13397,7 +13434,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -13415,7 +13452,7 @@ function ControlsPopup({
       /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon, {}),
       "изменить"
     ] }),
-    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn, { onClick: onDelete, children: [
+    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon, {}),
       "удалить"
     ] }),
@@ -25933,26 +25970,26 @@ function ProgressCounter({ percentage = 0 }) {
     "%"
   ] });
 }
-const CustomSelectOpions = st$1.label`
+const CustomSelectOption$1 = st$1.label`
   display: flex;
   align-items: center;
   padding: 0 20px;
   width: 570px;
   height: 63px;
+  cursor: pointer;
   &*:first-child {
     padding: 0;
   }
-  &*:focus{
+  &*:focus {
     background-color: transparent;
   }
-  
 `;
 const TextLabel = st$1.p`
   max-width: 365px;
 
   margin-right: auto;
   color: #000;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 24.923px;
   font-weight: 500;
   line-height: 120%;
@@ -25964,7 +26001,7 @@ const IsHiddenIcon = st$1(Icon$1)`
   background-image: url(${isHideIcon});
 `;
 function CustomSelectOption({ percentage, status, title }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOpions, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { children: [
       "Курс: ",
@@ -26074,7 +26111,7 @@ function CourseSelect() {
       setCourseData(selectedCourseData);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26099,11 +26136,11 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
 `;
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26152,7 +26189,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$i = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26176,7 +26213,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26202,7 +26239,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   ] });
 }
 function CourseMainInfo() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
@@ -26228,7 +26265,7 @@ function CourseMainInfo() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: defaultPreview }) })
   ] });
 }
-const Container$h = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -26421,7 +26458,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26445,7 +26482,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26456,7 +26493,7 @@ const Text$2 = st$1(Text$3)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 let init = true;
 function CoursePreview() {
@@ -26482,7 +26519,7 @@ function CoursePreview() {
       setCourseData(data.data[0]);
     }
   }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -26491,7 +26528,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
@@ -26521,7 +26558,7 @@ function CourseNavLesson({ data }) {
       setInit(false);
     }
   }, [data, isInit, lessonId, setActiveLesson]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26560,7 +26597,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Theme = st$1(FlexContainer)`
@@ -26643,7 +26680,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     navigate(createLessonPath);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -26693,7 +26730,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$d = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$8 = st$1.h4`
@@ -26712,7 +26749,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { children: [
       "Темы главы",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26723,7 +26760,7 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$d, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseNavTheme,
       {
         data: theme,
@@ -26733,7 +26770,7 @@ function CourseNavBody({ data }) {
     )) })
   ] });
 }
-const Container$c = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -26751,7 +26788,12 @@ const ContentContainer = st$1(FlexContainer)`
   overflow-y: scroll;
   padding: 20px 35px 80px;
 `;
-const Container$b = st$1(FlexContainer)`
+const bodyOverflow = at$1`
+  body {
+    overflow: hidden;
+  }
+`;
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -26767,7 +26809,7 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26790,7 +26832,7 @@ const Title$6 = st$1(Text$3)`
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$a = st$1(FlexContainer)`
+const Container$b = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -26798,7 +26840,7 @@ const EditorOutup = st$1(FlexContainer)`
   flex-direction: column;
   padding-right: 20px;
 `;
-const AdminBtnContainer = st$1.div`
+st$1.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -26857,86 +26899,26 @@ const lessonApi = api.injectEndpoints({
         method: "POST",
         body: data
       })
+    }),
+    checkLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/check-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById", "LessonById"]
     })
   }),
   overrideExisting: false
 });
 const {
+  useCheckLessonMutation,
   useCreateLessonMutation,
   useDeleteLessonMutation,
   useGetLessonByIdQuery,
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
-const lessonTestApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    addTest: builder.mutation({
-      query: (data) => ({
-        url: "test/add-test",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [{ type: "LessonById" }]
-    }),
-    updateTest: builder.mutation({
-      query: (data) => ({
-        url: "test/update-test",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [{ type: "LessonById" }]
-    }),
-    createQuestion: builder.mutation({
-      query: (data) => ({
-        url: "test/create-question",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [{ type: "LessonById" }]
-    }),
-    updateQuestion: builder.mutation({
-      query: (data) => ({
-        url: "test/update-question",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [{ type: "LessonById" }]
-    }),
-    deleteQuestion: builder.mutation({
-      query: (data) => ({
-        url: "test/delete-question",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => ["LessonById", "LessonById"]
-    }),
-    checkLesson: builder.mutation({
-      query: (data) => ({
-        url: "test/check-lesson",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [{ type: "ChapterById" }]
-    }),
-    sendAnswer: builder.mutation({
-      query: (data) => ({
-        url: "test/send-answer",
-        method: "POST",
-        body: data
-      })
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useAddTestMutation,
-  useCheckLessonMutation,
-  useCreateQuestionMutation,
-  useDeleteQuestionMutation,
-  useSendAnswerMutation,
-  useUpdateQuestionMutation,
-  useUpdateTestMutation
-} = lessonTestApi;
 function CourseContent() {
   const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
@@ -26975,15 +26957,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtnContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            type: "edit",
-            onClick: () => {
-            }
-          }
-        ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutup, { children: editorData.map((block) => {
           var _a, _b;
           if (block.type === "paragraph") {
@@ -27017,7 +26991,8 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
@@ -27045,7 +27020,7 @@ function Courses() {
   ] }) });
 }
 const arrowLeft = "/assets/swiperArrowLeft.svg";
-const Container$9 = st$1.div`
+const Container$a = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -32149,7 +32124,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$8 = st$1(FlexContainer)`
+const Container$9 = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -32185,7 +32160,7 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionPagination, { children: "Конкурс 1/7" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -32216,7 +32191,7 @@ function CompetitionsSwiper() {
       return;
     swiperRef.current.swiper.slideNext();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
@@ -32242,7 +32217,7 @@ function CompetitionsSwiper() {
 const star = "/assets/star.svg";
 const activeStar = "/assets/active-star.svg";
 const moreIcon = "/assets/moreIcon.svg";
-const Container$7 = st$1(FlexContainer)`
+const Container$8 = st$1(FlexContainer)`
   flex-direction: column;
   width: 49.7%;
   height: 400px;
@@ -32324,7 +32299,7 @@ const MoreIcon = st$1(Icon$1)`
 `;
 function ManagerInfo({ percentage, salary, appSaleValue, zebrChair, yamaguchiLvl }) {
   const stars = [1, 2, 3, 4, 5, 6];
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(PlanText, { children: "Твой план выполнен на" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(PlanСompletionPercentage, { children: [
@@ -32431,7 +32406,7 @@ const {
   useRestoreNewsMutation,
   useUpdateNewsMutation
 } = newsApi;
-const Container$6 = st$1(FlexContainer)`
+const Container$7 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 20px 15px;
   border-radius: ${(props) => props.theme.utils.br};
@@ -32464,7 +32439,7 @@ const Date$1 = st$1.p`
 `;
 const Author = st$1(Date$1)``;
 function NewsEl({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: `/news/${data.id}`, style: { display: "block", marginRight: "auto" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" }) }),
@@ -32481,7 +32456,7 @@ function NewsEl({ data }) {
     ] })
   ] });
 }
-const Container$5 = st$1(FlexContainer)`
+const Container$6 = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$4 = st$1(Text$3)`
@@ -32584,7 +32559,7 @@ function NewsCategoryWrapper() {
 }
 function NewsContainer() {
   const { data, isError, isLoading } = useGetAllNewsQuery();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$5, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$4, { children: [
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/news/create-news", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -32606,7 +32581,7 @@ function NewsContainer() {
     ] })
   ] });
 }
-const Container$4 = st$1(FlexContainer)`
+const Container$5 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
 `;
@@ -32623,7 +32598,7 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$4, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$5, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -32867,7 +32842,7 @@ function CustomCheckbox({ descr, onChange = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
   ] });
 }
-const Container$3 = st$1.div`
+const Container$4 = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32889,12 +32864,12 @@ const CancelBtn = st$1(ConfirmBtn)`
   }
 `;
 function FormControls({ handlers, names, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$4, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CancelBtn, { onClick: handlers.cancel, children: names.cancel }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ConfirmBtn, { onClick: handlers.confirm, children: names.confirm })
   ] });
 }
-const Container$2 = st$1(FlexContainer)`
+const Container$3 = st$1(FlexContainer)`
   flex-direction: column;
   width: ${(props) => props.$width};
   height: 100%;
@@ -32917,7 +32892,7 @@ function ModalForm({
     onSubmit();
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$2,
+    Container$3,
     {
       $width: width2,
       style: styles2,
@@ -46939,7 +46914,7 @@ const EDITOR_INTERNATIONALIZATION_CONFIG = {
     }
   }
 };
-const Container$1 = st$1(FlexContainer)`
+const Container$2 = st$1(FlexContainer)`
   flex-direction: column;
   padding-top: 40px;
 `;
@@ -46950,6 +46925,9 @@ const Variants = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$2 = st$1.h5`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: 600;
@@ -46962,85 +46940,95 @@ function Title$1({ value, children }) {
     children
   ] });
 }
-function CreateTestForm() {
-  const [testName, setTestName] = reactExports.useState("");
+const Container$1 = st$1(FlexContainer)`
+  flex-direction: column; 
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+`;
+const VariantInput = st$1(InputWithState)`
+  margin-bottom: 20px;
+`;
+const DeleteBtn$1 = st$1.button`
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  margin-left: auto;
+`;
+const DeleteBtnIcon = st$1(Icon$1)`
+  background-image: url(${deleteIcon});
+`;
+function DeleteBtn({ onClick: onClick2 = () => {
+}, styles: styles2 = {} }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    DeleteBtn$1,
+    {
+      style: styles2,
+      onClick: onClick2,
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtnIcon, {})
+    }
+  );
+}
+function Variant({ data, number }) {
+  const [variantValue, setVariantValue] = reactExports.useState(data.answer);
+  const [isValid, setValid] = reactExports.useState(false);
   const [isChanged, setChanged] = reactExports.useState(false);
-  const handleChangeTestName = (event) => {
-    setTestName(event.target.value);
+  const handleVariantValueChange = (event) => {
+    setVariantValue(event.target.value);
+    if (event.target.value.length > 0) {
+      setValid(true);
+    }
     if (!isChanged) {
       setChanged(true);
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: `Вариант ${number}`, children: /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: () => {
+    } }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      VariantInput,
+      {
+        type: "text",
+        value: variantValue,
+        onChange: handleVariantValueChange,
+        $isChanged: isChanged,
+        $isValid: isValid
+      }
+    )
+  ] });
+}
+function CreateTestForm({ data }) {
+  const { changeTestQuestion } = useActions();
+  const [isChanged, setChanged] = reactExports.useState(false);
+  const handleChangeTestName = (event) => {
+    changeTestQuestion({ id: data.id, question: event.target.value });
+    if (!isChanged) {
+      setChanged(true);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: "Заголовок теста (необязательно)" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       TestName,
       {
         type: "text",
-        value: testName,
+        value: data.question,
         onChange: handleChangeTestName,
         $isValid: true,
         $isChanged: isChanged
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Variants, {})
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Variants, { children: data.answers.length > 0 && data.answers.map((answer, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Variant, { data: answer, number: index + 1 })) })
   ] });
-}
-const Overlay = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: ${(props) => props.theme.utils.zIndex.loading};
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity .2s ease-in-out;
-`;
-const Container = st$1(FlexContainer)`
-  align-items: center;
-  width: fit-content;
-  padding: 18px 24px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-const Logo = st$1.img`
-  width: 30px;
-  margin-right: 15px;
-`;
-const Text$1 = st$1(Text$3)`
-  font-size: 22.714px;
-`;
-const loadingLogo = "/assets/loadingLogo.svg";
-function Loading({ styles: styles2 = {}, state, innerRef }) {
-  const modalRoot = document.getElementById("modal-root");
-  if (!modalRoot)
-    return;
-  return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Overlay,
-      {
-        $state: state,
-        style: styles2,
-        ref: innerRef,
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
-        ] })
-      }
-    ),
-    modalRoot
-  );
 }
 let editor$1;
 function CreateLessonForm({ type }) {
-  const [createLesson, status] = useCreateLessonMutation();
+  const tests = useTypedSelector((state) => state.lesson.tests);
+  const { addEmptyTest } = useActions();
+  const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
-  const [isTest, setTest] = reactExports.useState(false);
   const navigation = useNavigate();
   const { themeId } = useParams();
   reactExports.useEffect(() => {
@@ -47074,7 +47062,8 @@ function CreateLessonForm({ type }) {
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
-      description: editorBlocksData
+      description: editorBlocksData,
+      tests: []
     }).then(() => {
       editor$1 == null ? void 0 : editor$1.clear();
       editor$1 = void 0;
@@ -47094,8 +47083,10 @@ function CreateLessonForm({ type }) {
       }
     }
   };
+  const handleAddEmptyTest = () => {
+    addEmptyTest();
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    status.isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(Loading, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$3, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       LessonNameInput,
@@ -47109,18 +47100,19 @@ function CreateLessonForm({ type }) {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TestWrapper, { children: isTest ? /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, {}) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      AddTest,
-      {
-        onClick: () => {
-          setTest(true);
-        },
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AddTestIcon, {}),
-          "добавить тест"
-        ]
-      }
-    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
+      tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        AddTest,
+        {
+          onClick: handleAddEmptyTest,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(AddTestIcon, {}),
+            "добавить тест"
+          ]
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
@@ -47266,6 +47258,54 @@ function CreateNews({ type }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNewsForm, { type })
   ] });
 }
+const Overlay = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: ${(props) => props.theme.utils.zIndex.loading};
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity .2s ease-in-out;
+`;
+const Container = st$1(FlexContainer)`
+  align-items: center;
+  width: fit-content;
+  padding: 18px 24px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const Logo = st$1.img`
+  width: 30px;
+  margin-right: 15px;
+`;
+const Text$1 = st$1(Text$3)`
+  font-size: 22.714px;
+`;
+const loadingLogo = "/assets/loadingLogo.svg";
+function Loading({ styles: styles2 = {}, state, innerRef }) {
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot)
+    return;
+  return ReactDOM.createPortal(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Overlay,
+      {
+        $state: state,
+        style: styles2,
+        ref: innerRef,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
+        ] })
+      }
+    ),
+    modalRoot
+  );
+}
 function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
@@ -47317,10 +47357,11 @@ function App() {
   ] }) });
 }
 const reducer = combineReducers({
-  auth: reducer$3,
-  modal: reducer$4,
-  course: reducer$2,
-  loader: reducer$1,
+  auth: reducer$4,
+  modal: reducer$5,
+  course: reducer$3,
+  loader: reducer$2,
+  lesson: reducer$1,
   [api.reducerPath]: api.reducer
 });
 const store = configureStore({

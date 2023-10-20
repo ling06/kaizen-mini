@@ -47,11 +47,20 @@ export const lessonApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    checkLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
+      query: (data) => ({
+        url: 'course/check-lesson',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: () => ['ChapterById', 'LessonById'],
+    }),
   }),
   overrideExisting: false,
 });
 
 export const {
+  useCheckLessonMutation,
   useCreateLessonMutation,
   useDeleteLessonMutation,
   useGetLessonByIdQuery,

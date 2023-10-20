@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import {styled, createGlobalStyle} from "styled-components";
 import * as C from '@styles/components';
 
 export const Container = styled(C.FlexContainer)`
@@ -20,4 +20,10 @@ export const ContentContainer = styled(C.FlexContainer)`
   max-height: 100vh;
   overflow-y: scroll;
   padding: 20px 35px 80px;
+`;
+
+export const bodyOverflow = createGlobalStyle`
+  body {
+    overflow: hidden;
+  }
 `;

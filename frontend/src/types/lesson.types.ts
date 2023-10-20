@@ -1,3 +1,5 @@
+import { ITest } from "./lessonTest.types";
+
 export interface ILesson {
   id: number;
   theme_id: number;
@@ -8,7 +10,7 @@ export interface ILesson {
   user_id: number;
   date: string;
   is_deleted: number;
-  test?: string;
+  tests: Array<ITest>;
   isChecked: boolean;
 }
 
@@ -16,6 +18,7 @@ export interface ICreateLessonData {
   title: string;
   theme_id: number;
   description: string;
+  tests: Array<ITest>;
 }
 
 export interface IUpdateLessonData extends ICreateLessonData {

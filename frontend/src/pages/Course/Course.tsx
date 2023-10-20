@@ -13,6 +13,7 @@ export function Course() {
   const { chapterId } = useParams();
   const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
 
+
   useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
@@ -27,6 +28,7 @@ export function Course() {
     <>
       {isError && <ErrorBlock />}
       <S.Container>
+        <S.bodyOverflow />
         <S.NavContainer>
           {data && (
             <>

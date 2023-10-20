@@ -7,7 +7,8 @@ import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
 import { useCreateLessonMutation } from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Loading } from '../Loading';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useActions } from '@/hooks/useActions';
 
 interface ICreateLessonFormProps {
   type: string;
@@ -16,11 +17,12 @@ interface ICreateLessonFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
-  const [createLesson, status] = useCreateLessonMutation();
+  const tests = useTypedSelector((state) => state.lesson.tests);
+  const { addEmptyTest } = useActions();
+  const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
-  const [isTest, setTest] = useState<boolean>(false);
   const navigation = useNavigate();
   const { themeId } = useParams();
 
@@ -60,6 +62,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
+      tests: [],
     })
       .then(() => {
         editor?.clear();
@@ -82,9 +85,12 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     },
   };
 
+  const handleAddEmptyTest = () => {
+    addEmptyTest();
+  }
+
   return (
     <>
-      {status.isLoading && <Loading />}
       <S.Title>{type === 'create' ? 'Создание урока' : 'Редактирование урока'}</S.Title>
       <S.LessonNameInput
         $isValid={isValidName}
@@ -96,17 +102,12 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       />
       <S.EditorJsWrapper id="editorjs" />
       <S.TestWrapper>
-        {isTest ? (
-          <CreateTestForm />
-        ) : (
-          <S.AddTest
-            onClick={() => {
-              setTest(true);
-            }}>
-            <S.AddTestIcon />
-            добавить тест
-          </S.AddTest>
-        )}
+        {tests.length > 0 && tests.map((test) => <CreateTestForm data={test}/>)}
+        <S.AddTest
+          onClick={handleAddEmptyTest}>
+          <S.AddTestIcon />
+          добавить тест
+        </S.AddTest>
       </S.TestWrapper>
       <S.Divider />
       <FormControls

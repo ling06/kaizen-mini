@@ -9,10 +9,10 @@ interface ICustomSelectOpionsProps {
 
 export function CustomSelectOption({ percentage, status, title }: ICustomSelectOpionsProps) {
   return (
-    <S.CustomSelectOpions>
+    <S.CustomSelectOption>
       <ProgressCounter percentage={percentage || 0} />
       <S.TextLabel>Курс: {title}</S.TextLabel>
       {status === 0 && <S.IsHiddenIcon />}
-    </S.CustomSelectOpions>
+    </S.CustomSelectOption>
   );
 }

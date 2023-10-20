@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
 import * as C from '@styles/components';
-import { useGetLessonByIdQuery } from '@/store/api/lesson.api';
+import { useCheckLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
 import { useEffect, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
-import { useCheckLessonMutation } from '@/store/api/lessonTest.api';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
   description: {
@@ -64,12 +63,12 @@ export function CourseContent() {
             />
           </S.Title>
           <S.Container>
-            <S.AdminBtnContainer>
+            {/* <S.AdminBtnContainer>
               <AdminBtn
                 type="edit"
                 onClick={() => {}}
               />
-            </S.AdminBtnContainer>
+            </S.AdminBtnContainer> */}
             <S.EditorOutup>
               {editorData.map((block) => {
                 if (block.type === 'paragraph') {
@@ -100,3 +99,4 @@ export function CourseContent() {
     </>
   );
 }
+

@@ -1,20 +1,20 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import * as C from '@styles/components';
 import isHideIcon from '@assets/images/hideIcon.svg';
 
-export const CustomSelectOpions = styled.label`
+export const CustomSelectOption = styled.label`
   display: flex;
   align-items: center;
   padding: 0 20px;
   width: 570px;
   height: 63px;
+  cursor: pointer;
   &*:first-child {
     padding: 0;
   }
-  &*:focus{
+  &*:focus {
     background-color: transparent;
   }
-  
 `;
 
 export const TextLabel = styled.p`
@@ -22,7 +22,7 @@ export const TextLabel = styled.p`
 
   margin-right: auto;
   color: #000;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 24.923px;
   font-weight: 500;
   line-height: 120%;
