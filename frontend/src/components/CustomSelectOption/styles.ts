@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import * as C from '@styles/components';
+import isHideIcon from '@assets/images/hideIcon.svg';
 
 export const CustomSelectOpions = styled.label`
   display: flex;
@@ -27,4 +29,8 @@ export const TextLabel = styled.p`
   &:first-child {
     font-weight: 700;
   }
+`;
+
+export const IsHiddenIcon = styled(C.Icon)`
+  background-image: url(${isHideIcon});
 `;

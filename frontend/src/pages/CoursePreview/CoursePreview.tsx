@@ -7,20 +7,32 @@ import { useGetCoursesQuery } from '@/store/api/course.api';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+
+let init = true;
 
 export function CoursePreview() {
-  const { data, isError, isLoading } = useGetCoursesQuery();
-  const { setActiveCourseId, setLoaderActive } = useActions();
+  const { data, isError, isFetching } = useGetCoursesQuery();
+  const courseId = useTypedSelector(state => state.course.data?.id);
+  const { setCourseData, setLoaderActive } = useActions();
 
   useEffect(() => {
-    setLoaderActive(isLoading);
-  }, [isLoading, setLoaderActive])
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
 
   useEffect(() => {
-    if (data) {
-      setActiveCourseId(data.data[0].id);
+    if (data && init) {
+      init = false;
+      if(courseId) {
+        const currentCourse = data.data.find((course) => course.id === Number(courseId));
+        if(currentCourse) {
+          setCourseData(currentCourse);
+          return;
+        }
+      }
+      setCourseData(data.data[0]);
     }
-  }, [data, setActiveCourseId]);
+  }, [courseId, data, setCourseData]);
 
   return (
     <C.DefaultContainer>
@@ -28,7 +40,7 @@ export function CoursePreview() {
         {isError && <ErrorBlock />}
         {data && (
           <>
-            <CourseSelect data={data.data} />
+            <CourseSelect />
             <CourseMainInfo />
             <CourseProgramm />
           </>

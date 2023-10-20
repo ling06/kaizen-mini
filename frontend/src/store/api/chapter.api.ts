@@ -32,6 +32,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Courses'],
     }),
     deleteChapter: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({

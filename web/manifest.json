@@ -81,18 +81,18 @@
       "assets/done.svg",
       "assets/accordionIcon.svg",
       "assets/search-header.svg",
-      "assets/dropdownIcon.svg",
       "assets/editIcon.svg",
       "assets/addIcon.svg",
       "assets/hideIcon.svg",
       "assets/addIconBlack.svg",
       "assets/editIconRed.svg",
       "assets/deleteIcon.svg",
+      "assets/visibleIcon.svg",
       "assets/defaultCoursePreview.png",
       "assets/arrowRight.svg",
       "assets/defaultCardImg.png",
       "assets/dnd-btn.svg",
-      "assets/loadingLogo.svg",
+      "assets/forwardIcon.svg",
       "assets/swiperArrowLeft.svg",
       "assets/star.svg",
       "assets/active-star.svg",
@@ -101,6 +101,7 @@
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
       "assets/checklist.svg",
+      "assets/loadingLogo.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
       "assets/Montserrat-Light.ttf",
@@ -263,6 +264,10 @@
     "file": "assets/editIconRed.svg",
     "src": "src/assets/images/editIconRed.svg"
   },
+  "src/assets/images/forwardIcon.svg": {
+    "file": "assets/forwardIcon.svg",
+    "src": "src/assets/images/forwardIcon.svg"
+  },
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
@@ -294,5 +299,9 @@
   "src/assets/images/swiperArrowLeft.svg": {
     "file": "assets/swiperArrowLeft.svg",
     "src": "src/assets/images/swiperArrowLeft.svg"
+  },
+  "src/assets/images/visibleIcon.svg": {
+    "file": "assets/visibleIcon.svg",
+    "src": "src/assets/images/visibleIcon.svg"
   }
 }

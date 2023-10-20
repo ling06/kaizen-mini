@@ -8,9 +8,19 @@ export interface IControlsPopup {
   onEdit?: (event?: React.MouseEvent) => void;
   onDelete?: (event?: React.MouseEvent) => void;
   onRestore?: (event?: React.MouseEvent) => void;
+  onVisible?: (event?: React.MouseEvent) => void;
 }
 
-export function ControlsPopup({ innerRef, name, onHide, onAdd, onDelete, onEdit, onRestore }: IControlsPopup) {
+export function ControlsPopup({
+  innerRef,
+  name,
+  onHide,
+  onAdd,
+  onDelete,
+  onEdit,
+  onRestore,
+  onVisible,
+}: IControlsPopup) {
   return (
     <S.Container ref={innerRef}>
       <S.Title>{name}</S.Title>
@@ -19,6 +29,12 @@ export function ControlsPopup({ innerRef, name, onHide, onAdd, onDelete, onEdit,
           <S.HideIcon />
           скрыть
         </S.HideBtn>
+      )}
+      {onVisible && (
+        <S.VisibleBtn onClick={onVisible}>
+          <S.VisibleIcon />
+          показать
+        </S.VisibleBtn>
       )}
       {onAdd && (
         <S.AddBtn onClick={onAdd}>
@@ -38,11 +54,7 @@ export function ControlsPopup({ innerRef, name, onHide, onAdd, onDelete, onEdit,
           удалить
         </S.DeleteBtn>
       )}
-      {onRestore && (
-        <S.RestoreBtn onClick={onRestore}>
-          восстановить
-        </S.RestoreBtn>
-      )}
+      {onRestore && <S.RestoreBtn onClick={onRestore}>восстановить</S.RestoreBtn>}
     </S.Container>
   );
 }

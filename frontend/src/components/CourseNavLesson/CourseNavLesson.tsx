@@ -4,7 +4,6 @@ import * as S from './styles';
 import * as C from '@styles/components';
 import { useActions } from '@/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
 
 interface ICourseNavLessonProps {
@@ -13,11 +12,9 @@ interface ICourseNavLessonProps {
 
 export function CourseNavLesson({ data }: ICourseNavLessonProps) {
   const [isInit, setInit] = useState<boolean>(true);
-  const courseId = useTypedSelector((state) => state.course.id);
-  const chapterId = useTypedSelector((state) => state.course.activeChapterId);
   const { setActiveLesson } = useActions();
   const navigate = useNavigate();
-  const { lessonId } = useParams();
+  const { lessonId, chapterId, courseId } = useParams();
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {

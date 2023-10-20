@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
-import { TextStyles } from '@/styles/base-styles';
+import forwardIcon from '@assets/images/forwardIcon.svg';
 
 export const Title = styled(C.Text)`
   display: flex;
@@ -26,29 +26,16 @@ export const AdminBtnContainer = styled.div`
   right: 0;
 `;
 
-export const OrderedList = styled.ol`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-  list-style: decimal inside;
-`;
-
-export const UnorderedList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-  list-style: disc inside;
-`;
-
-export const ListItem = styled.li`
-  display: list-item;
-  ${TextStyles}
-  font-weight: 400;
-`;
-
-
 export const NoOpenLesson = styled(C.Text)`
   font-size: 31px;
+`;
+
+export const ForwardBtn = styled(C.DefaultBtn)`
+  width: 166px;
+  padding: 0 20px 0 28px;
+  text-align: start;
+  background-image: url(${forwardIcon});
+  background-repeat: no-repeat;
+  background-position: 87% 50%;
+  background-size: 33px;
 `;
