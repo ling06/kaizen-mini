@@ -2,6 +2,7 @@
 
 namespace app\components\actions;
 
+use app\modules\course\models\Course;
 use yii\base\Action;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -51,7 +52,8 @@ class UpdateAction extends Action
             }
             $result = [
                 'result' => true,
-                'data' => $query->asArray()->one(),
+//                'data' => $query->asArray()->one(),
+                'data' => $query->one(),
             ];
         }
 
