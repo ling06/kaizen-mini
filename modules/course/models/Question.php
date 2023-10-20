@@ -145,62 +145,62 @@ class Question extends \app\components\ActiveRecord
     /**
      * @return Answer[]
      */
-    public function getAnswersList(): array
-    {
-        $ret = [];
-        $answers = $this->_answers ?? $this->answers;
-        if (!is_array($answers)) {
-            $answers = json_decode($answers, true);
-        }
-        foreach ($answers as $answerData) {
-            $ret[$answerData['text']] = new Answer($answerData);
-        }
-        return $ret;
-    }
-
-    public function load($data, $formName = null): bool
-    {
-        if ($formName) {
-            if ($data[$formName]['answers']) {
-                $this->_answers = $data[$formName]['answers'];
-            }
-        } else {
-            if ($data['answers']) {
-                $this->_answers = $data['answers'];
-            }
-        }
-        return parent::load($data, $formName);
-    }
-
-    public function validate($attributeNames = null, $clearErrors = true): bool
-    {
-        if (!is_array($this->_answers)) {
-            $this->_answers = json_decode($this->_answers, true);
-        }
-        foreach ($this->_answers as $answerData) {
-            $answer = new Answer($answerData);
-            if (!$answer->validate()) {
-                $this->addError('answers', 'Ошибка в одном из вопросов.');
-            }
-        }
-        return parent::validate($attributeNames, $clearErrors);
-    }
-
-    public function beforeSave($insert): bool
-    {
-        if ($this->_answers !== null) {
-            $answers = [];
-            foreach ($this->_answers as $answerData) {
-                $answer = new Answer($answerData);
-                $answers[] = $answer->toArray();
-            }
-            $this->answers = json_encode($answers);
-        }
-        if (is_array($this->answers)) {
-            $this->answers = json_encode($this->answers);
-        }
-        return parent::beforeSave($insert);
-    }
+//    public function getAnswersList(): array
+//    {
+//        $ret = [];
+//        $answers = $this->_answers ?? $this->answers;
+//        if (!is_array($answers)) {
+//            $answers = json_decode($answers, true);
+//        }
+//        foreach ($answers as $answerData) {
+//            $ret[$answerData['text']] = new Answer($answerData);
+//        }
+//        return $ret;
+//    }
+//
+//    public function load($data, $formName = null): bool
+//    {
+//        if ($formName) {
+//            if ($data[$formName]['answers']) {
+//                $this->_answers = $data[$formName]['answers'];
+//            }
+//        } else {
+//            if ($data['answers']) {
+//                $this->_answers = $data['answers'];
+//            }
+//        }
+//        return parent::load($data, $formName);
+//    }
+//
+//    public function validate($attributeNames = null, $clearErrors = true): bool
+//    {
+//        if (!is_array($this->_answers)) {
+//            $this->_answers = json_decode($this->_answers, true);
+//        }
+//        foreach ($this->_answers as $answerData) {
+//            $answer = new Answer($answerData);
+//            if (!$answer->validate()) {
+//                $this->addError('answers', 'Ошибка в одном из вопросов.');
+//            }
+//        }
+//        return parent::validate($attributeNames, $clearErrors);
+//    }
+//
+//    public function beforeSave($insert): bool
+//    {
+//        if ($this->_answers !== null) {
+//            $answers = [];
+//            foreach ($this->_answers as $answerData) {
+//                $answer = new Answer($answerData);
+//                $answers[] = $answer->toArray();
+//            }
+//            $this->answers = json_encode($answers);
+//        }
+//        if (is_array($this->answers)) {
+//            $this->answers = json_encode($this->answers);
+//        }
+//        return parent::beforeSave($insert);
+//    }
 
     public function afterFind(): void
     {

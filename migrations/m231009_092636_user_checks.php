@@ -14,7 +14,7 @@ class m231009_092636_user_checks extends Migration
     {
         $this->createTable('user_check', [
             'user_id' => $this->integer(),
-            'model_name' => $this->string(190),
+            'model_name' => $this->string(190)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'model_pk' => $this->integer(50),
         ]);
         $this->addPrimaryKey('user_check_pkey', 'user_check', ['user_id', 'model_name', 'model_pk']);
