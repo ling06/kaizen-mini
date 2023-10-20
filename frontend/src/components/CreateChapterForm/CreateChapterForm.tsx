@@ -7,9 +7,9 @@ import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
 
 export function CreateChapterForm() {
-  const { activeCourseId, updatingChapterData } = useTypedSelector(state => state.course);
-  const formType = useTypedSelector(state => state.modal.modalType);
-  const {setModalOpen, addChapter} = useActions();
+  const { data, updatingChapterData } = useTypedSelector((state) => state.course);
+  const formType = useTypedSelector((state) => state.modal.modalType);
+  const { setModalOpen, addChapter, setLoaderActive, changeChapter } = useActions();
   const [createChapter] = useCreateChapterMutation();
   const [updateChapter] = useUpdateChapterMutation();
 
@@ -19,13 +19,13 @@ export function CreateChapterForm() {
   const [isEditForm, setEditForm] = useState<boolean>(false);
 
   useEffect(() => {
-    if(formType === MODAL_TYPES.editChapter && updatingChapterData) {
+    if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
       setEditForm(true);
       setChapterName(updatingChapterData.title);
       setValidName(true);
       setChangedName(true);
     }
-  }, [])
+  }, [formType, updatingChapterData]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -36,40 +36,47 @@ export function CreateChapterForm() {
   };
 
   const handleConfirm = () => {
-    if(!isValidName) {
+    if (!isValidName) {
       setChangedName(true);
       return;
     }
 
-    if(activeCourseId && !isEditForm) {
+    if (data?.id && !isEditForm) {
       createChapter({
         title: chapterName,
-        course_id: activeCourseId,
-      }).then((res) => {
-        if('data' in res && res.data.result) {
-          addChapter(res.data.data);
-        }
-        setModalOpen(false);
-      }).catch((err) => {
-        console.error(err);
-      });
+        course_id: data.id,
+      })
+        .then((res) => {
+          if ('data' in res && res.data.result) {
+            addChapter(res.data.data);
+          }
+          setModalOpen(false);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      setLoaderActive(true);
     }
 
-    console.log(isEditForm, updatingChapterData, activeCourseId);
-    
-
-    if(isEditForm && updatingChapterData && activeCourseId) {
+    if (isEditForm && updatingChapterData && data?.id) {
       updateChapter({
-        course_id: activeCourseId,
+        course_id: data.id,
         id: Number(updatingChapterData.id),
         title: chapterName,
-      })
+      }).then((res) => {
+        if('data' in res) {
+          changeChapter(res.data.data);
+        }
+        setLoaderActive(false);
+        setModalOpen(false);
+      });
+      setLoaderActive(true);
     }
-  }
+  };
 
   const handleCancel = () => {
     setModalOpen(false);
-  }
+  };
 
   const handlers = {
     cancel: handleCancel,
@@ -78,7 +85,7 @@ export function CreateChapterForm() {
 
   const names = {
     cancel: 'Отмена',
-    confirm: 'Создать главу',
+    confirm: `${isEditForm ? 'Изменить' : 'Создать'} главу`,
   };
   return (
     <ModalForm

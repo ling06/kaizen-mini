@@ -1,17 +1,18 @@
-import { ICourse } from '@/types/course.types';
 import { ProgressCounter } from '../ProgressCounter';
 import * as S from './styles';
 
 interface ICustomSelectOpionsProps {
-  data: ICourse;
+  percentage: number;
+  status: number;
+  title: string;
 }
 
-export function CustomSelectOption({ data }: ICustomSelectOpionsProps) {
+export function CustomSelectOption({ percentage, status, title }: ICustomSelectOpionsProps) {
   return (
     <S.CustomSelectOpions>
-      <ProgressCounter percentage={data.percentage?.percentage || 0} />
-      <S.TextLabel>Курс: {data.title}</S.TextLabel>
-      {data.status === 1 && <S.IsHiddenIcon />}
+      <ProgressCounter percentage={percentage || 0} />
+      <S.TextLabel>Курс: {title}</S.TextLabel>
+      {status === 0 && <S.IsHiddenIcon />}
     </S.CustomSelectOpions>
   );
 }

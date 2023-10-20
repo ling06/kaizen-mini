@@ -9,9 +9,9 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/constants';
 
 export function CreateCourseForm() {
-  const { setModalOpen } = useActions();
+  const { setModalOpen, setLoaderActive } = useActions();
   const modalType = useTypedSelector((state) => state.modal.modalType);
-  const editCourse = useTypedSelector((state) => state.course.editCourseData);
+  const courseData = useTypedSelector((state) => state.course.data);
 
   const [courseName, setCourseName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
@@ -26,13 +26,13 @@ export function CreateCourseForm() {
   useEffect(() => {
     const isEdit = modalType === MODAL_TYPES.editCourse;
     setEditForm(isEdit);
-    if (isEdit && editCourse) {
-      setCourseName(editCourse.title);
+    if (isEdit && courseData) {
+      setCourseName((prevState) => courseData?.title || prevState);
       setChangedName(true);
       setValidName(true);
-      setCourseDescription(editCourse.description);
+      setCourseDescription((prevState) => courseData?.description || prevState);
     }
-  }, [editCourse, modalType]);
+  }, [courseData, modalType]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -58,14 +58,16 @@ export function CreateCourseForm() {
         description: courseDescription,
         is_open: 1,
       }).then(() => setModalOpen(false));
+      setLoaderActive(true);
     }
 
-    if (isEditForm && editCourse && editCourse.id) {
+    if (isEditForm && courseData && courseData.id) {
       updateCourse({
-        id: editCourse.id,
+        id: courseData.id,
         title: courseName,
         description: courseDescription,
       }).then(() => setModalOpen(false));
+      setLoaderActive(true);
     }
   };
 
@@ -80,7 +82,7 @@ export function CreateCourseForm() {
 
   const names = {
     cancel: 'Отмена',
-    confirm: `${modalType === 'edit' ? 'Изменить' : 'Создать'} курс`,
+    confirm: `${modalType === MODAL_TYPES.editCourse ? 'Изменить' : 'Создать'} курс`,
   };
 
   return (

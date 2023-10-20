@@ -21,7 +21,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
 
   useEffect(() => {
-    data.is_deleted == 0 ? setDeleted(false) : setDeleted(true);
+    Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
   }, [data.is_deleted]);
 
   const handleClick = () => {

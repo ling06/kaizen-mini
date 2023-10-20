@@ -5,6 +5,7 @@ import hideIcon from '@assets/images/hideIcon.svg';
 import addIcon from '@assets/images/addIconBlack.svg';
 import editIcon from '@assets/images/editIconRed.svg';
 import deleteIcon from '@assets/images/deleteIcon.svg';
+import visibleIcon from '@assets/images/visibleIcon.svg';
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
@@ -47,6 +48,8 @@ export const Btn = styled.div`
 
 export const HideBtn = styled(Btn)``;
 
+export const VisibleBtn = styled(Btn)``;
+
 export const AddBtn = styled(Btn)``;
 
 export const EditBtn = styled(Btn)``;
@@ -75,4 +78,8 @@ export const EditIcon = styled(BtnIcon)`
 
 export const DeleteIcon = styled(BtnIcon)`
   background-image: url(${deleteIcon});
+`;
+
+export const VisibleIcon = styled(BtnIcon)`
+  background-image: url(${visibleIcon});
 `;

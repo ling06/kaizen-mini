@@ -25,6 +25,9 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
       case MODAL_TYPES.createChapter:
         name = 'Создание главы';
         break;
+      case MODAL_TYPES.editChapter:
+        name = 'Изменение главы';
+        break;
       case MODAL_TYPES.createTheme:
         name = 'Создание Темы';
         break;
