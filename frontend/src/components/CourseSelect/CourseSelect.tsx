@@ -16,7 +16,6 @@ export function CourseSelect({ data }: ICourseSelectProps) {
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
-      // label: `Курс: ${course.title}`,
       label: (
         <CustomSelectOption
           data={course}
@@ -25,10 +24,12 @@ export function CourseSelect({ data }: ICourseSelectProps) {
     };
   });
 
-  const openCreateCourseModal = () => {
+  const handleAddCourse = () => {
     setModalType(MODAL_TYPES.createCourse);
     setModalOpen(true);
   };
+
+  
 
   const handleChange = (option: SingleValue<IOption>) => {
     if (!option) return;
@@ -43,8 +44,13 @@ export function CourseSelect({ data }: ICourseSelectProps) {
         defaultValue={selectOptions[0]}
       />
       <AdminBtn
-        type={ADMIN_BTN_TYPES.add}
-        onClick={openCreateCourseModal}
+        type={ADMIN_BTN_TYPES.edit}
+        onClick={()=>{}}
+        popupHandlers={
+          {
+            onAdd: handleAddCourse,
+          }
+        }
       />
     </S.Container>
   );

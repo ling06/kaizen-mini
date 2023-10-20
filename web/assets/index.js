@@ -21173,106 +21173,15 @@ const TextLabel = st$1.p`
 const IsHiddenIcon = st$1(Icon$1)`
   background-image: url(${isHideIcon});
 `;
-const courseApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getCourses: builder.query({
-      query: () => "course",
-      providesTags: () => [
-        {
-          type: "Courses"
-        }
-      ]
-    }),
-    getCourseById: builder.query({
-      query: (id2) => `course/${id2}`,
-      providesTags: () => [
-        {
-          type: "CourseById"
-        }
-      ]
-    }),
-    createCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/create",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [
-        {
-          type: "Courses"
-        }
-      ]
-    }),
-    updateCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/update",
-        method: "POST",
-        body: data
-      })
-    }),
-    deleteCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/delete",
-        method: "POST",
-        body: data
-      })
-    }),
-    restoreCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/restore",
-        method: "POST",
-        body: data
-      })
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCreateCourseMutation,
-  useDeleteCourseMutation,
-  useGetCoursesQuery,
-  useGetCourseByIdQuery,
-  useRestoreCourseMutation,
-  useUpdateCourseMutation
-} = courseApi;
-courseApi.endpoints.getCourses.select();
 function CustomSelectOption({ data }) {
   var _a;
-  const { setModalOpen, setModalType, setEditCourseData, setLoaderActive } = useActions();
-  const [updateCourse] = useUpdateCourseMutation();
-  const handleEditCourse = () => {
-    setEditCourseData(data);
-    setModalOpen(true);
-    setModalType(MODAL_TYPES.editCourse);
-  };
-  const handleHideCourse = () => {
-    updateCourse({
-      id: data.id,
-      status: data.status === 1 ? 0 : 1
-    }).then(() => {
-      setLoaderActive(false);
-    });
-    setLoaderActive(true);
-  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOpions, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: ((_a = data.percentage) == null ? void 0 : _a.percentage) || 0 }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { children: [
       "Курс: ",
       data.title
     ] }),
-    data.status === 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      AdminBtn,
-      {
-        type: ADMIN_BTN_TYPES.edit,
-        onClick: () => {
-        },
-        popupHandlers: {
-          onEdit: handleEditCourse,
-          onHide: handleHideCourse
-        }
-      }
-    )
+    data.status === 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
   ] });
 }
 function CourseSelect({ data }) {
@@ -21280,7 +21189,6 @@ function CourseSelect({ data }) {
   const selectOptions = data.map((course) => {
     return {
       value: course.id,
-      // label: `Курс: ${course.title}`,
       label: /* @__PURE__ */ jsxRuntimeExports.jsx(
         CustomSelectOption,
         {
@@ -21289,7 +21197,7 @@ function CourseSelect({ data }) {
       )
     };
   });
-  const openCreateCourseModal = () => {
+  const handleAddCourse = () => {
     setModalType(MODAL_TYPES.createCourse);
     setModalOpen(true);
   };
@@ -21310,8 +21218,12 @@ function CourseSelect({ data }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
-        type: ADMIN_BTN_TYPES.add,
-        onClick: openCreateCourseModal
+        type: ADMIN_BTN_TYPES.edit,
+        onClick: () => {
+        },
+        popupHandlers: {
+          onAdd: handleAddCourse
+        }
       }
     )
   ] });
@@ -21615,6 +21527,69 @@ function CourseProgrammCard({ data }) {
     ] })
   ] });
 }
+const courseApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getCourses: builder.query({
+      query: () => "course",
+      providesTags: () => [
+        {
+          type: "Courses"
+        }
+      ]
+    }),
+    getCourseById: builder.query({
+      query: (id2) => `course/${id2}`,
+      providesTags: () => [
+        {
+          type: "CourseById"
+        }
+      ]
+    }),
+    createCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/create",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Courses"
+        }
+      ]
+    }),
+    updateCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/update",
+        method: "POST",
+        body: data
+      })
+    }),
+    deleteCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/delete",
+        method: "POST",
+        body: data
+      })
+    }),
+    restoreCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/restore",
+        method: "POST",
+        body: data
+      })
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateCourseMutation,
+  useDeleteCourseMutation,
+  useGetCoursesQuery,
+  useGetCourseByIdQuery,
+  useRestoreCourseMutation,
+  useUpdateCourseMutation
+} = courseApi;
+courseApi.endpoints.getCourses.select();
 function CourseProgramm() {
   const { setModalOpen, setModalType } = useActions();
   const courseId = useTypedSelector((state) => state.course.activeCourseId);

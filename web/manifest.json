@@ -299,5 +299,9 @@
   "src/assets/images/swiperArrowLeft.svg": {
     "file": "assets/swiperArrowLeft.svg",
     "src": "src/assets/images/swiperArrowLeft.svg"
+  },
+  "src/assets/images/visibleIcon.svg": {
+    "file": "assets/visibleIcon.svg",
+    "src": "src/assets/images/visibleIcon.svg"
   }
 }
