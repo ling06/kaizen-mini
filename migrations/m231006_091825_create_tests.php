@@ -30,9 +30,9 @@ class m231006_091825_create_tests extends Migration
         $this->createTable('test_question', [
             'id' => $this->primaryKey(),
             'test_id' => $this->integer(),
-            'text' => $this->text(),
-            'answers' => $this->text(),
-            'right_answer' => $this->text(),
+            'text' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'answers' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'right_answer' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'user_id' => $this->integer(),
             'date' => $this->dateTime(),
         ]);

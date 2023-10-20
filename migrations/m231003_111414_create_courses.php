@@ -41,7 +41,7 @@ class m231003_111414_create_courses extends Migration
         $this->createTable('course', [
             'id' => $this->primaryKey(),
             'name' => $this->string(200),
-            'description' => $this->text(),
+            'description' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'is_open' => $this->boolean()->defaultValue(1),
             'status' => $this->tinyInteger()->defaultValue(0),
             'user_id' => $this->integer(),
@@ -61,7 +61,7 @@ class m231003_111414_create_courses extends Migration
         $this->createTable('chapter', [
             'id' => $this->primaryKey(),
             'course_id' => $this->integer(),
-            'name' => $this->string(200),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'status' => $this->tinyInteger()->defaultValue(0),
             'user_id' => $this->integer(),
             'date' => $this->dateTime(),
@@ -80,7 +80,7 @@ class m231003_111414_create_courses extends Migration
         $this->createTable('theme', [
             'id' => $this->primaryKey(),
             'chapter_id' => $this->integer(),
-            'name' => $this->string(200),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'status' => $this->tinyInteger()->defaultValue(0),
             'user_id' => $this->integer(),
             'date' => $this->dateTime(),
@@ -99,8 +99,8 @@ class m231003_111414_create_courses extends Migration
         $this->createTable('lesson', [
             'id' => $this->primaryKey(),
             'theme_id' => $this->integer(),
-            'name' => $this->string(200),
-            'description' => $this->text(),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'description' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'status' => $this->tinyInteger()->defaultValue(0),
             'user_id' => $this->integer(),
             'date' => $this->dateTime(),
