@@ -42,6 +42,7 @@ class CourseController extends ApiController
                             'theme',
                             'lesson',
                             'send-answer',
+                            'check-lesson',
                         ],
                         'roles' => ['@'],
                     ],
