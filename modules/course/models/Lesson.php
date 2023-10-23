@@ -154,30 +154,6 @@ class Lesson extends \app\components\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-
-    public function afterSave($insert, $changedAttributes): void
-    {
-        $request = Yii::$app->request->getBodyParams();
-        foreach ($request['tests'] as $tests){
-            $test = new Test;
-            $test->lesson_id = $this->id;
-            $test->question = $tests['question'];
-            if($test->save() && !empty($test->id)){
-               foreach ($tests['answers'] as $answer){
-                   $testAnswer = new Question;
-                   $testAnswer->test_id = $test->id;
-                   $testAnswer->answers = $answer['answer'];
-                   $testAnswer->right_answer =$answer['right_answer'];
-                   $testAnswer->text = $answer['text'];
-                   $testAnswer->save();
-               }
-            }
-        }
-//        print_r($request['tests']);
-        parent::afterSave($insert, $changedAttributes);
-    }
-
-
     public function behaviors(): array
     {
         return [

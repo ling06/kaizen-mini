@@ -16,6 +16,7 @@ use yii\db\ActiveQuery;
  * @property int|null $is_active Активен ли тест
  * @property int|null $user_id Id автора
  * @property string|null $date Дата создания
+ * @property string|null $question Вопрос
  *
  * @property Lesson $lesson
  * @property User $user

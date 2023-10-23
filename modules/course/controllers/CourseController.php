@@ -5,6 +5,7 @@ namespace app\modules\course\controllers;
 use app\components\ApiController;
 use app\components\KaizenHelper;
 use app\models\Image;
+use app\modules\course\forms\LessonForm;
 use app\modules\course\models\Chapter;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Theme;
@@ -243,13 +244,13 @@ class CourseController extends ApiController
             ],
             'create-lesson' => [
                 'class' => CreateAction::class,
-                'modelName' => Lesson::class,
+                'modelName' => LessonForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-lesson' => [
                 'class' => UpdateAction::class,
-                'modelName' => Lesson::class,
+                'modelName' => LessonForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
