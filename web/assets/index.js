@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -13298,29 +13304,38 @@ const loaderSlice = createSlice({
   }
 });
 const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+class EmptyTest {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
+    this.id = nanoid();
+    this.question = "";
+    this.answers = [
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: false,
+        text: ""
+      }
+    ];
+  }
+}
 const lessonInitialState = {
   tests: []
-};
-const emptyTest = {
-  id: "",
-  question: "",
-  answers: [
-    {
-      id: "",
-      answer: "",
-      right_answer: false,
-      text: ""
-    }
-  ]
 };
 const lessonSlice = createSlice({
   name: "lesson",
   initialState: lessonInitialState,
   reducers: {
     addEmptyTest: (state) => {
-      emptyTest.id = nanoid();
-      emptyTest.answers[0].id = nanoid();
-      state.tests.push(emptyTest);
+      state.tests.push(new EmptyTest());
+    },
+    addAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1)
+        return;
+      state.tests[testIndex].answers = payload.data;
     },
     setTestsData: (state, { payload }) => {
       state.tests = [...state.tests, ...payload];
@@ -13330,6 +13345,20 @@ const lessonSlice = createSlice({
       if (testIndex === -1)
         return;
       state.tests[testIndex].question = payload.question;
+    },
+    changeAnswerData: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const answerIndex = state.tests[testIndex].answers.findIndex(
+        (answer) => answer.id === payload.answerId
+      );
+      if (answerIndex === -1)
+        return;
+      state.tests[testIndex].answers[answerIndex] = {
+        ...state.tests[testIndex].answers[answerIndex],
+        ...payload.data
+      };
     }
   }
 });
@@ -13346,19 +13375,19 @@ const useActions = () => {
   return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
 };
 const editIcon$1 = "/assets/editIcon.svg";
-const addIcon$1 = "/assets/addIcon.svg";
+const addIcon$2 = "/assets/addIcon.svg";
 const AdminBtn$1 = st$1.button`
   position: relative;
   width: 24px;
   height: 24px;
   background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$1 : addIcon$1});
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$1 : addIcon$2});
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
 `;
 const isHideIcon = "/assets/hideIcon.svg";
-const addIcon = "/assets/addIconBlack.svg";
+const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon = "/assets/editIconRed.svg";
 const deleteIcon = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
@@ -13413,7 +13442,7 @@ const HideIcon = st$1(BtnIcon)`
   background-image: url(${isHideIcon});
 `;
 const AddIcon = st$1(BtnIcon)`
-  background-image: url(${addIcon});
+  background-image: url(${addIcon$1});
 `;
 const EditIcon = st$1(BtnIcon)`
   background-image: url(${editIcon});
@@ -15623,24 +15652,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp = Object.defineProperty;
+var __defProp2 = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = function(obj, key, value) {
-  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp2 = function(obj, key, value) {
+  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp(a2, prop, b2[prop]);
+      __defNormalProp2(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp(a2, prop, b2[prop]);
+        __defNormalProp2(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -32773,7 +32802,7 @@ background-size: 24px;
 `;
 const checkboxIcon = "/assets/checkbox.svg";
 const checkboxIconChecked = "/assets/checkbox-checked.svg";
-const Label = st$1.label`
+const Label$1 = st$1.label`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -32822,7 +32851,7 @@ const CheckboxDescr = st$1(Text$3)`
 line-height100%`;
 function CustomCheckbox({ descr, onChange = () => {
 }, children, checked = false, isRadio = false }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input2,
       {
@@ -46914,15 +46943,25 @@ const EDITOR_INTERNATIONALIZATION_CONFIG = {
     }
   }
 };
+const addIcon = "/assets/addIconWhite.svg";
 const Container$2 = st$1(FlexContainer)`
   flex-direction: column;
   padding-top: 40px;
+  margin-bottom: 30px;
 `;
 const TestName = st$1(InputWithState)`
   margin-bottom: 30px;
 `;
 const Variants = st$1(FlexContainer)`
   flex-direction: column;
+`;
+const AddVariant = st$1(DefaultBtn)`
+  width: fit-content;
+  padding: 0 20px 0 50px;
+  background-image: url(${addIcon});
+  background-repeat: no-repeat;
+  background-position: 23px 50%;
+  background-size: 24px;
 `;
 const Title$2 = st$1.h5`
   display: flex;
@@ -46949,6 +46988,10 @@ const Container$1 = st$1(FlexContainer)`
 const VariantInput = st$1(InputWithState)`
   margin-bottom: 20px;
 `;
+const RadioGroup = st$1(FlexContainer)`
+  align-items: center;
+  margin-bottom: 20px;
+`;
 const DeleteBtn$1 = st$1.button`
   background-color: transparent;
   padding: 0;
@@ -46969,10 +47012,70 @@ function DeleteBtn({ onClick: onClick2 = () => {
     }
   );
 }
-function Variant({ data, number }) {
+const Label = st$1.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+const RadioInput = st$1.input`
+  display: none;
+
+  &:checked + div::before {
+    display: block;
+  }
+`;
+const CustomRadioInput = st$1.div`
+  width: 16px;
+  height: 16px;
+  margin-right: 14px;
+  border-radius: 50%;
+  position: relative;
+  border: 1px solid #333;
+
+  &::before {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+  }
+`;
+function CustomRadioButton({
+  onChange = () => {
+  },
+  name = "default",
+  value,
+  option,
+  checked,
+  styles: styles2 = {}
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { style: styles2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      RadioInput,
+      {
+        name,
+        type: "radio",
+        value,
+        onChange,
+        "data-option": option,
+        checked
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CustomRadioInput, {}),
+    value
+  ] });
+}
+function Variant({ data, number, testId }) {
+  const { changeAnswerData } = useActions();
   const [variantValue, setVariantValue] = reactExports.useState(data.answer);
   const [isValid, setValid] = reactExports.useState(false);
   const [isChanged, setChanged] = reactExports.useState(false);
+  const [isRightAnswer, setRightAnswer] = reactExports.useState(data.right_answer);
   const handleVariantValueChange = (event) => {
     setVariantValue(event.target.value);
     if (event.target.value.length > 0) {
@@ -46981,6 +47084,25 @@ function Variant({ data, number }) {
     if (!isChanged) {
       setChanged(true);
     }
+  };
+  reactExports.useEffect(() => {
+    console.log(data);
+  }, [data]);
+  const handleToggleAnswer = (isRight) => {
+    setRightAnswer(isRight);
+    const payload = {
+      testId,
+      answerId: data.id,
+      data: {
+        right_answer: isRight
+      }
+    };
+    changeAnswerData(payload);
+    console.log(data.right_answer);
+  };
+  const radioFontStyles = {
+    fontSize: "18px",
+    fontWeight: "600"
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: `Вариант ${number}`, children: /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: () => {
@@ -46994,17 +47116,63 @@ function Variant({ data, number }) {
         $isChanged: isChanged,
         $isValid: isValid
       }
-    )
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(RadioGroup, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CustomRadioButton,
+        {
+          styles: { marginRight: "25px", color: "#5B8930", ...radioFontStyles },
+          name: data.id,
+          value: "Верный",
+          checked: isRightAnswer,
+          onChange: () => {
+            handleToggleAnswer(true);
+          }
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CustomRadioButton,
+        {
+          styles: { color: "#E03638", ...radioFontStyles },
+          name: data.id,
+          value: "Неверный",
+          checked: !isRightAnswer,
+          onChange: () => {
+            handleToggleAnswer(false);
+          }
+        }
+      )
+    ] })
   ] });
 }
+class EmptyAnswer {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
+    this.id = nanoid();
+    this.answer = "";
+    this.right_answer = false;
+    this.text = "";
+  }
+}
 function CreateTestForm({ data }) {
-  const { changeTestQuestion } = useActions();
+  const { changeTestQuestion, addAnswer } = useActions();
   const [isChanged, setChanged] = reactExports.useState(false);
+  const [testQuestion, setTestQuestion] = reactExports.useState(data.question);
+  const [variants, setVariants] = reactExports.useState(data.answers);
   const handleChangeTestName = (event) => {
+    setTestQuestion(event.target.value);
     changeTestQuestion({ id: data.id, question: event.target.value });
     if (!isChanged) {
       setChanged(true);
     }
+  };
+  const handleAddVariant = () => {
+    const newVariantsData = [...variants, new EmptyAnswer()];
+    addAnswer({ id: data.id, data: newVariantsData });
+    setVariants(newVariantsData);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: "Заголовок теста (необязательно)" }),
@@ -47012,18 +47180,26 @@ function CreateTestForm({ data }) {
       TestName,
       {
         type: "text",
-        value: data.question,
+        value: testQuestion,
         onChange: handleChangeTestName,
         $isValid: true,
         $isChanged: isChanged
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Variants, { children: data.answers.length > 0 && data.answers.map((answer, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Variant, { data: answer, number: index + 1 })) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Variants, { children: variants.length > 0 && variants.map((answer, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Variant,
+      {
+        testId: data.id,
+        data: answer,
+        number: index + 1
+      }
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AddVariant, { onClick: handleAddVariant, children: "добавить вариант" })
   ] });
 }
 let editor$1;
 function CreateLessonForm({ type }) {
-  const tests = useTypedSelector((state) => state.lesson.tests);
+  const { tests } = useTypedSelector((state) => state.lesson);
   const { addEmptyTest } = useActions();
   const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = reactExports.useState("");
@@ -47063,7 +47239,7 @@ function CreateLessonForm({ type }) {
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests: []
+      tests
     }).then(() => {
       editor$1 == null ? void 0 : editor$1.clear();
       editor$1 = void 0;

@@ -4,13 +4,23 @@ interface ICustomRadioButtonProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   value?: string;
-  option: string;
+  option?: string;
   checked: boolean;
+  styles?: {
+    [key: string]: string;
+  };
 }
 
-export function CustomRadioButton({ onChange = () => {}, name = 'default', value, option, checked }: ICustomRadioButtonProps) {
+export function CustomRadioButton({
+  onChange = () => {},
+  name = 'default',
+  value,
+  option,
+  checked,
+  styles = {},
+}: ICustomRadioButtonProps) {
   return (
-    <S.Label>
+    <S.Label style={styles}>
       <S.RadioInput
         name={name}
         type="radio"

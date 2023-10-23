@@ -101,6 +101,7 @@
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
       "assets/checklist.svg",
+      "assets/addIconWhite.svg",
       "assets/loadingLogo.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
@@ -216,6 +217,10 @@
     "file": "assets/addIconBlack.svg",
     "src": "src/assets/images/addIconBlack.svg"
   },
+  "src/assets/images/addIconWhite.svg": {
+    "file": "assets/addIconWhite.svg",
+    "src": "src/assets/images/addIconWhite.svg"
+  },
   "src/assets/images/arrowRight.svg": {
     "file": "assets/arrowRight.svg",
     "src": "src/assets/images/arrowRight.svg"
@@ -251,10 +256,6 @@
   "src/assets/images/done.svg": {
     "file": "assets/done.svg",
     "src": "src/assets/images/done.svg"
-  },
-  "src/assets/images/dropdownIcon.svg": {
-    "file": "assets/dropdownIcon.svg",
-    "src": "src/assets/images/dropdownIcon.svg"
   },
   "src/assets/images/editIcon.svg": {
     "file": "assets/editIcon.svg",

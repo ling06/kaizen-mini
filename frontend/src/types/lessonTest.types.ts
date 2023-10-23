@@ -7,6 +7,6 @@ export interface ITest {
 export interface IAnswer {
   id: string;
   answer: string;
-  right_answer: string | boolean;
+  right_answer: boolean;
   text: string;
 }

@@ -17,7 +17,7 @@ interface ICreateLessonFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
-  const tests = useTypedSelector((state) => state.lesson.tests);
+  const {tests} = useTypedSelector((state) => state.lesson);
   const { addEmptyTest } = useActions();
   const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
@@ -62,7 +62,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests: [],
+      tests: tests,
     })
       .then(() => {
         editor?.clear();

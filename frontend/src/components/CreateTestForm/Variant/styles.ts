@@ -13,3 +13,7 @@ export const VariantInput = styled(C.InputWithState)`
   margin-bottom: 20px;
 `;
 
+export const RadioGroup = styled(C.FlexContainer)`
+  align-items: center;
+  margin-bottom: 20px;
+`;
