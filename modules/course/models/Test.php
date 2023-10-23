@@ -51,6 +51,7 @@ class Test extends \app\components\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['is_active'], 'boolean'],
             [['is_active'], 'default', 'value' => false],
+            [['question'], 'text']
         ];
     }
 
@@ -65,6 +66,7 @@ class Test extends \app\components\ActiveRecord
             'is_active' => 'Активен ли тест',
             'user_id' => 'Id автора',
             'date' => 'Дата создания',
+            'question' => 'Вопрос теста'
         ];
     }
 
