@@ -2,9 +2,11 @@
 
 namespace app\modules\course\forms;
 
+use app\models\Image;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Question;
 use app\modules\course\models\Test;
+use Yii;
 
 class LessonForm extends Lesson
 {
@@ -34,6 +36,23 @@ class LessonForm extends Lesson
     {
         $this->tests = $data['tests'] ?? [];
         return parent::load($data, $formName);
+    }
+
+    public function beforeSave($insert): bool
+    {
+        $editorJs = json_decode($this->description);
+        foreach ($editorJs as $editor){
+            if($editor->type === 'image'){
+                $uploadDir = Yii::getAlias('@webroot');
+                $newDir = Yii::getAlias(Image::UPLOAD_DIR) . '/EditorJs/';
+                if (!file_exists($newDir)){
+                    mkdir($newDir, 0777);
+                }
+                $file = pathinfo($uploadDir . $editor->data->file->url);
+                rename($file['dirname'] . '/' . $file['basename'], $newDir . '/' . $file['basename']);
+            }
+        }
+        return parent::beforeSave($insert);
     }
 
     public function afterSave($insert, $changedAttributes): void
