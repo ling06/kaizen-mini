@@ -9,4 +9,5 @@ export interface IAnswer {
   answer: string;
   right_answer: boolean;
   text: string;
+  answers?: string; // TODO: с бэка приходит answers, а не answer. В будущем надо решить этот вопрос.
 }

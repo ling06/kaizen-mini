@@ -95,6 +95,20 @@ export const lessonSlice = createSlice({
         ...state,
       };
     },
+    changeAnswerComment: (state, { payload }: PayloadAction<IChangeAnswer>) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1) return;
+
+      state.tests[testIndex].answers.forEach((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.text = payload.value;
+        }
+      });
+
+      return {
+        ...state,
+      };
+    },
   },
 });
 

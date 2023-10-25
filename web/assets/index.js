@@ -10529,7 +10529,7 @@ function Header() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
   ] });
 }
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -13405,6 +13405,19 @@ const lessonSlice = createSlice({
       return {
         ...state
       };
+    },
+    changeAnswerComment: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      state.tests[testIndex].answers.forEach((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.text = payload.value;
+        }
+      });
+      return {
+        ...state
+      };
     }
   }
 });
@@ -13437,7 +13450,7 @@ const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon = "/assets/editIconRed.svg";
 const deleteIcon = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -13450,7 +13463,7 @@ const Container$m = st$1(FlexContainer)`
   background-color: ${(props) => props.theme.colors.greyF1};
   filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
 `;
-const Title$b = st$1(Text$3)`
+const Title$c = st$1(Text$3)`
   margin-bottom: 15px;
   text-align: center;
 `;
@@ -13509,8 +13522,8 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: name }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { ref: innerRef, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
       "скрыть"
@@ -26186,7 +26199,7 @@ function CourseSelect() {
       setCourseData(selectedCourseData);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26211,11 +26224,11 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
 `;
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26264,7 +26277,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26288,7 +26301,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26314,7 +26327,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   ] });
 }
 function CourseMainInfo() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
@@ -26340,14 +26353,14 @@ function CourseMainInfo() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: defaultPreview }) })
   ] });
 }
-const Container$i = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-const Title$a = st$1(Text$3)``;
+const Title$b = st$1(Text$3)``;
 const CardList = st$1.ul`
   display: flex;
   flex-wrap: wrap;
@@ -26383,7 +26396,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$9 = st$1(Text$3)``;
+const Title$a = st$1(Text$3)``;
 const ProgressContainer = st$1(FlexContainer)`
   flex-direction: column;
   margin-top: auto;
@@ -26489,7 +26502,7 @@ function CourseProgrammCard({ data }) {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: defaultCardImg }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$9, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: "Пройдено" }),
@@ -26533,9 +26546,9 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h4", children: "Программа курса" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -26557,7 +26570,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$h = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26568,7 +26581,7 @@ const Text$2 = st$1(Text$3)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 let init = true;
 function CoursePreview() {
@@ -26594,7 +26607,7 @@ function CoursePreview() {
       setCourseData(data.data[0]);
     }
   }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -26603,7 +26616,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
@@ -26633,7 +26646,7 @@ function CourseNavLesson({ data }) {
       setInit(false);
     }
   }, [data, isInit, lessonId, setActiveLesson]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26672,7 +26685,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Theme = st$1(FlexContainer)`
@@ -26755,7 +26768,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     navigate(createLessonPath);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -26805,10 +26818,10 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$8 = st$1.h4`
+const Title$9 = st$1.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26824,8 +26837,8 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { children: [
       "Темы главы",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
@@ -26835,7 +26848,7 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseNavTheme,
       {
         data: theme,
@@ -26845,7 +26858,7 @@ function CourseNavBody({ data }) {
     )) })
   ] });
 }
-const Container$d = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -26868,7 +26881,7 @@ const bodyOverflow = at$1`
     overflow: hidden;
   }
 `;
-const Container$c = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -26877,16 +26890,16 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$7 = st$1(Text$3)`
+const Title$8 = st$1(Text$3)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { as: "h3", children: data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -26900,14 +26913,14 @@ function CourseNavHead({ data }) {
   ] });
 }
 const forwardIcon = "/assets/forwardIcon.svg";
-const Title$6 = st$1(Text$3)`
+const Title$7 = st$1(Text$3)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$b = st$1(FlexContainer)`
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -26994,6 +27007,66 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
+const Container$b = st$1(FlexContainer)`
+  flex-direction: column;
+  padding: 40px 45px;
+  border: 1px solid ${(props) => props.theme.colors.greyF1}; 
+  border-radius: ${(props) => props.theme.utils.br};
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 115px;
+  }
+`;
+const Title$6 = st$1(Text$3)`
+  margin-bottom: 40px;
+  font-size: 25px;
+  line-height: 150%;
+`;
+const CheckboxWrapper = st$1.div`
+  display: flex;
+  align-items: center;
+`;
+const CheckboxInput = st$1.input`
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+
+  &:checked {
+    background-color: #555;
+  }
+`;
+const CheckboxLabel = st$1.label`
+  cursor: pointer;
+`;
+const Checkbox = ({ label }) => {
+  const [checked, setChecked] = reactExports.useState(false);
+  const handleChange = () => {
+    setChecked(!checked);
+    console.log(1111);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(CheckboxWrapper, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CheckboxInput,
+      {
+        type: "checkbox",
+        checked,
+        onChange: handleChange
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxLabel, { children: label })
+  ] });
+};
+function LessonTest({ data }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { label: `${answer.answers}` })) })
+  ] });
+}
 function CourseContent() {
   const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
@@ -27021,7 +27094,7 @@ function CourseContent() {
     !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
     lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { as: "h2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$7, { as: "h2", children: [
         data.data.title,
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
@@ -27032,7 +27105,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutup, { children: editorData.map((block) => {
           var _a, _b;
           if (block.type === "paragraph") {
@@ -27047,6 +27120,7 @@ function CourseContent() {
             return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorImg, { src: (_b = block.data.file) == null ? void 0 : _b.url });
           }
         }) }),
+        data.data.tests.length > 0 && data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(LessonTest, { data: test })),
         editorData && !isFetching && !data.data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardBtn, { onClick: handleCheckLesson, children: "Вперёд" })
       ] })
     ] })
@@ -27066,7 +27140,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -47025,7 +47099,8 @@ function Title$1({ value, children }) {
   ] });
 }
 const Container$1 = st$1(FlexContainer)`
-  flex-direction: column; 
+  flex-direction: column;
+  margin-bottom: 15px;
   &:not(:last-child) {
     margin-bottom: 40px;
   }
@@ -47036,6 +47111,13 @@ const VariantInput = st$1(InputWithState)`
 const RadioGroup = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
+`;
+const CommentInput = st$1(Input$3)`
+  color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
+
+  &:focus {
+    color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed}; 
+  }
 `;
 const DeleteBtn$1 = st$1.button`
   background-color: transparent;
@@ -47116,9 +47198,20 @@ function CustomRadioButton({
   ] });
 }
 function Variant({ data, number, testId }) {
-  const { toggleAnswer, changeAnswer } = useActions();
+  const { toggleAnswer, changeAnswer, changeAnswerComment } = useActions();
   const [isValid, setValid] = reactExports.useState(false);
   const [isChanged, setChanged] = reactExports.useState(false);
+  const [defaultCommentValue, setDefaultCommentValue] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    const trueComment = "Верно, потому что ";
+    const falseComment = "Неверно, потому что ";
+    changeAnswerComment({
+      testId,
+      answerId: data.id,
+      value: ""
+    });
+    data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
+  }, [changeAnswerComment, data.id, data.right_answer, testId]);
   const handleSetRightAnswer = (isRight) => {
     const payload = {
       testId,
@@ -47139,6 +47232,17 @@ function Variant({ data, number, testId }) {
     if (!isChanged) {
       setChanged(true);
     }
+  };
+  const handleChangeComment = (event) => {
+    let value = event.target.value;
+    if (!value.includes(defaultCommentValue)) {
+      value = defaultCommentValue + value;
+    }
+    changeAnswerComment({
+      testId,
+      answerId: data.id,
+      value
+    });
   };
   const radioFontStyles = {
     fontSize: "18px",
@@ -47182,7 +47286,16 @@ function Variant({ data, number, testId }) {
           }
         }
       )
-    ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CommentInput,
+      {
+        type: "text",
+        value: data.text || defaultCommentValue,
+        $isRight: data.right_answer,
+        onChange: handleChangeComment
+      }
+    )
   ] });
 }
 function CreateTestForm({ data }) {

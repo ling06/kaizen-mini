@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title } from '../Title';
 import * as S from './styles';
 import { DeleteBtn } from '../DeleteBtn';
@@ -13,10 +13,21 @@ interface IVariantProps {
 }
 
 export function Variant({ data, number, testId }: IVariantProps) {
-  const { toggleAnswer, changeAnswer } = useActions();
-  // const [variantValue, setVariantValue] = useState<string>(data.answer);
+  const { toggleAnswer, changeAnswer, changeAnswerComment } = useActions();
   const [isValid, setValid] = useState<boolean>(false);
   const [isChanged, setChanged] = useState<boolean>(false);
+  const [defaultCommentValue, setDefaultCommentValue] = useState<string>('');
+
+  useEffect(() => {
+    const trueComment = 'Верно, потому что ';
+    const falseComment = 'Неверно, потому что ';
+    changeAnswerComment({
+      testId,
+      answerId: data.id,
+      value: '',
+    });
+    data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
+  }, [changeAnswerComment, data.id, data.right_answer, testId]);
 
   const handleSetRightAnswer = (isRight: boolean) => {
     const payload = {
@@ -39,6 +50,18 @@ export function Variant({ data, number, testId }: IVariantProps) {
     if (!isChanged) {
       setChanged(true);
     }
+  };
+
+  const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    if(!value.includes(defaultCommentValue)) {
+      value = defaultCommentValue + value;
+    }
+    changeAnswerComment({
+      testId,
+      answerId: data.id,
+      value: value,
+    });
   };
 
   const radioFontStyles = {
@@ -78,6 +101,12 @@ export function Variant({ data, number, testId }: IVariantProps) {
           }}
         />
       </S.RadioGroup>
+      <S.CommentInput
+        type="text"
+        value={data.text || defaultCommentValue}
+        $isRight={data.right_answer}
+        onChange={handleChangeComment}
+      />
     </S.Container>
   );
 }

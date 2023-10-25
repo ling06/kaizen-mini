@@ -85,7 +85,7 @@ export function CourseContent() {
                 }
               })}
             </S.EditorOutup>
-            {/* {data.data.test && data.data.test.map((test) => <LessonTest data={test}/>)} */}
+            {data.data.tests.length > 0 && data.data.tests.map((test) => <LessonTest data={test}/>)}
             {editorData && !isFetching && !data.data.isChecked && (
               <S.ForwardBtn onClick={handleCheckLesson}>Вперёд</S.ForwardBtn>
             )}
