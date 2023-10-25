@@ -40,7 +40,7 @@ class Lesson extends \app\components\ActiveRecord
     public static function getExtraFields(): array
     {
         return [
-            'test' => 'test',
+            'tests' => 'test',
             'isChecked' => 'isChecked',
         ];
     }

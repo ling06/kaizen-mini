@@ -53,7 +53,7 @@ class Question extends \app\components\ActiveRecord
     {
         return [
             [['test_id', 'user_id'], 'integer'],
-            [['text', 'answers', 'right_answer'], 'string'],
+            [['text', 'answer', 'right_answer'], 'string'],
             [['date'], 'safe'],
             [['test_id'], 'exist', 'skipOnError' => true, 'targetClass' => Test::class, 'targetAttribute' => ['test_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
@@ -72,7 +72,7 @@ class Question extends \app\components\ActiveRecord
             'test_id' => 'Id теста',
             'is_open' => 'Открытый ли вопрос',
             'text' => 'Текст вопроса',
-            'answers' => 'Варианты ответов, json',
+            'answer' => 'Варианты ответов, json',
             'right_answer' => 'Правильный ответ',
             'user_id' => 'Id автора',
             'date' => 'Дата создания',
@@ -161,12 +161,12 @@ class Question extends \app\components\ActiveRecord
     public function load($data, $formName = null): bool
     {
         if ($formName) {
-            if ($data[$formName]['answers']) {
-                $this->_answers = $data[$formName]['answers'];
+            if ($data[$formName]['answer']) {
+                $this->_answers = $data[$formName]['answer'];
             }
         } else {
-            if ($data['answers']) {
-                $this->_answers = $data['answers'];
+            if ($data['answer']) {
+                $this->_answers = $data['answer'];
             }
         }
         return parent::load($data, $formName);

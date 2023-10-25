@@ -28,7 +28,7 @@ class Test extends \app\components\ActiveRecord
     public static function getExtraFields(): array
     {
         return [
-            'test' => 'testQuestions',
+            'answers' => 'testQuestions',
         ];
     }
 

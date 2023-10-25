@@ -61,7 +61,7 @@ class LessonForm extends Lesson
                         $testAnswer = new Question;
                     }
                         $testAnswer->test_id = $test->id;
-                        $testAnswer->answers = $answer['answer'];
+                        $testAnswer->answer = $answer['answer'];
                         $testAnswer->right_answer = $answer['right_answer'];
                         $testAnswer->text = $answer['text'];
                     $testAnswer->save(false);
