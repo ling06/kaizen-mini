@@ -42,6 +42,7 @@ class LessonForm extends Lesson
     {
         $editorJs = json_decode($this->description);
         foreach ($editorJs as $editor){
+//            var_dump($editor);
             if($editor->type === 'image'){
                 $uploadDir = Yii::getAlias('@webroot');
                 $newDir = Yii::getAlias(Image::UPLOAD_DIR) . '/EditorJs/';
@@ -50,6 +51,8 @@ class LessonForm extends Lesson
                 }
                 $file = pathinfo($uploadDir . $editor->data->file->url);
                 rename($file['dirname'] . '/' . $file['basename'], $newDir . '/' . $file['basename']);
+                str_replace('editorJsTmp', 'EditorJs', $editor->data->file->url);
+//                var_dump($editor);
             }
         }
         return parent::beforeSave($insert);
@@ -76,7 +79,7 @@ class LessonForm extends Lesson
                         $testAnswer->answers = $answer['answer'];
                         $testAnswer->right_answer = $answer['right_answer'];
                         $testAnswer->text = $answer['text'];
-                    $testAnswer->save();
+                    $testAnswer->save(false);
                 }
             }
         }
