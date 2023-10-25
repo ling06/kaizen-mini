@@ -18,7 +18,7 @@ export interface ICreateLessonData {
   title: string;
   theme_id: number;
   description: string;
-  tests: Array<ITest>;
+  tests: Array<Partial<ITest>>;
 }
 
 export interface IUpdateLessonData extends ICreateLessonData {

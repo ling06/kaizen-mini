@@ -26996,8 +26996,8 @@ const Title$6 = st$1(Text$3)`
   font-size: 25px;
   line-height: 150%;
 `;
-function LessonTest() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$b, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: "В какой половине 1967 года в городе Ленинград родился российский шоумен, актёр театра и кино Дмитрий Владимирович Нагиев?" }) });
+function LessonTest({ data }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$b, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }) });
 }
 function CourseContent() {
   const { setLoaderActive } = useActions();
@@ -27052,7 +27052,7 @@ function CourseContent() {
             return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorImg, { src: (_b = block.data.file) == null ? void 0 : _b.url });
           }
         }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(LessonTest, {}),
+        data.data.tests && data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(LessonTest, { data: test })),
         editorData && !isFetching && !data.data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardBtn, { onClick: handleCheckLesson, children: "Вперёд" })
       ] })
     ] })
@@ -47265,11 +47265,21 @@ function CreateLessonForm({ type }) {
       setChangedName(true);
       return;
     }
+    const testsData = tests;
+    testsData.map((test) => {
+      delete test["id"];
+      if (test.answers) {
+        test.answers.map((answer) => {
+          delete answer["id"];
+        });
+      }
+      return test;
+    });
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests
+      tests: testsData
     }).then(() => {
       editor$1 == null ? void 0 : editor$1.clear();
       editor$1 = void 0;
@@ -47308,16 +47318,10 @@ function CreateLessonForm({ type }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
       tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        AddTest,
-        {
-          onClick: handleAddEmptyTest,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AddTestIcon, {}),
-            "добавить тест"
-          ]
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AddTestIcon, {}),
+        "добавить тест"
+      ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(

@@ -9,6 +9,7 @@ import { useCreateLessonMutation } from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
+import { ITest } from '@/types/lessonTest.types';
 
 interface ICreateLessonFormProps {
   type: string;
@@ -17,7 +18,7 @@ interface ICreateLessonFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
-  const {tests} = useTypedSelector((state) => state.lesson);
+  const { tests } = useTypedSelector((state) => state.lesson);
   const { addEmptyTest } = useActions();
   const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
@@ -58,11 +59,22 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       return;
     }
 
+    const testsData: Array<Partial<ITest>> = tests;
+    testsData.map((test) => {
+      delete test['id'];
+      if (test.answers) {
+        test.answers.map((answer) => {
+          delete answer['id'];
+        });
+      }
+      return test;
+    });
+
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests: tests,
+      tests: testsData,
     })
       .then(() => {
         editor?.clear();
@@ -87,7 +99,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
 
   const handleAddEmptyTest = () => {
     addEmptyTest();
-  }
+  };
 
   return (
     <>
@@ -102,9 +114,8 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       />
       <S.EditorJsWrapper id="editorjs" />
       <S.TestWrapper>
-        {tests.length > 0 && tests.map((test) => <CreateTestForm data={test}/>)}
-        <S.AddTest
-          onClick={handleAddEmptyTest}>
+        {tests.length > 0 && tests.map((test) => <CreateTestForm data={test} />)}
+        <S.AddTest onClick={handleAddEmptyTest}>
           <S.AddTestIcon />
           добавить тест
         </S.AddTest>

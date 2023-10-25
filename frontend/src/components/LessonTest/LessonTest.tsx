@@ -1,11 +1,15 @@
+import { ITest } from '@/types/lessonTest.types';
 import * as S from './styles';
 
-export function LessonTest() {
+interface ILessonTestProps {
+  data: ITest;
+}
+
+export function LessonTest({ data }: ILessonTestProps) {
   return (
     <S.Container>
       <S.Title>
-        В какой половине 1967 года в городе Ленинград родился российский шоумен, актёр театра и кино
-        Дмитрий Владимирович Нагиев?
+      {data.question}
       </S.Title>
     </S.Container>
   );
