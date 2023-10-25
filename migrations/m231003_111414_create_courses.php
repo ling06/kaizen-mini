@@ -40,7 +40,7 @@ class m231003_111414_create_courses extends Migration
 
         $this->createTable('course', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(200),
+            'name' => $this->string(200)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'description' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'is_open' => $this->boolean()->defaultValue(1),
             'status' => $this->tinyInteger()->defaultValue(0),

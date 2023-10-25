@@ -116,7 +116,7 @@ class Lesson extends \app\components\ActiveRecord
      */
     public function getTest(): ActiveQuery
     {
-        return $this->hasOne(Test::class, ['lesson_id' => 'id']);
+        return $this->hasMany(Test::class, ['lesson_id' => 'id']);
     }
 
     public function getIsChecked(): bool
