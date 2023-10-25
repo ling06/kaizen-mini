@@ -6,7 +6,7 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
 
 export function CreateThemeForm() {
-  const { setModalOpen } = useActions();
+  const { setModalOpen, setLoaderActive } = useActions();
   const chapterId = useTypedSelector((state) => state.course.activeChapterId);
   const [createTheme] = useCreateThemeMutation();
   const [themeName, setThemeName] = useState<string>('');
@@ -32,17 +32,16 @@ export function CreateThemeForm() {
     })
       .then(() => {
         setModalOpen(false);
-        setThemeName('');
       })
       .catch((error) => {
         console.log(error);
         alert('Что-то пошло не так');
       });
+    setLoaderActive(true);
   };
 
   const handleCancel = () => {
     setModalOpen(false);
-    setThemeName('');
   };
 
   const handlers = {

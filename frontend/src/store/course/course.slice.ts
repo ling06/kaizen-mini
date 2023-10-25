@@ -35,29 +35,42 @@ export const courseSlice = createSlice({
   initialState: courseInitialState,
   reducers: {
     setCourseData: (state, { payload }: PayloadAction<ICourse>) => {
-        state.data = { ...payload };
+      // state.data = { ...payload };
+      return {
+        ...state,
+        ...{ data: payload },
+      };
     },
     changeCourseData: (state, { payload }: PayloadAction<Partial<ICourse>>) => {
-      state.data = <ICourse>{...state.data, ...payload};
+      state.data = <ICourse>{ ...state.data, ...payload };
     },
     setActiveChapterId: (state, { payload }) => {
       state.activeChapterId = payload;
     },
     addChapter: (state, { payload }) => {
-      state.chapters?.push(payload);
+      state.data.chapters?.push(payload);
+
+      // return {
+      //   ...state,
+      // };
     },
     changeChapter: (state, { payload }: PayloadAction<Partial<IChapter>>) => {
-      if(!state.data || !state.data.chapters) {
+      if (!state.data || !state.data.chapters) {
         console.warn(`No chapters in course`);
         return;
       }
-      const currentChapterIndex = state.data?.chapters?.findIndex((chapter) => chapter.id === Number(payload.id));
-      
-      if(currentChapterIndex === -1) {
+      const currentChapterIndex = state.data?.chapters?.findIndex(
+        (chapter) => chapter.id === Number(payload.id)
+      );
+
+      if (currentChapterIndex === -1) {
         console.error(`No chapter with id: ${payload.id}`);
         return;
       }
-      state.data.chapters[currentChapterIndex] = {...state.data.chapters[currentChapterIndex],...payload};
+      state.data.chapters[currentChapterIndex] = {
+        ...state.data.chapters[currentChapterIndex],
+        ...payload,
+      };
     },
     setActiveTheme: (state, { payload }) => {
       state.activeTheme = { ...payload };

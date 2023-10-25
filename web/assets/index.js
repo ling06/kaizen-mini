@@ -10529,7 +10529,7 @@ function Header() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
   ] });
 }
-const Container$o = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -13254,7 +13254,10 @@ const courseSlice = createSlice({
   initialState: courseInitialState,
   reducers: {
     setCourseData: (state, { payload }) => {
-      state.data = { ...payload };
+      return {
+        ...state,
+        ...{ data: payload }
+      };
     },
     changeCourseData: (state, { payload }) => {
       state.data = { ...state.data, ...payload };
@@ -13264,7 +13267,7 @@ const courseSlice = createSlice({
     },
     addChapter: (state, { payload }) => {
       var _a;
-      (_a = state.chapters) == null ? void 0 : _a.push(payload);
+      (_a = state.data.chapters) == null ? void 0 : _a.push(payload);
     },
     changeChapter: (state, { payload }) => {
       var _a, _b;
@@ -13272,12 +13275,17 @@ const courseSlice = createSlice({
         console.warn(`No chapters in course`);
         return;
       }
-      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex((chapter) => chapter.id === Number(payload.id));
+      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
+        (chapter) => chapter.id === Number(payload.id)
+      );
       if (currentChapterIndex === -1) {
         console.error(`No chapter with id: ${payload.id}`);
         return;
       }
-      state.data.chapters[currentChapterIndex] = { ...state.data.chapters[currentChapterIndex], ...payload };
+      state.data.chapters[currentChapterIndex] = {
+        ...state.data.chapters[currentChapterIndex],
+        ...payload
+      };
     },
     setActiveTheme: (state, { payload }) => {
       state.activeTheme = { ...payload };
@@ -13429,7 +13437,7 @@ const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon = "/assets/editIconRed.svg";
 const deleteIcon = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Container$n = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -13442,7 +13450,7 @@ const Container$n = st$1(FlexContainer)`
   background-color: ${(props) => props.theme.colors.greyF1};
   filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
 `;
-const Title$c = st$1(Text$3)`
+const Title$b = st$1(Text$3)`
   margin-bottom: 15px;
   text-align: center;
 `;
@@ -13501,8 +13509,8 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { ref: innerRef, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
       "скрыть"
@@ -26178,7 +26186,7 @@ function CourseSelect() {
       setCourseData(selectedCourseData);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26203,11 +26211,11 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$m = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
 `;
-const Container$l = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26256,7 +26264,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$k = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26280,7 +26288,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26306,7 +26314,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   ] });
 }
 function CourseMainInfo() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
@@ -26332,14 +26340,14 @@ function CourseMainInfo() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: defaultPreview }) })
   ] });
 }
-const Container$j = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-const Title$b = st$1(Text$3)``;
+const Title$a = st$1(Text$3)``;
 const CardList = st$1.ul`
   display: flex;
   flex-wrap: wrap;
@@ -26375,7 +26383,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$a = st$1(Text$3)``;
+const Title$9 = st$1(Text$3)``;
 const ProgressContainer = st$1(FlexContainer)`
   flex-direction: column;
   margin-top: auto;
@@ -26481,7 +26489,7 @@ function CourseProgrammCard({ data }) {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: defaultCardImg }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$9, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: "Пройдено" }),
@@ -26525,9 +26533,9 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { as: "h4", children: "Программа курса" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -26549,7 +26557,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$i = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26560,7 +26568,7 @@ const Text$2 = st$1(Text$3)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 let init = true;
 function CoursePreview() {
@@ -26586,7 +26594,7 @@ function CoursePreview() {
       setCourseData(data.data[0]);
     }
   }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -26595,7 +26603,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$h = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
@@ -26625,7 +26633,7 @@ function CourseNavLesson({ data }) {
       setInit(false);
     }
   }, [data, isInit, lessonId, setActiveLesson]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26664,7 +26672,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$g = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Theme = st$1(FlexContainer)`
@@ -26747,7 +26755,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     navigate(createLessonPath);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -26797,10 +26805,10 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$f = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$9 = st$1.h4`
+const Title$8 = st$1.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26816,8 +26824,8 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { children: [
       "Темы главы",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
@@ -26827,7 +26835,7 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseNavTheme,
       {
         data: theme,
@@ -26837,7 +26845,7 @@ function CourseNavBody({ data }) {
     )) })
   ] });
 }
-const Container$e = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -26860,7 +26868,7 @@ const bodyOverflow = at$1`
     overflow: hidden;
   }
 `;
-const Container$d = st$1(FlexContainer)`
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -26869,16 +26877,16 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$8 = st$1(Text$3)`
+const Title$7 = st$1(Text$3)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -26892,14 +26900,14 @@ function CourseNavHead({ data }) {
   ] });
 }
 const forwardIcon = "/assets/forwardIcon.svg";
-const Title$7 = st$1(Text$3)`
+const Title$6 = st$1(Text$3)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$c = st$1(FlexContainer)`
+const Container$b = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -26986,19 +26994,6 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
-const Container$b = st$1(FlexContainer)`
-  flex-direction: column;
-  padding: 40px 45px;
-  border: 1px solid ${(props) => props.theme.colors.greyF1};
-`;
-const Title$6 = st$1(Text$3)`
-  margin-bottom: 40px;
-  font-size: 25px;
-  line-height: 150%;
-`;
-function LessonTest({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$b, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }) });
-}
 function CourseContent() {
   const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
@@ -27026,7 +27021,7 @@ function CourseContent() {
     !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
     lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$7, { as: "h2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { as: "h2", children: [
         data.data.title,
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
@@ -27037,7 +27032,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutup, { children: editorData.map((block) => {
           var _a, _b;
           if (block.type === "paragraph") {
@@ -27052,7 +27047,6 @@ function CourseContent() {
             return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorImg, { src: (_b = block.data.file) == null ? void 0 : _b.url });
           }
         }) }),
-        data.data.tests && data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(LessonTest, { data: test })),
         editorData && !isFetching && !data.data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardBtn, { onClick: handleCheckLesson, children: "Вперёд" })
       ] })
     ] })
@@ -27072,7 +27066,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -33251,7 +33245,7 @@ const {
   useUpdateThemeMutation
 } = themeApi;
 function CreateThemeForm() {
-  const { setModalOpen } = useActions();
+  const { setModalOpen, setLoaderActive } = useActions();
   const chapterId = useTypedSelector((state) => state.course.activeChapterId);
   const [createTheme2] = useCreateThemeMutation();
   const [themeName, setThemeName] = reactExports.useState("");
@@ -33274,15 +33268,14 @@ function CreateThemeForm() {
       chapter_id: chapterId ? chapterId : 0
     }).then(() => {
       setModalOpen(false);
-      setThemeName("");
     }).catch((error) => {
       console.log(error);
       alert("Что-то пошло не так");
     });
+    setLoaderActive(true);
   };
   const handleCancel = () => {
     setModalOpen(false);
-    setThemeName("");
   };
   const handlers = {
     cancel: handleCancel,
@@ -47236,7 +47229,7 @@ function CreateLessonForm({ type }) {
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const navigation = useNavigate();
-  const { themeId } = useParams();
+  const { themeId, courseId, chapterId } = useParams();
   reactExports.useEffect(() => {
     if (!editor$1) {
       try {
@@ -47280,10 +47273,12 @@ function CreateLessonForm({ type }) {
       theme_id: Number(themeId),
       description: editorBlocksData,
       tests: testsData
-    }).then(() => {
-      editor$1 == null ? void 0 : editor$1.clear();
-      editor$1 = void 0;
-      navigation(-1);
+    }).then((res) => {
+      if ("data" in res) {
+        editor$1 == null ? void 0 : editor$1.clear();
+        editor$1 = void 0;
+        navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+      }
     }).catch((error) => {
       console.error(error);
     });

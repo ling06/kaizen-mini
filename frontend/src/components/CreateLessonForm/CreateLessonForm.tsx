@@ -25,7 +25,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const navigation = useNavigate();
-  const { themeId } = useParams();
+  const { themeId, courseId, chapterId } = useParams();
 
   useEffect(() => {
     if (!editor) {
@@ -76,10 +76,12 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       description: editorBlocksData,
       tests: testsData,
     })
-      .then(() => {
-        editor?.clear();
-        editor = undefined;
-        navigation(-1);
+      .then((res) => {
+        if ('data' in res) {
+          editor?.clear();
+          editor = undefined;
+          navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+        }
       })
       .catch((error) => {
         console.error(error);
