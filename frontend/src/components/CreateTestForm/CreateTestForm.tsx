@@ -2,9 +2,8 @@ import { useState } from 'react';
 import * as S from './styles';
 import { Title } from './Title';
 import { Variant } from './Variant';
-import { IAnswer, ITest } from '@/types/lessonTest.types';
+import { ITest } from '@/types/lessonTest.types';
 import { useActions } from '@/hooks/useActions';
-import { EmptyAnswer } from '@/utils/EmptyAnswer';
 
 interface ICreateTestFormProps {
   data: ITest;
@@ -13,11 +12,8 @@ interface ICreateTestFormProps {
 export function CreateTestForm({ data }: ICreateTestFormProps) {
   const { changeTestQuestion, addAnswer } = useActions();
   const [isChanged, setChanged] = useState<boolean>(false);
-  const [testQuestion, setTestQuestion] = useState<string>(data.question);
-  const [variants, setVariants] = useState<Array<IAnswer>>(data.answers);
 
   const handleChangeTestName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTestQuestion(event.target.value);
     changeTestQuestion({ id: data.id, question: event.target.value });
     if (!isChanged) {
       setChanged(true);
@@ -25,9 +21,7 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
   };
 
   const handleAddVariant = () => {
-    const newVariantsData = [...variants, new EmptyAnswer()];
-    addAnswer({id: data.id, data: newVariantsData});
-    setVariants(newVariantsData);
+    addAnswer({id: data.id});
   };
 
   return (
@@ -35,14 +29,14 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
       <Title value={'Заголовок теста (необязательно)'} />
       <S.TestName
         type="text"
-        value={testQuestion}
+        value={data.question}
         onChange={handleChangeTestName}
         $isValid={true}
         $isChanged={isChanged}
       />
       <S.Variants>
-        {variants.length > 0 &&
-          variants.map((answer, index) => (
+        {data.answers.length > 0 &&
+          data.answers.map((answer, index) => (
             <Variant
               testId={data.id}
               data={answer}

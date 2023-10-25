@@ -1,4 +1,5 @@
-import { IAnswer, ITest } from '@/types/lessonTest.types';
+import { ITest } from '@/types/lessonTest.types';
+import { EmptyAnswer } from '@/utils/EmptyAnswer';
 import { EmptyTest } from '@/utils/EmptyTest';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
@@ -18,12 +19,17 @@ interface IChangeTestQuestion {
 interface IChangeAnswer {
   testId: string;
   answerId: string;
-  data: Partial<IAnswer>;
+  value: string;
 }
 
 interface IAddAnswer {
   id: string;
-  data: Array<IAnswer>;
+}
+
+interface IToggleAnswer {
+  testId: string;
+  answerId: string;
+  isRight: boolean;
 }
 
 export const lessonSlice = createSlice({
@@ -34,9 +40,14 @@ export const lessonSlice = createSlice({
       state.tests.push(new EmptyTest());
     },
     addAnswer: (state, { payload }: PayloadAction<IAddAnswer>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      const tests = state.tests;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1) return;
-      state.tests[testIndex].answers = payload.data;
+      tests[testIndex].answers.push(new EmptyAnswer());
+      return {
+        ...state,
+        ...{ tests },
+      };
     },
     setTestsData: (state, { payload }: PayloadAction<Array<ITest>>) => {
       state.tests = [...state.tests, ...payload];
@@ -46,17 +57,42 @@ export const lessonSlice = createSlice({
       if (testIndex === -1) return;
 
       state.tests[testIndex].question = payload.question;
+      return {
+        ...state,
+      };
     },
-    changeAnswerData: (state, { payload }: PayloadAction<Partial<IChangeAnswer>>) => {
+    toggleAnswer: (state, { payload }: PayloadAction<IToggleAnswer>) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1) return;
-      const answerIndex = state.tests[testIndex].answers.findIndex(
-        (answer) => answer.id === payload.answerId
-      );
-      if (answerIndex === -1) return;
-      state.tests[testIndex].answers[answerIndex] = {
-        ...state.tests[testIndex].answers[answerIndex],
-        ...payload.data,
+
+      state.tests[testIndex].answers.forEach((answer) => {
+        if (payload.isRight) {
+          if (answer.id === payload.answerId && payload.isRight) {
+            answer.right_answer = payload.isRight;
+            return;
+          }
+          answer.right_answer = false;
+        } else {
+          answer.right_answer = payload.isRight;
+        }
+      });
+
+      return {
+        ...state,
+      };
+    },
+    changeAnswer: (state, { payload }: PayloadAction<IChangeAnswer>) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1) return;
+
+      state.tests[testIndex].answers.forEach((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.answer = payload.value;
+        }
+      });
+
+      return {
+        ...state,
       };
     },
   },

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
+import { LessonTest } from '../LessonTest';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
   description: {
@@ -63,12 +64,6 @@ export function CourseContent() {
             />
           </S.Title>
           <S.Container>
-            {/* <S.AdminBtnContainer>
-              <AdminBtn
-                type="edit"
-                onClick={() => {}}
-              />
-            </S.AdminBtnContainer> */}
             <S.EditorOutup>
               {editorData.map((block) => {
                 if (block.type === 'paragraph') {
@@ -90,6 +85,7 @@ export function CourseContent() {
                 }
               })}
             </S.EditorOutup>
+            <LessonTest />
             {editorData && !isFetching && !data.data.isChecked && (
               <S.ForwardBtn onClick={handleCheckLesson}>Вперёд</S.ForwardBtn>
             )}
