@@ -39,7 +39,8 @@ class CreateAction extends Action
             }
             $result = [
                 'result' => true,
-                'data' => $query->asArray()->one(),
+//                'data' => $query->asArray()->one(),
+                'data' => $query->one(),
             ];
         }
 

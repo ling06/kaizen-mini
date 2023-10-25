@@ -202,10 +202,10 @@ class Question extends \app\components\ActiveRecord
 //        return parent::beforeSave($insert);
 //    }
 
-    public function afterFind(): void
-    {
-        $this->answers = json_decode($this->answers, true);
-        parent::afterFind();
-    }
+//    public function afterFind(): void
+//    {
+//        $this->answers = json_decode($this->answers, true);
+//        parent::afterFind();
+//    }
 
 }
