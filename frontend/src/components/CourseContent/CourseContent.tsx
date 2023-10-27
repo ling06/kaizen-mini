@@ -29,7 +29,7 @@ export function CourseContent() {
   const { lessonId } = useParams();
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
-    skip: lessonId ? false : true,
+    skip: !lessonId,
   });
   const [checkLesson] = useCheckLessonMutation();
 
@@ -50,6 +50,53 @@ export function CourseContent() {
     }
   };
 
+  const renderEditorOutput = () => {
+    return editorData.map((block) => {
+      if (block.type === 'paragraph') {
+        return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
+      }
+      if (block.type === 'list' && block.data.style === 'ordered') {
+        return (
+          <C.UnorderedList key={block.id}>
+            {block.data.items?.map((item) => (
+              <C.ListItem key={item}>{item}</C.ListItem>
+            ))}
+          </C.UnorderedList>
+        );
+      }
+      if (block.type === 'image') {
+        return (
+          <C.EditorImg
+            key={block.id}
+            src={block.data.file?.url}
+          />
+        );
+      }
+      return null;
+    });
+  };
+
+  const renderLessonTests = () => {
+    return data?.data.tests.map((test) => (
+      <LessonTest
+        key={test.id}
+        data={test}
+      />
+    ));
+  };
+
+  const renderForwardButton = () => {
+    return (
+      <S.ForwardBtn
+        onClick={handleCheckLesson}
+        disabled={
+          isFetching || data?.data.isChecked || (data?.data.tests && data?.data.tests.length > 0)
+        }>
+        Вперёд
+      </S.ForwardBtn>
+    );
+  };
+
   return (
     <>
       {!lessonId && <S.NoOpenLesson>Выберите урок</S.NoOpenLesson>}
@@ -64,35 +111,12 @@ export function CourseContent() {
             />
           </S.Title>
           <S.Container>
-            <S.EditorOutup>
-              {editorData.map((block) => {
-                if (block.type === 'paragraph') {
-                  return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
-                }
-                if (block.type === 'list') {
-                  if (block.data.style === 'ordered') {
-                    return (
-                      <C.UnorderedList key={block.id}>
-                        {block.data.items?.map((item) => (
-                          <C.ListItem>{item}</C.ListItem>
-                        ))}
-                      </C.UnorderedList>
-                    );
-                  }
-                }
-                if (block.type === 'image') {
-                  return <C.EditorImg src={block.data.file?.url} />;
-                }
-              })}
-            </S.EditorOutup>
-            {data.data.tests.length > 0 && data.data.tests.map((test) => <LessonTest data={test}/>)}
-            {editorData && !isFetching && !data.data.isChecked && (
-              <S.ForwardBtn onClick={handleCheckLesson}>Вперёд</S.ForwardBtn>
-            )}
+            <S.EditorOutput>{renderEditorOutput()}</S.EditorOutput>
+            {data.data.tests.length > 0 && renderLessonTests()}
+            {editorData && !isFetching && !data.data.isChecked && renderForwardButton()}
           </S.Container>
         </>
       )}
     </>
   );
 }
-

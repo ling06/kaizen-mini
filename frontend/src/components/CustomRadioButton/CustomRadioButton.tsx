@@ -5,8 +5,11 @@ interface ICustomRadioButtonProps {
   name?: string;
   value?: string;
   option?: string;
-  checked: boolean;
+  checked?: boolean;
   styles?: {
+    [key: string]: string;
+  };
+  radioStyles?: {
     [key: string]: string;
   };
 }
@@ -18,6 +21,7 @@ export function CustomRadioButton({
   option,
   checked,
   styles = {},
+  radioStyles={},
 }: ICustomRadioButtonProps) {
   return (
     <S.Label style={styles}>
@@ -29,7 +33,7 @@ export function CustomRadioButton({
         data-option={option}
         checked={checked}
       />
-      <S.CustomRadioInput />
+      <S.CustomRadioInput style={radioStyles}/>
       {value}
     </S.Label>
   );
