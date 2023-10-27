@@ -93,6 +93,9 @@
       "assets/defaultCardImg.png",
       "assets/dnd-btn.svg",
       "assets/forwardIcon.svg",
+      "assets/forwardIconDisabled.svg",
+      "assets/radio.svg",
+      "assets/radio-checked.svg",
       "assets/swiperArrowLeft.svg",
       "assets/star.svg",
       "assets/active-star.svg",
@@ -269,6 +272,10 @@
     "file": "assets/forwardIcon.svg",
     "src": "src/assets/images/forwardIcon.svg"
   },
+  "src/assets/images/forwardIconDisabled.svg": {
+    "file": "assets/forwardIconDisabled.svg",
+    "src": "src/assets/images/forwardIconDisabled.svg"
+  },
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
@@ -288,6 +295,14 @@
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
     "src": "src/assets/images/moreIcon.svg"
+  },
+  "src/assets/images/radio-checked.svg": {
+    "file": "assets/radio-checked.svg",
+    "src": "src/assets/images/radio-checked.svg"
+  },
+  "src/assets/images/radio.svg": {
+    "file": "assets/radio.svg",
+    "src": "src/assets/images/radio.svg"
   },
   "src/assets/images/search-header.svg": {
     "file": "assets/search-header.svg",

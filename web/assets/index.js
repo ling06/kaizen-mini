@@ -26913,6 +26913,7 @@ function CourseNavHead({ data }) {
   ] });
 }
 const forwardIcon = "/assets/forwardIcon.svg";
+const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
 const Title$7 = st$1(Text$3)`
   display: flex;
   align-items: center;
@@ -26924,7 +26925,7 @@ const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
-const EditorOutup = st$1(FlexContainer)`
+const EditorOutput = st$1(FlexContainer)`
   flex-direction: column;
   padding-right: 20px;
 `;
@@ -26944,6 +26945,12 @@ const ForwardBtn = st$1(DefaultBtn)`
   background-repeat: no-repeat;
   background-position: 87% 50%;
   background-size: 33px;
+
+  &:disabled {
+    color: ${(props) => props.theme.colors.grey57};
+    background-color: ${(props) => props.theme.colors.grey93};
+    background-image: url(${forwardIconDisabled});
+  }
 `;
 const lessonApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -27010,7 +27017,7 @@ const {
 const Container$b = st$1(FlexContainer)`
   flex-direction: column;
   padding: 40px 45px;
-  border: 1px solid ${(props) => props.theme.colors.greyF1}; 
+  border: 1px solid ${(props) => props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
 
@@ -27023,48 +27030,155 @@ const Title$6 = st$1(Text$3)`
   font-size: 25px;
   line-height: 150%;
 `;
-const CheckboxWrapper = st$1.div`
-  display: flex;
-  align-items: center;
+const Answers = st$1(FlexContainer)`
+  flex-direction: column;
+  margin-bottom: 30px;
 `;
-const CheckboxInput = st$1.input`
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border: 2px solid #555;
-  border-radius: 4px;
-  margin-right: 8px;
-  cursor: pointer;
+const CheckBtn = st$1(DefaultBtn)`
+  align-self: flex-end;
+  width: fit-content;
+  padding: 19px 30px;
 
-  &:checked {
-    background-color: #555;
+  &:disabled {
+    color: ${(props) => props.theme.colors.grey57};
+    background-color: ${(props) => props.theme.colors.grey93};
   }
 `;
-const CheckboxLabel = st$1.label`
+const radio = "/assets/radio.svg";
+const radioChecked = "/assets/radio-checked.svg";
+const Label$2 = st$1.label`
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  ${TextStyles}
+  font-weight: 400;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 `;
-const Checkbox = ({ label }) => {
-  const [checked, setChecked] = reactExports.useState(false);
+const RadioBtn$1 = st$1.input`
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  margin-right: 25px;
+  background-image: url(${radio});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+
+  &:checked {
+    background-image: url(${radioChecked});
+  }
+`;
+function RadioBtn({ onChange, label, name }) {
   const handleChange = () => {
-    setChecked(!checked);
-    console.log(1111);
+    if (onChange) {
+      onChange();
+    }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(CheckboxWrapper, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$2, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CheckboxInput,
+      RadioBtn$1,
       {
-        type: "checkbox",
-        checked,
-        onChange: handleChange
+        type: "radio",
+        onChange: handleChange,
+        name
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxLabel, { children: label })
+    label
   ] });
-};
+}
+const lessonTestApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    addTest: builder.mutation({
+      query: (data) => ({
+        url: "test/add-test",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [{ type: "LessonById" }]
+    }),
+    updateTest: builder.mutation({
+      query: (data) => ({
+        url: "test/update-test",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [{ type: "LessonById" }]
+    }),
+    createQuestion: builder.mutation({
+      query: (data) => ({
+        url: "test/create-question",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [{ type: "LessonById" }]
+    }),
+    updateQuestion: builder.mutation({
+      query: (data) => ({
+        url: "test/update-question",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [{ type: "LessonById" }]
+    }),
+    deleteQuestion: builder.mutation({
+      query: (data) => ({
+        url: "test/delete-question",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["LessonById", "LessonById"]
+    }),
+    sendAnswer: builder.mutation({
+      query: (data) => ({
+        url: "test/send-answer",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["LessonById"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useAddTestMutation,
+  useCreateQuestionMutation,
+  useDeleteQuestionMutation,
+  useSendAnswerMutation,
+  useUpdateQuestionMutation,
+  useUpdateTestMutation
+} = lessonTestApi;
 function LessonTest({ data }) {
+  const { setLoaderActive } = useActions();
+  const [checkedAnswer, setCheckedAnswer] = reactExports.useState(null);
+  const [sendAnswer] = useSendAnswerMutation();
+  const handleChange = (answer) => {
+    setCheckedAnswer(answer);
+  };
+  const handleSendAnswer = () => {
+    if (checkedAnswer) {
+      sendAnswer({ question_id: data.id, answer: checkedAnswer }).then(() => {
+        setCheckedAnswer(null);
+      });
+      setLoaderActive(true);
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { label: `${answer.answers}` })) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Answers, { children: data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      RadioBtn,
+      {
+        name: data.id,
+        label: `${answer.answers}`,
+        onChange: () => {
+          handleChange(`${answer.answers}`);
+        }
+      },
+      answer.id
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CheckBtn, { onClick: handleSendAnswer, disabled: !checkedAnswer, children: "Проверить" })
   ] });
 }
 function CourseContent() {
@@ -27072,7 +27186,7 @@ function CourseContent() {
   const { lessonId } = useParams();
   const [editorData, setEditorData] = reactExports.useState([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
-    skip: lessonId ? false : true
+    skip: !lessonId
   });
   const [checkLesson] = useCheckLessonMutation();
   reactExports.useEffect(() => {
@@ -27090,6 +27204,46 @@ function CourseContent() {
       setLoaderActive(true);
     }
   };
+  const renderEditorOutput = () => {
+    return editorData.map((block) => {
+      var _a, _b;
+      if (block.type === "paragraph") {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
+      }
+      if (block.type === "list" && block.data.style === "ordered") {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item }, item)) }, block.id);
+      }
+      if (block.type === "image") {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          EditorImg,
+          {
+            src: (_b = block.data.file) == null ? void 0 : _b.url
+          },
+          block.id
+        );
+      }
+      return null;
+    });
+  };
+  const renderLessonTests = () => {
+    return data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      LessonTest,
+      {
+        data: test
+      },
+      test.id
+    ));
+  };
+  const renderForwardButton = () => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ForwardBtn,
+      {
+        onClick: handleCheckLesson,
+        disabled: isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0,
+        children: "Вперёд"
+      }
+    );
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
     lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
@@ -27106,22 +27260,9 @@ function CourseContent() {
         )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutup, { children: editorData.map((block) => {
-          var _a, _b;
-          if (block.type === "paragraph") {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
-          }
-          if (block.type === "list") {
-            if (block.data.style === "ordered") {
-              return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item })) }, block.id);
-            }
-          }
-          if (block.type === "image") {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorImg, { src: (_b = block.data.file) == null ? void 0 : _b.url });
-          }
-        }) }),
-        data.data.tests.length > 0 && data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(LessonTest, { data: test })),
-        editorData && !isFetching && !data.data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardBtn, { onClick: handleCheckLesson, children: "Вперёд" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
+        data.data.tests.length > 0 && renderLessonTests(),
+        editorData && !isFetching && !data.data.isChecked && renderForwardButton()
       ] })
     ] })
   ] });
@@ -47179,7 +47320,8 @@ function CustomRadioButton({
   value,
   option,
   checked,
-  styles: styles2 = {}
+  styles: styles2 = {},
+  radioStyles = {}
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { style: styles2, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -47193,7 +47335,7 @@ function CustomRadioButton({
         checked
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CustomRadioInput, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CustomRadioInput, { style: radioStyles }),
     value
   ] });
 }
