@@ -13,6 +13,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({ label }) => {
     setChecked(!checked);
     console.log(1111);
   };
+  
+
 
   return (
     <S.CheckboxWrapper>
@@ -25,4 +27,3 @@ export const Checkbox: React.FC<CheckboxProps> = ({ label }) => {
     </S.CheckboxWrapper>
   );
 };
-

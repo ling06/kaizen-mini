@@ -25,3 +25,7 @@ export const CheckboxInput = styled.input`
 export const CheckboxLabel = styled.label`
   cursor: pointer;
 `;
+
+
+
+
