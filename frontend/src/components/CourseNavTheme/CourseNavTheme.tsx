@@ -87,7 +87,10 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
             sx={{ padding: 0 }}
             expandIcon={<div style={{ display: 'none' }}></div>}
             aria-controls={`${data.id}_content`}
-            id={`${data.id}_header`}>
+            id={`${data.id}_header`}
+            onClick={(event) => {console.log(1111);
+            }}
+            >
             <S.AccSum>
               <DndBtn
                 onClick={() => {}}
@@ -109,7 +112,7 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
                   onAdd: handleAddLesson,
                   onEdit: handleEditTheme,
                   onDelete: handleDeleteTheme,
-                  onRestore: handleRestoreTheme,
+                  onRestore: handleRestoreTheme
                 }}
               />
             </S.AccSum>

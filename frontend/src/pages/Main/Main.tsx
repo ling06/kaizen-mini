@@ -16,10 +16,10 @@ export function Main() {
           path="/courses/*"
           element={<Courses />}
         />
-        <Route
+        {/* <Route
           path="/tasks/*"
           element={<div>TASKS</div>}
-        />
+        /> */}
       </Routes>
     </>
   );
