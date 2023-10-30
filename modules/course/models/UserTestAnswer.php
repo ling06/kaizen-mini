@@ -39,12 +39,12 @@ class UserTestAnswer extends \app\components\ActiveRecord
     public function rules(): array
     {
         return [
-            [['test_question_id', 'user_id'], 'required'],
+            [['test_question_id', 'user_id', 'answer'], 'required'],
             [['test_question_id', 'user_id', 'is_right'], 'integer'],
             [['answer'], 'integer'],
             [['date'], 'safe'],
             [['test_question_id', 'user_id'], 'unique', 'targetAttribute' => ['test_question_id', 'user_id']],
-            [['test_question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::class, 'targetAttribute' => ['test_question_id' => 'id']],
+//            [['test_question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::class, 'targetAttribute' => ['test_question_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['is_right'], 'default', 'value' => static::ANSWER_IS_UNKNOWN],
         ];
