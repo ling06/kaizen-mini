@@ -128,7 +128,7 @@ class Image extends \app\components\ActiveRecord
                 $uploadDir = Yii::getAlias('@webroot');
                 $newDir = Yii::getAlias(static::UPLOAD_DIR) . '/' . $modelName . '/' . $lessonId . '/';
                 if (!file_exists($newDir)){
-                    mkdir($newDir, 0777);
+                    mkdir($newDir, 0777, true);
                 }
                 $file = pathinfo($uploadDir . $editor->data->file->url);
                 rename($file['dirname'] . '/' . $file['basename'], $newDir . $file['basename']);
