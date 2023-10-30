@@ -10531,7 +10531,7 @@ function Header() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
   ] });
 }
-const Container$o = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -13456,7 +13456,7 @@ const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon = "/assets/editIconRed.svg";
 const deleteIcon = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -13528,7 +13528,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26204,7 +26204,7 @@ function CourseSelect() {
       setCourseData(selectedCourseData);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26230,11 +26230,11 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
 `;
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26283,7 +26283,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26307,7 +26307,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26333,7 +26333,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   ] });
 }
 function CourseMainInfo() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
@@ -26359,7 +26359,7 @@ function CourseMainInfo() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: defaultPreview }) })
   ] });
 }
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -26553,7 +26553,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26578,7 +26578,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$i = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26589,7 +26589,7 @@ const Text$2 = st$1(Text$3)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$j, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 let init = true;
 function CoursePreview() {
@@ -26615,7 +26615,7 @@ function CoursePreview() {
       setCourseData(data.data[0]);
     }
   }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -26624,7 +26624,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$h = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
@@ -26663,7 +26663,7 @@ function CourseNavLesson({ data }) {
       })
     );
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26706,7 +26706,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -26866,7 +26866,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -26913,8 +26913,8 @@ function CourseNavTheme({ data, courseId }) {
                   popupHandlers: {
                     onAdd: handleAddLesson,
                     onEdit: handleEditTheme,
-                    onDelete: handleDeleteTheme,
-                    onRestore: handleRestoreTheme
+                    onDelete: data.is_deleted ? void 0 : handleDeleteTheme,
+                    onRestore: data.is_deleted ? handleRestoreTheme : void 0
                   }
                 }
               )
@@ -26932,7 +26932,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$9 = st$1.h4`
@@ -26955,7 +26955,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { children: [
       "Темы главы",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26967,7 +26967,7 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: data.themes && data.themes.map(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: data.themes && data.themes.map(
       (theme) => {
         if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
           return;
@@ -26984,7 +26984,7 @@ function CourseNavBody({ data }) {
     ) })
   ] });
 }
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -27007,7 +27007,7 @@ const bodyOverflow = at$1`
     overflow: hidden;
   }
 `;
-const Container$d = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -27023,7 +27023,7 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27048,7 +27048,7 @@ const Title$7 = st$1(Text$3)`
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$c = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -27141,10 +27141,10 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
-const Container$b = st$1(FlexContainer)`
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   padding: 40px 45px;
-  border: 1px solid ${(props) => props.theme.colors.greyF1};
+  border: 1px solid ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
 
@@ -27277,7 +27277,37 @@ const {
   useUpdateQuestionMutation,
   useUpdateTestMutation
 } = lessonTestApi;
+const wrongAnswer = "/assets/wrongAnswer.svg";
+const rightAnswer = "/assets/rightAnswer.svg";
+const Container$b = st$1(FlexContainer)`
+  flex-direction: column;
+  row-gap: 15px;
+  
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+`;
+const Answer = st$1(Text$3)`
+  padding-left: 56px;
+  font-weight: 400;
+  color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
+  background-image: url(${(props) => props.$isRight ? rightAnswer : wrongAnswer});
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 36px;
+`;
+const Comment = st$1(Text$3)`
+  font-weight: 600;
+  color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
+`;
+function CheckedAnswer({ data }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
+  ] });
+}
 function LessonTest({ data }) {
+  var _a;
   const { setLoaderActive } = useActions();
   const [checkedAnswer, setCheckedAnswer] = reactExports.useState(null);
   const [sendAnswer] = useSendAnswerMutation();
@@ -27286,26 +27316,54 @@ function LessonTest({ data }) {
   };
   const handleSendAnswer = () => {
     if (checkedAnswer) {
-      sendAnswer({ question_id: data.id, answer: checkedAnswer }).then(() => {
+      sendAnswer({ test_id: data.id, answer: checkedAnswer }).then(() => {
         setCheckedAnswer(null);
       });
       setLoaderActive(true);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { $isRight: !!((_a = data.userTestAnswer) == null ? void 0 : _a.is_right), $isPassed: data.userTestAnswer, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Answers, { children: data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      RadioBtn,
-      {
-        name: data.id,
-        label: `${answer.answer}`,
-        onChange: () => {
-          handleChange(`${answer.answer}`);
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
+      !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        RadioBtn,
+        {
+          name: data.id,
+          label: `${answer.answer}`,
+          onChange: () => {
+            handleChange(`${answer.id}`);
+          }
+        },
+        answer.id
+      )),
+      data.userTestAnswer && data.answers.map((answer) => {
+        var _a2, _b;
+        if (Number(answer.id) === ((_a2 = data.userTestAnswer) == null ? void 0 : _a2.answer)) {
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
         }
-      },
-      answer.id
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CheckBtn, { onClick: handleSendAnswer, disabled: !checkedAnswer, children: "Проверить" })
+        if (!!answer.right_answer && Number(answer.id) !== ((_b = data.userTestAnswer) == null ? void 0 : _b.answer)) {
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
+        }
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          RadioBtn,
+          {
+            name: data.id,
+            label: `${answer.answer}`,
+            onChange: () => {
+            }
+          },
+          answer.id
+        );
+      })
+    ] }),
+    !data.userTestAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CheckBtn,
+      {
+        onClick: handleSendAnswer,
+        disabled: !checkedAnswer,
+        children: "Проверить"
+      }
+    )
   ] });
 }
 function CourseContent() {
@@ -27316,6 +27374,19 @@ function CourseContent() {
     skip: !lessonId
   });
   const [checkLesson] = useCheckLessonMutation();
+  const [isForwardBtnDisabled, setIsForwardBtnDisabled] = reactExports.useState(true);
+  const isTestsPassed = reactExports.useMemo(() => {
+    if ((data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0) {
+      return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
+    }
+  }, [data == null ? void 0 : data.data.tests]);
+  reactExports.useEffect(() => {
+    if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
+      setIsForwardBtnDisabled(true);
+    } else {
+      setIsForwardBtnDisabled(false);
+    }
+  }, [data == null ? void 0 : data.data.isChecked, data == null ? void 0 : data.data.tests, isFetching, isTestsPassed]);
   reactExports.useEffect(() => {
     if ((data == null ? void 0 : data.data.description) && !isFetching) {
       const parsedData = JSON.parse(data == null ? void 0 : data.data.description);
@@ -27366,7 +27437,7 @@ function CourseContent() {
       ForwardBtn,
       {
         onClick: handleCheckLesson,
-        disabled: isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0,
+        disabled: isForwardBtnDisabled,
         children: "Вперёд"
       }
     );
@@ -27387,7 +27458,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
@@ -27409,7 +27480,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),

@@ -3,7 +3,7 @@ import * as S from './styles';
 import * as C from '@styles/components';
 import { useCheckLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
@@ -32,6 +32,21 @@ export function CourseContent() {
     skip: !lessonId,
   });
   const [checkLesson] = useCheckLessonMutation();
+  const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);
+
+  const isTestsPassed = useMemo(() => {
+    if (data?.data.tests && data?.data.tests.length > 0) {
+      return data?.data.tests.every((test) => test.userTestAnswer);
+    }
+  }, [data?.data.tests]);
+
+  useEffect(() => {
+    if (isFetching || data?.data.isChecked || (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)) {
+      setIsForwardBtnDisabled(true);
+    } else {
+      setIsForwardBtnDisabled(false);
+    }
+  }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed]);
 
   useEffect(() => {
     if (data?.data.description && !isFetching) {
@@ -89,9 +104,7 @@ export function CourseContent() {
     return (
       <S.ForwardBtn
         onClick={handleCheckLesson}
-        disabled={
-          isFetching || data?.data.isChecked || (data?.data.tests && data?.data.tests.length > 0)
-        }>
+        disabled={isForwardBtnDisabled}>
         Вперёд
       </S.ForwardBtn>
     );

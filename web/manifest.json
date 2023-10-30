@@ -96,6 +96,8 @@
       "assets/forwardIconDisabled.svg",
       "assets/radio.svg",
       "assets/radio-checked.svg",
+      "assets/wrongAnswer.svg",
+      "assets/rightAnswer.svg",
       "assets/swiperArrowLeft.svg",
       "assets/star.svg",
       "assets/active-star.svg",
@@ -304,6 +306,10 @@
     "file": "assets/radio.svg",
     "src": "src/assets/images/radio.svg"
   },
+  "src/assets/images/rightAnswer.svg": {
+    "file": "assets/rightAnswer.svg",
+    "src": "src/assets/images/rightAnswer.svg"
+  },
   "src/assets/images/search-header.svg": {
     "file": "assets/search-header.svg",
     "src": "src/assets/images/search-header.svg"
@@ -319,5 +325,9 @@
   "src/assets/images/visibleIcon.svg": {
     "file": "assets/visibleIcon.svg",
     "src": "src/assets/images/visibleIcon.svg"
+  },
+  "src/assets/images/wrongAnswer.svg": {
+    "file": "assets/wrongAnswer.svg",
+    "src": "src/assets/images/wrongAnswer.svg"
   }
 }

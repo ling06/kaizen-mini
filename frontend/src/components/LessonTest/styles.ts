@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
 
-export const Container = styled(C.FlexContainer)`
+interface IContainer {
+  $isRight: boolean;
+  $isPassed: boolean;
+}
+
+export const Container = styled(C.FlexContainer)<IContainer>`
   flex-direction: column;
   padding: 40px 45px;
-  border: 1px solid ${(props) => props.theme.colors.greyF1};
+  border: 1px solid ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
 
