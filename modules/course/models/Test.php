@@ -29,6 +29,7 @@ class Test extends \app\components\ActiveRecord
     {
         return [
             'answers' => 'testQuestions',
+            'userTestAnswer' => 'userTestAnswer',
         ];
     }
 
@@ -100,6 +101,33 @@ class Test extends \app\components\ActiveRecord
     {
         return $this->hasMany(Question::class, ['test_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[UserTestAnswers]].
+     *
+     * @return ActiveQuery
+     */
+    public function getUserTestAnswers(): ActiveQuery
+    {
+        return $this->hasMany(UserTestAnswer::class, ['test_question_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Users]].
+     *
+     * @return ActiveQuery
+     */
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_test_answer', ['test_question_id' => 'id']);
+    }
+
+    public function getUserTestAnswer(): ActiveQuery
+    {
+        return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
+            ->andWhere(['user_id' => \Yii::$app->user->id])->select([ 'answer', 'is_right']);
+    }
+
 
     /**
      * {@inheritdoc}

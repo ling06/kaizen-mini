@@ -31,12 +31,12 @@ class Question extends \app\components\ActiveRecord
 
     private $_answers;
 
-    public static function getExtraFields(): array
-    {
-        return [
-            'userTestAnswer' => 'userTestAnswer',
-        ];
-    }
+//    public static function getExtraFields(): array
+//    {
+//        return [
+//            'userTestAnswer' => 'userTestAnswer',
+//        ];
+//    }
 
     /**
      * {@inheritdoc}
@@ -99,32 +99,32 @@ class Question extends \app\components\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * Gets query for [[UserTestAnswers]].
-     *
-     * @return ActiveQuery
-     */
-    public function getUserTestAnswers(): ActiveQuery
-    {
-        return $this->hasMany(UserTestAnswer::class, ['test_question_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return ActiveQuery
-     */
-    public function getUsers(): ActiveQuery
-    {
-        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_test_answer', ['test_question_id' => 'id']);
-    }
-
-    public function getUserTestAnswer(): ActiveQuery
-    {
-        return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
-            ->andWhere(['user_id' => \Yii::$app->user->id]);
-    }
-
+//    /**
+//     * Gets query for [[UserTestAnswers]].
+//     *
+//     * @return ActiveQuery
+//     */
+//    public function getUserTestAnswers(): ActiveQuery
+//    {
+//        return $this->hasMany(UserTestAnswer::class, ['test_question_id' => 'id']);
+//    }
+//
+//    /**
+//     * Gets query for [[Users]].
+//     *
+//     * @return ActiveQuery
+//     */
+//    public function getUsers(): ActiveQuery
+//    {
+//        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_test_answer', ['test_question_id' => 'id']);
+//    }
+//
+//    public function getUserTestAnswer(): ActiveQuery
+//    {
+//        return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
+//            ->andWhere(['user_id' => \Yii::$app->user->id]);
+//    }
+//
     public function behaviors(): array
     {
         return [
