@@ -41,7 +41,7 @@ class UserTestAnswer extends \app\components\ActiveRecord
         return [
             [['test_question_id', 'user_id'], 'required'],
             [['test_question_id', 'user_id', 'is_right'], 'integer'],
-            [['answer'], 'string'],
+            [['answer'], 'integer'],
             [['date'], 'safe'],
             [['test_question_id', 'user_id'], 'unique', 'targetAttribute' => ['test_question_id', 'user_id']],
             [['test_question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::class, 'targetAttribute' => ['test_question_id' => 'id']],

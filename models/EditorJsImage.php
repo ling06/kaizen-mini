@@ -28,7 +28,7 @@ use yii\web\UploadedFile;
  *
  * @property User $user
  */
-class Image extends \app\components\ActiveRecord
+class EditorJsImage extends \app\components\ActiveRecord
 {
 
     public const UPLOAD_DIR = '@webroot/images/upload';

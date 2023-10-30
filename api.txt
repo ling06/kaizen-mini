@@ -612,8 +612,8 @@ Response: [
 /api/test/send-answer [POST]
 Отправить ответ на вопрос теста.
 Request: [
-    question_id: int - id вопроса
-    answer: string - ответ
+    test_id: int - id теста
+    answer: int - id ответа
 ]
 Response: [
     result: bool - сохранен ли ответ
