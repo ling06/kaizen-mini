@@ -107,21 +107,8 @@ class CourseController extends ApiController
 
     public function actionUploadTempImage()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ['success' => 1, 'file' => ['url' => Image::uploadTmpImageEditorJs()]];
 
-        $file = UploadedFile::getInstanceByName('image');
-        $uploadDir = Yii::getAlias(Image::UPLOAD_DIR) . '/' . 'editorJsTmp/';
-        $fileName = KaizenHelper::guidv4() . '.' . $this->getExtension($file);
-        if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);
-        $file->saveAs($uploadDir . $fileName);
-
-        return ['success' => 1, 'file' => ['url' => '/images/upload/editorJsTmp/' . $fileName]];
-
-    }
-
-    public function getExtension($file)
-    {
-        return strtolower(pathinfo($file->name, PATHINFO_EXTENSION));
     }
 
     public function beforeAction($action): bool

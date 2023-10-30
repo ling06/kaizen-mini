@@ -68,21 +68,9 @@ class LessonForm extends Lesson
                 }
             }
         }
-        $editorJs = json_decode($this->description);
-        foreach ($editorJs as $editor){
-//            var_dump($editor);
-            if($editor->type === 'image'){
-                $uploadDir = Yii::getAlias('@webroot');
-                $newDir = Yii::getAlias(Image::UPLOAD_DIR) . '/EditorJs/';
-                if (!file_exists($newDir)){
-                    mkdir($newDir, 0777);
-                }
-                $file = pathinfo($uploadDir . $editor->data->file->url);
-                rename($file['dirname'] . '/' . $file['basename'], $newDir . '/' . $file['basename']);
-                $editor->data->file->url = str_replace('editorJsTmp', 'EditorJs', $editor->data->file->url);
-            }
-        }
-        $this->description = json_encode($editorJs, JSON_UNESCAPED_UNICODE);
+        $lesson = Lesson::findOne($this->id);
+        $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
+        $lesson->save();
 
         parent::afterSave($insert, $changedAttributes);
     }

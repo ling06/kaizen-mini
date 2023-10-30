@@ -71,7 +71,8 @@ class TestController extends ApiController
     public function actionSendAnswer()
     {
         /** @var Question $question */
-        $question = $this->findModel(Question::class, (int)Yii::$app->request->getBodyParam('question_id'));
+        $question = $this->findModel(Question::class, (int)Yii::$app->request->getBodyParam('answer'));
+//        var_dump($question); die;
         $answer = Yii::$app->request->getBodyParam('answer');
         if (!$answer) {
             return [
@@ -81,7 +82,7 @@ class TestController extends ApiController
         }
 
         $params = [
-            'test_question_id' => $question->id,
+            'test_question_id' => Yii::$app->request->getBodyParam('test_id'),
             'user_id' => Yii::$app->user->id,
         ];
         $userTestAnswer = UserTestAnswer::findOne($params);
@@ -95,12 +96,12 @@ class TestController extends ApiController
         $params['answer'] = $answer;
         $params['is_right'] = UserTestAnswer::ANSWER_IS_UNKNOWN;
         if ($question->right_answer) {
-            $params['is_right'] = $question->right_answer === $answer
+            $params['is_right'] = ($question->right_answer && $question->id === $answer)
                 ? UserTestAnswer::ANSWER_IS_RIGHT
                 : UserTestAnswer::ANSWER_IS_WRONG;
         }
 
-        $variants = $question->answersList;
+//        $variants = $question->answersList;
 
         $userTestAnswer = new UserTestAnswer($params);
         return [
