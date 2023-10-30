@@ -106,6 +106,7 @@ export function CourseContent() {
           <S.Title as={'h2'}>
             {data.data.title}
             <AdminBtn
+              popupName="Урок"
               type="edit"
               onClick={() => {}}
             />

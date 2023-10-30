@@ -15,12 +15,12 @@ export function CourseProgramm() {
   const [chaptersData, setChaptersData] = useState<Array<IChapter>>();
 
   useEffect(() => {
-    if(courseChapters && courseChapters) {
+    if (courseChapters && courseChapters) {
       setChaptersData(courseChapters);
     } else {
       setChaptersData([]);
     }
-  }, [courseChapters])
+  }, [courseChapters]);
 
   const openCreateChapterModal = () => {
     setModalType(MODAL_TYPES.createChapter);
@@ -32,6 +32,7 @@ export function CourseProgramm() {
       <S.Head>
         <S.Title as={'h4'}>Программа курса</S.Title>
         <AdminBtn
+          popupName="Глава"
           type={ADMIN_BTN_TYPES.add}
           onClick={openCreateChapterModal}
         />

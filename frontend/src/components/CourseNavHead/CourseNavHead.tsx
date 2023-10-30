@@ -12,6 +12,7 @@ export function CourseNavHead({ data }: ICourseNavHeadProps) {
       <S.TitleWrapper>
         <S.Title as={'h3'}>{data.title}</S.Title>
         <AdminBtn
+          popupName="Глава"
           type={'edit'}
           onClick={() => {}}
         />

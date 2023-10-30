@@ -73,6 +73,7 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
               <C.CourseNavText $active={!isThemeChecked}>{data.title}</C.CourseNavText>
               {isThemeChecked && <C.DoneIcon />}
               <AdminBtn
+                popupName="Тема"
                 styles={{ marginLeft: 'auto' }}
                 type={'edit'}
                 onClick={() => {}}

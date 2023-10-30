@@ -7,6 +7,7 @@ export function Competition() {
       <S.Head>
         <S.CompetitionPagination>Конкурс 1/7</S.CompetitionPagination>
         <AdminBtn
+          popupName="Конкурс"
           type="edit"
           onClick={() => {}}
         />
@@ -18,7 +19,10 @@ export function Competition() {
         Здоровый праздничный ужин вовсе не обязательно должен состоять из шпината, гречки и вареной
         куриной грудки. Самыми лучшими способами приготовления...
       </S.CompetitionDescr>
-      <S.MoreBtn onClick={() => {console.log(1111)}}>
+      <S.MoreBtn
+        onClick={() => {
+          console.log(1111);
+        }}>
         Подробнее
       </S.MoreBtn>
     </S.Container>

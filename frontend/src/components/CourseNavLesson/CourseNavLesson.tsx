@@ -28,8 +28,6 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
 
   useEffect(() => {
     if (isInit && lessonId) {
-      console.log(data.id, lessonId);
-
       if (data.id === Number(lessonId)) {
         setActiveLesson(data);
       }
@@ -37,14 +35,29 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
     }
   }, [data, isInit, lessonId, setActiveLesson]);
 
+  const handleEditLesson = () => {
+    navigate(
+      generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson`, {
+        courseId: String(courseId),
+        chapterId: String(chapterId),
+        themeId: String(data.theme_id),
+        lessonId: String(data.id),
+      }),
+    );
+  }
+
   return (
     <S.Container onClick={handleClick}>
       <S.LessonName $active={!data.isChecked}>{data.title}</S.LessonName>
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
+        popupName="Урок"
         styles={{ marginLeft: 'auto' }}
         type={'edit'}
         onClick={() => {}}
+        popupHandlers={{
+          onEdit: handleEditLesson,
+        }}
       />
     </S.Container>
   );

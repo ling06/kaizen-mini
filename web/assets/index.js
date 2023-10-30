@@ -13256,7 +13256,7 @@ const courseSlice = createSlice({
     setCourseData: (state, { payload }) => {
       return {
         ...state,
-        ...{ data: payload }
+        ...{ data: payload || courseInitialState.data }
       };
     },
     changeCourseData: (state, { payload }) => {
@@ -16196,7 +16196,7 @@ const userApi = api.injectEndpoints({
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
 const body = document.body;
-function AdminBtn({ type, onClick: onClick2, popupHandlers, styles: styles2 = {} }) {
+function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: styles2 = {} }) {
   const [isPopup, setPopup] = reactExports.useState();
   const user = useTypedSelector((state) => selectUser(state).data);
   const ref = reactExports.useRef(null);
@@ -16238,7 +16238,7 @@ function AdminBtn({ type, onClick: onClick2, popupHandlers, styles: styles2 = {}
         ControlsPopup,
         {
           innerRef: popupInnerRef,
-          name: "test",
+          name: popupName,
           ...popupHandlers
         }
       )
@@ -26136,7 +26136,7 @@ function CourseSelect() {
   });
   const { setModalOpen, setModalType, setCourseData, setLoaderActive } = useActions();
   const [updateCourse] = useUpdateCourseMutation();
-  const { id: id2, status } = useTypedSelector((state) => state.course.data);
+  const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = reactExports.useState("");
   const selectOptions = reactExports.useMemo(() => {
     if (!coursesData) {
@@ -26167,22 +26167,21 @@ function CourseSelect() {
     setModalOpen(true);
   };
   const handleEditCourse = () => {
-    if (!id2) {
-      console.error(`No course with id: ${id2}!`);
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
       return;
     }
     setModalType(MODAL_TYPES.editCourse);
     setModalOpen(true);
   };
-  console.log(status);
   const handleToggleCourseStatus = () => {
-    if (!id2) {
-      console.error(`No course with id: ${id2}!`);
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
       return;
     }
     updateCourse({
-      id: id2,
-      status: Number(status) === 0 ? 1 : 0
+      id: courseData.id,
+      status: Number(courseData.status) === 0 ? 1 : 0
     }).then((res) => {
       if ("data" in res) {
         setCourseData(res.data.data);
@@ -26211,14 +26210,15 @@ function CourseSelect() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
+        popupName: "Курс",
         type: ADMIN_BTN_TYPES.edit,
         onClick: () => {
         },
         popupHandlers: {
           onAdd: handleAddCourse,
           onEdit: handleEditCourse,
-          onHide: Number(status) === 1 ? handleToggleCourseStatus : void 0,
-          onVisible: Number(status) === 0 ? handleToggleCourseStatus : void 0
+          onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : void 0,
+          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : void 0
         }
       }
     )
@@ -26509,6 +26509,7 @@ function CourseProgrammCard({ data }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
           {
+            popupName: "Глава",
             type: ADMIN_BTN_TYPES.edit,
             onClick: () => {
             },
@@ -26552,6 +26553,7 @@ function CourseProgramm() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Глава",
           type: ADMIN_BTN_TYPES.add,
           onClick: openCreateChapterModal
         }
@@ -26639,22 +26641,35 @@ function CourseNavLesson({ data }) {
   };
   reactExports.useEffect(() => {
     if (isInit && lessonId) {
-      console.log(data.id, lessonId);
       if (data.id === Number(lessonId)) {
         setActiveLesson(data);
       }
       setInit(false);
     }
   }, [data, isInit, lessonId, setActiveLesson]);
+  const handleEditLesson = () => {
+    navigate(
+      generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson`, {
+        courseId: String(courseId),
+        chapterId: String(chapterId),
+        themeId: String(data.theme_id),
+        lessonId: String(data.id)
+      })
+    );
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
+        popupName: "Урок",
         styles: { marginLeft: "auto" },
         type: "edit",
         onClick: () => {
+        },
+        popupHandlers: {
+          onEdit: handleEditLesson
         }
       }
     )
@@ -26797,6 +26812,7 @@ function CourseNavTheme({ data, courseId }) {
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 AdminBtn,
                 {
+                  popupName: "Тема",
                   styles: { marginLeft: "auto" },
                   type: "edit",
                   onClick: () => {
@@ -26843,6 +26859,7 @@ function CourseNavBody({ data }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Тема",
           type: "add",
           onClick: openCreateThemeModal
         }
@@ -26903,6 +26920,7 @@ function CourseNavHead({ data }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Глава",
           type: "edit",
           onClick: () => {
           }
@@ -27171,9 +27189,9 @@ function LessonTest({ data }) {
       RadioBtn,
       {
         name: data.id,
-        label: `${answer.answers}`,
+        label: `${answer.answer}`,
         onChange: () => {
-          handleChange(`${answer.answers}`);
+          handleChange(`${answer.answer}`);
         }
       },
       answer.id
@@ -27253,6 +27271,7 @@ function CourseContent() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
           {
+            popupName: "Урок",
             type: "edit",
             onClick: () => {
             }
@@ -32456,6 +32475,7 @@ function Competition() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Конкурс",
           type: "edit",
           onClick: () => {
           }
@@ -32464,9 +32484,15 @@ function Competition() {
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: "Продай 36 кресел серии X, получи кресло Yamaguchi Osaka в качестве премии" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: "Здоровый праздничный ужин вовсе не обязательно должен состоять из шпината, гречки и вареной куриной грудки. Самыми лучшими способами приготовления..." }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn$1, { onClick: () => {
-      console.log(1111);
-    }, children: "Подробнее" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      MoreBtn$1,
+      {
+        onClick: () => {
+          console.log(1111);
+        },
+        children: "Подробнее"
+      }
+    )
   ] });
 }
 function CompetitionsSwiper() {
@@ -32732,12 +32758,20 @@ function NewsEl({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: `/news/${data.id}`, style: { display: "block", marginRight: "auto" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Link,
+        {
+          to: `/news/${data.id}`,
+          style: { display: "block", marginRight: "auto" },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
+        }
+      ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Date$1, { children: data.date }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Author, { children: data.user_id }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Новость",
           type: "edit",
           onClick: () => {
           }
@@ -32855,6 +32889,7 @@ function NewsContainer() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/news/create-news", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
+          popupName: "Новость",
           type: "add",
           onClick: () => {
           }
@@ -47477,6 +47512,10 @@ function CreateTestForm({ data }) {
 }
 let editor$1;
 function CreateLessonForm({ type }) {
+  const { themeId, courseId, chapterId, lessonId } = useParams();
+  const { data, isError, isFetching } = useGetLessonByIdQuery(`${lessonId}`, {
+    skip: !lessonId
+  });
   const { tests } = useTypedSelector((state) => state.lesson);
   const { addEmptyTest } = useActions();
   const [createLesson] = useCreateLessonMutation();
@@ -47484,9 +47523,30 @@ function CreateLessonForm({ type }) {
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const navigation = useNavigate();
-  const { themeId, courseId, chapterId } = useParams();
   reactExports.useEffect(() => {
-    if (!editor$1) {
+    if (data) {
+      setLessonName(data.data.title);
+      setValidName(true);
+      setChangedName(false);
+      if (!editor$1) {
+        try {
+          editor$1 = new Bi({
+            holder: "editorjs",
+            tools: EDITOR_JS_TOOLS,
+            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+            inlineToolbar: true,
+            data: {
+              blocks: JSON.parse(data.data.description)
+            }
+          });
+        } catch (e2) {
+          console.error(e2);
+        }
+      }
+    }
+  }, [data, isError, isFetching]);
+  reactExports.useEffect(() => {
+    if (!editor$1 && !isFetching && !data) {
       try {
         editor$1 = new Bi({
           holder: "editorjs",
@@ -47495,10 +47555,16 @@ function CreateLessonForm({ type }) {
           inlineToolbar: true
         });
       } catch (e2) {
-        console.log(e2);
+        console.error(e2);
       }
     }
-  }, []);
+    return () => {
+      if (editor$1) {
+        editor$1.destroy();
+        editor$1 = void 0;
+      }
+    };
+  }, [data, isFetching]);
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
     setLessonName(event.target.value);
@@ -47507,21 +47573,16 @@ function CreateLessonForm({ type }) {
     }
   };
   const handleConfirm = async () => {
-    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data) => data));
+    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data2) => data2));
     const editorBlocksData = JSON.stringify((editorData == null ? void 0 : editorData.blocks) || []);
     if (!isValidName) {
       setChangedName(true);
       return;
     }
-    const testsData = tests;
-    testsData.map((test) => {
-      delete test["id"];
-      if (test.answers) {
-        test.answers.map((answer) => {
-          delete answer["id"];
-        });
-      }
-      return test;
+    const testsData = tests.map((test) => {
+      const { answers, question } = test;
+      const modifiedAnswers = answers == null ? void 0 : answers.map(({ id: id2, ...answer }) => answer);
+      return { question, answers: modifiedAnswers };
     });
     createLesson({
       title: lessonName,
@@ -47530,8 +47591,6 @@ function CreateLessonForm({ type }) {
       tests: testsData
     }).then((res) => {
       if ("data" in res) {
-        editor$1 == null ? void 0 : editor$1.clear();
-        editor$1 = void 0;
         navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
       }
     }).catch((error) => {
@@ -47801,6 +47860,13 @@ function App() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
+          path: "/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Route,
+        {
           path: "/news/create-news",
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
         }
@@ -47813,7 +47879,22 @@ function App() {
       modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.editChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {})
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Transition$1, { unmountOnExit: true, nodeRef: loaderRef, timeout: 300, in: active, children: (state) => /* @__PURE__ */ jsxRuntimeExports.jsx(Loading, { innerRef: loaderRef, state }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Transition$1,
+      {
+        unmountOnExit: true,
+        nodeRef: loaderRef,
+        timeout: 300,
+        in: active,
+        children: (state) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Loading,
+          {
+            innerRef: loaderRef,
+            state
+          }
+        )
+      }
+    )
   ] }) });
 }
 const reducer = combineReducers({

@@ -35,9 +35,9 @@ const handleSendAnswer = (): void => {
         {data.answers.map((answer) => (
           <RadioBtn
             name={data.id}
-            label={`${answer.answers}`}
+            label={`${answer.answer}`}
             onChange={() => {
-              handleChange(`${answer.answers}`);
+              handleChange(`${answer.answer}`);
             }}
             key={answer.id}
           />

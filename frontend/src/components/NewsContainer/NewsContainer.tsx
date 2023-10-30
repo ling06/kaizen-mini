@@ -14,6 +14,7 @@ export function NewsContainer() {
         Новости
         <Link to={'/news/create-news'}>
           <AdminBtn
+            popupName="Новость"
             type="add"
             onClick={() => {}}
           />

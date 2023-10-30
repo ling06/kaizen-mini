@@ -27,7 +27,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   const handleClick = () => {
     console.log(data);
     // return;
-    
+
     navigation(`/courses/${data.course_id}/${data.id}/`);
   };
 
@@ -51,7 +51,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
     setModalType(MODAL_TYPES.editChapter);
     setUpdatingChapterData(data);
     setModalOpen(true);
-  }
+  };
 
   return (
     <S.Card $isDeleted={isDeleted}>
@@ -63,6 +63,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
         <S.ProgressStatusWrapper>
           <S.ProgressStatus>Пройдено</S.ProgressStatus>
           <AdminBtn
+            popupName="Глава"
             type={ADMIN_BTN_TYPES.edit}
             onClick={() => {}}
             popupHandlers={{

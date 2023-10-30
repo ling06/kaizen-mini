@@ -1,7 +1,7 @@
-import { Header } from "@/components/Header";
-import { Route, Routes } from "react-router-dom";
+import { Header } from '@/components/Header';
+import { Route, Routes } from 'react-router-dom';
 import { Courses } from '../Courses';
-import { News } from "../News";
+import { News } from '../News';
 
 export function Main() {
   return (

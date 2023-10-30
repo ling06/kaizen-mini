@@ -14,7 +14,7 @@ export function CourseSelect() {
   const coursesData = useTypedSelector((state) => selectCourses(state).data?.data);
   const { setModalOpen, setModalType, setCourseData, setLoaderActive } = useActions();
   const [updateCourse] = useUpdateCourseMutation();
-  const { id, status } = useTypedSelector((state) => state.course.data);
+  const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = useState('');
 
   const selectOptions = useMemo(() => {
@@ -48,29 +48,23 @@ export function CourseSelect() {
   };
 
   const handleEditCourse = () => {
-    if (!id) {
-      console.error(`No course with id: ${id}!`);
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
       return;
     }
     setModalType(MODAL_TYPES.editCourse);
     setModalOpen(true);
   };
 
-  console.log(status);
-  
-
-  // const handleDeleteCourse = () => {
-
-  // };
 
   const handleToggleCourseStatus = () => {
-    if (!id) {
-      console.error(`No course with id: ${id}!`);
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
       return;
     }
     updateCourse({
-      id: id,
-      status: Number(status) === 0 ? 1 : 0,
+      id: courseData.id,
+      status: Number(courseData.status) === 0 ? 1 : 0,
     }).then((res) => {
       if ('data' in res) {
         setCourseData(res.data.data);
@@ -97,13 +91,14 @@ export function CourseSelect() {
         onChange={handleChange}
       />
       <AdminBtn
+        popupName="Курс"
         type={ADMIN_BTN_TYPES.edit}
         onClick={() => {}}
         popupHandlers={{
           onAdd: handleAddCourse,
           onEdit: handleEditCourse,
-          onHide: Number(status)  === 1 ? handleToggleCourseStatus : undefined,
-          onVisible: Number(status)  === 0 ? handleToggleCourseStatus : undefined,
+          onHide: Number(courseData.status)  === 1 ? handleToggleCourseStatus : undefined,
+          onVisible: Number(courseData.status)  === 0 ? handleToggleCourseStatus : undefined,
         }}
       />
     </S.Container>

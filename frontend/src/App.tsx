@@ -47,6 +47,10 @@ function App() {
             element={<CreateLesson type="create" />}
           />
           <Route
+            path={'/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson'}
+            element={<CreateLesson type="edit" />}
+          />
+          <Route
             path={'/news/create-news'}
             element={<CreateNews type={'create'} />}
           />
@@ -60,9 +64,16 @@ function App() {
             {modalType === MODAL_TYPES.editChapter && <CreateChapterForm />}
           </ModalLayout>
         )}
-        <Transition unmountOnExit nodeRef={loaderRef} timeout={300} in={active}>
-          {state => (
-              <Loading innerRef={loaderRef} state={state}/>
+        <Transition
+          unmountOnExit
+          nodeRef={loaderRef}
+          timeout={300}
+          in={active}>
+          {(state) => (
+            <Loading
+              innerRef={loaderRef}
+              state={state}
+            />
           )}
         </Transition>
       </Layout>

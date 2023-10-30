@@ -1,15 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
-import { useCreateLessonMutation } from '@/store/api/lesson.api';
+import { useCreateLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
-import { ITest } from '@/types/lessonTest.types';
 
 interface ICreateLessonFormProps {
   type: string;
@@ -18,17 +16,44 @@ interface ICreateLessonFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
+  const { themeId, courseId, chapterId, lessonId } = useParams();
+  const { data, isError, isFetching } = useGetLessonByIdQuery(`${lessonId}`, {
+    skip: !lessonId,
+  });
   const { tests } = useTypedSelector((state) => state.lesson);
   const { addEmptyTest } = useActions();
+
   const [createLesson] = useCreateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const navigation = useNavigate();
-  const { themeId, courseId, chapterId } = useParams();
 
   useEffect(() => {
-    if (!editor) {
+    if (data) {
+      setLessonName(data.data.title);
+      setValidName(true);
+      setChangedName(false);
+      if (!editor) {
+        try {
+          editor = new EditorJS({
+            holder: 'editorjs',
+            tools: EDITOR_JS_TOOLS,
+            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+            inlineToolbar: true,
+            data: {
+              blocks: JSON.parse(data.data.description),
+            },
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  }, [data, isError, isFetching]);
+
+  useEffect(() => {
+    if (!editor && !isFetching && !data) {
       try {
         editor = new EditorJS({
           holder: 'editorjs',
@@ -37,10 +62,17 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
           inlineToolbar: true,
         });
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
-  }, []);
+
+    return () => {
+      if (editor) {
+        editor.destroy();
+        editor = undefined;
+      }
+    };
+  }, [data, isFetching]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -59,15 +91,11 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       return;
     }
 
-    const testsData: Array<Partial<ITest>> = tests;
-    testsData.map((test) => {
-      delete test['id'];
-      if (test.answers) {
-        test.answers.map((answer) => {
-          delete answer['id'];
-        });
-      }
-      return test;
+    const testsData = tests.map((test) => {
+      const { answers, question } = test;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const modifiedAnswers = answers?.map(({ id, ...answer }) => answer);
+      return { question, answers: modifiedAnswers };
     });
 
     createLesson({
@@ -78,8 +106,6 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     })
       .then((res) => {
         if ('data' in res) {
-          editor?.clear();
-          editor = undefined;
           navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
         }
       })

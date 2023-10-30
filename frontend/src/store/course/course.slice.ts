@@ -35,10 +35,9 @@ export const courseSlice = createSlice({
   initialState: courseInitialState,
   reducers: {
     setCourseData: (state, { payload }: PayloadAction<ICourse>) => {
-      // state.data = { ...payload };
       return {
         ...state,
-        ...{ data: payload },
+        ...{ data: payload || courseInitialState.data },
       };
     },
     changeCourseData: (state, { payload }: PayloadAction<Partial<ICourse>>) => {
@@ -49,10 +48,6 @@ export const courseSlice = createSlice({
     },
     addChapter: (state, { payload }) => {
       state.data.chapters?.push(payload);
-
-      // return {
-      //   ...state,
-      // };
     },
     changeChapter: (state, { payload }: PayloadAction<Partial<IChapter>>) => {
       if (!state.data || !state.data.chapters) {

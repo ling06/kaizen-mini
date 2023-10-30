@@ -8,13 +8,14 @@ import { selectUser } from '@/store/api/user.api';
 export interface IAdminBtnProps {
   type: string;
   onClick: (event: React.MouseEvent) => void;
+  popupName: string;
   popupHandlers?: Omit<IControlsPopup, 'name' | 'innerRef'>;
   styles?: { [key: string]: string };
 }
 
 const body = document.body;
 
-export function AdminBtn({ type, onClick, popupHandlers, styles = {} }: IAdminBtnProps) {
+export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} }: IAdminBtnProps) {
   const [isPopup, setPopup] = useState<boolean>();
   const user = useTypedSelector((state) => selectUser(state).data);
   const ref = useRef<HTMLButtonElement>(null);
@@ -59,7 +60,7 @@ export function AdminBtn({ type, onClick, popupHandlers, styles = {} }: IAdminBt
           {isPopup && (
             <ControlsPopup
               innerRef={popupInnerRef}
-              name={'test'}
+              name={popupName}
               {...popupHandlers}
             />
           )}

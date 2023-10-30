@@ -21,6 +21,7 @@ export function CourseNavBody({ data }: ICourseNavBodyProps) {
       <S.Title>
         Темы главы
         <AdminBtn
+          popupName="Тема"
           type={'add'}
           onClick={openCreateThemeModal}
         />

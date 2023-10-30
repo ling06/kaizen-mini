@@ -5,7 +5,7 @@ export interface ITest {
 }
 
 export interface IAnswer {
-  id: string;
+  id?: string;
   answer: string;
   right_answer: boolean;
   text: string;
