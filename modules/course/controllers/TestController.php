@@ -94,11 +94,9 @@ class TestController extends ApiController
         }
 
         $params['answer'] = $answer;
-        $params['is_right'] = UserTestAnswer::ANSWER_IS_UNKNOWN;
+        $params['is_right'] = UserTestAnswer::ANSWER_IS_WRONG;
         if ($question->right_answer) {
-            $params['is_right'] = ($question->right_answer && $question->id === $answer)
-                ? UserTestAnswer::ANSWER_IS_RIGHT
-                : UserTestAnswer::ANSWER_IS_WRONG;
+            $params['is_right'] = UserTestAnswer::ANSWER_IS_RIGHT;
         }
 
 //        $variants = $question->answersList;
