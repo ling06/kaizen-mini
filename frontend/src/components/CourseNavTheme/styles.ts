@@ -3,6 +3,7 @@ import * as C from '@styles/components';
 
 export const Container = styled(C.FlexContainer)<{$isDeleted: boolean}>`
   flex-direction: column;
+  position: relative;
   opacity: ${props => props.$isDeleted ? .5 : 1};
 `;
 

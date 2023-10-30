@@ -10166,7 +10166,7 @@ const Layout$1 = st$1.div`
   width: ${(props) => props.$width ? props.$width : "100%"};
   /* max-width: 1920px; */
   margin: 0 auto;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 `;
 function Layout({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Layout$1, { children });
@@ -10451,15 +10451,15 @@ const navLinks = {
       withIcon: false,
       iconUrl: ""
     }
-  },
-  tasks: {
-    url: "/tasks",
-    name: "Задачи",
-    icon: {
-      withIcon: false,
-      iconUrl: ""
-    }
   }
+  // tasks: {
+  //   url: '/tasks',
+  //   name: 'Задачи',
+  //   icon: {
+  //     withIcon: false,
+  //     iconUrl: '',
+  //   },
+  // },
 };
 function Nav() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
@@ -26708,6 +26708,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
 }
 const Container$g = st$1(FlexContainer)`
   flex-direction: column;
+  position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
 `;
 const Theme = st$1(FlexContainer)`
@@ -26879,6 +26880,9 @@ function CourseNavTheme({ data, courseId }) {
             expandIcon: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { display: "none" } }),
             "aria-controls": `${data.id}_content`,
             id: `${data.id}_header`,
+            onClick: (event) => {
+              console.log(1111);
+            },
             children: /* @__PURE__ */ jsxRuntimeExports.jsxs(AccSum, { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 DndBtn,
@@ -33070,13 +33074,6 @@ function Main() {
         {
           path: "/courses/*",
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(Courses, {})
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/tasks/*",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "TASKS" })
         }
       )
     ] })

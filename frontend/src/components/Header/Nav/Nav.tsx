@@ -23,14 +23,14 @@ const navLinks: INavLinks = {
       iconUrl: '',
     },
   },
-  tasks: {
-    url: '/tasks',
-    name: 'Задачи',
-    icon: {
-      withIcon: false,
-      iconUrl: '',
-    },
-  },
+  // tasks: {
+  //   url: '/tasks',
+  //   name: 'Задачи',
+  //   icon: {
+  //     withIcon: false,
+  //     iconUrl: '',
+  //   },
+  // },
 };
 
 export function Nav() {
