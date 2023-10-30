@@ -1,17 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalForm } from '../ModalForm';
 import * as S from './styles';
-import { useCreateThemeMutation } from '@/store/api/theme.api';
+import { useCreateThemeMutation, useUpdateThemeMutation } from '@/store/api/theme.api';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
+import { MODAL_TYPES } from '@/constants';
 
 export function CreateThemeForm() {
   const { setModalOpen, setLoaderActive } = useActions();
+
   const chapterId = useTypedSelector((state) => state.course.activeChapterId);
+  const themeData = useTypedSelector((state) => state.course.updatingThemeData);
+  const modalType = useTypedSelector((state) => state.modal.modalType);
+
   const [createTheme] = useCreateThemeMutation();
+  const [updateTheme] = useUpdateThemeMutation();
+
   const [themeName, setThemeName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (modalType === MODAL_TYPES.editTheme && themeData) {
+      setThemeName(themeData.title);
+      setValidName(true);
+      setChangedName(false);
+    } else if(modalType === MODAL_TYPES.editTheme) {
+      alert('Что-то пошло не так...');
+      setModalOpen(false);
+    }
+    }, [modalType, setModalOpen, themeData]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -51,7 +69,7 @@ export function CreateThemeForm() {
 
   const names = {
     cancel: 'Отмена',
-    confirm: 'Создать тему',
+    confirm: `${modalType === MODAL_TYPES.editTheme ? 'Изменить' : 'Создать'} тему`,
   };
   return (
     <ModalForm

@@ -58,10 +58,11 @@ function App() {
         {isModalOpen && (
           <ModalLayout modalType={modalType}>
             {modalType === MODAL_TYPES.createCourse && <CreateCourseForm />}
-            {modalType === MODAL_TYPES.createChapter && <CreateChapterForm />}
-            {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
             {modalType === MODAL_TYPES.editCourse && <CreateCourseForm />}
+            {modalType === MODAL_TYPES.createChapter && <CreateChapterForm />}
             {modalType === MODAL_TYPES.editChapter && <CreateChapterForm />}
+            {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
+            {modalType === MODAL_TYPES.editTheme && <CreateThemeForm />}
           </ModalLayout>
         )}
         <Transition

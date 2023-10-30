@@ -121,7 +121,9 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     },
     handlers: {
       confirm: handleConfirm,
-      cancel: () => {},
+      cancel: () => {
+        navigation(`/courses/${courseId}/${chapterId}/${themeId}`);
+      },
     },
   };
 

@@ -17,7 +17,7 @@ interface ICourseNavTheme {
 }
 
 export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
-  const { setActiveTheme } = useActions();
+  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData } = useActions();
   const navigate = useNavigate();
   const { themeId } = useParams();
 
@@ -43,13 +43,19 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
     navigate(themePath);
   };
 
-  const addLesson = () => {
+  const handleAddLesson = () => {
     const createLessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/create-lesson/`, {
       courseId: String(courseId),
       chapterId: String(data.chapter_id),
       themeId: String(data.id),
     });
     navigate(createLessonPath);
+  };
+
+  const handleEditTheme = () => {
+    setUpdatingThemeData(data);
+    setModalType('editTheme');
+    setModalOpen(true);
   };
 
   return (
@@ -77,7 +83,7 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
                 styles={{ marginLeft: 'auto' }}
                 type={'edit'}
                 onClick={() => {}}
-                popupHandlers={{ onAdd: addLesson }}
+                popupHandlers={{ onAdd: handleAddLesson, onEdit: handleEditTheme }}
               />
             </S.AccSum>
           </AccordionSummary>

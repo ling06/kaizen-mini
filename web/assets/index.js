@@ -10201,7 +10201,8 @@ const MODAL_TYPES = {
   createChapter: "createChapter",
   createTheme: "createTheme",
   editCourse: "editCourse",
-  editChapter: "editChapter"
+  editChapter: "editChapter",
+  editTheme: "editTheme"
 };
 window.matchMedia("(max-width: 768px)").matches;
 const USER_ROLES = {
@@ -13247,7 +13248,8 @@ const courseInitialState = {
   activeChapterId: null,
   activeTheme: null,
   activeLesson: null,
-  updatingChapterData: null
+  updatingChapterData: null,
+  updatingThemeData: null
 };
 const courseSlice = createSlice({
   name: "course",
@@ -13295,6 +13297,9 @@ const courseSlice = createSlice({
     },
     setUpdatingChapterData: (state, { payload }) => {
       state.updatingChapterData = { ...payload };
+    },
+    setUpdatingThemeData: (state, { payload }) => {
+      state.updatingThemeData = { ...payload };
     }
   }
 });
@@ -26753,7 +26758,7 @@ st$1(FlexContainer)`
   min-height: fit-content;
 `;
 function CourseNavTheme({ data, courseId }) {
-  const { setActiveTheme } = useActions();
+  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData } = useActions();
   const navigate = useNavigate();
   const { themeId } = useParams();
   const isThemeChecked = reactExports.useMemo(() => {
@@ -26775,13 +26780,18 @@ function CourseNavTheme({ data, courseId }) {
     );
     navigate(themePath);
   };
-  const addLesson = () => {
+  const handleAddLesson = () => {
     const createLessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/create-lesson/`, {
       courseId: String(courseId),
       chapterId: String(data.chapter_id),
       themeId: String(data.id)
     });
     navigate(createLessonPath);
+  };
+  const handleEditTheme = () => {
+    setUpdatingThemeData(data);
+    setModalType("editTheme");
+    setModalOpen(true);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
@@ -26817,7 +26827,7 @@ function CourseNavTheme({ data, courseId }) {
                   type: "edit",
                   onClick: () => {
                   },
-                  popupHandlers: { onAdd: addLesson }
+                  popupHandlers: { onAdd: handleAddLesson, onEdit: handleEditTheme }
                 }
               )
             ] })
@@ -33045,6 +33055,9 @@ function ModalLayout({ children, modalType: type }) {
       case MODAL_TYPES.createTheme:
         name = "Создание Темы";
         break;
+      case MODAL_TYPES.editTheme:
+        name = "Изменение Темы";
+        break;
       default:
         console.error(`Unknown modal type: ${type}`);
     }
@@ -33497,10 +33510,23 @@ const {
 function CreateThemeForm() {
   const { setModalOpen, setLoaderActive } = useActions();
   const chapterId = useTypedSelector((state) => state.course.activeChapterId);
+  const themeData = useTypedSelector((state) => state.course.updatingThemeData);
+  const modalType = useTypedSelector((state) => state.modal.modalType);
   const [createTheme2] = useCreateThemeMutation();
+  useUpdateThemeMutation();
   const [themeName, setThemeName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    if (modalType === MODAL_TYPES.editTheme && themeData) {
+      setThemeName(themeData.title);
+      setValidName(true);
+      setChangedName(false);
+    } else if (modalType === MODAL_TYPES.editTheme) {
+      alert("Что-то пошло не так...");
+      setModalOpen(false);
+    }
+  }, [modalType, setModalOpen, themeData]);
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
     setThemeName(event.target.value);
@@ -33533,7 +33559,7 @@ function CreateThemeForm() {
   };
   const names = {
     cancel: "Отмена",
-    confirm: "Создать тему"
+    confirm: `${modalType === MODAL_TYPES.editTheme ? "Изменить" : "Создать"} тему`
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     ModalForm,
@@ -47605,6 +47631,7 @@ function CreateLessonForm({ type }) {
     handlers: {
       confirm: handleConfirm,
       cancel: () => {
+        navigation(`/courses/${courseId}/${chapterId}/${themeId}`);
       }
     }
   };
@@ -47874,10 +47901,11 @@ function App() {
     ] }),
     isModalOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
       modalType === MODAL_TYPES.createCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
-      modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
-      modalType === MODAL_TYPES.createTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {}),
       modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
-      modalType === MODAL_TYPES.editChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {})
+      modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
+      modalType === MODAL_TYPES.editChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
+      modalType === MODAL_TYPES.createTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {}),
+      modalType === MODAL_TYPES.editTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {})
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Transition$1,
