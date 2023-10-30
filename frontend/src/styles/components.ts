@@ -141,6 +141,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
 
 interface ICourseNavText {
   $active: boolean;
+  $isDeleted?: boolean;
 }
 
 export const CourseNavText = styled.p<ICourseNavText>`
@@ -148,6 +149,7 @@ export const CourseNavText = styled.p<ICourseNavText>`
   font-weight: 500;
   line-height: 100%;
   color: ${(props) => (props.$active ? props.theme.colors.dark : props.theme.colors.grey93)};
+  text-decoration: ${props => props.$isDeleted ? 'line-through' : 'none'};
 `;
 
 

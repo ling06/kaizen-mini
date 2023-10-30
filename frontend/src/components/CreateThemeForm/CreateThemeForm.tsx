@@ -25,11 +25,11 @@ export function CreateThemeForm() {
       setThemeName(themeData.title);
       setValidName(true);
       setChangedName(false);
-    } else if(modalType === MODAL_TYPES.editTheme) {
+    } else if (modalType === MODAL_TYPES.editTheme) {
       alert('Что-то пошло не так...');
       setModalOpen(false);
     }
-    }, [modalType, setModalOpen, themeData]);
+  }, [modalType, setModalOpen, themeData]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -44,6 +44,21 @@ export function CreateThemeForm() {
       setChangedName(true);
       return;
     }
+
+    if (modalType === MODAL_TYPES.editTheme && themeData) {
+      updateTheme({
+        id: themeData.id,
+        title: themeName,
+        chapter_id: themeData?.chapter_id,
+      }).then((res) => {
+        if ('data' in res) {
+          setModalOpen(false);
+        }
+      });
+      setLoaderActive(true);
+      return;
+    }
+
     createTheme({
       title: themeName,
       chapter_id: chapterId ? chapterId : 0,
