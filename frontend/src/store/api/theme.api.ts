@@ -32,6 +32,7 @@ export const themeApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['ChapterById'],
     }),
     deleteTheme: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -39,6 +40,7 @@ export const themeApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['ChapterById'],
     }),
     restoreTheme: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -46,6 +48,7 @@ export const themeApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['ChapterById'],
     }),
   }),
   overrideExisting: false,

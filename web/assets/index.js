@@ -10333,6 +10333,7 @@ const CourseNavText = st$1.p`
   font-weight: 500;
   line-height: 100%;
   color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 `;
 const Icon$1 = st$1.div`
   display: block;
@@ -26707,6 +26708,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
 }
 const Container$g = st$1(FlexContainer)`
   flex-direction: column;
+  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
 `;
 const Theme = st$1(FlexContainer)`
   align-items: center;
@@ -26757,8 +26759,66 @@ st$1(FlexContainer)`
   flex-direction: column;
   min-height: fit-content;
 `;
+const themeApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getThemeById: builder.query({
+      query: (id2) => `theme/${id2}`,
+      providesTags: () => [
+        {
+          type: "ThemeById"
+        }
+      ]
+    }),
+    createTheme: builder.mutation({
+      query: (data) => ({
+        url: "course/create-theme",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "ChapterById"
+        }
+      ]
+    }),
+    updateTheme: builder.mutation({
+      query: (data) => ({
+        url: "course/update-theme",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById"]
+    }),
+    deleteTheme: builder.mutation({
+      query: (data) => ({
+        url: "course/delete-theme",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById"]
+    }),
+    restoreTheme: builder.mutation({
+      query: (data) => ({
+        url: "course/restore-theme",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateThemeMutation,
+  useDeleteThemeMutation,
+  useGetThemeByIdQuery,
+  useRestoreThemeMutation,
+  useUpdateThemeMutation
+} = themeApi;
 function CourseNavTheme({ data, courseId }) {
-  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData } = useActions();
+  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData, setLoaderActive } = useActions();
+  const [deleteTheme] = useDeleteThemeMutation();
+  const [restoreTheme] = useRestoreThemeMutation();
   const navigate = useNavigate();
   const { themeId } = useParams();
   const isThemeChecked = reactExports.useMemo(() => {
@@ -26793,7 +26853,19 @@ function CourseNavTheme({ data, courseId }) {
     setModalType("editTheme");
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  const handleDeleteTheme = () => {
+    deleteTheme({
+      id: data.id
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreTheme = () => {
+    restoreTheme({
+      id: data.id
+    });
+    setLoaderActive(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -26817,7 +26889,14 @@ function CourseNavTheme({ data, courseId }) {
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionIcon, { $active: Number(themeId) === data.id }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavText, { $active: !isThemeChecked, children: data.title }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CourseNavText,
+                {
+                  $active: !isThemeChecked,
+                  $isDeleted: !!data.is_deleted,
+                  children: data.title
+                }
+              ),
               isThemeChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 AdminBtn,
@@ -26827,7 +26906,12 @@ function CourseNavTheme({ data, courseId }) {
                   type: "edit",
                   onClick: () => {
                   },
-                  popupHandlers: { onAdd: handleAddLesson, onEdit: handleEditTheme }
+                  popupHandlers: {
+                    onAdd: handleAddLesson,
+                    onEdit: handleEditTheme,
+                    onDelete: handleDeleteTheme,
+                    onRestore: handleRestoreTheme
+                  }
                 }
               )
             ] })
@@ -26859,6 +26943,10 @@ const Title$9 = st$1.h4`
 `;
 function CourseNavBody({ data }) {
   const { setModalType, setModalOpen } = useActions();
+  const userRole = useTypedSelector((state) => {
+    var _a;
+    return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
+  });
   const openCreateThemeModal = () => {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
@@ -26875,14 +26963,21 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: data.themes && data.themes.map((theme) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CourseNavTheme,
-      {
-        data: theme,
-        courseId: data.course_id
-      },
-      theme.id
-    )) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: data.themes && data.themes.map(
+      (theme) => {
+        if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
+          return;
+        }
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CourseNavTheme,
+          {
+            data: theme,
+            courseId: data.course_id
+          },
+          theme.id
+        );
+      }
+    ) })
   ] });
 }
 const Container$e = st$1(FlexContainer)`
@@ -33454,66 +33549,13 @@ function CreateChapterForm() {
 const InputName = st$1(InputWithState)`
   margin-bottom: 20px;
 `;
-const themeApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getThemeById: builder.query({
-      query: (id2) => `theme/${id2}`,
-      providesTags: () => [
-        {
-          type: "ThemeById"
-        }
-      ]
-    }),
-    createTheme: builder.mutation({
-      query: (data) => ({
-        url: "course/create-theme",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [
-        {
-          type: "ChapterById"
-        }
-      ]
-    }),
-    updateTheme: builder.mutation({
-      query: (data) => ({
-        url: "course/update-theme",
-        method: "POST",
-        body: data
-      })
-    }),
-    deleteTheme: builder.mutation({
-      query: (data) => ({
-        url: "course/delete-theme",
-        method: "POST",
-        body: data
-      })
-    }),
-    restoreTheme: builder.mutation({
-      query: (data) => ({
-        url: "course/restore-theme",
-        method: "POST",
-        body: data
-      })
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCreateThemeMutation,
-  useDeleteThemeMutation,
-  useGetThemeByIdQuery,
-  useRestoreThemeMutation,
-  useUpdateThemeMutation
-} = themeApi;
 function CreateThemeForm() {
   const { setModalOpen, setLoaderActive } = useActions();
   const chapterId = useTypedSelector((state) => state.course.activeChapterId);
   const themeData = useTypedSelector((state) => state.course.updatingThemeData);
   const modalType = useTypedSelector((state) => state.modal.modalType);
   const [createTheme2] = useCreateThemeMutation();
-  useUpdateThemeMutation();
+  const [updateTheme] = useUpdateThemeMutation();
   const [themeName, setThemeName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
@@ -33537,6 +33579,19 @@ function CreateThemeForm() {
   const handleConfirm = () => {
     if (!isValidName) {
       setChangedName(true);
+      return;
+    }
+    if (modalType === MODAL_TYPES.editTheme && themeData) {
+      updateTheme({
+        id: themeData.id,
+        title: themeName,
+        chapter_id: themeData == null ? void 0 : themeData.chapter_id
+      }).then((res) => {
+        if ("data" in res) {
+          setModalOpen(false);
+        }
+      });
+      setLoaderActive(true);
       return;
     }
     createTheme2({

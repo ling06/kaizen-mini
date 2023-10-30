@@ -10,6 +10,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { useActions } from '@/hooks/useActions';
 import { useMemo } from 'react';
+import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
 
 interface ICourseNavTheme {
   data: ITheme;
@@ -17,7 +18,10 @@ interface ICourseNavTheme {
 }
 
 export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
-  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData } = useActions();
+  const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData, setLoaderActive } =
+    useActions();
+  const [deleteTheme] = useDeleteThemeMutation();
+  const [restoreTheme] = useRestoreThemeMutation();
   const navigate = useNavigate();
   const { themeId } = useParams();
 
@@ -58,8 +62,22 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
     setModalOpen(true);
   };
 
+  const handleDeleteTheme = () => {
+    deleteTheme({
+      id: data.id,
+    });
+    setLoaderActive(true);
+  };
+
+  const handleRestoreTheme = () => {
+    restoreTheme({
+      id: data.id,
+    });
+    setLoaderActive(true);
+  };
+
   return (
-    <S.Container>
+    <S.Container $isDeleted={!!data.is_deleted}>
       <S.Theme>
         <Accordion
           sx={{ width: '100%', boxShadow: 'unset' }}
@@ -76,14 +94,23 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
                 styles={{ marginRight: '20px' }}
               />
               <C.AccordionIcon $active={Number(themeId) === data.id} />
-              <C.CourseNavText $active={!isThemeChecked}>{data.title}</C.CourseNavText>
+              <C.CourseNavText
+                $active={!isThemeChecked}
+                $isDeleted={!!data.is_deleted}>
+                {data.title}
+              </C.CourseNavText>
               {isThemeChecked && <C.DoneIcon />}
               <AdminBtn
                 popupName="Тема"
                 styles={{ marginLeft: 'auto' }}
                 type={'edit'}
                 onClick={() => {}}
-                popupHandlers={{ onAdd: handleAddLesson, onEdit: handleEditTheme }}
+                popupHandlers={{
+                  onAdd: handleAddLesson,
+                  onEdit: handleEditTheme,
+                  onDelete: handleDeleteTheme,
+                  onRestore: handleRestoreTheme,
+                }}
               />
             </S.AccSum>
           </AccordionSummary>

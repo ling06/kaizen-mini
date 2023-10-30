@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
 
-export const Container = styled(C.FlexContainer)`
+export const Container = styled(C.FlexContainer)<{$isDeleted: boolean}>`
   flex-direction: column;
+  opacity: ${props => props.$isDeleted ? .5 : 1};
 `;
 
 export const Theme = styled(C.FlexContainer)`
