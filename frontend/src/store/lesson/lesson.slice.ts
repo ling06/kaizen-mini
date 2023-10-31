@@ -8,7 +8,7 @@ export interface ILessonSlice {
 }
 
 const lessonInitialState = {
-  tests: [] as Array<ITest>,
+  tests: [] as Array<Omit<ITest, 'userTestAnswer'>>,
 };
 
 interface IChangeTestQuestion {
@@ -39,6 +39,14 @@ export const lessonSlice = createSlice({
     addEmptyTest: (state) => {
       state.tests.push(new EmptyTest());
     },
+    deleteTest: (state, { payload }: PayloadAction<string>) => {
+      let tests = state.tests;
+      tests = tests.filter((test) => test.id !== payload);
+      return {
+        ...state,
+        ...{tests},
+      };
+    },
     addAnswer: (state, { payload }: PayloadAction<IAddAnswer>) => {
       const tests = state.tests;
       const testIndex = tests.findIndex((test) => test.id === payload.id);
@@ -47,6 +55,16 @@ export const lessonSlice = createSlice({
       return {
         ...state,
         ...{ tests },
+      };
+    },
+    deleteAnswer: (state, { payload }: PayloadAction<{ testId: string; answerId: string }>) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1) return;
+      state.tests[testIndex].answers = state.tests[testIndex].answers.filter(
+        (answer) => answer.id !== payload.answerId
+      );
+      return {
+        ...state,
       };
     },
     setTestsData: (state, { payload }: PayloadAction<Array<ITest>>) => {

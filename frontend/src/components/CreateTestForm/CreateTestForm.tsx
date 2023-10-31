@@ -6,11 +6,11 @@ import { ITest } from '@/types/lessonTest.types';
 import { useActions } from '@/hooks/useActions';
 
 interface ICreateTestFormProps {
-  data: ITest;
+  data: Omit<ITest, 'userTestAnswer'>;
 }
 
 export function CreateTestForm({ data }: ICreateTestFormProps) {
-  const { changeTestQuestion, addAnswer } = useActions();
+  const { changeTestQuestion, addAnswer, deleteTest } = useActions();
   const [isChanged, setChanged] = useState<boolean>(false);
 
   const handleChangeTestName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,11 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
   };
 
   const handleAddVariant = () => {
-    addAnswer({id: data.id});
+    addAnswer({ id: data.id });
+  };
+
+  const handleDeleteTest = () => {
+    deleteTest(data.id);
   };
 
   return (
@@ -45,6 +49,10 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
           ))}
       </S.Variants>
       <S.AddVariant onClick={handleAddVariant}>добавить вариант</S.AddVariant>
+      <S.DeleteTestBtn onClick={handleDeleteTest}>
+        <S.DeleteTestBtnIcon />
+        удалить тест
+      </S.DeleteTestBtn>
     </S.Container>
   );
 }

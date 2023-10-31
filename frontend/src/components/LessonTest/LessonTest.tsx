@@ -29,7 +29,9 @@ export function LessonTest({ data }: ILessonTestProps) {
   };
 
   return (
-    <S.Container $isRight={!!data.userTestAnswer?.is_right} $isPassed={data.userTestAnswer}>
+    <S.Container
+      $isRight={!!data.userTestAnswer?.is_right}
+      $isPassed={data.userTestAnswer}>
       <S.Title>{data.question}</S.Title>
       <S.Answers>
         {!data.userTestAnswer &&
@@ -57,6 +59,7 @@ export function LessonTest({ data }: ILessonTestProps) {
                 label={`${answer.answer}`}
                 onChange={() => {}}
                 key={answer.id}
+                disabled={true}
               />
             );
           })}

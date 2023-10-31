@@ -13357,6 +13357,14 @@ const lessonSlice = createSlice({
     addEmptyTest: (state) => {
       state.tests.push(new EmptyTest());
     },
+    deleteTest: (state, { payload }) => {
+      let tests = state.tests;
+      tests = tests.filter((test) => test.id !== payload);
+      return {
+        ...state,
+        ...{ tests }
+      };
+    },
     addAnswer: (state, { payload }) => {
       const tests = state.tests;
       const testIndex = tests.findIndex((test) => test.id === payload.id);
@@ -13366,6 +13374,17 @@ const lessonSlice = createSlice({
       return {
         ...state,
         ...{ tests }
+      };
+    },
+    deleteAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      state.tests[testIndex].answers = state.tests[testIndex].answers.filter(
+        (answer) => answer.id !== payload.answerId
+      );
+      return {
+        ...state
       };
     },
     setTestsData: (state, { payload }) => {
@@ -27198,7 +27217,7 @@ const RadioBtn$1 = st$1.input`
     background-image: url(${radioChecked});
   }
 `;
-function RadioBtn({ onChange, label, name }) {
+function RadioBtn({ onChange, label, name, disabled = false }) {
   const handleChange = () => {
     if (onChange) {
       onChange();
@@ -27210,7 +27229,8 @@ function RadioBtn({ onChange, label, name }) {
       {
         type: "radio",
         onChange: handleChange,
-        name
+        name,
+        disabled
       }
     ),
     label
@@ -27322,49 +27342,57 @@ function LessonTest({ data }) {
       setLoaderActive(true);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { $isRight: !!((_a = data.userTestAnswer) == null ? void 0 : _a.is_right), $isPassed: data.userTestAnswer, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
-      !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        RadioBtn,
-        {
-          name: data.id,
-          label: `${answer.answer}`,
-          onChange: () => {
-            handleChange(`${answer.id}`);
-          }
-        },
-        answer.id
-      )),
-      data.userTestAnswer && data.answers.map((answer) => {
-        var _a2, _b;
-        if (Number(answer.id) === ((_a2 = data.userTestAnswer) == null ? void 0 : _a2.answer)) {
-          return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
-        }
-        if (!!answer.right_answer && Number(answer.id) !== ((_b = data.userTestAnswer) == null ? void 0 : _b.answer)) {
-          return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
-        }
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          RadioBtn,
-          {
-            name: data.id,
-            label: `${answer.answer}`,
-            onChange: () => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Container$c,
+    {
+      $isRight: !!((_a = data.userTestAnswer) == null ? void 0 : _a.is_right),
+      $isPassed: data.userTestAnswer,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
+          !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            RadioBtn,
+            {
+              name: data.id,
+              label: `${answer.answer}`,
+              onChange: () => {
+                handleChange(`${answer.id}`);
+              }
+            },
+            answer.id
+          )),
+          data.userTestAnswer && data.answers.map((answer) => {
+            var _a2, _b;
+            if (Number(answer.id) === ((_a2 = data.userTestAnswer) == null ? void 0 : _a2.answer)) {
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
             }
-          },
-          answer.id
-        );
-      })
-    ] }),
-    !data.userTestAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CheckBtn,
-      {
-        onClick: handleSendAnswer,
-        disabled: !checkedAnswer,
-        children: "Проверить"
-      }
-    )
-  ] });
+            if (!!answer.right_answer && Number(answer.id) !== ((_b = data.userTestAnswer) == null ? void 0 : _b.answer)) {
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
+            }
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              RadioBtn,
+              {
+                name: data.id,
+                label: `${answer.answer}`,
+                onChange: () => {
+                },
+                disabled: true
+              },
+              answer.id
+            );
+          })
+        ] }),
+        !data.userTestAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CheckBtn,
+          {
+            onClick: handleSendAnswer,
+            disabled: !checkedAnswer,
+            children: "Проверить"
+          }
+        )
+      ]
+    }
+  );
 }
 function CourseContent() {
   const { setLoaderActive } = useActions();
@@ -47402,10 +47430,24 @@ const Variants = st$1(FlexContainer)`
 const AddVariant = st$1(DefaultBtn)`
   width: fit-content;
   padding: 0 20px 0 50px;
+  margin-bottom: 45px;
   background-image: url(${addIcon});
   background-repeat: no-repeat;
   background-position: 23px 50%;
   background-size: 24px;
+`;
+const DeleteTestBtn = st$1.button`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0;
+  margin: 0 0 45px;
+  color: ${(props) => props.theme.colors.yRed};
+  background-color: transparent;
+`;
+const DeleteTestBtnIcon = st$1(Icon$1)`
+  margin-right: 5px;
+  background-image: url(${deleteIcon});
 `;
 const Title$2 = st$1.h5`
   display: flex;
@@ -47524,7 +47566,7 @@ function CustomRadioButton({
   ] });
 }
 function Variant({ data, number, testId }) {
-  const { toggleAnswer, changeAnswer, changeAnswerComment } = useActions();
+  const { toggleAnswer, changeAnswer, changeAnswerComment, deleteAnswer } = useActions();
   const [isValid, setValid] = reactExports.useState(false);
   const [isChanged, setChanged] = reactExports.useState(false);
   const [defaultCommentValue, setDefaultCommentValue] = reactExports.useState("");
@@ -47533,7 +47575,7 @@ function Variant({ data, number, testId }) {
     const falseComment = "Неверно, потому что ";
     changeAnswerComment({
       testId,
-      answerId: data.id,
+      answerId: data.id || "",
       value: ""
     });
     data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
@@ -47541,7 +47583,7 @@ function Variant({ data, number, testId }) {
   const handleSetRightAnswer = (isRight) => {
     const payload = {
       testId,
-      answerId: data.id,
+      answerId: data.id || "",
       isRight
     };
     toggleAnswer(payload);
@@ -47549,7 +47591,7 @@ function Variant({ data, number, testId }) {
   const handleChangeAnswer = (event) => {
     changeAnswer({
       testId,
-      answerId: data.id,
+      answerId: data.id || "",
       value: event.target.value
     });
     if (event.target.value.length > 0) {
@@ -47566,8 +47608,14 @@ function Variant({ data, number, testId }) {
     }
     changeAnswerComment({
       testId,
-      answerId: data.id,
+      answerId: data.id || "",
       value
+    });
+  };
+  const handleDeleteVariant = () => {
+    deleteAnswer({
+      testId,
+      answerId: data.id || ""
     });
   };
   const radioFontStyles = {
@@ -47575,8 +47623,7 @@ function Variant({ data, number, testId }) {
     fontWeight: "600"
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: `Вариант ${number}`, children: /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: () => {
-    } }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: handleDeleteVariant }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       VariantInput,
       {
@@ -47625,7 +47672,7 @@ function Variant({ data, number, testId }) {
   ] });
 }
 function CreateTestForm({ data }) {
-  const { changeTestQuestion, addAnswer } = useActions();
+  const { changeTestQuestion, addAnswer, deleteTest } = useActions();
   const [isChanged, setChanged] = reactExports.useState(false);
   const handleChangeTestName = (event) => {
     changeTestQuestion({ id: data.id, question: event.target.value });
@@ -47635,6 +47682,9 @@ function CreateTestForm({ data }) {
   };
   const handleAddVariant = () => {
     addAnswer({ id: data.id });
+  };
+  const handleDeleteTest = () => {
+    deleteTest(data.id);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: "Заголовок теста (необязательно)" }),
@@ -47656,7 +47706,11 @@ function CreateTestForm({ data }) {
         number: index + 1
       }
     )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AddVariant, { onClick: handleAddVariant, children: "добавить вариант" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AddVariant, { onClick: handleAddVariant, children: "добавить вариант" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteTestBtn, { onClick: handleDeleteTest, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteTestBtnIcon, {}),
+      "удалить тест"
+    ] })
   ] });
 }
 let editor$1;

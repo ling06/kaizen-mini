@@ -13,7 +13,7 @@ interface IVariantProps {
 }
 
 export function Variant({ data, number, testId }: IVariantProps) {
-  const { toggleAnswer, changeAnswer, changeAnswerComment } = useActions();
+  const { toggleAnswer, changeAnswer, changeAnswerComment, deleteAnswer } = useActions();
   const [isValid, setValid] = useState<boolean>(false);
   const [isChanged, setChanged] = useState<boolean>(false);
   const [defaultCommentValue, setDefaultCommentValue] = useState<string>('');
@@ -23,7 +23,7 @@ export function Variant({ data, number, testId }: IVariantProps) {
     const falseComment = 'Неверно, потому что ';
     changeAnswerComment({
       testId,
-      answerId: data.id,
+      answerId: data.id || '',
       value: '',
     });
     data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
@@ -32,7 +32,7 @@ export function Variant({ data, number, testId }: IVariantProps) {
   const handleSetRightAnswer = (isRight: boolean) => {
     const payload = {
       testId,
-      answerId: data.id,
+      answerId: data.id || '',
       isRight: isRight,
     };
     toggleAnswer(payload);
@@ -41,7 +41,7 @@ export function Variant({ data, number, testId }: IVariantProps) {
   const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeAnswer({
       testId,
-      answerId: data.id,
+      answerId: data.id || '',
       value: event.target.value,
     });
     if (event.target.value.length > 0) {
@@ -54,13 +54,20 @@ export function Variant({ data, number, testId }: IVariantProps) {
 
   const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
-    if(!value.includes(defaultCommentValue)) {
+    if (!value.includes(defaultCommentValue)) {
       value = defaultCommentValue + value;
     }
     changeAnswerComment({
       testId,
-      answerId: data.id,
+      answerId: data.id || '',
       value: value,
+    });
+  };
+
+  const handleDeleteVariant = () => {
+    deleteAnswer({
+      testId,
+      answerId: data.id || '',
     });
   };
 
@@ -72,7 +79,7 @@ export function Variant({ data, number, testId }: IVariantProps) {
   return (
     <S.Container>
       <Title value={`Вариант ${number}`}>
-        <DeleteBtn onClick={() => {}} />
+        {number > 1 && <DeleteBtn onClick={handleDeleteVariant} />}
       </Title>
       <S.VariantInput
         type="text"

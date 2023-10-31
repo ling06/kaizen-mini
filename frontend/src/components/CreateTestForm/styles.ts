@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
 import addIcon from '@assets/images/addIconWhite.svg';
+import deleteIcon from '@assets/images/deleteIcon.svg';
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
@@ -19,8 +20,24 @@ export const Variants = styled(C.FlexContainer)`
 export const AddVariant = styled(C.DefaultBtn)`
   width: fit-content;
   padding: 0 20px 0 50px;
+  margin-bottom: 45px;
   background-image: url(${addIcon});
   background-repeat: no-repeat;
   background-position: 23px 50%;
   background-size: 24px;
+`;
+
+export const DeleteTestBtn = styled.button`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0;
+  margin: 0 0 45px;
+  color: ${(props) => props.theme.colors.yRed};
+  background-color: transparent;
+`;
+
+export const DeleteTestBtnIcon = styled(C.Icon)`
+  margin-right: 5px;
+  background-image: url(${deleteIcon});
 `;
