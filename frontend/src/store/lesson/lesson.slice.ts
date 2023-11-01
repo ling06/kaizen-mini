@@ -40,11 +40,10 @@ export const lessonSlice = createSlice({
       state.tests.push(new EmptyTest());
     },
     deleteTest: (state, { payload }: PayloadAction<string>) => {
-      let tests = state.tests;
-      tests = tests.filter((test) => test.id !== payload);
+      const updatedTests = state.tests.filter((test) => test.id !== payload);
       return {
         ...state,
-        ...{ tests },
+        tests: updatedTests,
       };
     },
     addAnswer: (state, { payload }: PayloadAction<IAddAnswer>) => {
@@ -76,70 +75,61 @@ export const lessonSlice = createSlice({
       return state;
     },
     setTestsData: (state, { payload }: PayloadAction<Array<ITest>>) => {
-      return {
-        ...state,
-        tests: [...payload],
-      }
+      state.tests = [...payload];
     },
+
     changeTestQuestion: (state, { payload }: PayloadAction<IChangeTestQuestion>) => {
-      const { tests } = state;
-      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1) {
         return state;
       }
 
-      tests[testIndex].question = payload.question;
-      return {
-        ...state
-      };
+      state.tests[testIndex].question = payload.question;
     },
     toggleAnswer: (state, { payload }: PayloadAction<IToggleAnswer>) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1) return;
 
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.isRight) {
           if (answer.id === payload.answerId && payload.isRight) {
             answer.right_answer = payload.isRight;
-            return;
+          } else {
+            answer.right_answer = false;
           }
-          answer.right_answer = false;
         } else {
           answer.right_answer = payload.isRight;
         }
+        return answer;
       });
 
-      return {
-        ...state,
-      };
+      state.tests[testIndex].answers = changedAnswers;
     },
     changeAnswer: (state, { payload }: PayloadAction<IChangeAnswer>) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1) return;
 
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.answerId === answer.id) {
           answer.answer = payload.value;
         }
+        return answer;
       });
 
-      return {
-        ...state,
-      };
+      state.tests[testIndex].answers = changedAnswers;
     },
     changeAnswerComment: (state, { payload }: PayloadAction<IChangeAnswer>) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1) return;
 
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.answerId === answer.id) {
           answer.text = payload.value;
         }
+        return answer;
       });
 
-      return {
-        ...state,
-      };
+      state.tests[testIndex].answers = changedAnswers;
     },
   },
 });

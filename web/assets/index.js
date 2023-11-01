@@ -13343,6 +13343,12 @@ class EmptyTest {
         answer: "",
         right_answer: false,
         text: ""
+      },
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: false,
+        text: ""
       }
     ];
   }
@@ -13358,11 +13364,10 @@ const lessonSlice = createSlice({
       state.tests.push(new EmptyTest());
     },
     deleteTest: (state, { payload }) => {
-      let tests = state.tests;
-      tests = tests.filter((test) => test.id !== payload);
+      const updatedTests = state.tests.filter((test) => test.id !== payload);
       return {
         ...state,
-        ...{ tests }
+        tests: updatedTests
       };
     },
     addAnswer: (state, { payload }) => {
@@ -13393,66 +13398,56 @@ const lessonSlice = createSlice({
       return state;
     },
     setTestsData: (state, { payload }) => {
-      return {
-        ...state,
-        tests: [...payload]
-      };
+      state.tests = [...payload];
     },
     changeTestQuestion: (state, { payload }) => {
-      const { tests } = state;
-      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1) {
         return state;
       }
-      tests[testIndex].question = payload.question;
-      return {
-        ...state
-      };
+      state.tests[testIndex].question = payload.question;
     },
     toggleAnswer: (state, { payload }) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1)
         return;
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.isRight) {
           if (answer.id === payload.answerId && payload.isRight) {
             answer.right_answer = payload.isRight;
-            return;
+          } else {
+            answer.right_answer = false;
           }
-          answer.right_answer = false;
         } else {
           answer.right_answer = payload.isRight;
         }
+        return answer;
       });
-      return {
-        ...state
-      };
+      state.tests[testIndex].answers = changedAnswers;
     },
     changeAnswer: (state, { payload }) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1)
         return;
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.answerId === answer.id) {
           answer.answer = payload.value;
         }
+        return answer;
       });
-      return {
-        ...state
-      };
+      state.tests[testIndex].answers = changedAnswers;
     },
     changeAnswerComment: (state, { payload }) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
       if (testIndex === -1)
         return;
-      state.tests[testIndex].answers.forEach((answer) => {
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
         if (payload.answerId === answer.id) {
           answer.text = payload.value;
         }
+        return answer;
       });
-      return {
-        ...state
-      };
+      state.tests[testIndex].answers = changedAnswers;
     }
   }
 });
@@ -27472,15 +27467,6 @@ function CourseContent() {
       return null;
     });
   };
-  const renderLessonTests = () => {
-    return data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      LessonTest,
-      {
-        data: test
-      },
-      test.id
-    ));
-  };
   const renderForwardButton = () => {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       ForwardBtn,
@@ -27509,7 +27495,13 @@ function CourseContent() {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
-        data.data.tests.length > 0 && renderLessonTests(),
+        data.data.tests.length > 0 && (data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          LessonTest,
+          {
+            data: test
+          },
+          test.id
+        ))),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
       ] })
     ] })

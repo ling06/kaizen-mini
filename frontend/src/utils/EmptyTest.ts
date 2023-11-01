@@ -17,6 +17,12 @@ export class EmptyTest {
         right_answer: false,
         text: '',
       },
+      {
+        id: nanoid(),
+        answer: '',
+        right_answer: false,
+        text: '',
+      },
     ];
   }
 }

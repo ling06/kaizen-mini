@@ -41,7 +41,11 @@ export function CourseContent() {
   }, [data?.data.tests]);
 
   useEffect(() => {
-    if (isFetching || data?.data.isChecked || (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)) {
+    if (
+      isFetching ||
+      data?.data.isChecked ||
+      (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)
+    ) {
       setIsForwardBtnDisabled(true);
     } else {
       setIsForwardBtnDisabled(false);
@@ -91,14 +95,9 @@ export function CourseContent() {
     });
   };
 
-  const renderLessonTests = () => {
-    return data?.data.tests.map((test) => (
-      <LessonTest
-        key={test.id}
-        data={test}
-      />
-    ));
-  };
+  // const renderLessonTests = () => {
+  //   return ;
+  // };
 
   const renderForwardButton = () => {
     return (
@@ -126,7 +125,13 @@ export function CourseContent() {
           </S.Title>
           <S.Container>
             <S.EditorOutput>{renderEditorOutput()}</S.EditorOutput>
-            {data.data.tests.length > 0 && renderLessonTests()}
+            {data.data.tests.length > 0 &&
+              data?.data.tests.map((test) => (
+                <LessonTest
+                  key={test.id}
+                  data={test}
+                />
+              ))}
             {editorData && !isFetching && !data.data.isChecked && renderForwardButton()}
           </S.Container>
         </>
