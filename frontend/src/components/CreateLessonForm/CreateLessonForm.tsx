@@ -4,7 +4,11 @@ import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
-import { useCreateLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
+import {
+  useCreateLessonMutation,
+  useGetLessonByIdQuery,
+  useUpdateLessonMutation,
+} from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
@@ -21,9 +25,10 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     skip: !lessonId,
   });
   const { tests } = useTypedSelector((state) => state.lesson);
-  const { addEmptyTest } = useActions();
+  const { addEmptyTest, setTestsData } = useActions();
 
   const [createLesson] = useCreateLessonMutation();
+  const [updateLesson] = useUpdateLessonMutation();
   const [lessonName, setLessonName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
@@ -34,6 +39,12 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setLessonName(data.data.title);
       setValidName(true);
       setChangedName(false);
+      console.log(data.data.tests);
+      try {
+        setTestsData(data.data.tests);
+      } catch (err) {
+        console.log(err);
+      }
       if (!editor) {
         try {
           editor = new EditorJS({
@@ -50,7 +61,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
         }
       }
     }
-  }, [data, isError, isFetching]);
+  }, [data, isError, isFetching, setTestsData]);
 
   useEffect(() => {
     if (!editor && !isFetching && !data) {
@@ -98,6 +109,26 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       return { question, answers: modifiedAnswers };
     });
 
+    if (type === 'edit') {
+      updateLesson({
+        id: Number(lessonId),
+        theme_id: Number(data?.data.theme_id),
+        title: lessonName,
+        description: editorBlocksData,
+        tests: tests,
+      })
+        .then((res) => {
+          if ('data' in res) {
+            navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      return;
+    }
+
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
@@ -116,7 +147,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
 
   const controlsData = {
     names: {
-      confirm: 'Создать урок',
+      confirm: type === 'create' ? 'Создать урок' : 'Сохранить',
       cancel: 'Отмена',
     },
     handlers: {

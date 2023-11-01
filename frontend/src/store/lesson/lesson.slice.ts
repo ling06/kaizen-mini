@@ -44,7 +44,7 @@ export const lessonSlice = createSlice({
       tests = tests.filter((test) => test.id !== payload);
       return {
         ...state,
-        ...{tests},
+        ...{ tests },
       };
     },
     addAnswer: (state, { payload }: PayloadAction<IAddAnswer>) => {
@@ -68,7 +68,10 @@ export const lessonSlice = createSlice({
       };
     },
     setTestsData: (state, { payload }: PayloadAction<Array<ITest>>) => {
-      state.tests = [...state.tests, ...payload];
+      return {
+        ...state,
+        ...{ tests: [...payload] },
+      };
     },
     changeTestQuestion: (state, { payload }: PayloadAction<IChangeTestQuestion>) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.id);

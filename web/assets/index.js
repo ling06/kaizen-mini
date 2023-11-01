@@ -13388,7 +13388,10 @@ const lessonSlice = createSlice({
       };
     },
     setTestsData: (state, { payload }) => {
-      state.tests = [...state.tests, ...payload];
+      return {
+        ...state,
+        ...{ tests: [...payload] }
+      };
     },
     changeTestQuestion: (state, { payload }) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.id);
@@ -27125,7 +27128,8 @@ const lessonApi = api.injectEndpoints({
         url: "course/update-lesson",
         method: "POST",
         body: data
-      })
+      }),
+      invalidatesTags: ["LessonById"]
     }),
     deleteLesson: builder.mutation({
       query: (data) => ({
@@ -27161,9 +27165,12 @@ const {
   useUpdateLessonMutation
 } = lessonApi;
 const Container$c = st$1(FlexContainer)`
+  display: flex;
+  width: 100%;
   flex-direction: column;
   padding: 40px 45px;
-  border: 1px solid ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
+  border: 1px solid
+    ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
 
@@ -27327,10 +27334,17 @@ function CheckedAnswer({ data }) {
   ] });
 }
 function LessonTest({ data }) {
-  var _a;
   const { setLoaderActive } = useActions();
   const [checkedAnswer, setCheckedAnswer] = reactExports.useState(null);
   const [sendAnswer] = useSendAnswerMutation();
+  const [isUserRightAnswer, setIsUserRightAnswer] = reactExports.useState(false);
+  const [isTestPassed, setIsTestPassed] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    if (data.userTestAnswer) {
+      setIsTestPassed(true);
+      setIsUserRightAnswer(!!data.userTestAnswer.is_right);
+    }
+  }, [data.userTestAnswer]);
   const handleChange = (answer) => {
     setCheckedAnswer(answer);
   };
@@ -27345,8 +27359,8 @@ function LessonTest({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Container$c,
     {
-      $isRight: !!((_a = data.userTestAnswer) == null ? void 0 : _a.is_right),
-      $isPassed: data.userTestAnswer,
+      $isRight: isUserRightAnswer,
+      $isPassed: isTestPassed,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
@@ -27362,8 +27376,8 @@ function LessonTest({ data }) {
             answer.id
           )),
           data.userTestAnswer && data.answers.map((answer) => {
-            var _a2, _b;
-            if (Number(answer.id) === ((_a2 = data.userTestAnswer) == null ? void 0 : _a2.answer)) {
+            var _a, _b;
+            if (Number(answer.id) === ((_a = data.userTestAnswer) == null ? void 0 : _a.answer)) {
               return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
             }
             if (!!answer.right_answer && Number(answer.id) !== ((_b = data.userTestAnswer) == null ? void 0 : _b.answer)) {
@@ -47720,8 +47734,9 @@ function CreateLessonForm({ type }) {
     skip: !lessonId
   });
   const { tests } = useTypedSelector((state) => state.lesson);
-  const { addEmptyTest } = useActions();
+  const { addEmptyTest, setTestsData } = useActions();
   const [createLesson] = useCreateLessonMutation();
+  const [updateLesson] = useUpdateLessonMutation();
   const [lessonName, setLessonName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
@@ -47731,6 +47746,12 @@ function CreateLessonForm({ type }) {
       setLessonName(data.data.title);
       setValidName(true);
       setChangedName(false);
+      console.log(data.data.tests);
+      try {
+        setTestsData(data.data.tests);
+      } catch (err) {
+        console.log(err);
+      }
       if (!editor$1) {
         try {
           editor$1 = new Bi({
@@ -47747,7 +47768,7 @@ function CreateLessonForm({ type }) {
         }
       }
     }
-  }, [data, isError, isFetching]);
+  }, [data, isError, isFetching, setTestsData]);
   reactExports.useEffect(() => {
     if (!editor$1 && !isFetching && !data) {
       try {
@@ -47787,6 +47808,22 @@ function CreateLessonForm({ type }) {
       const modifiedAnswers = answers == null ? void 0 : answers.map(({ id: id2, ...answer }) => answer);
       return { question, answers: modifiedAnswers };
     });
+    if (type === "edit") {
+      updateLesson({
+        id: Number(lessonId),
+        theme_id: Number(data == null ? void 0 : data.data.theme_id),
+        title: lessonName,
+        description: editorBlocksData,
+        tests
+      }).then((res) => {
+        if ("data" in res) {
+          navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+      return;
+    }
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
@@ -47802,7 +47839,7 @@ function CreateLessonForm({ type }) {
   };
   const controlsData = {
     names: {
-      confirm: "Создать урок",
+      confirm: type === "create" ? "Создать урок" : "Сохранить",
       cancel: "Отмена"
     },
     handlers: {

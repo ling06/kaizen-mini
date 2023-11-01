@@ -7,9 +7,17 @@ interface IContainer {
 }
 
 export const Container = styled(C.FlexContainer)<IContainer>`
+  display: flex;
+  width: 100%;
   flex-direction: column;
   padding: 40px 45px;
-  border: 1px solid ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
+  border: 1px solid
+    ${(props) =>
+      props.$isPassed
+        ? props.$isRight
+          ? props.theme.colors.mainGreen
+          : props.theme.colors.yRed
+        : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
 

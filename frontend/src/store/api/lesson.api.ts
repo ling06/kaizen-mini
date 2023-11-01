@@ -32,6 +32,7 @@ export const lessonApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['LessonById'],
     }),
     deleteLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({

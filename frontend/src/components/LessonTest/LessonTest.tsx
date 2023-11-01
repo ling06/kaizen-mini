@@ -1,7 +1,7 @@
 import { ITest } from '@/types/lessonTest.types';
 import * as S from './styles';
 import { RadioBtn } from './RadioBtn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSendAnswerMutation } from '@/store/api/lessonTest.api';
 import { useActions } from '@/hooks/useActions';
 import { CheckedAnswer } from './CheckedAnswer';
@@ -14,6 +14,15 @@ export function LessonTest({ data }: ILessonTestProps) {
   const { setLoaderActive } = useActions();
   const [checkedAnswer, setCheckedAnswer] = useState<null | string>(null);
   const [sendAnswer] = useSendAnswerMutation();
+  const [isUserRightAnswer, setIsUserRightAnswer] = useState<boolean>(false);
+  const [isTestPassed, setIsTestPassed] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data.userTestAnswer) {
+      setIsTestPassed(true);
+      setIsUserRightAnswer(!!data.userTestAnswer.is_right);
+    }
+  }, [data.userTestAnswer]);
 
   const handleChange = (answer: string): void => {
     setCheckedAnswer(answer);
@@ -30,8 +39,8 @@ export function LessonTest({ data }: ILessonTestProps) {
 
   return (
     <S.Container
-      $isRight={!!data.userTestAnswer?.is_right}
-      $isPassed={data.userTestAnswer}>
+      $isRight={isUserRightAnswer}
+      $isPassed={isTestPassed}>
       <S.Title>{data.question}</S.Title>
       <S.Answers>
         {!data.userTestAnswer &&
