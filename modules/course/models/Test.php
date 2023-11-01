@@ -2,6 +2,7 @@
 
 namespace app\modules\course\models;
 
+use app\components\behaviors\DeleteSoftBehavior;
 use app\models\User;
 use app\modules\course\models\queries\TestQuery;
 use yii\behaviors\BlameableBehavior;
@@ -125,7 +126,7 @@ class Test extends \app\components\ActiveRecord
     public function getUserTestAnswer(): ActiveQuery
     {
         return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
-            ->andWhere(['user_id' => \Yii::$app->user->id])->select([ 'answer', 'is_right']);
+            ->andWhere(['user_id' => \Yii::$app->user->id])->select(['answer', 'is_right']);
     }
 
 
@@ -138,9 +139,20 @@ class Test extends \app\components\ActiveRecord
         return new TestQuery(static::class);
     }
 
+    public function scenarios(): array
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[DeleteSoftBehavior::SCENARIO_DELETE_SOFT] = ['is_deleted'];
+        $scenarios[DeleteSoftBehavior::SCENARIO_RESTORE] = ['is_deleted'];
+        return $scenarios;
+    }
+
     public function behaviors(): array
     {
         return [
+            'deleteSoft' => [
+                'class' => DeleteSoftBehavior::class,
+            ],
             'author' => [
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'user_id',

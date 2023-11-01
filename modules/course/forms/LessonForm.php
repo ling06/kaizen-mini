@@ -45,8 +45,13 @@ class LessonForm extends Lesson
 
     public function afterSave($insert, $changedAttributes): void
     {
+        $editedTests = [];
+        $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->select('id')->all();
+//        print_r($testsFromDb); die;
+
         foreach ($this->tests as $tests){
             if(isset($tests['id']) && !empty($tests['id'])){
+                $editedTests[] = $tests['id'];
                 $test = Test::find()->where(['id'=>$tests['id']])->one();
             } else {
                 $test = new Test;
@@ -68,8 +73,18 @@ class LessonForm extends Lesson
                 }
             }
         }
+        if($testsFromDb){
+            foreach ($testsFromDb as $dbTest) {
+                if (!in_array($dbTest->id, $editedTests)){
+                    var_dump($dbTest->id);
+                    $dbTest->deleteSoft();
+                }
+            }
+        }
         $lesson = Lesson::findOne($this->id);
-        $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
+        if($lesson->description){
+            $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
+        }
         $lesson->save();
 
         parent::afterSave($insert, $changedAttributes);

@@ -12,7 +12,8 @@ class TestQuery extends \yii\db\ActiveQuery
 
     public function active(): self
     {
-        return $this->andWhere(['is_active' => true]);
+        return $this->andWhere(['is_active' => true])
+            ->andWhere(['is_deleted' => false]);
     }
 
 }
