@@ -70,6 +70,7 @@ class Lesson extends \app\components\ActiveRecord
             [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['is_deleted'], 'boolean'],
             [['is_deleted'], 'default', 'value' => false],
+            [['position'], 'integer', 'max' => 11]
         ];
     }
 
@@ -88,6 +89,7 @@ class Lesson extends \app\components\ActiveRecord
             'user_id' => 'Id создателя',
             'date' => 'Дата создания',
             'is_deleted' => 'Удален ли урок',
+            'position' => 'Позиция'
         ];
     }
 
@@ -116,7 +118,7 @@ class Lesson extends \app\components\ActiveRecord
      */
     public function getTest(): ActiveQuery
     {
-        return $this->hasMany(Test::class, ['lesson_id' => 'id']);
+        return $this->hasMany(Test::class, ['lesson_id' => 'id'])->andWhere(['is_deleted'=>0]);
     }
 
     public function getIsChecked(): bool
