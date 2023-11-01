@@ -47,42 +47,39 @@ class LessonForm extends Lesson
     {
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->select('id')->all();
-//        print_r($testsFromDb); die;
-
-        foreach ($this->tests as $tests){
-            if(isset($tests['id']) && !empty($tests['id'])){
+        foreach ($this->tests as $tests) {
+            if (isset($tests['id']) && !empty($tests['id'])) {
                 $editedTests[] = $tests['id'];
-                $test = Test::find()->where(['id'=>$tests['id']])->one();
+                $test = Test::find()->where(['id' => $tests['id']])->one();
             } else {
                 $test = new Test;
             }
-                $test->lesson_id = $this->id;
-                $test->question = $tests['question'];
-            if($test->save() && !empty($test->id)){
-                foreach ($tests['answers'] as $answer){
-                    if(isset($answer['id']) && !empty($answer['id'])){
+            $test->lesson_id = $this->id;
+            $test->question = $tests['question'];
+            if ($test->save() && !empty($test->id)) {
+                foreach ($tests['answers'] as $answer) {
+                    if (isset($answer['id']) && !empty($answer['id'])) {
                         $testAnswer = Question::find()->where(['id' => $answer['id']])->one();
                     } else {
                         $testAnswer = new Question;
                     }
-                        $testAnswer->test_id = $test->id;
-                        $testAnswer->answer = $answer['answer'];
-                        $testAnswer->right_answer = $answer['right_answer'];
-                        $testAnswer->text = $answer['text'];
+                    $testAnswer->test_id = $test->id;
+                    $testAnswer->answer = $answer['answer'];
+                    $testAnswer->right_answer = $answer['right_answer'];
+                    $testAnswer->text = $answer['text'];
                     $testAnswer->save(false);
                 }
             }
         }
-        if($testsFromDb){
+        if ($testsFromDb) {
             foreach ($testsFromDb as $dbTest) {
-                if (!in_array($dbTest->id, $editedTests)){
-                    var_dump($dbTest->id);
+                if (!in_array($dbTest->id, $editedTests)) {
                     $dbTest->deleteSoft();
                 }
             }
         }
         $lesson = Lesson::findOne($this->id);
-        if($lesson->description){
+        if ($lesson->description) {
             $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
         }
         $lesson->save();

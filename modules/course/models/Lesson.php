@@ -118,7 +118,7 @@ class Lesson extends \app\components\ActiveRecord
      */
     public function getTest(): ActiveQuery
     {
-        return $this->hasMany(Test::class, ['lesson_id' => 'id'])->andWhere(['is_deleted'=>0]);
+        return $this->hasMany(Test::class, ['lesson_id' => 'id'])->andWhere(['is_deleted' => 0]);
     }
 
     public function getIsChecked(): bool
