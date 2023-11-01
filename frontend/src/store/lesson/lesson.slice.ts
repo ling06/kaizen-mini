@@ -48,38 +48,49 @@ export const lessonSlice = createSlice({
       };
     },
     addAnswer: (state, { payload }: PayloadAction<IAddAnswer>) => {
-      const tests = state.tests;
+      const { tests } = state;
       const testIndex = tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1) return;
-      tests[testIndex].answers.push(new EmptyAnswer());
+      if (testIndex === -1) return state;
+      const newTests = [...tests];
+      newTests[testIndex] = {
+        ...newTests[testIndex],
+        answers: [...newTests[testIndex].answers, new EmptyAnswer()],
+      };
       return {
         ...state,
-        ...{ tests },
+        tests: newTests,
       };
     },
     deleteAnswer: (state, { payload }: PayloadAction<{ testId: string; answerId: string }>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1) return;
-      state.tests[testIndex].answers = state.tests[testIndex].answers.filter(
-        (answer) => answer.id !== payload.answerId
+      const { testId, answerId } = payload;
+      const { tests } = state;
+
+      const testIndex = tests.findIndex((test) => test.id === testId);
+      if (testIndex === -1) {
+        return state;
+      }
+      tests[testIndex].answers = tests[testIndex].answers.filter(
+        (answer) => answer.id !== answerId
       );
-      return {
-        ...state,
-      };
+
+      return state;
     },
     setTestsData: (state, { payload }: PayloadAction<Array<ITest>>) => {
       return {
         ...state,
-        ...{ tests: [...payload] },
-      };
+        tests: [...payload],
+      }
     },
     changeTestQuestion: (state, { payload }: PayloadAction<IChangeTestQuestion>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1) return;
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1) {
+        return state;
+      }
 
-      state.tests[testIndex].question = payload.question;
+      tests[testIndex].question = payload.question;
       return {
-        ...state,
+        ...state
       };
     },
     toggleAnswer: (state, { payload }: PayloadAction<IToggleAnswer>) => {

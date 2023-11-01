@@ -13366,38 +13366,45 @@ const lessonSlice = createSlice({
       };
     },
     addAnswer: (state, { payload }) => {
-      const tests = state.tests;
+      const { tests } = state;
       const testIndex = tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1)
-        return;
-      tests[testIndex].answers.push(new EmptyAnswer());
+        return state;
+      const newTests = [...tests];
+      newTests[testIndex] = {
+        ...newTests[testIndex],
+        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
+      };
       return {
         ...state,
-        ...{ tests }
+        tests: newTests
       };
     },
     deleteAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      state.tests[testIndex].answers = state.tests[testIndex].answers.filter(
-        (answer) => answer.id !== payload.answerId
+      const { testId, answerId } = payload;
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === testId);
+      if (testIndex === -1) {
+        return state;
+      }
+      tests[testIndex].answers = tests[testIndex].answers.filter(
+        (answer) => answer.id !== answerId
       );
-      return {
-        ...state
-      };
+      return state;
     },
     setTestsData: (state, { payload }) => {
       return {
         ...state,
-        ...{ tests: [...payload] }
+        tests: [...payload]
       };
     },
     changeTestQuestion: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1)
-        return;
-      state.tests[testIndex].question = payload.question;
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1) {
+        return state;
+      }
+      tests[testIndex].question = payload.question;
       return {
         ...state
       };
@@ -47747,11 +47754,7 @@ function CreateLessonForm({ type }) {
       setValidName(true);
       setChangedName(false);
       console.log(data.data.tests);
-      try {
-        setTestsData(data.data.tests);
-      } catch (err) {
-        console.log(err);
-      }
+      setTestsData(data.data.tests);
       if (!editor$1) {
         try {
           editor$1 = new Bi({
@@ -47789,6 +47792,29 @@ function CreateLessonForm({ type }) {
       }
     };
   }, [data, isFetching]);
+  const testsDataWithoutFrontIds = reactExports.useMemo(() => {
+    return tests.map((test) => {
+      const { id: id2, answers, ...rest } = test;
+      const clearAnswers = answers.map((answer) => {
+        const { id: id22, ...rest2 } = answer;
+        if (id22.length === 21 && typeof id22 === "string") {
+          return rest2;
+        }
+        return answer;
+      });
+      if (id2.length === 21 && typeof id2 === "string") {
+        return {
+          ...rest,
+          answers: clearAnswers
+        };
+      }
+      return {
+        ...rest,
+        answers: clearAnswers,
+        id: id2
+      };
+    });
+  }, [tests]);
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
     setLessonName(event.target.value);
@@ -47803,18 +47829,13 @@ function CreateLessonForm({ type }) {
       setChangedName(true);
       return;
     }
-    const testsData = tests.map((test) => {
-      const { answers, question } = test;
-      const modifiedAnswers = answers == null ? void 0 : answers.map(({ id: id2, ...answer }) => answer);
-      return { question, answers: modifiedAnswers };
-    });
     if (type === "edit") {
       updateLesson({
         id: Number(lessonId),
         theme_id: Number(data == null ? void 0 : data.data.theme_id),
         title: lessonName,
         description: editorBlocksData,
-        tests
+        tests: testsDataWithoutFrontIds
       }).then((res) => {
         if ("data" in res) {
           navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
@@ -47828,7 +47849,7 @@ function CreateLessonForm({ type }) {
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests: testsData
+      tests: testsDataWithoutFrontIds
     }).then((res) => {
       if ("data" in res) {
         navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);

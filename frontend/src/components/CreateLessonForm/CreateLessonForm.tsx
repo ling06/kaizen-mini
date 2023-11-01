@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
@@ -40,11 +40,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setValidName(true);
       setChangedName(false);
       console.log(data.data.tests);
-      try {
-        setTestsData(data.data.tests);
-      } catch (err) {
-        console.log(err);
-      }
+      setTestsData(data.data.tests);
       if (!editor) {
         try {
           editor = new EditorJS({
@@ -61,7 +57,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
         }
       }
     }
-  }, [data, isError, isFetching, setTestsData]);
+  }, [data, isError, isFetching, setTestsData,]);
 
   useEffect(() => {
     if (!editor && !isFetching && !data) {
@@ -85,6 +81,35 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     };
   }, [data, isFetching]);
 
+  /* 
+TODO: на фронте создаются id для новых сущностей, и при запросе этих id не должно быть. 
+Все это очень похоже на костыль, но пока не знаю как лучше решить эту проблему
+*/
+  const testsDataWithoutFrontIds = useMemo(() => {
+    return tests.map((test) => {
+      const { id, answers, ...rest } = test;
+      const clearAnswers = answers.map((answer) => {
+        const { id, ...rest } = answer;
+        
+        if (id.length === 21 && typeof id === 'string') {
+          return rest;
+        }
+        return answer;
+      });
+      if (id.length === 21 && typeof id === 'string') {
+        return {
+          ...rest,
+          answers: clearAnswers,
+        };
+      }
+      return {
+        ...rest,
+        answers: clearAnswers,
+        id,
+      };
+    });
+  }, [tests]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
     setLessonName(event.target.value);
@@ -102,20 +127,13 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       return;
     }
 
-    const testsData = tests.map((test) => {
-      const { answers, question } = test;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const modifiedAnswers = answers?.map(({ id, ...answer }) => answer);
-      return { question, answers: modifiedAnswers };
-    });
-
     if (type === 'edit') {
       updateLesson({
         id: Number(lessonId),
         theme_id: Number(data?.data.theme_id),
         title: lessonName,
         description: editorBlocksData,
-        tests: tests,
+        tests: testsDataWithoutFrontIds,
       })
         .then((res) => {
           if ('data' in res) {
@@ -133,7 +151,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       title: lessonName,
       theme_id: Number(themeId),
       description: editorBlocksData,
-      tests: testsData,
+      tests: testsDataWithoutFrontIds,
     })
       .then((res) => {
         if ('data' in res) {
