@@ -46,6 +46,7 @@ export const courseApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Courses'],
     }),
     restoreCourse: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -53,6 +54,7 @@ export const courseApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Courses'],
     }),
   }),
   overrideExisting: false,

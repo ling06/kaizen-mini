@@ -6,13 +6,14 @@ interface ICustomSelectOpionsProps {
   status: number;
   title: string;
   isSelected: boolean;
+  isDeleted: boolean;
 }
 
-export function CustomSelectOption({ percentage, status, title, isSelected }: ICustomSelectOpionsProps) {
+export function CustomSelectOption({ percentage, status, title, isSelected, isDeleted }: ICustomSelectOpionsProps) {
   return (
     <S.CustomSelectOption>
       <ProgressCounter percentage={percentage || 0} />
-      <S.TextLabel $isSelected={isSelected}>Курс: {title}</S.TextLabel>
+      <S.TextLabel $isSelected={isSelected} $isDeleted={isDeleted}>Курс: {title}</S.TextLabel>
       {status === 0 && <S.IsHiddenIcon />}
     </S.CustomSelectOption>
   );

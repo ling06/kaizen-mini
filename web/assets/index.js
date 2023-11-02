@@ -16375,14 +16375,16 @@ const courseApi = api.injectEndpoints({
         url: "course/delete",
         method: "POST",
         body: data
-      })
+      }),
+      invalidatesTags: ["Courses"]
     }),
     restoreCourse: builder.mutation({
       query: (data) => ({
         url: "course/restore",
         method: "POST",
         body: data
-      })
+      }),
+      invalidatesTags: ["Courses"]
     })
   }),
   overrideExisting: false
@@ -26176,14 +26178,15 @@ const TextLabel = st$1.p`
   &:first-child {
     font-weight: 700;
   }
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 `;
 const IsHiddenIcon = st$1(Icon$1)`
   background-image: url(${isHideIcon});
 `;
-function CustomSelectOption({ percentage, status, title, isSelected }) {
+function CustomSelectOption({ percentage, status, title, isSelected, isDeleted }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { $isSelected: isSelected, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { $isSelected: isSelected, $isDeleted: isDeleted, children: [
       "Курс: ",
       title
     ] }),
@@ -26223,7 +26226,8 @@ function CourseCustomSelect({ options, value, onChange }) {
               title: `${option.data.title}`,
               percentage: option.data.percentage,
               status: option.data.status,
-              isSelected: option.value === value
+              isSelected: option.value === value,
+              isDeleted: option.data.isDeleted
             },
             option.value
           )
@@ -26241,6 +26245,8 @@ function CourseSelect() {
   });
   const { setModalOpen, setModalType, setCourseData, setLoaderActive } = useActions();
   const [updateCourse] = useUpdateCourseMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
+  const [restoreCourse] = useRestoreCourseMutation();
   const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = reactExports.useState("");
   const selectOptions = reactExports.useMemo(() => {
@@ -26255,7 +26261,8 @@ function CourseSelect() {
         data: {
           status: Number(course.status),
           title: course.title,
-          percentage: ((_a = course.percentage) == null ? void 0 : _a.percentage) || 0
+          percentage: ((_a = course.percentage) == null ? void 0 : _a.percentage) || 0,
+          isDeleted: !!course.is_deleted
         }
       };
     });
@@ -26295,10 +26302,34 @@ function CourseSelect() {
     });
     setLoaderActive(true);
   };
+  const handleDeleteCourse = () => {
+    deleteCourse({
+      id: Number(courseData.id)
+    }).then((res) => {
+      if ("result" in res && !res.result) {
+        alert("Что-то пошло не так...");
+        console.error(`Course with id: ${courseData.id} not found!`);
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreCourse = () => {
+    restoreCourse({
+      id: Number(courseData.id)
+    }).then((res) => {
+      if ("result" in res && !res.result) {
+        alert("Что-то пошло не так...");
+        console.error(`Course with id: ${courseData.id} not found!`);
+      }
+    });
+    setLoaderActive(true);
+  };
   const handleChange = (event) => {
     const selectedCourseId = event.target.value;
     setSelectedValue(`${selectedCourseId}`);
-    const selectedCourseData = coursesData == null ? void 0 : coursesData.find((course) => `${course.id}` === `${selectedCourseId}`);
+    const selectedCourseData = coursesData == null ? void 0 : coursesData.find(
+      (course) => `${course.id}` === `${selectedCourseId}`
+    );
     if (selectedCourseData) {
       setCourseData(selectedCourseData);
     }
@@ -26323,7 +26354,9 @@ function CourseSelect() {
           onAdd: handleAddCourse,
           onEdit: handleEditCourse,
           onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : void 0,
-          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : void 0
+          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : void 0,
+          onDelete: courseData.is_deleted ? void 0 : handleDeleteCourse,
+          onRestore: courseData.is_deleted ? handleRestoreCourse : void 0
         }
       }
     )

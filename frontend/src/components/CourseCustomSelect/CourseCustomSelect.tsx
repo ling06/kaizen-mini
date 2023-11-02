@@ -11,6 +11,7 @@ interface ICustomSelectOption {
     status: number;
     percentage: number;
     title: string;
+    isDeleted: boolean;
   };
 }
 
@@ -51,6 +52,7 @@ export function CourseCustomSelect({ options, value, onChange }: ICustomSelectPr
             percentage={option.data.percentage}
             status={option.data.status}
             isSelected={option.value === value}
+            isDeleted={option.data.isDeleted}
           />
         </MenuItem>
       ))}

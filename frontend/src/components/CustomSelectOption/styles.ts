@@ -19,7 +19,7 @@ export const CustomSelectOption = styled.label`
   }
 `;
 
-export const TextLabel = styled.p<{ $isSelected: boolean }>`
+export const TextLabel = styled.p<{ $isSelected: boolean; $isDeleted: boolean }>`
   margin-right: 30px;
   color: #000;
   font-family: 'Montserrat';
@@ -29,6 +29,7 @@ export const TextLabel = styled.p<{ $isSelected: boolean }>`
   &:first-child {
     font-weight: 700;
   }
+  text-decoration: ${(props) => (props.$isDeleted ? 'line-through' : 'none')};
 `;
 
 export const IsHiddenIcon = styled(C.Icon)`
