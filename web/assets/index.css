@@ -1,3 +1,18 @@
+
+.MuiSelect-select {
+  padding: 0;
+  padding-right: 45px;
+}
+
+.MuiMenu-paper.MuiPaper-rounded {
+  padding: 12px 0;
+  border-radius: 15px;
+  border: 3px solid #000;
+}
+
+.MuiMenu-list {
+  padding: 0;
+}
 /**
  * Swiper 10.3.1
  * Most modern mobile touch slider and framework with hardware accelerated transitions

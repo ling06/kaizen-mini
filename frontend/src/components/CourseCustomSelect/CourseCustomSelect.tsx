@@ -1,7 +1,8 @@
-// import * as S from './styles';
+import * as S from './styles';
 import { Select, SelectChangeEvent } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { CustomSelectOption } from '../CustomSelectOption';
+import './styles.css';
 
 interface ICustomSelectOption {
   value: string;
@@ -24,20 +25,32 @@ export function CourseCustomSelect({ options, value, onChange }: ICustomSelectPr
     <Select
       value={value}
       onChange={onChange}
+      IconComponent={S.SelectIcon}
       sx={{
-        width: '50%',
-        border: 0,
+        minWidth: '50%',
         marginRight: 'auto',
+        border: 0,
+        '& fieldset': { border: 'none' },
       }}>
       {options.map((option) => (
         <MenuItem
           key={option.value}
-          value={option.value}>
+          value={option.value}
+          sx={{
+            '&.Mui-selected': {
+              backgroundColor: '#f1f1f1 !important',
+            },
+            '&.Mui-selected:hover': {
+              backgroundColor: '#e0e0e0',
+            },
+            padding: '10px 25px',
+          }}>
           <CustomSelectOption
             key={option.value}
             title={`${option.data.title}`}
             percentage={option.data.percentage}
             status={option.data.status}
+            isSelected={option.value === value}
           />
         </MenuItem>
       ))}

@@ -7,6 +7,10 @@ interface IProfileProps {
   userData: IUser;
 }
 
+/*
+  TODO: Когда будут доступны аватарки пользователей с бэка, добавить UserAvatar
+*/
+
 export function Profile({ userData }: IProfileProps) {
   const [initials, setInitials] = useState<null | string>(null);
 

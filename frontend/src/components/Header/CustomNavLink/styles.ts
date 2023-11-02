@@ -8,14 +8,33 @@ interface ILinkProps {
 export const LinkContent = styled(C.Text)<ILinkProps>`
   display: flex;
   align-items: center;
+  position: relative;
   height: 100%;
   padding: 15px 0;
   color: ${(props) => (props.$isActive ? props.theme.colors.dark : props.theme.colors.mainBlue)};
-  border-bottom: ${props => props.$isActive ? `4px solid ${props.theme.colors.mainBlue}` : 'none'};
   transition: color .2s ease-in-out;
 
   &:hover {
     color: ${props => props.theme.colors.dark};
+  }
+
+  &::before {
+    display: ${props => props.$isActive ? 'block' : 'none'};
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    content: '';
+    transform: translateX(-50%);
+    background-color: ${props => props.theme.colors.mainBlue};
+    animation: elastic .2s ease-in-out forwards;
+  }
+
+  @keyframes elastic {
+    100% {
+      height: 4px;
+    }
   }
 `;
 

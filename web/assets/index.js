@@ -10208,7 +10208,7 @@ const USER_ROLES = {
   user: "user"
 };
 const doneIcon = "/assets/done.svg";
-const accrodionIcon = "/assets/accordionIcon.svg";
+const selectIcon = "/assets/accordionIcon.svg";
 const TextStyles = nt$1`
   font-size: 18px;
   font-weight: 700;
@@ -10353,7 +10353,7 @@ const AccordionIcon = st$1(Icon$1)`
   margin-right: 5px;
   transition: ${(props) => props.theme.utils.transition};
   transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
-  background-image: url(${accrodionIcon});
+  background-image: url(${selectIcon});
 `;
 const EditorParagraph = st$1(Text$3)`
   margin-bottom: 30px;
@@ -10399,14 +10399,33 @@ const EditorImg = st$1.img`
 const LinkContent = st$1(Text$3)`
   display: flex;
   align-items: center;
+  position: relative;
   height: 100%;
   padding: 15px 0;
   color: ${(props) => props.$isActive ? props.theme.colors.dark : props.theme.colors.mainBlue};
-  border-bottom: ${(props) => props.$isActive ? `4px solid ${props.theme.colors.mainBlue}` : "none"};
   transition: color .2s ease-in-out;
 
   &:hover {
     color: ${(props) => props.theme.colors.dark};
+  }
+
+  &::before {
+    display: ${(props) => props.$isActive ? "block" : "none"};
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    content: '';
+    transform: translateX(-50%);
+    background-color: ${(props) => props.theme.colors.mainBlue};
+    animation: elastic .2s ease-in-out forwards;
+  }
+
+  @keyframes elastic {
+    100% {
+      height: 4px;
+    }
   }
 `;
 const Icon = st$1(SvgIcon$2)`
@@ -16377,6 +16396,12 @@ const {
   useUpdateCourseMutation
 } = courseApi;
 const selectCourses = courseApi.endpoints.getCourses.select();
+const SelectIcon$1 = st$1(Icon$1)`
+  top: 25% !important;
+  width: 33px;
+  height: 33px;
+  background-image: url(${selectIcon});
+`;
 const common = {
   black: "#000",
   white: "#fff"
@@ -22715,7 +22740,7 @@ const _excluded$h = ["onChange", "maxRows", "minRows", "style", "value"];
 function getStyleValue(value) {
   return parseInt(value, 10) || 0;
 }
-const styles$2 = {
+const styles$3 = {
   shadow: {
     // Visibility needed to hide the extra text area on iPads
     visibility: "hidden",
@@ -22874,7 +22899,7 @@ const TextareaAutosize = /* @__PURE__ */ reactExports.forwardRef(function Textar
       readOnly: true,
       ref: shadowRef,
       tabIndex: -1,
-      style: _extends$1({}, styles$2.shadow, style2, {
+      style: _extends$1({}, styles$3.shadow, style2, {
         paddingTop: 0,
         paddingBottom: 0
       })
@@ -23355,7 +23380,7 @@ const ArrowDropDownIcon = createSvgIcon(/* @__PURE__ */ jsxRuntimeExports.jsx("p
   d: "M7 10l5 5 5-5z"
 }), "ArrowDropDown");
 const _excluded$f = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
-const styles$1 = {
+const styles$2 = {
   entering: {
     opacity: 1
   },
@@ -23454,7 +23479,7 @@ const Fade = /* @__PURE__ */ reactExports.forwardRef(function Fade2(props, ref) 
         style: _extends$1({
           opacity: 0,
           visibility: state === "exited" && !inProp ? "hidden" : void 0
-        }, styles$1[state], style2, children.props.style),
+        }, styles$2[state], style2, children.props.style),
         ref: handleRef
       }, childProps));
     }
@@ -23939,7 +23964,7 @@ const _excluded$b = ["addEndListener", "appear", "children", "easing", "in", "on
 function getScale(value) {
   return `scale(${value}, ${value ** 2})`;
 }
-const styles = {
+const styles$1 = {
   entering: {
     opacity: 1,
     transform: getScale(1)
@@ -24084,7 +24109,7 @@ const Grow = /* @__PURE__ */ reactExports.forwardRef(function Grow2(props, ref) 
           opacity: 0,
           transform: getScale(0.75),
           visibility: state === "exited" && !inProp ? "hidden" : void 0
-        }, styles[state], style2, children.props.style),
+        }, styles$1[state], style2, children.props.style),
         ref: handleRef
       }, childProps));
     }
@@ -26129,9 +26154,10 @@ function ProgressCounter({ percentage = 0 }) {
 const CustomSelectOption$1 = st$1.label`
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  width: 570px;
-  height: 63px;
+  border: 0;
+  padding-bottom: 5px;
+  /* padding: 0 20px; */
+  /* height: 63px; */
   cursor: pointer;
   &*:first-child {
     padding: 0;
@@ -26141,13 +26167,11 @@ const CustomSelectOption$1 = st$1.label`
   }
 `;
 const TextLabel = st$1.p`
-  max-width: 365px;
-
-  margin-right: auto;
+  margin-right: 30px;
   color: #000;
   font-family: 'Montserrat';
   font-size: 24.923px;
-  font-weight: 500;
+  font-weight: ${(props) => props.$isSelected ? 700 : 500};
   line-height: 120%;
   &:first-child {
     font-weight: 700;
@@ -26156,37 +26180,50 @@ const TextLabel = st$1.p`
 const IsHiddenIcon = st$1(Icon$1)`
   background-image: url(${isHideIcon});
 `;
-function CustomSelectOption({ percentage, status, title }) {
+function CustomSelectOption({ percentage, status, title, isSelected }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { $isSelected: isSelected, children: [
       "Курс: ",
       title
     ] }),
     status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
   ] });
 }
+const styles = "";
 function CourseCustomSelect({ options, value, onChange }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     Select$1,
     {
       value,
       onChange,
+      IconComponent: SelectIcon$1,
       sx: {
-        width: "50%",
+        minWidth: "50%",
+        marginRight: "auto",
         border: 0,
-        marginRight: "auto"
+        "& fieldset": { border: "none" }
       },
       children: options.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         MenuItem$1,
         {
           value: option.value,
+          sx: {
+            "&.Mui-selected": {
+              backgroundColor: "#f1f1f1 !important"
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#e0e0e0"
+            },
+            padding: "10px 25px"
+          },
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             CustomSelectOption,
             {
               title: `${option.data.title}`,
               percentage: option.data.percentage,
-              status: option.data.status
+              status: option.data.status,
+              isSelected: option.value === value
             },
             option.value
           )
