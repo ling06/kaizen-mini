@@ -24,7 +24,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
   const { data, isError, isFetching } = useGetLessonByIdQuery(`${lessonId}`, {
     skip: !lessonId,
   });
-  const { tests } = useTypedSelector((state) => state.lesson);
+  const tests = useTypedSelector((state) => state.lesson.tests);
   const { addEmptyTest, setTestsData } = useActions();
 
   const [createLesson] = useCreateLessonMutation();
@@ -39,7 +39,6 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setLessonName(data.data.title);
       setValidName(true);
       setChangedName(false);
-      console.log(data.data.tests);
       setTestsData(data.data.tests);
       if (!editor) {
         try {
@@ -75,7 +74,11 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
 
     return () => {
       if (editor) {
-        editor.destroy();
+        try {
+          editor.destroy();
+        } catch(err) {
+          console.log(err);
+        }
         editor = undefined;
       }
     };

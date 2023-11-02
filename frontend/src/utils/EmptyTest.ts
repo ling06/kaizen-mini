@@ -20,7 +20,7 @@ export class EmptyTest {
       {
         id: nanoid(),
         answer: '',
-        right_answer: false,
+        right_answer: true,
         text: '',
       },
     ];
