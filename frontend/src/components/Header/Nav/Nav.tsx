@@ -1,6 +1,5 @@
 import { CustomNavLink, ICustomNavLinkProps } from '../CustomNavLink';
 import * as S from './styles';
-import * as C from '@styles/components';
 
 interface INavLinks {
   [key: string]: ICustomNavLinkProps;
@@ -17,7 +16,7 @@ const navLinks: INavLinks = {
   },
   education: {
     url: '/courses',
-    name: 'Учёба',
+    name: 'Курсы',
     icon: {
       withIcon: false,
       iconUrl: '',
@@ -35,7 +34,7 @@ const navLinks: INavLinks = {
 
 export function Nav() {
   return (
-    <C.DefaultContainer>
+    <S.Container>
       <S.NavBar>
         {Object.values(navLinks).map((navLink, index) => (
           <CustomNavLink
@@ -44,6 +43,6 @@ export function Nav() {
           />
         ))}
       </S.NavBar>
-    </C.DefaultContainer>
+    </S.Container>
   );
 }

@@ -15,7 +15,7 @@ export function CustomNavLink({ url, name, icon }: ICustomNavLinkProps) {
     <NavLink
       to={url}
       style={() => {
-        return { textDecoration: 'unset' };
+        return { textDecoration: 'unset', height: '100%' };
       }}>
       {({ isActive }) => (
         <S.LinkContent $isActive={isActive}>

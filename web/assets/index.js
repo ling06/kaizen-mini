@@ -10174,19 +10174,17 @@ function Layout({ children }) {
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 0 15px;
   border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
 const MainLogo$1 = st$1.img`
-  ${(props) => props.$styles}
 `;
 const mainLogo = "/assets/mainLogo.svg";
-function MainLogo({ $styles }) {
+function MainLogo() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     MainLogo$1,
     {
-      $styles,
       src: mainLogo
     }
   );
@@ -10401,12 +10399,14 @@ const EditorImg = st$1.img`
 const LinkContent = st$1(Text$3)`
   display: flex;
   align-items: center;
-  /* padding-bottom: 8px; */
-  /* font-size: 15px; */
+  height: 100%;
+  padding: 15px 0;
   color: ${(props) => props.$isActive ? props.theme.colors.dark : props.theme.colors.mainBlue};
+  border-bottom: ${(props) => props.$isActive ? `4px solid ${props.theme.colors.mainBlue}` : "none"};
+  transition: color .2s ease-in-out;
 
   &:hover {
-    text-decoration: underline;
+    color: ${(props) => props.theme.colors.dark};
   }
 `;
 const Icon = st$1(SvgIcon$2)`
@@ -10421,7 +10421,7 @@ function CustomNavLink({ url, name, icon }) {
     {
       to: url,
       style: () => {
-        return { textDecoration: "unset" };
+        return { textDecoration: "unset", height: "100%" };
       },
       children: ({ isActive }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(LinkContent, { $isActive: isActive, children: [
         icon.withIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { $isActive: isActive }),
@@ -10430,10 +10430,17 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
+const Container$s = st$1(FlexContainer)`
+  max-width: min(1360px, 73%);
+  margin: 0 auto;
+  width: 100%;
+`;
 const NavBar = st$1.ul`
   display: flex;
   align-items: center;
   gap: 80px;
+  height: 1px;
+  min-height: 60px;
 `;
 const navLinks = {
   news: {
@@ -10446,7 +10453,7 @@ const navLinks = {
   },
   education: {
     url: "/courses",
-    name: "Учёба",
+    name: "Курсы",
     icon: {
       withIcon: false,
       iconUrl: ""
@@ -10462,7 +10469,7 @@ const navLinks = {
   // },
 };
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -10470,52 +10477,6 @@ function Nav() {
     }
   )) }) });
 }
-const BoxHeaderElements$1 = st$1.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0 11px;
-`;
-const Profile$1 = st$1.img`
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  background-color: #e0e0e0;
-  overflow: hidden;
-`;
-function Profile() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Profile$1, {});
-}
-function BoxHeaderElements() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, {}) });
-}
-function Header() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements, {})
-  ] });
-}
-const Container$p = st$1(FlexContainer)`
-  align-items: center;
-  margin-bottom: 20px;
-`;
-st$1.div`
-  padding: 3px 15px;
-  margin-right: 20px;
-  font-weight: 700;
-  font-size: 24.923px;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realWhite};
-  background-color: ${(props) => props.theme.colors.mainBlue};
-  border-radius: 18px;
-`;
-st$1(Text$3)`
-  font-weight: 24.923px;
-`;
 var shim = { exports: {} };
 var useSyncExternalStoreShim_production_min = {};
 /**
@@ -11171,6 +11132,7 @@ function createDispatchHook(context = ReactReduxContext) {
 const useDispatch = /* @__PURE__ */ createDispatchHook();
 initializeUseSelector(withSelectorExports.useSyncExternalStoreWithSelector);
 setBatch(reactDomExports.unstable_batchedUpdates);
+const useTypedSelector = useSelector;
 function n(n2) {
   for (var r2 = arguments.length, t2 = Array(r2 > 1 ? r2 - 1 : 0), e2 = 1; e2 < r2; e2++)
     t2[e2 - 1] = arguments[e2];
@@ -13171,415 +13133,6 @@ typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "un
   });
 };
 F$1();
-const ModalInitialState = {
-  isModalOpen: false,
-  modalType: ""
-};
-const modalSlice = createSlice({
-  name: "modal",
-  initialState: ModalInitialState,
-  reducers: {
-    setModalOpen: (state, { payload }) => {
-      state.isModalOpen = payload;
-      payload ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset";
-    },
-    setModalType: (state, { payload }) => {
-      state.modalType = payload;
-    }
-  }
-});
-const { actions: actions$4, reducer: reducer$5 } = modalSlice;
-const AuthInitialState = {
-  token: null
-};
-const authSlice = createSlice({
-  name: "auth",
-  initialState: AuthInitialState,
-  reducers: {
-    setAuthToken: (state, { payload }) => {
-      state.token = payload;
-    }
-  }
-});
-const { actions: actions$3, reducer: reducer$4 } = authSlice;
-const courseInitialState = {
-  data: {
-    id: 0,
-    title: "",
-    description: "",
-    is_open: 0,
-    status: 0,
-    user_id: 0,
-    date: "",
-    is_deleted: 0,
-    chapters: []
-  },
-  activeChapterId: null,
-  activeTheme: null,
-  activeLesson: null,
-  updatingChapterData: null,
-  updatingThemeData: null
-};
-const courseSlice = createSlice({
-  name: "course",
-  initialState: courseInitialState,
-  reducers: {
-    setCourseData: (state, { payload }) => {
-      return {
-        ...state,
-        ...{ data: payload || courseInitialState.data }
-      };
-    },
-    changeCourseData: (state, { payload }) => {
-      state.data = { ...state.data, ...payload };
-    },
-    setActiveChapterId: (state, { payload }) => {
-      state.activeChapterId = payload;
-    },
-    addChapter: (state, { payload }) => {
-      var _a;
-      (_a = state.data.chapters) == null ? void 0 : _a.push(payload);
-    },
-    changeChapter: (state, { payload }) => {
-      var _a, _b;
-      if (!state.data || !state.data.chapters) {
-        console.warn(`No chapters in course`);
-        return;
-      }
-      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
-        (chapter) => chapter.id === Number(payload.id)
-      );
-      if (currentChapterIndex === -1) {
-        console.error(`No chapter with id: ${payload.id}`);
-        return;
-      }
-      state.data.chapters[currentChapterIndex] = {
-        ...state.data.chapters[currentChapterIndex],
-        ...payload
-      };
-    },
-    setActiveTheme: (state, { payload }) => {
-      state.activeTheme = { ...payload };
-    },
-    setActiveLesson: (state, { payload }) => {
-      state.activeLesson = { ...payload };
-    },
-    setUpdatingChapterData: (state, { payload }) => {
-      state.updatingChapterData = { ...payload };
-    },
-    setUpdatingThemeData: (state, { payload }) => {
-      state.updatingThemeData = { ...payload };
-    }
-  }
-});
-const { actions: actions$2, reducer: reducer$3 } = courseSlice;
-const loaderInitialState = {
-  active: false
-};
-const loaderSlice = createSlice({
-  name: "loader",
-  initialState: loaderInitialState,
-  reducers: {
-    setLoaderActive(state, { payload }) {
-      state.active = payload;
-    }
-  }
-});
-const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
-class EmptyAnswer {
-  constructor() {
-    __publicField(this, "id");
-    __publicField(this, "answer");
-    __publicField(this, "right_answer");
-    __publicField(this, "text");
-    this.id = nanoid();
-    this.answer = "";
-    this.right_answer = false;
-    this.text = "";
-  }
-}
-class EmptyTest {
-  constructor() {
-    __publicField(this, "id");
-    __publicField(this, "question");
-    __publicField(this, "answers");
-    this.id = nanoid();
-    this.question = "";
-    this.answers = [
-      {
-        id: nanoid(),
-        answer: "",
-        right_answer: false,
-        text: ""
-      },
-      {
-        id: nanoid(),
-        answer: "",
-        right_answer: true,
-        text: ""
-      }
-    ];
-  }
-}
-const lessonInitialState = {
-  tests: []
-};
-const lessonSlice = createSlice({
-  name: "lesson",
-  initialState: lessonInitialState,
-  reducers: {
-    addEmptyTest: (state) => {
-      let tests = state.tests;
-      tests = [...tests, new EmptyTest()];
-      return {
-        ...state,
-        tests
-      };
-    },
-    deleteTest: (state, { payload }) => {
-      const updatedTests = state.tests.filter((test) => test.id !== payload);
-      return {
-        ...state,
-        tests: updatedTests
-      };
-    },
-    addAnswer: (state, { payload }) => {
-      const { tests } = state;
-      const testIndex = tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1)
-        return state;
-      const newTests = [...tests];
-      newTests[testIndex] = {
-        ...newTests[testIndex],
-        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
-      };
-      return {
-        ...state,
-        tests: newTests
-      };
-    },
-    deleteAnswer: (state, { payload }) => {
-      const { testId, answerId } = payload;
-      const testIndex = state.tests.findIndex((test) => test.id === testId);
-      if (testIndex === -1) {
-        return state;
-      }
-      const filteredAnswers = state.tests[testIndex].answers.filter(
-        (answer) => answer.id !== answerId
-      );
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === testId) {
-          test.answers = filteredAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    setTestsData: (state, { payload }) => {
-      state.tests = [...payload];
-    },
-    changeTestQuestion: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1) {
-        return state;
-      }
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.id) {
-          test.question = payload.question;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    toggleAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.isRight) {
-          if (answer.id === payload.answerId && payload.isRight) {
-            answer.right_answer = payload.isRight;
-          } else {
-            answer.right_answer = false;
-          }
-        } else {
-          answer.right_answer = payload.isRight;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    changeAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.answerId === answer.id) {
-          answer.answer = payload.value;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    changeAnswerComment: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.answerId === answer.id) {
-          answer.text = payload.value;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    }
-  }
-});
-const { reducer: reducer$1, actions } = lessonSlice;
-const rootActions = {
-  ...actions$3,
-  ...actions$4,
-  ...actions$2,
-  ...actions$1,
-  ...actions
-};
-const useActions = () => {
-  const dispatch = useDispatch();
-  return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
-};
-const editIcon$1 = "/assets/editIcon.svg";
-const addIcon$2 = "/assets/addIcon.svg";
-const AdminBtn$1 = st$1.button`
-  position: relative;
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$1 : addIcon$2});
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-`;
-const isHideIcon = "/assets/hideIcon.svg";
-const addIcon$1 = "/assets/addIconBlack.svg";
-const editIcon = "/assets/editIconRed.svg";
-const deleteIcon = "/assets/deleteIcon.svg";
-const visibleIcon = "/assets/visibleIcon.svg";
-const Container$o = st$1(FlexContainer)`
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: ${(props) => props.theme.utils.zIndex.popup};
-  padding: 15px 10px 10px;
-  width: 320px;
-  /* min-height: 316px; */
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.greyF1};
-  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
-`;
-const Title$c = st$1(Text$3)`
-  margin-bottom: 15px;
-  text-align: center;
-`;
-const Btn = st$1.div`
-  ${TextStyles}
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-  transition: ${(props) => props.theme.utils.transition};
-
-  &:not(:last-child) {
-    margin-bottom: 5px;
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.greyF1};
-  }
-`;
-const HideBtn = st$1(Btn)``;
-const VisibleBtn = st$1(Btn)``;
-const AddBtn = st$1(Btn)``;
-const EditBtn = st$1(Btn)``;
-const DeleteBtn$2 = st$1(Btn)`
-  color: ${(props) => props.theme.colors.yRed};
-`;
-const RestoreBtn = st$1(Btn)``;
-const BtnIcon = st$1(Icon$1)`
-  margin-right: 15px;
-`;
-const HideIcon = st$1(BtnIcon)`
-  background-image: url(${isHideIcon});
-`;
-const AddIcon = st$1(BtnIcon)`
-  background-image: url(${addIcon$1});
-`;
-const EditIcon = st$1(BtnIcon)`
-  background-image: url(${editIcon});
-`;
-const DeleteIcon = st$1(BtnIcon)`
-  background-image: url(${deleteIcon});
-`;
-const VisibleIcon = st$1(BtnIcon)`
-  background-image: url(${visibleIcon});
-`;
-function ControlsPopup({
-  innerRef,
-  name,
-  onHide,
-  onAdd,
-  onDelete,
-  onEdit,
-  onRestore,
-  onVisible
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
-    onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
-      "скрыть"
-    ] }),
-    onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
-      "показать"
-    ] }),
-    onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
-      "добавить"
-    ] }),
-    onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon, {}),
-      "изменить"
-    ] }),
-    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon, {}),
-      "удалить"
-    ] }),
-    onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
-  ] });
-}
-const useTypedSelector = useSelector;
 var __generator = globalThis && globalThis.__generator || function(thisArg, body2) {
   var _2 = { label: 0, sent: function() {
     if (t2[0] & 1)
@@ -16227,6 +15780,489 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
+const Container$r = st$1.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+const Container$q = st$1.div``;
+const InitialsWrapper = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid ${(props) => props.theme.colors.greyF1};
+`;
+const Initials = st$1.p`
+width: fit-content;
+text-align: center;
+font-size: 15px;
+font-weight: 400;
+line-height: 148%;
+text-transform: uppercase;
+color: ${(props) => props.theme.colors.mainBlue};
+`;
+const getInitials = (fullName) => {
+  if (!fullName) {
+    return "";
+  }
+  const [firstName, lastName] = fullName.split(" ");
+  if (!lastName || !firstName) {
+    return "";
+  }
+  return `${firstName[0]}${lastName[0]}`;
+};
+function Profile({ userData }) {
+  const [initials, setInitials] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    if (userData.name) {
+      const initials2 = getInitials(userData.name);
+      initials2.length > 1 ? setInitials(initials2) : setInitials(null);
+    }
+  }, [userData.name]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$q, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+}
+function ProfileBlock() {
+  const user = useTypedSelector((state) => {
+    var _a;
+    return (_a = selectUser(state).data) == null ? void 0 : _a.user;
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+}
+function Header() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {})
+  ] });
+}
+const Container$p = st$1(FlexContainer)`
+  align-items: center;
+  margin-bottom: 20px;
+`;
+st$1.div`
+  padding: 3px 15px;
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 24.923px;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => props.theme.colors.mainBlue};
+  border-radius: 18px;
+`;
+st$1(Text$3)`
+  font-weight: 24.923px;
+`;
+const ModalInitialState = {
+  isModalOpen: false,
+  modalType: ""
+};
+const modalSlice = createSlice({
+  name: "modal",
+  initialState: ModalInitialState,
+  reducers: {
+    setModalOpen: (state, { payload }) => {
+      state.isModalOpen = payload;
+      payload ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset";
+    },
+    setModalType: (state, { payload }) => {
+      state.modalType = payload;
+    }
+  }
+});
+const { actions: actions$4, reducer: reducer$5 } = modalSlice;
+const AuthInitialState = {
+  token: null
+};
+const authSlice = createSlice({
+  name: "auth",
+  initialState: AuthInitialState,
+  reducers: {
+    setAuthToken: (state, { payload }) => {
+      state.token = payload;
+    }
+  }
+});
+const { actions: actions$3, reducer: reducer$4 } = authSlice;
+const courseInitialState = {
+  data: {
+    id: 0,
+    title: "",
+    description: "",
+    is_open: 0,
+    status: 0,
+    user_id: 0,
+    date: "",
+    is_deleted: 0,
+    chapters: []
+  },
+  activeChapterId: null,
+  activeTheme: null,
+  activeLesson: null,
+  updatingChapterData: null,
+  updatingThemeData: null
+};
+const courseSlice = createSlice({
+  name: "course",
+  initialState: courseInitialState,
+  reducers: {
+    setCourseData: (state, { payload }) => {
+      return {
+        ...state,
+        ...{ data: payload || courseInitialState.data }
+      };
+    },
+    changeCourseData: (state, { payload }) => {
+      state.data = { ...state.data, ...payload };
+    },
+    setActiveChapterId: (state, { payload }) => {
+      state.activeChapterId = payload;
+    },
+    addChapter: (state, { payload }) => {
+      var _a;
+      (_a = state.data.chapters) == null ? void 0 : _a.push(payload);
+    },
+    changeChapter: (state, { payload }) => {
+      var _a, _b;
+      if (!state.data || !state.data.chapters) {
+        console.warn(`No chapters in course`);
+        return;
+      }
+      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
+        (chapter) => chapter.id === Number(payload.id)
+      );
+      if (currentChapterIndex === -1) {
+        console.error(`No chapter with id: ${payload.id}`);
+        return;
+      }
+      state.data.chapters[currentChapterIndex] = {
+        ...state.data.chapters[currentChapterIndex],
+        ...payload
+      };
+    },
+    setActiveTheme: (state, { payload }) => {
+      state.activeTheme = { ...payload };
+    },
+    setActiveLesson: (state, { payload }) => {
+      state.activeLesson = { ...payload };
+    },
+    setUpdatingChapterData: (state, { payload }) => {
+      state.updatingChapterData = { ...payload };
+    },
+    setUpdatingThemeData: (state, { payload }) => {
+      state.updatingThemeData = { ...payload };
+    }
+  }
+});
+const { actions: actions$2, reducer: reducer$3 } = courseSlice;
+const loaderInitialState = {
+  active: false
+};
+const loaderSlice = createSlice({
+  name: "loader",
+  initialState: loaderInitialState,
+  reducers: {
+    setLoaderActive(state, { payload }) {
+      state.active = payload;
+    }
+  }
+});
+const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+class EmptyAnswer {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
+    this.id = nanoid();
+    this.answer = "";
+    this.right_answer = false;
+    this.text = "";
+  }
+}
+class EmptyTest {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
+    this.id = nanoid();
+    this.question = "";
+    this.answers = [
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: false,
+        text: ""
+      },
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: true,
+        text: ""
+      }
+    ];
+  }
+}
+const lessonInitialState = {
+  tests: []
+};
+const lessonSlice = createSlice({
+  name: "lesson",
+  initialState: lessonInitialState,
+  reducers: {
+    addEmptyTest: (state) => {
+      let tests = state.tests;
+      tests = [...tests, new EmptyTest()];
+      return {
+        ...state,
+        tests
+      };
+    },
+    deleteTest: (state, { payload }) => {
+      const updatedTests = state.tests.filter((test) => test.id !== payload);
+      return {
+        ...state,
+        tests: updatedTests
+      };
+    },
+    addAnswer: (state, { payload }) => {
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1)
+        return state;
+      const newTests = [...tests];
+      newTests[testIndex] = {
+        ...newTests[testIndex],
+        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
+      };
+      return {
+        ...state,
+        tests: newTests
+      };
+    },
+    deleteAnswer: (state, { payload }) => {
+      const { testId, answerId } = payload;
+      const testIndex = state.tests.findIndex((test) => test.id === testId);
+      if (testIndex === -1) {
+        return state;
+      }
+      const filteredAnswers = state.tests[testIndex].answers.filter(
+        (answer) => answer.id !== answerId
+      );
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === testId) {
+          test.answers = filteredAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    setTestsData: (state, { payload }) => {
+      state.tests = [...payload];
+    },
+    changeTestQuestion: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1) {
+        return state;
+      }
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.id) {
+          test.question = payload.question;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    toggleAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.isRight) {
+          if (answer.id === payload.answerId && payload.isRight) {
+            answer.right_answer = payload.isRight;
+          } else {
+            answer.right_answer = false;
+          }
+        } else {
+          answer.right_answer = payload.isRight;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.answer = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswerComment: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.text = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    }
+  }
+});
+const { reducer: reducer$1, actions } = lessonSlice;
+const rootActions = {
+  ...actions$3,
+  ...actions$4,
+  ...actions$2,
+  ...actions$1,
+  ...actions
+};
+const useActions = () => {
+  const dispatch = useDispatch();
+  return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
+};
+const editIcon$1 = "/assets/editIcon.svg";
+const addIcon$2 = "/assets/addIcon.svg";
+const AdminBtn$1 = st$1.button`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$1 : addIcon$2});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+`;
+const isHideIcon = "/assets/hideIcon.svg";
+const addIcon$1 = "/assets/addIconBlack.svg";
+const editIcon = "/assets/editIconRed.svg";
+const deleteIcon = "/assets/deleteIcon.svg";
+const visibleIcon = "/assets/visibleIcon.svg";
+const Container$o = st$1(FlexContainer)`
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: ${(props) => props.theme.utils.zIndex.popup};
+  padding: 15px 10px 10px;
+  width: 320px;
+  /* min-height: 316px; */
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.greyF1};
+  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+`;
+const Title$c = st$1(Text$3)`
+  margin-bottom: 15px;
+  text-align: center;
+`;
+const Btn = st$1.div`
+  ${TextStyles}
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+  transition: ${(props) => props.theme.utils.transition};
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.greyF1};
+  }
+`;
+const HideBtn = st$1(Btn)``;
+const VisibleBtn = st$1(Btn)``;
+const AddBtn = st$1(Btn)``;
+const EditBtn = st$1(Btn)``;
+const DeleteBtn$2 = st$1(Btn)`
+  color: ${(props) => props.theme.colors.yRed};
+`;
+const RestoreBtn = st$1(Btn)``;
+const BtnIcon = st$1(Icon$1)`
+  margin-right: 15px;
+`;
+const HideIcon = st$1(BtnIcon)`
+  background-image: url(${isHideIcon});
+`;
+const AddIcon = st$1(BtnIcon)`
+  background-image: url(${addIcon$1});
+`;
+const EditIcon = st$1(BtnIcon)`
+  background-image: url(${editIcon});
+`;
+const DeleteIcon = st$1(BtnIcon)`
+  background-image: url(${deleteIcon});
+`;
+const VisibleIcon = st$1(BtnIcon)`
+  background-image: url(${visibleIcon});
+`;
+function ControlsPopup({
+  innerRef,
+  name,
+  onHide,
+  onAdd,
+  onDelete,
+  onEdit,
+  onRestore,
+  onVisible
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { ref: innerRef, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
+    onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
+      "скрыть"
+    ] }),
+    onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
+      "показать"
+    ] }),
+    onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
+      "добавить"
+    ] }),
+    onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon, {}),
+      "изменить"
+    ] }),
+    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon, {}),
+      "удалить"
+    ] }),
+    onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
+  ] });
+}
 const body = document.body;
 function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: styles2 = {} }) {
   const [isPopup, setPopup] = reactExports.useState();
