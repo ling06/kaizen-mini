@@ -25,7 +25,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     skip: !lessonId,
   });
   const tests = useTypedSelector((state) => state.lesson.tests);
-  const { addEmptyTest, setTestsData } = useActions();
+  const { addEmptyTest, setTestsData, setLoaderActive } = useActions();
 
   const [createLesson] = useCreateLessonMutation();
   const [updateLesson] = useUpdateLessonMutation();
@@ -146,6 +146,7 @@ TODO: на фронте создаются id для новых сущносте
         .catch((error) => {
           console.error(error);
         });
+        setLoaderActive(true);
 
       return;
     }
@@ -164,6 +165,7 @@ TODO: на фронте создаются id для новых сущносте
       .catch((error) => {
         console.error(error);
       });
+      setLoaderActive(true);
   };
 
   const controlsData = {

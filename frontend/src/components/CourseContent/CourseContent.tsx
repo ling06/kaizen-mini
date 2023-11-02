@@ -95,9 +95,14 @@ export function CourseContent() {
     });
   };
 
-  // const renderLessonTests = () => {
-  //   return ;
-  // };
+  const renderLessonTests = () => {
+    return data?.data.tests.map((test) => (
+      <LessonTest
+        key={test.id}
+        data={test}
+      />
+    ));
+  };
 
   const renderForwardButton = () => {
     return (
@@ -125,13 +130,7 @@ export function CourseContent() {
           </S.Title>
           <S.Container>
             <S.EditorOutput>{renderEditorOutput()}</S.EditorOutput>
-            {data.data.tests.length > 0 &&
-              data?.data.tests.map((test) => (
-                <LessonTest
-                  key={test.id}
-                  data={test}
-                />
-              ))}
+            {data.data.tests.length > 0 && renderLessonTests()}
             {editorData && !isFetching && !data.data.isChecked && renderForwardButton()}
           </S.Container>
         </>

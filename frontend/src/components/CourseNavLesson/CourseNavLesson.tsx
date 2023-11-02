@@ -5,6 +5,7 @@ import * as C from '@styles/components';
 import { useActions } from '@/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
 
 interface ICourseNavLessonProps {
   data: ILesson;
@@ -12,9 +13,11 @@ interface ICourseNavLessonProps {
 
 export function CourseNavLesson({ data }: ICourseNavLessonProps) {
   const [isInit, setInit] = useState<boolean>(true);
-  const { setActiveLesson } = useActions();
+  const { setActiveLesson, setLoaderActive } = useActions();
   const navigate = useNavigate();
   const { lessonId, chapterId, courseId } = useParams();
+  const [deleteLesson] = useDeleteLessonMutation();
+  const [restoreLesson] = useRestoreLessonMutation();
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -42,12 +45,26 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
         chapterId: String(chapterId),
         themeId: String(data.theme_id),
         lessonId: String(data.id),
-      }),
+      })
     );
-  }
+  };
+
+  const handleDeleteLesson = () => {
+    deleteLesson({
+      id: Number(data.id),
+    });
+    setLoaderActive(true);
+  };
+
+  const handleRestoreLesson = () => {
+    restoreLesson({
+      id: Number(data.id),
+    });
+    setLoaderActive(true);
+  };
 
   return (
-    <S.Container onClick={handleClick}>
+    <S.Container $isDeleted={!!data.is_deleted} onClick={handleClick}>
       <S.LessonName $active={!data.isChecked}>{data.title}</S.LessonName>
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
@@ -57,6 +74,8 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
         onClick={() => {}}
         popupHandlers={{
           onEdit: handleEditLesson,
+          onDelete: data.is_deleted ? undefined : handleDeleteLesson,
+          onRestore: data.is_deleted ? handleRestoreLesson : undefined,
         }}
       />
     </S.Container>

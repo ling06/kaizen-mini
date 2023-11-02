@@ -26682,17 +26682,93 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$i = st$1(FlexContainer)`
+const Container$i = st$1.div`
+  display: flex;
   align-items: center;
+  width: 100%;
   margin-bottom: 30px;
   cursor: pointer;
+  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 const LessonName = st$1(CourseNavText)``;
+const lessonApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getLessonById: builder.query({
+      query: (id2) => `lesson/${id2}`,
+      providesTags: () => [
+        {
+          type: "LessonById"
+        }
+      ]
+    }),
+    createLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/create-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "ChapterById"
+        }
+      ]
+    }),
+    updateLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/update-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById"]
+    }),
+    deleteLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/delete-Lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById", "ChapterById"]
+    }),
+    restoreLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/restore-Lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById", "ChapterById"]
+    }),
+    checkLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/check-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById", "LessonById"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCheckLessonMutation,
+  useCreateLessonMutation,
+  useDeleteLessonMutation,
+  useGetLessonByIdQuery,
+  useRestoreLessonMutation,
+  useUpdateLessonMutation
+} = lessonApi;
 function CourseNavLesson({ data }) {
   const [isInit, setInit] = reactExports.useState(true);
-  const { setActiveLesson } = useActions();
+  const { setActiveLesson, setLoaderActive } = useActions();
   const navigate = useNavigate();
   const { lessonId, chapterId, courseId } = useParams();
+  const [deleteLesson] = useDeleteLessonMutation();
+  const [restoreLesson] = useRestoreLessonMutation();
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -26721,7 +26797,19 @@ function CourseNavLesson({ data }) {
       })
     );
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { onClick: handleClick, children: [
+  const handleDeleteLesson = () => {
+    deleteLesson({
+      id: Number(data.id)
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreLesson = () => {
+    restoreLesson({
+      id: Number(data.id)
+    });
+    setLoaderActive(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26733,7 +26821,9 @@ function CourseNavLesson({ data }) {
         onClick: () => {
         },
         popupHandlers: {
-          onEdit: handleEditLesson
+          onEdit: handleEditLesson,
+          onDelete: data.is_deleted ? void 0 : handleDeleteLesson,
+          onRestore: data.is_deleted ? handleRestoreLesson : void 0
         }
       }
     )
@@ -27137,69 +27227,6 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const lessonApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getLessonById: builder.query({
-      query: (id2) => `lesson/${id2}`,
-      providesTags: () => [
-        {
-          type: "LessonById"
-        }
-      ]
-    }),
-    createLesson: builder.mutation({
-      query: (data) => ({
-        url: "course/create-lesson",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [
-        {
-          type: "ChapterById"
-        }
-      ]
-    }),
-    updateLesson: builder.mutation({
-      query: (data) => ({
-        url: "course/update-lesson",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: ["LessonById"]
-    }),
-    deleteLesson: builder.mutation({
-      query: (data) => ({
-        url: "course/delete-Lesson",
-        method: "POST",
-        body: data
-      })
-    }),
-    restoreLesson: builder.mutation({
-      query: (data) => ({
-        url: "course/restore-Lesson",
-        method: "POST",
-        body: data
-      })
-    }),
-    checkLesson: builder.mutation({
-      query: (data) => ({
-        url: "course/check-lesson",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => ["ChapterById", "LessonById"]
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCheckLessonMutation,
-  useCreateLessonMutation,
-  useDeleteLessonMutation,
-  useGetLessonByIdQuery,
-  useRestoreLessonMutation,
-  useUpdateLessonMutation
-} = lessonApi;
 const Container$c = st$1(FlexContainer)`
   display: flex;
   width: 100%;
@@ -27501,6 +27528,15 @@ function CourseContent() {
       return null;
     });
   };
+  const renderLessonTests = () => {
+    return data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      LessonTest,
+      {
+        data: test
+      },
+      test.id
+    ));
+  };
   const renderForwardButton = () => {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       ForwardBtn,
@@ -27529,13 +27565,7 @@ function CourseContent() {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
-        data.data.tests.length > 0 && (data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-          LessonTest,
-          {
-            data: test
-          },
-          test.id
-        ))),
+        data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
       ] })
     ] })
@@ -47767,7 +47797,7 @@ function CreateLessonForm({ type }) {
     skip: !lessonId
   });
   const tests = useTypedSelector((state) => state.lesson.tests);
-  const { addEmptyTest, setTestsData } = useActions();
+  const { addEmptyTest, setTestsData, setLoaderActive } = useActions();
   const [createLesson] = useCreateLessonMutation();
   const [updateLesson] = useUpdateLessonMutation();
   const [lessonName, setLessonName] = reactExports.useState("");
@@ -47872,6 +47902,7 @@ function CreateLessonForm({ type }) {
       }).catch((error) => {
         console.error(error);
       });
+      setLoaderActive(true);
       return;
     }
     createLesson({
@@ -47886,6 +47917,7 @@ function CreateLessonForm({ type }) {
     }).catch((error) => {
       console.error(error);
     });
+    setLoaderActive(true);
   };
   const controlsData = {
     names: {
