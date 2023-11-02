@@ -10477,52 +10477,20 @@ const BoxHeaderElements$1 = st$1.div`
   align-items: center;
   gap: 0 11px;
 `;
-const CounterHeader$1 = st$1.p`
-  display: flex;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.colors.yRed};
-
-  font-family: "Montserrat";
-  font-size: 14.537px;
-  font-weight: 700;
-  line-height: 120%;
-  color: #fff;
-`;
-function CounterHeader() {
-  const [count, setCount] = reactExports.useState(0);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(CounterHeader$1, { children: count });
-}
 const Profile$1 = st$1.img`
   width: 42px;
-  height: 43px;
+  height: 42px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
   background-color: #e0e0e0;
+  overflow: hidden;
 `;
 function Profile() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Profile$1, {});
 }
-const Search$1 = st$1.img`
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-`;
-const serchHeader = "/assets/search-header.svg";
-console.log(111);
-function Search() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Search$1, { src: serchHeader });
-}
 function BoxHeaderElements() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(BoxHeaderElements$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Search, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CounterHeader, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, {})
-  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BoxHeaderElements$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, {}) });
 }
 function Header() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
@@ -26729,7 +26697,7 @@ const lessonApi = api.injectEndpoints({
     }),
     deleteLesson: builder.mutation({
       query: (data) => ({
-        url: "course/delete-Lesson",
+        url: "course/delete-lesson",
         method: "POST",
         body: data
       }),
@@ -26737,7 +26705,7 @@ const lessonApi = api.injectEndpoints({
     }),
     restoreLesson: builder.mutation({
       query: (data) => ({
-        url: "course/restore-Lesson",
+        url: "course/restore-lesson",
         method: "POST",
         body: data
       }),

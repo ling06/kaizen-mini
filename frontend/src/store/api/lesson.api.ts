@@ -36,7 +36,7 @@ export const lessonApi = api.injectEndpoints({
     }),
     deleteLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
-        url: 'course/delete-Lesson',
+        url: 'course/delete-lesson',
         method: 'POST',
         body: data,
       }),
@@ -44,7 +44,7 @@ export const lessonApi = api.injectEndpoints({
     }),
     restoreLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
-        url: 'course/restore-Lesson',
+        url: 'course/restore-lesson',
         method: 'POST',
         body: data,
       }),
