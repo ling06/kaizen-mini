@@ -7,6 +7,7 @@ use app\modules\course\models\Answer;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Question;
 use app\modules\course\models\Test;
+use app\modules\course\models\UserCheck;
 use app\modules\course\models\UserTestAnswer;
 use Yii;
 
@@ -54,6 +55,7 @@ class LessonForm extends Lesson
             if (isset($tests['id']) && !empty($tests['id'])) {
                 if ($tests['question'] !== $testsFromDb[$tests['id']]->question) {
                     UserTestAnswer::deleteAll(['test_question_id' => $tests['id']]);
+                    UserCheck::deleteAll(['model_name' => Lesson::class, 'model_pk' => $this->id]);
                 }
                 $editedTests[] = $tests['id'];
                 $test = Test::find()->where(['id' => $tests['id']])->one();
@@ -63,13 +65,14 @@ class LessonForm extends Lesson
             $test->lesson_id = $this->id;
             $test->question = $tests['question'];
             if ($test->save() && !empty($test->id)) {
-                $answersFromDb = Question::find()->where(['test_id'=>$test->id])->all();
+                $answersFromDb = Question::find()->where(['test_id' => $test->id])->all();
                 foreach ($tests['answers'] as $answer) {
                     $editedAnswers[] = $answer['id'];
                     if (isset($answer['id']) && !empty($answer['id'])) {
                         $testAnswer = Question::find()->where(['id' => $answer['id']])->one();
-                        if($testAnswer->right_answer !== $answer['right_answer']){
+                        if ($testAnswer->right_answer !== $answer['right_answer']) {
                             UserTestAnswer::deleteAll(['test_question_id' => $tests['id']]);
+                            UserCheck::deleteAll(['model_name' => Lesson::class, 'model_pk' => $this->id]);
                         }
                     } else {
                         $testAnswer = new Question;
@@ -80,10 +83,11 @@ class LessonForm extends Lesson
                     $testAnswer->text = $answer['text'];
                     $testAnswer->save(false);
                 }
-                foreach ($answersFromDb as $dbAnswer){
-                    if(!in_array($dbAnswer->id, $editedAnswers)){
+                foreach ($answersFromDb as $dbAnswer) {
+                    if (!in_array($dbAnswer->id, $editedAnswers)) {
                         $dbAnswer->delete();
                         UserTestAnswer::deleteAll(['test_question_id' => $tests['id']]);
+                        UserCheck::deleteAll(['model_name' => Lesson::class, 'model_pk' => $this->id]);
                     }
                 }
             }
