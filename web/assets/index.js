@@ -10242,7 +10242,7 @@ const Text$3 = st$1.p`
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
 `;
-const Input$3 = st$1.input`
+const Input$2 = st$1.input`
   width: 100%;
   height: 60px;
   padding: 19px 29px;
@@ -10272,7 +10272,7 @@ const SvgIcon$2 = st$1.svg.attrs({
     transition: ${(props) => props.theme.utils.transition};
   }
 `;
-const InputWithState = st$1(Input$3)`
+const InputWithState = st$1(Input$2)`
   ${(props) => {
   if (props.$isChanged && props.$isValid) {
     return nt$1`
@@ -10449,7 +10449,7 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$s = st$1(FlexContainer)`
+const Container$t = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10488,7 +10488,7 @@ const navLinks = {
   // },
 };
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15799,12 +15799,12 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$r = st$1.div`
+const Container$s = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
-const Container$q = st$1.div``;
+const Container$r = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15841,14 +15841,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$q, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 function Header() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
@@ -15857,7 +15857,7 @@ function Header() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {})
   ] });
 }
-const Container$p = st$1(FlexContainer)`
+const Container$q = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -16168,24 +16168,24 @@ const useActions = () => {
   const dispatch = useDispatch();
   return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
 };
-const editIcon$1 = "/assets/editIcon.svg";
+const editIcon$2 = "/assets/editIcon.svg";
 const addIcon$2 = "/assets/addIcon.svg";
 const AdminBtn$1 = st$1.button`
   position: relative;
   width: 24px;
   height: 24px;
   background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$1 : addIcon$2});
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
 `;
 const isHideIcon = "/assets/hideIcon.svg";
 const addIcon$1 = "/assets/addIconBlack.svg";
-const editIcon = "/assets/editIconRed.svg";
-const deleteIcon = "/assets/deleteIcon.svg";
+const editIcon$1 = "/assets/editIconRed.svg";
+const deleteIcon$1 = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Container$o = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   flex-direction: column;
   position: absolute;
   top: 100%;
@@ -16238,11 +16238,11 @@ const HideIcon = st$1(BtnIcon)`
 const AddIcon = st$1(BtnIcon)`
   background-image: url(${addIcon$1});
 `;
-const EditIcon = st$1(BtnIcon)`
-  background-image: url(${editIcon});
+const EditIcon$1 = st$1(BtnIcon)`
+  background-image: url(${editIcon$1});
 `;
-const DeleteIcon = st$1(BtnIcon)`
-  background-image: url(${deleteIcon});
+const DeleteIcon$1 = st$1(BtnIcon)`
+  background-image: url(${deleteIcon$1});
 `;
 const VisibleIcon = st$1(BtnIcon)`
   background-image: url(${visibleIcon});
@@ -16257,7 +16257,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -16272,11 +16272,11 @@ function ControlsPopup({
       "добавить"
     ] }),
     onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon$1, {}),
       "изменить"
     ] }),
     onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon$1, {}),
       "удалить"
     ] }),
     onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
@@ -24215,7 +24215,7 @@ const InputInput = styled$1(InputBaseComponent, {
   slot: "Input",
   overridesResolver: inputOverridesResolver
 })({});
-const Input$1 = /* @__PURE__ */ reactExports.forwardRef(function Input(inProps, ref) {
+const Input = /* @__PURE__ */ reactExports.forwardRef(function Input2(inProps, ref) {
   var _ref, _slots$root, _ref2, _slots$input;
   const props = useThemeProps({
     props: inProps,
@@ -24259,8 +24259,8 @@ const Input$1 = /* @__PURE__ */ reactExports.forwardRef(function Input(inProps, 
     classes: classes2
   }));
 });
-Input$1.muiName = "Input";
-const Input$2 = Input$1;
+Input.muiName = "Input";
+const Input$1 = Input;
 const ListContext = /* @__PURE__ */ reactExports.createContext({});
 const ListContext$1 = ListContext;
 function getListUtilityClass(slot) {
@@ -26029,7 +26029,7 @@ const styledRootConfig = {
   shouldForwardProp: (prop) => rootShouldForwardProp(prop) && prop !== "variant",
   slot: "Root"
 };
-const StyledInput = styled$1(Input$2, styledRootConfig)("");
+const StyledInput = styled$1(Input$1, styledRootConfig)("");
 const StyledOutlinedInput = styled$1(OutlinedInput$1, styledRootConfig)("");
 const StyledFilledInput = styled$1(FilledInput$1, styledRootConfig)("");
 const Select = /* @__PURE__ */ reactExports.forwardRef(function Select2(inProps, ref) {
@@ -26181,6 +26181,8 @@ const TextLabel = st$1.p`
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 `;
 const IsHiddenIcon = st$1(Icon$1)`
+  margin-left: auto;
+  margin-right: 20px;
   background-image: url(${isHideIcon});
 `;
 function CustomSelectOption({ percentage, status, title, isSelected, isDeleted }) {
@@ -26298,7 +26300,6 @@ function CourseSelect() {
       if ("data" in res) {
         setCourseData(res.data.data);
       }
-      setLoaderActive(false);
     });
     setLoaderActive(true);
   };
@@ -26334,7 +26335,7 @@ function CourseSelect() {
       setCourseData(selectedCourseData);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26362,11 +26363,11 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
 `;
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26415,7 +26416,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26439,7 +26440,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26465,7 +26466,14 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   ] });
 }
 function CourseMainInfo() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+  const courseData = useTypedSelector((state) => state.course.data);
+  const imageUrl = () => {
+    if (courseData == null ? void 0 : courseData.image) {
+      return "." + courseData.image.directory + "/" + courseData.image.name;
+    }
+    return defaultPreview;
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
@@ -26488,10 +26496,10 @@ function CourseMainInfo() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: defaultPreview }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: imageUrl() }) })
   ] });
 }
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -26684,7 +26692,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26709,7 +26717,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26720,7 +26728,7 @@ const Text$2 = st$1(Text$3)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$j, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 let init = true;
 function CoursePreview() {
@@ -26746,7 +26754,7 @@ function CoursePreview() {
       setCourseData(data.data[0]);
     }
   }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -26755,7 +26763,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$i = st$1.div`
+const Container$j = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -26882,7 +26890,7 @@ function CourseNavLesson({ data }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { $active: !data.isChecked, children: data.title }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -26927,7 +26935,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$h = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -27087,7 +27095,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -27153,7 +27161,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$9 = st$1.h4`
@@ -27176,7 +27184,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { children: [
       "Темы главы",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27188,7 +27196,7 @@ function CourseNavBody({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$g, { children: data.themes && data.themes.map(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$h, { children: data.themes && data.themes.map(
       (theme) => {
         if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
           return;
@@ -27205,7 +27213,7 @@ function CourseNavBody({ data }) {
     ) })
   ] });
 }
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -27228,7 +27236,7 @@ const bodyOverflow = at$1`
     overflow: hidden;
   }
 `;
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -27244,7 +27252,7 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27269,7 +27277,7 @@ const Title$7 = st$1(Text$3)`
   margin-bottom: 35px;
   font-size: 31px;
 `;
-const Container$d = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -27300,7 +27308,7 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const Container$c = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -27335,7 +27343,7 @@ const CheckBtn = st$1(DefaultBtn)`
 `;
 const radio = "/assets/radio.svg";
 const radioChecked = "/assets/radio-checked.svg";
-const Label$2 = st$1.label`
+const Label$1 = st$1.label`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -27366,7 +27374,7 @@ function RadioBtn({ onChange, label, name, disabled = false }) {
       onChange();
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$2, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       RadioBtn$1,
       {
@@ -27442,7 +27450,7 @@ const {
 } = lessonTestApi;
 const wrongAnswer = "/assets/wrongAnswer.svg";
 const rightAnswer = "/assets/rightAnswer.svg";
-const Container$b = st$1(FlexContainer)`
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   
@@ -27464,7 +27472,7 @@ const Comment = st$1(Text$3)`
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
 function CheckedAnswer({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
   ] });
@@ -27493,7 +27501,7 @@ function LessonTest({ data }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$c,
+    Container$d,
     {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
@@ -27636,7 +27644,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
@@ -27658,7 +27666,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -27687,7 +27695,7 @@ function Courses() {
   ] }) });
 }
 const arrowLeft = "/assets/swiperArrowLeft.svg";
-const Container$a = st$1.div`
+const Container$b = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -32791,7 +32799,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$9 = st$1(FlexContainer)`
+const Container$a = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -32827,7 +32835,7 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionPagination, { children: "Конкурс 1/7" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -32865,7 +32873,7 @@ function CompetitionsSwiper() {
       return;
     swiperRef.current.swiper.slideNext();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
@@ -32891,7 +32899,7 @@ function CompetitionsSwiper() {
 const star = "/assets/star.svg";
 const activeStar = "/assets/active-star.svg";
 const moreIcon = "/assets/moreIcon.svg";
-const Container$8 = st$1(FlexContainer)`
+const Container$9 = st$1(FlexContainer)`
   flex-direction: column;
   width: 49.7%;
   height: 400px;
@@ -32973,7 +32981,7 @@ const MoreIcon = st$1(Icon$1)`
 `;
 function ManagerInfo({ percentage, salary, appSaleValue, zebrChair, yamaguchiLvl }) {
   const stars = [1, 2, 3, 4, 5, 6];
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(PlanText, { children: "Твой план выполнен на" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(PlanСompletionPercentage, { children: [
@@ -33080,7 +33088,7 @@ const {
   useRestoreNewsMutation,
   useUpdateNewsMutation
 } = newsApi;
-const Container$7 = st$1(FlexContainer)`
+const Container$8 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 20px 15px;
   border-radius: ${(props) => props.theme.utils.br};
@@ -33113,7 +33121,7 @@ const Date$1 = st$1.p`
 `;
 const Author = st$1(Date$1)``;
 function NewsEl({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -33138,7 +33146,7 @@ function NewsEl({ data }) {
     ] })
   ] });
 }
-const Container$6 = st$1(FlexContainer)`
+const Container$7 = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$4 = st$1(Text$3)`
@@ -33241,7 +33249,7 @@ function NewsCategoryWrapper() {
 }
 function NewsContainer() {
   const { data, isError, isLoading } = useGetAllNewsQuery();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$4, { children: [
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/news/create-news", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -33264,7 +33272,7 @@ function NewsContainer() {
     ] })
   ] });
 }
-const Container$5 = st$1(FlexContainer)`
+const Container$6 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
 `;
@@ -33281,7 +33289,7 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$5, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -33439,7 +33447,7 @@ const Textarea = st$1(InputWithState)`
   resize: none;
   outline: none;
 `;
-const AddCourseImg = st$1(DefaultBtn)`
+st$1(DefaultBtn)`
 width: fit-content;
 min-height: 41px;
 padding: 0 24px 0 52px;
@@ -33450,78 +33458,10 @@ background-repeat: no-repeat;
 background-position: 17px 9px;
 background-size: 24px;
 `;
-const checkboxIcon = "/assets/checkbox.svg";
-const checkboxIconChecked = "/assets/checkbox-checked.svg";
-const Label$1 = st$1.label`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+const BottomContainer = st$1(FlexContainer)`
+  justify-content: space-between;
 `;
-const Input2 = st$1.input`
-  display: none;
-`;
-const CustomCheckbox$1 = st$1.div`
-  width: 24px;
-  height: 24px;
-  margin-right: 11px;
-  background-image: url(${(props) => props.$checked ? checkboxIconChecked : checkboxIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  ${(props) => {
-  if (props.$isRadio) {
-    return nt$1`
-        position: relative;
-        width: 16px;
-        height: 16px;
-        margin-right: 14px;
-        border-radius: 50%;
-        position: relative;
-        border: 1px solid #333;
-        background-image: unset;
-      `;
-  }
-}}
-
-  &::before {
-    content: '';
-    display: ${(props) => props.$checked && props.$isRadio ? "block" : "none"};
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #333;
-    transform: translate(-50%, -50%);
-  }
-`;
-const CheckboxDescr = st$1(Text$3)`
-line-height100%`;
-function CustomCheckbox({ descr, onChange = () => {
-}, children, checked = false, isRadio = false }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input2,
-      {
-        type: "checkbox",
-        onChange,
-        checked
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CustomCheckbox$1,
-      {
-        $checked: checked,
-        $isRadio: isRadio
-      }
-    ),
-    children,
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
-  ] });
-}
-const Container$4 = st$1.div`
+const Container$5 = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33543,12 +33483,12 @@ const CancelBtn = st$1(ConfirmBtn)`
   }
 `;
 function FormControls({ handlers, names, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$4, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$5, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CancelBtn, { onClick: handlers.cancel, children: names.cancel }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ConfirmBtn, { onClick: handlers.confirm, children: names.confirm })
   ] });
 }
-const Container$3 = st$1(FlexContainer)`
+const Container$4 = st$1(FlexContainer)`
   flex-direction: column;
   width: ${(props) => props.$width};
   height: 100%;
@@ -33571,7 +33511,7 @@ function ModalForm({
     onSubmit();
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$3,
+    Container$4,
     {
       $width: width2,
       style: styles2,
@@ -33589,6 +33529,144 @@ function ModalForm({
   );
 }
 const editorjs = "";
+const InputWrapper = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: fit-content;
+`;
+const FileInput = st$1.input`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+`;
+function CustomFileInput({ onSet, children }) {
+  const handleFileChange = (event) => {
+    const file = event.target.files && event.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const fileExtension = file.name.split(".").pop() || null;
+      if (fileExtension) {
+        convertToBase64(file, fileExtension);
+      }
+    }
+  };
+  const convertToBase64 = (file, extension) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result;
+      onSet(base64, extension);
+    };
+    reader.readAsDataURL(file);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(InputWrapper, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FileInput,
+      {
+        type: "file",
+        accept: "image/*",
+        onChange: handleFileChange
+      }
+    ),
+    children
+  ] });
+}
+const ImageWrapper$1 = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 342px;
+  height: 228px;
+  border-radius: 19px;
+  background-color: ${(props) => props.theme.colors.greyF1};
+  overflow: hidden;
+`;
+const Image$2 = st$1.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+function Image$1({ image, description }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Image$2,
+    {
+      src: image,
+      alt: description
+    }
+  ) });
+}
+const editIcon = "/assets/editIcon-with-pen.svg";
+const deleteIcon = "/assets/deleteIcon-white.svg";
+const Container$3 = st$1.div``;
+const ImageWrapper = st$1.div`
+  position: relative;
+  margin-bottom: 15px;
+`;
+const ControlsGroup = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+const AddFileBtn = st$1(DefaultBtn)`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 41px;
+  padding: 0 23px 0 17px;
+  font-size: 15.397px;
+`;
+const EditFileBtn = st$1(AddFileBtn)`
+  min-height: 60px;
+  padding: 0 30px;
+  font-size: 15px;
+`;
+const DeleteFileBtn = st$1(EditFileBtn)`
+  padding: 0 33px 0 23px;
+  background-color: ${(props) => props.theme.colors.yRed};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.darkRed};
+  }
+`;
+const AddFileIcon = st$1(Icon$1)`
+  margin-right: 11px;
+  background-image: url(${imagesIcon});
+`;
+const EditIcon = st$1(Icon$1)`
+  margin-right: 8px;
+  background-image: url(${editIcon});
+`;
+const DeleteIcon = st$1(Icon$1)`
+  margin-right: 8px;
+  background-image: url(${deleteIcon});
+`;
+function AddImage({ name, onSet, imageData, onDelete }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
+    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData.data }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlsGroup, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomFileInput, { onSet, children: [
+        !imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddFileBtn, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AddFileIcon, {}),
+          name
+        ] }),
+        imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditFileBtn, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon, {}),
+          "изменить"
+        ] })
+      ] }),
+      imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteFileBtn, { onClick: onDelete, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon, {}),
+        "Удалить"
+      ] })
+    ] })
+  ] });
+}
 function CreateCourseForm() {
   const { setModalOpen, setLoaderActive } = useActions();
   const modalType = useTypedSelector((state) => state.modal.modalType);
@@ -33597,6 +33675,7 @@ function CreateCourseForm() {
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const [isEditForm, setEditForm] = reactExports.useState(false);
+  const [courseImage, setCourseImage] = reactExports.useState(null);
   const [courseDescription, setCourseDescription] = reactExports.useState("");
   const [createCourse] = useCreateCourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
@@ -33629,7 +33708,8 @@ function CreateCourseForm() {
       createCourse({
         title: courseName,
         description: courseDescription,
-        is_open: 1
+        is_open: 1,
+        image: courseImage
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
@@ -33637,13 +33717,20 @@ function CreateCourseForm() {
       updateCourse({
         id: courseData.id,
         title: courseName,
-        description: courseDescription
+        description: courseDescription,
+        image: courseImage
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
   };
   const handleCancel = () => {
     setModalOpen(false);
+  };
+  const handleSetCourseImage = (base64, extension) => {
+    setCourseImage({ data: base64, extension });
+  };
+  const handleDeleteCourseImage = () => {
+    setCourseImage(null);
   };
   const handlers = {
     cancel: handleCancel,
@@ -33679,8 +33766,15 @@ function CreateCourseForm() {
             value: courseDescription
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseImg, { children: "Обложка курса" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CustomCheckbox, { descr: "Все главы доступны сразу " })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(BottomContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AddImage,
+          {
+            onSet: handleSetCourseImage,
+            name: "Обложка курса",
+            imageData: courseImage,
+            onDelete: handleDeleteCourseImage
+          }
+        ) })
       ]
     }
   );
@@ -47597,7 +47691,7 @@ const DeleteTestBtn = st$1.button`
 `;
 const DeleteTestBtnIcon = st$1(Icon$1)`
   margin-right: 5px;
-  background-image: url(${deleteIcon});
+  background-image: url(${deleteIcon$1});
 `;
 const Title$2 = st$1.h5`
   display: flex;
@@ -47629,7 +47723,7 @@ const RadioGroup = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
-const CommentInput = st$1(Input$3)`
+const CommentInput = st$1(Input$2)`
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 
   &:focus {
@@ -47643,7 +47737,7 @@ const DeleteBtn$1 = st$1.button`
   margin-left: auto;
 `;
 const DeleteBtnIcon = st$1(Icon$1)`
-  background-image: url(${deleteIcon});
+  background-image: url(${deleteIcon$1});
 `;
 function DeleteBtn({ onClick: onClick2 = () => {
 }, styles: styles2 = {} }) {
@@ -48607,6 +48701,7 @@ const baseTheme = {
     grey93: "#939393",
     grey57: "#575757",
     yRed: "#E03638",
+    darkRed: "#940f0f",
     mainGreen: "#5B8930",
     mainYellow: "#F1FF0D"
   },

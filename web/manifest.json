@@ -102,8 +102,8 @@
       "assets/active-star.svg",
       "assets/moreIcon.svg",
       "assets/imagesIcon.svg",
-      "assets/checkbox.svg",
-      "assets/checkbox-checked.svg",
+      "assets/editIcon-with-pen.svg",
+      "assets/deleteIcon-white.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
       "assets/loadingLogo.svg",
@@ -229,14 +229,6 @@
     "file": "assets/arrowRight.svg",
     "src": "src/assets/images/arrowRight.svg"
   },
-  "src/assets/images/checkbox-checked.svg": {
-    "file": "assets/checkbox-checked.svg",
-    "src": "src/assets/images/checkbox-checked.svg"
-  },
-  "src/assets/images/checkbox.svg": {
-    "file": "assets/checkbox.svg",
-    "src": "src/assets/images/checkbox.svg"
-  },
   "src/assets/images/checklist.svg": {
     "file": "assets/checklist.svg",
     "src": "src/assets/images/checklist.svg"
@@ -249,6 +241,10 @@
     "file": "assets/defaultCoursePreview.png",
     "src": "src/assets/images/defaultCoursePreview.png"
   },
+  "src/assets/images/deleteIcon-white.svg": {
+    "file": "assets/deleteIcon-white.svg",
+    "src": "src/assets/images/deleteIcon-white.svg"
+  },
   "src/assets/images/deleteIcon.svg": {
     "file": "assets/deleteIcon.svg",
     "src": "src/assets/images/deleteIcon.svg"
@@ -260,6 +256,10 @@
   "src/assets/images/done.svg": {
     "file": "assets/done.svg",
     "src": "src/assets/images/done.svg"
+  },
+  "src/assets/images/editIcon-with-pen.svg": {
+    "file": "assets/editIcon-with-pen.svg",
+    "src": "src/assets/images/editIcon-with-pen.svg"
   },
   "src/assets/images/editIcon.svg": {
     "file": "assets/editIcon.svg",
