@@ -123,11 +123,11 @@ class Image extends \app\components\ActiveRecord
 
     public static function saveEditorJsImage($editorJsArray, $modelName, $lessonId)
     {
-        foreach ($editorJsArray as $editor){
-            if($editor->type === 'image'){
+        foreach ($editorJsArray as $editor) {
+            if ($editor->type === 'image') {
                 $uploadDir = Yii::getAlias('@webroot');
                 $newDir = Yii::getAlias(static::UPLOAD_DIR) . '/' . $modelName . '/' . $lessonId . '/';
-                if (!file_exists($newDir)){
+                if (!file_exists($newDir)) {
                     mkdir($newDir, 0777, true);
                 }
                 $file = pathinfo($uploadDir . $editor->data->file->url);
@@ -148,8 +148,9 @@ class Image extends \app\components\ActiveRecord
             $this->original_name = $this->file->baseName . '.' . $this->file->extension;
             $this->file->saveAs($this->getPath());
         } elseif ($this->fileData) {
+            $replaceExtantion = ($this->extension == 'jpg') ? 'jpeg' : $this->file->extension;
             $this->original_name = $this->name;
-            file_put_contents($this->getPath(), base64_decode($this->fileData));
+            file_put_contents($this->getPath(), base64_decode(str_replace('data:image/' . $replaceExtantion . ';base64,', '', $this->fileData)));
         }
         if ($this->save()) {
             return [
