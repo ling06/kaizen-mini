@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import * as C from '@styles/components';
 import isHideIcon from '@assets/images/hideIcon.svg';
 
-
 export const CustomSelectOption = styled.label`
   display: flex;
   align-items: center;
@@ -33,5 +32,7 @@ export const TextLabel = styled.p<{ $isSelected: boolean; $isDeleted: boolean }>
 `;
 
 export const IsHiddenIcon = styled(C.Icon)`
+  margin-left: auto;
+  margin-right: 20px;
   background-image: url(${isHideIcon});
 `;

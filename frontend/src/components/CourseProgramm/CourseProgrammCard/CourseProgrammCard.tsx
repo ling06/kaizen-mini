@@ -25,9 +25,6 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   }, [data.is_deleted]);
 
   const handleClick = () => {
-    console.log(data);
-    // return;
-
     navigation(`/courses/${data.course_id}/${data.id}/`);
   };
 

@@ -26616,7 +26616,6 @@ function CourseProgrammCard({ data }) {
     Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
   }, [data.is_deleted]);
   const handleClick = () => {
-    console.log(data);
     navigation(`/courses/${data.course_id}/${data.id}/`);
   };
   const handleDeleteChapter = () => {
