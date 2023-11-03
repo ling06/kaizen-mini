@@ -15915,7 +15915,8 @@ const courseInitialState = {
     user_id: 0,
     date: "",
     is_deleted: 0,
-    chapters: []
+    chapters: [],
+    image: null
   },
   activeChapterId: null,
   activeTheme: null,
@@ -33459,7 +33460,7 @@ background-repeat: no-repeat;
 background-position: 17px 9px;
 background-size: 24px;
 `;
-const BottomContainer = st$1(FlexContainer)`
+const BottomContainer$1 = st$1(FlexContainer)`
   justify-content: space-between;
 `;
 const Container$5 = st$1.div`
@@ -33770,7 +33771,7 @@ function CreateCourseForm() {
             value: courseDescription
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(BottomContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(BottomContainer$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           AddImage,
           {
             onSet: handleSetCourseImage,
@@ -33786,7 +33787,7 @@ function CreateCourseForm() {
 const InputName$1 = st$1(InputWithState)`
   margin-bottom: 20px;
 `;
-const AddChapterImg = st$1(DefaultBtn)`
+st$1(DefaultBtn)`
   width: fit-content;
   min-height: 41px;
   padding: 0 24px 0 52px;
@@ -33796,6 +33797,9 @@ const AddChapterImg = st$1(DefaultBtn)`
   background-repeat: no-repeat;
   background-position: 17px 9px;
   background-size: 24px;
+`;
+const BottomContainer = st$1(FlexContainer)`
+  justify-content: space-between;
 `;
 function CreateChapterForm() {
   const { data, updatingChapterData } = useTypedSelector((state) => state.course);
@@ -33807,6 +33811,7 @@ function CreateChapterForm() {
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const [isEditForm, setEditForm] = reactExports.useState(false);
+  const [chapterImage, setChapterImage] = reactExports.useState(null);
   reactExports.useEffect(() => {
     if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
       setEditForm(true);
@@ -33830,7 +33835,8 @@ function CreateChapterForm() {
     if ((data == null ? void 0 : data.id) && !isEditForm) {
       createChapter({
         title: chapterName,
-        course_id: data.id
+        course_id: data.id,
+        image: chapterImage
       }).then((res) => {
         if ("data" in res && res.data.result) {
           addChapter(res.data.data);
@@ -33845,7 +33851,8 @@ function CreateChapterForm() {
       updateChapter({
         course_id: data.id,
         id: Number(updatingChapterData.id),
-        title: chapterName
+        title: chapterName,
+        image: chapterImage
       }).then((res) => {
         if ("data" in res) {
           changeChapter(res.data.data);
@@ -33862,6 +33869,12 @@ function CreateChapterForm() {
   const handlers = {
     cancel: handleCancel,
     confirm: handleConfirm
+  };
+  const handleSetChapterImage = (base64, extension) => {
+    setChapterImage({ data: base64, extension });
+  };
+  const handleDeleteChapterImage = () => {
+    setChapterImage(null);
   };
   const names = {
     cancel: "Отмена",
@@ -33885,7 +33898,15 @@ function CreateChapterForm() {
             placeholder: "Введите название главы (обязательно)"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AddChapterImg, { children: "Обложка главы" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(BottomContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AddImage,
+          {
+            onSet: handleSetChapterImage,
+            name: "Обложка главы",
+            imageData: chapterImage,
+            onDelete: handleDeleteChapterImage
+          }
+        ) })
       ]
     }
   );

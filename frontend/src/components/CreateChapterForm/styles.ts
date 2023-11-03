@@ -17,3 +17,7 @@ export const AddChapterImg = styled(C.DefaultBtn)`
   background-position: 17px 9px;
   background-size: 24px;
 `;
+
+export const BottomContainer = styled(C.FlexContainer)`
+  justify-content: space-between;
+`;

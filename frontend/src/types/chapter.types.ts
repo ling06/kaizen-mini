@@ -1,3 +1,4 @@
+import { IUploadedImage } from './image.types';
 import { ITheme } from './theme.types';
 
 export interface IChapter {
@@ -10,6 +11,10 @@ export interface IChapter {
   themes?: Array<ITheme>;
 }
 
-export interface ICreateChapterData extends Pick<IChapter, 'title' | 'course_id'> {}
+export interface ICreateChapterData extends Pick<IChapter, 'title' | 'course_id'> {
+  image: IUploadedImage | null;
+}
 
-export interface IUpdateChapterData extends Pick<IChapter, 'title' | 'id' | 'course_id'> {}
+export interface IUpdateChapterData extends ICreateChapterData {
+  id: number;
+}

@@ -5,6 +5,8 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useCreateChapterMutation, useUpdateChapterMutation } from '@/store/api/chapter.api';
 import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
+import { AddImage } from '../AddImage';
+import { IUploadedImage } from '@/types/image.types';
 
 export function CreateChapterForm() {
   const { data, updatingChapterData } = useTypedSelector((state) => state.course);
@@ -17,6 +19,7 @@ export function CreateChapterForm() {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [isEditForm, setEditForm] = useState<boolean>(false);
+  const [chapterImage, setChapterImage] = useState<IUploadedImage | null>(null);
 
   useEffect(() => {
     if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
@@ -45,6 +48,7 @@ export function CreateChapterForm() {
       createChapter({
         title: chapterName,
         course_id: data.id,
+        image: chapterImage,
       })
         .then((res) => {
           if ('data' in res && res.data.result) {
@@ -63,8 +67,9 @@ export function CreateChapterForm() {
         course_id: data.id,
         id: Number(updatingChapterData.id),
         title: chapterName,
+        image: chapterImage,
       }).then((res) => {
-        if('data' in res) {
+        if ('data' in res) {
           changeChapter(res.data.data);
         }
         setLoaderActive(false);
@@ -83,10 +88,19 @@ export function CreateChapterForm() {
     confirm: handleConfirm,
   };
 
+  const handleSetChapterImage = (base64: string, extension: string) => {
+    setChapterImage({ data: base64, extension });
+  };
+
+  const handleDeleteChapterImage = () => {
+    setChapterImage(null);
+  };
+
   const names = {
     cancel: 'Отмена',
     confirm: `${isEditForm ? 'Изменить' : 'Создать'} главу`,
   };
+
   return (
     <ModalForm
       handlers={handlers}
@@ -100,7 +114,14 @@ export function CreateChapterForm() {
         onChange={handleChange}
         placeholder="Введите название главы (обязательно)"
       />
-      <S.AddChapterImg>Обложка главы</S.AddChapterImg>
+      <S.BottomContainer>
+        <AddImage
+          onSet={handleSetChapterImage}
+          name="Обложка главы"
+          imageData={chapterImage}
+          onDelete={handleDeleteChapterImage}
+        />
+      </S.BottomContainer>
     </ModalForm>
   );
 }

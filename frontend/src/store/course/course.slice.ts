@@ -24,6 +24,7 @@ const courseInitialState: ICourseInitialState = {
     date: '',
     is_deleted: 0,
     chapters: [],
+    image: null,
   },
   activeChapterId: null,
   activeTheme: null,
