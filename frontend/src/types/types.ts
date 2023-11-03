@@ -17,6 +17,7 @@ export interface IBaseTheme {
     grey57: string;
 
     yRed: string;
+    darkRed: string;
 
     mainGreen: string;
 

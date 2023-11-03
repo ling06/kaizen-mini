@@ -76,7 +76,6 @@ export function CourseSelect() {
       if ('data' in res) {
         setCourseData(res.data.data);
       }
-      setLoaderActive(false);
     });
     setLoaderActive(true);
   };

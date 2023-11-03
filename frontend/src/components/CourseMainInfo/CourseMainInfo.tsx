@@ -2,8 +2,16 @@ import * as S from './styles';
 import defaultPreview from '@assets/images/defaultCoursePreview.png';
 import { NavLink } from 'react-router-dom';
 import { CourseBreadcrumb } from '../CourseBreadcrumb';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 export function CourseMainInfo() {
+  const courseData = useTypedSelector(state => state.course.data);
+  const imageUrl = () => {
+    if (courseData?.image) {
+      return '.' + courseData.image.directory + '/' + courseData.image.name;
+    }
+    return defaultPreview;
+  }
   return (
     <S.Container>
       <S.Wrapper>
@@ -26,7 +34,7 @@ export function CourseMainInfo() {
         </NavLink>
       </S.Wrapper>
       <S.ImgWrapper>
-        <S.Preview src={defaultPreview} />
+        <S.Preview src={imageUrl()} />
       </S.ImgWrapper>
     </S.Container>
   );

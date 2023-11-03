@@ -1,4 +1,4 @@
-import { IBaseTheme } from "@/types/types";
+ import { IBaseTheme } from "@/types/types";
 
 const baseTheme: IBaseTheme = {
   colors: {
@@ -17,6 +17,7 @@ const baseTheme: IBaseTheme = {
     grey57: '#575757',
   
     yRed: '#E03638',
+    darkRed: '#940f0f',
 
     mainGreen: '#5B8930',
 

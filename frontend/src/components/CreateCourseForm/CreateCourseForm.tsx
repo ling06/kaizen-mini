@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
-import { CustomCheckbox } from '../CustomCheckbox';
 import { ModalForm } from '../ModalForm';
 import '@styles/editorjs.css';
 import { useCreateCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/constants';
+import { AddImage } from '../AddImage';
+import { IUploadedImage } from '@/types/image.types';
 
 export function CreateCourseForm() {
   const { setModalOpen, setLoaderActive } = useActions();
@@ -17,7 +18,8 @@ export function CreateCourseForm() {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [isEditForm, setEditForm] = useState<boolean>(false);
-  
+  const [courseImage, setCourseImage] = useState<IUploadedImage | null>(null);
+
   const [courseDescription, setCourseDescription] = useState<string>('');
 
   const [createCourse] = useCreateCourseMutation();
@@ -57,6 +59,7 @@ export function CreateCourseForm() {
         title: courseName,
         description: courseDescription,
         is_open: 1,
+        image: courseImage,
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
@@ -66,6 +69,7 @@ export function CreateCourseForm() {
         id: courseData.id,
         title: courseName,
         description: courseDescription,
+        image: courseImage,
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
@@ -73,6 +77,14 @@ export function CreateCourseForm() {
 
   const handleCancel = () => {
     setModalOpen(false);
+  };
+
+  const handleSetCourseImage = (base64: string, extension: string) => {
+    setCourseImage({ data: base64, extension });
+  };
+
+  const handleDeleteCourseImage = () => {
+    setCourseImage(null);
   };
 
   const handlers = {
@@ -102,8 +114,14 @@ export function CreateCourseForm() {
         as={'textarea'}
         onChange={handleTeaxtAreaChange}
         value={courseDescription}></S.Textarea>
-      <S.AddCourseImg>Обложка курса</S.AddCourseImg>
-      <CustomCheckbox descr={'Все главы доступны сразу '} />
+      <S.BottomContainer>
+        <AddImage
+          onSet={handleSetCourseImage}
+          name="Обложка курса"
+          imageData={courseImage}
+          onDelete={handleDeleteCourseImage}
+        />
+      </S.BottomContainer>
     </ModalForm>
   );
 }

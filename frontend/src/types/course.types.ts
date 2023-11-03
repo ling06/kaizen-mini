@@ -12,7 +12,7 @@ export interface ICourse {
   date: string;
   is_deleted: number;
   chapters?: Array<IChapter>;
-  image?: IImage;
+  image: IImage | null;
   user?: IUser;
   percentage?: {
     lessonCount: number;
@@ -35,12 +35,14 @@ export interface IGetCourseByIdRes {
   result: boolean;
 }
 
-export type ICreateCourse = Pick<ICourse, 'title' | 'description' | 'is_open'>;
+export interface ICreateCourse extends Pick<ICourse, 'title' | 'description' | 'is_open'> {
+  image: IUploadedImage | null;
+}
 export interface IUpdateCourse {
   id: number;
   title?: string;
   description?: string;
   is_open?: number;
   status?: number;
-  image?: IUploadedImage;
+  image: IUploadedImage | null | IImage;
 }
