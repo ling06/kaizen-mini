@@ -24,6 +24,7 @@ export const Window = styled.div`
   position: relative;
   width: fit-content;
   height: 100%;
+  overflow-y: auto;
   background-color: ${(props) => props.theme.colors.realWhite};
   animation: windowEntrance 0.3s ease-out forwards;
 

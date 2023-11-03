@@ -9,6 +9,7 @@ export const Container = styled.div`
   row-gap: 10px;
   width: 100%;
   padding: 25px;
+  margin-top: auto;
 `;
 
 export const ConfirmBtn = styled(C.DefaultBtn)`

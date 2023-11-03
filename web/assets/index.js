@@ -33359,6 +33359,7 @@ const Window = st$1.div`
   position: relative;
   width: fit-content;
   height: 100%;
+  overflow-y: auto;
   background-color: ${(props) => props.theme.colors.realWhite};
   animation: windowEntrance 0.3s ease-out forwards;
 
@@ -33469,6 +33470,7 @@ const Container$5 = st$1.div`
   row-gap: 10px;
   width: 100%;
   padding: 25px;
+  margin-top: auto;
 `;
 const ConfirmBtn = st$1(DefaultBtn)`
   width: 49%;
