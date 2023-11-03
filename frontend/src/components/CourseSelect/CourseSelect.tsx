@@ -47,8 +47,16 @@ export function CourseSelect() {
     if (selectOptions.length > 0 && init) {
       init = false;
       setSelectedValue(selectOptions[0].value);
+    } else if (selectOptions.length > 0) {
+      const selectedCourseData = selectOptions.find(
+        (option) => Number(option.value) === Number(courseData.id)
+      );
+      if (!selectedCourseData) {
+        return;
+      }
+      setSelectedValue(selectedCourseData?.value);
     }
-  }, [selectOptions]);
+  }, [courseData.id, selectOptions]);
 
   const handleAddCourse = () => {
     setModalType(MODAL_TYPES.createCourse);

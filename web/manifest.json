@@ -80,6 +80,8 @@
       "assets/mainLogo.svg",
       "assets/done.svg",
       "assets/accordionIcon.svg",
+      "assets/burger-icon-open.svg",
+      "assets/burger-icon-close.svg",
       "assets/editIcon.svg",
       "assets/addIcon.svg",
       "assets/hideIcon.svg",
@@ -228,6 +230,14 @@
   "src/assets/images/arrowRight.svg": {
     "file": "assets/arrowRight.svg",
     "src": "src/assets/images/arrowRight.svg"
+  },
+  "src/assets/images/burger-icon-close.svg": {
+    "file": "assets/burger-icon-close.svg",
+    "src": "src/assets/images/burger-icon-close.svg"
+  },
+  "src/assets/images/burger-icon-open.svg": {
+    "file": "assets/burger-icon-open.svg",
+    "src": "src/assets/images/burger-icon-open.svg"
   },
   "src/assets/images/checklist.svg": {
     "file": "assets/checklist.svg",

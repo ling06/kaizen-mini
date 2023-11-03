@@ -10177,8 +10177,14 @@ const Header$1 = st$1.header`
   padding: 0 15px;
   border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
   background-color: ${(props) => props.theme.colors.realWhite};
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 3.125% 2.19%;
+  }
 `;
 const MainLogo$1 = st$1.img`
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const mainLogo = "/assets/mainLogo.svg";
 function MainLogo() {
@@ -10449,10 +10455,13 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$t = st$1(FlexContainer)`
+const Container$v = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const NavBar = st$1.ul`
   display: flex;
@@ -10488,7 +10497,7 @@ const navLinks = {
   // },
 };
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$v, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15799,12 +15808,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$s = st$1.div`
+const Container$u = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
 `;
-const Container$r = st$1.div``;
+const Container$t = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15813,6 +15823,10 @@ const InitialsWrapper = st$1.div`
   height: 42px;
   border-radius: 50%;
   border: 1px solid ${(props) => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    width: 8.75vw;
+    height: 8.75vw;
+  }
 `;
 const Initials = st$1.p`
 width: fit-content;
@@ -15822,6 +15836,9 @@ font-weight: 400;
 line-height: 148%;
 text-transform: uppercase;
 color: ${(props) => props.theme.colors.mainBlue};
+@media ${(props) => props.theme.media.mobile} {
+  font-size: 3.125vw;
+}
 `;
 const getInitials = (fullName) => {
   if (!fullName) {
@@ -15841,20 +15858,124 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+}
+const burgerIconOpen = "/assets/burger-icon-open.svg";
+const burgerIconClose = "/assets/burger-icon-close.svg";
+const Button = st$1.button`
+  display: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  @media ${(props) => props.theme.media.mobile} {
+    display: block;
+  }
+`;
+const OpenIcon = st$1(Icon$1)`
+  width: 7.5vw;
+  height: 7.5vw;
+  background-image: url(${burgerIconOpen});
+`;
+const CloseIcon = st$1(OpenIcon)`
+  background-image: url(${burgerIconClose});
+`;
+function BurgerBtn({ onClick: onClick2, isOpen }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
+}
+const Container$s = st$1.div`
+  display: flex;
+  align-items: center;
+  padding: 3.125% 2.19%;
+`;
+const ProfileWrapper = st$1.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+`;
+const UserName = st$1.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 8%;
+`;
+const Name = st$1.p`
+  font-size: 3.75vw;
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.dark};
+`;
+const Surname = st$1(Name)``;
+const getUsername = (username) => {
+  if (!username)
+    return null;
+  const [firstName, lastName] = username.split(" ");
+  if (!firstName || !lastName)
+    return null;
+  return {
+    firstName,
+    lastName
+  };
+};
+function Head$3({ onClose }) {
+  const user = useTypedSelector((state) => {
+    var _a;
+    return (_a = selectUser(state).data) == null ? void 0 : _a.user;
+  });
+  const username = getUsername(user == null ? void 0 : user.name);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      BurgerBtn,
+      {
+        isOpen: true,
+        onClick: onClose
+      }
+    ),
+    user && /* @__PURE__ */ jsxRuntimeExports.jsxs(ProfileWrapper, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }),
+      username && /* @__PURE__ */ jsxRuntimeExports.jsxs(UserName, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Name, { children: username.firstName }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Surname, { children: username.lastName })
+      ] })
+    ] })
+  ] });
+}
+const Container$r = st$1.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: ${(props) => props.theme.utils.zIndex.burgerMenu};
+  width: 100vw;
+  min-height: 100vh;
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+function BurgerMenu({ onClose }) {
+  const modalRoot = document.querySelector("#modal-root");
+  if (!modalRoot)
+    return null;
+  return ReactDOM.createPortal(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }) }),
+    modalRoot
+  );
 }
 function Header() {
+  const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
+  const handleToggleBurgerMenu = () => {
+    setBurgerMenuOpen(!isBurgerMenuOpen);
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerBtn, { isOpen: false, onClick: handleToggleBurgerMenu }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {})
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {}),
+    isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
 const Container$q = st$1(FlexContainer)`
@@ -26275,8 +26396,16 @@ function CourseSelect() {
     if (selectOptions.length > 0 && init$1) {
       init$1 = false;
       setSelectedValue(selectOptions[0].value);
+    } else if (selectOptions.length > 0) {
+      const selectedCourseData = selectOptions.find(
+        (option) => Number(option.value) === Number(courseData.id)
+      );
+      if (!selectedCourseData) {
+        return;
+      }
+      setSelectedValue(selectedCourseData == null ? void 0 : selectedCourseData.value);
     }
-  }, [selectOptions]);
+  }, [courseData.id, selectOptions]);
   const handleAddCourse = () => {
     setModalType(MODAL_TYPES.createCourse);
     setModalOpen(true);
@@ -48735,6 +48864,7 @@ const baseTheme = {
     br: "15px",
     zIndex: {
       popup: "100",
+      burgerMenu: "250",
       modalControls: "200",
       darkOverlay: "500",
       overDarkOverlay: "501",

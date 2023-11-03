@@ -29,6 +29,7 @@ const baseTheme: IBaseTheme = {
     br: '15px',
     zIndex: {
       popup: '100',
+      burgerMenu: '250',
       modalControls: '200',
       darkOverlay: '500',
       overDarkOverlay: '501',

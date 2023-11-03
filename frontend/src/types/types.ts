@@ -33,6 +33,7 @@ export interface IBaseTheme {
       darkOverlay: string;
       overDarkOverlay: string;
       loading: string;
+      burgerMenu: string;
     };
   };
 
