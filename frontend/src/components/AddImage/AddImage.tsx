@@ -23,11 +23,7 @@ interface IAddImageProps {
 export function AddImage({ name, onSet, imageData, onDelete }: IAddImageProps): JSX.Element {
   return (
     <S.Container>
-      {imageData && (
-        <S.ImageWrapper>
-          <Image image={imageData.data} />
-        </S.ImageWrapper>
-      )}
+      {imageData && <Image image={imageData.data} />}
       <S.ControlsGroup>
         <CustomFileInput onSet={onSet}>
           {!imageData && (

@@ -33576,12 +33576,14 @@ function CustomFileInput({ onSet, children }) {
     children
   ] });
 }
-const ImageWrapper$1 = st$1.div`
+const ImageWrapper = st$1.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 342px;
-  height: 228px;
+  width: 100%;
+  min-width: 342px;
+  margin-bottom: 13px;
+  aspect-ratio: 3/2;
   border-radius: 19px;
   background-color: ${(props) => props.theme.colors.greyF1};
   overflow: hidden;
@@ -33592,7 +33594,7 @@ const Image$2 = st$1.img`
   object-fit: cover;
 `;
 function Image$1({ image, description }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     Image$2,
     {
       src: image,
@@ -33603,7 +33605,7 @@ function Image$1({ image, description }) {
 const editIcon = "/assets/editIcon-with-pen.svg";
 const deleteIcon = "/assets/deleteIcon-white.svg";
 const Container$3 = st$1.div``;
-const ImageWrapper = st$1.div`
+st$1.div`
   position: relative;
   margin-bottom: 15px;
 `;
@@ -33648,7 +33650,7 @@ const DeleteIcon = st$1(Icon$1)`
 `;
 function AddImage({ name, onSet, imageData, onDelete }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
-    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData.data }) }),
+    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData.data }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlsGroup, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomFileInput, { onSet, children: [
         !imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddFileBtn, { children: [

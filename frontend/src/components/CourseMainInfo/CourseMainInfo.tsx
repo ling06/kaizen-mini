@@ -34,7 +34,7 @@ export function CourseMainInfo() {
         </NavLink>
       </S.Wrapper>
       <S.ImgWrapper>
-        <S.Preview src={imageUrl()} />
+        <S.Preview src={imageUrl()}/>
       </S.ImgWrapper>
     </S.Container>
   );
