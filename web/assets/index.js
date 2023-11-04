@@ -15991,6 +15991,16 @@ function Head$3({ onClose }) {
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
   const username = getUsername(user == null ? void 0 : user.name);
+  reactExports.useEffect(() => {
+    console.log("mount");
+    setTimeout(() => {
+      document.body.addEventListener("click", onClose);
+    });
+    return () => {
+      document.body.removeEventListener("click", onClose);
+      console.log("onmount");
+    };
+  });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
