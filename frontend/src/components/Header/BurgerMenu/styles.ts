@@ -6,9 +6,9 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: ${props => props.theme.utils.zIndex.burgerMenu};
+  z-index: ${(props) => props.theme.utils.zIndex.burgerMenu};
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-color: ${(props) => props.theme.colors.realWhite};
+  overflow-y: auto;
 `;
-

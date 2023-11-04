@@ -10178,7 +10178,7 @@ const Header$1 = st$1.header`
   border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
   background-color: ${(props) => props.theme.colors.realWhite};
   @media ${(props) => props.theme.media.mobile} {
-    padding: 3.125% 2.19%;
+    padding: 3.125%;
   }
 `;
 const MainLogo$1 = st$1.img`
@@ -10213,6 +10213,82 @@ const USER_ROLES = {
   admin: "admin",
   user: "user"
 };
+const NAV_LINKS = {
+  news: {
+    url: "/news",
+    name: "Новости",
+    icon: {
+      withIcon: false,
+      iconUrl: ""
+    }
+  },
+  education: {
+    url: "/courses",
+    name: "Курсы",
+    icon: {
+      withIcon: false,
+      iconUrl: ""
+    }
+  }
+  // tasks: {
+  //   url: '/tasks',
+  //   name: 'Задачи',
+  //   icon: {
+  //     withIcon: false,
+  //     iconUrl: '',
+  //   },
+  // },
+};
+const APHORISMS = [
+  {
+    text: "Нет большей жизни, чем бороться за свои мечты.",
+    author: "Хаяо Миядзаки"
+  },
+  {
+    text: "Если вы ничего не делаете, ничего не происходит.",
+    author: "Икути Кэйта"
+  },
+  {
+    text: "Самурай должен быть вежливым, даже когда смерть близка.",
+    author: "Ямамото Цунэтомо"
+  },
+  {
+    text: "Если вы будете работать только над тем, что вам нравится, вы никогда не должны будете работать ни дня в своей жизни.",
+    author: "Идзамо Томио"
+  },
+  {
+    text: "Но, в конце концов — и я подчеркиваю это — как бы вы ни были хороши или удачливы и как бы вы ни были умны и ловки, ваше дело и его судьба находятся в руках тех людей, которых вы нанимаете.",
+    author: "Акио Морита"
+  },
+  {
+    text: "Всю свою жизнь при­леж­но учись. Каж­дый день ста­новись бо­лее ис­кусным, чем ты был за день до это­го, а на сле­ду­ющий день — бо­лее ис­кусным, чем се­год­ня. Со­вер­шенс­тво­вание не име­ет кон­ца.",
+    author: "Яма­мото Цу­нэто­мо"
+  },
+  {
+    text: "Нет ничего более постыдного для человека, чем выходить из себя.",
+    author: "Сиба Есимаса"
+  },
+  {
+    text: "Искреннее сердце — это драгоценность, которую никогда никуда не спрячешь.",
+    author: "Ходзе Сигэтоки"
+  },
+  {
+    text: "Учение для человека — все равно что ветви и листья для дерева. Без него он просто не сможет жить.",
+    author: "Такэда Сингэн"
+  },
+  {
+    text: "Даже если у человека нет особых талантов, но он упорно овладевает знанием, он не опозорится перед другими.",
+    author: "Сиба Есимаса"
+  },
+  {
+    text: "Во всем надлежит действовать терпеливо.",
+    author: "Набэсима Наосигэ"
+  },
+  {
+    text: "Там, где льются изящные стихи, не остается места суесловию",
+    author: "Мурасаки Сикибу"
+  }
+];
 const doneIcon = "/assets/done.svg";
 const selectIcon = "/assets/accordionIcon.svg";
 const TextStyles = nt$1`
@@ -10247,6 +10323,10 @@ const Text$3 = st$1.p`
   font-weight: 700;
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
+
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5.625vw;
+  }
 `;
 const Input$2 = st$1.input`
   width: 100%;
@@ -10410,6 +10490,10 @@ const LinkContent = st$1(Text$3)`
   padding: 15px 0;
   color: ${(props) => props.$isActive ? props.theme.colors.dark : props.theme.colors.mainBlue};
   transition: color .2s ease-in-out;
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 0;
+    font-weight: ${(props) => props.$isActive ? "700" : "600"};
+  }
 
   &:hover {
     color: ${(props) => props.theme.colors.dark};
@@ -10426,6 +10510,9 @@ const LinkContent = st$1(Text$3)`
     transform: translateX(-50%);
     background-color: ${(props) => props.theme.colors.mainBlue};
     animation: elastic .2s ease-in-out forwards;
+    @media ${(props) => props.theme.media.mobile} {
+      display: none;
+    }
   }
 
   @keyframes elastic {
@@ -10455,7 +10542,7 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$v = st$1(FlexContainer)`
+const Container$z = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10470,34 +10557,8 @@ const NavBar = st$1.ul`
   height: 1px;
   min-height: 60px;
 `;
-const navLinks = {
-  news: {
-    url: "/news",
-    name: "Новости",
-    icon: {
-      withIcon: false,
-      iconUrl: ""
-    }
-  },
-  education: {
-    url: "/courses",
-    name: "Курсы",
-    icon: {
-      withIcon: false,
-      iconUrl: ""
-    }
-  }
-  // tasks: {
-  //   url: '/tasks',
-  //   name: 'Задачи',
-  //   icon: {
-  //     withIcon: false,
-  //     iconUrl: '',
-  //   },
-  // },
-};
-function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$v, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(navLinks).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+function Nav$1() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15808,13 +15869,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$u = st$1.div`
+const Container$y = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$t = st$1.div``;
+const Container$x = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15858,14 +15919,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$x, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$y, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -15890,20 +15951,22 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$s = st$1.div`
+const Container$w = st$1.div`
   display: flex;
   align-items: center;
-  padding: 3.125% 2.19%;
+  padding: 3.125%;
+  margin-bottom: 5%;
+  border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
 `;
 const ProfileWrapper = st$1.div`
   display: flex;
   align-items: center;
   margin-left: auto;
+  gap: 3vw;
 `;
 const UserName = st$1.div`
   display: flex;
   flex-direction: column;
-  margin-left: 8%;
 `;
 const Name = st$1.p`
   font-size: 3.75vw;
@@ -15928,7 +15991,7 @@ function Head$3({ onClose }) {
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
   const username = getUsername(user == null ? void 0 : user.name);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -15945,7 +16008,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$r = st$1.div`
+const Container$v = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -15953,27 +16016,154 @@ const Container$r = st$1.div`
   left: 0;
   z-index: ${(props) => props.theme.utils.zIndex.burgerMenu};
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-color: ${(props) => props.theme.colors.realWhite};
+  overflow-y: auto;
 `;
+const Container$u = st$1.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5.6vw;
+`;
+function Nav() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+    CustomNavLink,
+    {
+      ...navLink,
+      key: index
+    }
+  )) });
+}
+const Container$t = st$1.div`
+  display: none;
+  flex-direction: column;
+  padding: 0 3.125%;
+  margin-bottom: 5%;
+  @media ${(props) => props.theme.media.mobile} {
+    display: flex;
+  }
+`;
+function Body() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+}
+const useAphorism = () => {
+  const defaultAphorism = {
+    text: "Во всем надлежит действовать терпеливо.",
+    author: "Набэсима Наосигэ"
+  };
+  const aphorisms = APHORISMS;
+  if (!aphorisms || aphorisms.length === 0) {
+    return defaultAphorism;
+  }
+  const randomIndex = Math.floor(Math.random() * aphorisms.length);
+  return aphorisms[randomIndex];
+};
+const Container$s = st$1.div`
+  display: none;
+  @media ${(props) => props.theme.media.mobile} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18.75vw;
+  }
+`;
+const Title$d = st$1.h3`
+  margin-bottom: 3.125vw;
+  font-size: 3.125vw;
+  font-weight: 700;
+  line-height: 148%;
+  color: ${(props) => props.theme.colors.grey93};
+  text-align: center;
+`;
+const Aphorism$1 = st$1.p`
+  margin-bottom: 9.375vw;
+  font-size: 3.75vw;
+  font-weight: 500;
+  line-height: 148%;
+  color: ${(props) => props.theme.colors.realBlack};
+  text-align: center;
+`;
+const Author$1 = st$1(Aphorism$1)`
+  margin-bottom: 0;
+  font-weight: 400;
+`;
+function Aphorism() {
+  const { text, author } = useAphorism();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: "Фраза дня" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
+  ] });
+}
+const Container$r = st$1.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 3.125% 2.1875vw;
+  margin-top: auto;
+`;
+const Bottom = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+const Logo$1 = st$1.img`
+  display: block;
+  width: 20.25vw;
+`;
+const Copyright = st$1.p`
+  color: ${(props) => props.theme.colors.dark};
+  font-size: 3.125vw;
+  font-weight: 400;
+  line-height: 148%;
+`;
+const logoMobile = "/assets/logo-mobile.svg";
+function Footer$2() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Logo$1,
+        {
+          src: logoMobile,
+          alt: "Kaizen"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Copyright, { children: "Создано в Ямагучи для Ямагучи (с) 2023" })
+    ] })
+  ] });
+}
 function BurgerMenu({ onClose }) {
   const modalRoot = document.querySelector("#modal-root");
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
+    ] }),
     modalRoot
   );
 }
 function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    if (isBurgerMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isBurgerMenuOpen]);
   const handleToggleBurgerMenu = () => {
     setBurgerMenuOpen(!isBurgerMenuOpen);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerBtn, { isOpen: false, onClick: handleToggleBurgerMenu }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Nav$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {}),
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });

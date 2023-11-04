@@ -3,19 +3,21 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 3.125% 2.19%;
+  padding: 3.125%;
+  margin-bottom: 5%;
+  border-bottom: 1px solid ${props => props.theme.colors.greyF1};
 `;
 
 export const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-left: auto;
+  gap: 3vw;
 `;
 
 export const UserName = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 8%;
 `;
 
 export const Name = styled.p`

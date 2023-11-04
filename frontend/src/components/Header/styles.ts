@@ -7,6 +7,6 @@ export const Header = styled.header`
   border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
   background-color: ${props => props.theme.colors.realWhite};
   @media ${props => props.theme.media.mobile} {
-    padding: 3.125% 2.19%;
+    padding: 3.125%;
   }
 `;

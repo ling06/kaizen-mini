@@ -13,6 +13,10 @@ export const LinkContent = styled(C.Text)<ILinkProps>`
   padding: 15px 0;
   color: ${(props) => (props.$isActive ? props.theme.colors.dark : props.theme.colors.mainBlue)};
   transition: color .2s ease-in-out;
+  @media ${props => props.theme.media.mobile} {
+    padding: 0;
+    font-weight: ${props => props.$isActive ? '700' : '600'};
+  }
 
   &:hover {
     color: ${props => props.theme.colors.dark};
@@ -29,6 +33,9 @@ export const LinkContent = styled(C.Text)<ILinkProps>`
     transform: translateX(-50%);
     background-color: ${props => props.theme.colors.mainBlue};
     animation: elastic .2s ease-in-out forwards;
+    @media ${props => props.theme.media.mobile} {
+      display: none;
+    }
   }
 
   @keyframes elastic {

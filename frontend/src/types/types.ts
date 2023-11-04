@@ -1,3 +1,4 @@
+import { ICustomNavLinkProps } from "@/components/Header/CustomNavLink";
 import { OutputData } from "@editorjs/editorjs";
 
 export interface IBaseTheme {
@@ -106,8 +107,13 @@ export interface INewsCategoryMutationReq {
 }
 
 
+export interface INavLinks {
+  [key: string]: ICustomNavLinkProps;
+}
 
-
-
+export interface IAphorism {
+  text: string;
+  author: string;
+}
 
 

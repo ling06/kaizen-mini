@@ -82,6 +82,7 @@
       "assets/accordionIcon.svg",
       "assets/burger-icon-open.svg",
       "assets/burger-icon-close.svg",
+      "assets/logo-mobile.svg",
       "assets/editIcon.svg",
       "assets/addIcon.svg",
       "assets/hideIcon.svg",
@@ -298,6 +299,10 @@
   "src/assets/images/loadingLogo.svg": {
     "file": "assets/loadingLogo.svg",
     "src": "src/assets/images/loadingLogo.svg"
+  },
+  "src/assets/images/logo-mobile.svg": {
+    "file": "assets/logo-mobile.svg",
+    "src": "src/assets/images/logo-mobile.svg"
   },
   "src/assets/images/mainLogo.svg": {
     "file": "assets/mainLogo.svg",
