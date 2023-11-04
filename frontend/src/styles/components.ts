@@ -26,6 +26,9 @@ export const DefaultBtn = styled.button`
   background-color: ${(props) => props.theme.colors.mainBlue};
   border-radius: ${(props) => props.theme.utils.br};
   transition: ${(props) => props.theme.utils.transition};
+  @media ${props => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 
   &:hover {
     background-color: ${(props) => props.theme.colors.darkBlue};
@@ -164,6 +167,10 @@ export const Icon = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+  @media ${props => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+  }
 `;
 
 export const DoneIcon = styled(Icon)`

@@ -14,11 +14,19 @@ export const Wrapper = styled(C.FlexContainer)`
   padding: 20px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    height: auto;
+    padding: 0.94vw 4.69vw 4.69vw;
+  }
 `;
 
 export const ImgWrapper = styled(Wrapper)`
   padding: 0;
   overflow: hidden;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 
 export const Preview = styled.img`

@@ -105,3 +105,8 @@ export const APHORISMS: Array<IAphorism> = [
     author: 'Мурасаки Сикибу',
   },
 ];
+
+export enum MediaQueries {
+  mobile = '(max-width: 768px)',
+  desktop = '(min-width: 768px)',
+}

@@ -14,14 +14,12 @@ export function Head({ onClose }: IHead) {
   const username = getUsername(user?.name);
 
   useEffect(() => {
-    console.log('mount');
     setTimeout(() => {
       document.body.addEventListener('click', onClose);
     });
 
     return () => {
       document.body.removeEventListener('click', onClose);
-      console.log('onmount');
     };
   });
 

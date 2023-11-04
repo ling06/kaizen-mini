@@ -12,6 +12,7 @@ import {
 import { CourseCustomSelect } from '../CourseCustomSelect';
 import { useEffect, useMemo, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 let init = true;
 
@@ -23,6 +24,7 @@ export function CourseSelect() {
   const [restoreCourse] = useRestoreCourseMutation();
   const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = useState('');
+  const navigate = useNavigate();
 
   const selectOptions = useMemo(() => {
     if (!coursesData) {
@@ -115,12 +117,7 @@ export function CourseSelect() {
   const handleChange = (event: SelectChangeEvent<string>) => {
     const selectedCourseId = event.target.value;
     setSelectedValue(`${selectedCourseId}`);
-    const selectedCourseData = coursesData?.find(
-      (course) => `${course.id}` === `${selectedCourseId}`
-    );
-    if (selectedCourseData) {
-      setCourseData(selectedCourseData);
-    }
+    navigate(`/courses/${selectedCourseId}`);
   };
 
   return (

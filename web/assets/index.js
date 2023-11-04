@@ -10289,6 +10289,11 @@ const APHORISMS = [
     author: "Мурасаки Сикибу"
   }
 ];
+var MediaQueries = /* @__PURE__ */ ((MediaQueries2) => {
+  MediaQueries2["mobile"] = "(max-width: 768px)";
+  MediaQueries2["desktop"] = "(min-width: 768px)";
+  return MediaQueries2;
+})(MediaQueries || {});
 const doneIcon = "/assets/done.svg";
 const selectIcon = "/assets/accordionIcon.svg";
 const TextStyles = nt$1`
@@ -10313,12 +10318,15 @@ const DefaultBtn = st$1.button`
   background-color: ${(props) => props.theme.colors.mainBlue};
   border-radius: ${(props) => props.theme.utils.br};
   transition: ${(props) => props.theme.utils.transition};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 
   &:hover {
     background-color: ${(props) => props.theme.colors.darkBlue};
   }
 `;
-const Text$3 = st$1.p`
+const Text$4 = st$1.p`
   font-size: 18px;
   font-weight: 700;
   line-height: 120%;
@@ -10426,6 +10434,10 @@ const Icon$1 = st$1.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+  }
 `;
 const DoneIcon = st$1(Icon$1)`
   margin-right: 26px;
@@ -10441,7 +10453,7 @@ const AccordionIcon = st$1(Icon$1)`
   transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
   background-image: url(${selectIcon});
 `;
-const EditorParagraph = st$1(Text$3)`
+const EditorParagraph = st$1(Text$4)`
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 150%;
@@ -10482,7 +10494,7 @@ const EditorImg = st$1.img`
   width: 100%;
   margin-bottom: 30px;
 `;
-const LinkContent = st$1(Text$3)`
+const LinkContent = st$1(Text$4)`
   display: flex;
   align-items: center;
   position: relative;
@@ -10542,7 +10554,7 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$z = st$1(FlexContainer)`
+const Container$C = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10558,7 +10570,7 @@ const NavBar = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$C, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15869,13 +15881,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$y = st$1.div`
+const Container$B = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$x = st$1.div``;
+const Container$A = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15919,14 +15931,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$x, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$y, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$B, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -15951,7 +15963,7 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$w = st$1.div`
+const Container$z = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -15985,23 +15997,21 @@ const getUsername = (username) => {
     lastName
   };
 };
-function Head$3({ onClose }) {
+function Head$2({ onClose }) {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
   const username = getUsername(user == null ? void 0 : user.name);
   reactExports.useEffect(() => {
-    console.log("mount");
     setTimeout(() => {
       document.body.addEventListener("click", onClose);
     });
     return () => {
       document.body.removeEventListener("click", onClose);
-      console.log("onmount");
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16018,7 +16028,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$v = st$1.div`
+const Container$y = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16030,14 +16040,14 @@ const Container$v = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$u = st$1.div`
+const Container$x = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$x, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16045,7 +16055,7 @@ function Nav() {
     }
   )) });
 }
-const Container$t = st$1.div`
+const Container$w = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16055,7 +16065,7 @@ const Container$t = st$1.div`
   }
 `;
 function Body() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$w, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16069,7 +16079,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$s = st$1.div`
+const Container$v = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16100,13 +16110,13 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$r = st$1.div`
+const Container$u = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16131,7 +16141,7 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16150,582 +16160,14 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Head$2, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
     ] }),
     modalRoot
   );
 }
-function Header() {
-  const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
-  reactExports.useEffect(() => {
-    if (isBurgerMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isBurgerMenuOpen]);
-  const handleToggleBurgerMenu = () => {
-    setBurgerMenuOpen(!isBurgerMenuOpen);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerBtn, { isOpen: false, onClick: handleToggleBurgerMenu }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Nav$1, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {}),
-    isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
-  ] });
-}
-const Container$q = st$1(FlexContainer)`
-  align-items: center;
-  margin-bottom: 20px;
-`;
-st$1.div`
-  padding: 3px 15px;
-  margin-right: 20px;
-  font-weight: 700;
-  font-size: 24.923px;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realWhite};
-  background-color: ${(props) => props.theme.colors.mainBlue};
-  border-radius: 18px;
-`;
-st$1(Text$3)`
-  font-weight: 24.923px;
-`;
-const ModalInitialState = {
-  isModalOpen: false,
-  modalType: ""
-};
-const modalSlice = createSlice({
-  name: "modal",
-  initialState: ModalInitialState,
-  reducers: {
-    setModalOpen: (state, { payload }) => {
-      state.isModalOpen = payload;
-      payload ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset";
-    },
-    setModalType: (state, { payload }) => {
-      state.modalType = payload;
-    }
-  }
-});
-const { actions: actions$4, reducer: reducer$5 } = modalSlice;
-const AuthInitialState = {
-  token: null
-};
-const authSlice = createSlice({
-  name: "auth",
-  initialState: AuthInitialState,
-  reducers: {
-    setAuthToken: (state, { payload }) => {
-      state.token = payload;
-    }
-  }
-});
-const { actions: actions$3, reducer: reducer$4 } = authSlice;
-const courseInitialState = {
-  data: {
-    id: 0,
-    title: "",
-    description: "",
-    is_open: 0,
-    status: 0,
-    user_id: 0,
-    date: "",
-    is_deleted: 0,
-    chapters: [],
-    image: null
-  },
-  activeChapterId: null,
-  activeTheme: null,
-  activeLesson: null,
-  updatingChapterData: null,
-  updatingThemeData: null
-};
-const courseSlice = createSlice({
-  name: "course",
-  initialState: courseInitialState,
-  reducers: {
-    setCourseData: (state, { payload }) => {
-      return {
-        ...state,
-        ...{ data: payload || courseInitialState.data }
-      };
-    },
-    changeCourseData: (state, { payload }) => {
-      state.data = { ...state.data, ...payload };
-    },
-    setActiveChapterId: (state, { payload }) => {
-      state.activeChapterId = payload;
-    },
-    addChapter: (state, { payload }) => {
-      var _a;
-      (_a = state.data.chapters) == null ? void 0 : _a.push(payload);
-    },
-    changeChapter: (state, { payload }) => {
-      var _a, _b;
-      if (!state.data || !state.data.chapters) {
-        console.warn(`No chapters in course`);
-        return;
-      }
-      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
-        (chapter) => chapter.id === Number(payload.id)
-      );
-      if (currentChapterIndex === -1) {
-        console.error(`No chapter with id: ${payload.id}`);
-        return;
-      }
-      state.data.chapters[currentChapterIndex] = {
-        ...state.data.chapters[currentChapterIndex],
-        ...payload
-      };
-    },
-    setActiveTheme: (state, { payload }) => {
-      state.activeTheme = { ...payload };
-    },
-    setActiveLesson: (state, { payload }) => {
-      state.activeLesson = { ...payload };
-    },
-    setUpdatingChapterData: (state, { payload }) => {
-      state.updatingChapterData = { ...payload };
-    },
-    setUpdatingThemeData: (state, { payload }) => {
-      state.updatingThemeData = { ...payload };
-    }
-  }
-});
-const { actions: actions$2, reducer: reducer$3 } = courseSlice;
-const loaderInitialState = {
-  active: false
-};
-const loaderSlice = createSlice({
-  name: "loader",
-  initialState: loaderInitialState,
-  reducers: {
-    setLoaderActive(state, { payload }) {
-      state.active = payload;
-    }
-  }
-});
-const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
-class EmptyAnswer {
-  constructor() {
-    __publicField(this, "id");
-    __publicField(this, "answer");
-    __publicField(this, "right_answer");
-    __publicField(this, "text");
-    this.id = nanoid();
-    this.answer = "";
-    this.right_answer = false;
-    this.text = "";
-  }
-}
-class EmptyTest {
-  constructor() {
-    __publicField(this, "id");
-    __publicField(this, "question");
-    __publicField(this, "answers");
-    this.id = nanoid();
-    this.question = "";
-    this.answers = [
-      {
-        id: nanoid(),
-        answer: "",
-        right_answer: false,
-        text: ""
-      },
-      {
-        id: nanoid(),
-        answer: "",
-        right_answer: true,
-        text: ""
-      }
-    ];
-  }
-}
-const lessonInitialState = {
-  tests: []
-};
-const lessonSlice = createSlice({
-  name: "lesson",
-  initialState: lessonInitialState,
-  reducers: {
-    addEmptyTest: (state) => {
-      let tests = state.tests;
-      tests = [...tests, new EmptyTest()];
-      return {
-        ...state,
-        tests
-      };
-    },
-    deleteTest: (state, { payload }) => {
-      const updatedTests = state.tests.filter((test) => test.id !== payload);
-      return {
-        ...state,
-        tests: updatedTests
-      };
-    },
-    addAnswer: (state, { payload }) => {
-      const { tests } = state;
-      const testIndex = tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1)
-        return state;
-      const newTests = [...tests];
-      newTests[testIndex] = {
-        ...newTests[testIndex],
-        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
-      };
-      return {
-        ...state,
-        tests: newTests
-      };
-    },
-    deleteAnswer: (state, { payload }) => {
-      const { testId, answerId } = payload;
-      const testIndex = state.tests.findIndex((test) => test.id === testId);
-      if (testIndex === -1) {
-        return state;
-      }
-      const filteredAnswers = state.tests[testIndex].answers.filter(
-        (answer) => answer.id !== answerId
-      );
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === testId) {
-          test.answers = filteredAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    setTestsData: (state, { payload }) => {
-      state.tests = [...payload];
-    },
-    changeTestQuestion: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
-      if (testIndex === -1) {
-        return state;
-      }
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.id) {
-          test.question = payload.question;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    toggleAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.isRight) {
-          if (answer.id === payload.answerId && payload.isRight) {
-            answer.right_answer = payload.isRight;
-          } else {
-            answer.right_answer = false;
-          }
-        } else {
-          answer.right_answer = payload.isRight;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    changeAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.answerId === answer.id) {
-          answer.answer = payload.value;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    },
-    changeAnswerComment: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
-      if (testIndex === -1)
-        return;
-      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
-        if (payload.answerId === answer.id) {
-          answer.text = payload.value;
-        }
-        return answer;
-      });
-      const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
-          test.answers = changedAnswers;
-        }
-        return test;
-      });
-      state.tests = modifyTests;
-    }
-  }
-});
-const { reducer: reducer$1, actions } = lessonSlice;
-const rootActions = {
-  ...actions$3,
-  ...actions$4,
-  ...actions$2,
-  ...actions$1,
-  ...actions
-};
-const useActions = () => {
-  const dispatch = useDispatch();
-  return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
-};
-const editIcon$2 = "/assets/editIcon.svg";
-const addIcon$2 = "/assets/addIcon.svg";
-const AdminBtn$1 = st$1.button`
-  position: relative;
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-`;
-const isHideIcon = "/assets/hideIcon.svg";
-const addIcon$1 = "/assets/addIconBlack.svg";
-const editIcon$1 = "/assets/editIconRed.svg";
-const deleteIcon$1 = "/assets/deleteIcon.svg";
-const visibleIcon = "/assets/visibleIcon.svg";
-const Container$p = st$1(FlexContainer)`
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: ${(props) => props.theme.utils.zIndex.popup};
-  padding: 15px 10px 10px;
-  width: 320px;
-  /* min-height: 316px; */
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.greyF1};
-  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
-`;
-const Title$c = st$1(Text$3)`
-  margin-bottom: 15px;
-  text-align: center;
-`;
-const Btn = st$1.div`
-  ${TextStyles}
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-  transition: ${(props) => props.theme.utils.transition};
-
-  &:not(:last-child) {
-    margin-bottom: 5px;
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.greyF1};
-  }
-`;
-const HideBtn = st$1(Btn)``;
-const VisibleBtn = st$1(Btn)``;
-const AddBtn = st$1(Btn)``;
-const EditBtn = st$1(Btn)``;
-const DeleteBtn$2 = st$1(Btn)`
-  color: ${(props) => props.theme.colors.yRed};
-`;
-const RestoreBtn = st$1(Btn)``;
-const BtnIcon = st$1(Icon$1)`
-  margin-right: 15px;
-`;
-const HideIcon = st$1(BtnIcon)`
-  background-image: url(${isHideIcon});
-`;
-const AddIcon = st$1(BtnIcon)`
-  background-image: url(${addIcon$1});
-`;
-const EditIcon$1 = st$1(BtnIcon)`
-  background-image: url(${editIcon$1});
-`;
-const DeleteIcon$1 = st$1(BtnIcon)`
-  background-image: url(${deleteIcon$1});
-`;
-const VisibleIcon = st$1(BtnIcon)`
-  background-image: url(${visibleIcon});
-`;
-function ControlsPopup({
-  innerRef,
-  name,
-  onHide,
-  onAdd,
-  onDelete,
-  onEdit,
-  onRestore,
-  onVisible
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
-    onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
-      "скрыть"
-    ] }),
-    onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
-      "показать"
-    ] }),
-    onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
-      "добавить"
-    ] }),
-    onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon$1, {}),
-      "изменить"
-    ] }),
-    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon$1, {}),
-      "удалить"
-    ] }),
-    onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
-  ] });
-}
-const body = document.body;
-function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: styles2 = {} }) {
-  const [isPopup, setPopup] = reactExports.useState();
-  const user = useTypedSelector((state) => selectUser(state).data);
-  const ref = reactExports.useRef(null);
-  const popupInnerRef = reactExports.useRef(null);
-  const [isAdmin, setAdmin] = reactExports.useState(false);
-  reactExports.useEffect(() => {
-    if (user && user.user.role === USER_ROLES.admin) {
-      setAdmin(true);
-    }
-  }, [user]);
-  const handleOverlayClick = (event) => {
-    if (!popupInnerRef.current)
-      return;
-    if (event.target !== popupInnerRef.current && event.target !== ref.current) {
-      setPopup(false);
-      body.removeEventListener("click", handleOverlayClick);
-    }
-  };
-  const handleClick = (event) => {
-    event.stopPropagation();
-    onClick2(event);
-    if (type === ADMIN_BTN_TYPES.edit) {
-      if (isPopup) {
-        setPopup(false);
-      } else {
-        setPopup(true);
-        body.addEventListener("click", handleOverlayClick);
-      }
-    }
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: isAdmin && /* @__PURE__ */ jsxRuntimeExports.jsx(
-    AdminBtn$1,
-    {
-      style: styles2,
-      ref,
-      $type: type,
-      onClick: handleClick,
-      children: isPopup && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ControlsPopup,
-        {
-          innerRef: popupInnerRef,
-          name: popupName,
-          ...popupHandlers
-        }
-      )
-    }
-  ) });
-}
-const courseApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getCourses: builder.query({
-      query: () => "course",
-      providesTags: () => [
-        {
-          type: "Courses"
-        }
-      ]
-    }),
-    getCourseById: builder.query({
-      query: (id2) => `course/${id2}`,
-      providesTags: () => [
-        {
-          type: "CourseById"
-        }
-      ]
-    }),
-    createCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/create",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: () => [
-        {
-          type: "Courses"
-        }
-      ]
-    }),
-    updateCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/update",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: ["Courses"]
-    }),
-    deleteCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/delete",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: ["Courses"]
-    }),
-    restoreCourse: builder.mutation({
-      query: (data) => ({
-        url: "course/restore",
-        method: "POST",
-        body: data
-      }),
-      invalidatesTags: ["Courses"]
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCreateCourseMutation,
-  useDeleteCourseMutation,
-  useGetCoursesQuery,
-  useGetCourseByIdQuery,
-  useRestoreCourseMutation,
-  useUpdateCourseMutation
-} = courseApi;
-const selectCourses = courseApi.endpoints.getCourses.select();
-const SelectIcon$1 = st$1(Icon$1)`
-  top: 25% !important;
-  width: 33px;
-  height: 33px;
-  background-image: url(${selectIcon});
-`;
 const common = {
   black: "#000",
   white: "#fff"
@@ -24441,6 +23883,86 @@ const Grow = /* @__PURE__ */ reactExports.forwardRef(function Grow2(props, ref) 
 });
 Grow.muiSupportAuto = true;
 const Grow$1 = Grow;
+function useMediaQueryOld(query, defaultMatches, matchMedia, ssrMatchMedia, noSsr) {
+  const [match2, setMatch] = reactExports.useState(() => {
+    if (noSsr && matchMedia) {
+      return matchMedia(query).matches;
+    }
+    if (ssrMatchMedia) {
+      return ssrMatchMedia(query).matches;
+    }
+    return defaultMatches;
+  });
+  useEnhancedEffect$1(() => {
+    let active = true;
+    if (!matchMedia) {
+      return void 0;
+    }
+    const queryList = matchMedia(query);
+    const updateMatch = () => {
+      if (active) {
+        setMatch(queryList.matches);
+      }
+    };
+    updateMatch();
+    queryList.addListener(updateMatch);
+    return () => {
+      active = false;
+      queryList.removeListener(updateMatch);
+    };
+  }, [query, matchMedia]);
+  return match2;
+}
+const maybeReactUseSyncExternalStore = React$1["useSyncExternalStore"];
+function useMediaQueryNew(query, defaultMatches, matchMedia, ssrMatchMedia, noSsr) {
+  const getDefaultSnapshot = reactExports.useCallback(() => defaultMatches, [defaultMatches]);
+  const getServerSnapshot = reactExports.useMemo(() => {
+    if (noSsr && matchMedia) {
+      return () => matchMedia(query).matches;
+    }
+    if (ssrMatchMedia !== null) {
+      const {
+        matches: matches2
+      } = ssrMatchMedia(query);
+      return () => matches2;
+    }
+    return getDefaultSnapshot;
+  }, [getDefaultSnapshot, query, ssrMatchMedia, noSsr, matchMedia]);
+  const [getSnapshot, subscribe] = reactExports.useMemo(() => {
+    if (matchMedia === null) {
+      return [getDefaultSnapshot, () => () => {
+      }];
+    }
+    const mediaQueryList = matchMedia(query);
+    return [() => mediaQueryList.matches, (notify) => {
+      mediaQueryList.addListener(notify);
+      return () => {
+        mediaQueryList.removeListener(notify);
+      };
+    }];
+  }, [getDefaultSnapshot, matchMedia, query]);
+  const match2 = maybeReactUseSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  return match2;
+}
+function useMediaQuery(queryInput, options = {}) {
+  const theme = useTheme$2();
+  const supportMatchMedia = typeof window !== "undefined" && typeof window.matchMedia !== "undefined";
+  const {
+    defaultMatches = false,
+    matchMedia = supportMatchMedia ? window.matchMedia : null,
+    ssrMatchMedia = null,
+    noSsr = false
+  } = getThemeProps({
+    name: "MuiUseMediaQuery",
+    props: options,
+    theme
+  });
+  let query = typeof queryInput === "function" ? queryInput(theme) : queryInput;
+  query = query.replace(/^@media( ?)/m, "");
+  const useMediaQueryImplementation = maybeReactUseSyncExternalStore !== void 0 ? useMediaQueryNew : useMediaQueryOld;
+  const match2 = useMediaQueryImplementation(query, defaultMatches, matchMedia, ssrMatchMedia, noSsr);
+  return match2;
+}
 const _excluded$a = ["disableUnderline", "components", "componentsProps", "fullWidth", "inputComponent", "multiline", "slotProps", "slots", "type"];
 const useUtilityClasses$8 = (ownerState) => {
   const {
@@ -25928,7 +25450,7 @@ const SelectSelect = styled$1("div", {
     overflow: "hidden"
   }
 });
-const SelectIcon = styled$1("svg", {
+const SelectIcon$2 = styled$1("svg", {
   name: "MuiSelect",
   slot: "Icon",
   overridesResolver: (props, styles2) => {
@@ -26301,7 +25823,7 @@ const SelectInput = /* @__PURE__ */ reactExports.forwardRef(function SelectInput
       className: classes2.nativeInput,
       autoFocus,
       ownerState
-    }, other)), /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {
+    }, other)), /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon$2, {
       as: IconComponent,
       className: classes2.icon,
       ownerState
@@ -26452,6 +25974,583 @@ const Select = /* @__PURE__ */ reactExports.forwardRef(function Select2(inProps,
 });
 Select.muiName = "Select";
 const Select$1 = Select;
+function Header() {
+  const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  reactExports.useEffect(() => {
+    if (isBurgerMenuOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isBurgerMenuOpen, isMobile]);
+  const handleToggleBurgerMenu = () => {
+    setBurgerMenuOpen(!isBurgerMenuOpen);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
+    isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      BurgerBtn,
+      {
+        isOpen: false,
+        onClick: handleToggleBurgerMenu
+      }
+    ),
+    !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Nav$1, {})
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {}),
+    isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
+  ] });
+}
+const Container$t = st$1(FlexContainer)`
+  align-items: center;
+  margin-bottom: 20px;
+`;
+st$1.div`
+  padding: 3px 15px;
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 24.923px;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => props.theme.colors.mainBlue};
+  border-radius: 18px;
+`;
+st$1(Text$4)`
+  font-weight: 24.923px;
+`;
+const ModalInitialState = {
+  isModalOpen: false,
+  modalType: ""
+};
+const modalSlice = createSlice({
+  name: "modal",
+  initialState: ModalInitialState,
+  reducers: {
+    setModalOpen: (state, { payload }) => {
+      state.isModalOpen = payload;
+      payload ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset";
+    },
+    setModalType: (state, { payload }) => {
+      state.modalType = payload;
+    }
+  }
+});
+const { actions: actions$4, reducer: reducer$5 } = modalSlice;
+const AuthInitialState = {
+  token: null
+};
+const authSlice = createSlice({
+  name: "auth",
+  initialState: AuthInitialState,
+  reducers: {
+    setAuthToken: (state, { payload }) => {
+      state.token = payload;
+    }
+  }
+});
+const { actions: actions$3, reducer: reducer$4 } = authSlice;
+const courseInitialState = {
+  data: {
+    id: 0,
+    title: "",
+    description: "",
+    is_open: 0,
+    status: 0,
+    user_id: 0,
+    date: "",
+    is_deleted: 0,
+    chapters: [],
+    image: null
+  },
+  activeChapterId: null,
+  activeTheme: null,
+  activeLesson: null,
+  updatingChapterData: null,
+  updatingThemeData: null
+};
+const courseSlice = createSlice({
+  name: "course",
+  initialState: courseInitialState,
+  reducers: {
+    setCourseData: (state, { payload }) => {
+      return {
+        ...state,
+        ...{ data: payload || courseInitialState.data }
+      };
+    },
+    changeCourseData: (state, { payload }) => {
+      state.data = { ...state.data, ...payload };
+    },
+    setActiveChapterId: (state, { payload }) => {
+      state.activeChapterId = payload;
+    },
+    addChapter: (state, { payload }) => {
+      var _a;
+      (_a = state.data.chapters) == null ? void 0 : _a.push(payload);
+    },
+    changeChapter: (state, { payload }) => {
+      var _a, _b;
+      if (!state.data || !state.data.chapters) {
+        console.warn(`No chapters in course`);
+        return;
+      }
+      const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
+        (chapter) => chapter.id === Number(payload.id)
+      );
+      if (currentChapterIndex === -1) {
+        console.error(`No chapter with id: ${payload.id}`);
+        return;
+      }
+      state.data.chapters[currentChapterIndex] = {
+        ...state.data.chapters[currentChapterIndex],
+        ...payload
+      };
+    },
+    setActiveTheme: (state, { payload }) => {
+      state.activeTheme = { ...payload };
+    },
+    setActiveLesson: (state, { payload }) => {
+      state.activeLesson = { ...payload };
+    },
+    setUpdatingChapterData: (state, { payload }) => {
+      state.updatingChapterData = { ...payload };
+    },
+    setUpdatingThemeData: (state, { payload }) => {
+      state.updatingThemeData = { ...payload };
+    }
+  }
+});
+const { actions: actions$2, reducer: reducer$3 } = courseSlice;
+const loaderInitialState = {
+  active: false
+};
+const loaderSlice = createSlice({
+  name: "loader",
+  initialState: loaderInitialState,
+  reducers: {
+    setLoaderActive(state, { payload }) {
+      state.active = payload;
+    }
+  }
+});
+const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+class EmptyAnswer {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
+    this.id = nanoid();
+    this.answer = "";
+    this.right_answer = false;
+    this.text = "";
+  }
+}
+class EmptyTest {
+  constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
+    this.id = nanoid();
+    this.question = "";
+    this.answers = [
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: false,
+        text: ""
+      },
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: true,
+        text: ""
+      }
+    ];
+  }
+}
+const lessonInitialState = {
+  tests: []
+};
+const lessonSlice = createSlice({
+  name: "lesson",
+  initialState: lessonInitialState,
+  reducers: {
+    addEmptyTest: (state) => {
+      let tests = state.tests;
+      tests = [...tests, new EmptyTest()];
+      return {
+        ...state,
+        tests
+      };
+    },
+    deleteTest: (state, { payload }) => {
+      const updatedTests = state.tests.filter((test) => test.id !== payload);
+      return {
+        ...state,
+        tests: updatedTests
+      };
+    },
+    addAnswer: (state, { payload }) => {
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1)
+        return state;
+      const newTests = [...tests];
+      newTests[testIndex] = {
+        ...newTests[testIndex],
+        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
+      };
+      return {
+        ...state,
+        tests: newTests
+      };
+    },
+    deleteAnswer: (state, { payload }) => {
+      const { testId, answerId } = payload;
+      const testIndex = state.tests.findIndex((test) => test.id === testId);
+      if (testIndex === -1) {
+        return state;
+      }
+      const filteredAnswers = state.tests[testIndex].answers.filter(
+        (answer) => answer.id !== answerId
+      );
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === testId) {
+          test.answers = filteredAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    setTestsData: (state, { payload }) => {
+      state.tests = [...payload];
+    },
+    changeTestQuestion: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1) {
+        return state;
+      }
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.id) {
+          test.question = payload.question;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    toggleAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.isRight) {
+          if (answer.id === payload.answerId && payload.isRight) {
+            answer.right_answer = payload.isRight;
+          } else {
+            answer.right_answer = false;
+          }
+        } else {
+          answer.right_answer = payload.isRight;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.answer = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswerComment: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.text = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    }
+  }
+});
+const { reducer: reducer$1, actions } = lessonSlice;
+const rootActions = {
+  ...actions$3,
+  ...actions$4,
+  ...actions$2,
+  ...actions$1,
+  ...actions
+};
+const useActions = () => {
+  const dispatch = useDispatch();
+  return reactExports.useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
+};
+const editIcon$2 = "/assets/editIcon.svg";
+const addIcon$2 = "/assets/addIcon.svg";
+const AdminBtn$1 = st$1.button`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+`;
+const isHideIcon = "/assets/hideIcon.svg";
+const addIcon$1 = "/assets/addIconBlack.svg";
+const editIcon$1 = "/assets/editIconRed.svg";
+const deleteIcon$1 = "/assets/deleteIcon.svg";
+const visibleIcon = "/assets/visibleIcon.svg";
+const Container$s = st$1(FlexContainer)`
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: ${(props) => props.theme.utils.zIndex.popup};
+  padding: 15px 10px 10px;
+  width: 320px;
+  /* min-height: 316px; */
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.greyF1};
+  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+`;
+const Title$c = st$1(Text$4)`
+  margin-bottom: 15px;
+  text-align: center;
+`;
+const Btn = st$1.div`
+  ${TextStyles}
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+  transition: ${(props) => props.theme.utils.transition};
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.greyF1};
+  }
+`;
+const HideBtn = st$1(Btn)``;
+const VisibleBtn = st$1(Btn)``;
+const AddBtn = st$1(Btn)``;
+const EditBtn = st$1(Btn)``;
+const DeleteBtn$2 = st$1(Btn)`
+  color: ${(props) => props.theme.colors.yRed};
+`;
+const RestoreBtn = st$1(Btn)``;
+const BtnIcon = st$1(Icon$1)`
+  margin-right: 15px;
+`;
+const HideIcon = st$1(BtnIcon)`
+  background-image: url(${isHideIcon});
+`;
+const AddIcon = st$1(BtnIcon)`
+  background-image: url(${addIcon$1});
+`;
+const EditIcon$1 = st$1(BtnIcon)`
+  background-image: url(${editIcon$1});
+`;
+const DeleteIcon$1 = st$1(BtnIcon)`
+  background-image: url(${deleteIcon$1});
+`;
+const VisibleIcon = st$1(BtnIcon)`
+  background-image: url(${visibleIcon});
+`;
+function ControlsPopup({
+  innerRef,
+  name,
+  onHide,
+  onAdd,
+  onDelete,
+  onEdit,
+  onRestore,
+  onVisible
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { ref: innerRef, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
+    onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
+      "скрыть"
+    ] }),
+    onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
+      "показать"
+    ] }),
+    onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
+      "добавить"
+    ] }),
+    onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon$1, {}),
+      "изменить"
+    ] }),
+    onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$2, { onClick: onDelete, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon$1, {}),
+      "удалить"
+    ] }),
+    onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
+  ] });
+}
+const body = document.body;
+function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: styles2 = {} }) {
+  const [isPopup, setPopup] = reactExports.useState();
+  const user = useTypedSelector((state) => selectUser(state).data);
+  const ref = reactExports.useRef(null);
+  const popupInnerRef = reactExports.useRef(null);
+  const [isAdmin, setAdmin] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    if (user && user.user.role === USER_ROLES.admin) {
+      setAdmin(true);
+    }
+  }, [user]);
+  const handleOverlayClick = (event) => {
+    if (!popupInnerRef.current)
+      return;
+    if (event.target !== popupInnerRef.current && event.target !== ref.current) {
+      setPopup(false);
+      body.removeEventListener("click", handleOverlayClick);
+    }
+  };
+  const handleClick = (event) => {
+    event.stopPropagation();
+    onClick2(event);
+    if (type === ADMIN_BTN_TYPES.edit) {
+      if (isPopup) {
+        setPopup(false);
+      } else {
+        setPopup(true);
+        body.addEventListener("click", handleOverlayClick);
+      }
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: isAdmin && /* @__PURE__ */ jsxRuntimeExports.jsx(
+    AdminBtn$1,
+    {
+      style: styles2,
+      ref,
+      $type: type,
+      onClick: handleClick,
+      children: isPopup && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        ControlsPopup,
+        {
+          innerRef: popupInnerRef,
+          name: popupName,
+          ...popupHandlers
+        }
+      )
+    }
+  ) });
+}
+const courseApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getCourses: builder.query({
+      query: () => "course",
+      providesTags: () => [
+        {
+          type: "Courses"
+        }
+      ]
+    }),
+    getCourseById: builder.query({
+      query: (id2) => `course/${id2}`,
+      providesTags: () => [
+        {
+          type: "CourseById"
+        }
+      ]
+    }),
+    createCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/create",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Courses"
+        }
+      ]
+    }),
+    updateCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/update",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["Courses"]
+    }),
+    deleteCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/delete",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["Courses"]
+    }),
+    restoreCourse: builder.mutation({
+      query: (data) => ({
+        url: "course/restore",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["Courses"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateCourseMutation,
+  useDeleteCourseMutation,
+  useGetCoursesQuery,
+  useGetCourseByIdQuery,
+  useRestoreCourseMutation,
+  useUpdateCourseMutation
+} = courseApi;
+const selectCourses = courseApi.endpoints.getCourses.select();
+const SelectIcon$1 = st$1(Icon$1)`
+  top: 25% !important;
+  width: 33px;
+  height: 33px;
+  background-image: url(${selectIcon});
+`;
 const ProgressContainer$1 = st$1.h4`
   display: flex;
   align-items: center;
@@ -26480,9 +26579,10 @@ const CustomSelectOption$1 = st$1.label`
   align-items: center;
   border: 0;
   padding-bottom: 5px;
-  /* padding: 0 20px; */
-  /* height: 63px; */
   cursor: pointer;
+  @media ${(props) => props.theme.media.mobile} {
+    padding-bottom: 0;
+  }
   &*:first-child {
     padding: 0;
   }
@@ -26499,22 +26599,47 @@ const TextLabel = st$1.p`
   line-height: 120%;
   &:first-child {
     font-weight: 700;
+    @media ${(props) => props.theme.media.mobile} {
+      font-weight: 500;
+    }
   }
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 2%;
+    font-size: 4.6875vw;
+    font-weight: 500;
+  }
 `;
-const IsHiddenIcon = st$1(Icon$1)`
+const IsHiddenIcon$1 = st$1(Icon$1)`
   margin-left: auto;
   margin-right: 20px;
   background-image: url(${isHideIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 0;
+  }
 `;
-function CustomSelectOption({ percentage, status, title, isSelected, isDeleted }) {
+function CustomSelectOption({
+  percentage,
+  status,
+  title,
+  isSelected,
+  isDeleted
+}) {
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TextLabel, { $isSelected: isSelected, $isDeleted: isDeleted, children: [
-      "Курс: ",
-      title
-    ] }),
-    status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
+    !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      TextLabel,
+      {
+        $isSelected: isSelected,
+        $isDeleted: isDeleted,
+        children: [
+          "Курс: ",
+          title
+        ]
+      }
+    ),
+    status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon$1, {})
   ] });
 }
 const styles = "";
@@ -26561,7 +26686,7 @@ function CourseCustomSelect({ options, value, onChange }) {
     }
   );
 }
-let init$1 = true;
+let init = true;
 function CourseSelect() {
   const coursesData = useTypedSelector((state) => {
     var _a;
@@ -26573,6 +26698,7 @@ function CourseSelect() {
   const [restoreCourse] = useRestoreCourseMutation();
   const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = reactExports.useState("");
+  const navigate = useNavigate();
   const selectOptions = reactExports.useMemo(() => {
     if (!coursesData) {
       return [];
@@ -26593,8 +26719,8 @@ function CourseSelect() {
     return options;
   }, [coursesData]);
   reactExports.useEffect(() => {
-    if (selectOptions.length > 0 && init$1) {
-      init$1 = false;
+    if (selectOptions.length > 0 && init) {
+      init = false;
       setSelectedValue(selectOptions[0].value);
     } else if (selectOptions.length > 0) {
       const selectedCourseData = selectOptions.find(
@@ -26658,14 +26784,9 @@ function CourseSelect() {
   const handleChange = (event) => {
     const selectedCourseId = event.target.value;
     setSelectedValue(`${selectedCourseId}`);
-    const selectedCourseData = coursesData == null ? void 0 : coursesData.find(
-      (course) => `${course.id}` === `${selectedCourseId}`
-    );
-    if (selectedCourseData) {
-      setCourseData(selectedCourseData);
-    }
+    navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26693,26 +26814,37 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$o = st$1(FlexContainer)`
+const Container$r = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 2% 0 15%;
+  }
 `;
-const Container$n = st$1(FlexContainer)`
+const Container$q = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
 `;
-const Wrapper$1 = st$1(FlexContainer)`
+const Wrapper$2 = st$1(FlexContainer)`
   flex-direction: column;
   width: 49.7%;
   height: 400px;
   padding: 20px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    height: auto;
+    padding: 0.94vw 4.69vw 4.69vw;
+  }
 `;
-const ImgWrapper = st$1(Wrapper$1)`
+const ImgWrapper = st$1(Wrapper$2)`
   padding: 0;
   overflow: hidden;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const Preview = st$1.img`
   width: 100%;
@@ -26734,7 +26866,7 @@ st$1.img`
   width: 24px;
   margin: 0 5px;
 `;
-const LessonName$1 = st$1(Text$3)`
+const LessonName$1 = st$1(Text$4)`
   max-width: 95%;
   font-size: 25px;
   line-height: 130%;
@@ -26746,7 +26878,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$m = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26770,7 +26902,7 @@ const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
       "Глава ",
       chapter.position,
@@ -26795,16 +26927,225 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-function CourseMainInfo() {
-  const courseData = useTypedSelector((state) => state.course.data);
-  const imageUrl = () => {
-    if (courseData == null ? void 0 : courseData.image) {
-      return "." + courseData.image.directory + "/" + courseData.image.name;
-    }
-    return defaultPreview;
+const Container$o = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: space-between;
+`;
+const Text$3 = st$1(Text$4)`
+  max-width: 268px;
+  font-size: 37.778px;
+  @media ${(props) => props.theme.media.mobile} {
+    max-width: 50%;
+    font-size: 6.13vw;
+  }
+`;
+const Percentage = st$1.h3`
+  font-size: 105.387px;
+  font-weight: 700;
+  line-height: 100%;
+  color: ${(props) => props.theme.colors.mainBlue};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 17.09vw;
+    line-height: 113%;
+  }
+`;
+function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { style: styles2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: text }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
+      percentage,
+      "%"
+    ] })
+  ] });
+}
+const Overlay$1 = st$1.div`
+  display: flex;
+  align-items: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
+`;
+const Container$n = st$1.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 3.125vw;
+  background-color: ${(props) => props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br} ${(props) => props.theme.utils.br} 0px 0px;
+`;
+const CoursesList = st$1.ul`
+  display: flex;
+  flex-direction: column;
+  padding: 0 4.6875vw;
+  margin-bottom: 3.75vw;
+`;
+const Course$1 = st$1.li`
+  &:not(:last-child) {
+    margin-bottom: 6.25vw;
+  }
+`;
+const AddCourseBtn = st$1.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4.6875vw;
+  margin: 0;
+  margin-bottom: 2%;
+  background-color: transparent;
+`;
+const AddCourseBtnTitle = st$1(Text$4)`
+  width: 90%;
+  font-size: 4.6875vw;
+  font-weight: 600;
+  text-align: start;
+`;
+const AddCourseBtnIcon = st$1(Icon$1)`
+  background-image: url(${addIcon$2});
+`;
+const CloseBtnWrapper = st$1.div`
+  padding: 3.125vw 4.6875vw;
+  border-top: 1px solid ${(props) => props.theme.colors.greyF1};
+`;
+const CloseBtn = st$1(DefaultBtn)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 15.625vw;
+  color: ${(props) => props.theme.colors.grey93};
+  background-color: ${(props) => props.theme.colors.greyF1};
+`;
+function Popup({ coursesData, onClose }) {
+  const { setModalOpen, setModalType } = useActions();
+  const selectedCourseid = useTypedSelector((state) => state.course.data.id);
+  const modalRoot = document.querySelector("#modal-root");
+  const navigate = useNavigate();
+  if (!modalRoot) {
+    return null;
+  }
+  const handleSelectCourse = (id2) => {
+    onClose();
+    navigate(`/courses/${id2}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { children: [
+  const handleAddCourse = () => {
+    onClose();
+    setModalOpen(true);
+    setModalType(MODAL_TYPES.createCourse);
+  };
+  return ReactDOM.createPortal(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Course$1,
+        {
+          onClick: () => {
+            handleSelectCourse(course.id);
+          },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CustomSelectOption,
+            {
+              title: course.title,
+              status: course.status,
+              isDeleted: !!course.is_deleted,
+              isSelected: Number(course.id) === Number(selectedCourseid)
+            },
+            course.id
+          )
+        }
+      )) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCourseBtn, { onClick: handleAddCourse, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnTitle, { children: "Добавить курс" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnIcon, {})
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtnWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn, { onClick: onClose, children: "Отмена" }) })
+    ] }) }),
+    modalRoot
+  );
+}
+const Container$m = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4.6875vw;
+`;
+const Wrapper$1 = st$1.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 75%;
+`;
+const CourseTitle = st$1(Text$4)`
+  width: 90%;
+  margin-right: 1.875vw;
+  font-size: 4.6875vw;
+`;
+const SelectIcon = st$1(Icon$1)`
+  background-image: url(${selectIcon});
+`;
+const IsHiddenIcon = st$1(Icon$1)`
+  margin-left: auto;
+  margin-right: 2%;
+  background-image: url(${isHideIcon});
+`;
+function OpenSelect({ courseData, onOpen }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { children: courseData.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
+    ] }),
+    courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AdminBtn,
+      {
+        type: ADMIN_BTN_TYPES.edit
+      }
+    )
+  ] });
+}
+function CourseMainInfo({ coursesData }) {
+  var _a;
+  const courseData = useTypedSelector((state) => state.course.data);
+  const [previewSrc, setPreviewSrc] = reactExports.useState("");
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const [isPopupOpen, setIsPopupOpen] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    if (courseData.image) {
+      const src = "." + courseData.image.directory + "/" + courseData.image.name;
+      setPreviewSrc(src);
+      return;
+    }
+    setPreviewSrc(defaultPreview);
+  }, [courseData.image]);
+  const handleLoadError = () => {
+    setPreviewSrc(defaultPreview);
+  };
+  const progressInfoStyles = {
+    marginBottom: "3.13vw"
+  };
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
+      isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          ProgressInfo,
+          {
+            percentage: `${(_a = courseData.percentage) == null ? void 0 : _a.percentage}`,
+            text: "Твой курс закончен на",
+            styles: progressInfoStyles
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(OpenSelect, { courseData, onOpen: handleOpenPopup })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
         {
@@ -26826,17 +27167,30 @@ function CourseMainInfo() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Preview, { src: imageUrl() }) })
+    !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Preview,
+      {
+        src: previewSrc,
+        onError: handleLoadError
+      }
+    ) }),
+    isPopupOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Popup,
+      {
+        coursesData,
+        onClose: handleClosePopup
+      }
+    )
   ] });
 }
 const Container$l = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Head$2 = st$1(FlexContainer)`
+const Head$1 = st$1(FlexContainer)`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-const Title$b = st$1(Text$3)``;
+const Title$b = st$1(Text$4)``;
 const CardList = st$1.ul`
   display: flex;
   flex-wrap: wrap;
@@ -26872,7 +27226,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$a = st$1(Text$3)``;
+const Title$a = st$1(Text$4)``;
 const ProgressContainer = st$1(FlexContainer)`
   flex-direction: column;
   margin-top: auto;
@@ -27023,7 +27377,7 @@ function CourseProgramm() {
     setModalOpen(true);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
@@ -27054,41 +27408,37 @@ const Container$k = st$1(FlexContainer)`
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Text$2 = st$1(Text$3)`
+const Text$2 = st$1(Text$4)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
-let init = true;
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
-  const courseId = useTypedSelector((state) => {
-    var _a;
-    return (_a = state.course.data) == null ? void 0 : _a.id;
-  });
   const { setCourseData, setLoaderActive } = useActions();
+  const params = useParams();
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
   reactExports.useEffect(() => {
-    if (data && init) {
-      init = false;
-      if (courseId) {
-        const currentCourse = data.data.find((course) => course.id === Number(courseId));
-        if (currentCourse) {
-          setCourseData(currentCourse);
-          return;
-        }
+    if (data) {
+      const currentCourseId = params.courseId || null;
+      const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
+      if (!currentCourseId || !currentCourse) {
+        navigate(`/courses/${data.data[0].id}`);
+        return;
       }
-      setCourseData(data.data[0]);
+      setCourseData(currentCourse);
     }
-  }, [courseId, data, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  }, [data, navigate, params.courseId, setCourseData]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, {}),
+      !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { coursesData: data.data }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgramm, {})
     ] })
   ] }) });
@@ -27575,7 +27925,7 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$8 = st$1(Text$3)`
+const Title$8 = st$1(Text$4)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
@@ -27600,7 +27950,7 @@ function CourseNavHead({ data }) {
 }
 const forwardIcon = "/assets/forwardIcon.svg";
 const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-const Title$7 = st$1(Text$3)`
+const Title$7 = st$1(Text$4)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27620,7 +27970,7 @@ st$1.div`
   top: 0;
   right: 0;
 `;
-const NoOpenLesson = st$1(Text$3)`
+const NoOpenLesson = st$1(Text$4)`
   font-size: 31px;
 `;
 const ForwardBtn = st$1(DefaultBtn)`
@@ -27652,7 +28002,7 @@ const Container$d = st$1(FlexContainer)`
     margin-bottom: 115px;
   }
 `;
-const Title$6 = st$1(Text$3)`
+const Title$6 = st$1(Text$4)`
   margin-bottom: 40px;
   font-size: 25px;
   line-height: 150%;
@@ -27788,7 +28138,7 @@ const Container$c = st$1(FlexContainer)`
     margin-bottom: 40px;
   }
 `;
-const Answer = st$1(Text$3)`
+const Answer = st$1(Text$4)`
   padding-left: 56px;
   font-weight: 400;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
@@ -27797,7 +28147,7 @@ const Answer = st$1(Text$3)`
   background-position: left center;
   background-size: 36px;
 `;
-const Comment = st$1(Text$3)`
+const Comment = st$1(Text$4)`
   font-weight: 600;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
@@ -28011,7 +28361,7 @@ function Courses() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
       {
-        path: "/",
+        path: "/:courseId?",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(CoursePreview, {})
       }
     ),
@@ -33134,7 +33484,7 @@ const Container$a = st$1(FlexContainer)`
   width: 100%;
   height: 100%;
 `;
-const Head$1 = st$1(FlexContainer)`
+const Head = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -33166,7 +33516,7 @@ const MoreBtn$1 = st$1(DefaultBtn)`
 `;
 function Competition() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionPagination, { children: "Конкурс 1/7" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
@@ -33241,21 +33591,6 @@ const Container$9 = st$1(FlexContainer)`
     width: 100%;
   }
 `;
-const Head = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`;
-const PlanText = st$1(Text$3)`
-  max-width: 268px;
-  font-size: 37.778px;
-`;
-const PlanСompletionPercentage = st$1.h3`
-  font-size: 105.387px;
-  font-weight: 700;
-  line-height: 100%;
-  color: ${(props) => props.theme.colors.mainBlue};
-`;
 const InfoBlock = st$1(FlexContainer)`
   flex-direction: column;
   gap: 23px;
@@ -33264,7 +33599,7 @@ const InfoBlock = st$1(FlexContainer)`
 const InfoRaw = st$1(FlexContainer)`
   align-items: center;
 `;
-const InfoRawTitle = st$1(Text$3)`
+const InfoRawTitle = st$1(Text$4)`
   min-width: fit-content;
   font-size: 20px;
 `;
@@ -33274,7 +33609,7 @@ const InfoRawDots = st$1.div`
   margin: 0 2%;
   border-bottom: 5px dotted ${(props) => props.theme.colors.greyF1};
 `;
-const InfoRawValue = st$1(Text$3)`
+const InfoRawValue = st$1(Text$4)`
   min-width: fit-content;
   font-size: 22px;
 `;
@@ -33287,7 +33622,7 @@ const YamaguchiLvl = st$1(FlexContainer)`
   max-width: 40%;
   row-gap: 8px;
 `;
-const YamaguchiLvlTitle = st$1(Text$3)`
+const YamaguchiLvlTitle = st$1(Text$4)`
   font-size: 15px;
 `;
 const StarsContainer = st$1(FlexContainer)`
@@ -33309,16 +33644,27 @@ const MoreIcon = st$1(Icon$1)`
   margin-left: 13px;
   background-image: url(${moreIcon});
 `;
-function ManagerInfo({ percentage, salary, appSaleValue, zebrChair, yamaguchiLvl }) {
+function ManagerInfo({
+  percentage,
+  salary,
+  appSaleValue,
+  zebrChair,
+  yamaguchiLvl
+}) {
   const stars = [1, 2, 3, 4, 5, 6];
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const progressInfoStyles = {
+    marginBottom: isMobile ? "10px" : "30px"
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(PlanText, { children: "Твой план выполнен на" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(PlanСompletionPercentage, { children: [
+    percentage && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ProgressInfo,
+      {
         percentage,
-        "%"
-      ] })
-    ] }),
+        text: "Твой план выполнен на",
+        styles: progressInfoStyles
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoBlock, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoRaw, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(InfoRawTitle, { children: "Зарплата" }),
@@ -33344,10 +33690,17 @@ function ManagerInfo({ percentage, salary, appSaleValue, zebrChair, yamaguchiLvl
         /* @__PURE__ */ jsxRuntimeExports.jsx(YamaguchiLvlTitle, { children: "Уровень Ямагучести!" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(StarsContainer, { children: stars.map((starNumber) => /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { $active: starNumber > Number(yamaguchiLvl) ? false : true })) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(MoreLink, { as: "a", href: "#", children: [
-        "Подробнее",
-        /* @__PURE__ */ jsxRuntimeExports.jsx(MoreIcon, {})
-      ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        MoreLink,
+        {
+          as: "a",
+          href: "#",
+          children: [
+            "Подробнее",
+            /* @__PURE__ */ jsxRuntimeExports.jsx(MoreIcon, {})
+          ]
+        }
+      )
     ] })
   ] });
 }
@@ -33479,7 +33832,7 @@ function NewsEl({ data }) {
 const Container$7 = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$4 = st$1(Text$3)`
+const Title$4 = st$1(Text$4)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33499,7 +33852,7 @@ const Wrapper = st$1(FlexContainer)`
   row-gap: 22px;
   width: 25%;
 `;
-const Category = st$1(Text$3)`
+const Category = st$1(Text$4)`
   font-size: 22px;
   cursor: pointer;
 
@@ -34331,7 +34684,7 @@ function CreateThemeForm() {
   );
 }
 const checklistIcon = "/assets/checklist.svg";
-const Title$3 = st$1(Text$3)`
+const Title$3 = st$1(Text$4)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -48497,7 +48850,7 @@ function CreateLesson({ type }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
   ] }) });
 }
-const Title = st$1(Text$3)`
+const Title = st$1(Text$4)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -48645,7 +48998,7 @@ const Logo = st$1.img`
   width: 30px;
   margin-right: 15px;
 `;
-const Text$1 = st$1(Text$3)`
+const Text$1 = st$1(Text$4)`
   font-size: 22.714px;
 `;
 const loadingLogo = "/assets/loadingLogo.svg";

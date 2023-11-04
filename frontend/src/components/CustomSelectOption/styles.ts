@@ -7,9 +7,10 @@ export const CustomSelectOption = styled.label`
   align-items: center;
   border: 0;
   padding-bottom: 5px;
-  /* padding: 0 20px; */
-  /* height: 63px; */
   cursor: pointer;
+  @media ${(props) => props.theme.media.mobile} {
+    padding-bottom: 0;
+  }
   &*:first-child {
     padding: 0;
   }
@@ -27,12 +28,23 @@ export const TextLabel = styled.p<{ $isSelected: boolean; $isDeleted: boolean }>
   line-height: 120%;
   &:first-child {
     font-weight: 700;
+    @media ${(props) => props.theme.media.mobile} {
+      font-weight: 500;
+    }
   }
   text-decoration: ${(props) => (props.$isDeleted ? 'line-through' : 'none')};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 2%;
+    font-size: 4.6875vw;
+    font-weight: 500;
+  }
 `;
 
 export const IsHiddenIcon = styled(C.Icon)`
   margin-left: auto;
   margin-right: 20px;
   background-image: url(${isHideIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 0;
+  }
 `;

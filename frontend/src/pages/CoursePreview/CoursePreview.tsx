@@ -7,32 +7,32 @@ import { useGetCoursesQuery } from '@/store/api/course.api';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-
-let init = true;
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
+import { MediaQueries } from '@/constants';
 
 export function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
-  const courseId = useTypedSelector(state => state.course.data?.id);
   const { setCourseData, setLoaderActive } = useActions();
+  const params = useParams();
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
 
   useEffect(() => {
-    if (data && init) {
-      init = false;
-      if(courseId) {
-        const currentCourse = data.data.find((course) => course.id === Number(courseId));
-        if(currentCourse) {
-          setCourseData(currentCourse);
-          return;
-        }
+    if (data) {
+      const currentCourseId = params.courseId || null;
+      const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
+      if (!currentCourseId || !currentCourse) {
+        navigate(`/courses/${data.data[0].id}`);
+        return;
       }
-      setCourseData(data.data[0]);
+      setCourseData(currentCourse);
     }
-  }, [courseId, data, setCourseData]);
+  }, [data, navigate, params.courseId, setCourseData]);
 
   return (
     <C.DefaultContainer>
@@ -40,8 +40,8 @@ export function CoursePreview() {
         {isError && <ErrorBlock />}
         {data && (
           <>
-            <CourseSelect />
-            <CourseMainInfo />
+            {!isMobile && <CourseSelect />}
+            <CourseMainInfo coursesData={data.data}/>
             <CourseProgramm />
           </>
         )}

@@ -17,24 +17,6 @@ export const Container = styled(C.FlexContainer)`
   }
 `;
 
-export const Head = styled(C.FlexContainer)`
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`;
-
-export const PlanText = styled(C.Text)`
-  max-width: 268px;
-  font-size: 37.778px;
-`;
-
-export const PlanСompletionPercentage = styled.h3`
-  font-size: 105.387px;
-  font-weight: 700;
-  line-height: 100%;
-  color: ${(props) => props.theme.colors.mainBlue};
-`;
-
 export const InfoBlock = styled(C.FlexContainer)`
   flex-direction: column;
   gap: 23px;

@@ -5,31 +5,41 @@ import { ProfileBlock } from './ProfileBlock';
 import { BurgerBtn } from './BurgerBtn';
 import { useEffect, useState } from 'react';
 import { BurgerMenu } from './BurgerMenu';
+import { useMediaQuery } from '@mui/material';
+import { MediaQueries } from '@/constants';
 
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
-    if (isBurgerMenuOpen) {
+    if (isBurgerMenuOpen && isMobile) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isBurgerMenuOpen]);
+  }, [isBurgerMenuOpen, isMobile]);
 
   const handleToggleBurgerMenu = () => {
     setBurgerMenuOpen(!isBurgerMenuOpen);
-  }
+  };
 
   return (
     <S.Header>
-        <MainLogo />
-        <BurgerBtn isOpen={false} onClick={handleToggleBurgerMenu}/>
-        <Nav />
-        <ProfileBlock />
-        {isBurgerMenuOpen && (
-          <BurgerMenu onClose={handleToggleBurgerMenu}/>
-        )}
+      {isMobile && (
+        <BurgerBtn
+          isOpen={false}
+          onClick={handleToggleBurgerMenu}
+        />
+      )}
+      {!isMobile && (
+        <>
+          <MainLogo />
+          <Nav />
+        </>
+      )}
+      <ProfileBlock />
+      {isBurgerMenuOpen && <BurgerMenu onClose={handleToggleBurgerMenu} />}
     </S.Header>
   );
 }

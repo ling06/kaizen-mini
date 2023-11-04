@@ -7,7 +7,7 @@ export function Courses() {
     <>
       <Routes>
         <Route
-          path="/"
+          path="/:courseId?"
           element={<CoursePreview />}
         />
         <Route
