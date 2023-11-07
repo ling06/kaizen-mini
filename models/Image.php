@@ -148,7 +148,7 @@ class Image extends \app\components\ActiveRecord
             $this->original_name = $this->file->baseName . '.' . $this->file->extension;
             $this->file->saveAs($this->getPath());
         } elseif ($this->fileData) {
-            $replaceExtantion = ($this->extension == 'jpg') ? 'jpeg' : $this->file->extension;
+            $replaceExtantion = ($this->extension == 'jpg') ? 'jpeg' : $this->extension;
             $this->original_name = $this->name;
             file_put_contents($this->getPath(), base64_decode(str_replace('data:image/' . $replaceExtantion . ';base64,', '', $this->fileData)));
         }
