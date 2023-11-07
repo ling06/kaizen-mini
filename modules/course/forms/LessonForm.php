@@ -67,7 +67,7 @@ class LessonForm extends Lesson
             if ($test->save() && !empty($test->id)) {
                 $answersFromDb = Question::find()->where(['test_id' => $test->id])->all();
                 foreach ($tests['answers'] as $answer) {
-                    $editedAnswers[] = $answer['id'];
+                    $editedAnswers[] = $answer['id'] ?? null;
                     if (isset($answer['id']) && !empty($answer['id'])) {
                         $testAnswer = Question::find()->where(['id' => $answer['id']])->one();
                         if ($testAnswer->right_answer !== $answer['right_answer']) {
