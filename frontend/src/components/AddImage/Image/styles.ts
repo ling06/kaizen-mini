@@ -11,6 +11,11 @@ export const ImageWrapper = styled.div`
   border-radius: 19px;
   background-color: ${(props) => props.theme.colors.greyF1};
   overflow: hidden;
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: unset;
+    margin-bottom: 3.125vw;
+    border-radius: 16.5px;
+  }
 `;
 
 export const Image = styled.img`

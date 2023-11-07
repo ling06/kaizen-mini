@@ -50,6 +50,7 @@ export const Img = styled.img`
 `;
 
 export const Title = styled(C.Text)`
+  word-break: break-all;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
   }

@@ -27332,9 +27332,12 @@ const Container$l = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$1 = st$1(FlexContainer)`
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
   @media ${(props) => props.theme.media.mobile} {
+    padding: 0 3.125vw;
+    margin-bottom: 4.6875vw;
     font-size: 4.6875vw;
   }
 `;
@@ -27396,6 +27399,7 @@ const Img = st$1.img`
   object-fit: cover;
 `;
 const Title$a = st$1(Text$4)`
+  word-break: break-all;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
   }
@@ -34395,6 +34399,7 @@ const ConfirmBtn = st$1(DefaultBtn)`
   @media ${(props) => props.theme.media.mobile} {
     min-width: unset;
     width: 48%;
+    min-height: 15.625vw;
     font-size: 4.6875vw;
   }
 `;
@@ -34518,6 +34523,11 @@ const ImageWrapper = st$1.div`
   border-radius: 19px;
   background-color: ${(props) => props.theme.colors.greyF1};
   overflow: hidden;
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: unset;
+    margin-bottom: 3.125vw;
+    border-radius: 16.5px;
+  }
 `;
 const Image$2 = st$1.img`
   width: 100%;
@@ -34567,9 +34577,10 @@ const EditFileBtn = st$1(AddFileBtn)`
   padding: 0 30px;
   font-size: 15px;
   @media ${(props) => props.theme.media.mobile} {
-    min-height: 50px;
+    justify-content: center;
+    min-height: 15.625vw;
     padding: 0;
-    width: 48%;
+    width: 45vw;
     font-size: 3.75vw;
     border-radius: 13.026px;
   }

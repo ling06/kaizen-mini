@@ -6,9 +6,12 @@ export const Container = styled(C.FlexContainer)`
 `;
 
 export const Head = styled(C.FlexContainer)`
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
   @media ${(props) => props.theme.media.mobile} {
+    padding: 0 3.125vw;
+    margin-bottom: 4.6875vw;
     font-size: 4.6875vw;
   }
 `;

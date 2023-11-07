@@ -40,9 +40,10 @@ export const EditFileBtn = styled(AddFileBtn)`
   padding: 0 30px;
   font-size: 15px;
   @media ${(props) => props.theme.media.mobile} {
-    min-height: 50px;
+    justify-content: center;
+    min-height: 15.625vw;
     padding: 0;
-    width: 48%;
+    width: 45vw;
     font-size: 3.75vw;
     border-radius: 13.026px;
   }
@@ -80,5 +81,3 @@ export const DeleteIcon = styled(C.Icon)`
     margin-right: 1.5625vw;
   }
 `;
-
-

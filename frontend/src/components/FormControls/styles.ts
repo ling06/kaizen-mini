@@ -24,6 +24,7 @@ export const ConfirmBtn = styled(C.DefaultBtn)`
   @media ${(props) => props.theme.media.mobile} {
     min-width: unset;
     width: 48%;
+    min-height: 15.625vw;
     font-size: 4.6875vw;
   }
 `;
