@@ -46,6 +46,12 @@ class ImageBehavior extends Behavior
     {
         /** @var UploadedFile|string $imageData */
         $imageData = $this->image;
+        if($imageData->id){
+            $currentImage = Image::find()->where(['id' => $imageData->id])->one();
+            if($currentImage){
+                return null;
+            }
+        }
         if ($imageData) {
             $image = new Image();
             if (is_array($imageData)) {
@@ -58,6 +64,12 @@ class ImageBehavior extends Behavior
             $image->model_pk = (string)$this->owner->primaryKey;
             $image->upload();
             return $image;
+        }
+        $currentImage  = Image::find()->where(['model_name' => get_class($this->owner), 'model_pk' => $this->owner->primaryKey])->all();
+        if(!empty($currentImage)) {
+            foreach ($currentImage as $image) {
+                $image->delete();
+            }
         }
         return null;
     }

@@ -141,6 +141,13 @@ class Image extends \app\components\ActiveRecord
 
     public function upload(): array
     {
+        $existFile = static::find()->where(['model_name' => $this->model_name, 'model_pk' => $this->model_pk])->all();
+        if ($existFile) {
+            foreach ($existFile as $file) {
+                if (file_exists($file->getPath())) unlink($file->getPath());
+                $file->delete();
+            }
+        }
         $this->server = KaizenHelper::getServerName();
         $this->directory = static::IMAGE_DIR;
         $this->name = KaizenHelper::guidv4() . '.' . ($this->file->extension ?? $this->extension);
