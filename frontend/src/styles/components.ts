@@ -57,7 +57,7 @@ export const Text = styled.p`
 
 export const Input = styled.input`
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   padding: 19px 29px;
   border: 1px solid ${(props) => props.theme.colors.greyEO};
   font-size: 18px;
@@ -65,6 +65,11 @@ export const Input = styled.input`
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
   border-radius: ${(props) => props.theme.utils.br};
+  @media ${props => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 4.0625vw 5.3125vw;
+    font-size: 3.75vw;
+  }
 
   &::placeholder {
     color: ${(props) => props.theme.colors.grey93};

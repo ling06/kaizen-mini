@@ -10,11 +10,22 @@ export const Container = styled.div`
   width: 100%;
   padding: 25px;
   margin-top: auto;
+  border-top: 1px solid ${props => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    flex-wrap: nowrap;
+    padding: 3.125vw;
+    gap: unset;
+  }
 `;
 
 export const ConfirmBtn = styled(C.DefaultBtn)`
   width: 49%;
   min-width: 449px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: unset;
+    width: 48%;
+    font-size: 4.6875vw;
+  }
 `;
 
 export const CancelBtn = styled(ConfirmBtn)`

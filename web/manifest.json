@@ -104,6 +104,7 @@
       "assets/star.svg",
       "assets/active-star.svg",
       "assets/moreIcon.svg",
+      "assets/close-icon.svg",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
@@ -243,6 +244,10 @@
   "src/assets/images/checklist.svg": {
     "file": "assets/checklist.svg",
     "src": "src/assets/images/checklist.svg"
+  },
+  "src/assets/images/close-icon.svg": {
+    "file": "assets/close-icon.svg",
+    "src": "src/assets/images/close-icon.svg"
   },
   "src/assets/images/defaultCardImg.png": {
     "file": "assets/defaultCardImg.png",

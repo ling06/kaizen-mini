@@ -9,6 +9,9 @@ export const Container = styled.div``;
 export const ImageWrapper = styled.div`
   position: relative;
   margin-bottom: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 3.125vw;
+  }
 `;
 
 export const ControlsGroup = styled.div`
@@ -25,12 +28,24 @@ export const AddFileBtn = styled(C.DefaultBtn)`
   min-height: 41px;
   padding: 0 23px 0 17px;
   font-size: 15.397px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.8125vw;
+    padding: 0 7.1875vw 0 5.3125vw;
+    font-size: 4.8115625vw;
+  }
 `;
 
 export const EditFileBtn = styled(AddFileBtn)`
   min-height: 60px;
   padding: 0 30px;
   font-size: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 50px;
+    padding: 0;
+    width: 48%;
+    font-size: 3.75vw;
+    border-radius: 13.026px;
+  }
 `;
 
 export const DeleteFileBtn = styled(EditFileBtn)`
@@ -45,14 +60,25 @@ export const DeleteFileBtn = styled(EditFileBtn)`
 export const AddFileIcon = styled(C.Icon)`
   margin-right: 11px;
   background-image: url(${imagesIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 3.125vw;
+  }
 `;
 
 export const EditIcon = styled(C.Icon)`
   margin-right: 8px;
   background-image: url(${editIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 1.5625vw;
+  }
 `;
 
 export const DeleteIcon = styled(C.Icon)`
   margin-right: 8px;
   background-image: url(${deleteIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 1.5625vw;
+  }
 `;
+
+

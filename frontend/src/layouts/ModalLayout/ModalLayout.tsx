@@ -50,11 +50,17 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  }
+
   return ReactDOM.createPortal(
     <S.ModalLayout onClick={handleOverlayClick}>
       <S.Window>
+        <S.ModalName>{modalName}
+          <S.CloseBtn onClick={handleCloseModal}/>
+        </S.ModalName>
         {children}
-        <S.ModalName>{modalName}</S.ModalName>
       </S.Window>
     </S.ModalLayout>,
     modalRoot

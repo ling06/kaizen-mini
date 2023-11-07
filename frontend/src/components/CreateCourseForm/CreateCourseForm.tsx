@@ -8,6 +8,7 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/constants';
 import { AddImage } from '../AddImage';
 import { IUploadedImage } from '@/types/image.types';
+import { useNavigate } from 'react-router-dom';
 
 export function CreateCourseForm() {
   const { setModalOpen, setLoaderActive } = useActions();
@@ -24,6 +25,8 @@ export function CreateCourseForm() {
 
   const [createCourse] = useCreateCourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const isEdit = modalType === MODAL_TYPES.editCourse;
@@ -60,7 +63,12 @@ export function CreateCourseForm() {
         description: courseDescription,
         is_open: 1,
         image: courseImage,
-      }).then(() => setModalOpen(false));
+      }).then((res) => {
+        if('data' in res) {
+          setModalOpen(false);
+          navigate(`/courses/${res.data.data.id}`);
+        }
+      });
       setLoaderActive(true);
     }
 

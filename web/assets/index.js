@@ -10349,7 +10349,7 @@ const Text$4 = st$1.p`
 `;
 const Input$2 = st$1.input`
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   padding: 19px 29px;
   border: 1px solid ${(props) => props.theme.colors.greyEO};
   font-size: 18px;
@@ -10357,6 +10357,11 @@ const Input$2 = st$1.input`
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
   border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 4.0625vw 5.3125vw;
+    font-size: 3.75vw;
+  }
 
   &::placeholder {
     color: ${(props) => props.theme.colors.grey93};
@@ -27084,7 +27089,7 @@ const CloseBtnWrapper = st$1.div`
   padding: 3.125vw 4.6875vw;
   border-top: 1px solid ${(props) => props.theme.colors.greyF1};
 `;
-const CloseBtn = st$1(DefaultBtn)`
+const CloseBtn$1 = st$1(DefaultBtn)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27134,7 +27139,7 @@ function Popup({ coursesData, onClose }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnTitle, { children: "Добавить курс" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnIcon, {})
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtnWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn, { onClick: onClose, children: "Отмена" }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtnWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: onClose, children: "Отмена" }) })
     ] }) }),
     modalRoot
   );
@@ -34193,6 +34198,7 @@ function Main() {
     ] })
   ] });
 }
+const closeIcon = "/assets/close-icon.svg";
 const ModalLayout$1 = st$1.div`
   display: flex;
   justify-content: flex-end;
@@ -34203,6 +34209,9 @@ const ModalLayout$1 = st$1.div`
   height: 100vh;
   background-color: transparent;
   animation: overlayEntrance 0.3s ease-out forwards;
+  @media ${(props) => props.theme.media.mobile} {
+    animation: unset;
+  }
 
   @keyframes overlayEntrance {
     100% {
@@ -34219,6 +34228,11 @@ const Window = st$1.div`
   overflow-y: auto;
   background-color: ${(props) => props.theme.colors.realWhite};
   animation: windowEntrance 0.3s ease-out forwards;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    padding: 3.125vw 0 0;
+    animation-name: windowEntrance;
+  }
 
   @keyframes windowEntrance {
     0% {
@@ -34240,6 +34254,34 @@ const ModalName = st$1.h3`
   transform: rotate(-180deg);
   writing-mode: vertical-lr;
   pointer-events: none;
+  @media ${(props) => props.theme.media.mobile} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: static;
+    padding: 0 3.125vw;
+    margin-bottom: 4.6875vw;
+    font-size: 3.75vw;
+    color: ${(props) => props.theme.colors.mainBlue};
+    transform: none;
+    writing-mode: unset;
+    pointer-events: unset;
+  }
+`;
+const CloseBtn = st$1.button`
+  display: none;
+  @media ${(props) => props.theme.media.mobile} {
+    display: block;
+    width: 7.5vw;
+    height: 7.5vw;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    background-image: url(${closeIcon});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+  }
 `;
 function ModalLayout({ children, modalType: type }) {
   const { setModalOpen } = useActions();
@@ -34278,43 +34320,55 @@ function ModalLayout({ children, modalType: type }) {
       setModalOpen(false);
     }
   };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
   return ReactDOM.createPortal(
     /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout$1, { onClick: handleOverlayClick, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Window, { children: [
-      children,
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ModalName, { children: modalName })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalName, { children: [
+        modalName,
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn, { onClick: handleCloseModal })
+      ] }),
+      children
     ] }) }),
     modalRoot
   );
 }
 const imagesIcon = "/assets/imagesIcon.svg";
-st$1(FlexContainer)`
-  flex-direction: column;
-  padding-top: 25px;
-`;
-st$1.form`
-  height: 90vh;
-  padding: 0 25px 5vh;
-  overflow-y: auto;
-`;
 const NameInput = st$1(InputWithState)`
   margin-bottom: 20px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 2.5vw;
+  }
 `;
 const Textarea = st$1(InputWithState)`
-  height: 557px;
+  min-height: 557px;
   margin-bottom: 15px;
   resize: none;
   outline: none;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 93.125vw;
+    margin-bottom: 2.5vw;
+  }
 `;
 st$1(DefaultBtn)`
-width: fit-content;
-min-height: 41px;
-padding: 0 24px 0 52px;
-margin-bottom: 20px;
-font-size: 15.397px;
-background-image: url(${imagesIcon});
-background-repeat: no-repeat;
-background-position: 17px 9px;
-background-size: 24px;
+  width: fit-content;
+  min-height: 41px;
+  padding: 0 24px 0 52px;
+  margin-bottom: 20px;
+  font-size: 15.397px;
+  background-image: url(${imagesIcon});
+  background-repeat: no-repeat;
+  background-position: 17px 9px;
+  background-size: 24px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 0  7.5vw 0 16.25vw;
+    margin-bottom: 4.6875vw;
+    font-size: 4.6875vw;
+    background-size: 7.5vw;
+    background-position: 5.3125vw center;
+  }
 `;
 const BottomContainer$1 = st$1(FlexContainer)`
   justify-content: space-between;
@@ -34328,10 +34382,21 @@ const Container$5 = st$1.div`
   width: 100%;
   padding: 25px;
   margin-top: auto;
+  border-top: 1px solid ${(props) => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    flex-wrap: nowrap;
+    padding: 3.125vw;
+    gap: unset;
+  }
 `;
 const ConfirmBtn = st$1(DefaultBtn)`
   width: 49%;
   min-width: 449px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: unset;
+    width: 48%;
+    font-size: 4.6875vw;
+  }
 `;
 const CancelBtn = st$1(ConfirmBtn)`
   color: ${(props) => props.theme.colors.grey93};
@@ -34352,9 +34417,16 @@ const Container$4 = st$1(FlexContainer)`
   width: ${(props) => props.$width};
   height: 100%;
   padding-top: 25px;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    padding-top: 0;
+  }
 `;
 const Form = st$1.form`
   padding: 0 25px 5vh;
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 0 3.125vw 15%;
+  }
 `;
 function ModalForm({
   children,
@@ -34467,6 +34539,9 @@ const Container$3 = st$1.div``;
 st$1.div`
   position: relative;
   margin-bottom: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 3.125vw;
+  }
 `;
 const ControlsGroup = st$1.div`
   display: flex;
@@ -34481,11 +34556,23 @@ const AddFileBtn = st$1(DefaultBtn)`
   min-height: 41px;
   padding: 0 23px 0 17px;
   font-size: 15.397px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.8125vw;
+    padding: 0 7.1875vw 0 5.3125vw;
+    font-size: 4.8115625vw;
+  }
 `;
 const EditFileBtn = st$1(AddFileBtn)`
   min-height: 60px;
   padding: 0 30px;
   font-size: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 50px;
+    padding: 0;
+    width: 48%;
+    font-size: 3.75vw;
+    border-radius: 13.026px;
+  }
 `;
 const DeleteFileBtn = st$1(EditFileBtn)`
   padding: 0 33px 0 23px;
@@ -34498,14 +34585,23 @@ const DeleteFileBtn = st$1(EditFileBtn)`
 const AddFileIcon = st$1(Icon$1)`
   margin-right: 11px;
   background-image: url(${imagesIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 3.125vw;
+  }
 `;
 const EditIcon = st$1(Icon$1)`
   margin-right: 8px;
   background-image: url(${editIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 1.5625vw;
+  }
 `;
 const DeleteIcon = st$1(Icon$1)`
   margin-right: 8px;
   background-image: url(${deleteIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 1.5625vw;
+  }
 `;
 function AddImage({ name, onSet, imageData, onDelete }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
@@ -34540,6 +34636,7 @@ function CreateCourseForm() {
   const [courseDescription, setCourseDescription] = reactExports.useState("");
   const [createCourse] = useCreateCourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
+  const navigate = useNavigate();
   reactExports.useEffect(() => {
     const isEdit = modalType === MODAL_TYPES.editCourse;
     setEditForm(isEdit);
@@ -34571,7 +34668,12 @@ function CreateCourseForm() {
         description: courseDescription,
         is_open: 1,
         image: courseImage
-      }).then(() => setModalOpen(false));
+      }).then((res) => {
+        if ("data" in res) {
+          setModalOpen(false);
+          navigate(`/courses/${res.data.data.id}`);
+        }
+      });
       setLoaderActive(true);
     }
     if (isEditForm && courseData && courseData.id) {
