@@ -7,7 +7,7 @@ import { selectUser } from '@/store/api/user.api';
 
 export interface IAdminBtnProps {
   type: string;
-  onClick: (event: React.MouseEvent) => void;
+  onClick?: (event: React.MouseEvent) => void;
   popupName: string;
   popupHandlers?: Omit<IControlsPopup, 'name' | 'innerRef'>;
   styles?: { [key: string]: string };
@@ -38,7 +38,9 @@ export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} 
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    onClick(event);
+    if (onClick) {
+      onClick(event);
+    }
     if (type === ADMIN_BTN_TYPES.edit) {
       if (isPopup) {
         setPopup(false);

@@ -18,14 +18,19 @@ export const Wrapper = styled.div`
   max-width: 75%;
 `;
 
-export const CourseTitle = styled(C.Text)`
-  width: 90%;
+export const CourseTitle = styled(C.Text)<{ $isDeleted: boolean }>`
+  /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;
+  text-decoration: ${props => props.$isDeleted ? 'line-through' : 'none'};
 `;
 
 export const SelectIcon = styled(C.Icon)`
   background-image: url(${selectIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: 7.5vw;
+    min-height: 7.5vw;
+  }
 `;
 
 export const IsHiddenIcon = styled(C.Icon)`
@@ -33,4 +38,3 @@ export const IsHiddenIcon = styled(C.Icon)`
   margin-right: 2%;
   background-image: url(${isHideIcon});
 `;
-

@@ -59,7 +59,7 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
           </>
         )}
         <CourseBreadcrumb
-          containerStyles={{ marginBottom: '30px' }}
+          containerStyles={{ marginBottom: isMobile ? '5vw' : '30px' }}
           chapter={{ name: '', position: '1', allQuantity: '5' }}
           theme={{ name: 'Наша новая капец какая тема', position: '3', allQuantity: '5' }}
           lesson={{ name: '', position: '3', allQuantity: '5' }}

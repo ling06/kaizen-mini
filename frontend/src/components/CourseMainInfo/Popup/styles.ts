@@ -18,7 +18,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 3.125vw;
+  padding-top: 4.0625vw;
   background-color: ${(props) => props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br} ${(props) => props.theme.utils.br} 0px 0px;
 `;

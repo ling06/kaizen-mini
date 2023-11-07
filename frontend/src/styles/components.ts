@@ -4,6 +4,15 @@ import doneIcon from '@assets/images/done.svg';
 import accrodionIcon from '@assets/images/accordionIcon.svg';
 import { TextStyles } from './base-styles';
 
+export const DarkOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
 interface IBackDropBlurredProps {
   $maxWidth: string;
   $blurValue: string;
@@ -133,6 +142,10 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
   height: 10px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.greyF1};
+  @media ${props => props.theme.media.mobile} {
+    height: 1.5625vw;
+    border-radius: 2.532px;
+  }
 
   &::before {
     content: '';
@@ -141,7 +154,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
     top: 0;
     width: ${(props) => props.$progress + '%'};
     height: 100%;
-    border-radius: 5px;
+    border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
   }
 `;

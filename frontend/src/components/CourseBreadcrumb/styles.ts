@@ -6,6 +6,10 @@ export const Container = styled(C.FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
+  @media ${(props) => props.theme.media.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const TextStyle = css`
@@ -13,6 +17,15 @@ const TextStyle = css`
   font-weight: 500;
   line-height: 130%;
   color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+
+  &:not(:last-child) {
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 3.125vw;
+    }
+  }
 `;
 
 export const Chapter = styled.p`
@@ -29,4 +42,7 @@ export const Lesson = styled.p`
 
 export const Arrow = styled(C.Icon)`
   background-image: url(${arrowRight});
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;

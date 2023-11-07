@@ -40,6 +40,7 @@ export interface IBaseTheme {
 
   media: {
     mobile: string;
+    desktop: string;
   };
 }
 

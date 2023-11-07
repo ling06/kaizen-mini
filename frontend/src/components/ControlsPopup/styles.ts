@@ -7,23 +7,37 @@ import editIcon from '@assets/images/editIconRed.svg';
 import deleteIcon from '@assets/images/deleteIcon.svg';
 import visibleIcon from '@assets/images/visibleIcon.svg';
 
+export const Overlay = styled(C.DarkOverlay)`
+    z-index: ${(props) => props.theme.utils.zIndex.popup};
+  @media ${(props) => props.theme.media.desktop} {
+    background-color: transparent;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: unset;
+    width: 320px;
+    filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+  }
+`;
+
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: ${props => props.theme.utils.zIndex.popup};
+  width: 100%;
   padding: 15px 10px 10px;
-  width: 320px;
-  /* min-height: 316px; */
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.greyF1};
-  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 3.125vw;
+    border-radius: 0px 0px 15px 15px;
+  }
 `;
 
 export const Title = styled(C.Text)`
   margin-bottom: 15px;
   text-align: center;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 4.6875vw;
+  }
 `;
 
 export const Btn = styled.div`
@@ -32,17 +46,23 @@ export const Btn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
-  border-radius: ${props => props.theme.utils.br};
-  background-color: ${props => props.theme.colors.realWhite};
-  transition: ${props => props.theme.utils.transition};
+  min-height: 60px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+  transition: ${(props) => props.theme.utils.transition};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 18.75vw;
+  }
 
   &:not(:last-child) {
     margin-bottom: 5px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 1.5625vw;
+    }
   }
 
   &:hover {
-    background-color: ${props => props.theme.colors.greyF1};
+    background-color: ${(props) => props.theme.colors.greyF1};
   }
 `;
 
@@ -55,13 +75,16 @@ export const AddBtn = styled(Btn)``;
 export const EditBtn = styled(Btn)``;
 
 export const DeleteBtn = styled(Btn)`
-  color: ${props => props.theme.colors.yRed};
+  color: ${(props) => props.theme.colors.yRed};
 `;
 
 export const RestoreBtn = styled(Btn)``;
 
 export const BtnIcon = styled(C.Icon)`
   margin-right: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 3.125vw;
+  }
 `;
 
 export const HideIcon = styled(BtnIcon)`

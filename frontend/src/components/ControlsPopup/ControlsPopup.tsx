@@ -22,39 +22,41 @@ export function ControlsPopup({
   onVisible,
 }: IControlsPopup) {
   return (
-    <S.Container ref={innerRef}>
-      <S.Title>{name}</S.Title>
-      {onHide && (
-        <S.HideBtn onClick={onHide}>
-          <S.HideIcon />
-          скрыть
-        </S.HideBtn>
-      )}
-      {onVisible && (
-        <S.VisibleBtn onClick={onVisible}>
-          <S.VisibleIcon />
-          показать
-        </S.VisibleBtn>
-      )}
-      {onAdd && (
-        <S.AddBtn onClick={onAdd}>
-          <S.AddIcon />
-          добавить
-        </S.AddBtn>
-      )}
-      {onEdit && (
-        <S.EditBtn onClick={onEdit}>
-          <S.EditIcon />
-          изменить
-        </S.EditBtn>
-      )}
-      {onDelete && (
-        <S.DeleteBtn onClick={onDelete}>
-          <S.DeleteIcon />
-          удалить
-        </S.DeleteBtn>
-      )}
-      {onRestore && <S.RestoreBtn onClick={onRestore}>восстановить</S.RestoreBtn>}
-    </S.Container>
+    <S.Overlay>
+      <S.Container ref={innerRef}>
+        <S.Title>{name}</S.Title>
+        {onHide && (
+          <S.HideBtn onClick={onHide}>
+            <S.HideIcon />
+            скрыть
+          </S.HideBtn>
+        )}
+        {onVisible && (
+          <S.VisibleBtn onClick={onVisible}>
+            <S.VisibleIcon />
+            показать
+          </S.VisibleBtn>
+        )}
+        {onAdd && (
+          <S.AddBtn onClick={onAdd}>
+            <S.AddIcon />
+            добавить
+          </S.AddBtn>
+        )}
+        {onEdit && (
+          <S.EditBtn onClick={onEdit}>
+            <S.EditIcon />
+            изменить
+          </S.EditBtn>
+        )}
+        {onDelete && (
+          <S.DeleteBtn onClick={onDelete}>
+            <S.DeleteIcon />
+            удалить
+          </S.DeleteBtn>
+        )}
+        {onRestore && <S.RestoreBtn onClick={onRestore}>восстановить</S.RestoreBtn>}
+      </S.Container>
+    </S.Overlay>
   );
 }

@@ -10301,6 +10301,17 @@ const TextStyles = nt$1`
   font-weight: 700;
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5.625vw;
+  }
+`;
+const DarkOverlay = st$1.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 st$1.div`
   width: 100%;
@@ -10408,6 +10419,10 @@ const ProgressBar$1 = st$1(FlexContainer)`
   height: 10px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    height: 1.5625vw;
+    border-radius: 2.532px;
+  }
 
   &::before {
     content: '';
@@ -10416,7 +10431,7 @@ const ProgressBar$1 = st$1(FlexContainer)`
     top: 0;
     width: ${(props) => props.$progress + "%"};
     height: 100%;
-    border-radius: 5px;
+    border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
   }
 `;
@@ -26326,28 +26341,45 @@ const AdminBtn$1 = st$1.button`
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+  }
 `;
 const isHideIcon = "/assets/hideIcon.svg";
 const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon$1 = "/assets/editIconRed.svg";
 const deleteIcon$1 = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
+const Overlay$2 = st$1(DarkOverlay)`
+    z-index: ${(props) => props.theme.utils.zIndex.popup};
+  @media ${(props) => props.theme.media.desktop} {
+    background-color: transparent;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: unset;
+    width: 320px;
+    filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+  }
+`;
 const Container$s = st$1(FlexContainer)`
   flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: ${(props) => props.theme.utils.zIndex.popup};
+  width: 100%;
   padding: 15px 10px 10px;
-  width: 320px;
-  /* min-height: 316px; */
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.greyF1};
-  filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 3.125vw;
+    border-radius: 0px 0px 15px 15px;
+  }
 `;
 const Title$c = st$1(Text$4)`
   margin-bottom: 15px;
   text-align: center;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 4.6875vw;
+  }
 `;
 const Btn = st$1.div`
   ${TextStyles}
@@ -26355,13 +26387,19 @@ const Btn = st$1.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  min-height: 60px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
   transition: ${(props) => props.theme.utils.transition};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 18.75vw;
+  }
 
   &:not(:last-child) {
     margin-bottom: 5px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 1.5625vw;
+    }
   }
 
   &:hover {
@@ -26378,6 +26416,9 @@ const DeleteBtn$2 = st$1(Btn)`
 const RestoreBtn = st$1(Btn)``;
 const BtnIcon = st$1(Icon$1)`
   margin-right: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 3.125vw;
+  }
 `;
 const HideIcon = st$1(BtnIcon)`
   background-image: url(${isHideIcon});
@@ -26404,7 +26445,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26427,7 +26468,7 @@ function ControlsPopup({
       "удалить"
     ] }),
     onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
-  ] });
+  ] }) });
 }
 const body = document.body;
 function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: styles2 = {} }) {
@@ -26451,7 +26492,9 @@ function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: s
   };
   const handleClick = (event) => {
     event.stopPropagation();
-    onClick2(event);
+    if (onClick2) {
+      onClick2(event);
+    }
     if (type === ADMIN_BTN_TYPES.edit) {
       if (isPopup) {
         setPopup(false);
@@ -26825,6 +26868,9 @@ const Container$q = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 7.8125vw;
+  }
 `;
 const Wrapper$2 = st$1(FlexContainer)`
   flex-direction: column;
@@ -26870,11 +26916,22 @@ const LessonName$1 = st$1(Text$4)`
   max-width: 95%;
   font-size: 25px;
   line-height: 130%;
+  @media ${(props) => props.theme.media.mobile} {
+    max-width: 100%;
+    margin-bottom: 12.5vw;
+    font-size: 4.6875vw;
+  }
 `;
 const OpenCourse = st$1(DefaultBtn)`
   width: fit-content;
   padding: 0 40px;
   border-radius: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 0 7.5vw;
+    font-size: 4.6875vw;
+    border-radius: 7px;
+  }
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
@@ -26882,12 +26939,25 @@ const Container$p = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
+  @media ${(props) => props.theme.media.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const TextStyle = nt$1`
   font-size: 15px;
   font-weight: 500;
   line-height: 130%;
   color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+
+  &:not(:last-child) {
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 3.125vw;
+    }
+  }
 `;
 const Chapter = st$1.p`
   ${TextStyle}
@@ -26900,6 +26970,9 @@ const Lesson = st$1.p`
 `;
 const Arrow = st$1(Icon$1)`
   background-image: url(${arrowRight});
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { style: containerStyles, children: [
@@ -26973,7 +27046,7 @@ const Container$n = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 3.125vw;
+  padding-top: 4.0625vw;
   background-color: ${(props) => props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br} ${(props) => props.theme.utils.br} 0px 0px;
 `;
@@ -27080,12 +27153,17 @@ const Wrapper$1 = st$1.div`
   max-width: 75%;
 `;
 const CourseTitle = st$1(Text$4)`
-  width: 90%;
+  /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 `;
 const SelectIcon = st$1(Icon$1)`
   background-image: url(${selectIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    min-width: 7.5vw;
+    min-height: 7.5vw;
+  }
 `;
 const IsHiddenIcon = st$1(Icon$1)`
   margin-left: auto;
@@ -27093,16 +27171,78 @@ const IsHiddenIcon = st$1(Icon$1)`
   background-image: url(${isHideIcon});
 `;
 function OpenSelect({ courseData, onOpen }) {
+  const { setModalOpen, setModalType, setLoaderActive, setCourseData } = useActions();
+  const [updateCourse] = useUpdateCourseMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
+  const [restoreCourse] = useRestoreCourseMutation();
+  const handleAddCourse = () => {
+    setModalType(MODAL_TYPES.createCourse);
+    setModalOpen(true);
+  };
+  const handleEditCourse = () => {
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
+      return;
+    }
+    setModalType(MODAL_TYPES.editCourse);
+    setModalOpen(true);
+  };
+  const handleToggleCourseStatus = () => {
+    if (!courseData.id) {
+      console.error(`No course with id: ${courseData.id}!`);
+      return;
+    }
+    updateCourse({
+      id: courseData.id,
+      status: Number(courseData.status) === 0 ? 1 : 0
+    }).then((res) => {
+      if ("data" in res) {
+        setCourseData(res.data.data);
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleDeleteCourse = () => {
+    deleteCourse({
+      id: Number(courseData.id)
+    }).then((res) => {
+      if ("result" in res && !res.result) {
+        alert("Что-то пошло не так...");
+        console.error(`Course with id: ${courseData.id} not found!`);
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreCourse = () => {
+    restoreCourse({
+      id: Number(courseData.id)
+    }).then((res) => {
+      if ("result" in res && !res.result) {
+        alert("Что-то пошло не так...");
+        console.error(`Course with id: ${courseData.id} not found!`);
+      }
+    });
+    setLoaderActive(true);
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { children: courseData.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
     ] }),
     courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
-        type: ADMIN_BTN_TYPES.edit
+        popupName: "Курс",
+        type: ADMIN_BTN_TYPES.edit,
+        popupHandlers: {
+          onAdd: handleAddCourse,
+          onEdit: handleEditCourse,
+          onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : void 0,
+          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : void 0,
+          onDelete: courseData.is_deleted ? void 0 : handleDeleteCourse,
+          onRestore: courseData.is_deleted ? handleRestoreCourse : void 0
+        }
       }
     )
   ] });
@@ -27149,7 +27289,7 @@ function CourseMainInfo({ coursesData }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         CourseBreadcrumb,
         {
-          containerStyles: { marginBottom: "30px" },
+          containerStyles: { marginBottom: isMobile ? "5vw" : "30px" },
           chapter: { name: "", position: "1", allQuantity: "5" },
           theme: { name: "Наша новая капец какая тема", position: "3", allQuantity: "5" },
           lesson: { name: "", position: "3", allQuantity: "5" }
@@ -27189,13 +27329,26 @@ const Container$l = st$1(FlexContainer)`
 const Head$1 = st$1(FlexContainer)`
   justify-content: space-between;
   margin-bottom: 20px;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 `;
-const Title$b = st$1(Text$4)``;
+const Title$b = st$1(Text$4)`
+  @media ${(props) => props.theme.media.mobile} {
+    margin: 0 auto;
+    font-size: 4.6875vw;
+  }
+`;
 const CardList = st$1.ul`
   display: flex;
   flex-wrap: wrap;
   /* justify-content: space-between; */
   gap: 9px;
+  @media ${(props) => props.theme.media.mobile} {
+    justify-content: space-between;
+    gap: unset;
+    row-gap: 1.875vw;
+  }
 `;
 const Card = st$1(FlexContainer)`
   flex-direction: column;
@@ -27205,16 +27358,27 @@ const Card = st$1(FlexContainer)`
   padding-bottom: 15px;
   background-color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    width: 49%;
+    height: auto;
+    min-height: 63.125vw;
+    padding: 3.125vw 3.125vw 2.1875vw;
+    border-radius: 7.597px;
+  }
 `;
 const imgWrapper = st$1.div`
   width: 100%;
-  height: 180px;
+  aspect-ratio: 3/2;
   margin-bottom: 15px;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.greyEO};
   cursor: pointer;
-  transition: transform .3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 2.5vw;
+    border-radius: 7.597px;
+  }
 
   &:hover {
     transform: scale(1.05);
@@ -27226,7 +27390,11 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$a = st$1(Text$4)``;
+const Title$a = st$1(Text$4)`
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+`;
 const ProgressContainer = st$1(FlexContainer)`
   flex-direction: column;
   margin-top: auto;
@@ -27234,12 +27402,18 @@ const ProgressContainer = st$1(FlexContainer)`
 const ProgressStatusWrapper = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 10px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 0;
+  }
 `;
 const ProgressStatus = st$1.p`
   margin-right: auto;
   font-size: 15px;
   font-weight: 500;
   color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 2.5vw;
+  }
 `;
 const defaultCardImg = "/assets/defaultCardImg.png";
 const chapterApi = api.injectEndpoints({
@@ -49425,7 +49599,8 @@ const baseTheme = {
     }
   },
   media: {
-    mobile: "(max-width: 768px)"
+    mobile: "(max-width: 768px)",
+    desktop: "(min-width: 769px)"
   }
 };
 const typography = "";

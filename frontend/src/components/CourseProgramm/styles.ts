@@ -8,14 +8,26 @@ export const Container = styled(C.FlexContainer)`
 export const Head = styled(C.FlexContainer)`
   justify-content: space-between;
   margin-bottom: 20px;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 `;
 
-export const Title = styled(C.Text)``;
-
+export const Title = styled(C.Text)`
+  @media ${(props) => props.theme.media.mobile} {
+    margin: 0 auto;
+    font-size: 4.6875vw;
+  }
+`;
 
 export const CardList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   /* justify-content: space-between; */
   gap: 9px;
+  @media ${(props) => props.theme.media.mobile} {
+    justify-content: space-between;
+    gap: unset;
+    row-gap: 1.875vw;
+  }
 `;

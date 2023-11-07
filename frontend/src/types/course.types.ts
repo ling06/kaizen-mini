@@ -44,5 +44,5 @@ export interface IUpdateCourse {
   description?: string;
   is_open?: number;
   status?: number;
-  image: IUploadedImage | null | IImage;
+  image?: IUploadedImage | null | IImage;
 }

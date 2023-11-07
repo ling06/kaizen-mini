@@ -5,6 +5,9 @@ export const Container = styled(C.FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 7.8125vw;
+  }
 `;
 
 export const Wrapper = styled(C.FlexContainer)`
@@ -56,10 +59,21 @@ export const LessonName = styled(C.Text)`
   max-width: 95%;
   font-size: 25px;
   line-height: 130%;
+  @media ${(props) => props.theme.media.mobile} {
+    max-width: 100%;
+    margin-bottom: 12.5vw;
+    font-size: 4.6875vw;
+  }
 `;
 
 export const OpenCourse = styled(C.DefaultBtn)`
   width: fit-content;
   padding: 0 40px;
   border-radius: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 0 7.5vw;
+    font-size: 4.6875vw;
+    border-radius: 7px;
+  }
 `;
