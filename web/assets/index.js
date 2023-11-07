@@ -28519,6 +28519,7 @@ function Course() {
   const { setActiveChapterId, setLoaderActive } = useActions();
   const { chapterId } = useParams();
   const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
@@ -28531,7 +28532,7 @@ function Course() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
       ] }) }),

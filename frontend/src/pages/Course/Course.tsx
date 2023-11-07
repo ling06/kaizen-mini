@@ -7,12 +7,14 @@ import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
 import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
+import { useMediaQuery } from '@mui/material';
+import { MediaQueries } from '@/constants';
 
 export function Course() {
   const { setActiveChapterId, setLoaderActive } = useActions();
   const { chapterId } = useParams();
   const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
-
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
     setLoaderActive(isFetching);
@@ -29,14 +31,16 @@ export function Course() {
       {isError && <ErrorBlock />}
       <S.Container>
         <S.bodyOverflow />
-        <S.NavContainer>
-          {data && (
-            <>
-              <CourseNavHead data={data.data} />
-              <CourseNavBody data={data.data} />
-            </>
-          )}
-        </S.NavContainer>
+        {!isMobile && (
+          <S.NavContainer>
+            {data && (
+              <>
+                <CourseNavHead data={data.data} />
+                <CourseNavBody data={data.data} />
+              </>
+            )}
+          </S.NavContainer>
+        )}
         <S.ContentContainer>
           <CourseContent />
         </S.ContentContainer>
