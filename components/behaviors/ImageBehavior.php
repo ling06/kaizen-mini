@@ -46,11 +46,12 @@ class ImageBehavior extends Behavior
     {
         /** @var UploadedFile|string $imageData */
         $imageData = $this->image;
-//        var_dump($imageData); die;
         if(isset($imageData['id'])){
             $currentImage = Image::find()->where(['id' => $imageData['id']])->one();
             if($currentImage){
                 return null;
+            } else {
+                $imageData = null;
             }
         }
         if ($imageData) {
