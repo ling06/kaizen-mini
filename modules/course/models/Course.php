@@ -4,6 +4,7 @@ namespace app\modules\course\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
 use app\components\behaviors\ImageBehavior;
+use app\models\Image;
 use app\models\User;
 use app\modules\course\models\queries\CourseQuery;
 use yii\behaviors\BlameableBehavior;
@@ -100,14 +101,20 @@ class Course extends \app\components\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Chapters]].
-     *
-     * @return ActiveQuery|\app\modules\course\models\queries\ChapterQuery
-     */
-    public function getChapters(): ActiveQuery
+    public function getChapters()
     {
-        return $this->hasMany(Chapter::class, ['course_id' => 'id']);
+        $chapters = Chapter::find()->where(['course_id' => $this->id])->all();
+        $result = [];
+        foreach ($chapters as $key => $chapter) {
+            $result[$key]['course_id'] = $chapter->course_id;
+            $result[$key]['title'] = $chapter->title;
+            $result[$key]['id'] = $chapter->id;
+            $result[$key]['user_id'] = $chapter->user_id;
+            $result[$key]['date'] = $chapter->date;
+            $result[$key]['is_deleted'] = $chapter->is_deleted;
+            $result[$key]['image'] = Image::find()->select('server, directory, name')->where(['model_name' => Chapter::class, 'model_pk' => $chapter->id])->one();
+        }
+        return $result;
     }
 
     /**
