@@ -5,7 +5,9 @@
  * @return {boolean} Returns true if the media query matches the current viewport, otherwise false.
  */
 export const useMediaQuery = (query: string): boolean => {
-  console.error(`useMediaQuery: ${query}. Current query is not valid!`);
-  if (!query) return false;
+  if (!query) {
+    console.error(`useMediaQuery: ${query}. Current query is not valid!`);
+    return false;
+  }
   return window.matchMedia(query).matches;
 };

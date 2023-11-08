@@ -8,10 +8,14 @@ import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { MediaQueries } from '@/constants';
+import { EditorYoutubeFrame } from '../EditorYoutubeFrame';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
   description: {
     data: {
+      url?: string;
       text?: string;
       items?: string[];
       style?: string;
@@ -29,10 +33,11 @@ export function CourseContent() {
   const { lessonId } = useParams();
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
-    skip: !lessonId, 
+    skip: !lessonId,
   });
   const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   const isTestsPassed = useMemo(() => {
     if (data?.data.tests && data?.data.tests.length > 0) {
@@ -91,6 +96,12 @@ export function CourseContent() {
           />
         );
       }
+      if(block.type === 'youtube' && block.data.url) {
+        const validUrl = block.data.url.replace('/watch?v=', '/embed/');
+        return (
+          <EditorYoutubeFrame src={validUrl}/>
+        )
+      }
       return null;
     });
   };
@@ -122,11 +133,13 @@ export function CourseContent() {
         <>
           <S.Title as={'h2'}>
             {data.data.title}
-            <AdminBtn
-              popupName="Урок"
-              type="edit"
-              onClick={() => {}}
-            />
+            {!isMobile && (
+              <AdminBtn
+                popupName="Урок"
+                type="edit"
+                onClick={() => {}}
+              />
+            )}
           </S.Title>
           <S.Container>
             <S.EditorOutput>{renderEditorOutput()}</S.EditorOutput>
@@ -138,4 +151,3 @@ export function CourseContent() {
     </>
   );
 }
-

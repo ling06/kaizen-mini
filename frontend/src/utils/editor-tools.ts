@@ -14,6 +14,7 @@ import Image from '@editorjs/image';
 // import CheckList from '@editorjs/checklist';
 import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
+import Youtube from 'editorjs-youtube-embed';
 // import SimpleImage from '@editorjs/simple-image';
 
 export const EDITOR_JS_TOOLS = {
@@ -24,6 +25,10 @@ export const EDITOR_JS_TOOLS = {
     inlineToolbar: true,
   },
   warning: Warning,
+  youtube: {
+    class: Youtube,
+    inlineToolbar: true,
+  },
   // code: Code,
   // linkTool: { class: LinkTool, inlineToolbar: true },
   image: {

@@ -22,3 +22,4 @@ export const OpenNavBtn = styled(C.Icon)`
 export const HomeLink = styled(C.Icon)`
   background-image: url(${homeIcon});
 `; 
+ 

@@ -6,9 +6,15 @@ import rightAnswer from '@assets/images/rightAnswer.svg';
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    row-gap: unset;
+  }
   
   &:not(:last-child) {
     margin-bottom: 40px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 6.25vw;
+    }
   }
 `;
 
@@ -24,6 +30,10 @@ export const Answer = styled(C.Text)<IAnswerStyled>`
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 36px;
+  @media ${(props) => props.theme.media.mobile} {
+    padding-left: 9.6875vw;
+    background-size: 7.5vw;
+  }
 `;
 
 export const Comment = styled(C.Text)<IAnswerStyled>`

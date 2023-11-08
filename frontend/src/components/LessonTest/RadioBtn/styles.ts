@@ -9,9 +9,15 @@ export const Label = styled.label`
   cursor: pointer;
   ${TextStyles}
   font-weight: 400;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 
   &:not(:last-child) {
     margin-bottom: 20px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 6.25vw;
+    }
   }
 `;
 
@@ -24,6 +30,11 @@ export const RadioBtn = styled.input`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+    margin-right: 3.75vw;
+  }
 
   &:checked {
     background-image: url(${radioChecked});

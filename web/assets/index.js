@@ -10588,7 +10588,7 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$E = st$1(FlexContainer)`
+const Container$F = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10604,7 +10604,7 @@ const NavBar$1 = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15915,13 +15915,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$D = st$1.div`
+const Container$E = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$C = st$1.div``;
+const Container$D = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15965,14 +15965,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$C, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$D, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$D, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -15997,7 +15997,7 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$1, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$B = st$1.div`
+const Container$C = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -16045,7 +16045,7 @@ function Head$3({ onClose }) {
       document.body.removeEventListener("click", onClose);
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16062,7 +16062,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$A = st$1.div`
+const Container$B = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16074,14 +16074,14 @@ const Container$A = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$z = st$1.div`
+const Container$A = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16089,7 +16089,7 @@ function Nav() {
     }
   )) });
 }
-const Container$y = st$1.div`
+const Container$z = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16099,7 +16099,7 @@ const Container$y = st$1.div`
   }
 `;
 function Body() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$y, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16113,7 +16113,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$x = st$1.div`
+const Container$y = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16144,13 +16144,13 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$w = st$1.div`
+const Container$x = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16175,7 +16175,7 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16194,7 +16194,7 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -23978,7 +23978,7 @@ function useMediaQueryNew(query, defaultMatches, matchMedia, ssrMatchMedia, noSs
   const match2 = maybeReactUseSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   return match2;
 }
-function useMediaQuery(queryInput, options = {}) {
+function useMediaQuery$1(queryInput, options = {}) {
   const theme = useTheme$2();
   const supportMatchMedia = typeof window !== "undefined" && typeof window.matchMedia !== "undefined";
   const {
@@ -26010,7 +26010,7 @@ Select.muiName = "Select";
 const Select$1 = Select;
 function Header$2() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   reactExports.useEffect(() => {
     if (isBurgerMenuOpen && isMobile) {
       document.body.style.overflow = "hidden";
@@ -26037,7 +26037,7 @@ function Header$2() {
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
-const Container$v = st$1(FlexContainer)`
+const Container$w = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -26365,6 +26365,7 @@ const AdminBtn$1 = st$1.button`
   background-size: 100%;
   background-position: center;
   @media ${(props) => props.theme.media.mobile} {
+    display: none;
     width: 7.5vw;
     height: 7.5vw;
   }
@@ -26386,7 +26387,7 @@ const Overlay$2 = st$1(DarkOverlay)`
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-const Container$u = st$1(FlexContainer)`
+const Container$v = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -26468,7 +26469,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26691,7 +26692,7 @@ function CustomSelectOption({
   isSelected,
   isDeleted
 }) {
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
     !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -26852,7 +26853,7 @@ function CourseSelect() {
     setSelectedValue(`${selectedCourseId}`);
     navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26880,14 +26881,14 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$t = st$1(FlexContainer)`
+const Container$u = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-const Container$s = st$1(FlexContainer)`
+const Container$t = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26958,7 +26959,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$r = st$1(FlexContainer)`
+const Container$s = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26998,7 +26999,7 @@ const Arrow = st$1(Icon$1)`
   }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter$1, { children: [
       "Глава ",
       chapter.position,
@@ -27023,7 +27024,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-const Container$q = st$1(FlexContainer)`
+const Container$r = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
@@ -27046,7 +27047,7 @@ const Percentage = st$1.h3`
   }
 `;
 function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { style: styles2, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { style: styles2, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
       percentage,
@@ -27065,7 +27066,7 @@ const Overlay$1 = st$1.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
-const Container$p = st$1.div`
+const Container$q = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27134,7 +27135,7 @@ function Popup({ coursesData, onClose }) {
     setModalType(MODAL_TYPES.createCourse);
   };
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         Course$1,
         {
@@ -27162,7 +27163,7 @@ function Popup({ coursesData, onClose }) {
     modalRoot
   );
 }
-const Container$o = st$1.div`
+const Container$p = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27247,7 +27248,7 @@ function OpenSelect({ courseData, onOpen }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -27274,7 +27275,7 @@ function CourseMainInfo({ coursesData }) {
   var _a;
   const courseData = useTypedSelector((state) => state.course.data);
   const [previewSrc, setPreviewSrc] = reactExports.useState("");
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   const [isPopupOpen, setIsPopupOpen] = reactExports.useState(false);
   reactExports.useEffect(() => {
     if (courseData.image) {
@@ -27296,7 +27297,7 @@ function CourseMainInfo({ coursesData }) {
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27346,7 +27347,7 @@ function CourseMainInfo({ coursesData }) {
     )
   ] });
 }
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -27577,7 +27578,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27602,7 +27603,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -27613,14 +27614,14 @@ const Text$2 = st$1(Text$4)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$m, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$n, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
 }
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
   const { setCourseData, setLoaderActive } = useActions();
   const params = useParams();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
@@ -27635,7 +27636,7 @@ function CoursePreview() {
       setCourseData(currentCourse);
     }
   }, [data, navigate, params.courseId, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -27644,7 +27645,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$l = st$1.div`
+const Container$m = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -27803,7 +27804,7 @@ function CourseNavLesson({ data }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavItemTitle, { text: data.title, isActive: !data.isChecked }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27848,7 +27849,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -28008,7 +28009,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$l, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -28071,7 +28072,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$9 = st$1.h4`
@@ -28113,7 +28114,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -28122,7 +28123,7 @@ function CourseNavBody({ data }) {
         onClick: openCreateThemeModal
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$j, { children: data.themes && data.themes.map((theme) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { children: data.themes && data.themes.map((theme) => {
       if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
         return;
       }
@@ -28137,7 +28138,7 @@ function CourseNavBody({ data }) {
     }) })
   ] });
 }
-const Container$i = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -28165,7 +28166,7 @@ const bodyOverflow$1 = at$1`
     background-color: ${(props) => props.theme.colors.realWhite};
   }
 `;
-const Container$h = st$1(FlexContainer)`
+const Container$i = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -28181,7 +28182,7 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -28211,7 +28212,7 @@ const Title$7 = st$1(Text$4)`
     font-size:  5.625vw;
   }
 `;
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -28241,9 +28242,10 @@ const ForwardBtn = st$1(DefaultBtn)`
   @media ${(props) => props.theme.media.mobile} {
     width: fit-content;
     min-height: 15.625vw;
-    padding: 0 45px 0 23px;
+    padding: 0px 15vw 0px 8vw;
     margin: 0;
     margin-left: auto;
+    margin-right: 3.125vw;
     text-align: center;
     background-position: 88% 50%;
     background-size: 10.3125vw;
@@ -28255,7 +28257,7 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -28319,9 +28321,15 @@ const Label$1 = st$1.label`
   cursor: pointer;
   ${TextStyles}
   font-weight: 400;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 
   &:not(:last-child) {
     margin-bottom: 20px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 6.25vw;
+    }
   }
 `;
 const RadioBtn$1 = st$1.input`
@@ -28333,6 +28341,11 @@ const RadioBtn$1 = st$1.input`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+    margin-right: 3.75vw;
+  }
 
   &:checked {
     background-image: url(${radioChecked});
@@ -28420,12 +28433,18 @@ const {
 } = lessonTestApi;
 const wrongAnswer = "/assets/wrongAnswer.svg";
 const rightAnswer = "/assets/rightAnswer.svg";
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    row-gap: unset;
+  }
   
   &:not(:last-child) {
     margin-bottom: 40px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 6.25vw;
+    }
   }
 `;
 const Answer = st$1(Text$4)`
@@ -28436,13 +28455,17 @@ const Answer = st$1(Text$4)`
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 36px;
+  @media ${(props) => props.theme.media.mobile} {
+    padding-left: 9.6875vw;
+    background-size: 7.5vw;
+  }
 `;
 const Comment = st$1(Text$4)`
   font-weight: 600;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
 function CheckedAnswer({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
   ] });
@@ -28471,7 +28494,7 @@ function LessonTest({ data }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$f,
+    Container$g,
     {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
@@ -28522,6 +28545,30 @@ function LessonTest({ data }) {
     }
   );
 }
+const useMediaQuery = (query) => {
+  if (!query) {
+    console.error(`useMediaQuery: ${query}. Current query is not valid!`);
+    return false;
+  }
+  return window.matchMedia(query).matches;
+};
+const Container$e = st$1.div`
+  margin-bottom: 30px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 6.25vw;
+  }
+`;
+const YoutubeFrame = st$1.iframe`
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    border-radius: 0;
+  }
+`;
+function EditorYoutubeFrame({ src }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
+}
 function CourseContent() {
   const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
@@ -28531,6 +28578,7 @@ function CourseContent() {
   });
   const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = reactExports.useState(true);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   const isTestsPassed = reactExports.useMemo(() => {
     if ((data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0) {
       return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
@@ -28576,6 +28624,10 @@ function CourseContent() {
           block.id
         );
       }
+      if (block.type === "youtube" && block.data.url) {
+        const validUrl = block.data.url.replace("/watch?v=", "/embed/");
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorYoutubeFrame, { src: validUrl });
+      }
       return null;
     });
   };
@@ -28604,7 +28656,7 @@ function CourseContent() {
     lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$7, { as: "h2", children: [
         data.data.title,
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+        !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
           {
             popupName: "Урок",
@@ -28614,7 +28666,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
@@ -28834,7 +28886,7 @@ function Course() {
   const { setActiveChapterId, setLoaderActive, setNavPopup } = useActions();
   const { chapterId, lessonId } = useParams();
   const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   const isNavPopup = useTypedSelector((state) => state.lesson.navPopup);
   reactExports.useEffect(() => {
     lessonId ? setNavPopup(false) : setNavPopup(true);
@@ -28849,7 +28901,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
       !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -28861,7 +28913,7 @@ function Course() {
   ] });
 }
 function Courses() {
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
@@ -34157,7 +34209,7 @@ function ManagerInfo({
   yamaguchiLvl
 }) {
   const stars = [1, 2, 3, 4, 5, 6];
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   const progressInfoStyles = {
     marginBottom: isMobile ? "10px" : "30px"
   };
@@ -48846,6 +48898,227 @@ var bundle = { exports: {} };
 })(bundle);
 var bundleExports = bundle.exports;
 const InlineCode = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports);
+var main = { exports: {} };
+/*! For license information please see main.js.LICENSE.txt */
+(function(module, exports) {
+  !function(e2, t2) {
+    module.exports = t2();
+  }(self, function() {
+    return (() => {
+      var e2 = { 150: (e3, t3, n3) => {
+        n3.d(t3, { Z: () => a2 });
+        var r3 = n3(645), i2 = n3.n(r3)()(function(e4) {
+          return e4[1];
+        });
+        i2.push([e3.id, ".block-wrapper {\n    padding: 20px 0;\n}\n\n.block-wrapper  input {\n    width: 100%;\n    padding: 10px;\n    border: 1px solid #e4e4e4;\n    border-radius: 3px;\n    outline: none;\n    font-size: 14px;\n}\n\n.video-wrapper {\n    position: relative;\n    padding-bottom: 56.25%; /* 16:9 */\n    height: 0;\n}\n\n.video-wrapper iframe {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    border: 0px;\n}\n\ninput.invalid {\n    border: 1px solid #eb5959cc;\n}", ""]);
+        const a2 = i2;
+      }, 645: (e3) => {
+        e3.exports = function(e4) {
+          var t3 = [];
+          return t3.toString = function() {
+            return this.map(function(t4) {
+              var n3 = e4(t4);
+              return t4[2] ? "@media ".concat(t4[2], " {").concat(n3, "}") : n3;
+            }).join("");
+          }, t3.i = function(e5, n3, r3) {
+            "string" == typeof e5 && (e5 = [[null, e5, ""]]);
+            var i2 = {};
+            if (r3)
+              for (var a2 = 0; a2 < this.length; a2++) {
+                var o2 = this[a2][0];
+                null != o2 && (i2[o2] = true);
+              }
+            for (var u2 = 0; u2 < e5.length; u2++) {
+              var s2 = [].concat(e5[u2]);
+              r3 && i2[s2[0]] || (n3 && (s2[2] ? s2[2] = "".concat(n3, " and ").concat(s2[2]) : s2[2] = n3), t3.push(s2));
+            }
+          }, t3;
+        };
+      }, 379: (e3, t3, n3) => {
+        var r3, i2 = function() {
+          var e4 = {};
+          return function(t4) {
+            if (void 0 === e4[t4]) {
+              var n4 = document.querySelector(t4);
+              if (window.HTMLIFrameElement && n4 instanceof window.HTMLIFrameElement)
+                try {
+                  n4 = n4.contentDocument.head;
+                } catch (e5) {
+                  n4 = null;
+                }
+              e4[t4] = n4;
+            }
+            return e4[t4];
+          };
+        }(), a2 = [];
+        function o2(e4) {
+          for (var t4 = -1, n4 = 0; n4 < a2.length; n4++)
+            if (a2[n4].identifier === e4) {
+              t4 = n4;
+              break;
+            }
+          return t4;
+        }
+        function u2(e4, t4) {
+          for (var n4 = {}, r4 = [], i3 = 0; i3 < e4.length; i3++) {
+            var u3 = e4[i3], s3 = t4.base ? u3[0] + t4.base : u3[0], l3 = n4[s3] || 0, c3 = "".concat(s3, " ").concat(l3);
+            n4[s3] = l3 + 1;
+            var d3 = o2(c3), p3 = { css: u3[1], media: u3[2], sourceMap: u3[3] };
+            -1 !== d3 ? (a2[d3].references++, a2[d3].updater(p3)) : a2.push({ identifier: c3, updater: h2(p3, t4), references: 1 }), r4.push(c3);
+          }
+          return r4;
+        }
+        function s2(e4) {
+          var t4 = document.createElement("style"), r4 = e4.attributes || {};
+          if (void 0 === r4.nonce) {
+            var a3 = n3.nc;
+            a3 && (r4.nonce = a3);
+          }
+          if (Object.keys(r4).forEach(function(e5) {
+            t4.setAttribute(e5, r4[e5]);
+          }), "function" == typeof e4.insert)
+            e4.insert(t4);
+          else {
+            var o3 = i2(e4.insert || "head");
+            if (!o3)
+              throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+            o3.appendChild(t4);
+          }
+          return t4;
+        }
+        var l2, c2 = (l2 = [], function(e4, t4) {
+          return l2[e4] = t4, l2.filter(Boolean).join("\n");
+        });
+        function d2(e4, t4, n4, r4) {
+          var i3 = n4 ? "" : r4.media ? "@media ".concat(r4.media, " {").concat(r4.css, "}") : r4.css;
+          if (e4.styleSheet)
+            e4.styleSheet.cssText = c2(t4, i3);
+          else {
+            var a3 = document.createTextNode(i3), o3 = e4.childNodes;
+            o3[t4] && e4.removeChild(o3[t4]), o3.length ? e4.insertBefore(a3, o3[t4]) : e4.appendChild(a3);
+          }
+        }
+        function p2(e4, t4, n4) {
+          var r4 = n4.css, i3 = n4.media, a3 = n4.sourceMap;
+          if (i3 ? e4.setAttribute("media", i3) : e4.removeAttribute("media"), a3 && "undefined" != typeof btoa && (r4 += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(a3)))), " */")), e4.styleSheet)
+            e4.styleSheet.cssText = r4;
+          else {
+            for (; e4.firstChild; )
+              e4.removeChild(e4.firstChild);
+            e4.appendChild(document.createTextNode(r4));
+          }
+        }
+        var f2 = null, v2 = 0;
+        function h2(e4, t4) {
+          var n4, r4, i3;
+          if (t4.singleton) {
+            var a3 = v2++;
+            n4 = f2 || (f2 = s2(t4)), r4 = d2.bind(null, n4, a3, false), i3 = d2.bind(null, n4, a3, true);
+          } else
+            n4 = s2(t4), r4 = p2.bind(null, n4, t4), i3 = function() {
+              !function(e5) {
+                if (null === e5.parentNode)
+                  return false;
+                e5.parentNode.removeChild(e5);
+              }(n4);
+            };
+          return r4(e4), function(t5) {
+            if (t5) {
+              if (t5.css === e4.css && t5.media === e4.media && t5.sourceMap === e4.sourceMap)
+                return;
+              r4(e4 = t5);
+            } else
+              i3();
+          };
+        }
+        e3.exports = function(e4, t4) {
+          (t4 = t4 || {}).singleton || "boolean" == typeof t4.singleton || (t4.singleton = (void 0 === r3 && (r3 = Boolean(window && document && document.all && !window.atob)), r3));
+          var n4 = u2(e4 = e4 || [], t4);
+          return function(e5) {
+            if (e5 = e5 || [], "[object Array]" === Object.prototype.toString.call(e5)) {
+              for (var r4 = 0; r4 < n4.length; r4++) {
+                var i3 = o2(n4[r4]);
+                a2[i3].references--;
+              }
+              for (var s3 = u2(e5, t4), l3 = 0; l3 < n4.length; l3++) {
+                var c3 = o2(n4[l3]);
+                0 === a2[c3].references && (a2[c3].updater(), a2.splice(c3, 1));
+              }
+              n4 = s3;
+            }
+          };
+        };
+      }, 884: (e3) => {
+        e3.exports = '<svg xmlns="http://www.w3.org/2000/svg" height="20" width="30" viewBox="-35.20005 -41.33325 305.0671 247.9995"><path d="M229.763 25.817c-2.699-10.162-10.65-18.165-20.748-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.553 7.652 7.6 15.655 4.903 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.903 56.85C7.6 149.68 15.553 157.681 25.65 160.4c18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.682-4.934c10.098-2.718 18.049-10.72 20.748-20.882 4.904-18.421 4.904-56.85 4.904-56.85s0-38.431-4.904-56.85" fill="red"></path><path d="M93.333 117.559l61.333-34.89-61.333-34.894z" fill="#fff"></path></svg>';
+      } }, t2 = {};
+      function n2(r3) {
+        var i2 = t2[r3];
+        if (void 0 !== i2)
+          return i2.exports;
+        var a2 = t2[r3] = { id: r3, exports: {} };
+        return e2[r3](a2, a2.exports, n2), a2.exports;
+      }
+      n2.n = (e3) => {
+        var t3 = e3 && e3.__esModule ? () => e3.default : () => e3;
+        return n2.d(t3, { a: t3 }), t3;
+      }, n2.d = (e3, t3) => {
+        for (var r3 in t3)
+          n2.o(t3, r3) && !n2.o(e3, r3) && Object.defineProperty(e3, r3, { enumerable: true, get: t3[r3] });
+      }, n2.o = (e3, t3) => Object.prototype.hasOwnProperty.call(e3, t3), n2.r = (e3) => {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e3, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e3, "__esModule", { value: true });
+      };
+      var r2 = {};
+      return (() => {
+        n2.r(r2), n2.d(r2, { default: () => s2 });
+        var e3 = n2(379), t3 = n2.n(e3), i2 = n2(150);
+        t3()(i2.Z, { insert: "head", singleton: false }), i2.Z.locals;
+        var a2 = n2(884), o2 = n2.n(a2);
+        function u2(e4, t4) {
+          for (var n3 = 0; n3 < t4.length; n3++) {
+            var r3 = t4[n3];
+            r3.enumerable = r3.enumerable || false, r3.configurable = true, "value" in r3 && (r3.writable = true), Object.defineProperty(e4, r3.key, r3);
+          }
+        }
+        var s2 = function() {
+          function e4(t5) {
+            var n4 = t5.data, r4 = (t5.config, t5.api, t5.readOnly);
+            !function(e5, t6) {
+              if (!(e5 instanceof t6))
+                throw new TypeError("Cannot call a class as a function");
+            }(this, e4), this.data = n4, this.readOnly = r4, this.wrapper = null, this.url = null, this.isEdited = false;
+          }
+          var t4, n3, r3;
+          return t4 = e4, r3 = [{ key: "toolbox", get: function() {
+            return { title: "YouTube", icon: o2() };
+          } }, { key: "isReadOnlySupported", get: function() {
+            return true;
+          } }], (n3 = [{ key: "render", value: function() {
+            var e5 = this;
+            this.wrapper = document.createElement("div");
+            var t5 = document.createElement("input");
+            return t5.value = this.data && this.data.url ? this.data.url : "", this.url = t5.value, t5.placeholder = "Paste YouTube url here...", this.wrapper.classList.add("block-wrapper"), this.wrapper.appendChild(t5), this._createIframe(t5.value), t5.addEventListener("change", function(n4) {
+              e5.isEdited = true, e5.url = t5.value, e5._createIframe(t5.value);
+            }), this.wrapper;
+          } }, { key: "_createIframe", value: function(e5) {
+            var t5 = e5.match(new RegExp("(?<=v=)[a-zA-Z0-9_]+(?=\\&?)"));
+            if (null != t5) {
+              this.wrapper.innerHTML = null;
+              var n4 = document.createElement("div");
+              n4.classList.add("video-wrapper");
+              var r4 = document.createElement("iframe");
+              r4.setAttribute("src", "https://www.youtube.com/embed/".concat(t5)), r4.setAttribute("allowfullscreen", true), n4.appendChild(r4), this.wrapper.appendChild(n4);
+            } else
+              this.isEdited && this.wrapper.querySelector("input").classList.add("invalid");
+          } }, { key: "save", value: function(e5) {
+            return e5.querySelector("input"), { url: this.url };
+          } }]) && u2(t4.prototype, n3), r3 && u2(t4, r3), e4;
+        }();
+      })(), r2;
+    })();
+  });
+})(main);
+var mainExports = main.exports;
+const Youtube = /* @__PURE__ */ getDefaultExportFromCjs(mainExports);
 const EDITOR_JS_TOOLS = {
   embed: { class: Embed, inlineToolbar: true },
   table: Table,
@@ -48854,6 +49127,10 @@ const EDITOR_JS_TOOLS = {
     inlineToolbar: true
   },
   warning: Warning,
+  youtube: {
+    class: Youtube,
+    inlineToolbar: true
+  },
   // code: Code,
   // linkTool: { class: LinkTool, inlineToolbar: true },
   image: {
@@ -49688,7 +49965,7 @@ function App() {
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
-  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   reactExports.useEffect(() => {
     setActive(isLoading);
   }, [isLoading, setActive]);

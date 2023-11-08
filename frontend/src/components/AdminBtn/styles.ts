@@ -17,6 +17,7 @@ export const AdminBtn = styled.button<IAdminBtn>`
   background-size: 100%;
   background-position: center;
   @media ${(props) => props.theme.media.mobile} {
+    display: none;
     width: 7.5vw;
     height: 7.5vw;
   }

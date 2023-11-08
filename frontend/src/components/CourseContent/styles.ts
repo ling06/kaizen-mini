@@ -50,9 +50,10 @@ export const ForwardBtn = styled(C.DefaultBtn)`
   @media ${(props) => props.theme.media.mobile} {
     width: fit-content;
     min-height: 15.625vw;
-    padding: 0 45px 0 23px;
+    padding: 0px 15vw 0px 8vw;
     margin: 0;
     margin-left: auto;
+    margin-right: 3.125vw;
     text-align: center;
     background-position: 88% 50%;
     background-size: 10.3125vw;
