@@ -44,6 +44,7 @@ class CourseController extends ApiController
                             'lesson',
                             'send-answer',
                             'check-lesson',
+                            'get-user-answers',
                         ],
                         'roles' => ['@'],
                     ],
@@ -69,7 +70,7 @@ class CourseController extends ApiController
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['get-user-answers', 'check-answer'],
+                        'actions' => ['get-user-answers', 'check-answer', 'get-users-progress'],
                         'permissions' => [Course::PERMISSION_CHECK_ANSWERS],
                     ],
                 ],
@@ -109,6 +110,11 @@ class CourseController extends ApiController
     {
         return ['success' => 1, 'file' => ['url' => Image::uploadTmpImageEditorJs()]];
 
+    }
+
+    public function actionGetUsersProgress()
+    {
+        die('Privet');
     }
 
     public function beforeAction($action): bool

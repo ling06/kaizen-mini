@@ -72,4 +72,25 @@ class UserCheck extends \app\components\ActiveRecord
         return $className::findOne($this->model_pk);
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        $lessonsId = [];
+        $currentLesson = Lesson::find()->where(['id' => $this->model_pk])->one();
+        $currentTheme = $currentLesson['theme_id'];
+        $allLessons = Lesson::find()->where(['theme_id' => $currentTheme, 'is_deleted' => 0])->select('id')->asArray()->indexBy('id')->all();
+        foreach ($allLessons as $lessonId => $lesson) {
+            $lessonsId[] = $lessonId;
+        }
+        $usersCheks = self::find()->where(['user_id' => $this->user_id, 'model_name' => $this->model_name, 'model_pk' => $lessonsId])->asArray()->all();
+        var_dump(count($lessonsId));
+        var_dump(count($usersCheks));
+        if(count($lessonsId) === count($usersCheks)) {
+            $themeCheck = new UserCheck;
+            $themeCheck->user_id = $this->user_id;
+            $themeCheck->model_name = Theme::class;
+            $themeCheck->model_pk = $currentTheme;
+            $themeCheck->save();
+        }
+    }
+
 }

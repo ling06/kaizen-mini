@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property Lesson[] $lessons
  * @property Chapter $chapter
  * @property-read bool $isCompleted
+ * @property-read bool $isChecked
  * @property User $user
  */
 class Theme extends \app\components\ActiveRecord
@@ -32,6 +33,7 @@ class Theme extends \app\components\ActiveRecord
     {
         return [
             'lessons' => 'lessons',
+            'isChecked' => 'isChecked',
         ];
     }
 
@@ -127,6 +129,15 @@ class Theme extends \app\components\ActiveRecord
             ->count();
 
         return $checkedLessonsCount === $lessonsCount;
+    }
+
+    public function getIsChecked(): bool
+    {
+        return UserCheck::find()->where([
+            'model_name' => static::class,
+            'model_pk' => $this->id,
+            'user_id' => \Yii::$app->user->id,
+        ])->exists();
     }
 
     /**
