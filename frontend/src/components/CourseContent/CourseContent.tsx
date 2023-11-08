@@ -29,7 +29,7 @@ export function CourseContent() {
   const { lessonId } = useParams();
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
-    skip: !lessonId,
+    skip: !lessonId, 
   });
   const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);

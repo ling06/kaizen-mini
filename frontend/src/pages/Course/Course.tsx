@@ -32,18 +32,20 @@ export function Course() {
       <S.Container>
         <S.bodyOverflow />
         {!isMobile && (
-          <S.NavContainer>
-            {data && (
-              <>
-                <CourseNavHead data={data.data} />
-                <CourseNavBody data={data.data} />
-              </>
-            )}
-          </S.NavContainer>
+          <>
+            <S.NavContainer>
+              {data && (
+                <>
+                  <CourseNavHead data={data.data} />
+                  <CourseNavBody data={data.data} />
+                </>
+              )}
+            </S.NavContainer>
+            <S.ContentContainer>
+              <CourseContent />
+            </S.ContentContainer>
+          </>
         )}
-        <S.ContentContainer>
-          <CourseContent />
-        </S.ContentContainer>
       </S.Container>
     </>
   );
