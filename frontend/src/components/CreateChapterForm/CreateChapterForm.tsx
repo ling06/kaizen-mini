@@ -6,7 +6,7 @@ import { useCreateChapterMutation, useUpdateChapterMutation } from '@/store/api/
 import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
 import { AddImage } from '../AddImage';
-import { IUploadedImage } from '@/types/image.types';
+import { IImage, IUploadedImage } from '@/types/image.types';
 
 export function CreateChapterForm() {
   const { data, updatingChapterData } = useTypedSelector((state) => state.course);
@@ -19,7 +19,7 @@ export function CreateChapterForm() {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [isEditForm, setEditForm] = useState<boolean>(false);
-  const [chapterImage, setChapterImage] = useState<IUploadedImage | null>(null);
+  const [chapterImage, setChapterImage] = useState<IUploadedImage | null | IImage>(null);
 
   useEffect(() => {
     if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
@@ -27,8 +27,9 @@ export function CreateChapterForm() {
       setChapterName(updatingChapterData.title);
       setValidName(true);
       setChangedName(true);
+      setChapterImage(data.image);
     }
-  }, [formType, updatingChapterData]);
+  }, [data.image, formType, updatingChapterData]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);

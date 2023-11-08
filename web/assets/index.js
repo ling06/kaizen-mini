@@ -27279,7 +27279,7 @@ function CourseMainInfo({ coursesData }) {
   const [isPopupOpen, setIsPopupOpen] = reactExports.useState(false);
   reactExports.useEffect(() => {
     if (courseData.image) {
-      const src = "." + courseData.image.directory + "/" + courseData.image.name;
+      const src = courseData.image.directory + "/" + courseData.image.name;
       setPreviewSrc(src);
       return;
     }
@@ -27506,6 +27506,13 @@ function CourseProgrammCard({ data }) {
   const [restoreChapter] = useRestoreChapterMutation();
   const [isDeleted, setDeleted] = reactExports.useState(false);
   const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const [imgSrc, setImgSrc] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    if (data.image) {
+      const src = data.image.directory + "/" + data.image.name;
+      setImgSrc(src);
+    }
+  }, [data.image]);
   reactExports.useEffect(() => {
     Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
   }, [data.is_deleted]);
@@ -27532,7 +27539,7 @@ function CourseProgrammCard({ data }) {
     setModalOpen(true);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: defaultCardImg }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
@@ -34908,10 +34915,22 @@ const Image$2 = st$1.img`
   object-fit: cover;
 `;
 function Image$1({ image, description }) {
+  const [src, setSrc] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if ("id" in image) {
+      const src2 = image.directory + "/" + image.name;
+      setSrc(src2);
+      return;
+    }
+    if (image.data)
+      [
+        setSrc(image.data)
+      ];
+  }, [image]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     Image$2,
     {
-      src: image,
+      src,
       alt: description
     }
   ) });
@@ -34989,7 +35008,7 @@ const DeleteIcon = st$1(Icon$1)`
 `;
 function AddImage({ name, onSet, imageData, onDelete }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
-    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData.data }),
+    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlsGroup, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomFileInput, { onSet, children: [
         !imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddFileBtn, { children: [
@@ -35029,6 +35048,7 @@ function CreateCourseForm() {
       setChangedName(true);
       setValidName(true);
       setCourseDescription((prevState) => (courseData == null ? void 0 : courseData.description) || prevState);
+      setCourseImage((courseData == null ? void 0 : courseData.image) || null);
     }
   }, [courseData, modalType]);
   const handleChange = (event) => {
@@ -35065,7 +35085,9 @@ function CreateCourseForm() {
         id: courseData.id,
         title: courseName,
         description: courseDescription,
-        image: courseImage
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        image: courseImage ? courseImage.id ? courseImage.id : courseImage : null
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
@@ -35160,8 +35182,9 @@ function CreateChapterForm() {
       setChapterName(updatingChapterData.title);
       setValidName(true);
       setChangedName(true);
+      setChapterImage(data.image);
     }
-  }, [formType, updatingChapterData]);
+  }, [data.image, formType, updatingChapterData]);
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
     setChapterName(event.target.value);

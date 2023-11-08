@@ -19,6 +19,14 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   const [restoreChapter] = useRestoreChapterMutation();
   const [isDeleted, setDeleted] = useState<boolean>(false);
   const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if(data.image) {
+      const src = data.image.directory + '/' + data.image.name;
+      setImgSrc(src);
+    }
+  }, [data.image])
 
   useEffect(() => {
     Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
@@ -53,7 +61,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
   return (
     <S.Card $isDeleted={isDeleted}>
       <S.imgWrapper onClick={handleClick}>
-        <S.Img src={defaultCardImg} />
+        <S.Img src={imgSrc || defaultCardImg} />
       </S.imgWrapper>
       <S.Title>{data.title}</S.Title>
       <S.ProgressContainer>

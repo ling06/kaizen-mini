@@ -7,7 +7,7 @@ import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/constants';
 import { AddImage } from '../AddImage';
-import { IUploadedImage } from '@/types/image.types';
+import { IImage, IUploadedImage } from '@/types/image.types';
 import { useNavigate } from 'react-router-dom';
 
 export function CreateCourseForm() {
@@ -19,7 +19,7 @@ export function CreateCourseForm() {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [isEditForm, setEditForm] = useState<boolean>(false);
-  const [courseImage, setCourseImage] = useState<IUploadedImage | null>(null);
+  const [courseImage, setCourseImage] = useState<IUploadedImage | IImage | null>(null);
 
   const [courseDescription, setCourseDescription] = useState<string>('');
 
@@ -36,6 +36,7 @@ export function CreateCourseForm() {
       setChangedName(true);
       setValidName(true);
       setCourseDescription((prevState) => courseData?.description || prevState);
+      setCourseImage(courseData?.image || null);
     }
   }, [courseData, modalType]);
 
@@ -77,7 +78,9 @@ export function CreateCourseForm() {
         id: courseData.id,
         title: courseName,
         description: courseDescription,
-        image: courseImage,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        image: courseImage ? courseImage.id ? courseImage.id : courseImage : null,
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }

@@ -36,7 +36,7 @@ export interface IGetCourseByIdRes {
 }
 
 export interface ICreateCourse extends Pick<ICourse, 'title' | 'description' | 'is_open'> {
-  image: IUploadedImage | null;
+  image: IUploadedImage | null | IImage;
 }
 export interface IUpdateCourse {
   id: number;

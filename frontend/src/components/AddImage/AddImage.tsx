@@ -1,4 +1,4 @@
-import { IUploadedImage } from '@/types/image.types';
+import { IImage, IUploadedImage } from '@/types/image.types';
 import { CustomFileInput } from '../CustomFileInput';
 import { Image } from './Image';
 import * as S from './styles';
@@ -6,7 +6,7 @@ import * as S from './styles';
 interface IAddImageProps {
   name: string;
   onSet: (base64: string, extension: string) => void;
-  imageData: IUploadedImage | null;
+  imageData: IUploadedImage | IImage | null;
   onDelete: () => void;
 }
 
@@ -23,7 +23,7 @@ interface IAddImageProps {
 export function AddImage({ name, onSet, imageData, onDelete }: IAddImageProps): JSX.Element {
   return (
     <S.Container>
-      {imageData && <Image image={imageData.data} />}
+      {imageData && <Image image={imageData} />}
       <S.ControlsGroup>
         <CustomFileInput onSet={onSet}>
           {!imageData && (

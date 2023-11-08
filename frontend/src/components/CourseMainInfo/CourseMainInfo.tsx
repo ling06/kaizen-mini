@@ -22,7 +22,7 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
 
   useEffect(() => {
     if (courseData.image) {
-      const src = '.' + courseData.image.directory + '/' + courseData.image.name;
+      const src = courseData.image.directory + '/' + courseData.image.name;
       setPreviewSrc(src);
       return;
     }
