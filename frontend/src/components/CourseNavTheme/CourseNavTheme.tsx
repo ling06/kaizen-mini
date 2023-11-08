@@ -11,6 +11,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { useActions } from '@/hooks/useActions';
 import { useMemo } from 'react';
 import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
+import { CourseNavItemTitle } from '../CourseNavItemTitle';
 
 interface ICourseNavTheme {
   data: ITheme;
@@ -87,21 +88,18 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
             sx={{ padding: 0 }}
             expandIcon={<div style={{ display: 'none' }}></div>}
             aria-controls={`${data.id}_content`}
-            id={`${data.id}_header`}
-            onClick={(event) => {
-              console.log(1111);
-            }}>
+            id={`${data.id}_header`}>
             <S.AccSum>
               <DndBtn
                 onClick={() => {}}
                 styles={{ marginRight: '20px' }}
               />
               <C.AccordionIcon $active={Number(themeId) === data.id} />
-              <C.CourseNavText
-                $active={!isThemeChecked}
-                $isDeleted={!!data.is_deleted}>
-                {data.title}
-              </C.CourseNavText>
+              <CourseNavItemTitle
+                text={data.title}
+                isActive={!isThemeChecked}
+                isDeleted={!!data.is_deleted}
+              />
               {isThemeChecked && <C.DoneIcon />}
               <AdminBtn
                 popupName="Тема"

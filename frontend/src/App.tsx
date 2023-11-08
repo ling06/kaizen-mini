@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './layouts/Layout';
 import { Main } from './pages/Main';
 import { ModalLayout } from './layouts/ModalLayout';
-import { MODAL_TYPES } from './constants';
+import { MODAL_TYPES, MediaQueries } from './constants';
 import { CreateCourseForm } from './components/CreateCourseForm';
 import { CreateChapterForm } from './components/CreateChapterForm';
 import { CreateThemeForm } from './components/CreateThemeForm';
@@ -14,6 +14,8 @@ import { useCheckUserQuery } from './store/api/user.api';
 import { Loading } from './components/Loading';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { Transition } from 'react-transition-group';
+import { useMediaQuery } from '@mui/material';
+import { CourseMob } from './pages/CourseMob';
 
 function App() {
   const { isLoading } = useCheckUserQuery();
@@ -21,6 +23,7 @@ function App() {
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = useRef(null);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
     setActive(isLoading);
@@ -54,6 +57,12 @@ function App() {
             path={'/news/create-news'}
             element={<CreateNews type={'create'} />}
           />
+          {isMobile && (
+            <Route 
+              path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
+              element={<CourseMob />}
+            />
+          )}
         </Routes>
         {isModalOpen && (
           <ModalLayout modalType={modalType}>

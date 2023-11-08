@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
 
 interface IContainer {
   $isDeleted: boolean;
@@ -20,4 +19,3 @@ export const Container = styled.div<IContainer>`
   }
 `;
 
-export const LessonName = styled(C.CourseNavText)``;

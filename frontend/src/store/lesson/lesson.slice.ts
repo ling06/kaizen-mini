@@ -4,11 +4,13 @@ import { EmptyTest } from '@/utils/EmptyTest';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface ILessonSlice {
-  tests: Array<ITest>;
+  tests: Array<Omit<ITest, 'userTestAnswer'>>;
+  navPopup: boolean;
 }
 
-const lessonInitialState = {
-  tests: [] as Array<Omit<ITest, 'userTestAnswer'>>,
+const lessonInitialState: ILessonSlice = {
+  tests: [],
+  navPopup: false,
 };
 
 interface IChangeTestQuestion {
@@ -168,6 +170,9 @@ export const lessonSlice = createSlice({
       });
 
       state.tests = modifyTests;
+    },
+    setNavPopup: (state, { payload }: PayloadAction<boolean>) => {
+      state.navPopup = payload;
     },
   },
 });

@@ -164,18 +164,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
   }
 `;
 
-interface ICourseNavText {
-  $active: boolean;
-  $isDeleted?: boolean;
-}
 
-export const CourseNavText = styled.p<ICourseNavText>`
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 100%;
-  color: ${(props) => (props.$active ? props.theme.colors.dark : props.theme.colors.grey93)};
-  text-decoration: ${props => props.$isDeleted ? 'line-through' : 'none'};
-`;
 
 
 export const Icon = styled.div`
@@ -215,6 +204,11 @@ export const EditorParagraph = styled(Text)`
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 150%;
+  @media ${props => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+    padding: 0 3.125vw;
+    margin-bottom: 10%;
+  }
 `;
 
 export const ProgrammCardSkeleton = styled(FlexContainer)`
@@ -246,14 +240,25 @@ export const UnorderedList = styled.ul`
   gap: 20px;
   margin-bottom: 30px;
   list-style: disc inside;
+  @media ${props => props.theme.media.mobile} {
+    gap: 6.25vw;
+    padding: 0 3.125vw;
+    margin-bottom: 10%;
+  }
 `;
 
 export const ListItem = styled.li`
   display: list-item;
   ${TextStyles}
   font-weight: 400;
+  @media ${props => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
 `;
 export const EditorImg = styled.img`
   width: 100%;
   margin-bottom: 30px;
+  @media ${props => props.theme.media.mobile} {
+    margin-bottom: 10%;
+  }
 `;

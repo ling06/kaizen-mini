@@ -100,17 +100,20 @@
       "assets/radio-checked.svg",
       "assets/wrongAnswer.svg",
       "assets/rightAnswer.svg",
+      "assets/close-icon.svg",
+      "assets/grey-arrow-right.svg",
       "assets/swiperArrowLeft.svg",
       "assets/star.svg",
       "assets/active-star.svg",
       "assets/moreIcon.svg",
-      "assets/close-icon.svg",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
       "assets/loadingLogo.svg",
+      "assets/book.svg",
+      "assets/home.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
       "assets/Montserrat-Light.ttf",
@@ -233,6 +236,10 @@
     "file": "assets/arrowRight.svg",
     "src": "src/assets/images/arrowRight.svg"
   },
+  "src/assets/images/book.svg": {
+    "file": "assets/book.svg",
+    "src": "src/assets/images/book.svg"
+  },
   "src/assets/images/burger-icon-close.svg": {
     "file": "assets/burger-icon-close.svg",
     "src": "src/assets/images/burger-icon-close.svg"
@@ -293,9 +300,17 @@
     "file": "assets/forwardIconDisabled.svg",
     "src": "src/assets/images/forwardIconDisabled.svg"
   },
+  "src/assets/images/grey-arrow-right.svg": {
+    "file": "assets/grey-arrow-right.svg",
+    "src": "src/assets/images/grey-arrow-right.svg"
+  },
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
+  },
+  "src/assets/images/home.svg": {
+    "file": "assets/home.svg",
+    "src": "src/assets/images/home.svg"
   },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",

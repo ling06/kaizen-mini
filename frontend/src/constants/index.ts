@@ -110,3 +110,8 @@ export enum MediaQueries {
   mobile = '(max-width: 768px)',
   desktop = '(min-width: 768px)',
 }
+
+export enum Steps {
+  chapter = 'chapter',
+  theme = 'theme',
+}

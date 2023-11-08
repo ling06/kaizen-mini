@@ -6,6 +6,7 @@ import { MODAL_TYPES } from '@/constants';
 import { IChapter } from '@/types/chapter.types';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
+import { FadedTitle } from '../FadedTitle';
 
 interface ICourseNavBodyProps {
   data: IChapter;
@@ -21,28 +22,27 @@ export function CourseNavBody({ data }: ICourseNavBodyProps) {
 
   return (
     <S.Container>
-      <S.Title>
-        Темы главы
+      <FadedTitle text="Темы главы">
         <AdminBtn
           popupName="Тема"
           type={'add'}
           onClick={openCreateThemeModal}
         />
-      </S.Title>
+      </FadedTitle>
       <S.Container>
         {data.themes &&
           data.themes.map((theme) => {
-            if(Number(theme.is_deleted) === 1 && userRole !== 'admin') {
+            if (Number(theme.is_deleted) === 1 && userRole !== 'admin') {
               return;
             }
-            return <CourseNavTheme
-              data={theme}
-              courseId={data.course_id}
-              key={theme.id}
-            />
-          }
-            
-          )}
+            return (
+              <CourseNavTheme
+                data={theme}
+                courseId={data.course_id}
+                key={theme.id}
+              />
+            );
+          })}
       </S.Container>
     </S.Container>
   );

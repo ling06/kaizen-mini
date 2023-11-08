@@ -2,7 +2,7 @@ import * as S from './styles';
 
 interface ICloseBtn {
   onClick: () => void;
-  styles: {
+  styles?: {
     [key: string]: string;
   };
 }

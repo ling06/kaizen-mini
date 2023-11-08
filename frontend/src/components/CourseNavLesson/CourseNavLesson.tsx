@@ -6,6 +6,7 @@ import { useActions } from '@/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
+import { CourseNavItemTitle } from '../CourseNavItemTitle';
 
 interface ICourseNavLessonProps {
   data: ILesson;
@@ -65,7 +66,7 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
 
   return (
     <S.Container $isDeleted={!!data.is_deleted} onClick={handleClick}>
-      <S.LessonName $active={!data.isChecked}>{data.title}</S.LessonName>
+      <CourseNavItemTitle text={data.title} isActive={!data.isChecked}/>
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
         popupName="Урок"
