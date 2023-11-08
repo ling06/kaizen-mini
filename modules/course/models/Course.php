@@ -50,7 +50,7 @@ class Course extends \app\components\ActiveRecord
                 return $model->getUser()->select('id, name')->one();
             },
             'image' => static function ($model) {
-                return $model->getImage()->select('server, directory, name')->one();
+                return $model->getImage()->select('id, server, directory, name')->one();
             },
         ];
     }
@@ -112,7 +112,7 @@ class Course extends \app\components\ActiveRecord
             $result[$key]['user_id'] = $chapter->user_id;
             $result[$key]['date'] = $chapter->date;
             $result[$key]['is_deleted'] = $chapter->is_deleted;
-            $result[$key]['image'] = Image::find()->select('server, directory, name')->where(['model_name' => Chapter::class, 'model_pk' => $chapter->id])->one();
+            $result[$key]['image'] = Image::find()->select('id, server, directory, name')->where(['model_name' => Chapter::class, 'model_pk' => $chapter->id])->one();
         }
         return $result;
     }
