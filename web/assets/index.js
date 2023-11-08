@@ -28532,11 +28532,13 @@ function Course() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
-      !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
+      !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(NavContainer, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
+      ] })
     ] })
   ] });
 }
