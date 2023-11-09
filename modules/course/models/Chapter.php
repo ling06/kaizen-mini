@@ -31,6 +31,7 @@ class Chapter extends \app\components\ActiveRecord
     {
         return [
             'themes' => 'themes',
+            'isChecked' => 'isChecked',
         ];
     }
 
@@ -103,6 +104,15 @@ class Chapter extends \app\components\ActiveRecord
     public function getThemes(): ActiveQuery
     {
         return $this->hasMany(Theme::class, ['chapter_id' => 'id']);
+    }
+
+    public function getIsChecked(): bool
+    {
+        return UserCheck::find()->where([
+            'model_name' => static::class,
+            'model_pk' => $this->id,
+            'user_id' => \Yii::$app->user->id,
+        ])->exists();
     }
 
     /**
