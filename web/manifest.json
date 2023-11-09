@@ -106,6 +106,7 @@
       "assets/star.svg",
       "assets/active-star.svg",
       "assets/moreIcon.svg",
+      "assets/arrow-left-blue.svg",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
@@ -231,6 +232,10 @@
   "src/assets/images/addIconWhite.svg": {
     "file": "assets/addIconWhite.svg",
     "src": "src/assets/images/addIconWhite.svg"
+  },
+  "src/assets/images/arrow-left-blue.svg": {
+    "file": "assets/arrow-left-blue.svg",
+    "src": "src/assets/images/arrow-left-blue.svg"
   },
   "src/assets/images/arrowRight.svg": {
     "file": "assets/arrowRight.svg",

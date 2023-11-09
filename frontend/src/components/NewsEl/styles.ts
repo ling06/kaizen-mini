@@ -19,6 +19,7 @@ export const Title = styled.h3`
 export const Image = styled.img`
   display: block;
   margin-bottom: 20px;
+  border-radius: ${props => props.theme.utils.br};
 `;
 
 export const Footer = styled(C.FlexContainer)`
@@ -29,13 +30,3 @@ export const MoreBtn = styled(C.DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
 `;
-
-export const Date = styled.p`
-  margin-right: 20px;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 149.5%;
-  color: ${(props) => props.theme.colors.grey93};
-`;
-
-export const Author = styled(Date)``;

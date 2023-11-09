@@ -10342,7 +10342,7 @@ const DefaultBtn = st$1.button`
     background-color: ${(props) => props.theme.colors.darkBlue};
   }
 `;
-const Text$4 = st$1.p`
+const Text$5 = st$1.p`
   font-size: 18px;
   font-weight: 700;
   line-height: 120%;
@@ -10445,7 +10445,7 @@ const ProgressBar$1 = st$1(FlexContainer)`
     background-color: ${(props) => props.theme.colors.realBlack};
   }
 `;
-const Icon$1 = st$1.div`
+const Icon$2 = st$1.div`
   display: block;
   width: 24px;
   height: 24px;
@@ -10457,12 +10457,12 @@ const Icon$1 = st$1.div`
     height: 7.5vw;
   }
 `;
-const DoneIcon = st$1(Icon$1)`
+const DoneIcon = st$1(Icon$2)`
   margin-right: 26px;
   /* margin-left: auto; */
   background-image: url(${doneIcon});
 `;
-const AccordionIcon = st$1(Icon$1)`
+const AccordionIcon = st$1(Icon$2)`
   display: block;
   width: 24px;
   height: 24px;
@@ -10471,7 +10471,7 @@ const AccordionIcon = st$1(Icon$1)`
   transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
   background-image: url(${selectIcon});
 `;
-const EditorParagraph = st$1(Text$4)`
+const EditorParagraph = st$1(Text$5)`
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 150%;
@@ -10524,11 +10524,13 @@ const ListItem = st$1.li`
 const EditorImg = st$1.img`
   width: 100%;
   margin-bottom: 30px;
+  border-radius: ${(props) => props.theme.utils.br};
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 10%;
+    border-radius: unset;
   }
 `;
-const LinkContent = st$1(Text$4)`
+const LinkContent = st$1(Text$5)`
   display: flex;
   align-items: center;
   position: relative;
@@ -10567,7 +10569,7 @@ const LinkContent = st$1(Text$4)`
     }
   }
 `;
-const Icon = st$1(SvgIcon$2)`
+const Icon$1 = st$1(SvgIcon$2)`
   margin-right: 5px;
   path {
     fill: ${(props) => props.$isActive ? props.theme.colors.mainBlue : props.theme.colors.dark};
@@ -10582,13 +10584,13 @@ function CustomNavLink({ url, name, icon }) {
         return { textDecoration: "unset", height: "100%" };
       },
       children: ({ isActive }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(LinkContent, { $isActive: isActive, children: [
-        icon.withIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { $isActive: isActive }),
+        icon.withIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon$1, { $isActive: isActive }),
         name
       ] })
     }
   );
 }
-const Container$F = st$1(FlexContainer)`
+const Container$J = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10604,7 +10606,7 @@ const NavBar$1 = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15915,13 +15917,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$E = st$1.div`
+const Container$I = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$D = st$1.div``;
+const Container$H = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15965,18 +15967,18 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$D, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$H, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$I, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
-const Button$1 = st$1.button`
+const Button$2 = st$1.button`
   display: none;
   background-color: transparent;
   padding: 0;
@@ -15986,7 +15988,7 @@ const Button$1 = st$1.button`
     display: block;
   }
 `;
-const OpenIcon = st$1(Icon$1)`
+const OpenIcon = st$1(Icon$2)`
   width: 7.5vw;
   height: 7.5vw;
   background-image: url(${burgerIconOpen});
@@ -15995,9 +15997,9 @@ const CloseIcon = st$1(OpenIcon)`
   background-image: url(${burgerIconClose});
 `;
 function BurgerBtn({ onClick: onClick2, isOpen }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$1, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$2, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$C = st$1.div`
+const Container$G = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -16045,7 +16047,7 @@ function Head$3({ onClose }) {
       document.body.removeEventListener("click", onClose);
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16062,7 +16064,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$B = st$1.div`
+const Container$F = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16074,14 +16076,14 @@ const Container$B = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$A = st$1.div`
+const Container$E = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16089,7 +16091,7 @@ function Nav() {
     }
   )) });
 }
-const Container$z = st$1.div`
+const Container$D = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16099,7 +16101,7 @@ const Container$z = st$1.div`
   }
 `;
 function Body() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$D, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16113,7 +16115,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$y = st$1.div`
+const Container$C = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16122,7 +16124,7 @@ const Container$y = st$1.div`
     margin-bottom: 18.75vw;
   }
 `;
-const Title$e = st$1.h3`
+const Title$f = st$1.h3`
   margin-bottom: 3.125vw;
   font-size: 3.125vw;
   font-weight: 700;
@@ -16144,20 +16146,20 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { children: "Фраза дня" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$x = st$1.div`
+const Container$B = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 3.125% 2.1875vw;
   margin-top: auto;
 `;
-const Bottom = st$1.div`
+const Bottom$1 = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16175,9 +16177,9 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Logo$1,
         {
@@ -16194,7 +16196,7 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -26037,7 +26039,7 @@ function Header$2() {
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
-const Container$w = st$1(FlexContainer)`
+const Container$A = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -26051,7 +26053,7 @@ st$1.div`
   background-color: ${(props) => props.theme.colors.mainBlue};
   border-radius: 18px;
 `;
-st$1(Text$4)`
+st$1(Text$5)`
   font-weight: 24.923px;
 `;
 const ModalInitialState = {
@@ -26387,7 +26389,7 @@ const Overlay$2 = st$1(DarkOverlay)`
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-const Container$v = st$1(FlexContainer)`
+const Container$z = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -26398,7 +26400,7 @@ const Container$v = st$1(FlexContainer)`
     border-radius: 0px 0px 15px 15px;
   }
 `;
-const Title$d = st$1(Text$4)`
+const Title$e = st$1(Text$5)`
   margin-bottom: 15px;
   text-align: center;
   @media ${(props) => props.theme.media.mobile} {
@@ -26438,7 +26440,7 @@ const DeleteBtn$2 = st$1(Btn)`
   color: ${(props) => props.theme.colors.yRed};
 `;
 const RestoreBtn = st$1(Btn)``;
-const BtnIcon = st$1(Icon$1)`
+const BtnIcon = st$1(Icon$2)`
   margin-right: 15px;
   @media ${(props) => props.theme.media.mobile} {
     margin-right: 3.125vw;
@@ -26469,8 +26471,8 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: name }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { ref: innerRef, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
       "скрыть"
@@ -26612,7 +26614,7 @@ const {
   useUpdateCourseMutation
 } = courseApi;
 const selectCourses = courseApi.endpoints.getCourses.select();
-const SelectIcon$1 = st$1(Icon$1)`
+const SelectIcon$1 = st$1(Icon$2)`
   top: 25% !important;
   width: 33px;
   height: 33px;
@@ -26677,7 +26679,7 @@ const TextLabel = st$1.p`
     font-weight: 500;
   }
 `;
-const IsHiddenIcon$1 = st$1(Icon$1)`
+const IsHiddenIcon$1 = st$1(Icon$2)`
   margin-left: auto;
   margin-right: 20px;
   background-image: url(${isHideIcon});
@@ -26853,7 +26855,7 @@ function CourseSelect() {
     setSelectedValue(`${selectedCourseId}`);
     navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26881,14 +26883,14 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$u = st$1(FlexContainer)`
+const Container$y = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-const Container$t = st$1(FlexContainer)`
+const Container$x = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26936,7 +26938,7 @@ st$1.img`
   width: 24px;
   margin: 0 5px;
 `;
-const LessonName = st$1(Text$4)`
+const LessonName = st$1(Text$5)`
   max-width: 95%;
   font-size: 25px;
   line-height: 130%;
@@ -26959,7 +26961,7 @@ const OpenCourse = st$1(DefaultBtn)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$s = st$1(FlexContainer)`
+const Container$w = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -26992,14 +26994,14 @@ const Theme$2 = st$1.p`
 const Lesson = st$1.p`
   ${TextStyle}
 `;
-const Arrow = st$1(Icon$1)`
+const Arrow = st$1(Icon$2)`
   background-image: url(${arrowRight});
   @media ${(props) => props.theme.media.mobile} {
     display: none;
   }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter$1, { children: [
       "Глава ",
       chapter.position,
@@ -27024,11 +27026,11 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-const Container$r = st$1(FlexContainer)`
+const Container$v = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
-const Text$3 = st$1(Text$4)`
+const Text$4 = st$1(Text$5)`
   max-width: 268px;
   font-size: 37.778px;
   @media ${(props) => props.theme.media.mobile} {
@@ -27047,8 +27049,8 @@ const Percentage = st$1.h3`
   }
 `;
 function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { style: styles2, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: text }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { style: styles2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
       percentage,
       "%"
@@ -27066,7 +27068,7 @@ const Overlay$1 = st$1.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
-const Container$q = st$1.div`
+const Container$u = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27095,13 +27097,13 @@ const AddCourseBtn = st$1.button`
   margin-bottom: 2%;
   background-color: transparent;
 `;
-const AddCourseBtnTitle = st$1(Text$4)`
+const AddCourseBtnTitle = st$1(Text$5)`
   width: 90%;
   font-size: 4.6875vw;
   font-weight: 600;
   text-align: start;
 `;
-const AddCourseBtnIcon = st$1(Icon$1)`
+const AddCourseBtnIcon = st$1(Icon$2)`
   background-image: url(${addIcon$2});
 `;
 const CloseBtnWrapper = st$1.div`
@@ -27135,7 +27137,7 @@ function Popup({ coursesData, onClose }) {
     setModalType(MODAL_TYPES.createCourse);
   };
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         Course$1,
         {
@@ -27163,7 +27165,7 @@ function Popup({ coursesData, onClose }) {
     modalRoot
   );
 }
-const Container$p = st$1.div`
+const Container$t = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27176,20 +27178,20 @@ const Wrapper$1 = st$1.div`
   width: 100%;
   max-width: 75%;
 `;
-const CourseTitle = st$1(Text$4)`
+const CourseTitle = st$1(Text$5)`
   /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 `;
-const SelectIcon = st$1(Icon$1)`
+const SelectIcon = st$1(Icon$2)`
   background-image: url(${selectIcon});
   @media ${(props) => props.theme.media.mobile} {
     min-width: 7.5vw;
     min-height: 7.5vw;
   }
 `;
-const IsHiddenIcon = st$1(Icon$1)`
+const IsHiddenIcon = st$1(Icon$2)`
   margin-left: auto;
   margin-right: 2%;
   background-image: url(${isHideIcon});
@@ -27248,7 +27250,7 @@ function OpenSelect({ courseData, onOpen }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -27297,7 +27299,7 @@ function CourseMainInfo({ coursesData }) {
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27347,7 +27349,7 @@ function CourseMainInfo({ coursesData }) {
     )
   ] });
 }
-const Container$o = st$1(FlexContainer)`
+const Container$s = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -27360,7 +27362,7 @@ const Head$2 = st$1(FlexContainer)`
     font-size: 4.6875vw;
   }
 `;
-const Title$c = st$1(Text$4)`
+const Title$d = st$1(Text$5)`
   @media ${(props) => props.theme.media.mobile} {
     margin: 0 auto;
     font-size: 4.6875vw;
@@ -27417,7 +27419,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$b = st$1(Text$4)`
+const Title$c = st$1(Text$5)`
   word-break: break-all;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
@@ -27540,7 +27542,7 @@ function CourseProgrammCard({ data }) {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: "Пройдено" }),
@@ -27585,9 +27587,9 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { as: "h4", children: "Программа курса" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -27610,18 +27612,18 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$n = st$1(FlexContainer)`
+const Container$r = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Text$2 = st$1(Text$4)`
+const Text$3 = st$1(Text$5)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$n, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "Что-то пошло не так" }) });
 }
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
@@ -27643,7 +27645,7 @@ function CoursePreview() {
       setCourseData(currentCourse);
     }
   }, [data, navigate, params.courseId, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -27652,7 +27654,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$m = st$1.div`
+const Container$q = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -27731,7 +27733,7 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
-const Title$a = st$1.p`
+const Title$b = st$1.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 100%;
@@ -27751,7 +27753,7 @@ function CourseNavItemTitle({
   isDeleted = false
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Title$a,
+    Title$b,
     {
       style: styles2,
       onClick: onClick2,
@@ -27811,7 +27813,7 @@ function CourseNavLesson({ data }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavItemTitle, { text: data.title, isActive: !data.isChecked }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27856,7 +27858,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$l = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -28016,7 +28018,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$l, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$p, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -28079,10 +28081,10 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$k = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$9 = st$1.h4`
+const Title$a = st$1.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28100,7 +28102,7 @@ const Title$9 = st$1.h4`
 function FadedTitle({ text, children, onClick: onClick2 = () => {
 }, styles: styles2 = {} }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Title$9,
+    Title$a,
     {
       onClick: onClick2,
       style: styles2,
@@ -28121,7 +28123,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -28130,7 +28132,7 @@ function CourseNavBody({ data }) {
         onClick: openCreateThemeModal
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { children: data.themes && data.themes.map((theme) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$o, { children: data.themes && data.themes.map((theme) => {
       if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
         return;
       }
@@ -28145,7 +28147,7 @@ function CourseNavBody({ data }) {
     }) })
   ] });
 }
-const Container$j = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -28173,7 +28175,7 @@ const bodyOverflow$1 = at$1`
     background-color: ${(props) => props.theme.colors.realWhite};
   }
 `;
-const Container$i = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -28182,16 +28184,16 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$8 = st$1(Text$4)`
+const Title$9 = st$1(Text$5)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { as: "h3", children: data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$9, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -28207,7 +28209,7 @@ function CourseNavHead({ data }) {
 }
 const forwardIcon = "/assets/forwardIcon.svg";
 const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-const Title$7 = st$1(Text$4)`
+const Title$8 = st$1(Text$5)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28219,7 +28221,7 @@ const Title$7 = st$1(Text$4)`
     font-size:  5.625vw;
   }
 `;
-const Container$h = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -28235,7 +28237,7 @@ st$1.div`
   top: 0;
   right: 0;
 `;
-const NoOpenLesson = st$1(Text$4)`
+const NoOpenLesson = st$1(Text$5)`
   font-size: 31px;
 `;
 const ForwardBtn = st$1(DefaultBtn)`
@@ -28264,7 +28266,7 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const Container$g = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -28285,7 +28287,7 @@ const Container$g = st$1(FlexContainer)`
     }
   }
 `;
-const Title$6 = st$1(Text$4)`
+const Title$7 = st$1(Text$5)`
   margin-bottom: 40px;
   font-size: 25px;
   line-height: 150%;
@@ -28440,7 +28442,7 @@ const {
 } = lessonTestApi;
 const wrongAnswer = "/assets/wrongAnswer.svg";
 const rightAnswer = "/assets/rightAnswer.svg";
-const Container$f = st$1(FlexContainer)`
+const Container$j = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   @media ${(props) => props.theme.media.mobile} {
@@ -28454,7 +28456,7 @@ const Container$f = st$1(FlexContainer)`
     }
   }
 `;
-const Answer = st$1(Text$4)`
+const Answer = st$1(Text$5)`
   padding-left: 56px;
   font-weight: 400;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
@@ -28467,12 +28469,12 @@ const Answer = st$1(Text$4)`
     background-size: 7.5vw;
   }
 `;
-const Comment = st$1(Text$4)`
+const Comment = st$1(Text$5)`
   font-weight: 600;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
 function CheckedAnswer({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
   ] });
@@ -28501,12 +28503,12 @@ function LessonTest({ data }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$g,
+    Container$k,
     {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.question }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.question }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
           !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             RadioBtn,
@@ -28559,7 +28561,7 @@ const useMediaQuery = (query) => {
   }
   return window.matchMedia(query).matches;
 };
-const Container$e = st$1.div`
+const Container$i = st$1.div`
   margin-bottom: 30px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 6.25vw;
@@ -28574,8 +28576,35 @@ const YoutubeFrame = st$1.iframe`
   }
 `;
 function EditorYoutubeFrame({ src }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$e, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
 }
+const useEditorOutput = (editorData) => {
+  if (!editorData)
+    return null;
+  return editorData.map((block) => {
+    var _a, _b;
+    if (block.type === "paragraph") {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
+    }
+    if (block.type === "list" && block.data.style === "ordered") {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item }, item)) }, block.id);
+    }
+    if (block.type === "image") {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        EditorImg,
+        {
+          src: (_b = block.data.file) == null ? void 0 : _b.url
+        },
+        block.id
+      );
+    }
+    if (block.type === "youtube" && block.data.url) {
+      const validUrl = block.data.url.replace("/watch?v=", "/embed/");
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorYoutubeFrame, { src: validUrl });
+    }
+    return null;
+  });
+};
 function CourseContent() {
   const { setLoaderActive } = useActions();
   const { lessonId } = useParams();
@@ -28591,6 +28620,7 @@ function CourseContent() {
       return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
     }
   }, [data == null ? void 0 : data.data.tests]);
+  const editorOutput = useEditorOutput(editorData);
   reactExports.useEffect(() => {
     if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
       setIsForwardBtnDisabled(true);
@@ -28612,31 +28642,6 @@ function CourseContent() {
       });
       setLoaderActive(true);
     }
-  };
-  const renderEditorOutput = () => {
-    return editorData.map((block) => {
-      var _a, _b;
-      if (block.type === "paragraph") {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
-      }
-      if (block.type === "list" && block.data.style === "ordered") {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item }, item)) }, block.id);
-      }
-      if (block.type === "image") {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          EditorImg,
-          {
-            src: (_b = block.data.file) == null ? void 0 : _b.url
-          },
-          block.id
-        );
-      }
-      if (block.type === "youtube" && block.data.url) {
-        const validUrl = block.data.url.replace("/watch?v=", "/embed/");
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorYoutubeFrame, { src: validUrl });
-      }
-      return null;
-    });
   };
   const renderLessonTests = () => {
     return data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -28661,7 +28666,7 @@ function CourseContent() {
     !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
     lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$7, { as: "h2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { as: "h2", children: [
         data.data.title,
         !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
@@ -28673,8 +28678,8 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: renderEditorOutput() }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: editorOutput }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
       ] })
@@ -28682,7 +28687,7 @@ function CourseContent() {
   ] });
 }
 const closeIcon = "/assets/close-icon.svg";
-const Button = st$1.button`
+const Button$1 = st$1.button`
   width: 24px;
   height: 24px;
   padding: 0;
@@ -28700,7 +28705,7 @@ const Button = st$1.button`
 function CloseBtn$1({ onClick: onClick2 = () => {
 }, styles: styles2 = {} }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Button,
+    Button$1,
     {
       onClick: onClick2,
       style: styles2
@@ -28732,7 +28737,7 @@ const Chapter = st$1(NavItem)`
   }
 }}
 `;
-const ArrowIcon = st$1(Icon$1)`
+const ArrowIcon = st$1(Icon$2)`
   margin-right: 3.125vw;
   background-image: url(${arrowIcon});
 `;
@@ -28763,7 +28768,7 @@ function NavBar({ activeStep }) {
     ] })
   ] });
 }
-const Container$d = st$1.div`
+const Container$h = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28773,12 +28778,12 @@ const Container$d = st$1.div`
 `;
 function Head$1({ activeStep, onClose = () => {
 } }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { activeStep }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: onClose })
   ] });
 }
-const Container$c = st$1.div`
+const Container$g = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -28852,7 +28857,7 @@ function NavPopup({ chapterData }) {
       setNavPopup(false);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Head$1,
       {
@@ -28908,7 +28913,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
       !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -28939,7 +28944,7 @@ function Courses() {
   ] }) });
 }
 const arrowLeft = "/assets/swiperArrowLeft.svg";
-const Container$b = st$1.div`
+const Container$f = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -34043,7 +34048,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$a = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -34079,7 +34084,7 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionPagination, { children: "Конкурс 1/7" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34117,7 +34122,7 @@ function CompetitionsSwiper() {
       return;
     swiperRef.current.swiper.slideNext();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
@@ -34143,7 +34148,7 @@ function CompetitionsSwiper() {
 const star = "/assets/star.svg";
 const activeStar = "/assets/active-star.svg";
 const moreIcon = "/assets/moreIcon.svg";
-const Container$9 = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   flex-direction: column;
   width: 49.7%;
   height: 400px;
@@ -34163,7 +34168,7 @@ const InfoBlock = st$1(FlexContainer)`
 const InfoRaw = st$1(FlexContainer)`
   align-items: center;
 `;
-const InfoRawTitle = st$1(Text$4)`
+const InfoRawTitle = st$1(Text$5)`
   min-width: fit-content;
   font-size: 20px;
 `;
@@ -34173,7 +34178,7 @@ const InfoRawDots = st$1.div`
   margin: 0 2%;
   border-bottom: 5px dotted ${(props) => props.theme.colors.greyF1};
 `;
-const InfoRawValue = st$1(Text$4)`
+const InfoRawValue = st$1(Text$5)`
   min-width: fit-content;
   font-size: 22px;
 `;
@@ -34186,13 +34191,13 @@ const YamaguchiLvl = st$1(FlexContainer)`
   max-width: 40%;
   row-gap: 8px;
 `;
-const YamaguchiLvlTitle = st$1(Text$4)`
+const YamaguchiLvlTitle = st$1(Text$5)`
   font-size: 15px;
 `;
 const StarsContainer = st$1(FlexContainer)`
   align-items: center;
 `;
-const Star = st$1(Icon$1)`
+const Star = st$1(Icon$2)`
   width: 33px;
   height: 33px;
   background-image: url(${(props) => props.$active ? activeStar : star});
@@ -34204,7 +34209,7 @@ const MoreLink = st$1(DefaultBtn)`
   border-radius: 22.689px;
   text-decoration: none !important;
 `;
-const MoreIcon = st$1(Icon$1)`
+const MoreIcon = st$1(Icon$2)`
   margin-left: 13px;
   background-image: url(${moreIcon});
 `;
@@ -34220,7 +34225,7 @@ function ManagerInfo({
   const progressInfoStyles = {
     marginBottom: isMobile ? "10px" : "30px"
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
     percentage && /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProgressInfo,
       {
@@ -34335,22 +34340,23 @@ const {
   useRestoreNewsMutation,
   useUpdateNewsMutation
 } = newsApi;
-const Container$8 = st$1(FlexContainer)`
+const Container$c = st$1(FlexContainer)`
   flex-direction: column;
   padding: 20px 15px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Title$5 = st$1.h3`
+const Title$6 = st$1.h3`
   margin-bottom: 25px;
   font-size: 22px;
   font-weight: 700;
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.mainBlue};
 `;
-st$1.img`
+const Image$3 = st$1.img`
   display: block;
   margin-bottom: 20px;
+  border-radius: ${(props) => props.theme.utils.br};
 `;
 const Footer = st$1(FlexContainer)`
   align-items: center;
@@ -34358,6 +34364,10 @@ const Footer = st$1(FlexContainer)`
 const MoreBtn = st$1(DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
+`;
+const Container$b = st$1.div`
+  display: flex;
+  align-items: center;
 `;
 const Date$1 = st$1.p`
   margin-right: 20px;
@@ -34367,9 +34377,45 @@ const Date$1 = st$1.p`
   color: ${(props) => props.theme.colors.grey93};
 `;
 const Author = st$1(Date$1)``;
+function NewsRequisites({
+  date,
+  author,
+  adminHandlers = {},
+  onClick: onClick2 = () => {
+  }
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Date$1, { children: date }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Author, { children: author }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AdminBtn,
+      {
+        popupName: "Новость",
+        type: "edit",
+        onClick: onClick2,
+        popupHandlers: adminHandlers
+      }
+    )
+  ] });
+}
 function NewsEl({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.title }),
+  const [authorName, setAuthorName] = reactExports.useState("");
+  const [imgUrl, setImgUrl] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    var _a;
+    const name = data.user ? data.user.name : data.user_id;
+    setAuthorName(name);
+    const editorData = JSON.parse(data.text);
+    const firstImageBlock = editorData.find((block) => block.type === "image");
+    if (firstImageBlock && ((_a = firstImageBlock.data.file) == null ? void 0 : _a.url)) {
+      setImgUrl(firstImageBlock.data.file.url);
+    } else {
+      setImgUrl(null);
+    }
+  }, [data.text, data.user, data.user_id]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.title }),
+    imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Link,
@@ -34379,24 +34425,14 @@ function NewsEl({ data }) {
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Date$1, { children: data.date }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Author, { children: data.user_id }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        AdminBtn,
-        {
-          popupName: "Новость",
-          type: "edit",
-          onClick: () => {
-          }
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsx(NewsRequisites, { author: authorName, date: data.date })
     ] })
   ] });
 }
-const Container$7 = st$1(FlexContainer)`
+const Container$a = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$4 = st$1(Text$4)`
+const Title$5 = st$1(Text$5)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34416,7 +34452,7 @@ const Wrapper = st$1(FlexContainer)`
   row-gap: 22px;
   width: 25%;
 `;
-const Category = st$1(Text$4)`
+const Category = st$1(Text$5)`
   font-size: 22px;
   cursor: pointer;
 
@@ -34480,9 +34516,10 @@ const {
   useRestoreNewsCategoryMutation,
   useUpdateNewsCategoryMutation
 } = newsCategoryApi;
-function NewsCategoryWrapper() {
+function NewsCategoryWrapper({ children }) {
   const { data, isError, isLoading } = useGetNewsCategoryQuery();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper, { children: [
+    children,
     isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Загрузка..." }),
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Ошибка!" }),
     !isError && !isLoading && data && data.data.map((newsCategory) => /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34495,31 +34532,37 @@ function NewsCategoryWrapper() {
   ] });
 }
 function NewsContainer() {
-  const { data, isError, isLoading } = useGetAllNewsQuery();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$4, { children: [
+  const { setLoaderActive } = useActions();
+  const { data, isError, isFetching } = useGetAllNewsQuery();
+  const navigate = useNavigate();
+  reactExports.useEffect(() => {
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
+  const handleClick = () => {
+    navigate("/news/create-news");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$5, { children: [
       "Новости",
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/news/create-news", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
           popupName: "Новость",
           type: "add",
-          onClick: () => {
-          }
+          onClick: handleClick
         }
-      ) })
+      )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ContentWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(News$1, { children: [
-        isError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Ошибка!" }),
-        isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Загрузка..." }),
+        isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         data && data.data.length > 0 && data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData }))
       ] })
     ] })
   ] });
 }
-const Container$6 = st$1(FlexContainer)`
+const Container$9 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
 `;
@@ -34536,7 +34579,7 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34553,13 +34596,126 @@ function NewsMain() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContainer, {})
   ] }) });
 }
-function OneNews() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "one news" });
+const Container$8 = st$1.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 25px;
+`;
+const backIcon = "/assets/arrow-left-blue.svg";
+const Button = st$1.button`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 18px;
+`;
+const Icon = st$1(Icon$2)`
+  margin-right: 8px;
+  background-image: url(${backIcon});
+`;
+const Text$2 = st$1.span`
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 149.5%;
+  color: ${(props) => props.theme.colors.mainBlue};
+`;
+function BackBtn({ onClick: onClick2 = () => {
+}, text = "назад" }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { onClick: onClick2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: text })
+  ] });
+}
+const Container$7 = st$1.div`
+  display: flex;
+  width: 100%;
+`;
+const Container$6 = st$1.div`
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  padding: 15px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const Title$4 = st$1(Text$5)`
+  margin-bottom: 23px;
+  font-size: 22px;
+`;
+const EditorOutputContainer = st$1.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 50px;
+`;
+const Bottom = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+function NewsContent() {
+  var _a;
+  const { setLoaderActive } = useActions();
+  const { newsId } = useParams();
+  const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
+    skip: !newsId
+  });
+  const [editorData, setEditorData] = reactExports.useState([]);
+  const editorOutput = useEditorOutput(editorData);
+  reactExports.useEffect(() => {
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
+  reactExports.useEffect(() => {
+    if (data && data.data.text) {
+      const editorData2 = JSON.parse(data.data.text);
+      setEditorData(editorData2);
+    }
+  }, [data]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+    isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
+    data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { children: data.data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorData && editorData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: editorOutput }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NewsRequisites,
+        {
+          author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id,
+          date: data.data.date
+        }
+      ) })
+    ] })
+  ] });
+}
+function NewsByIdContent() {
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate("/news");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContent, {})
+  ] });
+}
+function NewsById() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AdminBtn,
+      {
+        popupName: "Новость",
+        type: "add",
+        styles: { marginLeft: "auto", display: "block" }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(NewsByIdContent, {})
+  ] }) });
 }
 function News() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsMain, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/:newsId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(OneNews, {}) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/:newsId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsById, {}) })
   ] });
 }
 function Main() {
@@ -34985,21 +35141,21 @@ const DeleteFileBtn = st$1(EditFileBtn)`
     background-color: ${(props) => props.theme.colors.darkRed};
   }
 `;
-const AddFileIcon = st$1(Icon$1)`
+const AddFileIcon = st$1(Icon$2)`
   margin-right: 11px;
   background-image: url(${imagesIcon});
   @media ${(props) => props.theme.media.mobile} {
     margin-right: 3.125vw;
   }
 `;
-const EditIcon = st$1(Icon$1)`
+const EditIcon = st$1(Icon$2)`
   margin-right: 8px;
   background-image: url(${editIcon});
   @media ${(props) => props.theme.media.mobile} {
     margin-right: 1.5625vw;
   }
 `;
-const DeleteIcon = st$1(Icon$1)`
+const DeleteIcon = st$1(Icon$2)`
   margin-right: 8px;
   background-image: url(${deleteIcon});
   @media ${(props) => props.theme.media.mobile} {
@@ -35367,7 +35523,7 @@ function CreateThemeForm() {
   );
 }
 const checklistIcon = "/assets/checklist.svg";
-const Title$3 = st$1(Text$4)`
+const Title$3 = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -35391,7 +35547,7 @@ const AddTest = st$1(DefaultBtn)`
   align-items: center;
   width: fit-content;
 `;
-const AddTestIcon = st$1(Icon$1)`
+const AddTestIcon = st$1(Icon$2)`
   margin-right: 10px;
   background-image: url(${checklistIcon});
 `;
@@ -49304,7 +49460,7 @@ const DeleteTestBtn = st$1.button`
   color: ${(props) => props.theme.colors.yRed};
   background-color: transparent;
 `;
-const DeleteTestBtnIcon = st$1(Icon$1)`
+const DeleteTestBtnIcon = st$1(Icon$2)`
   margin-right: 5px;
   background-image: url(${deleteIcon$1});
 `;
@@ -49351,7 +49507,7 @@ const DeleteBtn$1 = st$1.button`
   margin: 0;
   margin-left: auto;
 `;
-const DeleteBtnIcon = st$1(Icon$1)`
+const DeleteBtnIcon = st$1(Icon$2)`
   background-image: url(${deleteIcon$1});
 `;
 function DeleteBtn({ onClick: onClick2 = () => {
@@ -49758,7 +49914,7 @@ function CreateLesson({ type }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
   ] }) });
 }
-const Title = st$1(Text$4)`
+const Title = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -49906,7 +50062,7 @@ const Logo = st$1.img`
   width: 30px;
   margin-right: 15px;
 `;
-const Text$1 = st$1(Text$4)`
+const Text$1 = st$1(Text$5)`
   font-size: 22.714px;
 `;
 const loadingLogo = "/assets/loadingLogo.svg";
@@ -49939,14 +50095,14 @@ const Header$1 = st$1.header`
   border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const OpenNavBtn = st$1(Icon$1)`
+const OpenNavBtn = st$1(Icon$2)`
   padding: 0;
   margin: 0;
   margin-right: auto;
   background-image: url(${bookIcon});
   background-color: transparent;
 `;
-const HomeLink = st$1(Icon$1)`
+const HomeLink = st$1(Icon$2)`
   background-image: url(${homeIcon});
 `;
 function Header() {

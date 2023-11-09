@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
-import * as C from '@styles/components';
 import { useCheckLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
 import { useEffect, useMemo, useState } from 'react';
@@ -10,22 +9,11 @@ import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
-import { EditorYoutubeFrame } from '../EditorYoutubeFrame';
+import { IEditorJsData } from '@/types/editorJs.types';
+import { useEditorOutput } from '@/hooks/useEditorOutput';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
-  description: {
-    data: {
-      url?: string;
-      text?: string;
-      items?: string[];
-      style?: string;
-      file?: {
-        url: string;
-      };
-    };
-    id: string;
-    type: string;
-  };
+  description: IEditorJsData;
 }
 
 export function CourseContent() {
@@ -44,6 +32,8 @@ export function CourseContent() {
       return data?.data.tests.every((test) => test.userTestAnswer);
     }
   }, [data?.data.tests]);
+
+  const editorOutput = useEditorOutput(editorData);
 
   useEffect(() => {
     if (
@@ -72,38 +62,6 @@ export function CourseContent() {
       });
       setLoaderActive(true);
     }
-  };
-
-  const renderEditorOutput = () => {
-    return editorData.map((block) => {
-      if (block.type === 'paragraph') {
-        return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
-      }
-      if (block.type === 'list' && block.data.style === 'ordered') {
-        return (
-          <C.UnorderedList key={block.id}>
-            {block.data.items?.map((item) => (
-              <C.ListItem key={item}>{item}</C.ListItem>
-            ))}
-          </C.UnorderedList>
-        );
-      }
-      if (block.type === 'image') {
-        return (
-          <C.EditorImg
-            key={block.id}
-            src={block.data.file?.url}
-          />
-        );
-      }
-      if(block.type === 'youtube' && block.data.url) {
-        const validUrl = block.data.url.replace('/watch?v=', '/embed/');
-        return (
-          <EditorYoutubeFrame src={validUrl}/>
-        )
-      }
-      return null;
-    });
   };
 
   const renderLessonTests = () => {
@@ -142,7 +100,7 @@ export function CourseContent() {
             )}
           </S.Title>
           <S.Container>
-            <S.EditorOutput>{renderEditorOutput()}</S.EditorOutput>
+            <S.EditorOutput>{editorOutput}</S.EditorOutput>
             {data.data.tests.length > 0 && renderLessonTests()}
             {editorData && !isFetching && !data.data.isChecked && renderForwardButton()}
           </S.Container>

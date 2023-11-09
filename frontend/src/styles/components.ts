@@ -258,7 +258,9 @@ export const ListItem = styled.li`
 export const EditorImg = styled.img`
   width: 100%;
   margin-bottom: 30px;
+  border-radius: ${props => props.theme.utils.br};
   @media ${props => props.theme.media.mobile} {
     margin-bottom: 10%;
+    border-radius: unset;
   }
 `;

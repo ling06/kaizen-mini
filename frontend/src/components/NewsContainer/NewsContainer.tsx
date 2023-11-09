@@ -3,28 +3,38 @@ import { AdminBtn } from '../AdminBtn';
 import { NewsEl } from '../NewsEl';
 import * as S from './styles';
 import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ErrorBlock } from '../ErrorBlock';
+import { useActions } from '@/hooks/useActions';
+import { useEffect } from 'react';
 
 export function NewsContainer() {
-  const { data, isError, isLoading } = useGetAllNewsQuery();
+  const {setLoaderActive} = useActions();
+  const { data, isError, isFetching } = useGetAllNewsQuery();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoaderActive(isFetching)
+  }, [isFetching, setLoaderActive])
+
+  const handleClick = () => {
+    navigate('/news/create-news');
+  }
 
   return (
     <S.Container>
       <S.Title>
         Новости
-        <Link to={'/news/create-news'}>
-          <AdminBtn
-            popupName="Новость"
-            type="add"
-            onClick={() => {}}
-          />
-        </Link>
+        <AdminBtn
+          popupName="Новость"
+          type="add"
+          onClick={handleClick}
+        />
       </S.Title>
       <S.ContentWrapper>
         <NewsCategoryWrapper />
         <S.News>
-          {isError && <div>Ошибка!</div>}
-          {isLoading && <div>Загрузка...</div>}
+          {isError && <ErrorBlock />}
           {data && data.data.length > 0 && data.data.map((newsData) => <NewsEl data={newsData} />)}
         </S.News>
       </S.ContentWrapper>

@@ -1,12 +1,7 @@
-import {
-  ICreateNews,
-  IDeleteByIdReq,
-  IDeleteByIdRes,
-  IGetAllNews,
-  INewsResponse,
-  TUpdateNews,
-} from '@/types';
+
+import { IGetAllNews, INewsResponse, ICreateNews, TUpdateNews } from '@/types/news.types';
 import { api } from './api';
+import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
 
 export const newsApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -50,14 +45,14 @@ export const newsApi = api.injectEndpoints({
         },
       ],
     }),
-    deleteNews: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+    deleteNews: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (id) => ({
         url: 'news/delete',
         method: 'POST',
         body: id,
       }),
     }),
-    restoreNews: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+    restoreNews: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (id) => ({
         url: 'news/restore',
         method: 'POST',
