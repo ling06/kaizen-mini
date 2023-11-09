@@ -27639,9 +27639,12 @@ function CoursePreview() {
     if (data) {
       const currentCourseId = params.courseId || null;
       const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-      if (!currentCourseId || !currentCourse) {
+      if (data.data.length > 0 && !currentCourseId || data.data.length > 0 && !currentCourse) {
         navigate(`/courses/${data.data[0].id}`);
         return;
+      }
+      if (data.data.length === 0) {
+        navigate("/courses");
       }
       setCourseData(currentCourse);
     }
