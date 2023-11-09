@@ -221,6 +221,10 @@
     "file": "assets/active-star.svg",
     "src": "src/assets/images/active-star.svg"
   },
+  "src/assets/images/add-grey.svg": {
+    "file": "assets/add-grey.svg",
+    "src": "src/assets/images/add-grey.svg"
+  },
   "src/assets/images/addIcon.svg": {
     "file": "assets/addIcon.svg",
     "src": "src/assets/images/addIcon.svg"
