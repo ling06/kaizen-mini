@@ -1,12 +1,11 @@
 import {
-  IDeleteByIdReq,
-  IDeleteByIdRes,
   IGetAllNewsCategory,
   INewsCategory,
   INewsCategoryMutationReq,
   INewsCategoryMutationRes,
-} from '@/types';
+} from '@/types/news.types';
 import { api } from './api';
+import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
 
 export const newsCategoryApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -37,14 +36,14 @@ export const newsCategoryApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    deleteNewsCategory: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+    deleteNewsCategory: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
         url: 'news-category/delete',
         method: 'POST',
         body: data,
       }),
     }),
-    restoreNewsCategory: builder.mutation<IDeleteByIdRes, IDeleteByIdReq>({
+    restoreNewsCategory: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
         url: 'news-category/restore',
         method: 'POST',

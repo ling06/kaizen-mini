@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
@@ -6,6 +5,8 @@ import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/edi
 import { FormControls } from '../FormControls';
 import { useNavigate } from 'react-router-dom';
 import { useCreateNewsMutation } from '@/store/api/news.api';
+import { useActions } from '@/hooks/useActions';
+import { MODAL_TYPES } from '@/constants';
 
 interface ICreateNewsFormProps {
   type: string;
@@ -14,12 +15,12 @@ interface ICreateNewsFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateNewsForm({ type }: ICreateNewsFormProps) {
-  const navigation = useNavigate();
+  const { setModalOpen, setModalType } = useActions();
+  const navigate = useNavigate();
   const [NewsName, setNewsName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [createNews, status] = useCreateNewsMutation();
-
 
   useEffect(() => {
     if (!editor) {
@@ -35,13 +36,12 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       }
     }
 
-    if(status.isSuccess) {
+    if (status.isSuccess) {
       editor?.clear();
       editor = undefined;
-      navigation('/news');
+      navigate('/news');
     }
-
-  }, [navigation, status.isSuccess]);
+  }, [navigate, status.isSuccess]);
 
   const handleConfirm = async () => {
     const editorData = await editor?.save().then((data) => data);
@@ -57,6 +57,10 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     });
   };
 
+  const handleCancel = () => {
+    navigate('/news');
+  }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
     setNewsName(event.target.value);
@@ -65,6 +69,11 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     }
   };
 
+  const handleOpenCategoriesModal = () => {
+    setModalType(MODAL_TYPES.newsCategory);
+    setModalOpen(true);
+  }
+
   const controlsData = {
     names: {
       confirm: 'Создать новость',
@@ -72,7 +81,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     },
     handlers: {
       confirm: handleConfirm,
-      cancel: () => {},
+      cancel: handleCancel,
     },
   };
 
@@ -88,6 +97,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       <S.EditorJsWrapper id="editorjs" />
+      <button onClick={handleOpenCategoriesModal}>Open modal</button>
       <S.Divider />
       <FormControls
         {...controlsData}

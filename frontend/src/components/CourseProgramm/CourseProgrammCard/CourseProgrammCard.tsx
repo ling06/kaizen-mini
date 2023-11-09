@@ -74,7 +74,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
             popupHandlers={{
               onDelete: isDeleted ? undefined : handleDeleteChapter,
               onRestore: isDeleted ? handleRestoreChapter : undefined,
-              onEdit: handleEditChapter,
+              onEdit: handleEditChapter
             }}
           />
         </S.ProgressStatusWrapper>
