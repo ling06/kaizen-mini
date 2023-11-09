@@ -10206,7 +10206,8 @@ const MODAL_TYPES = {
   createTheme: "createTheme",
   editCourse: "editCourse",
   editChapter: "editChapter",
-  editTheme: "editTheme"
+  editTheme: "editTheme",
+  newsCategory: "newsCategory"
 };
 window.matchMedia("(max-width: 768px)").matches;
 const USER_ROLES = {
@@ -34856,6 +34857,9 @@ function ModalLayout({ children, modalType: type }) {
       case MODAL_TYPES.editTheme:
         name = "Изменение Темы";
         break;
+      case MODAL_TYPES.newsCategory:
+        name = "Категории";
+        break;
       default:
         console.error(`Unknown modal type: ${type}`);
     }
@@ -49935,7 +49939,7 @@ const EditorJsWrapper = st$1.div`
   min-height: 472px;
   padding: 25px;
   padding-left: 75px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   border: 1px solid ${(props) => props.theme.colors.greyEO};
   border-radius: ${(props) => props.theme.utils.br};
 `;
@@ -49957,9 +49961,14 @@ const Divider = st$1.div`
     transform: translateX(-50%);
   }
 `;
+st$1.div`
+  position: relative;
+  margin-bottom: 50px;
+`;
 let editor;
 function CreateNewsForm({ type }) {
-  const navigation = useNavigate();
+  const { setModalOpen, setModalType } = useActions();
+  const navigate = useNavigate();
   const [NewsName, setNewsName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
@@ -49980,9 +49989,9 @@ function CreateNewsForm({ type }) {
     if (status.isSuccess) {
       editor == null ? void 0 : editor.clear();
       editor = void 0;
-      navigation("/news");
+      navigate("/news");
     }
-  }, [navigation, status.isSuccess]);
+  }, [navigate, status.isSuccess]);
   const handleConfirm = async () => {
     const editorData = await (editor == null ? void 0 : editor.save().then((data) => data));
     if (!isValidName) {
@@ -49994,12 +50003,19 @@ function CreateNewsForm({ type }) {
       text: JSON.stringify(editorData ? editorData.blocks : [])
     });
   };
+  const handleCancel = () => {
+    navigate("/news");
+  };
   const handleChange = (event) => {
     setValidName(event.target.value.length > 1);
     setNewsName(event.target.value);
     if (!isChangedName) {
       setChangedName(true);
     }
+  };
+  const handleOpenCategoriesModal = () => {
+    setModalType(MODAL_TYPES.newsCategory);
+    setModalOpen(true);
   };
   const controlsData = {
     names: {
@@ -50008,8 +50024,7 @@ function CreateNewsForm({ type }) {
     },
     handlers: {
       confirm: handleConfirm,
-      cancel: () => {
-      }
+      cancel: handleCancel
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -50026,6 +50041,7 @@ function CreateNewsForm({ type }) {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleOpenCategoriesModal, children: "Open modal" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
@@ -50147,6 +50163,26 @@ function CourseMob() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Course, {})
   ] });
 }
+function NewsCategoryForm() {
+  const handlers = {
+    cancel: () => {
+    },
+    confirm: () => {
+    }
+  };
+  const names = {
+    cancel: "Отмена",
+    confirm: "Сохранить"
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ModalForm,
+    {
+      width: "510px",
+      handlers,
+      names
+    }
+  );
+}
 function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
@@ -50208,7 +50244,8 @@ function App() {
       modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
       modalType === MODAL_TYPES.editChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
       modalType === MODAL_TYPES.createTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {}),
-      modalType === MODAL_TYPES.editTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {})
+      modalType === MODAL_TYPES.editTheme && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {}),
+      modalType === MODAL_TYPES.newsCategory && /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryForm, {})
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Transition$1,

@@ -114,7 +114,49 @@ class CourseController extends ApiController
 
     public function actionGetUsersProgress()
     {
-        die('Privet');
+        $result = [];
+        $courseId = (int)Yii::$app->request->getBodyParam('course_id');
+        $allChapters = Chapter::find()->where(['course_id' => $courseId, 'is_deleted' => false])->indexBy('id')->all();
+        $chapterIndex = 0;
+        foreach ($allChapters as $chapter) {
+            $chapterIndex++;
+            if (!$chapter->isChecked) {
+                if (empty($result['chapter']['id'])) {
+                    $result['chapter']['id'] = $chapter->id;
+                    $result['chapter']['name'] = $chapter->title;
+                    $result['chapter']['position'] = $chapterIndex;
+                }
+                $result['chapter']['allQuantity'] = $chapterIndex;
+            }
+        }
+        $allThemes = Theme::find()->where(['chapter_id' => $result['chapter']['id'], 'is_deleted' => false])->indexBy('id')->all();
+        $themeIndex = 0;
+        foreach ($allThemes as $theme) {
+            $themeIndex++;
+            if (!$theme->isChecked) {
+                if (empty($result['theme']['id'])) {
+                    $result['theme']['id'] = $theme->id;
+                    $result['theme']['name'] = $theme->title;
+                    $result['theme']['position'] = $themeIndex;
+                }
+                $result['theme']['allQuantity'] = $themeIndex;
+            }
+        }
+        $allLessons = Lesson::find()->where(['theme_id' => $result['theme']['id'], 'is_deleted' => false])->indexBy('id')->all();
+        $lessonIndex = 0;
+        foreach ($allLessons as $lesson) {
+            $lessonIndex++;
+            if (!$lesson->isChecked) {
+                if (empty($result['lesson']['id'])) {
+                    $result['lesson']['id'] = $lesson->id;
+                    $result['lesson']['name'] = $lesson->title;
+                    $result['lesson']['position'] = $lessonIndex;
+                }
+            }
+            $result['lesson']['allQuantity'] = $lessonIndex;
+
+        }
+        return ($result);
     }
 
     public function beforeAction($action): bool
