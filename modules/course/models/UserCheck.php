@@ -74,23 +74,33 @@ class UserCheck extends \app\components\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-        $lessonsId = [];
-        $currentLesson = Lesson::find()->where(['id' => $this->model_pk])->one();
-        $currentTheme = $currentLesson['theme_id'];
-        $allLessons = Lesson::find()->where(['theme_id' => $currentTheme, 'is_deleted' => 0])->select('id')->asArray()->indexBy('id')->all();
-        foreach ($allLessons as $lessonId => $lesson) {
-            $lessonsId[] = $lessonId;
+        $itemsId = [];
+        $currentModel = $this->getModel();
+        switch ($this->model_name) {
+            case Theme::class:
+                $updatedClass = Chapter::class;
+                $parentId = $currentModel->chapter_id;
+                $parent = 'chapter_id';
+                break;
+            case Lesson::class:
+                $updatedClass = Theme::class;
+                $parentId = $currentModel->theme_id;
+                $parent = 'theme_id';
+                break;
         }
-        $usersCheks = self::find()->where(['user_id' => $this->user_id, 'model_name' => $this->model_name, 'model_pk' => $lessonsId])->asArray()->all();
-        var_dump(count($lessonsId));
-        var_dump(count($usersCheks));
-        if(count($lessonsId) === count($usersCheks)) {
+        $allItems = $this->model_name::find()->where([$parent => $parentId, 'is_deleted' => 0])->select('id')->asArray()->indexBy('id')->all();
+        foreach ($allItems as $ItemId => $item) {
+            $itemsId[] = $ItemId;
+        }
+        $usersCheksLessons = self::find()->where(['user_id' => $this->user_id, 'model_name' => $this->model_name, 'model_pk' => $itemsId])->asArray()->all();
+        if(count($itemsId) === count($usersCheksLessons)) {
             $themeCheck = new UserCheck;
             $themeCheck->user_id = $this->user_id;
-            $themeCheck->model_name = Theme::class;
-            $themeCheck->model_pk = $currentTheme;
+            $themeCheck->model_name = $updatedClass;
+            $themeCheck->model_pk = $parentId;
             $themeCheck->save();
         }
+        parent::afterSave($insert, $changedAttributes);
     }
 
 }
