@@ -116,6 +116,9 @@ class CourseController extends ApiController
     {
         $result = [];
         $courseId = (int)Yii::$app->request->getBodyParam('course_id');
+        if (UserCheck::find()->where(['model_name' => Course::class, 'model_pk' => $courseId, 'user_id' => Yii::$app->user->id])->exists()) {
+            return ['courseComplete' => true];
+        }
         $allChapters = Chapter::find()->where(['course_id' => $courseId, 'is_deleted' => false])->indexBy('id')->all();
         $chapterIndex = 0;
         foreach ($allChapters as $chapter) {
@@ -128,6 +131,9 @@ class CourseController extends ApiController
                 }
                 $result['chapter']['allQuantity'] = $chapterIndex;
             }
+        }
+        if(empty($result['chapter']['id'])) {
+            return ['error' => 'Chapter not found'];
         }
         $allThemes = Theme::find()->where(['chapter_id' => $result['chapter']['id'], 'is_deleted' => false])->indexBy('id')->all();
         $themeIndex = 0;
@@ -142,6 +148,9 @@ class CourseController extends ApiController
                 $result['theme']['allQuantity'] = $themeIndex;
             }
         }
+        if(empty($result['theme']['id'])) {
+            return ['error' => 'Theme not found'];
+        }
         $allLessons = Lesson::find()->where(['theme_id' => $result['theme']['id'], 'is_deleted' => false])->indexBy('id')->all();
         $lessonIndex = 0;
         foreach ($allLessons as $lesson) {
@@ -155,6 +164,9 @@ class CourseController extends ApiController
             }
             $result['lesson']['allQuantity'] = $lessonIndex;
 
+        }
+        if(empty($result['lesson']['id'])) {
+            return ['error' => 'Lesson not found'];
         }
         return ($result);
     }
