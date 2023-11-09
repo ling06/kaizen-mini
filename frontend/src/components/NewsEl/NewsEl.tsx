@@ -28,7 +28,9 @@ export function NewsEl({ data }: INewsElProps) {
   return (
     <S.Container>
       <S.Title>{data.title}</S.Title>
-      {imgUrl && <S.Image src={imgUrl} />}
+      <S.ImageContainer>
+        {imgUrl && <S.Image src={imgUrl} />}
+      </S.ImageContainer>
       <S.Footer>
         <Link
           to={`/news/${data.id}`}

@@ -34357,13 +34357,22 @@ const Image$3 = st$1.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
+  width: 920px;
+  height: 920px;
+  object-fit: cover;
 `;
 const Footer = st$1(FlexContainer)`
   align-items: center;
+  margin-top: 18px;
 `;
 const MoreBtn = st$1(DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
+`;
+const ImageContainer = st$1.div`
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: ${(props) => props.theme.utils.br};
 `;
 const Container$b = st$1.div`
   display: flex;
@@ -34415,7 +34424,7 @@ function NewsEl({ data }) {
   }, [data.text, data.user, data.user_id]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.title }),
-    imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Link,
