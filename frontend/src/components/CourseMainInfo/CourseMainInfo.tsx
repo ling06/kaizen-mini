@@ -10,6 +10,7 @@ import { ProgressInfo } from '../ProgressInfo';
 import { ICourse } from '@/types/course.types';
 import { Popup } from './Popup';
 import { OpenSelect } from './OpenSelect';
+import { useGetCourseProgressQuery } from '@/store/api/course.api';
 
 interface ICourseMainInfoProps {
   coursesData: Array<ICourse>;
@@ -19,6 +20,12 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
   const [previewSrc, setPreviewSrc] = useState('');
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const {data, isError, isFetching} = useGetCourseProgressQuery({course_id: courseData.id}, {
+    skip: !courseData.id,
+  });
+
+  console.log(data);
+  
 
   useEffect(() => {
     if (courseData.image) {
