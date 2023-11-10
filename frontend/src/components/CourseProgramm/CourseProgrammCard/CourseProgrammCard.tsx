@@ -26,7 +26,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
       const src = data.image.directory + '/' + data.image.name;
       setImgSrc(src);
     }
-  }, [data.image])
+  }, [data.image]);
 
   useEffect(() => {
     Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);

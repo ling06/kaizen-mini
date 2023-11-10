@@ -20,13 +20,23 @@ export const Image = styled.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${props => props.theme.utils.br};
+  width: 920px;
+  height: 920px;
+  object-fit: cover;
 `;
 
 export const Footer = styled(C.FlexContainer)`
   align-items: center;
+  margin-top: 18px;
 `;
 
 export const MoreBtn = styled(C.DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
+`;
+
+export const ImageContainer = styled.div`
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: ${props => props.theme.utils.br};
 `;
