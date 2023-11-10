@@ -12,11 +12,12 @@ interface ICompetitionCard {
 
 export function Competition({ data }: ICompetitionCard) {
   const navigation = useNavigate();
+  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(false);
 
   const handleAddCompetition = () => {
-    // setModalType(MODAL_TYPES.createCourse);
-    // setModalOpen(true);
+    setModalType(MODAL_TYPES.createCompetition);
+    setModalOpen(true);
   };
 
   const handleToggleCompetitionStatus = () => {
