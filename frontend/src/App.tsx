@@ -17,11 +17,13 @@ import { Transition } from 'react-transition-group';
 import { useMediaQuery } from '@mui/material';
 import { CourseMob } from './pages/CourseMob';
 import { NewsCategoryForm } from './components/NewsCategoryForm';
+import { CreateCompetition } from './pages/CreateCompetition';
 
 function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = useRef(null);
   const isMobile = useMediaQuery(MediaQueries.mobile);
@@ -58,8 +60,12 @@ function App() {
             path={'/news/create-news'}
             element={<CreateNews type={'create'} />}
           />
+          <Route
+            path={'/competition/create-competition'}
+            element={<CreateCompetition type={updatingCompetitionData ? 'update' : 'create'} />}
+          />
           {isMobile && (
-            <Route 
+            <Route
               path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
               element={<CourseMob />}
             />
