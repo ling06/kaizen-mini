@@ -29150,6 +29150,18 @@ const SwiperNextBtn = st$1(SwiperPrevBtn)`
   left: unset;
   transform: rotate(-180deg);
 `;
+const SwiperCreateBtn = st$1.div`
+  z-index: 2;
+  position: absolute;
+  top:0;
+  right:0;
+  color:white;
+  border-radius:10%;
+  width: fit-content;
+  padding:20px;
+  background-color:rgb(0, 122, 255);
+  cursor: pointer;
+`;
 function isObject$2(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
 }
@@ -34323,8 +34335,12 @@ function Competition({ data }) {
   ] });
 }
 function CompetitionsSwiper({ data }) {
-  var _a, _b;
+  var _a, _b, _c, _d;
   const swiperRef = reactExports.useRef(null);
+  const navigate = useNavigate();
+  const handleClickCreateCompetition = () => {
+    navigate("/competition/create-competition");
+  };
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
       return;
@@ -34348,13 +34364,15 @@ function CompetitionsSwiper({ data }) {
         loop: true,
         modules: [Autoplay],
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
-          data && ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) })))
+          !((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) && /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperCreateBtn, { onClick: handleClickCreateCompetition, children: "Добавить" }),
+          ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) })))
         ]
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperNextBtn, { onClick: handleNext })
+    ((_d = data == null ? void 0 : data.data) == null ? void 0 : _d.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperNextBtn, { onClick: handleNext })
+    ] })
   ] });
 }
 const star = "/assets/star.svg";
