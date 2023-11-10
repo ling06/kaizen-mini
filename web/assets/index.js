@@ -27639,9 +27639,12 @@ function CoursePreview() {
     if (data) {
       const currentCourseId = params.courseId || null;
       const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-      if (!currentCourseId || !currentCourse) {
+      if (data.data.length > 0 && !currentCourseId || !currentCourse) {
         navigate(`/courses/${data.data[0].id}`);
         return;
+      }
+      if (data.data.length === 0) {
+        navigate("/courses");
       }
       setCourseData(currentCourse);
     }
@@ -34084,7 +34087,15 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   padding: 0 40px;
   border-radius: 22.689px;
 `;
-function Competition() {
+function Competition({ data }) {
+  useNavigate();
+  const [isDeleted, setDeleted] = reactExports.useState(false);
+  const handleDeleteCompetition = () => {
+  };
+  const handleRestoreCompetition = () => {
+  };
+  const handleEditCompetition = () => {
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionPagination, { children: "Конкурс 1/7" }),
@@ -34094,6 +34105,11 @@ function Competition() {
           popupName: "Конкурс",
           type: "edit",
           onClick: () => {
+          },
+          popupHandlers: {
+            onDelete: isDeleted ? void 0 : handleDeleteCompetition,
+            onRestore: isDeleted ? handleRestoreCompetition : void 0,
+            onEdit: handleEditCompetition
           }
         }
       )
