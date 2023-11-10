@@ -1,9 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -15435,24 +15429,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp2 = Object.defineProperty;
+var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp2 = function(obj, key, value) {
-  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp = function(obj, key, value) {
+  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp2(a2, prop, b2[prop]);
+      __defNormalProp(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp2(a2, prop, b2[prop]);
+        __defNormalProp(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -15891,6 +15885,7 @@ const api = createApi({
     "ChapterById",
     "LessonById",
     "User",
+    "Competition",
     "CourseProgress"
   ],
   baseQuery: fetchBaseQuery({
@@ -16127,7 +16122,7 @@ const Container$C = st$1.div`
     margin-bottom: 18.75vw;
   }
 `;
-const Title$f = st$1.h3`
+const Title$g = st$1.h3`
   margin-bottom: 3.125vw;
   font-size: 3.125vw;
   font-weight: 700;
@@ -16150,7 +16145,7 @@ const Author$1 = st$1(Aphorism$1)`
 function Aphorism() {
   const { text, author } = useAphorism();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: "Фраза дня" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$g, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
@@ -26076,7 +26071,7 @@ const modalSlice = createSlice({
     }
   }
 });
-const { actions: actions$4, reducer: reducer$5 } = modalSlice;
+const { actions: actions$5, reducer: reducer$6 } = modalSlice;
 const AuthInitialState = {
   token: null
 };
@@ -26089,7 +26084,7 @@ const authSlice = createSlice({
     }
   }
 });
-const { actions: actions$3, reducer: reducer$4 } = authSlice;
+const { actions: actions$4, reducer: reducer$5 } = authSlice;
 const courseInitialState = {
   data: {
     id: 0,
@@ -26161,7 +26156,7 @@ const courseSlice = createSlice({
     }
   }
 });
-const { actions: actions$2, reducer: reducer$3 } = courseSlice;
+const { actions: actions$3, reducer: reducer$4 } = courseSlice;
 const loaderInitialState = {
   active: false
 };
@@ -26174,13 +26169,9 @@ const loaderSlice = createSlice({
     }
   }
 });
-const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+const { reducer: reducer$3, actions: actions$2 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
-    __publicField(this, "id");
-    __publicField(this, "answer");
-    __publicField(this, "right_answer");
-    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26189,9 +26180,6 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
-    __publicField(this, "id");
-    __publicField(this, "question");
-    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -26346,10 +26334,24 @@ const lessonSlice = createSlice({
     }
   }
 });
-const { reducer: reducer$1, actions } = lessonSlice;
+const { reducer: reducer$2, actions: actions$1 } = lessonSlice;
+const competitionInitialState = {
+  updatingCompetitionData: null
+};
+const competitionSlice = createSlice({
+  name: "competition",
+  initialState: competitionInitialState,
+  reducers: {
+    setUpdatingCompetitionData: (state, { payload }) => {
+      state.updatingCompetitionData = payload ? { ...payload } : null;
+    }
+  }
+});
+const { actions, reducer: reducer$1 } = competitionSlice;
 const rootActions = {
-  ...actions$3,
   ...actions$4,
+  ...actions$5,
+  ...actions$3,
   ...actions$2,
   ...actions$1,
   ...actions
@@ -26403,7 +26405,7 @@ const Container$z = st$1(FlexContainer)`
     border-radius: 0px 0px 15px 15px;
   }
 `;
-const Title$e = st$1(Text$5)`
+const Title$f = st$1(Text$5)`
   margin-bottom: 15px;
   text-align: center;
   @media ${(props) => props.theme.media.mobile} {
@@ -26475,7 +26477,7 @@ function ControlsPopup({
   onVisible
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { ref: innerRef, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { children: name }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
       "скрыть"
@@ -27382,7 +27384,7 @@ const Head$2 = st$1(FlexContainer)`
     font-size: 4.6875vw;
   }
 `;
-const Title$d = st$1(Text$5)`
+const Title$e = st$1(Text$5)`
   @media ${(props) => props.theme.media.mobile} {
     margin: 0 auto;
     font-size: 4.6875vw;
@@ -27439,7 +27441,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$c = st$1(Text$5)`
+const Title$d = st$1(Text$5)`
   word-break: break-all;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
@@ -27562,7 +27564,7 @@ function CourseProgrammCard({ data }) {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: "Пройдено" }),
@@ -27609,7 +27611,7 @@ function CourseProgramm() {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { as: "h4", children: "Программа курса" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -27758,7 +27760,7 @@ const {
   useRestoreLessonMutation,
   useUpdateLessonMutation
 } = lessonApi;
-const Title$b = st$1.p`
+const Title$c = st$1.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 100%;
@@ -27778,7 +27780,7 @@ function CourseNavItemTitle({
   isDeleted = false
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Title$b,
+    Title$c,
     {
       style: styles2,
       onClick: onClick2,
@@ -28109,7 +28111,7 @@ function CourseNavTheme({ data, courseId }) {
 const Container$o = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$a = st$1.h4`
+const Title$b = st$1.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28127,7 +28129,7 @@ const Title$a = st$1.h4`
 function FadedTitle({ text, children, onClick: onClick2 = () => {
 }, styles: styles2 = {} }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Title$a,
+    Title$b,
     {
       onClick: onClick2,
       style: styles2,
@@ -28209,7 +28211,7 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$9 = st$1(Text$5)`
+const Title$a = st$1(Text$5)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
@@ -28218,7 +28220,7 @@ const ProgressBar = st$1(ProgressBar$1)`
 function CourseNavHead({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$9, { as: "h3", children: data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
         {
@@ -28234,7 +28236,7 @@ function CourseNavHead({ data }) {
 }
 const forwardIcon = "/assets/forwardIcon.svg";
 const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-const Title$8 = st$1(Text$5)`
+const Title$9 = st$1(Text$5)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28312,7 +28314,7 @@ const Container$k = st$1(FlexContainer)`
     }
   }
 `;
-const Title$7 = st$1(Text$5)`
+const Title$8 = st$1(Text$5)`
   margin-bottom: 40px;
   font-size: 25px;
   line-height: 150%;
@@ -28533,7 +28535,7 @@ function LessonTest({ data }) {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.question }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { children: data.question }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
           !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             RadioBtn,
@@ -28691,7 +28693,7 @@ function CourseContent() {
     !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
     lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { as: "h2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { as: "h2", children: [
         data.data.title,
         !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
@@ -28968,6 +28970,83 @@ function Courses() {
     )
   ] }) });
 }
+const competitionApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllCompetitions: builder.query({
+      query: () => "competition",
+      providesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    getCompetitionById: builder.query({
+      query: (id2) => `competition/${id2}`
+      //   providesTags: () => [
+      //     {
+      //       type: 'CompetitionById',
+      //     },
+      //   ],
+    }),
+    createCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/create",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    updateCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/update",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    deleteCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/delete",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    restoreCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/restore",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateCompetitionMutation,
+  useDeleteCompetitionMutation,
+  useGetCompetitionByIdQuery,
+  useGetAllCompetitionsQuery,
+  useRestoreCompetitionMutation,
+  useUpdateCompetitionMutation
+} = competitionApi;
 const arrowLeft = "/assets/swiperArrowLeft.svg";
 const Container$f = st$1.div`
   position: relative;
@@ -34109,18 +34188,32 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition({ data }) {
-  useNavigate();
-  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
-  const [isDeleted, setDeleted] = reactExports.useState(false);
+  const navigate = useNavigate();
+  const [deleteCompetition] = useDeleteCompetitionMutation();
+  const [restoreCompetition] = useRestoreCompetitionMutation();
+  const { setLoaderActive, setUpdatingCompetitionData } = useActions();
+  const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
-    setModalType(MODAL_TYPES.createCompetition);
-    setModalOpen(true);
+    setUpdatingCompetitionData(null);
+    navigate("/competition/create-competition");
   };
   const handleDeleteCompetition = () => {
+    deleteCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(true);
+    });
+    setLoaderActive(true);
   };
   const handleRestoreCompetition = () => {
+    restoreCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(false);
+    });
+    setLoaderActive(true);
   };
   const handleEditCompetition = () => {
+    navigate("/competition/create-competition");
+    setUpdatingCompetitionData(data);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
@@ -34143,8 +34236,14 @@ function Competition({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: "Продай 36 кресел серии X, получи кресло Yamaguchi Osaka в качестве премии" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: "Здоровый праздничный ужин вовсе не обязательно должен состоять из шпината, гречки и вареной куриной грудки. Самыми лучшими способами приготовления..." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionTitle, { children: [
+      data == null ? void 0 : data.title,
+      " title"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionDescr, { children: [
+      data == null ? void 0 : data.text,
+      " text"
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       MoreBtn$1,
       {
@@ -34156,7 +34255,8 @@ function Competition({ data }) {
     )
   ] });
 }
-function CompetitionsSwiper() {
+function CompetitionsSwiper({ data }) {
+  var _a, _b;
   const swiperRef = reactExports.useRef(null);
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
@@ -34182,8 +34282,7 @@ function CompetitionsSwiper() {
         modules: [Autoplay],
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) })
+          data && ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) })))
         ]
       }
     ),
@@ -34392,7 +34491,7 @@ const Container$c = st$1(FlexContainer)`
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Title$6 = st$1.h3`
+const Title$7 = st$1.h3`
   margin-bottom: 25px;
   font-size: 22px;
   font-weight: 700;
@@ -34469,7 +34568,7 @@ function NewsEl({ data }) {
     }
   }, [data.text, data.user, data.user_id]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34487,7 +34586,7 @@ function NewsEl({ data }) {
 const Container$a = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$5 = st$1(Text$5)`
+const Title$6 = st$1(Text$5)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34597,7 +34696,7 @@ function NewsContainer() {
     navigate("/news/create-news");
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$5, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { children: [
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn,
@@ -34634,9 +34733,10 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
+  const { data } = useGetAllCompetitionsQuery();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, {}),
+      data && /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         ManagerInfo,
         {
@@ -34696,7 +34796,7 @@ const Container$6 = st$1.div`
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Title$4 = st$1(Text$5)`
+const Title$5 = st$1(Text$5)`
   margin-bottom: 23px;
   font-size: 22px;
 `;
@@ -34732,7 +34832,7 @@ function NewsContent() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { children: data.data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorData && editorData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: editorOutput }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
@@ -35581,14 +35681,14 @@ function CreateThemeForm() {
   );
 }
 const checklistIcon = "/assets/checklist.svg";
-const Title$3 = st$1(Text$5)`
+const Title$4 = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
 const LessonNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper$1 = st$1.div`
+const EditorJsWrapper$2 = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -35609,7 +35709,7 @@ const AddTestIcon = st$1(Icon$2)`
   margin-right: 10px;
   background-image: url(${checklistIcon});
 `;
-const Divider$1 = st$1.div`
+const Divider$2 = st$1.div`
   position: relative;
   width: 100%;
   height: 1px;
@@ -48152,7 +48252,7 @@ const DeleteTestBtnIcon = st$1(Icon$2)`
   margin-right: 5px;
   background-image: url(${deleteIcon$1});
 `;
-const Title$2 = st$1.h5`
+const Title$3 = st$1.h5`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48162,8 +48262,8 @@ const Title$2 = st$1.h5`
   line-height: 120%;
   color: ${(props) => props.theme.colors.grey57};
 `;
-function Title$1({ value, children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$2, { children: [
+function Title$2({ value, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$3, { children: [
     value,
     children
   ] });
@@ -48326,7 +48426,7 @@ function Variant({ data, number, testId }) {
     fontWeight: "600"
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: handleDeleteVariant }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$2, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: handleDeleteVariant }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       VariantInput,
       {
@@ -48390,7 +48490,7 @@ function CreateTestForm({ data }) {
     deleteTest(data.id);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { value: "Заголовок теста (необязательно)" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$2, { value: "Заголовок теста (необязательно)" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       TestName,
       {
@@ -48416,7 +48516,7 @@ function CreateTestForm({ data }) {
     ] })
   ] });
 }
-let editor$1;
+let editor$2;
 function CreateLessonForm({ type }) {
   const { themeId, courseId, chapterId, lessonId } = useParams();
   const { data, isError, isFetching } = useGetLessonByIdQuery(`${lessonId}`, {
@@ -48436,9 +48536,9 @@ function CreateLessonForm({ type }) {
       setValidName(true);
       setChangedName(false);
       setTestsData(data.data.tests);
-      if (!editor$1) {
+      if (!editor$2) {
         try {
-          editor$1 = new Bi({
+          editor$2 = new Bi({
             holder: "editorjs",
             tools: EDITOR_JS_TOOLS,
             i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -48454,9 +48554,9 @@ function CreateLessonForm({ type }) {
     }
   }, [data, isError, isFetching, setTestsData]);
   reactExports.useEffect(() => {
-    if (!editor$1 && !isFetching && !data) {
+    if (!editor$2 && !isFetching && !data) {
       try {
-        editor$1 = new Bi({
+        editor$2 = new Bi({
           holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -48467,13 +48567,13 @@ function CreateLessonForm({ type }) {
       }
     }
     return () => {
-      if (editor$1) {
+      if (editor$2) {
         try {
-          editor$1.destroy();
+          editor$2.destroy();
         } catch (err) {
           console.log(err);
         }
-        editor$1 = void 0;
+        editor$2 = void 0;
       }
     };
   }, [data, isFetching]);
@@ -48508,7 +48608,7 @@ function CreateLessonForm({ type }) {
     }
   };
   const handleConfirm = async () => {
-    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data2) => data2));
+    const editorData = await (editor$2 == null ? void 0 : editor$2.save().then((data2) => data2));
     const editorBlocksData = JSON.stringify((editorData == null ? void 0 : editorData.blocks) || []);
     if (!isValidName) {
       setChangedName(true);
@@ -48561,7 +48661,7 @@ function CreateLessonForm({ type }) {
     addEmptyTest();
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$3, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       LessonNameInput,
       {
@@ -48573,7 +48673,7 @@ function CreateLessonForm({ type }) {
         placeholder: "Введите название урока (обязательно)"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$2, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
       tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
@@ -48581,7 +48681,7 @@ function CreateLessonForm({ type }) {
         "добавить тест"
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$2, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
       {
@@ -48591,25 +48691,25 @@ function CreateLessonForm({ type }) {
     )
   ] });
 }
-const ChangeBodyBg$1 = at$1`
+const ChangeBodyBg$2 = at$1`
   body {
     background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
 `;
 function CreateLesson({ type }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DefaultContainer, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg$1, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg$2, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
   ] }) });
 }
-const Title = st$1(Text$5)`
+const Title$1 = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
 const NewsNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper = st$1.div`
+const EditorJsWrapper$1 = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -48621,7 +48721,7 @@ const EditorJsWrapper = st$1.div`
 st$1.div`
 margin-bottom: 60px;
 `;
-const Divider = st$1.div`
+const Divider$1 = st$1.div`
   position: relative;
   width: 100%;
   height: 1px;
@@ -48640,7 +48740,7 @@ st$1.div`
   position: relative;
   margin-bottom: 50px;
 `;
-let editor;
+let editor$1;
 function CreateNewsForm({ type }) {
   const { setModalOpen, setModalType } = useActions();
   const navigate = useNavigate();
@@ -48649,9 +48749,9 @@ function CreateNewsForm({ type }) {
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const [createNews, status] = useCreateNewsMutation();
   reactExports.useEffect(() => {
-    if (!editor) {
+    if (!editor$1) {
       try {
-        editor = new Bi({
+        editor$1 = new Bi({
           holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -48662,13 +48762,13 @@ function CreateNewsForm({ type }) {
       }
     }
     if (status.isSuccess) {
-      editor == null ? void 0 : editor.clear();
-      editor = void 0;
+      editor$1 == null ? void 0 : editor$1.clear();
+      editor$1 = void 0;
       navigate("/news");
     }
   }, [navigate, status.isSuccess]);
   const handleConfirm = async () => {
-    const editorData = await (editor == null ? void 0 : editor.save().then((data) => data));
+    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data) => data));
     if (!isValidName) {
       setChangedName(true);
       return;
@@ -48703,7 +48803,7 @@ function CreateNewsForm({ type }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       NewsNameInput,
       {
@@ -48715,9 +48815,9 @@ function CreateNewsForm({ type }) {
         placeholder: "Введите название новости (обязательно)"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleOpenCategoriesModal, children: "Open modal" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
       {
@@ -48727,14 +48827,14 @@ function CreateNewsForm({ type }) {
     )
   ] });
 }
-const ChangeBodyBg = at$1`
+const ChangeBodyBg$1 = at$1`
   body {
     background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
 `;
 function CreateNews({ type }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(DefaultContainer, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNewsForm, { type })
   ] });
 }
@@ -48787,7 +48887,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -48858,10 +48958,171 @@ function NewsCategoryForm() {
     }
   );
 }
+const ChangeBodyBg = at$1`
+  body {
+    background-color: ${(props) => props.theme.colors.realWhite} !important;
+  }
+`;
+const Title = st$1(Text$5)`
+  margin-bottom: 20px;
+  font-size: 92.5px;
+`;
+const CompetitionNameInput = st$1(InputWithState)`
+  margin-bottom: 15px;
+`;
+const EditorJsWrapper = st$1.div`
+  width: 100%;
+  min-height: 472px;
+  padding: 25px;
+  padding-left: 75px;
+  margin-bottom: 25px;
+  border: 1px solid ${(props) => props.theme.colors.greyEO};
+  border-radius: ${(props) => props.theme.utils.br};
+`;
+st$1.div`
+margin-bottom: 60px;
+`;
+const Divider = st$1.div`
+  position: relative;
+  width: 100%;
+  height: 1px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    background-color: ${(props) => props.theme.colors.greyF1};
+    transform: translateX(-50%);
+  }
+`;
+st$1.div`
+  position: relative;
+  margin-bottom: 50px;
+`;
+let editor;
+function CreateCompetitionForm({ type }) {
+  console.log("type", type);
+  const navigate = useNavigate();
+  const [competitionName, setCompetitionName] = reactExports.useState("");
+  const [competitionLink, setCompetitionLink] = reactExports.useState("");
+  const [isValidName, setValidName] = reactExports.useState(false);
+  const [isChangedName, setChangedName] = reactExports.useState(false);
+  const [createCompetition, status] = useCreateCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
+  reactExports.useEffect(() => {
+    if (!editor) {
+      try {
+        editor = new Bi({
+          holder: "editorjs",
+          tools: EDITOR_JS_TOOLS,
+          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+          inlineToolbar: true
+        });
+      } catch (e2) {
+        console.log(e2);
+      }
+    }
+    if (status.isSuccess) {
+      editor == null ? void 0 : editor.clear();
+      editor = void 0;
+      navigate("/news");
+    }
+  }, [navigate, status.isSuccess]);
+  const handleConfirm = async () => {
+    const editorData = await (editor == null ? void 0 : editor.save().then((data) => data));
+    if (!isValidName) {
+      setChangedName(true);
+      return;
+    }
+    if (type !== "create") {
+      updateCompetition({
+        id: updatingCompetitionData.id,
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      });
+    } else {
+      createCompetition({
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      });
+    }
+    navigate("/news");
+  };
+  const handleCancel = () => {
+    navigate("/news");
+  };
+  const handleChangeName = (event) => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionName(event.target.value);
+    if (!isChangedName) {
+      setChangedName(true);
+    }
+  };
+  const handleChangeLink = (event) => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionLink(event.target.value);
+  };
+  const controlsData = {
+    names: {
+      confirm: type === "create" ? "Создать конкурс" : "Изменить конкурс",
+      cancel: "Отмена"
+    },
+    handlers: {
+      confirm: handleConfirm,
+      cancel: handleCancel
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CompetitionNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: competitionName,
+        onChange: handleChangeName,
+        type: "text",
+        placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CompetitionNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: competitionLink,
+        onChange: handleChangeLink,
+        type: "text",
+        placeholder: type === "create" ? "Ссылка на конкурс в борбозе" : "Новая ссылка"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormControls,
+      {
+        ...controlsData,
+        containerStyles: { padding: "25px 0px 25px" }
+      }
+    )
+  ] });
+}
+function CreateCompetition({ type }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(DefaultContainer, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetitionForm, { type })
+  ] });
+}
 function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
@@ -48905,6 +49166,13 @@ function App() {
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
         }
       ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Route,
+        {
+          path: "/competition/create-competition",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: updatingCompetitionData ? "update" : "create" })
+        }
+      ),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
@@ -48941,11 +49209,12 @@ function App() {
   ] }) });
 }
 const reducer = combineReducers({
-  auth: reducer$4,
-  modal: reducer$5,
-  course: reducer$3,
-  loader: reducer$2,
-  lesson: reducer$1,
+  auth: reducer$5,
+  modal: reducer$6,
+  course: reducer$4,
+  loader: reducer$3,
+  lesson: reducer$2,
+  competition: reducer$1,
   [api.reducerPath]: api.reducer
 });
 const store = configureStore({

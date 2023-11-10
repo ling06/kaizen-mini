@@ -1,1 +1,1 @@
-// export * from './CreateCompetitionForm';
+export * from './CreateCompetitionForm';
