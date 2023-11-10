@@ -66,36 +66,36 @@ class LessonForm extends Lesson
             if (isset($tests['id']) && !empty($tests['id'])) {
                 if ($tests['question'] !== $testsFromDb[$tests['id']]->question) {
                     self::checkClear($tests['id'], $this->id);
-                    $editedTests[] = $tests['id'];
-                    $test = Test::find()->where(['id' => $tests['id']])->one();
-                } else {
-                    $test = new Test;
                 }
-                $test->lesson_id = $this->id;
-                $test->question = $tests['question'];
-                if ($test->save() && !empty($test->id)) {
-                    $answersFromDb = Question::find()->where(['test_id' => $test->id])->all();
-                    foreach ($tests['answers'] as $answer) {
-                        $editedAnswers[] = $answer['id'] ?? null;
-                        if (isset($answer['id']) && !empty($answer['id'])) {
-                            $testAnswer = Question::find()->where(['id' => $answer['id']])->one();
-                            if ($testAnswer->right_answer !== $answer['right_answer']) {
-                                self::checkClear($tests['id'], $this->id);
-                            }
-                        } else {
-                            $testAnswer = new Question;
-                        }
-                        $testAnswer->test_id = $test->id;
-                        $testAnswer->answer = $answer['answer'];
-                        $testAnswer->right_answer = $answer['right_answer'];
-                        $testAnswer->text = $answer['text'];
-                        $testAnswer->save(false);
-                    }
-                    foreach ($answersFromDb as $dbAnswer) {
-                        if (!in_array($dbAnswer->id, $editedAnswers)) {
-                            $dbAnswer->delete();
+                $editedTests[] = $tests['id'];
+                $test = Test::find()->where(['id' => $tests['id']])->one();
+            } else {
+                $test = new Test;
+            }
+            $test->lesson_id = $this->id;
+            $test->question = $tests['question'];
+            if ($test->save() && !empty($test->id)) {
+                $answersFromDb = Question::find()->where(['test_id' => $test->id])->all();
+                foreach ($tests['answers'] as $answer) {
+                    $editedAnswers[] = $answer['id'] ?? null;
+                    if (isset($answer['id']) && !empty($answer['id'])) {
+                        $testAnswer = Question::find()->where(['id' => $answer['id']])->one();
+                        if ($testAnswer->right_answer !== $answer['right_answer']) {
                             self::checkClear($tests['id'], $this->id);
                         }
+                    } else {
+                        $testAnswer = new Question;
+                    }
+                    $testAnswer->test_id = $test->id;
+                    $testAnswer->answer = $answer['answer'];
+                    $testAnswer->right_answer = $answer['right_answer'];
+                    $testAnswer->text = $answer['text'];
+                    $testAnswer->save(false);
+                }
+                foreach ($answersFromDb as $dbAnswer) {
+                    if (!in_array($dbAnswer->id, $editedAnswers)) {
+                        $dbAnswer->delete();
+                        self::checkClear($tests['id'], $this->id);
                     }
                 }
             }
@@ -121,7 +121,8 @@ class LessonForm extends Lesson
      * @param $lessonId
      * @return void
      */
-    public static function checkClear($testId, $lessonId)
+    public
+    static function checkClear($testId, $lessonId)
     {
         UserTestAnswer::deleteAll(['test_question_id' => $testId]);
         UserCheck::deleteAll(['model_name' => Lesson::class, 'model_pk' => $lessonId]);
