@@ -10195,7 +10195,7 @@ function MainLogo() {
     }
   );
 }
-const ADMIN_BTN_TYPES$1 = {
+const ADMIN_BTN_TYPES = {
   edit: "edit",
   add: "add"
 };
@@ -26364,7 +26364,7 @@ const AdminBtn$1 = st$1.button`
   width: 24px;
   height: 24px;
   background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES$1.edit ? editIcon$2 : addIcon$2});
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -26523,7 +26523,7 @@ function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: s
     if (onClick2) {
       onClick2(event);
     }
-    if (type === ADMIN_BTN_TYPES$1.edit) {
+    if (type === ADMIN_BTN_TYPES.edit) {
       if (isPopup) {
         setPopup(false);
       } else {
@@ -26883,7 +26883,7 @@ function CourseSelect() {
       AdminBtn,
       {
         popupName: "Курс",
-        type: ADMIN_BTN_TYPES$1.edit,
+        type: ADMIN_BTN_TYPES.edit,
         onClick: () => {
         },
         popupHandlers: {
@@ -27275,7 +27275,7 @@ function OpenSelect({ courseData, onOpen }) {
       AdminBtn,
       {
         popupName: "Курс",
-        type: ADMIN_BTN_TYPES$1.edit,
+        type: ADMIN_BTN_TYPES.edit,
         popupHandlers: {
           onAdd: handleAddCourse,
           onEdit: handleEditCourse,
@@ -27569,7 +27569,7 @@ function CourseProgrammCard({ data }) {
           AdminBtn,
           {
             popupName: "Глава",
-            type: ADMIN_BTN_TYPES$1.edit,
+            type: ADMIN_BTN_TYPES.edit,
             onClick: () => {
             },
             popupHandlers: {
@@ -27613,7 +27613,7 @@ function CourseProgramm() {
         AdminBtn,
         {
           popupName: "Глава",
-          type: ADMIN_BTN_TYPES$1.add,
+          type: ADMIN_BTN_TYPES.add,
           onClick: openCreateChapterModal
         }
       )
@@ -34110,6 +34110,8 @@ const MoreBtn$1 = st$1(DefaultBtn)`
 function Competition({ data }) {
   useNavigate();
   const [isDeleted, setDeleted] = reactExports.useState(false);
+  const handleAddCompetition = () => {
+  };
   const handleDeleteCompetition = () => {
   };
   const handleRestoreCompetition = () => {
@@ -34127,6 +34129,9 @@ function Competition({ data }) {
           onClick: () => {
           },
           popupHandlers: {
+            onAdd: handleAddCompetition,
+            // onHide: Number(data.status) === 1 ? handleToggleCompetitionStatus : undefined,
+            // onVisible: Number(data.status) === 0 ? handleToggleCompetitionStatus : undefined,
             onDelete: isDeleted ? void 0 : handleDeleteCompetition,
             onRestore: isDeleted ? handleRestoreCompetition : void 0,
             onEdit: handleEditCompetition
