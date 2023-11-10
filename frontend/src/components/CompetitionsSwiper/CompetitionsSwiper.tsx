@@ -4,8 +4,11 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { Competition } from '../Competition';
 import { useCallback, useRef } from 'react';
+import { useGetAllCompetitionsQuery } from '@/store/api/competition.api';
 
 export function CompetitionsSwiper() {
+  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
+
   const swiperRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -33,15 +36,10 @@ export function CompetitionsSwiper() {
         }}
         loop={true}
         modules={[Autoplay]}>
+        {data && data.data.length > 0 && data.data.map((competitionData) =>
         <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
+          <Competition data={competitionData}/>
+        </SwiperSlide>)}
       </Swiper>
       <S.SwiperPrevBtn onClick={handlePrev} />
       <S.SwiperNextBtn onClick={handleNext} />

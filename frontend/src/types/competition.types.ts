@@ -15,13 +15,15 @@ export interface ICompetition {
 }
 
 export interface ICreateCompetitionData {
-    title: string;
     text: string;
+    title: string;
     link: string;
 }
   
 
-export interface IUpdateCompetitionData extends ICreateCompetitionData {
+export interface IUpdateCompetitionData extends Partial<ICreateCompetitionData> {
     id: number;
+    status?: number;
+    date?: string;
 }
   

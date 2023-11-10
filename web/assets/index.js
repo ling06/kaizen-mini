@@ -34142,7 +34142,73 @@ function Competition({ data }) {
     )
   ] });
 }
+const competitionApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllCompetitions: builder.query({
+      query: () => "competitions"
+      // providesTags: () => [
+      //   {
+      //     type: 'Competitions',
+      //   },
+      // ],
+    }),
+    getCompetitionById: builder.query({
+      query: (id2) => `competition/${id2}`
+      //   providesTags: () => [
+      //     {
+      //       type: 'CompetitionById',
+      //     },
+      //   ],
+    }),
+    createCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition",
+        method: "POST",
+        body: data
+      })
+      //   invalidatesTags: () => [
+      //     {
+      //       type: 'Competition',
+      //     },
+      //   ],
+    }),
+    updateCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/update",
+        method: "POST",
+        body: data
+      })
+      //   invalidatesTags: ['Competitions'],
+    }),
+    deleteCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/delete",
+        method: "POST",
+        body: data
+      })
+      //   invalidatesTags: ['CompetitionById'],
+    }),
+    restoreCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/restore",
+        method: "POST",
+        body: data
+      })
+      //   invalidatesTags: ['CompetitionById'],
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateCompetitionMutation,
+  useDeleteCompetitionMutation,
+  useGetCompetitionByIdQuery,
+  useGetAllCompetitionsQuery,
+  useRestoreCompetitionMutation,
+  useUpdateCompetitionMutation
+} = competitionApi;
 function CompetitionsSwiper() {
+  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
   const swiperRef = reactExports.useRef(null);
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
@@ -34155,7 +34221,7 @@ function CompetitionsSwiper() {
     swiperRef.current.swiper.slideNext();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
       Swiper2,
       {
         ref: swiperRef,
@@ -34166,11 +34232,7 @@ function CompetitionsSwiper() {
         },
         loop: true,
         modules: [Autoplay],
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) })
-        ]
+        children: data && data.data.length > 0 && data.data.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) }))
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
@@ -48887,62 +48949,6 @@ st$1.div`
   position: relative;
   margin-bottom: 50px;
 `;
-const competitionApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getCompetitionById: builder.query({
-      query: (id2) => `competition/${id2}`
-      //   providesTags: () => [
-      //     {
-      //       type: 'CompetitionById',
-      //     },
-      //   ],
-    }),
-    createCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/create",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: () => [
-      //     {
-      //       type: 'Competition',
-      //     },
-      //   ],
-    }),
-    updateCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/update-competition",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['Competitions'],
-    }),
-    deleteCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/delete-competition",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['CompetitionById'],
-    }),
-    restoreCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/restore-competition",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['CompetitionById'],
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCreateCompetitionMutation,
-  useDeleteCompetitionMutation,
-  useGetCompetitionByIdQuery,
-  useRestoreCompetitionMutation,
-  useUpdateCompetitionMutation
-} = competitionApi;
 let editor;
 function CreateCompetitionForm({ type }) {
   const navigate = useNavigate();
