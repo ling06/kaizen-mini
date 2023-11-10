@@ -41,7 +41,7 @@ export function Competition({ data }: ICompetitionCard) {
         <S.CompetitionPagination>Конкурс 1/7</S.CompetitionPagination>
         <AdminBtn
           popupName="Конкурс"
-          type="edit"
+          type={ADMIN_BTN_TYPES.edit}
           onClick={() => {}}
           popupHandlers={{
             onDelete: isDeleted ? undefined : handleDeleteCompetition,

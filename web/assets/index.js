@@ -10195,7 +10195,7 @@ function MainLogo() {
     }
   );
 }
-const ADMIN_BTN_TYPES = {
+const ADMIN_BTN_TYPES$1 = {
   edit: "edit",
   add: "add"
 };
@@ -26364,7 +26364,7 @@ const AdminBtn$1 = st$1.button`
   width: 24px;
   height: 24px;
   background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES$1.edit ? editIcon$2 : addIcon$2});
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -26523,7 +26523,7 @@ function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles: s
     if (onClick2) {
       onClick2(event);
     }
-    if (type === ADMIN_BTN_TYPES.edit) {
+    if (type === ADMIN_BTN_TYPES$1.edit) {
       if (isPopup) {
         setPopup(false);
       } else {
@@ -26883,7 +26883,7 @@ function CourseSelect() {
       AdminBtn,
       {
         popupName: "Курс",
-        type: ADMIN_BTN_TYPES.edit,
+        type: ADMIN_BTN_TYPES$1.edit,
         onClick: () => {
         },
         popupHandlers: {
@@ -27275,7 +27275,7 @@ function OpenSelect({ courseData, onOpen }) {
       AdminBtn,
       {
         popupName: "Курс",
-        type: ADMIN_BTN_TYPES.edit,
+        type: ADMIN_BTN_TYPES$1.edit,
         popupHandlers: {
           onAdd: handleAddCourse,
           onEdit: handleEditCourse,
@@ -27569,7 +27569,7 @@ function CourseProgrammCard({ data }) {
           AdminBtn,
           {
             popupName: "Глава",
-            type: ADMIN_BTN_TYPES.edit,
+            type: ADMIN_BTN_TYPES$1.edit,
             onClick: () => {
             },
             popupHandlers: {
@@ -27613,7 +27613,7 @@ function CourseProgramm() {
         AdminBtn,
         {
           popupName: "Глава",
-          type: ADMIN_BTN_TYPES.add,
+          type: ADMIN_BTN_TYPES$1.add,
           onClick: openCreateChapterModal
         }
       )
@@ -27657,24 +27657,16 @@ function CoursePreview() {
     if (data) {
       const currentCourseId = params.courseId || null;
       const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-<<<<<<< HEAD
-      if (data.data.length > 0 && !currentCourseId || !currentCourse) {
-=======
       if (data.data.length > 0 && !currentCourseId || data.data.length > 0 && !currentCourse) {
->>>>>>> 35d002efe83122c080d94b1656a611b335a4aa8e
         navigate(`/courses/${data.data[0].id}`);
         return;
       }
       if (data.data.length === 0) {
         navigate("/courses");
       }
-<<<<<<< HEAD
-      setCourseData(currentCourse);
-=======
       if (currentCourse) {
         setCourseData(currentCourse);
       }
->>>>>>> 35d002efe83122c080d94b1656a611b335a4aa8e
     }
   }, [data, navigate, params.courseId, setCourseData]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
@@ -34131,7 +34123,7 @@ function Competition({ data }) {
         AdminBtn,
         {
           popupName: "Конкурс",
-          type: "edit",
+          type: ADMIN_BTN_TYPES.edit,
           onClick: () => {
           },
           popupHandlers: {
