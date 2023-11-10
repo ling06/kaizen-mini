@@ -4,8 +4,9 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { Competition } from '../Competition';
 import { useCallback, useRef } from 'react';
+import { ICompetition, IGetAllCompetitions } from '@/types/competition.types';
 
-export function CompetitionsSwiper() {
+export function CompetitionsSwiper({data}: {data: IGetAllCompetitions}) {
   const swiperRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -36,12 +37,10 @@ export function CompetitionsSwiper() {
         <SwiperSlide>
           <Competition />
         </SwiperSlide>
+        {data && data?.data?.length > 0 && data?.data?.map((competitionData: ICompetition) =>
         <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
+          <Competition data={competitionData}/>
+        </SwiperSlide>)}
       </Swiper>
       <S.SwiperPrevBtn onClick={handlePrev} />
       <S.SwiperNextBtn onClick={handleNext} />
