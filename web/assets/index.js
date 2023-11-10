@@ -10391,7 +10391,7 @@ const DefaultBtn = st$1.button`
     background-color: ${(props) => props.theme.colors.darkBlue};
   }
 `;
-st$1.table`
+const EditorTabel = st$1.table`
 
 `;
 const Text$5 = st$1.p`
@@ -28659,6 +28659,7 @@ function EditorYoutubeFrame({ src }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
 }
 const useEditorOutput = (editorData) => {
+  console.log("editorData", editorData);
   if (!editorData)
     return null;
   return editorData.map((block) => {
@@ -28667,7 +28668,7 @@ const useEditorOutput = (editorData) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
     }
     if (block.type === "table") {
-      return console.log(block.data.table);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorTabel, { children: block.data.content }, block.id);
     }
     if (block.type === "list" && block.data.style === "ordered") {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item }, item)) }, block.id);
@@ -28704,6 +28705,7 @@ function CourseContent() {
     }
   }, [data == null ? void 0 : data.data.tests]);
   const editorOutput = useEditorOutput(editorData);
+  console.log("editorOutput", editorOutput);
   reactExports.useEffect(() => {
     if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
       setIsForwardBtnDisabled(true);
