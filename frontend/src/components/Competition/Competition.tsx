@@ -9,9 +9,11 @@ import { useDeleteCompetitionMutation, useRestoreCompetitionMutation } from '@/s
 
 interface ICompetitionCard {
   data: ICompetition;
+  totalCount: number;
+  index: number;
 }
 
-export function Competition({ data }: ICompetitionCard) {
+export function Competition({ data, totalCount, index }: ICompetitionCard) {
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation()
   const [restoreCompetition] = useRestoreCompetitionMutation();
@@ -44,18 +46,19 @@ export function Competition({ data }: ICompetitionCard) {
     setUpdatingCompetitionData(data);
   };
 
+  const handleClickMore = (id:number) => {
+    navigate(`/competition/${id}`);
+  };
+
   return (
     <S.Container>
       <S.Head>
-        <S.CompetitionPagination>Конкурс 1/7</S.CompetitionPagination>
+        <S.CompetitionPagination>Конкурс {index + 1 + '/' + totalCount}</S.CompetitionPagination>
         <AdminBtn
           popupName="Конкурс"
           type={ADMIN_BTN_TYPES.edit}
-          onClick={() => {}}
           popupHandlers={{
             onAdd: handleAddCompetition,
-            // onHide: Number(data.status) === 1 ? handleToggleCompetitionStatus : undefined,
-            // onVisible: Number(data.status) === 0 ? handleToggleCompetitionStatus : undefined,
             onDelete: isDeleted ? undefined : handleDeleteCompetition,
             onRestore: isDeleted ? handleRestoreCompetition : undefined,
             onEdit: handleEditCompetition
@@ -69,9 +72,7 @@ export function Competition({ data }: ICompetitionCard) {
         {data?.text}
       </S.CompetitionDescr>
       <S.MoreBtn
-        onClick={() => {
-          console.log(1111);
-        }}>
+        onClick={() => handleClickMore(data?.id)}>
         Подробнее
       </S.MoreBtn>
     </S.Container>

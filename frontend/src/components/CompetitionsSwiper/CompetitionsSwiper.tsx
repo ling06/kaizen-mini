@@ -40,9 +40,9 @@ export function CompetitionsSwiper({data}: {data: IGetAllCompetitions}) {
         loop={true}
         modules={[Autoplay]}>
         {!data?.data?.length && <S.SwiperCreateBtn onClick={handleClickCreateCompetition}>Добавить</S.SwiperCreateBtn>}
-        {data?.data?.length > 0 && data?.data?.map((competitionData: ICompetition) =>
-        <SwiperSlide>
-          <Competition data={competitionData}/>
+        {data?.data?.length > 0 && data?.data?.map((competitionData: ICompetition, index: number) =>
+        <SwiperSlide key={competitionData?.id}>
+          <Competition data={competitionData} totalCount={data?.count} index={index}/>
         </SwiperSlide>)}
       </Swiper>
       {data?.data?.length > 1 &&
