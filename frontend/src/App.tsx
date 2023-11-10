@@ -17,6 +17,7 @@ import { Transition } from 'react-transition-group';
 import { useMediaQuery } from '@mui/material';
 import { CourseMob } from './pages/CourseMob';
 import { NewsCategoryForm } from './components/NewsCategoryForm';
+import { CreateCompetition } from './pages/CreateCompetition';
 
 function App() {
   const { isLoading } = useCheckUserQuery();
@@ -58,8 +59,12 @@ function App() {
             path={'/news/create-news'}
             element={<CreateNews type={'create'} />}
           />
+          <Route
+            path={'/competition/create-competition'}
+            element={<CreateCompetition type={'create'} />}
+          />
           {isMobile && (
-            <Route 
+            <Route
               path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
               element={<CourseMob />}
             />

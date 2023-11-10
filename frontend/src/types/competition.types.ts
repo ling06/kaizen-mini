@@ -15,7 +15,8 @@ export interface ICompetition {
 }
 
 export interface ICreateCompetitionData extends Pick<ICompetition, 'title' | 'competition_id'> {
-    image: IUploadedImage | null | IImage;
+    image?: IUploadedImage | null | IImage;
+    text?: string;
 }
   
 

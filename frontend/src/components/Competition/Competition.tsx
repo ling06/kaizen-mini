@@ -8,16 +8,17 @@ import { useActions } from '@/hooks/useActions';
 
 interface ICompetitionCard {
   data: ICompetition;
-};
+}
 
 export function Competition({ data }: ICompetitionCard) {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(false);
 
   const handleAddCompetition = () => {
-    setModalType(MODAL_TYPES.createCompetition);
-    setModalOpen(true);
+    navigate('/competition/create-competition');
+    // setModalType(MODAL_TYPES.createCompetition);
+    // setModalOpen(true);
   };
 
   const handleToggleCompetitionStatus = () => {
