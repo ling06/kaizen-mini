@@ -23,6 +23,7 @@ use yii\db\ActiveQuery;
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удален ли урок
+ * @property int $position [int(11)]  Позиция урока
  *
  * @property Theme $theme
  * @property User $user

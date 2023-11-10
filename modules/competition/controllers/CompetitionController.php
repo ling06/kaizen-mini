@@ -6,6 +6,7 @@ use app\components\actions\CreateAction;
 use app\components\actions\DeleteAction;
 use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
+use app\modules\competition\forms\CompetitionForm;
 use Yii;
 use app\components\actions\GetAllAction;
 use app\components\actions\GetOneAction;
@@ -72,12 +73,12 @@ class CompetitionController extends ApiController
             ],
             'create' => [
                 'class' => CreateAction::class,
-                'modelName' => Competition::class,
+                'modelName' => CompetitionForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
             ],
             'update' => [
                 'class' => UpdateAction::class,
-                'modelName' => Competition::class,
+                'modelName' => CompetitionForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
             ],
             'delete' => [
