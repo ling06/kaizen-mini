@@ -428,6 +428,32 @@ Response: [
     result: bool - успешно ли восстановлен курс
 ]
 
+/api/course/get-users-progress
+Получить прогресс пользователя.
+Request: [
+    course_id: int - id курса
+]
+Response: [
+    chapter: [ - информация по главе
+        id: int - id главы
+        name: string - название главы
+        position: int - на каком месте находится глава
+        allQuantity: int - сколько всего глав в курсе
+    ],
+    theme: [ - информация по теме
+        id: int - id темы
+        name: string - название темы
+        position: int - на каком месте находится тема
+        allQuantity: int - сколько всего тем в главе
+    ],
+    lesson: [
+        id: int - id урока
+        name: string - название урока
+        position: int - на каком месте находится урок
+        allQuantity: int - сколько всего уроков в теме
+    ]
+]
+
 
 
 ---------- [ Главы ] ----------
