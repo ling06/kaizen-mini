@@ -57,11 +57,15 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
+                // новости
                 'api/news' => 'news/news/get-all',
                 'api/news/<id:\d+>' => 'news/news/get-one',
                 'api/news/<action:\w+>' => 'news/news/<action>',
                 'api/news-category' => 'news/category/get-all',
                 'api/news-category/<action:\w+>' => 'news/category/<action>',
+
+                // курсы
                 'api/course' => 'course/course/get-all',
                 'api/course/<id:\d+>' => 'course/course/get-one',
                 'api/chapter/<id:\d+>' => 'course/course/chapter',
@@ -69,14 +73,25 @@ $config = [
                 'api/lesson/<id:\d+>' => 'course/course/lesson',
                 'api/course/<action:[-\w]+>' => 'course/course/<action>',
                 'api/test/<action:[-\w]+>' => 'course/test/<action>',
-                'api/whoami' => 'user/whoami',
+
+                // конкурсы
                 'api/competition' => 'competition/competition/get-all',
                 'api/competition/<id:\d+>' => 'competition/competition/get-one',
                 'api/competition/<action:\w+>' => 'competition/competition/<action>',
 
+                // поиск
+                'api/search' => 'search/search',
+                'api/get-search-history' => 'search/get-search-history',
+                'api/clear-search-history' => 'search/clear-search-history',
+
+                // общие действия
+                'api/whoami' => 'user/whoami',
+
+                // общие страницы
                 '<controller:\w+>' => 'site/index',
                 '<controller:\w+>/<action:\w+>' => 'site/index',
                 '<controller:\w+>/<id:\d+>' => 'site/index',
+
             ],
         ],
         'authManager' => [
