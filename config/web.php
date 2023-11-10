@@ -15,6 +15,7 @@ $config = [
         'news' => ['class' => \app\modules\news\Module::class],
         'log' => ['class' => \app\modules\log\Module::class],
         'course' => ['class' => \app\modules\course\Module::class],
+        'competition' => ['class' => \app\modules\competition\Module::class],
     ],
     'components' => [
         'request' => [
@@ -69,6 +70,9 @@ $config = [
                 'api/course/<action:[-\w]+>' => 'course/course/<action>',
                 'api/test/<action:[-\w]+>' => 'course/test/<action>',
                 'api/whoami' => 'user/whoami',
+                'api/competition' => 'competition/competition/get-all',
+                'api/competition/<id:\d+>' => 'competition/competition/get-one',
+                'api/competition/<action:\w+>' => 'competition/competition/<action>',
 
                 '<controller:\w+>' => 'site/index',
                 '<controller:\w+>/<action:\w+>' => 'site/index',
