@@ -3,6 +3,7 @@
 namespace app\commands;
 
 use app\models\User;
+use app\modules\competition\models\Competition;
 use app\modules\course\models\Course;
 use app\modules\news\models\News;
 use app\modules\news\models\NewsCategory;
@@ -20,6 +21,7 @@ class AuthController extends Controller
             User::ROLE_USER => [
                 News::PERMISSION_READ,
                 Course::PERMISSION_READ,
+                Competition::PERMISSION_READ,
             ],
             User::ROLE_TRAINER => [
                 News::PERMISSION_CREATE,
@@ -34,6 +36,10 @@ class AuthController extends Controller
                 Course::PERMISSION_UPDATE,
                 Course::PERMISSION_DELETE,
                 Course::PERMISSION_CHECK_ANSWERS,
+                Competition::PERMISSION_CREATE,
+                Competition::PERMISSION_READ,
+                Competition::PERMISSION_UPDATE,
+                Competition::PERMISSION_DELETE,
             ],
             User::ROLE_ADMIN => [
                 News::PERMISSION_CREATE,
@@ -48,6 +54,10 @@ class AuthController extends Controller
                 Course::PERMISSION_UPDATE,
                 Course::PERMISSION_DELETE,
                 Course::PERMISSION_CHECK_ANSWERS,
+                Competition::PERMISSION_CREATE,
+                Competition::PERMISSION_READ,
+                Competition::PERMISSION_UPDATE,
+                Competition::PERMISSION_DELETE,
             ],
         ];
 
