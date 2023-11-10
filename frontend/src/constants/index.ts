@@ -9,6 +9,7 @@ export const DEFAULT_WIDTH = '1267px';
 
 export const MODAL_TYPES = {
   createCourse: 'createCourse',
+  createCompetition: 'createCompetition',
   createChapter: 'createChapter',
   createTheme: 'createTheme',
   editCourse: 'editCourse',
