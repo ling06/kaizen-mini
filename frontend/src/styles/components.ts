@@ -44,6 +44,10 @@ export const DefaultBtn = styled.button`
   }
 `;
 
+export const EditorTabel = styled.table`
+
+`;
+
 export const Text = styled.p`
   font-size: 18px;
   font-weight: 700;
