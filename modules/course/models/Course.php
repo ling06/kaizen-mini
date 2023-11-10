@@ -46,6 +46,7 @@ class Course extends \app\components\ActiveRecord
         return [
             'percentage' => 'percentage',
             'chapters' => 'chapters',
+            'isChecked' => 'isChecked',
             'user' => static function ($model) {
                 return $model->getUser()->select('id, name')->one();
             },
@@ -164,6 +165,15 @@ class Course extends \app\components\ActiveRecord
                 ? floor($checkedLessonsCount / $lessonsCount * 100)
                 : 0,
         ];
+    }
+
+    public function getIsChecked(): bool
+    {
+        return UserCheck::find()->where([
+            'model_name' => static::class,
+            'model_pk' => $this->id,
+            'user_id' => \Yii::$app->user->id,
+        ])->exists();
     }
 
     /**

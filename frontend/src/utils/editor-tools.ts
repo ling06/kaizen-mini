@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
 import Embed from '@editorjs/embed';
-import Table from '@editorjs/table';
+// import Table from '@editorjs/table';
 import List from '@editorjs/list';
-import Warning from '@editorjs/warning';
+// import Warning from '@editorjs/warning';
 // import Code from '@editorjs/code';
 // import LinkTool from '@editorjs/link';
 import Image from '@editorjs/image';
@@ -12,19 +12,19 @@ import Image from '@editorjs/image';
 // import Quote from '@editorjs/quote';
 // import Marker from '@editorjs/marker';
 // import CheckList from '@editorjs/checklist';
-import Delimiter from '@editorjs/delimiter';
+// import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
 import Youtube from 'editorjs-youtube-embed';
 // import SimpleImage from '@editorjs/simple-image';
 
 export const EDITOR_JS_TOOLS = {
   embed: { class: Embed, inlineToolbar: true },
-  table: Table,
+  // table: Table,
   list: {
     class: List,
     inlineToolbar: true,
   },
-  warning: Warning,
+  // warning: Warning,
   youtube: {
     class: Youtube,
     inlineToolbar: true,
@@ -46,7 +46,7 @@ export const EDITOR_JS_TOOLS = {
   // quote: Quote,
   // marker: Marker,
   // checklist: { class: CheckList, inlineToolbar: true },
-  delimiter: Delimiter,
+  // delimiter: Delimiter,
   inlineCode: InlineCode,
   // image: { class: SimpleImage, inlineToolbar: true },
 };
