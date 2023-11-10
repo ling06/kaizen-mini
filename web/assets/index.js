@@ -15885,6 +15885,7 @@ const api = createApi({
     "ChapterById",
     "LessonById",
     "User",
+    "Competition",
     "CourseProgress"
   ],
   baseQuery: fetchBaseQuery({
@@ -28955,6 +28956,79 @@ function Courses() {
     )
   ] }) });
 }
+const competitionApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllCompetitions: builder.query({
+      query: () => "competition",
+      providesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    getCompetitionById: builder.query({
+      query: (id2) => `competition/${id2}`
+      //   providesTags: () => [
+      //     {
+      //       type: 'CompetitionById',
+      //     },
+      //   ],
+    }),
+    createCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/create",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    updateCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/update",
+        method: "POST",
+        body: data
+      })
+      //   invalidatesTags: ['Competitions'],
+    }),
+    deleteCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/delete",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    }),
+    restoreCompetition: builder.mutation({
+      query: (data) => ({
+        url: "competition/restore",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateCompetitionMutation,
+  useDeleteCompetitionMutation,
+  useGetCompetitionByIdQuery,
+  useGetAllCompetitionsQuery,
+  useRestoreCompetitionMutation,
+  useUpdateCompetitionMutation
+} = competitionApi;
 const arrowLeft = "/assets/swiperArrowLeft.svg";
 const Container$f = st$1.div`
   position: relative;
@@ -34096,15 +34170,28 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition({ data }) {
+  console.log("data", data);
   const navigate = useNavigate();
-  useActions();
-  const [isDeleted, setDeleted] = reactExports.useState(false);
+  const [deleteCompetition] = useDeleteCompetitionMutation();
+  const [restoreCompetition] = useRestoreCompetitionMutation();
+  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
     navigate("/competition/create-competition");
   };
   const handleDeleteCompetition = () => {
+    deleteCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(true);
+    });
+    setLoaderActive(true);
   };
   const handleRestoreCompetition = () => {
+    restoreCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(false);
+    });
+    setLoaderActive(true);
   };
   const handleEditCompetition = () => {
   };
@@ -34129,8 +34216,14 @@ function Competition({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: "Продай 36 кресел серии X, получи кресло Yamaguchi Osaka в качестве премии" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: "Здоровый праздничный ужин вовсе не обязательно должен состоять из шпината, гречки и вареной куриной грудки. Самыми лучшими способами приготовления..." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionTitle, { children: [
+      data == null ? void 0 : data.title,
+      " title"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionDescr, { children: [
+      data == null ? void 0 : data.text,
+      " text"
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       MoreBtn$1,
       {
@@ -34142,73 +34235,9 @@ function Competition({ data }) {
     )
   ] });
 }
-const competitionApi = api.injectEndpoints({
-  endpoints: (builder) => ({
-    getAllCompetitions: builder.query({
-      query: () => "competitions"
-      // providesTags: () => [
-      //   {
-      //     type: 'Competitions',
-      //   },
-      // ],
-    }),
-    getCompetitionById: builder.query({
-      query: (id2) => `competition/${id2}`
-      //   providesTags: () => [
-      //     {
-      //       type: 'CompetitionById',
-      //     },
-      //   ],
-    }),
-    createCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: () => [
-      //     {
-      //       type: 'Competition',
-      //     },
-      //   ],
-    }),
-    updateCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/update",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['Competitions'],
-    }),
-    deleteCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/delete",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['CompetitionById'],
-    }),
-    restoreCompetition: builder.mutation({
-      query: (data) => ({
-        url: "competition/restore",
-        method: "POST",
-        body: data
-      })
-      //   invalidatesTags: ['CompetitionById'],
-    })
-  }),
-  overrideExisting: false
-});
-const {
-  useCreateCompetitionMutation,
-  useDeleteCompetitionMutation,
-  useGetCompetitionByIdQuery,
-  useGetAllCompetitionsQuery,
-  useRestoreCompetitionMutation,
-  useUpdateCompetitionMutation
-} = competitionApi;
-function CompetitionsSwiper() {
-  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
+function CompetitionsSwiper({ data }) {
+  var _a, _b;
+  console.log("CompetitionsSwiperdata", data);
   const swiperRef = reactExports.useRef(null);
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
@@ -34221,7 +34250,7 @@ function CompetitionsSwiper() {
     swiperRef.current.swiper.slideNext();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
         ref: swiperRef,
@@ -34232,7 +34261,10 @@ function CompetitionsSwiper() {
         },
         loop: true,
         modules: [Autoplay],
-        children: data && data.data.length > 0 && data.data.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) }))
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) }),
+          data && ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map((competitionData) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData }) })))
+        ]
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
@@ -34682,9 +34714,10 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
+  const { data } = useGetAllCompetitionsQuery();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, {}),
+      data && /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         ManagerInfo,
         {

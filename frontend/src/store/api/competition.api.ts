@@ -1,19 +1,18 @@
 import { api } from './api';
-import { ICompetition, ICreateCompetitionData, IUpdateCompetitionData } from '@/types/competition.types';
+import { ICompetition, ICreateCompetitionData, IGetAllCompetitions, IUpdateCompetitionData } from '@/types/competition.types';
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/common.types';
-import { IGetAllNews as IGetAllCompetitions} from '@/types/news.types';
 
 type ICompetitionRes = IDefaultResWithData<ICompetition>;
 
 export const competitionApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllCompetitions: builder.query<IGetAllCompetitions, void>({
-      query: () => 'competitions',
-      // providesTags: () => [
-      //   {
-      //     type: 'Competitions',
-      //   },
-      // ],
+      query: () => 'competition',
+      providesTags: () => [
+        {
+          type: 'Competition',
+        },
+      ],
     }),
     getCompetitionById: builder.query<ICompetitionRes, number>({
       query: (id) => `competition/${id}`,
@@ -25,15 +24,15 @@ export const competitionApi = api.injectEndpoints({
     }),
     createCompetition: builder.mutation<ICompetitionRes, ICreateCompetitionData>({
       query: (data) => ({
-        url: 'competition',
+        url: 'competition/create',
         method: 'POST',
         body: data,
       }),
-    //   invalidatesTags: () => [
-    //     {
-    //       type: 'Competition',
-    //     },
-    //   ],
+      invalidatesTags: () => [
+        {
+          type: 'Competition',
+        },
+      ],
     }),
     updateCompetition: builder.mutation<ICompetitionRes, IUpdateCompetitionData>({
       query: (data) => ({
@@ -49,7 +48,11 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-    //   invalidatesTags: ['CompetitionById'],
+      invalidatesTags: () => [
+        {
+          type: 'Competition',
+        },
+      ],
     }),
     restoreCompetition: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -57,7 +60,11 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-    //   invalidatesTags: ['CompetitionById'],
+      invalidatesTags: () => [
+        {
+          type: 'Competition',
+        },
+      ],
     }),
   }),
   overrideExisting: false,

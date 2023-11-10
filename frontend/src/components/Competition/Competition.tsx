@@ -1,24 +1,27 @@
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import { ADMIN_BTN_TYPES } from '@/constants';
 import { ICompetition } from '@/types/competition.types';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useActions } from '@/hooks/useActions';
+import { useDeleteCompetitionMutation, useRestoreCompetitionMutation } from '@/store/api/competition.api';
 
 interface ICompetitionCard {
   data: ICompetition;
 }
 
 export function Competition({ data }: ICompetitionCard) {
+  console.log('data', data)
   const navigate = useNavigate();
+  const [deleteCompetition] = useDeleteCompetitionMutation()
+  const [restoreCompetition] = useRestoreCompetitionMutation();
+
   const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
-  const [isDeleted, setDeleted] = useState<boolean>(false);
+  const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
 
   const handleAddCompetition = () => {
     navigate('/competition/create-competition');
-    // setModalType(MODAL_TYPES.createCompetition);
-    // setModalOpen(true);
   };
 
   const handleToggleCompetitionStatus = () => {
@@ -38,18 +41,18 @@ export function Competition({ data }: ICompetitionCard) {
   };
 
   const handleDeleteCompetition = () => {
-    // deleteChapter({ id: data.id }).then(() => {
-    //   setLoaderActive(false);
-    //   setDeleted(true);
-    // });
-    // setLoaderActive(true);
+    deleteCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(true);
+    });
+    setLoaderActive(true);
   };
   const handleRestoreCompetition = () => {
-    // restoreChapter({ id: data.id }).then(() => {
-    //   setLoaderActive(false);
-    //   setDeleted(false);
-    // });
-    // setLoaderActive(true);
+    restoreCompetition({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(false);
+    });
+    setLoaderActive(true);
   };
 
   const handleEditCompetition = () => {
@@ -77,11 +80,10 @@ export function Competition({ data }: ICompetitionCard) {
         />
       </S.Head>
       <S.CompetitionTitle>
-        Продай 36 кресел серии X, получи кресло Yamaguchi Osaka в качестве премии
+        {data?.title} title
       </S.CompetitionTitle>
       <S.CompetitionDescr>
-        Здоровый праздничный ужин вовсе не обязательно должен состоять из шпината, гречки и вареной
-        куриной грудки. Самыми лучшими способами приготовления...
+        {data?.text} text
       </S.CompetitionDescr>
       <S.MoreBtn
         onClick={() => {
