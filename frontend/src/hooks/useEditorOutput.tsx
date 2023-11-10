@@ -8,7 +8,9 @@ export const useEditorOutput = (editorData: Array<IEditorJsData>) => {
     if (block.type === 'paragraph') {
       return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
     }
-    if (block.type === 'table') {
+    if (block.type === 'table') { 
+      return console.log(block.data.table);
+      
       // return <C.EditorTabel key={block.id}>{block.data.table}</C.EditorTabel>;
     }
     if (block.type === 'list' && block.data.style === 'ordered') {
