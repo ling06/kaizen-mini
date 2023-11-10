@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -15479,24 +15485,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp = Object.defineProperty;
+var __defProp2 = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = function(obj, key, value) {
-  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp2 = function(obj, key, value) {
+  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp(a2, prop, b2[prop]);
+      __defNormalProp2(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp(a2, prop, b2[prop]);
+        __defNormalProp2(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -26227,6 +26233,10 @@ const loaderSlice = createSlice({
 const { reducer: reducer$3, actions: actions$2 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26235,6 +26245,9 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -45411,7 +45424,7 @@ class vi {
     });
   }
 }
-var bundle$3 = { exports: {} };
+var bundle$5 = { exports: {} };
 (function(module, exports) {
   !function(e2, t2) {
     module.exports = t2();
@@ -45818,10 +45831,10 @@ var bundle$3 = { exports: {} };
       }();
     }]).default;
   });
-})(bundle$3);
-var bundleExports$3 = bundle$3.exports;
-const Embed = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$3);
-var bundle$2 = { exports: {} };
+})(bundle$5);
+var bundleExports$5 = bundle$5.exports;
+const Embed = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$5);
+var bundle$4 = { exports: {} };
 (function(module, exports) {
   !function(e2, t2) {
     module.exports = t2();
@@ -46205,10 +46218,392 @@ var bundle$2 = { exports: {} };
       }();
     }]).default;
   });
-})(bundle$2);
-var bundleExports$2 = bundle$2.exports;
-const List2 = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$2);
-var bundle$1 = { exports: {} };
+})(bundle$4);
+var bundleExports$4 = bundle$4.exports;
+const List2 = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$4);
+var bundle$3 = { exports: {} };
+(function(module, exports) {
+  !function(t2, e2) {
+    module.exports = e2();
+  }(window, function() {
+    return function(t2) {
+      var e2 = {};
+      function n2(r2) {
+        if (e2[r2])
+          return e2[r2].exports;
+        var o2 = e2[r2] = { i: r2, l: false, exports: {} };
+        return t2[r2].call(o2.exports, o2, o2.exports, n2), o2.l = true, o2.exports;
+      }
+      return n2.m = t2, n2.c = e2, n2.d = function(t3, e3, r2) {
+        n2.o(t3, e3) || Object.defineProperty(t3, e3, { enumerable: true, get: r2 });
+      }, n2.r = function(t3) {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t3, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(t3, "__esModule", { value: true });
+      }, n2.t = function(t3, e3) {
+        if (1 & e3 && (t3 = n2(t3)), 8 & e3)
+          return t3;
+        if (4 & e3 && "object" == typeof t3 && t3 && t3.__esModule)
+          return t3;
+        var r2 = /* @__PURE__ */ Object.create(null);
+        if (n2.r(r2), Object.defineProperty(r2, "default", { enumerable: true, value: t3 }), 2 & e3 && "string" != typeof t3)
+          for (var o2 in t3)
+            n2.d(r2, o2, (function(e4) {
+              return t3[e4];
+            }).bind(null, o2));
+        return r2;
+      }, n2.n = function(t3) {
+        var e3 = t3 && t3.__esModule ? function() {
+          return t3.default;
+        } : function() {
+          return t3;
+        };
+        return n2.d(e3, "a", e3), e3;
+      }, n2.o = function(t3, e3) {
+        return Object.prototype.hasOwnProperty.call(t3, e3);
+      }, n2.p = "/", n2(n2.s = 5);
+    }([function(t2, e2, n2) {
+      var r2 = n2(1);
+      "string" == typeof r2 && (r2 = [[t2.i, r2, ""]]);
+      var o2 = { hmr: true, transform: void 0, insertInto: void 0 };
+      n2(3)(r2, o2);
+      r2.locals && (t2.exports = r2.locals);
+    }, function(t2, e2, n2) {
+      (t2.exports = n2(2)(false)).push([t2.i, `.cdx-warning {
+  position: relative;
+
+}
+
+@media all and (min-width: 736px) {
+  .cdx-warning {
+    padding-left: 36px;
+  }
+}
+
+.cdx-warning [contentEditable=true][data-placeholder]::before{
+  position: absolute;
+  content: attr(data-placeholder);
+  color: #707684;
+  font-weight: normal;
+  opacity: 0;
+}
+
+.cdx-warning [contentEditable=true][data-placeholder]:empty::before {
+  opacity: 1;
+}
+
+.cdx-warning [contentEditable=true][data-placeholder]:empty:focus::before {
+  opacity: 0;
+}
+
+
+.cdx-warning::before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='5' y='5' width='14' height='14' rx='4' stroke='black' stroke-width='2'/%3E%3Cline x1='12' y1='9' x2='12' y2='12' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 15.02V15.01' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  width: 24px;
+  height: 24px;
+  background-size: 24px 24px;
+  position: absolute;
+  margin-top: 8px;
+  left: 0;
+}
+
+@media all and (max-width: 735px) {
+  .cdx-warning::before {
+    display: none;
+  }
+}
+
+.cdx-warning__message {
+  min-height: 85px;
+}
+
+.cdx-warning__title {
+  margin-bottom: 6px;
+}
+`, ""]);
+    }, function(t2, e2, n2) {
+      t2.exports = function(t3) {
+        var e3 = [];
+        return e3.toString = function() {
+          return this.map(function(e4) {
+            var n3 = function(t4, e5) {
+              var n4 = t4[1] || "", r2 = t4[3];
+              if (!r2)
+                return n4;
+              if (e5 && "function" == typeof btoa) {
+                var o2 = (a2 = r2, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(a2)))) + " */"), i2 = r2.sources.map(function(t5) {
+                  return "/*# sourceURL=" + r2.sourceRoot + t5 + " */";
+                });
+                return [n4].concat(i2).concat([o2]).join("\n");
+              }
+              var a2;
+              return [n4].join("\n");
+            }(e4, t3);
+            return e4[2] ? "@media " + e4[2] + "{" + n3 + "}" : n3;
+          }).join("");
+        }, e3.i = function(t4, n3) {
+          "string" == typeof t4 && (t4 = [[null, t4, ""]]);
+          for (var r2 = {}, o2 = 0; o2 < this.length; o2++) {
+            var i2 = this[o2][0];
+            null != i2 && (r2[i2] = true);
+          }
+          for (o2 = 0; o2 < t4.length; o2++) {
+            var a2 = t4[o2];
+            null != a2[0] && r2[a2[0]] || (n3 && !a2[2] ? a2[2] = n3 : n3 && (a2[2] = "(" + a2[2] + ") and (" + n3 + ")"), e3.push(a2));
+          }
+        }, e3;
+      };
+    }, function(t2, e2, n2) {
+      var r2, o2, i2 = {}, a2 = (r2 = function() {
+        return window && document && document.all && !window.atob;
+      }, function() {
+        return void 0 === o2 && (o2 = r2.apply(this, arguments)), o2;
+      }), s2 = function(t3) {
+        var e3 = {};
+        return function(t4, n3) {
+          if ("function" == typeof t4)
+            return t4();
+          if (void 0 === e3[t4]) {
+            var r3 = (function(t5, e4) {
+              return e4 ? e4.querySelector(t5) : document.querySelector(t5);
+            }).call(this, t4, n3);
+            if (window.HTMLIFrameElement && r3 instanceof window.HTMLIFrameElement)
+              try {
+                r3 = r3.contentDocument.head;
+              } catch (t5) {
+                r3 = null;
+              }
+            e3[t4] = r3;
+          }
+          return e3[t4];
+        };
+      }(), l2 = null, c2 = 0, u2 = [], f2 = n2(4);
+      function d2(t3, e3) {
+        for (var n3 = 0; n3 < t3.length; n3++) {
+          var r3 = t3[n3], o3 = i2[r3.id];
+          if (o3) {
+            o3.refs++;
+            for (var a3 = 0; a3 < o3.parts.length; a3++)
+              o3.parts[a3](r3.parts[a3]);
+            for (; a3 < r3.parts.length; a3++)
+              o3.parts.push(b2(r3.parts[a3], e3));
+          } else {
+            var s3 = [];
+            for (a3 = 0; a3 < r3.parts.length; a3++)
+              s3.push(b2(r3.parts[a3], e3));
+            i2[r3.id] = { id: r3.id, refs: 1, parts: s3 };
+          }
+        }
+      }
+      function p2(t3, e3) {
+        for (var n3 = [], r3 = {}, o3 = 0; o3 < t3.length; o3++) {
+          var i3 = t3[o3], a3 = e3.base ? i3[0] + e3.base : i3[0], s3 = { css: i3[1], media: i3[2], sourceMap: i3[3] };
+          r3[a3] ? r3[a3].parts.push(s3) : n3.push(r3[a3] = { id: a3, parts: [s3] });
+        }
+        return n3;
+      }
+      function h2(t3, e3) {
+        var n3 = s2(t3.insertInto);
+        if (!n3)
+          throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+        var r3 = u2[u2.length - 1];
+        if ("top" === t3.insertAt)
+          r3 ? r3.nextSibling ? n3.insertBefore(e3, r3.nextSibling) : n3.appendChild(e3) : n3.insertBefore(e3, n3.firstChild), u2.push(e3);
+        else if ("bottom" === t3.insertAt)
+          n3.appendChild(e3);
+        else {
+          if ("object" != typeof t3.insertAt || !t3.insertAt.before)
+            throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+          var o3 = s2(t3.insertAt.before, n3);
+          n3.insertBefore(e3, o3);
+        }
+      }
+      function g2(t3) {
+        if (null === t3.parentNode)
+          return false;
+        t3.parentNode.removeChild(t3);
+        var e3 = u2.indexOf(t3);
+        e3 >= 0 && u2.splice(e3, 1);
+      }
+      function y2(t3) {
+        var e3 = document.createElement("style");
+        if (void 0 === t3.attrs.type && (t3.attrs.type = "text/css"), void 0 === t3.attrs.nonce) {
+          var r3 = function() {
+            return n2.nc;
+          }();
+          r3 && (t3.attrs.nonce = r3);
+        }
+        return v2(e3, t3.attrs), h2(t3, e3), e3;
+      }
+      function v2(t3, e3) {
+        Object.keys(e3).forEach(function(n3) {
+          t3.setAttribute(n3, e3[n3]);
+        });
+      }
+      function b2(t3, e3) {
+        var n3, r3, o3, i3;
+        if (e3.transform && t3.css) {
+          if (!(i3 = "function" == typeof e3.transform ? e3.transform(t3.css) : e3.transform.default(t3.css)))
+            return function() {
+            };
+          t3.css = i3;
+        }
+        if (e3.singleton) {
+          var a3 = c2++;
+          n3 = l2 || (l2 = y2(e3)), r3 = x2.bind(null, n3, a3, false), o3 = x2.bind(null, n3, a3, true);
+        } else
+          t3.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (n3 = function(t4) {
+            var e4 = document.createElement("link");
+            return void 0 === t4.attrs.type && (t4.attrs.type = "text/css"), t4.attrs.rel = "stylesheet", v2(e4, t4.attrs), h2(t4, e4), e4;
+          }(e3), r3 = (function(t4, e4, n4) {
+            var r4 = n4.css, o4 = n4.sourceMap, i4 = void 0 === e4.convertToAbsoluteUrls && o4;
+            (e4.convertToAbsoluteUrls || i4) && (r4 = f2(r4));
+            o4 && (r4 += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(o4)))) + " */");
+            var a4 = new Blob([r4], { type: "text/css" }), s3 = t4.href;
+            t4.href = URL.createObjectURL(a4), s3 && URL.revokeObjectURL(s3);
+          }).bind(null, n3, e3), o3 = function() {
+            g2(n3), n3.href && URL.revokeObjectURL(n3.href);
+          }) : (n3 = y2(e3), r3 = (function(t4, e4) {
+            var n4 = e4.css, r4 = e4.media;
+            r4 && t4.setAttribute("media", r4);
+            if (t4.styleSheet)
+              t4.styleSheet.cssText = n4;
+            else {
+              for (; t4.firstChild; )
+                t4.removeChild(t4.firstChild);
+              t4.appendChild(document.createTextNode(n4));
+            }
+          }).bind(null, n3), o3 = function() {
+            g2(n3);
+          });
+        return r3(t3), function(e4) {
+          if (e4) {
+            if (e4.css === t3.css && e4.media === t3.media && e4.sourceMap === t3.sourceMap)
+              return;
+            r3(t3 = e4);
+          } else
+            o3();
+        };
+      }
+      t2.exports = function(t3, e3) {
+        if ("undefined" != typeof DEBUG && DEBUG && "object" != typeof document)
+          throw new Error("The style-loader cannot be used in a non-browser environment");
+        (e3 = e3 || {}).attrs = "object" == typeof e3.attrs ? e3.attrs : {}, e3.singleton || "boolean" == typeof e3.singleton || (e3.singleton = a2()), e3.insertInto || (e3.insertInto = "head"), e3.insertAt || (e3.insertAt = "bottom");
+        var n3 = p2(t3, e3);
+        return d2(n3, e3), function(t4) {
+          for (var r3 = [], o3 = 0; o3 < n3.length; o3++) {
+            var a3 = n3[o3];
+            (s3 = i2[a3.id]).refs--, r3.push(s3);
+          }
+          t4 && d2(p2(t4, e3), e3);
+          for (o3 = 0; o3 < r3.length; o3++) {
+            var s3;
+            if (0 === (s3 = r3[o3]).refs) {
+              for (var l3 = 0; l3 < s3.parts.length; l3++)
+                s3.parts[l3]();
+              delete i2[s3.id];
+            }
+          }
+        };
+      };
+      var m2, w2 = (m2 = [], function(t3, e3) {
+        return m2[t3] = e3, m2.filter(Boolean).join("\n");
+      });
+      function x2(t3, e3, n3, r3) {
+        var o3 = n3 ? "" : r3.css;
+        if (t3.styleSheet)
+          t3.styleSheet.cssText = w2(e3, o3);
+        else {
+          var i3 = document.createTextNode(o3), a3 = t3.childNodes;
+          a3[e3] && t3.removeChild(a3[e3]), a3.length ? t3.insertBefore(i3, a3[e3]) : t3.appendChild(i3);
+        }
+      }
+    }, function(t2, e2) {
+      t2.exports = function(t3) {
+        var e3 = "undefined" != typeof window && window.location;
+        if (!e3)
+          throw new Error("fixUrls requires window.location");
+        if (!t3 || "string" != typeof t3)
+          return t3;
+        var n2 = e3.protocol + "//" + e3.host, r2 = n2 + e3.pathname.replace(/\/[^\/]*$/, "/");
+        return t3.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(t4, e4) {
+          var o2, i2 = e4.trim().replace(/^"(.*)"$/, function(t5, e5) {
+            return e5;
+          }).replace(/^'(.*)'$/, function(t5, e5) {
+            return e5;
+          });
+          return /^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(i2) ? t4 : (o2 = 0 === i2.indexOf("//") ? i2 : 0 === i2.indexOf("/") ? n2 + i2 : r2 + i2.replace(/^\.\//, ""), "url(" + JSON.stringify(o2) + ")");
+        });
+      };
+    }, function(t2, e2, n2) {
+      n2.r(e2);
+      function r2(t3) {
+        return function(t4) {
+          if (Array.isArray(t4)) {
+            for (var e3 = 0, n3 = new Array(t4.length); e3 < t4.length; e3++)
+              n3[e3] = t4[e3];
+            return n3;
+          }
+        }(t3) || function(t4) {
+          if (Symbol.iterator in Object(t4) || "[object Arguments]" === Object.prototype.toString.call(t4))
+            return Array.from(t4);
+        }(t3) || function() {
+          throw new TypeError("Invalid attempt to spread non-iterable instance");
+        }();
+      }
+      function o2(t3, e3) {
+        for (var n3 = 0; n3 < e3.length; n3++) {
+          var r3 = e3[n3];
+          r3.enumerable = r3.enumerable || false, r3.configurable = true, "value" in r3 && (r3.writable = true), Object.defineProperty(t3, r3.key, r3);
+        }
+      }
+      function i2(t3, e3, n3) {
+        return e3 && o2(t3.prototype, e3), n3 && o2(t3, n3), t3;
+      }
+      n2.d(e2, "default", function() {
+        return a2;
+      }), n2(0).toString();
+      var a2 = function() {
+        function t3(e3) {
+          var n3 = e3.data, r3 = e3.config, o3 = e3.api, i3 = e3.readOnly;
+          !function(t4, e4) {
+            if (!(t4 instanceof e4))
+              throw new TypeError("Cannot call a class as a function");
+          }(this, t3), this.api = o3, this.readOnly = i3, this.titlePlaceholder = r3.titlePlaceholder || t3.DEFAULT_TITLE_PLACEHOLDER, this.messagePlaceholder = r3.messagePlaceholder || t3.DEFAULT_MESSAGE_PLACEHOLDER, this.data = { title: n3.title || "", message: n3.message || "" };
+        }
+        return i2(t3, [{ key: "CSS", get: function() {
+          return { baseClass: this.api.styles.block, wrapper: "cdx-warning", title: "cdx-warning__title", input: this.api.styles.input, message: "cdx-warning__message" };
+        } }], [{ key: "isReadOnlySupported", get: function() {
+          return true;
+        } }, { key: "toolbox", get: function() {
+          return { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><rect width="14" height="14" x="5" y="5" stroke="currentColor" stroke-width="2" rx="4"/><line x1="12" x2="12" y1="9" y2="12" stroke="currentColor" stroke-linecap="round" stroke-width="2"/><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 15.02V15.01"/></svg>', title: "Warning" };
+        } }, { key: "enableLineBreaks", get: function() {
+          return true;
+        } }, { key: "DEFAULT_TITLE_PLACEHOLDER", get: function() {
+          return "Title";
+        } }, { key: "DEFAULT_MESSAGE_PLACEHOLDER", get: function() {
+          return "Message";
+        } }]), i2(t3, [{ key: "render", value: function() {
+          var t4 = this._make("div", [this.CSS.baseClass, this.CSS.wrapper]), e3 = this._make("div", [this.CSS.input, this.CSS.title], { contentEditable: !this.readOnly, innerHTML: this.data.title }), n3 = this._make("div", [this.CSS.input, this.CSS.message], { contentEditable: !this.readOnly, innerHTML: this.data.message });
+          return e3.dataset.placeholder = this.titlePlaceholder, n3.dataset.placeholder = this.messagePlaceholder, t4.appendChild(e3), t4.appendChild(n3), t4;
+        } }, { key: "save", value: function(t4) {
+          var e3 = t4.querySelector(".".concat(this.CSS.title)), n3 = t4.querySelector(".".concat(this.CSS.message));
+          return Object.assign(this.data, { title: e3.innerHTML, message: n3.innerHTML });
+        } }, { key: "_make", value: function(t4) {
+          var e3, n3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : null, o3 = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {}, i3 = document.createElement(t4);
+          Array.isArray(n3) ? (e3 = i3.classList).add.apply(e3, r2(n3)) : n3 && i3.classList.add(n3);
+          for (var a3 in o3)
+            i3[a3] = o3[a3];
+          return i3;
+        } }], [{ key: "sanitize", get: function() {
+          return { title: {}, message: {} };
+        } }]), t3;
+      }();
+    }]).default;
+  });
+})(bundle$3);
+var bundleExports$3 = bundle$3.exports;
+const Warning = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$3);
+var bundle$2 = { exports: {} };
 /*!
  * Image tool
  * 
@@ -47603,9 +47998,319 @@ var bundle$1 = { exports: {} };
        */
     }]).default;
   });
+})(bundle$2);
+var bundleExports$2 = bundle$2.exports;
+const Image = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$2);
+var bundle$1 = { exports: {} };
+(function(module, exports) {
+  !function(t2, e2) {
+    module.exports = e2();
+  }(window, function() {
+    return function(t2) {
+      var e2 = {};
+      function n2(r2) {
+        if (e2[r2])
+          return e2[r2].exports;
+        var o2 = e2[r2] = { i: r2, l: false, exports: {} };
+        return t2[r2].call(o2.exports, o2, o2.exports, n2), o2.l = true, o2.exports;
+      }
+      return n2.m = t2, n2.c = e2, n2.d = function(t3, e3, r2) {
+        n2.o(t3, e3) || Object.defineProperty(t3, e3, { enumerable: true, get: r2 });
+      }, n2.r = function(t3) {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t3, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(t3, "__esModule", { value: true });
+      }, n2.t = function(t3, e3) {
+        if (1 & e3 && (t3 = n2(t3)), 8 & e3)
+          return t3;
+        if (4 & e3 && "object" == typeof t3 && t3 && t3.__esModule)
+          return t3;
+        var r2 = /* @__PURE__ */ Object.create(null);
+        if (n2.r(r2), Object.defineProperty(r2, "default", { enumerable: true, value: t3 }), 2 & e3 && "string" != typeof t3)
+          for (var o2 in t3)
+            n2.d(r2, o2, (function(e4) {
+              return t3[e4];
+            }).bind(null, o2));
+        return r2;
+      }, n2.n = function(t3) {
+        var e3 = t3 && t3.__esModule ? function() {
+          return t3.default;
+        } : function() {
+          return t3;
+        };
+        return n2.d(e3, "a", e3), e3;
+      }, n2.o = function(t3, e3) {
+        return Object.prototype.hasOwnProperty.call(t3, e3);
+      }, n2.p = "/", n2(n2.s = 5);
+    }([function(t2, e2, n2) {
+      var r2 = n2(1);
+      "string" == typeof r2 && (r2 = [[t2.i, r2, ""]]);
+      var o2 = { hmr: true, transform: void 0, insertInto: void 0 };
+      n2(3)(r2, o2);
+      r2.locals && (t2.exports = r2.locals);
+    }, function(t2, e2, n2) {
+      (t2.exports = n2(2)(false)).push([t2.i, ".cdx-marker {\n  background: rgba(245,235,111,0.29);\n  padding: 3px 0;\n}", ""]);
+    }, function(t2, e2) {
+      t2.exports = function(t3) {
+        var e3 = [];
+        return e3.toString = function() {
+          return this.map(function(e4) {
+            var n2 = function(t4, e5) {
+              var n3 = t4[1] || "", r2 = t4[3];
+              if (!r2)
+                return n3;
+              if (e5 && "function" == typeof btoa) {
+                var o2 = (a2 = r2, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(a2)))) + " */"), i2 = r2.sources.map(function(t5) {
+                  return "/*# sourceURL=" + r2.sourceRoot + t5 + " */";
+                });
+                return [n3].concat(i2).concat([o2]).join("\n");
+              }
+              var a2;
+              return [n3].join("\n");
+            }(e4, t3);
+            return e4[2] ? "@media " + e4[2] + "{" + n2 + "}" : n2;
+          }).join("");
+        }, e3.i = function(t4, n2) {
+          "string" == typeof t4 && (t4 = [[null, t4, ""]]);
+          for (var r2 = {}, o2 = 0; o2 < this.length; o2++) {
+            var i2 = this[o2][0];
+            "number" == typeof i2 && (r2[i2] = true);
+          }
+          for (o2 = 0; o2 < t4.length; o2++) {
+            var a2 = t4[o2];
+            "number" == typeof a2[0] && r2[a2[0]] || (n2 && !a2[2] ? a2[2] = n2 : n2 && (a2[2] = "(" + a2[2] + ") and (" + n2 + ")"), e3.push(a2));
+          }
+        }, e3;
+      };
+    }, function(t2, e2, n2) {
+      var r2, o2, i2 = {}, a2 = (r2 = function() {
+        return window && document && document.all && !window.atob;
+      }, function() {
+        return void 0 === o2 && (o2 = r2.apply(this, arguments)), o2;
+      }), s2 = function(t3) {
+        var e3 = {};
+        return function(t4) {
+          if ("function" == typeof t4)
+            return t4();
+          if (void 0 === e3[t4]) {
+            var n3 = (function(t5) {
+              return document.querySelector(t5);
+            }).call(this, t4);
+            if (window.HTMLIFrameElement && n3 instanceof window.HTMLIFrameElement)
+              try {
+                n3 = n3.contentDocument.head;
+              } catch (t5) {
+                n3 = null;
+              }
+            e3[t4] = n3;
+          }
+          return e3[t4];
+        };
+      }(), u2 = null, c2 = 0, f2 = [], l2 = n2(4);
+      function p2(t3, e3) {
+        for (var n3 = 0; n3 < t3.length; n3++) {
+          var r3 = t3[n3], o3 = i2[r3.id];
+          if (o3) {
+            o3.refs++;
+            for (var a3 = 0; a3 < o3.parts.length; a3++)
+              o3.parts[a3](r3.parts[a3]);
+            for (; a3 < r3.parts.length; a3++)
+              o3.parts.push(g2(r3.parts[a3], e3));
+          } else {
+            var s3 = [];
+            for (a3 = 0; a3 < r3.parts.length; a3++)
+              s3.push(g2(r3.parts[a3], e3));
+            i2[r3.id] = { id: r3.id, refs: 1, parts: s3 };
+          }
+        }
+      }
+      function d2(t3, e3) {
+        for (var n3 = [], r3 = {}, o3 = 0; o3 < t3.length; o3++) {
+          var i3 = t3[o3], a3 = e3.base ? i3[0] + e3.base : i3[0], s3 = { css: i3[1], media: i3[2], sourceMap: i3[3] };
+          r3[a3] ? r3[a3].parts.push(s3) : n3.push(r3[a3] = { id: a3, parts: [s3] });
+        }
+        return n3;
+      }
+      function h2(t3, e3) {
+        var n3 = s2(t3.insertInto);
+        if (!n3)
+          throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+        var r3 = f2[f2.length - 1];
+        if ("top" === t3.insertAt)
+          r3 ? r3.nextSibling ? n3.insertBefore(e3, r3.nextSibling) : n3.appendChild(e3) : n3.insertBefore(e3, n3.firstChild), f2.push(e3);
+        else if ("bottom" === t3.insertAt)
+          n3.appendChild(e3);
+        else {
+          if ("object" != typeof t3.insertAt || !t3.insertAt.before)
+            throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+          var o3 = s2(t3.insertInto + " " + t3.insertAt.before);
+          n3.insertBefore(e3, o3);
+        }
+      }
+      function v2(t3) {
+        if (null === t3.parentNode)
+          return false;
+        t3.parentNode.removeChild(t3);
+        var e3 = f2.indexOf(t3);
+        e3 >= 0 && f2.splice(e3, 1);
+      }
+      function b2(t3) {
+        var e3 = document.createElement("style");
+        return void 0 === t3.attrs.type && (t3.attrs.type = "text/css"), y2(e3, t3.attrs), h2(t3, e3), e3;
+      }
+      function y2(t3, e3) {
+        Object.keys(e3).forEach(function(n3) {
+          t3.setAttribute(n3, e3[n3]);
+        });
+      }
+      function g2(t3, e3) {
+        var n3, r3, o3, i3;
+        if (e3.transform && t3.css) {
+          if (!(i3 = e3.transform(t3.css)))
+            return function() {
+            };
+          t3.css = i3;
+        }
+        if (e3.singleton) {
+          var a3 = c2++;
+          n3 = u2 || (u2 = b2(e3)), r3 = x2.bind(null, n3, a3, false), o3 = x2.bind(null, n3, a3, true);
+        } else
+          t3.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (n3 = function(t4) {
+            var e4 = document.createElement("link");
+            return void 0 === t4.attrs.type && (t4.attrs.type = "text/css"), t4.attrs.rel = "stylesheet", y2(e4, t4.attrs), h2(t4, e4), e4;
+          }(e3), r3 = (function(t4, e4, n4) {
+            var r4 = n4.css, o4 = n4.sourceMap, i4 = void 0 === e4.convertToAbsoluteUrls && o4;
+            (e4.convertToAbsoluteUrls || i4) && (r4 = l2(r4));
+            o4 && (r4 += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(o4)))) + " */");
+            var a4 = new Blob([r4], { type: "text/css" }), s3 = t4.href;
+            t4.href = URL.createObjectURL(a4), s3 && URL.revokeObjectURL(s3);
+          }).bind(null, n3, e3), o3 = function() {
+            v2(n3), n3.href && URL.revokeObjectURL(n3.href);
+          }) : (n3 = b2(e3), r3 = (function(t4, e4) {
+            var n4 = e4.css, r4 = e4.media;
+            r4 && t4.setAttribute("media", r4);
+            if (t4.styleSheet)
+              t4.styleSheet.cssText = n4;
+            else {
+              for (; t4.firstChild; )
+                t4.removeChild(t4.firstChild);
+              t4.appendChild(document.createTextNode(n4));
+            }
+          }).bind(null, n3), o3 = function() {
+            v2(n3);
+          });
+        return r3(t3), function(e4) {
+          if (e4) {
+            if (e4.css === t3.css && e4.media === t3.media && e4.sourceMap === t3.sourceMap)
+              return;
+            r3(t3 = e4);
+          } else
+            o3();
+        };
+      }
+      t2.exports = function(t3, e3) {
+        if ("undefined" != typeof DEBUG && DEBUG && "object" != typeof document)
+          throw new Error("The style-loader cannot be used in a non-browser environment");
+        (e3 = e3 || {}).attrs = "object" == typeof e3.attrs ? e3.attrs : {}, e3.singleton || "boolean" == typeof e3.singleton || (e3.singleton = a2()), e3.insertInto || (e3.insertInto = "head"), e3.insertAt || (e3.insertAt = "bottom");
+        var n3 = d2(t3, e3);
+        return p2(n3, e3), function(t4) {
+          for (var r3 = [], o3 = 0; o3 < n3.length; o3++) {
+            var a3 = n3[o3];
+            (s3 = i2[a3.id]).refs--, r3.push(s3);
+          }
+          t4 && p2(d2(t4, e3), e3);
+          for (o3 = 0; o3 < r3.length; o3++) {
+            var s3;
+            if (0 === (s3 = r3[o3]).refs) {
+              for (var u3 = 0; u3 < s3.parts.length; u3++)
+                s3.parts[u3]();
+              delete i2[s3.id];
+            }
+          }
+        };
+      };
+      var m2, w2 = (m2 = [], function(t3, e3) {
+        return m2[t3] = e3, m2.filter(Boolean).join("\n");
+      });
+      function x2(t3, e3, n3, r3) {
+        var o3 = n3 ? "" : r3.css;
+        if (t3.styleSheet)
+          t3.styleSheet.cssText = w2(e3, o3);
+        else {
+          var i3 = document.createTextNode(o3), a3 = t3.childNodes;
+          a3[e3] && t3.removeChild(a3[e3]), a3.length ? t3.insertBefore(i3, a3[e3]) : t3.appendChild(i3);
+        }
+      }
+    }, function(t2, e2) {
+      t2.exports = function(t3) {
+        var e3 = "undefined" != typeof window && window.location;
+        if (!e3)
+          throw new Error("fixUrls requires window.location");
+        if (!t3 || "string" != typeof t3)
+          return t3;
+        var n2 = e3.protocol + "//" + e3.host, r2 = n2 + e3.pathname.replace(/\/[^\/]*$/, "/");
+        return t3.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(t4, e4) {
+          var o2, i2 = e4.trim().replace(/^"(.*)"$/, function(t5, e5) {
+            return e5;
+          }).replace(/^'(.*)'$/, function(t5, e5) {
+            return e5;
+          });
+          return /^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(i2) ? t4 : (o2 = 0 === i2.indexOf("//") ? i2 : 0 === i2.indexOf("/") ? n2 + i2 : r2 + i2.replace(/^\.\//, ""), "url(" + JSON.stringify(o2) + ")");
+        });
+      };
+    }, function(t2, e2, n2) {
+      n2.r(e2);
+      n2(0);
+      function r2(t3, e3) {
+        for (var n3 = 0; n3 < e3.length; n3++) {
+          var r3 = e3[n3];
+          r3.enumerable = r3.enumerable || false, r3.configurable = true, "value" in r3 && (r3.writable = true), Object.defineProperty(t3, r3.key, r3);
+        }
+      }
+      function o2(t3, e3, n3) {
+        return e3 && r2(t3.prototype, e3), n3 && r2(t3, n3), t3;
+      }
+      n2.d(e2, "default", function() {
+        return i2;
+      });
+      var i2 = function() {
+        function t3(e3) {
+          var n3 = e3.api;
+          !function(t4, e4) {
+            if (!(t4 instanceof e4))
+              throw new TypeError("Cannot call a class as a function");
+          }(this, t3), this.api = n3, this.button = null, this.tag = "MARK", this.iconClasses = { base: this.api.styles.inlineToolButton, active: this.api.styles.inlineToolButtonActive };
+        }
+        return o2(t3, null, [{ key: "CSS", get: function() {
+          return "cdx-marker";
+        } }]), o2(t3, [{ key: "render", value: function() {
+          return this.button = document.createElement("button"), this.button.type = "button", this.button.classList.add(this.iconClasses.base), this.button.innerHTML = this.toolboxIcon, this.button;
+        } }, { key: "surround", value: function(e3) {
+          if (e3) {
+            var n3 = this.api.selection.findParentTag(this.tag, t3.CSS);
+            n3 ? this.unwrap(n3) : this.wrap(e3);
+          }
+        } }, { key: "wrap", value: function(e3) {
+          var n3 = document.createElement(this.tag);
+          n3.classList.add(t3.CSS), n3.appendChild(e3.extractContents()), e3.insertNode(n3), this.api.selection.expandToTag(n3);
+        } }, { key: "unwrap", value: function(t4) {
+          this.api.selection.expandToTag(t4);
+          var e3 = window.getSelection(), n3 = e3.getRangeAt(0), r3 = n3.extractContents();
+          t4.parentNode.removeChild(t4), n3.insertNode(r3), e3.removeAllRanges(), e3.addRange(n3);
+        } }, { key: "checkState", value: function() {
+          var e3 = this.api.selection.findParentTag(this.tag, t3.CSS);
+          this.button.classList.toggle(this.iconClasses.active, !!e3);
+        } }, { key: "toolboxIcon", get: function() {
+          return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M11.3536 9.31802L12.7678 7.90381C13.5488 7.12276 14.8151 7.12276 15.5962 7.90381C16.3772 8.68486 16.3772 9.95119 15.5962 10.7322L14.182 12.1464M11.3536 9.31802L7.96729 12.7043C7.40889 13.2627 7.02827 13.9739 6.8734 14.7482L6.69798 15.6253C6.55804 16.325 7.17496 16.942 7.87468 16.802L8.75176 16.6266C9.52612 16.4717 10.2373 16.0911 10.7957 15.5327L14.182 12.1464M11.3536 9.31802L14.182 12.1464"/><line x1="15" x2="19" y1="17" y2="17" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg>';
+        } }], [{ key: "isInline", get: function() {
+          return true;
+        } }, { key: "sanitize", get: function() {
+          return { mark: { class: t3.CSS } };
+        } }]), t3;
+      }();
+    }]).default;
+  });
 })(bundle$1);
 var bundleExports$1 = bundle$1.exports;
-const Image = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$1);
+const Marker = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$1);
 var bundle = { exports: {} };
 (function(module, exports) {
   !function(t2, e2) {
@@ -48827,7 +49532,7 @@ const EDITOR_JS_TOOLS = {
     inlineToolbar: true
   },
   table: Table,
-  // warning: Warning,
+  warning: Warning,
   youtube: {
     class: Youtube,
     inlineToolbar: true
@@ -48847,7 +49552,7 @@ const EDITOR_JS_TOOLS = {
   // raw: { class: Raw, inlineToolbar: true },
   // header: { class: Header, inlineToolbar: true },
   // quote: Quote,
-  // marker: Marker,
+  marker: Marker,
   // checklist: { class: CheckList, inlineToolbar: true },
   // delimiter: Delimiter,
   inlineCode: InlineCode
@@ -49272,11 +49977,7 @@ function CreateLessonForm({ type }) {
       setTestsData(data.data.tests);
       if (!editor$2) {
         try {
-<<<<<<< HEAD
-          editor$1 = new vi({
-=======
-          editor$2 = new Bi({
->>>>>>> 0fc2617badf6d85cc1307a26db62bef7b046b2dc
+          editor$2 = new vi({
             holder: "editorjs",
             tools: EDITOR_JS_TOOLS,
             i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -49294,11 +49995,7 @@ function CreateLessonForm({ type }) {
   reactExports.useEffect(() => {
     if (!editor$2 && !isFetching && !data) {
       try {
-<<<<<<< HEAD
-        editor$1 = new vi({
-=======
-        editor$2 = new Bi({
->>>>>>> 0fc2617badf6d85cc1307a26db62bef7b046b2dc
+        editor$2 = new vi({
           holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -49493,11 +50190,7 @@ function CreateNewsForm({ type }) {
   reactExports.useEffect(() => {
     if (!editor$1) {
       try {
-<<<<<<< HEAD
-        editor = new vi({
-=======
-        editor$1 = new Bi({
->>>>>>> 0fc2617badf6d85cc1307a26db62bef7b046b2dc
+        editor$1 = new vi({
           holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
@@ -49633,7 +50326,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -49761,7 +50454,7 @@ function CreateCompetitionForm({ type }) {
   reactExports.useEffect(() => {
     if (!editor) {
       try {
-        editor = new Bi({
+        editor = new vi({
           holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,

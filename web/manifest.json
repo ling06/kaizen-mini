@@ -114,7 +114,7 @@
       "assets/addIconWhite.svg",
       "assets/loadingLogo.svg",
       "assets/book.svg",
-      "assets/Home.svg",
+      "assets/home.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
       "assets/Montserrat-Light.ttf",
@@ -212,10 +212,6 @@
   "src/assets/fonts/Montserrat-SemiBold.woff2": {
     "file": "assets/Montserrat-SemiBold.woff2",
     "src": "src/assets/fonts/Montserrat-SemiBold.woff2"
-  },
-  "src/assets/images/Home.svg": {
-    "file": "assets/Home.svg",
-    "src": "src/assets/images/Home.svg"
   },
   "src/assets/images/accordionIcon.svg": {
     "file": "assets/accordionIcon.svg",
@@ -316,6 +312,10 @@
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
+  },
+  "src/assets/images/home.svg": {
+    "file": "assets/home.svg",
+    "src": "src/assets/images/home.svg"
   },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
