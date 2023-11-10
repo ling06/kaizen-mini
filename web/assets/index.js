@@ -10344,6 +10344,9 @@ const DefaultBtn = st$1.button`
     background-color: ${(props) => props.theme.colors.darkBlue};
   }
 `;
+const EditorTabel = st$1.table`
+
+`;
 const Text$5 = st$1.p`
   font-size: 18px;
   font-weight: 700;
@@ -28610,6 +28613,9 @@ const useEditorOutput = (editorData) => {
     var _a, _b;
     if (block.type === "paragraph") {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorParagraph, { children: block.data.text }, block.id);
+    }
+    if (block.type === "table") {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(EditorTabel, { children: block.data.table }, block.id);
     }
     if (block.type === "list" && block.data.style === "ordered") {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(UnorderedList, { children: (_a = block.data.items) == null ? void 0 : _a.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { children: item }, item)) }, block.id);
@@ -47986,6 +47992,688 @@ var main = { exports: {} };
 })(main);
 var mainExports = main.exports;
 const Youtube = /* @__PURE__ */ getDefaultExportFromCjs(mainExports);
+var table = { exports: {} };
+(function(module, exports) {
+  !function(t2, e2) {
+    module.exports = e2();
+  }(window, function() {
+    return function(t2) {
+      var e2 = {};
+      function o2(r2) {
+        if (e2[r2])
+          return e2[r2].exports;
+        var i2 = e2[r2] = { i: r2, l: false, exports: {} };
+        return t2[r2].call(i2.exports, i2, i2.exports, o2), i2.l = true, i2.exports;
+      }
+      return o2.m = t2, o2.c = e2, o2.d = function(t3, e3, r2) {
+        o2.o(t3, e3) || Object.defineProperty(t3, e3, { enumerable: true, get: r2 });
+      }, o2.r = function(t3) {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t3, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(t3, "__esModule", { value: true });
+      }, o2.t = function(t3, e3) {
+        if (1 & e3 && (t3 = o2(t3)), 8 & e3)
+          return t3;
+        if (4 & e3 && "object" == typeof t3 && t3 && t3.__esModule)
+          return t3;
+        var r2 = /* @__PURE__ */ Object.create(null);
+        if (o2.r(r2), Object.defineProperty(r2, "default", { enumerable: true, value: t3 }), 2 & e3 && "string" != typeof t3)
+          for (var i2 in t3)
+            o2.d(r2, i2, (function(e4) {
+              return t3[e4];
+            }).bind(null, i2));
+        return r2;
+      }, o2.n = function(t3) {
+        var e3 = t3 && t3.__esModule ? function() {
+          return t3.default;
+        } : function() {
+          return t3;
+        };
+        return o2.d(e3, "a", e3), e3;
+      }, o2.o = function(t3, e3) {
+        return Object.prototype.hasOwnProperty.call(t3, e3);
+      }, o2.p = "/", o2(o2.s = 6);
+    }([function(t2, e2) {
+      t2.exports = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect width="18" height="18" fill="#F4F5F7" rx="2"></rect><circle cx="11.5" cy="6.5" r="1.5"></circle><circle cx="11.5" cy="11.5" r="1.5"></circle><circle cx="6.5" cy="6.5" r="1.5"></circle><circle cx="6.5" cy="11.5" r="1.5"></circle></svg>';
+    }, function(t2, e2, o2) {
+      var r2 = o2(2);
+      "string" == typeof r2 && (r2 = [[t2.i, r2, ""]]);
+      var i2 = { hmr: true, transform: void 0, insertInto: void 0 };
+      o2(4)(r2, i2);
+      r2.locals && (t2.exports = r2.locals);
+    }, function(t2, e2, o2) {
+      (t2.exports = o2(3)(false)).push([t2.i, '.tc-wrap{--color-background:#f9f9fb;--color-text-secondary:#7b7e89;--color-border:#e8e8eb;--cell-size:34px;--toolbox-icon-size:18px;--toolbox-padding:6px;--toolbox-aiming-field-size:calc(var(--toolbox-icon-size) + var(--toolbox-padding)*2);border-left:0;position:relative;height:100%;width:100%;margin-top:var(--toolbox-icon-size);box-sizing:border-box;display:grid;grid-template-columns:calc(100% - var(--cell-size)) var(--cell-size);}.tc-wrap--readonly{grid-template-columns:100% var(--cell-size)}.tc-wrap svg{vertical-align:top}@media print{.tc-wrap{border-left-color:var(--color-border);border-left-style:solid;border-left-width:1px;grid-template-columns:100% var(--cell-size)}}@media print{.tc-wrap .tc-row:after{display:none}}.tc-table{position:relative;width:100%;height:100%;display:grid;font-size:14px;border-top:1px solid var(--color-border);line-height:1.4;}.tc-table:after{width:calc(var(--cell-size));height:100%;left:calc(var(--cell-size)*-1);top:0}.tc-table:after,.tc-table:before{position:absolute;content:""}.tc-table:before{width:100%;height:var(--toolbox-aiming-field-size);top:calc(var(--toolbox-aiming-field-size)*-1);left:0}.tc-table--heading .tc-row:first-child{font-weight:600;border-bottom:2px solid var(--color-border);}.tc-table--heading .tc-row:first-child [contenteditable]:empty:before{content:attr(heading);color:var(--color-text-secondary)}.tc-table--heading .tc-row:first-child:after{bottom:-2px;border-bottom:2px solid var(--color-border)}.tc-add-column,.tc-add-row{display:flex;color:var(--color-text-secondary)}@media print{.tc-add{display:none}}.tc-add-column{padding:4px 0;justify-content:center;border-top:1px solid var(--color-border);}@media print{.tc-add-column{display:none}}.tc-add-row{height:var(--cell-size);align-items:center;padding-left:4px;position:relative;}.tc-add-row:before{content:"";position:absolute;right:calc(var(--cell-size)*-1);width:var(--cell-size);height:100%}@media print{.tc-add-row{display:none}}.tc-add-column,.tc-add-row{transition:0s;cursor:pointer;will-change:background-color;}.tc-add-column:hover,.tc-add-row:hover{transition:background-color .1s ease;background-color:var(--color-background)}.tc-add-row{margin-top:1px;}.tc-add-row:hover:before{transition:.1s;background-color:var(--color-background)}.tc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(10px,1fr));position:relative;border-bottom:1px solid var(--color-border);}.tc-row:after{content:"";pointer-events:none;position:absolute;width:var(--cell-size);height:100%;bottom:-1px;right:calc(var(--cell-size)*-1);border-bottom:1px solid var(--color-border)}.tc-row--selected{background:var(--color-background)}.tc-row--selected:after{background:var(--color-background)}.tc-cell{border-right:1px solid var(--color-border);padding:6px 12px;overflow:hidden;outline:none;line-break:normal;}.tc-cell--selected{background:var(--color-background)}.tc-wrap--readonly .tc-row:after{display:none}.tc-toolbox{--toolbox-padding:6px;--popover-margin:30px;--toggler-click-zone-size:30px;--toggler-dots-color:#7b7e89;--toggler-dots-color-hovered:#1d202b;position:absolute;cursor:pointer;z-index:1;opacity:0;transition:opacity .1s;will-change:left,opacity;}.tc-toolbox--column{top:calc(var(--toggler-click-zone-size)*-1);transform:translateX(calc(var(--toggler-click-zone-size)*-1/2));will-change:left,opacity}.tc-toolbox--row{left:calc(var(--popover-margin)*-1);transform:translateY(calc(var(--toggler-click-zone-size)*-1/2));margin-top:-1px;will-change:top,opacity}.tc-toolbox--showed{opacity:1}.tc-toolbox .tc-popover{position:absolute;top:0;left:var(--popover-margin)}.tc-toolbox__toggler{display:flex;align-items:center;justify-content:center;width:var(--toggler-click-zone-size);height:var(--toggler-click-zone-size);color:var(--toggler-dots-color);opacity:0;transition:opacity .15s ease;will-change:opacity;}.tc-toolbox__toggler:hover{color:var(--toggler-dots-color-hovered)}.tc-toolbox__toggler svg{fill:currentColor}.tc-wrap:hover .tc-toolbox__toggler{opacity:1}.tc-settings .cdx-settings-button{width:50%;margin:0}.tc-popover{--color-border:#eaeaea;--color-background:#fff;--color-background-hover:rgba(232,232,235,0.49);--color-background-confirm:#e24a4a;--color-background-confirm-hover:#d54040;--color-text-confirm:#fff;background:var(--color-background);border:1px solid var(--color-border);box-shadow:0 3px 15px -3px rgba(13,20,33,.13);border-radius:6px;padding:6px;display:none;will-change:opacity,transform;}.tc-popover--opened{display:block;animation:menuShowing .1s cubic-bezier(.215,.61,.355,1) forwards}.tc-popover__item{display:flex;align-items:center;padding:2px 14px 2px 2px;border-radius:5px;cursor:pointer;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;user-select:none;}.tc-popover__item:hover{background:var(--color-background-hover)}.tc-popover__item:not(:last-of-type){margin-bottom:2px}.tc-popover__item-icon{display:inline-flex;width:26px;height:26px;align-items:center;justify-content:center;background:var(--color-background);border-radius:5px;border:1px solid var(--color-border);margin-right:8px}.tc-popover__item-label{line-height:22px;font-size:14px;font-weight:500}.tc-popover__item--confirm{background:var(--color-background-confirm);color:var(--color-text-confirm);}.tc-popover__item--confirm:hover{background-color:var(--color-background-confirm-hover)}.tc-popover__item--confirm .tc-popover__item-icon{background:var(--color-background-confirm);border-color:rgba(0,0,0,.1);}.tc-popover__item--confirm .tc-popover__item-icon svg{transition:transform .2s ease-in;transform:rotate(90deg) scale(1.2)}.tc-popover__item--hidden{display:none}@keyframes menuShowing{0%{opacity:0;transform:translateY(-8px) scale(.9)}70%{opacity:1;transform:translateY(2px)}to{transform:translateY(0)}}', ""]);
+    }, function(t2, e2) {
+      t2.exports = function(t3) {
+        var e3 = [];
+        return e3.toString = function() {
+          return this.map(function(e4) {
+            var o2 = function(t4, e5) {
+              var o3 = t4[1] || "", r2 = t4[3];
+              if (!r2)
+                return o3;
+              if (e5 && "function" == typeof btoa) {
+                var i2 = (s2 = r2, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(s2)))) + " */"), n2 = r2.sources.map(function(t5) {
+                  return "/*# sourceURL=" + r2.sourceRoot + t5 + " */";
+                });
+                return [o3].concat(n2).concat([i2]).join("\n");
+              }
+              var s2;
+              return [o3].join("\n");
+            }(e4, t3);
+            return e4[2] ? "@media " + e4[2] + "{" + o2 + "}" : o2;
+          }).join("");
+        }, e3.i = function(t4, o2) {
+          "string" == typeof t4 && (t4 = [[null, t4, ""]]);
+          for (var r2 = {}, i2 = 0; i2 < this.length; i2++) {
+            var n2 = this[i2][0];
+            "number" == typeof n2 && (r2[n2] = true);
+          }
+          for (i2 = 0; i2 < t4.length; i2++) {
+            var s2 = t4[i2];
+            "number" == typeof s2[0] && r2[s2[0]] || (o2 && !s2[2] ? s2[2] = o2 : o2 && (s2[2] = "(" + s2[2] + ") and (" + o2 + ")"), e3.push(s2));
+          }
+        }, e3;
+      };
+    }, function(t2, e2, o2) {
+      var r2, i2, n2 = {}, s2 = (r2 = function() {
+        return window && document && document.all && !window.atob;
+      }, function() {
+        return void 0 === i2 && (i2 = r2.apply(this, arguments)), i2;
+      }), l2 = function(t3, e3) {
+        return e3 ? e3.querySelector(t3) : document.querySelector(t3);
+      }, a2 = function(t3) {
+        var e3 = {};
+        return function(t4, o3) {
+          if ("function" == typeof t4)
+            return t4();
+          if (void 0 === e3[t4]) {
+            var r3 = l2.call(this, t4, o3);
+            if (window.HTMLIFrameElement && r3 instanceof window.HTMLIFrameElement)
+              try {
+                r3 = r3.contentDocument.head;
+              } catch (t5) {
+                r3 = null;
+              }
+            e3[t4] = r3;
+          }
+          return e3[t4];
+        };
+      }(), c2 = null, d2 = 0, h2 = [], p2 = o2(5);
+      function u2(t3, e3) {
+        for (var o3 = 0; o3 < t3.length; o3++) {
+          var r3 = t3[o3], i3 = n2[r3.id];
+          if (i3) {
+            i3.refs++;
+            for (var s3 = 0; s3 < i3.parts.length; s3++)
+              i3.parts[s3](r3.parts[s3]);
+            for (; s3 < r3.parts.length; s3++)
+              i3.parts.push(v2(r3.parts[s3], e3));
+          } else {
+            var l3 = [];
+            for (s3 = 0; s3 < r3.parts.length; s3++)
+              l3.push(v2(r3.parts[s3], e3));
+            n2[r3.id] = { id: r3.id, refs: 1, parts: l3 };
+          }
+        }
+      }
+      function f2(t3, e3) {
+        for (var o3 = [], r3 = {}, i3 = 0; i3 < t3.length; i3++) {
+          var n3 = t3[i3], s3 = e3.base ? n3[0] + e3.base : n3[0], l3 = { css: n3[1], media: n3[2], sourceMap: n3[3] };
+          r3[s3] ? r3[s3].parts.push(l3) : o3.push(r3[s3] = { id: s3, parts: [l3] });
+        }
+        return o3;
+      }
+      function g2(t3, e3) {
+        var o3 = a2(t3.insertInto);
+        if (!o3)
+          throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+        var r3 = h2[h2.length - 1];
+        if ("top" === t3.insertAt)
+          r3 ? r3.nextSibling ? o3.insertBefore(e3, r3.nextSibling) : o3.appendChild(e3) : o3.insertBefore(e3, o3.firstChild), h2.push(e3);
+        else if ("bottom" === t3.insertAt)
+          o3.appendChild(e3);
+        else {
+          if ("object" != typeof t3.insertAt || !t3.insertAt.before)
+            throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+          var i3 = a2(t3.insertAt.before, o3);
+          o3.insertBefore(e3, i3);
+        }
+      }
+      function m2(t3) {
+        if (null === t3.parentNode)
+          return false;
+        t3.parentNode.removeChild(t3);
+        var e3 = h2.indexOf(t3);
+        e3 >= 0 && h2.splice(e3, 1);
+      }
+      function w2(t3) {
+        var e3 = document.createElement("style");
+        if (void 0 === t3.attrs.type && (t3.attrs.type = "text/css"), void 0 === t3.attrs.nonce) {
+          var r3 = function() {
+            return o2.nc;
+          }();
+          r3 && (t3.attrs.nonce = r3);
+        }
+        return b2(e3, t3.attrs), g2(t3, e3), e3;
+      }
+      function b2(t3, e3) {
+        Object.keys(e3).forEach(function(o3) {
+          t3.setAttribute(o3, e3[o3]);
+        });
+      }
+      function v2(t3, e3) {
+        var o3, r3, i3, n3;
+        if (e3.transform && t3.css) {
+          if (!(n3 = "function" == typeof e3.transform ? e3.transform(t3.css) : e3.transform.default(t3.css)))
+            return function() {
+            };
+          t3.css = n3;
+        }
+        if (e3.singleton) {
+          var s3 = d2++;
+          o3 = c2 || (c2 = w2(e3)), r3 = y2.bind(null, o3, s3, false), i3 = y2.bind(null, o3, s3, true);
+        } else
+          t3.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (o3 = function(t4) {
+            var e4 = document.createElement("link");
+            return void 0 === t4.attrs.type && (t4.attrs.type = "text/css"), t4.attrs.rel = "stylesheet", b2(e4, t4.attrs), g2(t4, e4), e4;
+          }(e3), r3 = R2.bind(null, o3, e3), i3 = function() {
+            m2(o3), o3.href && URL.revokeObjectURL(o3.href);
+          }) : (o3 = w2(e3), r3 = k2.bind(null, o3), i3 = function() {
+            m2(o3);
+          });
+        return r3(t3), function(e4) {
+          if (e4) {
+            if (e4.css === t3.css && e4.media === t3.media && e4.sourceMap === t3.sourceMap)
+              return;
+            r3(t3 = e4);
+          } else
+            i3();
+        };
+      }
+      t2.exports = function(t3, e3) {
+        if ("undefined" != typeof DEBUG && DEBUG && "object" != typeof document)
+          throw new Error("The style-loader cannot be used in a non-browser environment");
+        (e3 = e3 || {}).attrs = "object" == typeof e3.attrs ? e3.attrs : {}, e3.singleton || "boolean" == typeof e3.singleton || (e3.singleton = s2()), e3.insertInto || (e3.insertInto = "head"), e3.insertAt || (e3.insertAt = "bottom");
+        var o3 = f2(t3, e3);
+        return u2(o3, e3), function(t4) {
+          for (var r3 = [], i3 = 0; i3 < o3.length; i3++) {
+            var s3 = o3[i3];
+            (l3 = n2[s3.id]).refs--, r3.push(l3);
+          }
+          t4 && u2(f2(t4, e3), e3);
+          for (i3 = 0; i3 < r3.length; i3++) {
+            var l3;
+            if (0 === (l3 = r3[i3]).refs) {
+              for (var a3 = 0; a3 < l3.parts.length; a3++)
+                l3.parts[a3]();
+              delete n2[l3.id];
+            }
+          }
+        };
+      };
+      var x2, C2 = (x2 = [], function(t3, e3) {
+        return x2[t3] = e3, x2.filter(Boolean).join("\n");
+      });
+      function y2(t3, e3, o3, r3) {
+        var i3 = o3 ? "" : r3.css;
+        if (t3.styleSheet)
+          t3.styleSheet.cssText = C2(e3, i3);
+        else {
+          var n3 = document.createTextNode(i3), s3 = t3.childNodes;
+          s3[e3] && t3.removeChild(s3[e3]), s3.length ? t3.insertBefore(n3, s3[e3]) : t3.appendChild(n3);
+        }
+      }
+      function k2(t3, e3) {
+        var o3 = e3.css, r3 = e3.media;
+        if (r3 && t3.setAttribute("media", r3), t3.styleSheet)
+          t3.styleSheet.cssText = o3;
+        else {
+          for (; t3.firstChild; )
+            t3.removeChild(t3.firstChild);
+          t3.appendChild(document.createTextNode(o3));
+        }
+      }
+      function R2(t3, e3, o3) {
+        var r3 = o3.css, i3 = o3.sourceMap, n3 = void 0 === e3.convertToAbsoluteUrls && i3;
+        (e3.convertToAbsoluteUrls || n3) && (r3 = p2(r3)), i3 && (r3 += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(i3)))) + " */");
+        var s3 = new Blob([r3], { type: "text/css" }), l3 = t3.href;
+        t3.href = URL.createObjectURL(s3), l3 && URL.revokeObjectURL(l3);
+      }
+    }, function(t2, e2) {
+      t2.exports = function(t3) {
+        var e3 = "undefined" != typeof window && window.location;
+        if (!e3)
+          throw new Error("fixUrls requires window.location");
+        if (!t3 || "string" != typeof t3)
+          return t3;
+        var o2 = e3.protocol + "//" + e3.host, r2 = o2 + e3.pathname.replace(/\/[^\/]*$/, "/");
+        return t3.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(t4, e4) {
+          var i2, n2 = e4.trim().replace(/^"(.*)"$/, function(t5, e5) {
+            return e5;
+          }).replace(/^'(.*)'$/, function(t5, e5) {
+            return e5;
+          });
+          return /^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(n2) ? t4 : (i2 = 0 === n2.indexOf("//") ? n2 : 0 === n2.indexOf("/") ? o2 + n2 : r2 + n2.replace(/^\.\//, ""), "url(" + JSON.stringify(i2) + ")");
+        });
+      };
+    }, function(t2, e2, o2) {
+      function r2(t3, e3, o3 = {}) {
+        const r3 = document.createElement(t3);
+        Array.isArray(e3) ? r3.classList.add(...e3) : e3 && r3.classList.add(e3);
+        for (const t4 in o3)
+          Object.prototype.hasOwnProperty.call(o3, t4) && (r3[t4] = o3[t4]);
+        return r3;
+      }
+      function i2(t3) {
+        const e3 = t3.getBoundingClientRect();
+        return { y1: Math.floor(e3.top + window.pageYOffset), x1: Math.floor(e3.left + window.pageXOffset), x2: Math.floor(e3.right + window.pageXOffset), y2: Math.floor(e3.bottom + window.pageYOffset) };
+      }
+      function n2(t3, e3) {
+        const o3 = i2(t3), r3 = i2(e3);
+        return { fromTopBorder: r3.y1 - o3.y1, fromLeftBorder: r3.x1 - o3.x1, fromRightBorder: o3.x2 - r3.x2, fromBottomBorder: o3.y2 - r3.y2 };
+      }
+      function s2(t3, e3) {
+        return e3.parentNode.insertBefore(t3, e3);
+      }
+      function l2(t3, e3 = true) {
+        const o3 = document.createRange(), r3 = window.getSelection();
+        o3.selectNodeContents(t3), o3.collapse(e3), r3.removeAllRanges(), r3.addRange(o3);
+      }
+      o2.r(e2);
+      class a2 {
+        constructor({ items: t3 }) {
+          this.items = t3, this.wrapper = void 0, this.itemEls = [];
+        }
+        static get CSS() {
+          return { popover: "tc-popover", popoverOpened: "tc-popover--opened", item: "tc-popover__item", itemHidden: "tc-popover__item--hidden", itemConfirmState: "tc-popover__item--confirm", itemIcon: "tc-popover__item-icon", itemLabel: "tc-popover__item-label" };
+        }
+        render() {
+          return this.wrapper = r2("div", a2.CSS.popover), this.items.forEach((t3, e3) => {
+            const o3 = r2("div", a2.CSS.item), i3 = r2("div", a2.CSS.itemIcon, { innerHTML: t3.icon }), n3 = r2("div", a2.CSS.itemLabel, { textContent: t3.label });
+            o3.dataset.index = e3, o3.appendChild(i3), o3.appendChild(n3), this.wrapper.appendChild(o3), this.itemEls.push(o3);
+          }), this.wrapper.addEventListener("click", (t3) => {
+            this.popoverClicked(t3);
+          }), this.wrapper;
+        }
+        popoverClicked(t3) {
+          const e3 = t3.target.closest("." + a2.CSS.item);
+          if (!e3)
+            return;
+          const o3 = e3.dataset.index, r3 = this.items[o3];
+          !r3.confirmationRequired || this.hasConfirmationState(e3) ? r3.onClick() : this.setConfirmationState(e3);
+        }
+        setConfirmationState(t3) {
+          t3.classList.add(a2.CSS.itemConfirmState);
+        }
+        clearConfirmationState(t3) {
+          t3.classList.remove(a2.CSS.itemConfirmState);
+        }
+        hasConfirmationState(t3) {
+          return t3.classList.contains(a2.CSS.itemConfirmState);
+        }
+        get opened() {
+          return this.wrapper.classList.contains(a2.CSS.popoverOpened);
+        }
+        open() {
+          this.items.forEach((t3, e3) => {
+            "function" == typeof t3.hideIf && this.itemEls[e3].classList.toggle(a2.CSS.itemHidden, t3.hideIf());
+          }), this.wrapper.classList.add(a2.CSS.popoverOpened);
+        }
+        close() {
+          this.wrapper.classList.remove(a2.CSS.popoverOpened), this.itemEls.forEach((t3) => {
+            this.clearConfirmationState(t3);
+          });
+        }
+      }
+      var c2 = o2(0), d2 = o2.n(c2);
+      class h2 {
+        constructor({ api: t3, items: e3, onOpen: o3, onClose: r3, cssModifier: i3 = "" }) {
+          this.api = t3, this.items = e3, this.onOpen = o3, this.onClose = r3, this.cssModifier = i3, this.popover = null, this.wrapper = this.createToolbox();
+        }
+        static get CSS() {
+          return { toolbox: "tc-toolbox", toolboxShowed: "tc-toolbox--showed", toggler: "tc-toolbox__toggler" };
+        }
+        get element() {
+          return this.wrapper;
+        }
+        createToolbox() {
+          const t3 = r2("div", [h2.CSS.toolbox, this.cssModifier ? `${h2.CSS.toolbox}--${this.cssModifier}` : ""]);
+          t3.dataset.mutationFree = "true";
+          const e3 = this.createPopover(), o3 = this.createToggler();
+          return t3.appendChild(o3), t3.appendChild(e3), t3;
+        }
+        createToggler() {
+          const t3 = r2("div", h2.CSS.toggler, { innerHTML: d2.a });
+          return t3.addEventListener("click", () => {
+            this.togglerClicked();
+          }), t3;
+        }
+        createPopover() {
+          return this.popover = new a2({ items: this.items }), this.popover.render();
+        }
+        togglerClicked() {
+          this.popover.opened ? (this.popover.close(), this.onClose()) : (this.popover.open(), this.onOpen());
+        }
+        show(t3) {
+          const e3 = t3();
+          Object.entries(e3).forEach(([t4, e4]) => {
+            this.wrapper.style[t4] = e4;
+          }), this.wrapper.classList.add(h2.CSS.toolboxShowed);
+        }
+        hide() {
+          this.popover.close(), this.wrapper.classList.remove(h2.CSS.toolboxShowed);
+        }
+      }
+      const p2 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 8L12 12M12 12L16 16M12 12L16 8M12 12L8 16"/></svg>', u2 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 7V12M12 17V12M17 12H12M12 12H7"/></svg>', f2 = "tc-wrap", g2 = "tc-wrap--readonly", m2 = "tc-table", w2 = "tc-row", b2 = "tc-table--heading", v2 = "tc-row--selected", x2 = "tc-cell", C2 = "tc-cell--selected", y2 = "tc-add-row", k2 = "tc-add-column";
+      class R2 {
+        constructor(t3, e3, o3, r3) {
+          this.readOnly = t3, this.api = e3, this.data = o3, this.config = r3, this.wrapper = null, this.table = null, this.toolboxColumn = this.createColumnToolbox(), this.toolboxRow = this.createRowToolbox(), this.createTableWrapper(), this.hoveredRow = 0, this.hoveredColumn = 0, this.selectedRow = 0, this.selectedColumn = 0, this.tunes = { withHeadings: false }, this.resize(), this.fill(), this.focusedCell = { row: 0, column: 0 }, this.documentClicked = (t4) => {
+            const e4 = null !== t4.target.closest("." + m2), o4 = null === t4.target.closest("." + f2);
+            (e4 || o4) && this.hideToolboxes();
+            const r4 = t4.target.closest("." + y2), i3 = t4.target.closest("." + k2);
+            r4 && r4.parentNode === this.wrapper ? (this.addRow(void 0, true), this.hideToolboxes()) : i3 && i3.parentNode === this.wrapper && (this.addColumn(void 0, true), this.hideToolboxes());
+          }, this.readOnly || this.bindEvents();
+        }
+        getWrapper() {
+          return this.wrapper;
+        }
+        bindEvents() {
+          document.addEventListener("click", this.documentClicked), this.table.addEventListener("mousemove", function(t3, e3) {
+            let o3 = 0;
+            return function(...r3) {
+              const i3 = (/* @__PURE__ */ new Date()).getTime();
+              if (!(i3 - o3 < t3))
+                return o3 = i3, e3(...r3);
+            };
+          }(150, (t3) => this.onMouseMoveInTable(t3)), { passive: true }), this.table.onkeypress = (t3) => this.onKeyPressListener(t3), this.table.addEventListener("keydown", (t3) => this.onKeyDownListener(t3)), this.table.addEventListener("focusin", (t3) => this.focusInTableListener(t3));
+        }
+        createColumnToolbox() {
+          return new h2({ api: this.api, cssModifier: "column", items: [{ label: this.api.i18n.t("Add column to left"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.9167 14.9167L11.5833 18.25M11.5833 18.25L8.25 14.9167M11.5833 18.25L11.5833 10.0833C11.5833 9.19928 11.9345 8.35143 12.5596 7.72631C13.1848 7.10119 14.0326 6.75 14.9167 6.75"/></svg>', onClick: () => {
+            this.addColumn(this.selectedColumn, true), this.hideToolboxes();
+          } }, { label: this.api.i18n.t("Add column to right"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.13333 14.9167L12.4667 18.25M12.4667 18.25L15.8 14.9167M12.4667 18.25L12.4667 10.0833C12.4667 9.19928 12.1155 8.35143 11.4904 7.72631C10.8652 7.10119 10.0174 6.75 9.13333 6.75"/></svg>', onClick: () => {
+            this.addColumn(this.selectedColumn + 1, true), this.hideToolboxes();
+          } }, { label: this.api.i18n.t("Delete column"), icon: p2, hideIf: () => 1 === this.numberOfColumns, confirmationRequired: true, onClick: () => {
+            this.deleteColumn(this.selectedColumn), this.hideToolboxes();
+          } }], onOpen: () => {
+            this.selectColumn(this.hoveredColumn), this.hideRowToolbox();
+          }, onClose: () => {
+            this.unselectColumn();
+          } });
+        }
+        createRowToolbox() {
+          return new h2({ api: this.api, cssModifier: "row", items: [{ label: this.api.i18n.t("Add row above"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.8833 15.8333L18.2167 12.5M18.2167 12.5L14.8833 9.16667M18.2167 12.5L10.05 12.5C9.16595 12.5 8.31811 12.8512 7.69299 13.4763C7.06787 14.1014 6.71667 14.9493 6.71667 15.8333"/></svg>', onClick: () => {
+            this.addRow(this.selectedRow, true), this.hideToolboxes();
+          } }, { label: this.api.i18n.t("Add row below"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.8833 9.16666L18.2167 12.5M18.2167 12.5L14.8833 15.8333M18.2167 12.5H10.05C9.16594 12.5 8.31809 12.1488 7.69297 11.5237C7.06785 10.8986 6.71666 10.0507 6.71666 9.16666"/></svg>', onClick: () => {
+            this.addRow(this.selectedRow + 1, true), this.hideToolboxes();
+          } }, { label: this.api.i18n.t("Delete row"), icon: p2, hideIf: () => 1 === this.numberOfRows, confirmationRequired: true, onClick: () => {
+            this.deleteRow(this.selectedRow), this.hideToolboxes();
+          } }], onOpen: () => {
+            this.selectRow(this.hoveredRow), this.hideColumnToolbox();
+          }, onClose: () => {
+            this.unselectRow();
+          } });
+        }
+        moveCursorToNextRow() {
+          this.focusedCell.row !== this.numberOfRows ? (this.focusedCell.row += 1, this.focusCell(this.focusedCell)) : (this.addRow(), this.focusedCell.row += 1, this.focusCell(this.focusedCell), this.updateToolboxesPosition(0, 0));
+        }
+        getCell(t3, e3) {
+          return this.table.querySelectorAll(`.${w2}:nth-child(${t3}) .${x2}`)[e3 - 1];
+        }
+        getRow(t3) {
+          return this.table.querySelector(`.${w2}:nth-child(${t3})`);
+        }
+        getRowByCell(t3) {
+          return t3.parentElement;
+        }
+        getRowFirstCell(t3) {
+          return t3.querySelector(`.${x2}:first-child`);
+        }
+        setCellContent(t3, e3, o3) {
+          this.getCell(t3, e3).innerHTML = o3;
+        }
+        addColumn(t3 = -1, e3 = false) {
+          let o3 = this.numberOfColumns;
+          for (let r3 = 1; r3 <= this.numberOfRows; r3++) {
+            let i3;
+            const n3 = this.createCell();
+            if (t3 > 0 && t3 <= o3 ? (i3 = this.getCell(r3, t3), s2(n3, i3)) : i3 = this.getRow(r3).appendChild(n3), 1 === r3) {
+              const i4 = this.getCell(r3, t3 > 0 ? t3 : o3 + 1);
+              i4 && e3 && l2(i4);
+            }
+          }
+          this.addHeadingAttrToFirstRow();
+        }
+        addRow(t3 = -1, e3 = false) {
+          let o3, i3 = r2("div", w2);
+          this.tunes.withHeadings && this.removeHeadingAttrFromFirstRow();
+          let n3 = this.numberOfColumns;
+          if (t3 > 0 && t3 <= this.numberOfRows) {
+            o3 = s2(i3, this.getRow(t3));
+          } else
+            o3 = this.table.appendChild(i3);
+          this.fillRow(o3, n3), this.tunes.withHeadings && this.addHeadingAttrToFirstRow();
+          const a3 = this.getRowFirstCell(o3);
+          return a3 && e3 && l2(a3), o3;
+        }
+        deleteColumn(t3) {
+          for (let e3 = 1; e3 <= this.numberOfRows; e3++) {
+            const o3 = this.getCell(e3, t3);
+            if (!o3)
+              return;
+            o3.remove();
+          }
+        }
+        deleteRow(t3) {
+          this.getRow(t3).remove(), this.addHeadingAttrToFirstRow();
+        }
+        createTableWrapper() {
+          if (this.wrapper = r2("div", f2), this.table = r2("div", m2), this.readOnly && this.wrapper.classList.add(g2), this.wrapper.appendChild(this.toolboxRow.element), this.wrapper.appendChild(this.toolboxColumn.element), this.wrapper.appendChild(this.table), !this.readOnly) {
+            const t3 = r2("div", k2, { innerHTML: u2 }), e3 = r2("div", y2, { innerHTML: u2 });
+            this.wrapper.appendChild(t3), this.wrapper.appendChild(e3);
+          }
+        }
+        computeInitialSize() {
+          const t3 = this.data && this.data.content, e3 = Array.isArray(t3), o3 = !!e3 && t3.length, r3 = e3 ? t3.length : void 0, i3 = o3 ? t3[0].length : void 0, n3 = Number.parseInt(this.config && this.config.rows), s3 = Number.parseInt(this.config && this.config.cols), l3 = !isNaN(n3) && n3 > 0 ? n3 : void 0, a3 = !isNaN(s3) && s3 > 0 ? s3 : void 0;
+          return { rows: r3 || l3 || 2, cols: i3 || a3 || 2 };
+        }
+        resize() {
+          const { rows: t3, cols: e3 } = this.computeInitialSize();
+          for (let e4 = 0; e4 < t3; e4++)
+            this.addRow();
+          for (let t4 = 0; t4 < e3; t4++)
+            this.addColumn();
+        }
+        fill() {
+          const t3 = this.data;
+          if (t3 && t3.content)
+            for (let e3 = 0; e3 < t3.content.length; e3++)
+              for (let o3 = 0; o3 < t3.content[e3].length; o3++)
+                this.setCellContent(e3 + 1, o3 + 1, t3.content[e3][o3]);
+        }
+        fillRow(t3, e3) {
+          for (let o3 = 1; o3 <= e3; o3++) {
+            const e4 = this.createCell();
+            t3.appendChild(e4);
+          }
+        }
+        createCell() {
+          return r2("div", x2, { contentEditable: !this.readOnly });
+        }
+        get numberOfRows() {
+          return this.table.childElementCount;
+        }
+        get numberOfColumns() {
+          return this.numberOfRows ? this.table.querySelectorAll(`.${w2}:first-child .${x2}`).length : 0;
+        }
+        get isColumnMenuShowing() {
+          return 0 !== this.selectedColumn;
+        }
+        get isRowMenuShowing() {
+          return 0 !== this.selectedRow;
+        }
+        onMouseMoveInTable(t3) {
+          const { row: e3, column: o3 } = this.getHoveredCell(t3);
+          this.hoveredColumn = o3, this.hoveredRow = e3, this.updateToolboxesPosition();
+        }
+        onKeyPressListener(t3) {
+          if ("Enter" === t3.key) {
+            if (t3.shiftKey)
+              return true;
+            this.moveCursorToNextRow();
+          }
+          return "Enter" !== t3.key;
+        }
+        onKeyDownListener(t3) {
+          "Tab" === t3.key && t3.stopPropagation();
+        }
+        focusInTableListener(t3) {
+          const e3 = t3.target, o3 = this.getRowByCell(e3);
+          this.focusedCell = { row: Array.from(this.table.querySelectorAll("." + w2)).indexOf(o3) + 1, column: Array.from(o3.querySelectorAll("." + x2)).indexOf(e3) + 1 };
+        }
+        hideToolboxes() {
+          this.hideRowToolbox(), this.hideColumnToolbox(), this.updateToolboxesPosition();
+        }
+        hideRowToolbox() {
+          this.unselectRow(), this.toolboxRow.hide();
+        }
+        hideColumnToolbox() {
+          this.unselectColumn(), this.toolboxColumn.hide();
+        }
+        focusCell() {
+          this.focusedCellElem.focus();
+        }
+        get focusedCellElem() {
+          const { row: t3, column: e3 } = this.focusedCell;
+          return this.getCell(t3, e3);
+        }
+        updateToolboxesPosition(t3 = this.hoveredRow, e3 = this.hoveredColumn) {
+          this.isColumnMenuShowing || e3 > 0 && e3 <= this.numberOfColumns && this.toolboxColumn.show(() => ({ left: `calc((100% - var(--cell-size)) / (${this.numberOfColumns} * 2) * (1 + (${e3} - 1) * 2))` })), this.isRowMenuShowing || t3 > 0 && t3 <= this.numberOfRows && this.toolboxRow.show(() => {
+            const e4 = this.getRow(t3), { fromTopBorder: o3 } = n2(this.table, e4), { height: r3 } = e4.getBoundingClientRect();
+            return { top: Math.ceil(o3 + r3 / 2) + "px" };
+          });
+        }
+        setHeadingsSetting(t3) {
+          this.tunes.withHeadings = t3, t3 ? (this.table.classList.add(b2), this.addHeadingAttrToFirstRow()) : (this.table.classList.remove(b2), this.removeHeadingAttrFromFirstRow());
+        }
+        addHeadingAttrToFirstRow() {
+          for (let t3 = 1; t3 <= this.numberOfColumns; t3++) {
+            let e3 = this.getCell(1, t3);
+            e3 && e3.setAttribute("heading", this.api.i18n.t("Heading"));
+          }
+        }
+        removeHeadingAttrFromFirstRow() {
+          for (let t3 = 1; t3 <= this.numberOfColumns; t3++) {
+            let e3 = this.getCell(1, t3);
+            e3 && e3.removeAttribute("heading");
+          }
+        }
+        selectRow(t3) {
+          const e3 = this.getRow(t3);
+          e3 && (this.selectedRow = t3, e3.classList.add(v2));
+        }
+        unselectRow() {
+          if (this.selectedRow <= 0)
+            return;
+          const t3 = this.table.querySelector("." + v2);
+          t3 && t3.classList.remove(v2), this.selectedRow = 0;
+        }
+        selectColumn(t3) {
+          for (let e3 = 1; e3 <= this.numberOfRows; e3++) {
+            const o3 = this.getCell(e3, t3);
+            o3 && o3.classList.add(C2);
+          }
+          this.selectedColumn = t3;
+        }
+        unselectColumn() {
+          if (this.selectedColumn <= 0)
+            return;
+          let t3 = this.table.querySelectorAll("." + C2);
+          Array.from(t3).forEach((t4) => {
+            t4.classList.remove(C2);
+          }), this.selectedColumn = 0;
+        }
+        getHoveredCell(t3) {
+          let e3 = this.hoveredRow, o3 = this.hoveredColumn;
+          const { width: r3, height: i3, x: n3, y: s3 } = function(t4, e4) {
+            const o4 = t4.getBoundingClientRect(), { width: r4, height: i4, x: n4, y: s4 } = o4, { clientX: l3, clientY: a3 } = e4;
+            return { width: r4, height: i4, x: l3 - n4, y: a3 - s4 };
+          }(this.table, t3);
+          return n3 >= 0 && (o3 = this.binSearch(this.numberOfColumns, (t4) => this.getCell(1, t4), ({ fromLeftBorder: t4 }) => n3 < t4, ({ fromRightBorder: t4 }) => n3 > r3 - t4)), s3 >= 0 && (e3 = this.binSearch(this.numberOfRows, (t4) => this.getCell(t4, 1), ({ fromTopBorder: t4 }) => s3 < t4, ({ fromBottomBorder: t4 }) => s3 > i3 - t4)), { row: e3 || this.hoveredRow, column: o3 || this.hoveredColumn };
+        }
+        binSearch(t3, e3, o3, r3) {
+          let i3, s3 = 0, l3 = t3 + 1, a3 = 0;
+          for (; s3 < l3 - 1 && a3 < 10; ) {
+            i3 = Math.ceil((s3 + l3) / 2);
+            const t4 = e3(i3), c3 = n2(this.table, t4);
+            if (o3(c3))
+              l3 = i3;
+            else {
+              if (!r3(c3))
+                break;
+              s3 = i3;
+            }
+            a3++;
+          }
+          return i3;
+        }
+        getData() {
+          const t3 = [];
+          for (let e3 = 1; e3 <= this.numberOfRows; e3++) {
+            const o3 = this.table.querySelector(`.${w2}:nth-child(${e3})`), r3 = Array.from(o3.querySelectorAll("." + x2));
+            r3.every((t4) => !t4.textContent.trim()) || t3.push(r3.map((t4) => t4.innerHTML));
+          }
+          return t3;
+        }
+        destroy() {
+          document.removeEventListener("click", this.documentClicked);
+        }
+      }
+      o2(1), e2.default = class {
+        static get isReadOnlySupported() {
+          return true;
+        }
+        static get enableLineBreaks() {
+          return true;
+        }
+        constructor({ data: t3, config: e3, api: o3, readOnly: r3 }) {
+          this.api = o3, this.readOnly = r3, this.config = e3, this.data = { withHeadings: this.getConfig("withHeadings", false, t3), content: t3 && t3.content ? t3.content : [] }, this.table = null;
+        }
+        static get toolbox() {
+          return { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M10 5V18.5"/><path stroke="currentColor" stroke-width="2" d="M5 10H19"/><rect width="14" height="14" x="5" y="5" stroke="currentColor" stroke-width="2" rx="4"/></svg>', title: "Table" };
+        }
+        render() {
+          return this.table = new R2(this.readOnly, this.api, this.data, this.config), this.container = r2("div", this.api.styles.block), this.container.appendChild(this.table.getWrapper()), this.table.setHeadingsSetting(this.data.withHeadings), this.container;
+        }
+        renderSettings() {
+          return [{ label: this.api.i18n.t("With headings"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M5 10H19"/><rect width="14" height="14" x="5" y="5" stroke="currentColor" stroke-width="2" rx="4"/></svg>', isActive: this.data.withHeadings, closeOnActivate: true, toggle: true, onActivate: () => {
+            this.data.withHeadings = true, this.table.setHeadingsSetting(this.data.withHeadings);
+          } }, { label: this.api.i18n.t("Without headings"), icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M10 5V18.5"/><path stroke="currentColor" stroke-width="2" d="M14 5V18.5"/><path stroke="currentColor" stroke-width="2" d="M5 10H19"/><path stroke="currentColor" stroke-width="2" d="M5 14H19"/><rect width="14" height="14" x="5" y="5" stroke="currentColor" stroke-width="2" rx="4"/></svg>', isActive: !this.data.withHeadings, closeOnActivate: true, toggle: true, onActivate: () => {
+            this.data.withHeadings = false, this.table.setHeadingsSetting(this.data.withHeadings);
+          } }];
+        }
+        save() {
+          const t3 = this.table.getData();
+          return { withHeadings: this.data.withHeadings, content: t3 };
+        }
+        destroy() {
+          this.table.destroy();
+        }
+        getConfig(t3, e3, o3) {
+          const r3 = this.data || o3;
+          return r3 ? r3[t3] ? r3[t3] : e3 : this.config && this.config[t3] ? this.config[t3] : e3;
+        }
+        static get pasteConfig() {
+          return { tags: ["TABLE", "TR", "TH", "TD"] };
+        }
+        onPaste(t3) {
+          const e3 = t3.detail.data, o3 = e3.querySelector(":scope > thead, tr:first-of-type th"), r3 = Array.from(e3.querySelectorAll("tr")).map((t4) => Array.from(t4.querySelectorAll("th, td")).map((t5) => t5.innerHTML));
+          this.data = { withHeadings: null !== o3, content: r3 }, this.table.wrapper && this.table.wrapper.replaceWith(this.render());
+        }
+      };
+    }]).default;
+  });
+})(table);
+var tableExports = table.exports;
+const Table = /* @__PURE__ */ getDefaultExportFromCjs(tableExports);
 const EDITOR_JS_TOOLS = {
   embed: { class: Embed, inlineToolbar: true },
   // table: Table,
@@ -47993,6 +48681,7 @@ const EDITOR_JS_TOOLS = {
     class: List2,
     inlineToolbar: true
   },
+  table: Table,
   // warning: Warning,
   youtube: {
     class: Youtube,
