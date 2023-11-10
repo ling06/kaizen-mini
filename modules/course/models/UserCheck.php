@@ -72,10 +72,16 @@ class UserCheck extends \app\components\ActiveRecord
         return $className::findOne($this->model_pk);
     }
 
+    /**
+     * @param $insert
+     * @param $changedAttributes
+     * @return void
+     */
     public function afterSave($insert, $changedAttributes)
     {
         $itemsId = [];
         $currentModel = $this->getModel();
+        $parentId = null;
         switch ($this->model_name) {
             case Theme::class:
                 $updatedClass = Chapter::class;
@@ -93,12 +99,15 @@ class UserCheck extends \app\components\ActiveRecord
                 $parent = 'course_id';
                 break;
         }
+        if (!$parentId) {
+            return;
+        }
         $allItems = $this->model_name::find()->where([$parent => $parentId, 'is_deleted' => 0])->select('id')->asArray()->indexBy('id')->all();
         foreach ($allItems as $ItemId => $item) {
             $itemsId[] = $ItemId;
         }
         $usersCheksLessons = self::find()->where(['user_id' => $this->user_id, 'model_name' => $this->model_name, 'model_pk' => $itemsId])->asArray()->all();
-        if(count($itemsId) === count($usersCheksLessons)) {
+        if (count($itemsId) === count($usersCheksLessons)) {
             $themeCheck = new UserCheck;
             $themeCheck->user_id = $this->user_id;
             $themeCheck->model_name = $updatedClass;
