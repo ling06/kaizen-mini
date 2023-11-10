@@ -4,9 +4,6 @@ import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate } from 'react-router-dom';
-import { useCreateNewsMutation } from '@/store/api/news.api';
-import { useActions } from '@/hooks/useActions';
-import { MODAL_TYPES } from '@/constants';
 import { useCreateCompetitionMutation } from '@/store/api/competition.api';
 
 interface ICreateCompetitionFormProps {
@@ -16,9 +13,9 @@ interface ICreateCompetitionFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
-  const { setModalOpen, setModalType } = useActions();
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = useState<string>('');
+  const [competitionLink, setCompetitionLink] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [createCompetition, status] = useCreateCompetitionMutation();
@@ -55,14 +52,16 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     createCompetition({
       title: competitionName,
       text: JSON.stringify(editorData ? editorData.blocks : []),
+      link: competitionLink
     });
+
   };
 
   const handleCancel = () => {
     navigate('/news');
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
     setCompetitionName(event.target.value);
     if (!isChangedName) {
@@ -70,10 +69,15 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     }
   };
 
-  const handleOpenCategoriesModal = () => {
-    setModalType(MODAL_TYPES.newsCategory);
-    setModalOpen(true);
-  }
+  const handleChangeLink = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionLink(event.target.value);
+  };
+
+  // const handleOpenCategoriesModal = () => {
+  //   setModalType(MODAL_TYPES.newsCategory);
+  //   setModalOpen(true);
+  // }
 
   const controlsData = {
     names: {
@@ -89,16 +93,24 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   return (
     <>
       <S.Title>{type === 'create' ? 'Создание конкурса' : 'Редактирование конкурса'}</S.Title>
-      <S.NewsNameInput
+      <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
         value={competitionName}
-        onChange={handleChange}
+        onChange={handleChangeName}
         type="text"
         placeholder="Введите название конкурса (обязательно)"
       />
       <S.EditorJsWrapper id="editorjs" />
-      <button onClick={handleOpenCategoriesModal}>Open modal</button>
+      <S.CompetitionNameInput
+        $isValid={isValidName}
+        $isChanged={isChangedName}
+        value={competitionLink}
+        onChange={handleChangeLink}
+        type="text"
+        placeholder="Ссылка на конкурс в борбозе"
+      />
+      {/* <button onClick={handleOpenCategoriesModal}>Open modal</button> */}
       <S.Divider />
       <FormControls
         {...controlsData}

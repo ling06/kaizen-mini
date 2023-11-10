@@ -7,7 +7,7 @@ export const Title = styled(C.Text)`
 `;
 
 
-export const NewsNameInput = styled(C.InputWithState)`
+export const CompetitionNameInput = styled(C.InputWithState)`
   margin-bottom: 15px;
 `;
 

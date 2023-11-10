@@ -1,4 +1,4 @@
-import { IImage, IUploadedImage } from './image.types';
+import { IImage } from './image.types';
 import { IUser } from './user.types';
 
 export interface ICompetition {
@@ -14,9 +14,10 @@ export interface ICompetition {
     user?: IUser;
 }
 
-export interface ICreateCompetitionData extends Pick<ICompetition, 'title' | 'competition_id'> {
-    image?: IUploadedImage | null | IImage;
-    text?: string;
+export interface ICreateCompetitionData {
+    title: string;
+    text: string;
+    link: string;
 }
   
 

@@ -48592,7 +48592,7 @@ const Title$1 = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
-const NewsNameInput$1 = st$1(InputWithState)`
+const NewsNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
 const EditorJsWrapper$1 = st$1.div`
@@ -48691,7 +48691,7 @@ function CreateNewsForm({ type }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewsNameInput$1,
+      NewsNameInput,
       {
         $isValid: isValidName,
         $isChanged: isChangedName,
@@ -48853,7 +48853,7 @@ const Title = st$1(Text$5)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
-const NewsNameInput = st$1(InputWithState)`
+const CompetitionNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
 const EditorJsWrapper = st$1.div`
@@ -48899,7 +48899,7 @@ const competitionApi = api.injectEndpoints({
     }),
     createCompetition: builder.mutation({
       query: (data) => ({
-        url: "competition/create-competition",
+        url: "competition/create",
         method: "POST",
         body: data
       })
@@ -48945,9 +48945,9 @@ const {
 } = competitionApi;
 let editor;
 function CreateCompetitionForm({ type }) {
-  const { setModalOpen, setModalType } = useActions();
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = reactExports.useState("");
+  const [competitionLink, setCompetitionLink] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const [createCompetition, status] = useCreateCompetitionMutation();
@@ -48978,22 +48978,23 @@ function CreateCompetitionForm({ type }) {
     }
     createCompetition({
       title: competitionName,
-      text: JSON.stringify(editorData ? editorData.blocks : [])
+      text: JSON.stringify(editorData ? editorData.blocks : []),
+      link: competitionLink
     });
   };
   const handleCancel = () => {
     navigate("/news");
   };
-  const handleChange = (event) => {
+  const handleChangeName = (event) => {
     setValidName(event.target.value.length > 1);
     setCompetitionName(event.target.value);
     if (!isChangedName) {
       setChangedName(true);
     }
   };
-  const handleOpenCategoriesModal = () => {
-    setModalType(MODAL_TYPES.newsCategory);
-    setModalOpen(true);
+  const handleChangeLink = (event) => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionLink(event.target.value);
   };
   const controlsData = {
     names: {
@@ -49008,18 +49009,28 @@ function CreateCompetitionForm({ type }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewsNameInput,
+      CompetitionNameInput,
       {
         $isValid: isValidName,
         $isChanged: isChangedName,
         value: competitionName,
-        onChange: handleChange,
+        onChange: handleChangeName,
         type: "text",
         placeholder: "Введите название конкурса (обязательно)"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleOpenCategoriesModal, children: "Open modal" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CompetitionNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: competitionLink,
+        onChange: handleChangeLink,
+        type: "text",
+        placeholder: "Ссылка на конкурс в борбозе"
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,

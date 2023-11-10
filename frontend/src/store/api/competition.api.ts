@@ -16,7 +16,7 @@ export const competitionApi = api.injectEndpoints({
     }),
     createCompetition: builder.mutation<ICompetitionRes, ICreateCompetitionData>({
       query: (data) => ({
-        url: 'competition/create-competition',
+        url: 'competition/create',
         method: 'POST',
         body: data,
       }),
