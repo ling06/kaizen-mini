@@ -34,6 +34,7 @@ export function CourseContent() {
   }, [data?.data.tests]);
 
   const editorOutput = useEditorOutput(editorData);
+  console.log('editorOutput', editorOutput)
 
   useEffect(() => {
     if (
