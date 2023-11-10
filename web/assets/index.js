@@ -10202,6 +10202,7 @@ const ADMIN_BTN_TYPES = {
 const DEFAULT_WIDTH = "1267px";
 const MODAL_TYPES = {
   createCourse: "createCourse",
+  createCompetition: "createCompetition",
   createChapter: "createChapter",
   createTheme: "createTheme",
   editCourse: "editCourse",
@@ -34109,8 +34110,11 @@ const MoreBtn$1 = st$1(DefaultBtn)`
 `;
 function Competition({ data }) {
   useNavigate();
+  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
   const [isDeleted, setDeleted] = reactExports.useState(false);
   const handleAddCompetition = () => {
+    setModalType(MODAL_TYPES.createCompetition);
+    setModalOpen(true);
   };
   const handleDeleteCompetition = () => {
   };
