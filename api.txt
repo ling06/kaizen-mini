@@ -153,6 +153,22 @@ Image: - изображение
     is_deleted: int - удалено ли изображение
 ]
 
+Competition: - конкурс
+[
+    id: int - id
+    status: int - статус (0 - черновик, 1 - опубликован)
+    title: string - заголовок
+    text: string - текст
+    link: string - ссылка на Борбозу
+    date: string - дата публикации в формате yyyy-MM-DD HH:mm:ss
+    user_id: int - id автора
+    is_deleted: int - удален ли конкурс
+    <user>: [ - данные об авторе
+        id: id автора
+        name: имя автора
+    ]
+]
+
 
 
 
@@ -220,8 +236,8 @@ Request: [
     <image>: UploadedImage - данные об изображении
 ]
 Response: [
-    data: News - данные о созданной новости
-    result: bool - успешно ли создана новость
+    data: News - данные об отредактированной новости
+    result: bool - успешно ли отредактирована новость
 ]
 
 /api/news/delete [POST]
@@ -622,4 +638,74 @@ Response: [
         isRight: int - правильный ли ответ (0 - нет, 1 - да)
         message: string - дополнительный комментарий
     ]
+]
+
+
+
+---------- [ Конкурсы ] ----------
+
+/api/competition [GET]
+Возвращает конкурсы с постраничной разбивкой. Админы видят даже удаленные конкурсы.
+Request: [
+    <page>: int - страница
+]
+Response: [
+    data: Competition[] - список конкурсов
+    count: int - количество конкурсов
+    page: int - текущая страница
+    pagesCount: int - количество страниц
+    <prevPage>: string - ссылка на предыдущую страницу, если возможно
+    <nextPage>: string - ссылка на следующую страницу, если возможно
+]
+
+/api/competition/<id> [GET]
+Возвращает данные об одном конкурсе с id = <id>. Если конкурс не найден, возвращает 404.
+[
+    data: Competition - данные о конкурсе
+    result: bool - успешно ли получены данные
+]
+
+/api/competition/create [POST]
+Создать конкурс.
+Request: [
+    title: string - заголовок конкурса
+    text: string - текст конкурса
+    link: string - ссылка на Борбозу
+]
+Response: [
+    data: Competition - данные о созданном конкурсе
+    result: bool - успешно ли создан конкурс
+]
+
+/api/competition/update [POST]
+Редактировать конкурс.
+Request: [
+    id: int - id конкурса
+    <title>: string - заголовок конкурса
+    <text>: string - текст конкурса
+    <link>: string - ссылка на Борбозу
+    <status>: int - статус конкурса
+    <date>: string - дата публикации конкурса
+]
+Response: [
+    data: Competition - данные об отредактированном конкурсе
+    result: bool - успешно ли отредактирован конкурс
+]
+
+/api/competition/delete [POST]
+Удалить конкурс.
+Request: [
+    id: int - id конкурса
+]
+Response: [
+    result: bool - успешно ли удален конкурс
+]
+
+/api/competition/restore [POST]
+Восстановить конкурс.
+Request: [
+    id: int - id конкурса
+]
+Response: [
+    result: bool - успешно ли восстановлен конкурс
 ]
