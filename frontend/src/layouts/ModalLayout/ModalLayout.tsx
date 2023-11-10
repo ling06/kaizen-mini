@@ -34,6 +34,9 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
       case MODAL_TYPES.editTheme:
         name = 'Изменение Темы';
         break;
+      case MODAL_TYPES.newsCategory: 
+        name = "Категории";
+        break;  
       default:
         console.error(`Unknown modal type: ${type}`);
     }

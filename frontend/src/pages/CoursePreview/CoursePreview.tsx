@@ -26,11 +26,16 @@ export function CoursePreview() {
     if (data) {
       const currentCourseId = params.courseId || null;
       const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-      if (!currentCourseId || !currentCourse) {
+      if ((data.data.length > 0 && !currentCourseId) || (data.data.length > 0 && !currentCourse)) {
         navigate(`/courses/${data.data[0].id}`);
         return;
       }
-      setCourseData(currentCourse);
+      if (data.data.length === 0) {
+        navigate('/courses');
+      }
+      if (currentCourse) {
+        setCourseData(currentCourse);
+      }
     }
   }, [data, navigate, params.courseId, setCourseData]);
 
@@ -41,7 +46,7 @@ export function CoursePreview() {
         {data && (
           <>
             {!isMobile && <CourseSelect />}
-            <CourseMainInfo coursesData={data.data}/>
+            <CourseMainInfo coursesData={data.data} />
             <CourseProgramm />
           </>
         )}

@@ -114,7 +114,61 @@ class CourseController extends ApiController
 
     public function actionGetUsersProgress()
     {
-        die('Privet');
+        $result = [];
+        $courseId = (int)Yii::$app->request->getBodyParam('course_id');
+        if (UserCheck::find()->where(['model_name' => Course::class, 'model_pk' => $courseId, 'user_id' => Yii::$app->user->id])->exists()) {
+            return ['courseComplete' => true];
+        }
+        $allChapters = Chapter::find()->where(['course_id' => $courseId, 'is_deleted' => false])->indexBy('id')->all();
+        $chapterIndex = 0;
+        foreach ($allChapters as $chapter) {
+            $chapterIndex++;
+            if (!$chapter->isChecked) {
+                if (empty($result['chapter']['id'])) {
+                    $result['chapter']['id'] = $chapter->id;
+                    $result['chapter']['name'] = $chapter->title;
+                    $result['chapter']['position'] = $chapterIndex;
+                }
+                $result['chapter']['allQuantity'] = $chapterIndex;
+            }
+        }
+        if(empty($result['chapter']['id'])) {
+            return ['error' => 'Chapter not found'];
+        }
+        $allThemes = Theme::find()->where(['chapter_id' => $result['chapter']['id'], 'is_deleted' => false])->indexBy('id')->all();
+        $themeIndex = 0;
+        foreach ($allThemes as $theme) {
+            $themeIndex++;
+            if (!$theme->isChecked) {
+                if (empty($result['theme']['id'])) {
+                    $result['theme']['id'] = $theme->id;
+                    $result['theme']['name'] = $theme->title;
+                    $result['theme']['position'] = $themeIndex;
+                }
+                $result['theme']['allQuantity'] = $themeIndex;
+            }
+        }
+        if(empty($result['theme']['id'])) {
+            return ['error' => 'Theme not found'];
+        }
+        $allLessons = Lesson::find()->where(['theme_id' => $result['theme']['id'], 'is_deleted' => false])->indexBy('id')->all();
+        $lessonIndex = 0;
+        foreach ($allLessons as $lesson) {
+            $lessonIndex++;
+            if (!$lesson->isChecked) {
+                if (empty($result['lesson']['id'])) {
+                    $result['lesson']['id'] = $lesson->id;
+                    $result['lesson']['name'] = $lesson->title;
+                    $result['lesson']['position'] = $lessonIndex;
+                }
+            }
+            $result['lesson']['allQuantity'] = $lessonIndex;
+
+        }
+        if(empty($result['lesson']['id'])) {
+            return ['error' => 'Lesson not found'];
+        }
+        return ($result);
     }
 
     public function beforeAction($action): bool

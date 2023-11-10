@@ -87,6 +87,11 @@ class UserCheck extends \app\components\ActiveRecord
                 $parentId = $currentModel->theme_id;
                 $parent = 'theme_id';
                 break;
+            case Chapter::class:
+                $updatedClass = Course::class;
+                $parentId = $currentModel->course_id;
+                $parent = 'course_id';
+                break;
         }
         $allItems = $this->model_name::find()->where([$parent => $parentId, 'is_deleted' => 0])->select('id')->asArray()->indexBy('id')->all();
         foreach ($allItems as $ItemId => $item) {

@@ -56,6 +56,18 @@ export const courseApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Courses'],
     }),
+    getCourseProgress: builder.query<{ course_id: number }, any>({
+      query: (data) => ({
+        url: 'course/get-users-progress',
+        method: 'POST',
+        body: data,
+      }),
+      providesTags: () => [
+        {
+          type: 'CourseProgress',
+        },
+      ],
+    }),
   }),
   overrideExisting: false,
 });
@@ -67,6 +79,7 @@ export const {
   useGetCourseByIdQuery,
   useRestoreCourseMutation,
   useUpdateCourseMutation,
+  useGetCourseProgressQuery,
 } = courseApi;
 
 export const selectCourses = courseApi.endpoints.getCourses.select();

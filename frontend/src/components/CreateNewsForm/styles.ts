@@ -16,7 +16,7 @@ export const EditorJsWrapper = styled.div`
   min-height: 472px;
   padding: 25px;
   padding-left: 75px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   border: 1px solid ${props => props.theme.colors.greyEO};
   border-radius: ${props => props.theme.utils.br};
 `;
@@ -41,3 +41,7 @@ export const Divider = styled.div`
   }
 `;
 
+export const OpenSelectWrapper = styled.div`
+  position: relative;
+  margin-bottom: 50px;
+`; 

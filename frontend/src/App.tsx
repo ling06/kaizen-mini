@@ -16,6 +16,7 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { Transition } from 'react-transition-group';
 import { useMediaQuery } from '@mui/material';
 import { CourseMob } from './pages/CourseMob';
+import { NewsCategoryForm } from './components/NewsCategoryForm';
 
 function App() {
   const { isLoading } = useCheckUserQuery();
@@ -72,6 +73,7 @@ function App() {
             {modalType === MODAL_TYPES.editChapter && <CreateChapterForm />}
             {modalType === MODAL_TYPES.createTheme && <CreateThemeForm />}
             {modalType === MODAL_TYPES.editTheme && <CreateThemeForm />}
+            {modalType === MODAL_TYPES.newsCategory && <NewsCategoryForm />}
           </ModalLayout>
         )}
         <Transition
