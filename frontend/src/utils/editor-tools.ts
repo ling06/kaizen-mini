@@ -15,6 +15,7 @@ import Image from '@editorjs/image';
 // import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
 import Youtube from 'editorjs-youtube-embed';
+import Table from '@editorjs/table';
 // import SimpleImage from '@editorjs/simple-image';
 
 export const EDITOR_JS_TOOLS = {
@@ -24,6 +25,7 @@ export const EDITOR_JS_TOOLS = {
     class: List,
     inlineToolbar: true,
   },
+  table: Table,
   // warning: Warning,
   youtube: {
     class: Youtube,
