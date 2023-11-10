@@ -7,7 +7,6 @@ import { useCallback, useRef } from 'react';
 import { ICompetition, IGetAllCompetitions } from '@/types/competition.types';
 
 export function CompetitionsSwiper({data}: {data: IGetAllCompetitions}) {
-  console.log('CompetitionsSwiperdata', data)
   const swiperRef = useRef(null);
 
   const handlePrev = useCallback(() => {

@@ -12,32 +12,16 @@ interface ICompetitionCard {
 }
 
 export function Competition({ data }: ICompetitionCard) {
-  console.log('data', data)
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation()
   const [restoreCompetition] = useRestoreCompetitionMutation();
 
-  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
 
   const handleAddCompetition = () => {
+    setUpdatingCompetitionData(null)
     navigate('/competition/create-competition');
-  };
-
-  const handleToggleCompetitionStatus = () => {
-    // if (!courseData.id) {
-    //   console.error(`No course with id: ${courseData.id}!`);
-    //   return;
-    // }
-    // updateCourse({
-    //   id: courseData.id,
-    //   status: Number(courseData.status) === 0 ? 1 : 0,
-    // }).then((res) => {
-    //   if ('data' in res) {
-    //     setCourseData(res.data.data);
-    //   }
-    // });
-    // setLoaderActive(true);
   };
 
   const handleDeleteCompetition = () => {
@@ -56,9 +40,8 @@ export function Competition({ data }: ICompetitionCard) {
   };
 
   const handleEditCompetition = () => {
-    // setModalType(MODAL_TYPES.editChapter);
-    // setUpdatingChapterData(data);
-    // setModalOpen(true);
+    navigate('/competition/create-competition');
+    setUpdatingCompetitionData(data);
   };
 
   return (

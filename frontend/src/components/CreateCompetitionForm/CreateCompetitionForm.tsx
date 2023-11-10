@@ -4,7 +4,8 @@ import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate } from 'react-router-dom';
-import { useCreateCompetitionMutation } from '@/store/api/competition.api';
+import { useCreateCompetitionMutation, useUpdateCompetitionMutation } from '@/store/api/competition.api';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 interface ICreateCompetitionFormProps {
   type: string;
@@ -13,12 +14,17 @@ interface ICreateCompetitionFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
+  console.log('type', type)
+
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = useState<string>('');
   const [competitionLink, setCompetitionLink] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [createCompetition, status] = useCreateCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
+
 
   useEffect(() => {
     if (!editor) {
@@ -49,12 +55,21 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
       return;
     }
 
-    createCompetition({
-      title: competitionName,
-      text: JSON.stringify(editorData ? editorData.blocks : []),
-      link: competitionLink
-    });
-
+    if (type !== 'create') {
+      updateCompetition({
+        id: updatingCompetitionData!.id,
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      })
+    } else {
+      createCompetition({
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      });
+    }
+    navigate('/news')
   };
 
   const handleCancel = () => {
@@ -81,7 +96,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
 
   const controlsData = {
     names: {
-      confirm: 'Создать конкурс',
+      confirm: type === 'create' ?'Создать конкурс' : 'Изменить конкурс',
       cancel: 'Отмена',
     },
     handlers: {
@@ -99,7 +114,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         value={competitionName}
         onChange={handleChangeName}
         type="text"
-        placeholder="Введите название конкурса (обязательно)"
+        placeholder= {type === 'create' ? "Введите название конкурса (обязательно)" : "Новое название"}
       />
       <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
@@ -108,7 +123,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         value={competitionLink}
         onChange={handleChangeLink}
         type="text"
-        placeholder="Ссылка на конкурс в борбозе"
+        placeholder= {type === 'create' ? "Ссылка на конкурс в борбозе": "Новая ссылка"}
       />
       {/* <button onClick={handleOpenCategoriesModal}>Open modal</button> */}
       <S.Divider />

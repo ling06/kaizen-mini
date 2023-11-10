@@ -31,5 +31,8 @@ export interface ICreateCompetitionData {
 export interface IUpdateCompetitionData extends Partial<ICreateCompetitionData> {
     id: number;
     status?: number;
+    text?: string;
+    title?: string;
+    link?: string;
     date?: string;
 }

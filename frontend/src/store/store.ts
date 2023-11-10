@@ -4,6 +4,7 @@ import { reducer as modalReducer } from './modal/modal.slice';
 import { reducer as courseReducer } from './course/course.slice';
 import { reducer as loaderReducer } from './loader/loader.slice';
 import { reducer as lessonReducer } from './lesson/lesson.slice';
+import { reducer as competitionReducer } from './competition/competition.slice';
 import { api } from './api/api';
 
 const reducer = combineReducers({
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   course: courseReducer,
   loader: loaderReducer,
   lesson: lessonReducer,
+  competition: competitionReducer,
   [api.reducerPath]: api.reducer,
 });
 

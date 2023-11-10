@@ -23,6 +23,7 @@ function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = useRef(null);
   const isMobile = useMediaQuery(MediaQueries.mobile);
@@ -61,7 +62,7 @@ function App() {
           />
           <Route
             path={'/competition/create-competition'}
-            element={<CreateCompetition type={'create'} />}
+            element={<CreateCompetition type={updatingCompetitionData ? 'update' : 'create'} />}
           />
           {isMobile && (
             <Route

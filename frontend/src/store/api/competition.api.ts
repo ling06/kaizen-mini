@@ -40,7 +40,11 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-    //   invalidatesTags: ['Competitions'],
+      invalidatesTags: () => [
+        {
+          type: 'Competition',
+        },
+      ],
     }),
     deleteCompetition: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({

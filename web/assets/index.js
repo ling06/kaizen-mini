@@ -26071,7 +26071,7 @@ const modalSlice = createSlice({
     }
   }
 });
-const { actions: actions$4, reducer: reducer$5 } = modalSlice;
+const { actions: actions$5, reducer: reducer$6 } = modalSlice;
 const AuthInitialState = {
   token: null
 };
@@ -26084,7 +26084,7 @@ const authSlice = createSlice({
     }
   }
 });
-const { actions: actions$3, reducer: reducer$4 } = authSlice;
+const { actions: actions$4, reducer: reducer$5 } = authSlice;
 const courseInitialState = {
   data: {
     id: 0,
@@ -26156,7 +26156,7 @@ const courseSlice = createSlice({
     }
   }
 });
-const { actions: actions$2, reducer: reducer$3 } = courseSlice;
+const { actions: actions$3, reducer: reducer$4 } = courseSlice;
 const loaderInitialState = {
   active: false
 };
@@ -26169,7 +26169,7 @@ const loaderSlice = createSlice({
     }
   }
 });
-const { reducer: reducer$2, actions: actions$1 } = loaderSlice;
+const { reducer: reducer$3, actions: actions$2 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
     this.id = nanoid();
@@ -26334,10 +26334,24 @@ const lessonSlice = createSlice({
     }
   }
 });
-const { reducer: reducer$1, actions } = lessonSlice;
+const { reducer: reducer$2, actions: actions$1 } = lessonSlice;
+const competitionInitialState = {
+  updatingCompetitionData: null
+};
+const competitionSlice = createSlice({
+  name: "competition",
+  initialState: competitionInitialState,
+  reducers: {
+    setUpdatingCompetitionData: (state, { payload }) => {
+      state.updatingCompetitionData = payload ? { ...payload } : null;
+    }
+  }
+});
+const { actions, reducer: reducer$1 } = competitionSlice;
 const rootActions = {
-  ...actions$3,
   ...actions$4,
+  ...actions$5,
+  ...actions$3,
   ...actions$2,
   ...actions$1,
   ...actions
@@ -28991,8 +29005,12 @@ const competitionApi = api.injectEndpoints({
         url: "competition/update",
         method: "POST",
         body: data
-      })
-      //   invalidatesTags: ['Competitions'],
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Competition"
+        }
+      ]
     }),
     deleteCompetition: builder.mutation({
       query: (data) => ({
@@ -34170,13 +34188,13 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   border-radius: 22.689px;
 `;
 function Competition({ data }) {
-  console.log("data", data);
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
-  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
+    setUpdatingCompetitionData(null);
     navigate("/competition/create-competition");
   };
   const handleDeleteCompetition = () => {
@@ -34194,6 +34212,8 @@ function Competition({ data }) {
     setLoaderActive(true);
   };
   const handleEditCompetition = () => {
+    navigate("/competition/create-competition");
+    setUpdatingCompetitionData(data);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
@@ -34237,7 +34257,6 @@ function Competition({ data }) {
 }
 function CompetitionsSwiper({ data }) {
   var _a, _b;
-  console.log("CompetitionsSwiperdata", data);
   const swiperRef = reactExports.useRef(null);
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
@@ -48984,12 +49003,15 @@ st$1.div`
 `;
 let editor;
 function CreateCompetitionForm({ type }) {
+  console.log("type", type);
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = reactExports.useState("");
   const [competitionLink, setCompetitionLink] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
   const [createCompetition, status] = useCreateCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   reactExports.useEffect(() => {
     if (!editor) {
       try {
@@ -49015,11 +49037,21 @@ function CreateCompetitionForm({ type }) {
       setChangedName(true);
       return;
     }
-    createCompetition({
-      title: competitionName,
-      text: JSON.stringify(editorData ? editorData.blocks : []),
-      link: competitionLink
-    });
+    if (type !== "create") {
+      updateCompetition({
+        id: updatingCompetitionData.id,
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      });
+    } else {
+      createCompetition({
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      });
+    }
+    navigate("/news");
   };
   const handleCancel = () => {
     navigate("/news");
@@ -49037,7 +49069,7 @@ function CreateCompetitionForm({ type }) {
   };
   const controlsData = {
     names: {
-      confirm: "Создать конкурс",
+      confirm: type === "create" ? "Создать конкурс" : "Изменить конкурс",
       cancel: "Отмена"
     },
     handlers: {
@@ -49055,7 +49087,7 @@ function CreateCompetitionForm({ type }) {
         value: competitionName,
         onChange: handleChangeName,
         type: "text",
-        placeholder: "Введите название конкурса (обязательно)"
+        placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
@@ -49067,7 +49099,7 @@ function CreateCompetitionForm({ type }) {
         value: competitionLink,
         onChange: handleChangeLink,
         type: "text",
-        placeholder: "Ссылка на конкурс в борбозе"
+        placeholder: type === "create" ? "Ссылка на конкурс в борбозе" : "Новая ссылка"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
@@ -49090,6 +49122,7 @@ function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
@@ -49137,7 +49170,7 @@ function App() {
         Route,
         {
           path: "/competition/create-competition",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: updatingCompetitionData ? "update" : "create" })
         }
       ),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -49176,11 +49209,12 @@ function App() {
   ] }) });
 }
 const reducer = combineReducers({
-  auth: reducer$4,
-  modal: reducer$5,
-  course: reducer$3,
-  loader: reducer$2,
-  lesson: reducer$1,
+  auth: reducer$5,
+  modal: reducer$6,
+  course: reducer$4,
+  loader: reducer$3,
+  lesson: reducer$2,
+  competition: reducer$1,
   [api.reducerPath]: api.reducer
 });
 const store = configureStore({
