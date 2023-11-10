@@ -19,6 +19,7 @@ use yii\db\ActiveQuery;
  * @property int|null $user_id Id создателя
  * @property string|null $date Дата создания
  * @property int|null $is_deleted Удалена ли глава
+ * @property int $position [int(11)]  Позиция главы
  *
  * @property Course $course
  * @property User $user
