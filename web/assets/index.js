@@ -34236,14 +34236,8 @@ function Competition({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionTitle, { children: [
-      data == null ? void 0 : data.title,
-      " title"
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionDescr, { children: [
-      data == null ? void 0 : data.text,
-      " text"
-    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: data == null ? void 0 : data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: data == null ? void 0 : data.text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       MoreBtn$1,
       {

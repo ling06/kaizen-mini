@@ -63,10 +63,10 @@ export function Competition({ data }: ICompetitionCard) {
         />
       </S.Head>
       <S.CompetitionTitle>
-        {data?.title} title
+        {data?.title}
       </S.CompetitionTitle>
       <S.CompetitionDescr>
-        {data?.text} text
+        {data?.text}
       </S.CompetitionDescr>
       <S.MoreBtn
         onClick={() => {
