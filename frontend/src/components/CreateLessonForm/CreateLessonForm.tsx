@@ -123,6 +123,7 @@ TODO: на фронте создаются id для новых сущносте
 
   const handleConfirm = async () => {
     const editorData = await editor?.save().then((data) => data);
+    // console.log('editorData', editorData)
     const editorBlocksData = JSON.stringify(editorData?.blocks || []);
 
     if (!isValidName) {

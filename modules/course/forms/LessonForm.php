@@ -62,6 +62,7 @@ class LessonForm extends Lesson
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->indexBy('id')->all();
         foreach ($this->tests as $tests) {
+            $newTest = false;
             $editedAnswers = [];
             if (isset($tests['id']) && !empty($tests['id'])) {
                 if ($tests['question'] !== $testsFromDb[$tests['id']]->question) {
@@ -71,6 +72,7 @@ class LessonForm extends Lesson
                 $test = Test::find()->where(['id' => $tests['id']])->one();
             } else {
                 $test = new Test;
+                $newTest = true;
             }
             $test->lesson_id = $this->id;
             $test->question = $tests['question'];
@@ -91,6 +93,9 @@ class LessonForm extends Lesson
                     $testAnswer->right_answer = $answer['right_answer'];
                     $testAnswer->text = $answer['text'];
                     $testAnswer->save(false);
+                    if ($newTest) {
+                        self::checkClear($testAnswer->id, $this->id);
+                    }
                 }
                 foreach ($answersFromDb as $dbAnswer) {
                     if (!in_array($dbAnswer->id, $editedAnswers)) {
@@ -99,21 +104,21 @@ class LessonForm extends Lesson
                     }
                 }
             }
-            if ($testsFromDb) {
-                foreach ($testsFromDb as $dbTest) {
-                    if (!in_array($dbTest->id, $editedTests)) {
-                        $dbTest->deleteSoft();
-                    }
+        }
+        if ($testsFromDb) {
+            foreach ($testsFromDb as $dbTest) {
+                if (!in_array($dbTest->id, $editedTests)) {
+                    $dbTest->deleteSoft();
                 }
             }
-            $lesson = Lesson::findOne($this->id);
-            if ($lesson->description) {
-                $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
-            }
-            $lesson->save();
-
-            parent::afterSave($insert, $changedAttributes);
         }
+        $lesson = Lesson::findOne($this->id);
+        if ($lesson->description) {
+            $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
+        }
+        $lesson->save();
+
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

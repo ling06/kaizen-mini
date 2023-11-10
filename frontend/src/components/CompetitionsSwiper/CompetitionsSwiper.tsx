@@ -4,9 +4,15 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { Competition } from '../Competition';
 import { useCallback, useRef } from 'react';
+import { ICompetition, IGetAllCompetitions } from '@/types/competition.types';
+import { useNavigate } from 'react-router-dom';
 
-export function CompetitionsSwiper() {
+export function CompetitionsSwiper({data}: {data: IGetAllCompetitions}) {
   const swiperRef = useRef(null);
+  const navigate = useNavigate()
+  const handleClickCreateCompetition = () => {
+    navigate('/competition/create-competition')
+  }
 
   const handlePrev = useCallback(() => {
     if (!swiperRef.current) return;
@@ -33,18 +39,18 @@ export function CompetitionsSwiper() {
         }}
         loop={true}
         modules={[Autoplay]}>
+      {!data?.data?.length && <S.SwiperCreateBtn onClick={handleClickCreateCompetition}>Добавить</S.SwiperCreateBtn>}
+        {data?.data?.length > 0 && data?.data?.map((competitionData: ICompetition) =>
         <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Competition />
-        </SwiperSlide>
+          <Competition data={competitionData}/>
+        </SwiperSlide>)}
       </Swiper>
+      {data?.data?.length > 1 &&
+      <>
       <S.SwiperPrevBtn onClick={handlePrev} />
       <S.SwiperNextBtn onClick={handleNext} />
+      </>
+      }
     </S.Container>
   );
 }

@@ -6,6 +6,7 @@ import { actions as authActions } from '@/store/auth/auth.slice';
 import { actions as courseActions } from '@/store/course/course.slice';
 import { actions as loaderActions } from '@/store/loader/loader.slice';
 import { actions as lessonActions } from '@/store/lesson/lesson.slice';
+import { actions as competitionActions } from '@/store/competition/competition.slice';
 
 const rootActions = {
   ...authActions,
@@ -13,6 +14,7 @@ const rootActions = {
   ...courseActions,
   ...loaderActions,
   ...lessonActions,
+  ...competitionActions
 };
 
 export const useActions = () => {

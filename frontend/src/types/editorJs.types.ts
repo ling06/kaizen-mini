@@ -3,6 +3,7 @@ export interface IEditorJsData {
     url?: string;
     text?: string;
     items?: string[];
+    content?: any;
     style?: string;
     file?: {
       url: string;

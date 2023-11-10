@@ -32,3 +32,16 @@ export const SwiperNextBtn = styled(SwiperPrevBtn)`
   left: unset;
   transform: rotate(-180deg);
 `;
+
+export const SwiperCreateBtn = styled.div`
+  z-index: 2;
+  position: absolute;
+  top:0;
+  right:0;
+  color:white;
+  border-radius:10%;
+  width: fit-content;
+  padding:20px;
+  background-color:rgb(0, 122, 255);
+  cursor: pointer;
+`;
