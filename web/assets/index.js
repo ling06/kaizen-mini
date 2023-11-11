@@ -8832,7 +8832,7 @@ function BrowserRouter(_ref) {
 }
 const isBrowser$1 = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 const ABSOLUTE_URL_REGEX = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
-const Link = /* @__PURE__ */ reactExports.forwardRef(function LinkWithRef(_ref4, ref) {
+const Link$1 = /* @__PURE__ */ reactExports.forwardRef(function LinkWithRef(_ref4, ref) {
   let {
     onClick: onClick2,
     relative,
@@ -8933,7 +8933,7 @@ const NavLink = /* @__PURE__ */ reactExports.forwardRef(function NavLinkWithRef(
     isActive,
     isPending: isPending2
   }) : styleProp;
-  return /* @__PURE__ */ reactExports.createElement(Link, _extends$2({}, rest, {
+  return /* @__PURE__ */ reactExports.createElement(Link$1, _extends$2({}, rest, {
     "aria-current": ariaCurrent,
     className,
     ref,
@@ -10344,9 +10344,7 @@ const DefaultBtn = st$1.button`
     background-color: ${(props) => props.theme.colors.darkBlue};
   }
 `;
-const EditorTabel = st$1.table`
-
-`;
+const EditorTabel = st$1.table``;
 const Text$5 = st$1.p`
   font-size: 18px;
   font-weight: 700;
@@ -10491,7 +10489,7 @@ st$1(FlexContainer)`
   height: 400px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.grey93};
-  animation: pulse .5s ease-in-out infinite alternate;
+  animation: pulse 0.5s ease-in-out infinite alternate;
 
   @keyframes pulse {
     100% {
@@ -10534,6 +10532,9 @@ const EditorImg = st$1.img`
     margin-bottom: 10%;
     border-radius: unset;
   }
+`;
+st$1(FlexContainer)`
+  flex-direction: column;
 `;
 const LinkContent = st$1(Text$5)`
   display: flex;
@@ -10596,7 +10597,7 @@ function CustomNavLink({ url, name, icon, onClick: onClick2 = () => {
     }
   );
 }
-const Container$K = st$1(FlexContainer)`
+const Container$L = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10612,7 +10613,7 @@ const NavBar$1 = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$K, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15925,13 +15926,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$J = st$1.div`
+const Container$K = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$I = st$1.div``;
+const Container$J = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15975,14 +15976,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$I, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$K, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -16007,7 +16008,7 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$2, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$H = st$1.div`
+const Container$I = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -16055,7 +16056,7 @@ function Head$3({ onClose }) {
       document.body.removeEventListener("click", onClose);
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$H, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$I, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16072,7 +16073,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$G = st$1.div`
+const Container$H = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16084,14 +16085,14 @@ const Container$G = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$F = st$1.div`
+const Container$G = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav({ onClose }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$G, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16100,7 +16101,7 @@ function Nav({ onClose }) {
     }
   )) });
 }
-const Container$E = st$1.div`
+const Container$F = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16110,7 +16111,7 @@ const Container$E = st$1.div`
   }
 `;
 function Body({ onClose }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16124,7 +16125,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$D = st$1.div`
+const Container$E = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16155,13 +16156,13 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$E, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$g, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$C = st$1.div`
+const Container$D = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16186,7 +16187,7 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16205,7 +16206,7 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$H, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -24191,7 +24192,7 @@ const ListRoot = styled$1("ul", {
 }, ownerState.subheader && {
   paddingTop: 0
 }));
-const List$1 = /* @__PURE__ */ reactExports.forwardRef(function List(inProps, ref) {
+const List$2 = /* @__PURE__ */ reactExports.forwardRef(function List(inProps, ref) {
   const props = useThemeProps({
     props: inProps,
     name: "MuiList"
@@ -24225,7 +24226,7 @@ const List$1 = /* @__PURE__ */ reactExports.forwardRef(function List(inProps, re
     }))
   });
 });
-const List$2 = List$1;
+const List$3 = List$2;
 const listItemIconClasses = generateUtilityClasses("MuiListItemIcon", ["root", "alignItemsFlexStart"]);
 const listItemIconClasses$1 = listItemIconClasses;
 const listItemTextClasses = generateUtilityClasses("MuiListItemText", ["root", "multiline", "dense", "inset", "primary", "secondary"]);
@@ -24404,7 +24405,7 @@ const MenuList = /* @__PURE__ */ reactExports.forwardRef(function MenuList2(prop
     }
     return child;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(List$2, _extends$1({
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(List$3, _extends$1({
     role: "menu",
     ref: handleRef,
     className,
@@ -26048,7 +26049,7 @@ function Header$2() {
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
-const Container$B = st$1(FlexContainer)`
+const Container$C = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -26412,7 +26413,7 @@ const Overlay$3 = st$1(DarkOverlay)`
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-const Container$A = st$1(FlexContainer)`
+const Container$B = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -26494,7 +26495,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26891,7 +26892,7 @@ function CourseSelect() {
     setSelectedValue(`${selectedCourseId}`);
     navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26919,14 +26920,14 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$z = st$1(FlexContainer)`
+const Container$A = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-const Container$y = st$1(FlexContainer)`
+const Container$z = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -27009,7 +27010,7 @@ const ErrorName = st$1(LessonName)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$x = st$1(FlexContainer)`
+const Container$y = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -27049,7 +27050,7 @@ const Arrow = st$1(Icon$2)`
   }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter$1, { children: [
       "Глава ",
       chapter.position,
@@ -27074,7 +27075,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-const Container$w = st$1(FlexContainer)`
+const Container$x = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
@@ -27097,7 +27098,7 @@ const Percentage = st$1.h3`
   }
 `;
 function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { style: styles2, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { style: styles2, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
       percentage,
@@ -27116,7 +27117,7 @@ const Overlay$2 = st$1.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
-const Container$v = st$1.div`
+const Container$w = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27185,7 +27186,7 @@ function Popup({ coursesData, onClose }) {
     setModalType(MODAL_TYPES.createCourse);
   };
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         Course$1,
         {
@@ -27213,7 +27214,7 @@ function Popup({ coursesData, onClose }) {
     modalRoot
   );
 }
-const Container$u = st$1.div`
+const Container$v = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27298,7 +27299,7 @@ function OpenSelect({ courseData, onOpen }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -27335,7 +27336,7 @@ const Overlay$1 = st$1.div`
   border-radius: inherit;
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Container$t = st$1.div`
+const Container$u = st$1.div`
   display: flex;
   align-items: center;
   width: fit-content;
@@ -27348,7 +27349,7 @@ const LoadingText = st$1(Text$5)`
   font-size: 22px;
 `;
 function LoadingSmall() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
   ] }) });
@@ -27392,7 +27393,7 @@ function CourseMainInfo({ coursesData }) {
   const progressInfoStyles = {
     marginBottom: "3.13vw"
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
       isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -27447,7 +27448,7 @@ function CourseMainInfo({ coursesData }) {
     )
   ] });
 }
-const Container$s = st$1(FlexContainer)`
+const Container$t = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -27679,7 +27680,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27704,7 +27705,7 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$r = st$1(FlexContainer)`
+const Container$s = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -27715,7 +27716,7 @@ const Text$3 = st$1(Text$5)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "Что-то пошло не так" }) });
 }
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
@@ -27742,7 +27743,7 @@ function CoursePreview() {
       }
     }
   }, [data, navigate, params.courseId, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -27751,7 +27752,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$q = st$1.div`
+const Container$r = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -27910,7 +27911,7 @@ function CourseNavLesson({ data }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavItemTitle, { text: data.title, isActive: !data.isChecked }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27955,7 +27956,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$p = st$1(FlexContainer)`
+const Container$q = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -28115,7 +28116,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$p, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$q, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -28178,7 +28179,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$o = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$b = st$1.h4`
@@ -28220,7 +28221,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -28229,7 +28230,7 @@ function CourseNavBody({ data }) {
         onClick: openCreateThemeModal
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$o, { children: data.themes && data.themes.map((theme) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$p, { children: data.themes && data.themes.map((theme) => {
       if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
         return;
       }
@@ -28244,7 +28245,7 @@ function CourseNavBody({ data }) {
     }) })
   ] });
 }
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -28272,7 +28273,7 @@ const bodyOverflow$1 = at$1`
     background-color: ${(props) => props.theme.colors.realWhite};
   }
 `;
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -28288,7 +28289,7 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h3", children: data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -28318,7 +28319,7 @@ const Title$9 = st$1(Text$5)`
     font-size:  5.625vw;
   }
 `;
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -28363,7 +28364,7 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const Container$k = st$1(FlexContainer)`
+const Container$l = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -28539,7 +28540,7 @@ const {
 } = lessonTestApi;
 const wrongAnswer = "/assets/wrongAnswer.svg";
 const rightAnswer = "/assets/rightAnswer.svg";
-const Container$j = st$1(FlexContainer)`
+const Container$k = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   @media ${(props) => props.theme.media.mobile} {
@@ -28571,7 +28572,7 @@ const Comment = st$1(Text$5)`
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
 function CheckedAnswer({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
   ] });
@@ -28600,7 +28601,7 @@ function LessonTest({ data }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$k,
+    Container$l,
     {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
@@ -28658,7 +28659,7 @@ const useMediaQuery = (query) => {
   }
   return window.matchMedia(query).matches;
 };
-const Container$i = st$1.div`
+const Container$j = st$1.div`
   margin-bottom: 30px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 6.25vw;
@@ -28673,7 +28674,7 @@ const YoutubeFrame = st$1.iframe`
   }
 `;
 function EditorYoutubeFrame({ src }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$i, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$j, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
 }
 const useEditorOutput = (editorData) => {
   console.log("editorData", editorData);
@@ -28780,7 +28781,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: editorOutput }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
@@ -28815,7 +28816,7 @@ function CloseBtn$1({ onClick: onClick2 = () => {
   );
 }
 const arrowIcon = "/assets/grey-arrow-right.svg";
-const NavList$1 = st$1.ul`
+const NavList$2 = st$1.ul`
   display: flex;
   align-items: center;
   width: fit-content;
@@ -28855,7 +28856,7 @@ function NavBar({ activeStep }) {
       navigate(`/courses/${courseId}/${chapterId}`);
     }
   }, [activeStep, chapterId, courseId, navigate]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavList$1, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavList$2, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Chapter,
       {
@@ -28870,7 +28871,7 @@ function NavBar({ activeStep }) {
     ] })
   ] });
 }
-const Container$h = st$1.div`
+const Container$i = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28880,12 +28881,12 @@ const Container$h = st$1.div`
 `;
 function Head$1({ activeStep, onClose = () => {
 } }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { activeStep }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: onClose })
   ] });
 }
-const Container$g = st$1.div`
+const Container$h = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -28903,13 +28904,13 @@ const MainContent = st$1.div`
   flex-direction: column;
   width: 100%;
 `;
-const NavList = st$1.ul`
+const NavList$1 = st$1.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
   row-gap: 3.125vw;
 `;
-const NavListItem = st$1.li`
+const NavListItem$1 = st$1.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28959,7 +28960,7 @@ function NavPopup({ chapterData }) {
       setNavPopup(false);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Head$1,
       {
@@ -28979,8 +28980,8 @@ function NavPopup({ chapterData }) {
           }
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(NavList, { children: navListData && navListData.length > 0 && navListData.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NavListItem,
+      /* @__PURE__ */ jsxRuntimeExports.jsx(NavList$1, { children: navListData && navListData.length > 0 && navListData.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NavListItem$1,
         {
           onClick: () => handleClick(item.id),
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -29015,7 +29016,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
       !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -29123,7 +29124,7 @@ const {
   useUpdateCompetitionMutation
 } = competitionApi;
 const arrowLeft = "/assets/swiperArrowLeft.svg";
-const Container$f = st$1.div`
+const Container$g = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -34239,7 +34240,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$e = st$1(FlexContainer)`
+const Container$f = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -34279,7 +34280,7 @@ const MoreBtn$1 = st$1(DefaultBtn)`
   padding: 0 40px;
   border-radius: 22.689px;
 `;
-function Competition({ data, totalCount, index }) {
+function Competition$1({ data, totalCount, index }) {
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
@@ -34318,9 +34319,9 @@ function Competition({ data, totalCount, index }) {
     setUpdatingCompetitionData(data);
   };
   const handleClickMore = (id2) => {
-    navigate(`/competition/${id2}`);
+    navigate(`/news/competitions/${id2}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionPagination, { children: [
         "Конкурс ",
@@ -34368,7 +34369,7 @@ function CompetitionsSwiper({ data }) {
       return;
     swiperRef.current.swiper.slideNext();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
@@ -34382,7 +34383,7 @@ function CompetitionsSwiper({ data }) {
         modules: [Autoplay],
         children: [
           !((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) && /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperCreateBtn, { onClick: handleClickCreateCompetition, children: "Добавить" }),
-          ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, { data: competitionData, totalCount: data == null ? void 0 : data.count, index }) }, competitionData == null ? void 0 : competitionData.id)))
+          ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition$1, { data: competitionData, totalCount: data == null ? void 0 : data.count, index }) }, competitionData == null ? void 0 : competitionData.id)))
         ]
       }
     ),
@@ -34395,7 +34396,7 @@ function CompetitionsSwiper({ data }) {
 const star = "/assets/star.svg";
 const activeStar = "/assets/active-star.svg";
 const moreIcon = "/assets/moreIcon.svg";
-const Container$d = st$1(FlexContainer)`
+const Container$e = st$1(FlexContainer)`
   flex-direction: column;
   width: 49.7%;
   height: 400px;
@@ -34472,7 +34473,7 @@ function ManagerInfo({
   const progressInfoStyles = {
     marginBottom: isMobile ? "10px" : "30px"
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
     percentage && /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProgressInfo,
       {
@@ -34587,7 +34588,7 @@ const {
   useRestoreNewsMutation,
   useUpdateNewsMutation
 } = newsApi;
-const Container$c = st$1(FlexContainer)`
+const Container$d = st$1(FlexContainer)`
   flex-direction: column;
   padding: 20px 15px;
   border-radius: ${(props) => props.theme.utils.br};
@@ -34621,7 +34622,7 @@ const ImageContainer = st$1.div`
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
 `;
-const Container$b = st$1.div`
+const Container$c = st$1.div`
   display: flex;
   align-items: center;
 `;
@@ -34640,7 +34641,7 @@ function NewsRequisites({
   onClick: onClick2 = () => {
   }
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Date$1, { children: date }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author, { children: author }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34669,12 +34670,12 @@ function NewsEl({ data }) {
       setImgUrl(null);
     }
   }, [data.text, data.user, data.user_id]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
     imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Link,
+        Link$1,
         {
           to: `/news/${data.id}`,
           style: { display: "block", marginRight: "auto" },
@@ -34691,7 +34692,7 @@ function NewsEl({ data }) {
     ] })
   ] });
 }
-const Container$a = st$1(FlexContainer)`
+const Container$b = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$6 = st$1(Text$5)`
@@ -34714,7 +34715,7 @@ const Wrapper = st$1(FlexContainer)`
   row-gap: 22px;
   width: 25%;
 `;
-const Category = st$1(Text$5)`
+const Item = st$1(Text$5)`
   font-size: 22px;
   cursor: pointer;
 
@@ -34722,8 +34723,9 @@ const Category = st$1(Text$5)`
     text-decoration: underline;
   }
 `;
-function NewsCategory({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Category, { children: data.title });
+function NavListItem({ title, onClick: onClick2 = () => {
+} }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Item, { onClick: onClick2, children: title });
 }
 const newsCategoryApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -34785,7 +34787,7 @@ function NewsCategoryWrapper({ children }) {
     isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Загрузка..." }),
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Ошибка!" }),
     !isError && !isLoading && data && data.data.map((newsCategory) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewsCategory,
+      NavListItem,
       {
         data: newsCategory
       },
@@ -34803,7 +34805,7 @@ function NewsContainer() {
   const handleClick = () => {
     navigate("/news/create-news");
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { children: [
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34824,7 +34826,7 @@ function NewsContainer() {
     ] })
   ] });
 }
-const Container$9 = st$1(FlexContainer)`
+const Container$a = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
 `;
@@ -34842,7 +34844,7 @@ const MainInfoWrapper = st$1(FlexContainer)`
 `;
 function NewsMain() {
   const { data } = useGetAllCompetitionsQuery();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
       data && /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -34859,7 +34861,7 @@ function NewsMain() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContainer, {})
   ] }) });
 }
-const Container$8 = st$1.div`
+const Container$9 = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -34892,11 +34894,11 @@ function BackBtn({ onClick: onClick2 = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: text })
   ] });
 }
-const Container$7 = st$1.div`
+const Container$8 = st$1.div`
   display: flex;
   width: 100%;
 `;
-const Container$6 = st$1.div`
+st$1.div`
   display: flex;
   flex-direction: column;
   width: 75%;
@@ -34904,11 +34906,7 @@ const Container$6 = st$1.div`
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Title$5 = st$1(Text$5)`
-  margin-bottom: 23px;
-  font-size: 22px;
-`;
-const EditorOutputContainer = st$1.div`
+const EditorOutputContainer$1 = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -34919,6 +34917,26 @@ const Bottom = st$1.div`
   align-items: center;
   justify-content: flex-end;
 `;
+const Content$1 = st$1.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 75%;
+  min-height: 200px;
+  padding: 15px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+function Content({ children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { children });
+}
+const Title$5 = st$1(Text$5)`
+  margin-bottom: 23px;
+  font-size: 22px;
+`;
+function ContentTitle({ title }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: title });
+}
 function NewsContent() {
   var _a;
   const { setLoaderActive } = useActions();
@@ -34937,11 +34955,11 @@ function NewsContent() {
       setEditorData(editorData2);
     }
   }, [data]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: data.data.title }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorData && editorData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: editorOutput }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer$1, { children: editorData && editorData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: editorOutput }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
         {
@@ -34957,13 +34975,13 @@ function NewsByIdContent() {
   const handleGoBack = () => {
     navigate("/news");
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContent, {})
   ] });
 }
 function NewsById() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -34975,10 +34993,123 @@ function NewsById() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsByIdContent, {})
   ] }) });
 }
+const List$1 = st$1.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 22px;
+`;
+function NavList({ children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(List$1, { children });
+}
+function CompetitionAside() {
+  const navigate = useNavigate();
+  const { competitionId } = useParams();
+  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
+  const handleGoBack = () => {
+    navigate("/news");
+  };
+  const handleGoToCompetition = (id2) => {
+    navigate(`/news/competitions/${id2}`);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }),
+    data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NavList, { children: data.data.map(
+      (competition) => {
+        if (Number(competitionId) === competition.id) {
+          return null;
+        }
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NavListItem,
+          {
+            title: competition.title,
+            onClick: () => {
+              handleGoToCompetition(competition.id);
+            }
+          },
+          competition.id
+        );
+      }
+    ) })
+  ] });
+}
+const Container$7 = st$1(FlexContainer)`
+  padding-top: 50px;
+`;
+const Container$6 = st$1(FlexContainer)`
+  flex-direction: column;
+  width: 25%;
+`;
+function AsideBar({ children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
+}
+const externalLinkIcon = "/assets/moreIcon.svg";
+const BottomContainer$2 = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: space-between;
+`;
+const EditorOutputContainer = st$1(FlexContainer)`
+  flex-direction: column;
+  margin-bottom: 50px;
+`;
+const Link = st$1(DefaultBtn)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 44px;
+  padding: 0 20px 0 23px;
+`;
+const LinkIcon = st$1(Icon$2)`
+  margin-left: 10px;
+  background-image: url(${externalLinkIcon});
+`;
+function CompetitionContent() {
+  var _a;
+  const { competitionId } = useParams();
+  const { data, isFetching, isError } = useGetCompetitionByIdQuery(Number(competitionId), {
+    skip: !competitionId
+  });
+  const [editorData, setEditorData] = reactExports.useState([]);
+  const editorOutput = useEditorOutput(editorData);
+  reactExports.useEffect(() => {
+    if (data && data.data.text) {
+      const editorData2 = JSON.parse(data.data.text);
+      setEditorData(editorData2);
+    }
+  }, [data]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorOutput }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(BottomContainer$2, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { to: data.data.link, children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
+          "Еще подробнее",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(LinkIcon, {})
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NewsRequisites,
+          {
+            date: data.data.date,
+            author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id
+          }
+        )
+      ] })
+    ] }),
+    isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
+    isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {})
+  ] });
+}
+function Competition() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AsideBar, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionAside, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Content, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionContent, {}) })
+  ] }) });
+}
 function News() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsMain, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/:newsId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsById, {}) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/:newsId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsById, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/competitions/:competitionId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) })
   ] });
 }
 function Main() {
@@ -50485,7 +50616,6 @@ st$1.div`
 `;
 let editor;
 function CreateCompetitionForm({ type }) {
-  console.log("type", type);
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = reactExports.useState("");
   const [competitionLink, setCompetitionLink] = reactExports.useState("");
