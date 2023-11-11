@@ -7,10 +7,11 @@ export interface ICustomNavLinkProps {
   icon: {
     withIcon: boolean;
     iconUrl: string;
-  }
+  };
+  onClick?: () => void;
 }
 
-export function CustomNavLink({ url, name, icon }: ICustomNavLinkProps) {
+export function CustomNavLink({ url, name, icon, onClick=() => {} }: ICustomNavLinkProps) {
   return (
     <NavLink
       to={url}
@@ -18,7 +19,7 @@ export function CustomNavLink({ url, name, icon }: ICustomNavLinkProps) {
         return { textDecoration: 'unset', height: '100%' };
       }}>
       {({ isActive }) => (
-        <S.LinkContent $isActive={isActive}>
+        <S.LinkContent $isActive={isActive} onClick={onClick}>
           {icon.withIcon && (
             <S.Icon $isActive={isActive}></S.Icon>
           )}

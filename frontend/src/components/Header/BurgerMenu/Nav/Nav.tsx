@@ -2,13 +2,19 @@ import { NAV_LINKS } from '@/constants';
 import { CustomNavLink } from '../../CustomNavLink';
 import * as S from './styles';
 
-export function Nav() {
+interface INavProps {
+  onClose: () => void;
+}
+
+export function Nav({onClose}: INavProps) {
+
   return (
     <S.Container>
         {Object.values(NAV_LINKS).map((navLink, index) => (
           <CustomNavLink
             {...navLink}
             key={index}
+            onClick={onClose}
           />
         ))}
     </S.Container>

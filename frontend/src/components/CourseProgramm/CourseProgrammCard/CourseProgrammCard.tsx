@@ -1,6 +1,5 @@
 import { AdminBtn } from '@/components/AdminBtn';
 import * as S from './styles';
-import * as C from '@styles/components';
 import defaultCardImg from '@assets/images/defaultCardImg.png';
 import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
 import { IChapter } from '@/types/chapter.types';

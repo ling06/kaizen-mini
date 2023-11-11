@@ -14,7 +14,7 @@ export function BurgerMenu({ onClose }: IBurgerMenuProps) {
   return ReactDOM.createPortal(
     <S.Container>
       <Head onClose={onClose} />
-      <Body />
+      <Body onClose={onClose}/>
       <Footer />
     </S.Container>,
     modalRoot

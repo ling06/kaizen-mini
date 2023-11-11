@@ -28,16 +28,21 @@ export function NewsEl({ data }: INewsElProps) {
   return (
     <S.Container>
       <S.Title>{data.title}</S.Title>
-      <S.ImageContainer>
-        {imgUrl && <S.Image src={imgUrl} />}
-      </S.ImageContainer>
+      {imgUrl && (
+        <S.ImageContainer>
+          <S.Image src={imgUrl} />
+        </S.ImageContainer>
+      )}
       <S.Footer>
         <Link
           to={`/news/${data.id}`}
           style={{ display: 'block', marginRight: 'auto' }}>
           <S.MoreBtn>Подробнее</S.MoreBtn>
         </Link>
-        <NewsRequisites author={authorName} date={data.date}/>
+        <NewsRequisites
+          author={authorName}
+          date={data.date}
+        />
       </S.Footer>
     </S.Container>
   );

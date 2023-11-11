@@ -10580,7 +10580,8 @@ const Icon$1 = st$1(SvgIcon$2)`
     fill: ${(props) => props.$isActive ? props.theme.colors.mainBlue : props.theme.colors.dark};
   }
 `;
-function CustomNavLink({ url, name, icon }) {
+function CustomNavLink({ url, name, icon, onClick: onClick2 = () => {
+} }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     NavLink,
     {
@@ -10588,7 +10589,7 @@ function CustomNavLink({ url, name, icon }) {
       style: () => {
         return { textDecoration: "unset", height: "100%" };
       },
-      children: ({ isActive }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(LinkContent, { $isActive: isActive, children: [
+      children: ({ isActive }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(LinkContent, { $isActive: isActive, onClick: onClick2, children: [
         icon.withIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon$1, { $isActive: isActive }),
         name
       ] })
@@ -16089,12 +16090,13 @@ const Container$F = st$1.div`
   align-items: center;
   gap: 5.6vw;
 `;
-function Nav() {
+function Nav({ onClose }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
-      key: index
+      key: index,
+      onClick: onClose
     }
   )) });
 }
@@ -16107,8 +16109,8 @@ const Container$E = st$1.div`
     display: flex;
   }
 `;
-function Body() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+function Body({ onClose }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16205,7 +16207,7 @@ function BurgerMenu({ onClose }) {
   return ReactDOM.createPortal(
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Body, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
     ] }),
     modalRoot
@@ -34654,7 +34656,7 @@ function NewsEl({ data }) {
   }, [data.text, data.user, data.user_id]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
+    imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Link,
@@ -34664,7 +34666,13 @@ function NewsEl({ data }) {
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(NewsRequisites, { author: authorName, date: data.date })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NewsRequisites,
+        {
+          author: authorName,
+          date: data.date
+        }
+      )
     ] })
   ] });
 }

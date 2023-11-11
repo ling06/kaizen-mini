@@ -1,10 +1,14 @@
 import { Nav } from '../Nav';
 import * as S from './styles';
 
-export function Body() {
+interface IBodyProps {
+  onClose: () => void;
+}
+
+export function Body({ onClose }: IBodyProps) {
   return (
     <S.Container>
-     <Nav />
+     <Nav onClose={onClose}/>
     </S.Container>
   );
 }
