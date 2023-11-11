@@ -16,7 +16,8 @@ export const api = createApi({
     'LessonById',
     'User',
     'Competition',
-    'CourseProgress'
+    'CourseProgress',
+    'NewsByCategory'
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,

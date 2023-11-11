@@ -1,7 +1,7 @@
 import * as S from './styles';
 
 interface ICustomCheckboxProps {
-  descr: string;
+  descr?: string;
   onChange?: () => void;
   children?: React.ReactNode;
   checked?: boolean;
@@ -21,7 +21,7 @@ export function CustomCheckbox({ descr, onChange: onChange = () => {}, children,
         $isRadio={isRadio}
       />
       {children}
-      <S.CheckboxDescr>{descr}</S.CheckboxDescr>
+      {descr && <S.CheckboxDescr>{descr}</S.CheckboxDescr>}
     </S.Label>
   );
 }

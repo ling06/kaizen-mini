@@ -6,7 +6,7 @@ export interface ICompetition {
     title: string;
     text: string;
     link: string;
-    date: Date;
+    date: string;
     user_id: number;
     is_deleted: number;
     user?: Pick<IUser, 'id' | 'name'>;

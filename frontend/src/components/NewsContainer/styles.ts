@@ -17,9 +17,13 @@ export const Title = styled(C.Text)`
 
 export const ContentWrapper = styled(C.FlexContainer)``;
 
-
 export const News = styled(C.FlexContainer)`
+  position: relative;
   width: 75%;
+  min-height: 150px;
   flex-direction: column;
   row-gap: 10px;
+  @media ${(props) => props.theme.media.desktop} {
+   border-radius: ${props => props.theme.utils.br};
+  }
 `;

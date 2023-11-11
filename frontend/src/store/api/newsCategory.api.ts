@@ -35,6 +35,7 @@ export const newsCategoryApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['NewsCategory'],
     }),
     deleteNewsCategory: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -42,6 +43,7 @@ export const newsCategoryApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['NewsCategory'],
     }),
     restoreNewsCategory: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -49,6 +51,7 @@ export const newsCategoryApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['NewsCategory'],
     }),
   }),
   overrideExisting: false,

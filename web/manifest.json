@@ -115,6 +115,9 @@
       "assets/addIconWhite.svg",
       "assets/book.svg",
       "assets/Home.svg",
+      "assets/Save.svg",
+      "assets/checkbox.svg",
+      "assets/checkbox-checked.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
       "assets/Montserrat-Light.ttf",
@@ -217,6 +220,10 @@
     "file": "assets/Home.svg",
     "src": "src/assets/images/Home.svg"
   },
+  "src/assets/images/Save.svg": {
+    "file": "assets/Save.svg",
+    "src": "src/assets/images/Save.svg"
+  },
   "src/assets/images/accordionIcon.svg": {
     "file": "assets/accordionIcon.svg",
     "src": "src/assets/images/accordionIcon.svg"
@@ -256,6 +263,14 @@
   "src/assets/images/burger-icon-open.svg": {
     "file": "assets/burger-icon-open.svg",
     "src": "src/assets/images/burger-icon-open.svg"
+  },
+  "src/assets/images/checkbox-checked.svg": {
+    "file": "assets/checkbox-checked.svg",
+    "src": "src/assets/images/checkbox-checked.svg"
+  },
+  "src/assets/images/checkbox.svg": {
+    "file": "assets/checkbox.svg",
+    "src": "src/assets/images/checkbox.svg"
   },
   "src/assets/images/checklist.svg": {
     "file": "assets/checklist.svg",

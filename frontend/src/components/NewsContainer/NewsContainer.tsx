@@ -1,16 +1,24 @@
-import { useGetAllNewsQuery } from '@/store/api/news.api';
+import { useGetAllNewsQuery, useGetNewsByCategoryQuery } from '@/store/api/news.api';
 import { AdminBtn } from '../AdminBtn';
 import { NewsEl } from '../NewsEl';
 import * as S from './styles';
 import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
+import { LoadingSmall } from '../LoadingSmall';
 
 export function NewsContainer() {
   const {setLoaderActive} = useActions();
-  const { data, isError, isFetching } = useGetAllNewsQuery();
+  const [searchParams] = useSearchParams();
+  
+  const { data, isError, isFetching } = useGetAllNewsQuery(undefined, {
+    skip: !!searchParams.get('category'),
+  });
+  const newsByCategory = useGetNewsByCategoryQuery(Number(searchParams.get('category')), {
+    skip: !searchParams.get('category'),
+  })
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +42,11 @@ export function NewsContainer() {
       <S.ContentWrapper>
         <NewsCategoryWrapper />
         <S.News>
+          {isFetching || newsByCategory.isFetching && (
+            <LoadingSmall />
+          )}
           {isError && <ErrorBlock />}
+          {newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => <NewsEl data={newsData} />)}
           {data && data.data.length > 0 && data.data.map((newsData) => <NewsEl data={newsData} />)}
         </S.News>
       </S.ContentWrapper>

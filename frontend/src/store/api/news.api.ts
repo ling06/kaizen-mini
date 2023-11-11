@@ -1,4 +1,3 @@
-
 import { IGetAllNews, INewsResponse, ICreateNews, TUpdateNews } from '@/types/news.types';
 import { api } from './api';
 import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
@@ -10,6 +9,14 @@ export const newsApi = api.injectEndpoints({
       providesTags: () => [
         {
           type: 'News',
+        },
+      ],
+    }),
+    getNewsByCategory: builder.query<IGetAllNews, number>({
+      query: (id) => `news?category=${id}`,
+      providesTags: () => [
+        {
+          type: 'NewsByCategory',
         },
       ],
     }),
@@ -63,11 +70,4 @@ export const newsApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const {
-  useGetAllNewsQuery,
-  useCreateNewsMutation,
-  useGetNewsByIdQuery,
-  useDeleteNewsMutation,
-  useRestoreNewsMutation,
-  useUpdateNewsMutation,
-} = newsApi;
+export const { useGetAllNewsQuery, useCreateNewsMutation, useGetNewsByIdQuery, useDeleteNewsMutation, useRestoreNewsMutation, useUpdateNewsMutation, useGetNewsByCategoryQuery } = newsApi;

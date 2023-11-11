@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateNewsMutation } from '@/store/api/news.api';
 import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 interface ICreateNewsFormProps {
   type: string;
@@ -21,6 +22,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const [createNews, status] = useCreateNewsMutation();
+  const categories = useTypedSelector(state => state.news.newsCategories);
 
   useEffect(() => {
     if (!editor) {
@@ -37,9 +39,11 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     }
 
     if (status.isSuccess) {
-      editor?.clear();
-      editor = undefined;
       navigate('/news');
+    }
+
+    return () => {
+      editor = undefined;
     }
   }, [navigate, status.isSuccess]);
 
@@ -54,6 +58,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     createNews({
       title: NewsName,
       text: JSON.stringify(editorData ? editorData.blocks : []),
+      NewsCategory: categories,
     });
   };
 
@@ -97,7 +102,19 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       <S.EditorJsWrapper id="editorjs" />
-      <button onClick={handleOpenCategoriesModal}>Open modal</button>
+      {categories.length > 0 && (
+        <S.CategoriesList>
+          {categories.map((category) => (
+            <S.Category>
+              {category.title}
+            </S.Category>
+          ))}
+        </S.CategoriesList>
+      )}
+      <S.AddCategory onClick={handleOpenCategoriesModal}>
+        <S.AddIcon />
+        добавить категории
+      </S.AddCategory>
       <S.Divider />
       <FormControls
         {...controlsData}

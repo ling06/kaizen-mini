@@ -5,6 +5,7 @@ import { reducer as courseReducer } from './course/course.slice';
 import { reducer as loaderReducer } from './loader/loader.slice';
 import { reducer as lessonReducer } from './lesson/lesson.slice';
 import { reducer as competitionReducer } from './competition/competition.slice';
+import {reducer as newsReducer} from './news/news.slice';
 import { api } from './api/api';
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   loader: loaderReducer,
   lesson: lessonReducer,
   competition: competitionReducer,
+  news: newsReducer,
   [api.reducerPath]: api.reducer,
 });
 

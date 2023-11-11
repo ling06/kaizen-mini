@@ -37,10 +37,15 @@ export interface INewsResponse {
   result: boolean;
 }
 
+export interface ICreateNewsCategory {
+  title?: string;
+  id?: number; 
+}
+
 export interface ICreateNews {
   title: string;
   text: string;
-  NewsCategory?: [];
+  NewsCategory?: Array<ICreateNewsCategory>;
 }
 
 export type TUpdateNews = Omit<INews, 'user_id' | 'is_deleted'>;
@@ -61,5 +66,6 @@ export interface INewsCategoryMutationRes {
 }
 
 export interface INewsCategoryMutationReq {
-  title: string;
+  id?: number;
+  title?: string;
 }

@@ -5,3 +5,4 @@ export const List = styled.ul`
   flex-direction: column;
   row-gap: 22px;
 `;
+
