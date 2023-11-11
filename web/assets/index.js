@@ -34267,6 +34267,11 @@ const CompetitionDescr = st$1.p`
   font-weight: 400;
   line-height: 170%;
   color: ${(props) => props.theme.colors.realBlack};
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const MoreBtn$1 = st$1(DefaultBtn)`
   width: fit-content;
@@ -34278,6 +34283,16 @@ function Competition({ data, totalCount, index }) {
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
+  const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (data.text) {
+      const editorData = JSON.parse(data.text);
+      const firstTextBlock = editorData.find((block) => block.type === "paragraph");
+      if (firstTextBlock && firstTextBlock.data.text) {
+        setCompetitionDescr(firstTextBlock.data.text);
+      }
+    }
+  }, [data.text]);
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
@@ -34326,7 +34341,7 @@ function Competition({ data, totalCount, index }) {
       )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: data == null ? void 0 : data.title }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: data == null ? void 0 : data.text }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: competitionDescr }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       MoreBtn$1,
       {

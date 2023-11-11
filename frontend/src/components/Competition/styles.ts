@@ -33,6 +33,11 @@ export const CompetitionDescr = styled.p`
   font-weight: 400;
   line-height: 170%;
   color: ${(props) => props.theme.colors.realBlack};
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const MoreBtn = styled(C.DefaultBtn)`

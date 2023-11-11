@@ -7,7 +7,11 @@ import { useCallback, useRef } from 'react';
 import { ICompetition, IGetAllCompetitions } from '@/types/competition.types';
 import { useNavigate } from 'react-router-dom';
 
-export function CompetitionsSwiper({data}: {data: IGetAllCompetitions}) {
+interface ICompetitionsSwiperProps {
+  data: IGetAllCompetitions
+}
+
+export function CompetitionsSwiper({data}: ICompetitionsSwiperProps) {
   const swiperRef = useRef(null);
   const navigate = useNavigate()
   const handleClickCreateCompetition = () => {
