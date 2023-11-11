@@ -18,7 +18,7 @@ export interface ICourse {
     lessonCount: number;
     checkedLessonCount: number;
     percentage: number;
-  }
+  };
 }
 
 export interface IGetCourses {
@@ -45,4 +45,25 @@ export interface IUpdateCourse {
   is_open?: number;
   status?: number;
   image?: IUploadedImage | null | IImage;
+}
+
+export interface ICourseProgressItem {
+  id: number;
+  name: string;
+  position: number;
+  allQuantity: number;
+}
+
+export interface ICourseProgress {
+  chapter: ICourseProgressItem;
+  theme: ICourseProgressItem;
+  lesson: ICourseProgressItem;
+}
+
+export interface ICourseProgressCompleted {
+  courseComplete: true;
+}
+
+export interface ICourseProgressError {
+  error: string;
 }

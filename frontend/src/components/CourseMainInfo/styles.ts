@@ -12,6 +12,7 @@ export const Container = styled(C.FlexContainer)`
 
 export const Wrapper = styled(C.FlexContainer)`
   flex-direction: column;
+  position: relative;
   width: 49.7%;
   height: 400px;
   padding: 20px;
@@ -69,6 +70,7 @@ export const LessonName = styled(C.Text)`
 export const OpenCourse = styled(C.DefaultBtn)`
   width: fit-content;
   padding: 0 40px;
+  margin-top: auto;
   border-radius: 22px;
   @media ${(props) => props.theme.media.mobile} {
     min-height: 12.5vw;
@@ -76,4 +78,17 @@ export const OpenCourse = styled(C.DefaultBtn)`
     font-size: 4.6875vw;
     border-radius: 7px;
   }
+`;
+
+export const CourseName = styled(LessonName)`
+  margin-bottom: 12px;
+`;
+
+export const CompleteStatus = styled(C.Text)`
+  font-size: 22.689px;
+  color: ${(props) => props.theme.colors.mainBlue};
+`;
+
+export const ErrorName = styled(LessonName)`
+  margin: auto;
 `;

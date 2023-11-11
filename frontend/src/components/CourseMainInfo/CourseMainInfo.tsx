@@ -1,6 +1,6 @@
 import * as S from './styles';
 import defaultPreview from '@assets/images/defaultCoursePreview.png';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CourseBreadcrumb } from '../CourseBreadcrumb';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
@@ -11,21 +11,24 @@ import { ICourse } from '@/types/course.types';
 import { Popup } from './Popup';
 import { OpenSelect } from './OpenSelect';
 import { useGetCourseProgressQuery } from '@/store/api/course.api';
+import { LoadingSmall } from '../LoadingSmall';
 
 interface ICourseMainInfoProps {
   coursesData: Array<ICourse>;
 }
 export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
+  const { courseId } = useParams();
+  const navigate = useNavigate();
   const courseData = useTypedSelector((state) => state.course.data);
   const [previewSrc, setPreviewSrc] = useState('');
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
-  const {data, isError, isFetching} = useGetCourseProgressQuery({course_id: courseData.id}, {
-    skip: !courseData.id,
-  });
-
-  console.log(data);
-  
+  const { data, isError, isFetching } = useGetCourseProgressQuery(
+    { course_id: Number(courseId) },
+    {
+      skip: !courseId,
+    }
+  );
 
   useEffect(() => {
     if (courseData.image) {
@@ -40,21 +43,31 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
     setPreviewSrc(defaultPreview);
   };
 
+  
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+  
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
+  
+  const handleGoToCurrentLesson = () => {
+    if (data && 'chapter' in data) {
+      navigate(`/courses/${courseId}/${data.chapter.id}/${data.theme.id}/${data.lesson.id}`);
+    }
+  };
+  
   const progressInfoStyles = {
     marginBottom: '3.13vw',
   };
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
-
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
-  }
-
   return (
     <S.Container>
       <S.Wrapper>
+        {isFetching && (
+          <LoadingSmall />
+        )}
         {isMobile && (
           <>
             <ProgressInfo
@@ -62,26 +75,39 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
               text="Твой курс закончен на"
               styles={progressInfoStyles}
             />
-            <OpenSelect courseData={courseData} onOpen={handleOpenPopup}/>
+            <OpenSelect
+              courseData={courseData}
+              onOpen={handleOpenPopup}
+            />
           </>
         )}
-        <CourseBreadcrumb
-          containerStyles={{ marginBottom: isMobile ? '5vw' : '30px' }}
-          chapter={{ name: '', position: '1', allQuantity: '5' }}
-          theme={{ name: 'Наша новая капец какая тема', position: '3', allQuantity: '5' }}
-          lesson={{ name: '', position: '3', allQuantity: '5' }}
-        />
-        <S.LessonName>
-          В какой половине 1967 года в городе Ленинград родился российский шоумен, актёр театра и
-          кино Дмитрий Владимирович Нагиев?
-        </S.LessonName>
-        <NavLink
-          style={() => {
-            return { display: 'block', marginTop: 'auto' };
-          }}
-          to={'/courses/courseId'}>
-          <S.OpenCourse>Учиться</S.OpenCourse>
-        </NavLink>
+        {data && 'chapter' in data && (
+          <>
+            <CourseBreadcrumb
+              containerStyles={{ marginBottom: isMobile ? '5vw' : '30px' }}
+              chapter={{ name: data.chapter.name, position: data.chapter.position, allQuantity: data.chapter.allQuantity }}
+              theme={{ name: data.theme.name, position: data.theme.position, allQuantity: data.theme.allQuantity }}
+              lesson={{ name: data.lesson.name, position: data.lesson.position, allQuantity: data.lesson.allQuantity }}
+            />
+            <S.LessonName>{data.lesson.name}</S.LessonName>
+            <S.OpenCourse onClick={handleGoToCurrentLesson}>Учиться</S.OpenCourse>
+          </>
+        )}
+        {data && 'courseComplete' in data && (
+          <>
+            <S.CourseName>
+              {courseData.title}
+            </S.CourseName>
+            <S.CompleteStatus>
+              Пройден
+            </S.CompleteStatus>
+          </>
+        )}
+        {isError || data && 'error' in data && (
+          <S.ErrorName>
+            Информация отсутствует
+          </S.ErrorName>
+        )}
       </S.Wrapper>
       {!isMobile && (
         <S.ImgWrapper>

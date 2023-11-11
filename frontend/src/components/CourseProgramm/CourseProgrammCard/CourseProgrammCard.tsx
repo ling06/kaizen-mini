@@ -66,7 +66,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
       <S.Title>{data.title}</S.Title>
       <S.ProgressContainer>
         <S.ProgressStatusWrapper>
-          <S.ProgressStatus>Пройдено</S.ProgressStatus>
+          {/* <S.ProgressStatus>Пройдено</S.ProgressStatus> */}
           <AdminBtn
             popupName="Глава"
             type={ADMIN_BTN_TYPES.edit}
@@ -78,7 +78,7 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
             }}
           />
         </S.ProgressStatusWrapper>
-        <C.ProgressBar $progress="50" />
+        {/* <C.ProgressBar $progress="50" /> */}
       </S.ProgressContainer>
     </S.Card>
   );

@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -10589,7 +10595,7 @@ function CustomNavLink({ url, name, icon }) {
     }
   );
 }
-const Container$J = st$1(FlexContainer)`
+const Container$K = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10605,7 +10611,7 @@ const NavBar$1 = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$K, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15432,24 +15438,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp = Object.defineProperty;
+var __defProp2 = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = function(obj, key, value) {
-  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp2 = function(obj, key, value) {
+  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp(a2, prop, b2[prop]);
+      __defNormalProp2(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp(a2, prop, b2[prop]);
+        __defNormalProp2(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -15918,13 +15924,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$I = st$1.div`
+const Container$J = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$H = st$1.div``;
+const Container$I = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -15968,14 +15974,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$H, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$I, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$I, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -16000,7 +16006,7 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$2, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$G = st$1.div`
+const Container$H = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -16048,7 +16054,7 @@ function Head$3({ onClose }) {
       document.body.removeEventListener("click", onClose);
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$H, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16065,7 +16071,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$F = st$1.div`
+const Container$G = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16077,14 +16083,14 @@ const Container$F = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$E = st$1.div`
+const Container$F = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$F, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16092,7 +16098,7 @@ function Nav() {
     }
   )) });
 }
-const Container$D = st$1.div`
+const Container$E = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16102,7 +16108,7 @@ const Container$D = st$1.div`
   }
 `;
 function Body() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$D, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$E, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, {}) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16116,7 +16122,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$C = st$1.div`
+const Container$D = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16147,13 +16153,13 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$g, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$B = st$1.div`
+const Container$C = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16178,7 +16184,7 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16197,7 +16203,7 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -26040,7 +26046,7 @@ function Header$2() {
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
-const Container$A = st$1(FlexContainer)`
+const Container$B = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -26175,6 +26181,10 @@ const loaderSlice = createSlice({
 const { reducer: reducer$3, actions: actions$2 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26183,6 +26193,9 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -26385,7 +26398,7 @@ const addIcon$1 = "/assets/addIconBlack.svg";
 const editIcon$1 = "/assets/editIconRed.svg";
 const deleteIcon$1 = "/assets/deleteIcon.svg";
 const visibleIcon = "/assets/visibleIcon.svg";
-const Overlay$2 = st$1(DarkOverlay)`
+const Overlay$3 = st$1(DarkOverlay)`
     z-index: ${(props) => props.theme.utils.zIndex.popup};
   @media ${(props) => props.theme.media.desktop} {
     background-color: transparent;
@@ -26397,7 +26410,7 @@ const Overlay$2 = st$1(DarkOverlay)`
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-const Container$z = st$1(FlexContainer)`
+const Container$A = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -26479,7 +26492,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26876,7 +26889,7 @@ function CourseSelect() {
     setSelectedValue(`${selectedCourseId}`);
     navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26904,14 +26917,14 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$y = st$1(FlexContainer)`
+const Container$z = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-const Container$x = st$1(FlexContainer)`
+const Container$y = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -26921,6 +26934,7 @@ const Container$x = st$1(FlexContainer)`
 `;
 const Wrapper$2 = st$1(FlexContainer)`
   flex-direction: column;
+  position: relative;
   width: 49.7%;
   height: 400px;
   padding: 20px;
@@ -26972,6 +26986,7 @@ const LessonName = st$1(Text$5)`
 const OpenCourse = st$1(DefaultBtn)`
   width: fit-content;
   padding: 0 40px;
+  margin-top: auto;
   border-radius: 22px;
   @media ${(props) => props.theme.media.mobile} {
     min-height: 12.5vw;
@@ -26980,9 +26995,19 @@ const OpenCourse = st$1(DefaultBtn)`
     border-radius: 7px;
   }
 `;
+const CourseName = st$1(LessonName)`
+  margin-bottom: 12px;
+`;
+const CompleteStatus = st$1(Text$5)`
+  font-size: 22.689px;
+  color: ${(props) => props.theme.colors.mainBlue};
+`;
+const ErrorName = st$1(LessonName)`
+  margin: auto;
+`;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$w = st$1(FlexContainer)`
+const Container$x = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -27022,7 +27047,7 @@ const Arrow = st$1(Icon$2)`
   }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter$1, { children: [
       "Глава ",
       chapter.position,
@@ -27047,7 +27072,7 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-const Container$v = st$1(FlexContainer)`
+const Container$w = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
@@ -27070,7 +27095,7 @@ const Percentage = st$1.h3`
   }
 `;
 function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { style: styles2, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { style: styles2, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
       percentage,
@@ -27078,7 +27103,7 @@ function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
     ] })
   ] });
 }
-const Overlay$1 = st$1.div`
+const Overlay$2 = st$1.div`
   display: flex;
   align-items: flex-end;
   position: fixed;
@@ -27089,7 +27114,7 @@ const Overlay$1 = st$1.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
-const Container$u = st$1.div`
+const Container$v = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27158,7 +27183,7 @@ function Popup({ coursesData, onClose }) {
     setModalType(MODAL_TYPES.createCourse);
   };
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         Course$1,
         {
@@ -27186,7 +27211,7 @@ function Popup({ coursesData, onClose }) {
     modalRoot
   );
 }
-const Container$t = st$1.div`
+const Container$u = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27271,7 +27296,7 @@ function OpenSelect({ courseData, onOpen }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -27294,16 +27319,52 @@ function OpenSelect({ courseData, onOpen }) {
     )
   ] });
 }
+const loadingLogo = "/assets/loadingLogo.svg";
+const Overlay$1 = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: ${(props) => props.theme.utils.zIndex.popup};
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const Container$t = st$1.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+`;
+const LoadingIcon = st$1(Icon$2)`
+  margin-right: 15px;
+  background-image: url(${loadingLogo});
+`;
+const LoadingText = st$1(Text$5)`
+  font-size: 22px;
+`;
+function LoadingSmall() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
+  ] }) });
+}
 function CourseMainInfo({ coursesData }) {
   var _a;
+  const { courseId } = useParams();
+  const navigate = useNavigate();
   const courseData = useTypedSelector((state) => state.course.data);
   const [previewSrc, setPreviewSrc] = reactExports.useState("");
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
   const [isPopupOpen, setIsPopupOpen] = reactExports.useState(false);
-  const { data, isError, isFetching } = useGetCourseProgressQuery({ course_id: courseData.id }, {
-    skip: !courseData.id
-  });
-  console.log(data);
+  const { data, isError, isFetching } = useGetCourseProgressQuery(
+    { course_id: Number(courseId) },
+    {
+      skip: !courseId
+    }
+  );
   reactExports.useEffect(() => {
     if (courseData.image) {
       const src = courseData.image.directory + "/" + courseData.image.name;
@@ -27315,17 +27376,23 @@ function CourseMainInfo({ coursesData }) {
   const handleLoadError = () => {
     setPreviewSrc(defaultPreview);
   };
-  const progressInfoStyles = {
-    marginBottom: "3.13vw"
-  };
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
+  const handleGoToCurrentLesson = () => {
+    if (data && "chapter" in data) {
+      navigate(`/courses/${courseId}/${data.chapter.id}/${data.theme.id}/${data.lesson.id}`);
+    }
+  };
+  const progressInfoStyles = {
+    marginBottom: "3.13vw"
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
+      isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           ProgressInfo,
@@ -27335,28 +27402,32 @@ function CourseMainInfo({ coursesData }) {
             styles: progressInfoStyles
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(OpenSelect, { courseData, onOpen: handleOpenPopup })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          OpenSelect,
+          {
+            courseData,
+            onOpen: handleOpenPopup
+          }
+        )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        CourseBreadcrumb,
-        {
-          containerStyles: { marginBottom: isMobile ? "5vw" : "30px" },
-          chapter: { name: "", position: "1", allQuantity: "5" },
-          theme: { name: "Наша новая капец какая тема", position: "3", allQuantity: "5" },
-          lesson: { name: "", position: "3", allQuantity: "5" }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { children: "В какой половине 1967 года в городе Ленинград родился российский шоумен, актёр театра и кино Дмитрий Владимирович Нагиев?" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NavLink,
-        {
-          style: () => {
-            return { display: "block", marginTop: "auto" };
-          },
-          to: "/courses/courseId",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(OpenCourse, { children: "Учиться" })
-        }
-      )
+      data && "chapter" in data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CourseBreadcrumb,
+          {
+            containerStyles: { marginBottom: isMobile ? "5vw" : "30px" },
+            chapter: { name: data.chapter.name, position: data.chapter.position, allQuantity: data.chapter.allQuantity },
+            theme: { name: data.theme.name, position: data.theme.position, allQuantity: data.theme.allQuantity },
+            lesson: { name: data.lesson.name, position: data.lesson.position, allQuantity: data.lesson.allQuantity }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { children: data.lesson.name }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(OpenCourse, { onClick: handleGoToCurrentLesson, children: "Учиться" })
+      ] }),
+      data && "courseComplete" in data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CourseName, { children: courseData.title }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CompleteStatus, { children: "Пройден" })
+      ] }),
+      isError || data && "error" in data && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorName, { children: "Информация отсутствует" })
     ] }),
     !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Preview,
@@ -27461,7 +27532,7 @@ const ProgressStatusWrapper = st$1(FlexContainer)`
     margin-bottom: 0;
   }
 `;
-const ProgressStatus = st$1.p`
+st$1.p`
   margin-right: auto;
   font-size: 15px;
   font-weight: 500;
@@ -27568,26 +27639,20 @@ function CourseProgrammCard({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: "Пройдено" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "Глава",
-            type: ADMIN_BTN_TYPES.edit,
-            onClick: () => {
-            },
-            popupHandlers: {
-              onDelete: isDeleted ? void 0 : handleDeleteChapter,
-              onRestore: isDeleted ? handleRestoreChapter : void 0,
-              onEdit: handleEditChapter
-            }
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar$1, { $progress: "50" })
-    ] })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatusWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AdminBtn,
+      {
+        popupName: "Глава",
+        type: ADMIN_BTN_TYPES.edit,
+        onClick: () => {
+        },
+        popupHandlers: {
+          onDelete: isDeleted ? void 0 : handleDeleteChapter,
+          onRestore: isDeleted ? handleRestoreChapter : void 0,
+          onEdit: handleEditChapter
+        }
+      }
+    ) }) })
   ] });
 }
 function CourseProgramm() {
@@ -27675,7 +27740,7 @@ function CoursePreview() {
       }
     }
   }, [data, navigate, params.courseId, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -50260,7 +50325,6 @@ const Logo = st$1.img`
 const Text$1 = st$1(Text$5)`
   font-size: 22.714px;
 `;
-const loadingLogo = "/assets/loadingLogo.svg";
 function Loading({ styles: styles2 = {}, state, innerRef }) {
   const modalRoot = document.getElementById("modal-root");
   if (!modalRoot)

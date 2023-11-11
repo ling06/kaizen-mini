@@ -3,18 +3,18 @@ import * as S from './styles';
 interface ICourseBreadcrumbProps {
   chapter: {
     name: string;
-    position: string;
-    allQuantity: string;
+    position: number;
+    allQuantity: number;
   };
   theme: {
     name: string;
-    position: string;
-    allQuantity: string;
+    position: number;
+    allQuantity: number;
   };
   lesson: {
     name: string;
-    position: string;
-    allQuantity: string;
+    position: number;
+    allQuantity: number;
   };
   containerStyles?: {[key: string]: string};
 }
