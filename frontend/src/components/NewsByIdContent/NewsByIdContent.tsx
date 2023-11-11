@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
-import { BackBtn } from './BackBtn';
+import { BackBtn } from '../BackBtn';
 import * as S from './styles';
 import { NewsContent } from './NewsContent';
 

@@ -14,8 +14,6 @@ interface ICreateCompetitionFormProps {
 let editor: undefined | EditorJS;
 
 export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
-  console.log('type', type)
-
   const navigate = useNavigate();
   const [competitionName, setCompetitionName] = useState<string>('');
   const [competitionLink, setCompetitionLink] = useState<string>('');
@@ -89,11 +87,6 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     setCompetitionLink(event.target.value);
   };
 
-  // const handleOpenCategoriesModal = () => {
-  //   setModalType(MODAL_TYPES.newsCategory);
-  //   setModalOpen(true);
-  // }
-
   const controlsData = {
     names: {
       confirm: type === 'create' ?'Создать конкурс' : 'Изменить конкурс',
@@ -125,7 +118,6 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         type="text"
         placeholder= {type === 'create' ? "Ссылка на конкурс в борбозе": "Новая ссылка"}
       />
-      {/* <button onClick={handleOpenCategoriesModal}>Open modal</button> */}
       <S.Divider />
       <FormControls
         {...controlsData}

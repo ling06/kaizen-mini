@@ -1,5 +1,5 @@
 import * as S from './styles';
-import { NewsCategory } from '../NewsCategory';
+import { NavListItem } from '../NavListItem';
 import { useGetNewsCategoryQuery } from '@/store/api/newsCategory.api';
 
 interface INewsCategoryWrapperProps {
@@ -17,7 +17,7 @@ export function NewsCategoryWrapper({ children }: INewsCategoryWrapperProps) {
         !isLoading &&
         data &&
         data.data.map((newsCategory) => (
-          <NewsCategory
+          <NavListItem
             data={newsCategory}
             key={newsCategory.id}
           />

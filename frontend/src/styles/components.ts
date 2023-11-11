@@ -35,7 +35,7 @@ export const DefaultBtn = styled.button`
   background-color: ${(props) => props.theme.colors.mainBlue};
   border-radius: ${(props) => props.theme.utils.br};
   transition: ${(props) => props.theme.utils.transition};
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     font-size: 4.6875vw;
   }
 
@@ -44,9 +44,7 @@ export const DefaultBtn = styled.button`
   }
 `;
 
-export const EditorTabel = styled.table`
-
-`;
+export const EditorTabel = styled.table``;
 
 export const Text = styled.p`
   font-size: 18px;
@@ -54,7 +52,7 @@ export const Text = styled.p`
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
 
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     font-size: 5.625vw;
   }
 `;
@@ -69,7 +67,7 @@ export const Input = styled.input`
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
   border-radius: ${(props) => props.theme.utils.br};
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     min-height: 12.5vw;
     padding: 4.0625vw 5.3125vw;
     font-size: 3.75vw;
@@ -151,7 +149,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
   height: 10px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.greyF1};
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     height: 1.5625vw;
     border-radius: 2.532px;
   }
@@ -168,9 +166,6 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
   }
 `;
 
-
-
-
 export const Icon = styled.div`
   display: block;
   width: 24px;
@@ -178,7 +173,7 @@ export const Icon = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     width: 7.5vw;
     height: 7.5vw;
   }
@@ -208,7 +203,7 @@ export const EditorParagraph = styled(Text)`
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 150%;
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     font-size: 4.6875vw;
     padding: 0 3.125vw;
     margin-bottom: 10%;
@@ -219,16 +214,15 @@ export const ProgrammCardSkeleton = styled(FlexContainer)`
   width: 310px;
   height: 400px;
   border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${props => props.theme.colors.grey93};
-  animation: pulse .5s ease-in-out infinite alternate;
+  background-color: ${(props) => props.theme.colors.grey93};
+  animation: pulse 0.5s ease-in-out infinite alternate;
 
   @keyframes pulse {
     100% {
-      background-color: ${props => props.theme.colors.greyEO};
+      background-color: ${(props) => props.theme.colors.greyEO};
     }
   }
 `;
-
 
 export const OrderedList = styled.ol`
   display: flex;
@@ -244,7 +238,7 @@ export const UnorderedList = styled.ul`
   gap: 20px;
   margin-bottom: 30px;
   list-style: disc inside;
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     gap: 6.25vw;
     padding: 0 3.125vw;
     margin-bottom: 10%;
@@ -255,16 +249,20 @@ export const ListItem = styled.li`
   display: list-item;
   ${TextStyles}
   font-weight: 400;
-  @media ${props => props.theme.media.mobile} {
+  @media ${(props) => props.theme.media.mobile} {
     font-size: 4.6875vw;
   }
 `;
 export const EditorImg = styled.img`
   width: 100%;
   margin-bottom: 30px;
-  border-radius: ${props => props.theme.utils.br};
-  @media ${props => props.theme.media.mobile} {
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 10%;
     border-radius: unset;
   }
+`;
+
+export const FlexColumn = styled(FlexContainer)`
+  flex-direction: column;
 `;

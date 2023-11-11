@@ -7,6 +7,8 @@ import { IEditorJsData } from '@/types/editorJs.types';
 import { useEditorOutput } from '@/hooks/useEditorOutput';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { NewsRequisites } from '@/components/NewsRequisites';
+import { Content } from '@/layouts/Content';
+import { ContentTitle } from '@/components/ContentTitle';
 
 export function NewsContent() {
   const { setLoaderActive } = useActions();
@@ -29,14 +31,12 @@ export function NewsContent() {
   }, [data]);
 
   return (
-    <S.Container>
+    <Content>
       {isError && <ErrorBlock />}
       {data && (
         <>
-          <S.Title>{data.data.title}</S.Title>
-          <S.EditorOutputContainer>
-            {editorData && editorData.length > 0 && <>{editorOutput}</>}
-          </S.EditorOutputContainer>
+          <ContentTitle title={data.data.title} />
+          <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer>
           <S.Bottom>
             <NewsRequisites
               author={data.data.user?.name || data.data.user_id}
@@ -45,6 +45,6 @@ export function NewsContent() {
           </S.Bottom>
         </>
       )}
-    </S.Container>
+    </Content>
   );
 }

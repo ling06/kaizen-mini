@@ -59,7 +59,7 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
   };
 
   const handleClickMore = (id:number) => {
-    navigate(`/competition/${id}`);
+    navigate(`/news/competitions/${id}`);
   };
 
   return (

@@ -10,11 +10,6 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
 
-export const Title = styled(C.Text)`
-  margin-bottom: 23px;
-  font-size: 22px;
-`;
-
 export const EditorOutputContainer = styled.div`
   display: flex;
   flex-direction: column;
