@@ -141,7 +141,7 @@ export const FlexContainer = styled.div`
 `;
 
 interface IProgressBar {
-  $progress: string;
+  $progress: string ;
 }
 
 export const ProgressBar = styled(FlexContainer)<IProgressBar>`
@@ -163,6 +163,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
     height: 100%;
     border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
+    transition: width .2s linear;
   }
 `;
 

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import { IChapter } from '@/types/chapter.types';
@@ -7,6 +8,22 @@ interface ICourseNavHeadProps {
 }
 
 export function CourseNavHead({ data }: ICourseNavHeadProps) {
+  const chapterProgress = useMemo(() => {
+    if (data) {
+      let lessons = 0;
+      let checkedlessons = 0;
+      data.themes?.forEach((theme) => {
+        theme.lessons?.forEach((lesson) => {
+          if (lesson.isChecked) {
+            checkedlessons++;
+          }
+          lessons++;
+        });
+      });
+      return (checkedlessons / lessons) * 100;
+    }
+  }, [data]);
+
   return (
     <S.Container>
       <S.TitleWrapper>
@@ -17,7 +34,7 @@ export function CourseNavHead({ data }: ICourseNavHeadProps) {
           onClick={() => {}}
         />
       </S.TitleWrapper>
-      <S.ProgressBar $progress={'70'} />
+      <S.ProgressBar $progress={`${chapterProgress}`} />
     </S.Container>
   );
 }

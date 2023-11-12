@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
 import { useCheckLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
@@ -11,6 +11,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
 import { IEditorJsData } from '@/types/editorJs.types';
 import { useEditorOutput } from '@/hooks/useEditorOutput';
+import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
 interface IEditorLessonData extends Omit<ILesson, 'description'> {
   description: IEditorJsData;
@@ -18,7 +19,11 @@ interface IEditorLessonData extends Omit<ILesson, 'description'> {
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();
-  const { lessonId } = useParams();
+  const { courseId,lessonId, chapterId } = useParams();
+  const chapterData = useGetChapterByIdQuery(Number(chapterId), {
+    skip: !chapterId,
+  });
+  
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
     skip: !lessonId,
@@ -26,6 +31,7 @@ export function CourseContent() {
   const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);
   const isMobile = useMediaQuery(MediaQueries.mobile);
+  const navigate = useNavigate();
 
   const isTestsPassed = useMemo(() => {
     if (data?.data.tests && data?.data.tests.length > 0) {
@@ -34,7 +40,6 @@ export function CourseContent() {
   }, [data?.data.tests]);
 
   const editorOutput = useEditorOutput(editorData);
-  console.log('editorOutput', editorOutput)
 
   useEffect(() => {
     if (
@@ -58,7 +63,21 @@ export function CourseContent() {
 
   const handleCheckLesson = () => {
     if (data && data.data.id) {
-      checkLesson({ id: data.data.id }).then(() => {
+      checkLesson({ id: data.data.id }).then((res) => {
+        //TODO: надо дополнить эндроинт под вот это все
+        if(!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
+          return;
+        }
+          const theme = chapterData.data?.data.themes.find((theme) => theme.id === res.data.data.theme_id);
+          if(!theme || !theme?.lessons) {
+            return;
+          }
+          const index = theme?.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
+          if(index && index !== -1 && theme?.lessons.length > index + 1) {
+            navigate(`/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${theme.lessons[index + 1].id}`);
+          }
+          
+        
         setLoaderActive(false);
       });
       setLoaderActive(true);

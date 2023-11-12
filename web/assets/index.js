@@ -10486,6 +10486,7 @@ const ProgressBar$1 = st$1(FlexContainer)`
     height: 100%;
     border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
+    transition: width .2s linear;
   }
 `;
 const Icon$2 = st$1.div`
@@ -28352,6 +28353,23 @@ const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
 function CourseNavHead({ data }) {
+  const chapterProgress = reactExports.useMemo(() => {
+    var _a;
+    if (data) {
+      let lessons = 0;
+      let checkedlessons = 0;
+      (_a = data.themes) == null ? void 0 : _a.forEach((theme) => {
+        var _a2;
+        (_a2 = theme.lessons) == null ? void 0 : _a2.forEach((lesson) => {
+          if (lesson.isChecked) {
+            checkedlessons++;
+          }
+          lessons++;
+        });
+      });
+      return checkedlessons / lessons * 100;
+    }
+  }, [data]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { as: "h3", children: data.title }),
@@ -28365,7 +28383,7 @@ function CourseNavHead({ data }) {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar, { $progress: "70" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar, { $progress: `${chapterProgress}` })
   ] });
 }
 const forwardIcon = "/assets/forwardIcon.svg";
@@ -28772,7 +28790,10 @@ const useEditorOutput = (editorData) => {
 };
 function CourseContent() {
   const { setLoaderActive } = useActions();
-  const { lessonId } = useParams();
+  const { courseId, lessonId, chapterId } = useParams();
+  const chapterData = useGetChapterByIdQuery(Number(chapterId), {
+    skip: !chapterId
+  });
   const [editorData, setEditorData] = reactExports.useState([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
     skip: !lessonId
@@ -28780,13 +28801,13 @@ function CourseContent() {
   const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = reactExports.useState(true);
   const isMobile = useMediaQuery(MediaQueries.mobile);
+  const navigate = useNavigate();
   const isTestsPassed = reactExports.useMemo(() => {
     if ((data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0) {
       return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
     }
   }, [data == null ? void 0 : data.data.tests]);
   const editorOutput = useEditorOutput(editorData);
-  console.log("editorOutput", editorOutput);
   reactExports.useEffect(() => {
     if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
       setIsForwardBtnDisabled(true);
@@ -28803,7 +28824,19 @@ function CourseContent() {
   }, [data, isFetching, setLoaderActive]);
   const handleCheckLesson = () => {
     if (data && data.data.id) {
-      checkLesson({ id: data.data.id }).then(() => {
+      checkLesson({ id: data.data.id }).then((res) => {
+        var _a;
+        if (!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
+          return;
+        }
+        const theme = (_a = chapterData.data) == null ? void 0 : _a.data.themes.find((theme2) => theme2.id === res.data.data.theme_id);
+        if (!theme || !(theme == null ? void 0 : theme.lessons)) {
+          return;
+        }
+        const index = theme == null ? void 0 : theme.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
+        if (index && index !== -1 && (theme == null ? void 0 : theme.lessons.length) > index + 1) {
+          navigate(`/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${theme.lessons[index + 1].id}`);
+        }
         setLoaderActive(false);
       });
       setLoaderActive(true);
