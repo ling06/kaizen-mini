@@ -17,6 +17,9 @@ const newsSlice = createSlice({
   name: 'news',
   initialState,
   reducers: {
+    setNewsCategories: (state, {payload}: PayloadAction<INewsCategory[]>) => {
+      state.newsCategories = payload;
+    },
     addNewsCategory: (state, {payload}: PayloadAction<INewsCategory>) => {
       state.newsCategories.push(payload);
     },

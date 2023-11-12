@@ -26417,6 +26417,9 @@ const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {
+    setNewsCategories: (state, { payload }) => {
+      state.newsCategories = payload;
+    },
     addNewsCategory: (state, { payload }) => {
       state.newsCategories.push(payload);
     },
@@ -34538,7 +34541,7 @@ function Competition$1({ data, totalCount, index }) {
     )
   ] });
 }
-function CompetitionsSwiper({ data }) {
+function CompetitionsSwiper({ data, isError, isFetching }) {
   var _a, _b, _c, _d;
   const swiperRef = reactExports.useRef(null);
   const navigate = useNavigate();
@@ -34556,26 +34559,37 @@ function CompetitionsSwiper({ data }) {
     swiperRef.current.swiper.slideNext();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      Swiper2,
-      {
-        ref: swiperRef,
-        style: { width: "100%", height: "100%" },
-        autoplay: {
-          delay: 4e3,
-          disableOnInteraction: false
-        },
-        loop: true,
-        modules: [Autoplay],
-        children: [
-          !((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) && /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperCreateBtn, { onClick: handleClickCreateCompetition, children: "Добавить" }),
-          ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition$1, { data: competitionData, totalCount: data == null ? void 0 : data.count, index }) }, competitionData == null ? void 0 : competitionData.id)))
-        ]
-      }
-    ),
-    ((_d = data == null ? void 0 : data.data) == null ? void 0 : _d.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperNextBtn, { onClick: handleNext })
+    isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
+    isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
+    data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        Swiper2,
+        {
+          ref: swiperRef,
+          style: { width: "100%", height: "100%" },
+          autoplay: {
+            delay: 4e3,
+            disableOnInteraction: false
+          },
+          loop: true,
+          modules: [Autoplay],
+          children: [
+            !((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) && /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperCreateBtn, { onClick: handleClickCreateCompetition, children: "Добавить" }),
+            ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Competition$1,
+              {
+                data: competitionData,
+                totalCount: data == null ? void 0 : data.count,
+                index
+              }
+            ) }, competitionData == null ? void 0 : competitionData.id)))
+          ]
+        }
+      ),
+      ((_d = data == null ? void 0 : data.data) == null ? void 0 : _d.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperNextBtn, { onClick: handleNext })
+      ] })
     ] })
   ] });
 }
@@ -34778,35 +34792,40 @@ const newsApi = api.injectEndpoints({
         method: "POST",
         body: updateNews
       }),
-      invalidatesTags: () => [
-        {
-          type: "News"
-        }
-      ]
+      invalidatesTags: ["News", "NewsByCategory", "NewsById"]
     }),
     deleteNews: builder.mutation({
       query: (id2) => ({
         url: "news/delete",
         method: "POST",
         body: id2
-      })
+      }),
+      invalidatesTags: ["News", "NewsByCategory", "NewsById"]
     }),
     restoreNews: builder.mutation({
       query: (id2) => ({
         url: "news/restore",
         method: "POST",
         body: id2
-      })
+      }),
+      invalidatesTags: ["News", "NewsByCategory", "NewsById"]
     })
   }),
   overrideExisting: false
 });
 const { useGetAllNewsQuery, useCreateNewsMutation, useGetNewsByIdQuery, useDeleteNewsMutation, useRestoreNewsMutation, useUpdateNewsMutation, useGetNewsByCategoryQuery } = newsApi;
-const Container$e = st$1(FlexContainer)`
+const Container$e = st$1.div`
+  display: flex;
+  width: 100%;
   flex-direction: column;
   padding: 20px 15px;
   border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
+  opacity: ${(props) => props.$isVisible ? 1 : 0.5};
+  background-color: ${(props) => props.$isDeleted ? "rgba(224, 54, 56, .1)" : props.theme.colors.realWhite};
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
 `;
 const Title$7 = st$1.h3`
   margin-bottom: 25px;
@@ -34870,8 +34889,13 @@ function NewsRequisites({
   ] });
 }
 function NewsEl({ data }) {
+  const { setLoaderActive } = useActions();
   const [authorName, setAuthorName] = reactExports.useState("");
   const [imgUrl, setImgUrl] = reactExports.useState("");
+  const navigate = useNavigate();
+  const [deleteNews] = useDeleteNewsMutation();
+  const [restoreNews] = useRestoreNewsMutation();
+  const [update2] = useUpdateNewsMutation();
   reactExports.useEffect(() => {
     var _a;
     const name = data.user ? data.user.name : data.user_id;
@@ -34884,27 +34908,70 @@ function NewsEl({ data }) {
       setImgUrl(null);
     }
   }, [data.text, data.user, data.user_id]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
-    imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Link$1,
-        {
-          to: `/news/${data.id}`,
-          style: { display: "block", marginRight: "auto" },
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NewsRequisites,
-        {
-          author: authorName,
-          date: data.date
-        }
-      )
-    ] })
-  ] });
+  const handleEditNews = () => {
+    navigate(`/news/edit-news/${data.id}`);
+  };
+  const handleDeleteNews = () => {
+    deleteNews({
+      id: data.id
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При удалении статьи произошла ошибка");
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreNews = () => {
+    restoreNews({
+      id: data.id
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При востановлении статьи произошла ошибка");
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleVisibileNews = () => {
+    update2({
+      id: data.id,
+      status: Number(data.status) === 0 ? 1 : 0
+    });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Container$e,
+    {
+      $isDeleted: !!data.is_deleted,
+      $isVisible: Number(data.status) !== 0,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
+        imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Link$1,
+            {
+              to: `/news/${data.id}`,
+              style: { display: "block", marginRight: "auto" },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            NewsRequisites,
+            {
+              author: authorName,
+              date: data.date,
+              adminHandlers: {
+                onEdit: handleEditNews,
+                onDelete: data.is_deleted ? void 0 : handleDeleteNews,
+                onRestore: data.is_deleted ? handleRestoreNews : void 0,
+                onVisible: Number(data.status) === 0 ? handleVisibileNews : void 0,
+                onHide: Number(data.status) === 1 ? handleVisibileNews : void 0
+              }
+            }
+          )
+        ] })
+      ]
+    }
+  );
 }
 const Container$c = st$1(FlexContainer)`
   flex-direction: column;
@@ -35088,10 +35155,10 @@ const MainInfoWrapper = st$1(FlexContainer)`
   }
 `;
 function NewsMain() {
-  const { data } = useGetAllCompetitionsQuery();
+  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
-      data && /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data, isError, isFetching }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         ManagerInfo,
         {
@@ -49249,15 +49316,43 @@ const CategoriesList$1 = st$1(FlexContainer)`
 const Category$1 = st$1(Text$6)``;
 let editor$1;
 function CreateNewsForm({ type }) {
-  const { setModalOpen, setModalType } = useActions();
+  const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
+  const [createNews] = useCreateNewsMutation();
   const navigate = useNavigate();
+  const { newsId } = useParams();
   const [NewsName, setNewsName] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
-  const [createNews, status] = useCreateNewsMutation();
   const categories = useTypedSelector((state) => state.news.newsCategories);
+  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+    skip: !newsId
+  });
+  const [updateNews] = useUpdateNewsMutation();
   reactExports.useEffect(() => {
-    if (!editor$1) {
+    if (type === "edit" && data) {
+      setNewsName(data.data.title);
+      setValidName(true);
+      setChangedName(false);
+      setNewsCategories(data.data.categories || []);
+      if (!editor$1) {
+        try {
+          editor$1 = new Bi({
+            holder: "editorjs",
+            tools: EDITOR_JS_TOOLS,
+            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+            inlineToolbar: true,
+            data: {
+              blocks: JSON.parse(data.data.text || "[]")
+            }
+          });
+        } catch (e2) {
+          console.log(e2);
+        }
+      }
+    }
+  }, [data, setNewsCategories, type]);
+  reactExports.useEffect(() => {
+    if (!editor$1 && !data && !isFetching) {
       try {
         editor$1 = new Bi({
           holder: "editorjs",
@@ -49269,24 +49364,51 @@ function CreateNewsForm({ type }) {
         console.log(e2);
       }
     }
-    if (status.isSuccess) {
-      navigate("/news");
-    }
     return () => {
       editor$1 = void 0;
     };
-  }, [navigate, status.isSuccess]);
+  }, [data, isFetching]);
   const handleConfirm = async () => {
-    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data) => data));
+    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data2) => data2));
     if (!isValidName) {
       setChangedName(true);
       return;
     }
-    createNews({
-      title: NewsName,
-      text: JSON.stringify(editorData ? editorData.blocks : []),
-      NewsCategory: categories
-    });
+    if (type !== "edit") {
+      createNews({
+        title: NewsName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        NewsCategory: categories
+      }).then((res) => {
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    }
+    if (type === "edit") {
+      updateNews({
+        id: Number(newsId),
+        title: NewsName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        NewsCategory: categories
+      }).then((res) => {
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при редактировании новости. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    }
   };
   const handleCancel = () => {
     navigate("/news");
@@ -49304,7 +49426,7 @@ function CreateNewsForm({ type }) {
   };
   const controlsData = {
     names: {
-      confirm: "Создать новость",
+      confirm: type === "edit" ? "Сохранить" : "Создать новость",
       cancel: "Отмена"
     },
     handlers: {
@@ -49850,7 +49972,6 @@ function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
-  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
@@ -49887,6 +50008,13 @@ function App() {
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
         }
       ),
+      isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Route,
+        {
+          path: "/courses/:courseId/:chapterId/:themeId?/:lessonId?",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMob, {})
+        }
+      ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
@@ -49897,15 +50025,22 @@ function App() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
-          path: "/competition/create-competition",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: updatingCompetitionData ? "update" : "create" })
+          path: "/news/edit-news/:newsId",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "edit" })
         }
       ),
-      isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
-          path: "/courses/:courseId/:chapterId/:themeId?/:lessonId?",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMob, {})
+          path: "/news/competition/create-competition",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Route,
+        {
+          path: "/news/competition/edit-competition/:competitionId",
+          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "edit" })
         }
       )
     ] }),

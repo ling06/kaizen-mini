@@ -1,4 +1,4 @@
-import { IImage } from "./image.types";
+import { IImage } from './image.types';
 
 export interface INewsCategory {
   id: number;
@@ -39,7 +39,7 @@ export interface INewsResponse {
 
 export interface ICreateNewsCategory {
   title?: string;
-  id?: number; 
+  id?: number;
 }
 
 export interface ICreateNews {
@@ -48,8 +48,15 @@ export interface ICreateNews {
   NewsCategory?: Array<ICreateNewsCategory>;
 }
 
-export type TUpdateNews = Omit<INews, 'user_id' | 'is_deleted'>;
-
+export interface IUpdateNews {
+  id: number;
+  title?: string;
+  text?: string;
+  NewsCategory?: Array<ICreateNewsCategory | INewsCategory>;
+  date?: string;
+  image?: IImage | null;
+  status?: number;
+}
 
 export interface IGetAllNewsCategory {
   data: Array<INewsCategory>;

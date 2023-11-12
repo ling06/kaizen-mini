@@ -6,13 +6,13 @@ import * as S from './styles';
 import * as C from '@styles/components';
 
 export function NewsMain() {
-  const { data } = useGetAllCompetitionsQuery();
+  const { data, isError, isFetching } = useGetAllCompetitionsQuery();
 
   return (
     <C.DefaultContainer>
       <S.Container>
         <S.MainInfoWrapper>
-          {data && <CompetitionsSwiper data={data}/>}
+          <CompetitionsSwiper data={data} isError={isError} isFetching={isFetching} />
           <ManagerInfo
             percentage={'100'}
             salary={'999999'}

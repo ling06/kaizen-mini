@@ -23,7 +23,6 @@ function App() {
   const { isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
-  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = useRef(null);
   const isMobile = useMediaQuery(MediaQueries.mobile);
@@ -56,20 +55,28 @@ function App() {
             path={'/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson'}
             element={<CreateLesson type="edit" />}
           />
-          <Route
-            path={'/news/create-news'}
-            element={<CreateNews type={'create'} />}
-          />
-          <Route
-            path={'/competition/create-competition'}
-            element={<CreateCompetition type={updatingCompetitionData ? 'update' : 'create'} />}
-          />
           {isMobile && (
             <Route
               path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
               element={<CourseMob />}
             />
           )}
+          <Route
+            path={'/news/create-news'}
+            element={<CreateNews type={'create'} />}
+          />
+          <Route
+            path={'/news/edit-news/:newsId'}
+            element={<CreateNews type={'edit'} />}
+          />
+          <Route
+            path={'/news/competition/create-competition'}
+            element={<CreateCompetition type="create" />}
+          />
+          <Route
+            path={'/news/competition/edit-competition/:competitionId'}
+            element={<CreateCompetition type="edit" />}
+          />
         </Routes>
         {isModalOpen && (
           <ModalLayout modalType={modalType}>

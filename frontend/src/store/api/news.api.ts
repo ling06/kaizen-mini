@@ -1,4 +1,4 @@
-import { IGetAllNews, INewsResponse, ICreateNews, TUpdateNews } from '@/types/news.types';
+import { IGetAllNews, INewsResponse, ICreateNews, IUpdateNews } from '@/types/news.types';
 import { api } from './api';
 import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
 
@@ -40,17 +40,13 @@ export const newsApi = api.injectEndpoints({
         },
       ],
     }),
-    updateNews: builder.mutation<INewsResponse, TUpdateNews>({
+    updateNews: builder.mutation<INewsResponse, IUpdateNews>({
       query: (updateNews) => ({
         url: 'news/update',
         method: 'POST',
         body: updateNews,
       }),
-      invalidatesTags: () => [
-        {
-          type: 'News',
-        },
-      ],
+      invalidatesTags: ['News', 'NewsByCategory', 'NewsById'],
     }),
     deleteNews: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (id) => ({
@@ -58,6 +54,7 @@ export const newsApi = api.injectEndpoints({
         method: 'POST',
         body: id,
       }),
+      invalidatesTags: ['News', 'NewsByCategory', 'NewsById'],
     }),
     restoreNews: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (id) => ({
@@ -65,6 +62,7 @@ export const newsApi = api.injectEndpoints({
         method: 'POST',
         body: id,
       }),
+      invalidatesTags: ['News', 'NewsByCategory', 'NewsById'],
     }),
   }),
   overrideExisting: false,
