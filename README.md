@@ -35,3 +35,30 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 ~~~
 php yii auth/init
 ~~~
+
+FRONTEND
+
+Перейти в директорию frontend:
+~~~
+cd frontend
+~~~
+
+Установить все необходимые зависимости:
+~~~
+npm clear install
+~~~
+или: 
+~~~
+npm install
+~~~
+если что-то пошло не так
+
+Dev режим:
+~~~
+npm run build:dev
+~~~
+
+Production: 
+~~~
+npm run build
+~~~
