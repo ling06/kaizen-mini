@@ -10,6 +10,7 @@ import { FadedTitle } from '../FadedTitle';
 import { ITheme } from '@/types/theme.types';
 import { ILesson } from '@/types/lesson.types';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
+import { DoneIcon } from '../DoneIcon';
 // import { DoneIcon } from '../DoneIcon';
 
 interface INavPopupProps {
@@ -90,9 +91,9 @@ export function NavPopup({ chapterData }: INavPopupProps) {
                   text={item.title}
                   isDeleted={!!item.is_deleted}
                 />
-                {/* {activeStep === Steps.theme && 'isCheck' in item && (
+                {'isChecked' in item && (
                   <DoneIcon />
-                )} */}
+                )}
               </S.NavListItem>
             ))}
         </S.NavList>

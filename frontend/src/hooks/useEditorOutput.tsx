@@ -1,37 +1,56 @@
 import { EditorYoutubeFrame } from '@/components/EditorYoutubeFrame';
 import { IEditorJsData } from '@/types/editorJs.types';
 import * as C from '@styles/components';
+import { ReactNode } from 'react';
 
-export const useEditorOutput = (editorData: Array<IEditorJsData>) => {
-  console.log('editorData', editorData)
-  if (!editorData) return null;
+
+export const useEditorOutput = (editorData: Array<IEditorJsData>): ReactNode[] | null => {
+  if (!editorData) {
+    return null;
+  }
+  
   return editorData.map((block) => {
-    if (block.type === 'paragraph') {
-      return <C.EditorParagraph key={block.id}>{block.data.text}</C.EditorParagraph>;
-    }
-    if (block.type === 'table') {       
-      return <C.EditorTabel key={block.id}>{block.data.content}</C.EditorTabel>;
-    }
-    if (block.type === 'list' && block.data.style === 'ordered') {
-      return (
-        <C.UnorderedList key={block.id}>
-          {block.data.items?.map((item) => (
-            <C.ListItem key={item}>{item}</C.ListItem>
-          ))}
-        </C.UnorderedList>
-      );
-    }
-    if (block.type === 'image') {
-      return (
-        <C.EditorImg
-          key={block.id}
-          src={block.data.file?.url}
-        />
-      );
-    }
-    if (block.type === 'youtube' && block.data.url) {
-      const validUrl = block.data.url.replace('/watch?v=', '/embed/');
-      return <EditorYoutubeFrame src={validUrl} />;
+    switch (block.type) {
+      case 'paragraph':
+        return (
+          <C.EditorParagraph
+            key={block.id}
+            dangerouslySetInnerHTML={{__html: block.data.text || ''}}
+          />
+        );
+      // case 'table':
+      //   return (
+      //     <C.EditorTabel key={block.id}>
+      //       {block.data.content}
+      //     </C.EditorTabel>
+      //   );
+      case 'list':
+        if (block.data.style === 'ordered') {
+          return (
+            <C.UnorderedList key={block.id}>
+              {block.data.items?.map((item) => (
+                <C.ListItem
+                  key={item}
+                  dangerouslySetInnerHTML={{__html: item}}
+                />
+              ))}
+            </C.UnorderedList>
+          );
+        }
+        break;
+      case 'image':
+        return (
+          <C.EditorImg
+            key={block.id}
+            src={block.data.file?.url}
+          />
+        );
+      case 'youtube':
+        if (block.data.url) {
+          const validUrl = block.data.url.replace('/watch?v=', '/embed/');
+          return <EditorYoutubeFrame src={validUrl} />;
+        }
+        break;
     }
     return null;
   });

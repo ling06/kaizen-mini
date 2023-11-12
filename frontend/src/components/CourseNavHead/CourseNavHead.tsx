@@ -2,12 +2,18 @@ import { useMemo } from 'react';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import { IChapter } from '@/types/chapter.types';
+import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
+import { useActions } from '@/hooks/useActions';
+import { MODAL_TYPES } from '@/constants';
 
 interface ICourseNavHeadProps {
   data: IChapter;
 }
 
 export function CourseNavHead({ data }: ICourseNavHeadProps) {
+  const [deleteChapter] = useDeleteChapterMutation();
+  const [restoreChapter] = useRestoreChapterMutation();
+  const { setLoaderActive, setModalType, setUpdatingChapterData, setModalOpen } = useActions();
   const chapterProgress = useMemo(() => {
     if (data) {
       let lessons = 0;
@@ -24,14 +30,43 @@ export function CourseNavHead({ data }: ICourseNavHeadProps) {
     }
   }, [data]);
 
+  const handleDeleteChapter = () => {
+    deleteChapter({ id: data.id }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+
+  const handleRestoreChapter = () => {
+    restoreChapter({ id: data.id }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+
+  const handleEditChapter = () => {
+    setUpdatingChapterData(data);
+    setModalType(MODAL_TYPES.editChapter);
+    setModalOpen(true);
+  };
+
   return (
     <S.Container>
       <S.TitleWrapper>
-        <S.Title as={'h3'}>{data.title}</S.Title>
+        <S.Title
+          $isDeleted={!!data.is_deleted}
+          as={'h3'}>
+          {data.title}
+        </S.Title>
         <AdminBtn
           popupName="Глава"
           type={'edit'}
           onClick={() => {}}
+          popupHandlers={{
+            onDelete: !data.is_deleted ? handleDeleteChapter : undefined,
+            onRestore: data.is_deleted ? handleRestoreChapter : undefined,
+            onEdit: handleEditChapter,
+          }}
         />
       </S.TitleWrapper>
       <S.ProgressBar $progress={`${chapterProgress}`} />

@@ -3,19 +3,19 @@
 import Embed from '@editorjs/embed';
 // import Table from '@editorjs/table';
 import List from '@editorjs/list';
-import Warning from '@editorjs/warning';
+// import Warning from '@editorjs/warning';
 // import Code from '@editorjs/code';
 // import LinkTool from '@editorjs/link';
 import Image from '@editorjs/image';
 // import Raw from '@editorjs/raw';
 // import Header from '@editorjs/header';
 // import Quote from '@editorjs/quote';
-import Marker from '@editorjs/marker';
+// import Marker from '@editorjs/marker';
 // import CheckList from '@editorjs/checklist';
 // import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
 import Youtube from 'editorjs-youtube-embed';
-import Table from '@editorjs/table';
+// import Table from '@editorjs/table';
 // import SimpleImage from '@editorjs/simple-image';
 
 export const EDITOR_JS_TOOLS = {
@@ -25,8 +25,8 @@ export const EDITOR_JS_TOOLS = {
     class: List,
     inlineToolbar: true,
   },
-  table: Table,
-  warning: Warning,
+  // table: Table,
+  // warning: Warning,
   youtube: {
     class: Youtube,
     inlineToolbar: true,
@@ -46,7 +46,7 @@ export const EDITOR_JS_TOOLS = {
   // raw: { class: Raw, inlineToolbar: true },
   // header: { class: Header, inlineToolbar: true },
   // quote: Quote,
-  marker: Marker,
+  // marker: Marker,
   // checklist: { class: CheckList, inlineToolbar: true },
   // delimiter: Delimiter,
   inlineCode: InlineCode,
@@ -87,13 +87,13 @@ export const EDITOR_INTERNATIONALIZATION_CONFIG = {
       Text: 'Параграф',
       // Heading: 'Заголовок',
       List: 'Список',
-      Warning: 'Примечание',
+      // Warning: 'Примечание',
       // Checklist: 'Чеклист',
       // Quote: 'Цитата',
       // Code: 'Код',
-      Delimiter: 'Разделитель',
+      // Delimiter: 'Разделитель',
       // 'Raw HTML': 'HTML-фрагмент',
-      Table: 'Таблица',
+      // Table: 'Таблица',
       Link: 'Ссылка',
       // Marker: 'Маркер',
       Bold: 'Полужирный',

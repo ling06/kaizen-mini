@@ -62,20 +62,23 @@ export function CreateChapterForm() {
         });
       setLoaderActive(true);
     }
-
-    if (isEditForm && updatingChapterData && data?.id) {
+    console.log(updatingChapterData);
+    
+    if (isEditForm && updatingChapterData && updatingChapterData.course_id) {
       updateChapter({
-        course_id: data.id,
+        course_id: updatingChapterData.course_id,
         id: Number(updatingChapterData.id),
         title: chapterName,
         image: chapterImage,
-      }).then((res) => {
-        if ('data' in res) {
-          changeChapter(res.data.data);
-        }
-        setLoaderActive(false);
-        setModalOpen(false);
-      });
+      })
+        .then((res) => {
+          if ('data' in res) {
+            changeChapter(res.data.data);
+          }
+          setLoaderActive(false);
+          setModalOpen(false);
+        })
+        .catch((err) => console.error(err));
       setLoaderActive(true);
     }
   };

@@ -32,7 +32,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Courses'],
+      invalidatesTags: ['Courses', 'ChapterById'],
     }),
     deleteChapter: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -40,7 +40,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CourseById'],
+      invalidatesTags: ['CourseById', 'ChapterById'],
     }),
     restoreChapter: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -48,7 +48,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CourseById'],
+      invalidatesTags: ['CourseById', 'ChapterById'],
     }),
   }),
   overrideExisting: false,

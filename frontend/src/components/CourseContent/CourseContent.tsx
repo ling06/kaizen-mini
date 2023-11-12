@@ -1,6 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
-import { useCheckLessonMutation, useGetLessonByIdQuery } from '@/store/api/lesson.api';
+import { useCheckLessonMutation, useDeleteLessonMutation, useGetLessonByIdQuery, useRestoreLessonMutation } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
 import { useEffect, useMemo, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
@@ -23,6 +23,8 @@ export function CourseContent() {
   const chapterData = useGetChapterByIdQuery(Number(chapterId), {
     skip: !chapterId,
   });
+  const [deleteLesson] = useDeleteLessonMutation();
+  const [restoreLesson] = useRestoreLessonMutation();
   
   const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
@@ -103,6 +105,35 @@ export function CourseContent() {
     );
   };
 
+  const handleEditLesson = () => {
+    if(data) {
+      navigate(
+        generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson`, {
+          courseId: String(courseId),
+          chapterId: String(chapterId),
+          themeId: String(data.data.theme_id),
+          lessonId: String(data.data.id),
+        })
+      );
+    }
+  };
+
+  const handleDeleteLesson = () => {
+    if(!data) return;
+    deleteLesson({
+      id: Number(data.data.id),
+    });
+    setLoaderActive(true);
+  };
+
+  const handleRestoreLesson = () => {
+    if(!data) return;
+    restoreLesson({
+      id: Number(data.data.id),
+    });
+    setLoaderActive(true);
+  };
+
   return (
     <>
       {!lessonId && <S.NoOpenLesson>Выберите урок</S.NoOpenLesson>}
@@ -116,6 +147,11 @@ export function CourseContent() {
                 popupName="Урок"
                 type="edit"
                 onClick={() => {}}
+                popupHandlers={{
+                  onEdit: handleEditLesson,
+                  onDelete: data.data.is_deleted ? undefined : handleDeleteLesson,
+                  onRestore: data.data.is_deleted ? handleRestoreLesson : undefined,
+                }}
               />
             )}
           </S.Title>
