@@ -15940,7 +15940,8 @@ const api = createApi({
     "User",
     "Competition",
     "CourseProgress",
-    "NewsByCategory"
+    "NewsByCategory",
+    "CompetitionById"
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
@@ -29246,12 +29247,12 @@ const competitionApi = api.injectEndpoints({
       ]
     }),
     getCompetitionById: builder.query({
-      query: (id2) => `competition/${id2}`
-      //   providesTags: () => [
-      //     {
-      //       type: 'CompetitionById',
-      //     },
-      //   ],
+      query: (id2) => `competition/${id2}`,
+      providesTags: () => [
+        {
+          type: "CompetitionById"
+        }
+      ]
     }),
     createCompetition: builder.mutation({
       query: (data) => ({
@@ -29259,11 +29260,7 @@ const competitionApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: () => [
-        {
-          type: "Competition"
-        }
-      ]
+      invalidatesTags: ["Competition"]
     }),
     updateCompetition: builder.mutation({
       query: (data) => ({
@@ -29271,11 +29268,7 @@ const competitionApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: () => [
-        {
-          type: "Competition"
-        }
-      ]
+      invalidatesTags: ["Competition", "CompetitionById"]
     }),
     deleteCompetition: builder.mutation({
       query: (data) => ({
@@ -29283,11 +29276,7 @@ const competitionApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: () => [
-        {
-          type: "Competition"
-        }
-      ]
+      invalidatesTags: ["Competition", "CompetitionById"]
     }),
     restoreCompetition: builder.mutation({
       query: (data) => ({
@@ -29295,11 +29284,7 @@ const competitionApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: () => [
-        {
-          type: "Competition"
-        }
-      ]
+      invalidatesTags: ["Competition", "CompetitionById"]
     })
   }),
   overrideExisting: false
@@ -35264,10 +35249,15 @@ const Content$1 = st$1.div`
   min-height: 200px;
   padding: 15px;
   border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
+  opacity: ${(props) => props.$isVisible ? 1 : 0.5};
+  background-color: ${(props) => props.$isDeleted ? "rgba(224, 54, 56, .1)" : props.theme.colors.realWhite};
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
 `;
-function Content({ children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { children });
+function Content({ children, isDeleted, isVisible }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { $isDeleted: isDeleted, $isVisible: isVisible, children });
 }
 const Title$5 = st$1(Text$6)`
   margin-bottom: 23px;
@@ -35285,6 +35275,10 @@ function NewsContent() {
   });
   const [editorData, setEditorData] = reactExports.useState([]);
   const editorOutput = useEditorOutput(editorData);
+  const navigate = useNavigate();
+  const [deleteNews] = useDeleteNewsMutation();
+  const [restoreNews] = useRestoreNewsMutation();
+  const [update2] = useUpdateNewsMutation();
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
@@ -35294,7 +35288,52 @@ function NewsContent() {
       setEditorData(editorData2);
     }
   }, [data]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { children: [
+  const handleEditNews = () => {
+    if (!data) {
+      console.error("no data:" + data);
+      return;
+    }
+    navigate(`/news/edit-news/${data.data.id}`);
+  };
+  const handleDeleteNews = () => {
+    if (!data) {
+      console.error("no data:" + data);
+      return;
+    }
+    deleteNews({
+      id: data.data.id
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При удалении статьи произошла ошибка");
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreNews = () => {
+    if (!data) {
+      console.error("no data:" + data);
+      return;
+    }
+    restoreNews({
+      id: data.data.id
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При востановлении статьи произошла ошибка");
+      }
+    });
+    setLoaderActive(true);
+  };
+  const handleVisibileNews = () => {
+    if (!data) {
+      console.error("no data:" + data);
+      return;
+    }
+    update2({
+      id: data.data.id,
+      status: Number(data.data.status) === 0 ? 1 : 0
+    });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { isDeleted: !!(data == null ? void 0 : data.data.is_deleted), isVisible: Number(data == null ? void 0 : data.data.status) === 1, children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
@@ -35303,7 +35342,14 @@ function NewsContent() {
         NewsRequisites,
         {
           author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id,
-          date: data.data.date
+          date: data.data.date,
+          adminHandlers: {
+            onEdit: handleEditNews,
+            onDelete: data.data.is_deleted ? void 0 : handleDeleteNews,
+            onRestore: data.data.is_deleted ? handleRestoreNews : void 0,
+            onVisible: Number(data.data.status) === 0 ? handleVisibileNews : void 0,
+            onHide: Number(data.data.status) === 1 ? handleVisibileNews : void 0
+          }
         }
       ) })
     ] })
@@ -35320,13 +35366,18 @@ function NewsByIdContent() {
   ] });
 }
 function NewsById() {
+  const navigate = useNavigate();
+  const handleCreateNews = () => {
+    navigate("/news/create-news");
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
         popupName: "Новость",
         type: "add",
-        styles: { marginLeft: "auto", display: "block" }
+        styles: { marginLeft: "auto", display: "block" },
+        onClick: handleCreateNews
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewsByIdContent, {})
@@ -35404,7 +35455,12 @@ const LinkIcon = st$1(Icon$2)`
 `;
 function CompetitionContent() {
   var _a;
+  const { setLoaderActive } = useActions();
   const { competitionId } = useParams();
+  const navigate = useNavigate();
+  const [deleteCompetition] = useDeleteCompetitionMutation();
+  const [restoreCompetition] = useRestoreCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
   const { data, isFetching, isError } = useGetCompetitionByIdQuery(Number(competitionId), {
     skip: !competitionId
   });
@@ -35416,7 +35472,54 @@ function CompetitionContent() {
       setEditorData(editorData2);
     }
   }, [data]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+  const handleEditCompetition = () => {
+    if (!data) {
+      console.error("No data:", data);
+      return;
+    }
+    navigate(`/news/competition/edit-competition/${data == null ? void 0 : data.data.id}`);
+  };
+  const handleDeleteCompetition = () => {
+    if (!data) {
+      console.error("No data:", data);
+      return;
+    }
+    deleteCompetition({ id: data.data.id }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreCompetition = () => {
+    if (!data) {
+      console.error("No data:", data);
+      return;
+    }
+    restoreCompetition({ id: data.data.id }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  const handleVisibleCompetition = () => {
+    if (!data) {
+      console.error("No data:", data);
+      return;
+    }
+    updateCompetition({
+      id: data.data.id,
+      status: Number(data.data.status) === 0 ? 1 : 0
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При редактировании конкурса произошла ошибка");
+      }
+      setLoaderActive(false);
+    }).catch((err) => {
+      console.error(err);
+      alert("При редактировании конкурса произошла ошибка");
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { isDeleted: !!(data == null ? void 0 : data.data.is_deleted), isVisible: Number(data == null ? void 0 : data.data.status) === 1, children: [
     data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorOutput }),
@@ -35429,7 +35532,14 @@ function CompetitionContent() {
           NewsRequisites,
           {
             date: data.data.date,
-            author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id
+            author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id,
+            adminHandlers: {
+              onDelete: data.data.is_deleted ? void 0 : handleDeleteCompetition,
+              onRestore: data.data.is_deleted ? handleRestoreCompetition : void 0,
+              onEdit: handleEditCompetition,
+              onHide: Number(data.data.status) === 1 ? handleVisibleCompetition : void 0,
+              onVisible: Number(data.data.status) === 0 ? handleVisibleCompetition : void 0
+            }
           }
         )
       ] })
@@ -35441,7 +35551,7 @@ function CompetitionContent() {
 function Competition() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(AsideBar, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionAside, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Content, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionContent, {}) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionContent, {})
   ] }) });
 }
 function News() {

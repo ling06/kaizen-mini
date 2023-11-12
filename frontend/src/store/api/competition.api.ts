@@ -16,11 +16,11 @@ export const competitionApi = api.injectEndpoints({
     }),
     getCompetitionById: builder.query<ICompetitionRes, number>({
       query: (id) => `competition/${id}`,
-    //   providesTags: () => [
-    //     {
-    //       type: 'CompetitionById',
-    //     },
-    //   ],
+      providesTags: () => [
+        {
+          type: 'CompetitionById',
+        },
+      ],
     }),
     createCompetition: builder.mutation<ICompetitionRes, ICreateCompetitionData>({
       query: (data) => ({
@@ -28,11 +28,7 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [
-        {
-          type: 'Competition',
-        },
-      ],
+      invalidatesTags: ['Competition'],
     }),
     updateCompetition: builder.mutation<ICompetitionRes, IUpdateCompetitionData>({
       query: (data) => ({
@@ -40,11 +36,7 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [
-        {
-          type: 'Competition',
-        },
-      ],
+      invalidatesTags: ['Competition', 'CompetitionById'],
     }),
     deleteCompetition: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -52,11 +44,7 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [
-        {
-          type: 'Competition',
-        },
-      ],
+      invalidatesTags: ['Competition', 'CompetitionById'],
     }),
     restoreCompetition: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -64,11 +52,7 @@ export const competitionApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => [
-        {
-          type: 'Competition',
-        },
-      ],
+      invalidatesTags: ['Competition', 'CompetitionById'],
     }),
   }),
   overrideExisting: false,

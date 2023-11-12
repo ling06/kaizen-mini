@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const Content = styled.div`
+interface IContentProps {
+  $isDeleted?: boolean;
+  $isVisible?: boolean;
+}
+
+export const Content = styled.div<IContentProps>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -8,5 +13,10 @@ export const Content = styled.div`
   min-height: 200px;
   padding: 15px;
   border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0.5)};
+  background-color: ${(props) => (props.$isDeleted ? 'rgba(224, 54, 56, .1)' : props.theme.colors.realWhite)};
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
 `;
