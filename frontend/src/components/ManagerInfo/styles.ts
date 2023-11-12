@@ -6,6 +6,7 @@ import moreIcon from '@assets/images/moreIcon.svg';
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
+  position: relative;
   width: 49.7%;
   height: 400px;
   padding: 25px;

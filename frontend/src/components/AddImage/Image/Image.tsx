@@ -5,8 +5,9 @@ import { IImage, IUploadedImage } from '@/types/image.types';
 interface IImageProps {
   image: IUploadedImage | IImage;
   description?: string;
+  styles?: { [key: string]: string };
 }
-export function Image({ image, description }: IImageProps) {
+export function Image({ image, description, styles={} }: IImageProps) {
   const [src, setSrc] = useState<string>('');
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export function Image({ image, description }: IImageProps) {
   }, [image])
 
   return (
-    <S.ImageWrapper>
+    <S.ImageWrapper style={styles}>
       <S.Image
         src={src}
         alt={description}

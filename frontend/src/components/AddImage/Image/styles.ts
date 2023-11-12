@@ -13,6 +13,7 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     min-width: unset;
+    max-width: unset;
     margin-bottom: 3.125vw;
     border-radius: 16.5px;
   }

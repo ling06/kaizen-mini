@@ -10385,7 +10385,7 @@ const DefaultBtn = st$1.button`
   }
 `;
 st$1.table``;
-const Text$5 = st$1.p`
+const Text$6 = st$1.p`
   font-size: 18px;
   font-weight: 700;
   line-height: 120%;
@@ -10516,7 +10516,7 @@ const AccordionIcon = st$1(Icon$2)`
   transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
   background-image: url(${selectIcon});
 `;
-const EditorParagraph = st$1(Text$5)`
+const EditorParagraph = st$1(Text$6)`
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 150%;
@@ -10578,7 +10578,7 @@ const EditorImg = st$1.img`
 st$1(FlexContainer)`
   flex-direction: column;
 `;
-const LinkContent = st$1(Text$5)`
+const LinkContent = st$1(Text$6)`
   display: flex;
   align-items: center;
   position: relative;
@@ -10639,7 +10639,7 @@ function CustomNavLink({ url, name, icon, onClick: onClick2 = () => {
     }
   );
 }
-const Container$M = st$1(FlexContainer)`
+const Container$N = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -10655,7 +10655,7 @@ const NavBar$1 = st$1.ul`
   min-height: 60px;
 `;
 function Nav$1() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$M, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$N, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -15969,13 +15969,13 @@ const userApi = api.injectEndpoints({
 });
 const selectUser = userApi.endpoints.checkUser.select();
 const { useCheckUserQuery } = userApi;
-const Container$L = st$1.div`
+const Container$M = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 `;
-const Container$K = st$1.div``;
+const Container$L = st$1.div``;
 const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -16019,14 +16019,14 @@ function Profile({ userData }) {
       initials2.length > 1 ? setInitials(initials2) : setInitials(null);
     }
   }, [userData.name]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$K, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
 }
 function ProfileBlock() {
   const user = useTypedSelector((state) => {
     var _a;
     return (_a = selectUser(state).data) == null ? void 0 : _a.user;
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$M, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, { userData: user }) });
 }
 const burgerIconOpen = "/assets/burger-icon-open.svg";
 const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -16051,7 +16051,7 @@ const CloseIcon = st$1(OpenIcon)`
 function BurgerBtn({ onClick: onClick2, isOpen }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$2, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
 }
-const Container$J = st$1.div`
+const Container$K = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -16099,7 +16099,7 @@ function Head$3({ onClose }) {
       document.body.removeEventListener("click", onClose);
     };
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$J, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$K, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       BurgerBtn,
       {
@@ -16116,7 +16116,7 @@ function Head$3({ onClose }) {
     ] })
   ] });
 }
-const Container$I = st$1.div`
+const Container$J = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -16128,14 +16128,14 @@ const Container$I = st$1.div`
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-const Container$H = st$1.div`
+const Container$I = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
 function Nav({ onClose }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$H, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$I, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
     CustomNavLink,
     {
       ...navLink,
@@ -16144,7 +16144,7 @@ function Nav({ onClose }) {
     }
   )) });
 }
-const Container$G = st$1.div`
+const Container$H = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -16154,7 +16154,7 @@ const Container$G = st$1.div`
   }
 `;
 function Body({ onClose }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$G, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$H, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
 }
 const useAphorism = () => {
   const defaultAphorism = {
@@ -16168,7 +16168,7 @@ const useAphorism = () => {
   const randomIndex = Math.floor(Math.random() * aphorisms.length);
   return aphorisms[randomIndex];
 };
-const Container$F = st$1.div`
+const Container$G = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -16199,13 +16199,13 @@ const Author$1 = st$1(Aphorism$1)`
 `;
 function Aphorism() {
   const { text, author } = useAphorism();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$g, { children: "Фраза дня" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
   ] });
 }
-const Container$E = st$1.div`
+const Container$F = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16230,7 +16230,7 @@ const Copyright = st$1.p`
 `;
 const logoMobile = "/assets/logo-mobile.svg";
 function Footer$2() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$E, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom$1, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16249,7 +16249,7 @@ function BurgerMenu({ onClose }) {
   if (!modalRoot)
     return null;
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$I, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$J, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Head$3, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Body, { onClose }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -26092,7 +26092,7 @@ function Header$2() {
     isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
   ] });
 }
-const Container$D = st$1(FlexContainer)`
+const Container$E = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -26106,7 +26106,7 @@ st$1.div`
   background-color: ${(props) => props.theme.colors.mainBlue};
   border-radius: 18px;
 `;
-st$1(Text$5)`
+st$1(Text$6)`
   font-weight: 24.923px;
 `;
 const ModalInitialState = {
@@ -26478,7 +26478,7 @@ const Overlay$3 = st$1(DarkOverlay)`
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-const Container$C = st$1(FlexContainer)`
+const Container$D = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -26489,7 +26489,7 @@ const Container$C = st$1(FlexContainer)`
     border-radius: 0px 0px 15px 15px;
   }
 `;
-const Title$f = st$1(Text$5)`
+const Title$f = st$1(Text$6)`
   margin-bottom: 15px;
   text-align: center;
   @media ${(props) => props.theme.media.mobile} {
@@ -26560,7 +26560,7 @@ function ControlsPopup({
   onRestore,
   onVisible
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { ref: innerRef, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { ref: innerRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$f, { children: name }),
     onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -26957,7 +26957,7 @@ function CourseSelect() {
     setSelectedValue(`${selectedCourseId}`);
     navigate(`/courses/${selectedCourseId}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$E, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CourseCustomSelect,
       {
@@ -26985,14 +26985,14 @@ function CourseSelect() {
     )
   ] });
 }
-const Container$B = st$1(FlexContainer)`
+const Container$C = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-const Container$A = st$1(FlexContainer)`
+const Container$B = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -27041,7 +27041,7 @@ st$1.img`
   width: 24px;
   margin: 0 5px;
 `;
-const LessonName = st$1(Text$5)`
+const LessonName = st$1(Text$6)`
   max-width: 95%;
   font-size: 25px;
   line-height: 130%;
@@ -27066,7 +27066,7 @@ const OpenCourse = st$1(DefaultBtn)`
 const CourseName = st$1(LessonName)`
   margin-bottom: 12px;
 `;
-const CompleteStatus = st$1(Text$5)`
+const CompleteStatus = st$1(Text$6)`
   font-size: 22.689px;
   color: ${(props) => props.theme.colors.mainBlue};
 `;
@@ -27075,7 +27075,7 @@ const ErrorName = st$1(LessonName)`
 `;
 const defaultPreview = "/assets/defaultCoursePreview.png";
 const arrowRight = "/assets/arrowRight.svg";
-const Container$z = st$1(FlexContainer)`
+const Container$A = st$1(FlexContainer)`
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -27115,7 +27115,7 @@ const Arrow = st$1(Icon$2)`
   }
 `;
 function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { style: containerStyles, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { style: containerStyles, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter$1, { children: [
       "Глава ",
       chapter.position,
@@ -27140,11 +27140,11 @@ function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
     ] })
   ] });
 }
-const Container$y = st$1(FlexContainer)`
+const Container$z = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
-const Text$4 = st$1(Text$5)`
+const Text$5 = st$1(Text$6)`
   max-width: 268px;
   font-size: 37.778px;
   @media ${(props) => props.theme.media.mobile} {
@@ -27163,8 +27163,8 @@ const Percentage = st$1.h3`
   }
 `;
 function ProgressInfo({ text, percentage, styles: styles2 = {} }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { style: styles2, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: text }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { style: styles2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$5, { children: text }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Percentage, { children: [
       percentage,
       "%"
@@ -27182,7 +27182,7 @@ const Overlay$2 = st$1.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
-const Container$x = st$1.div`
+const Container$y = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27211,7 +27211,7 @@ const AddCourseBtn = st$1.button`
   margin-bottom: 2%;
   background-color: transparent;
 `;
-const AddCourseBtnTitle = st$1(Text$5)`
+const AddCourseBtnTitle = st$1(Text$6)`
   width: 90%;
   font-size: 4.6875vw;
   font-weight: 600;
@@ -27251,7 +27251,7 @@ function Popup({ coursesData, onClose }) {
     setModalType(MODAL_TYPES.createCourse);
   };
   return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         Course$1,
         {
@@ -27279,7 +27279,7 @@ function Popup({ coursesData, onClose }) {
     modalRoot
   );
 }
-const Container$w = st$1.div`
+const Container$x = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27292,7 +27292,7 @@ const Wrapper$1 = st$1.div`
   width: 100%;
   max-width: 75%;
 `;
-const CourseTitle = st$1(Text$5)`
+const CourseTitle = st$1(Text$6)`
   /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;
@@ -27364,7 +27364,7 @@ function OpenSelect({ courseData, onOpen }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -27401,7 +27401,7 @@ const Overlay$1 = st$1.div`
   border-radius: inherit;
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Container$v = st$1.div`
+const Container$w = st$1.div`
   display: flex;
   align-items: center;
   width: fit-content;
@@ -27410,11 +27410,11 @@ const LoadingIcon = st$1(Icon$2)`
   margin-right: 15px;
   background-image: url(${loadingLogo});
 `;
-const LoadingText = st$1(Text$5)`
+const LoadingText = st$1(Text$6)`
   font-size: 22px;
 `;
 function LoadingSmall() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$w, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
   ] }) });
@@ -27458,7 +27458,7 @@ function CourseMainInfo({ coursesData }) {
   const progressInfoStyles = {
     marginBottom: "3.13vw"
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$A, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
       isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -27513,7 +27513,7 @@ function CourseMainInfo({ coursesData }) {
     )
   ] });
 }
-const Container$u = st$1(FlexContainer)`
+const Container$v = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Head$2 = st$1(FlexContainer)`
@@ -27526,7 +27526,7 @@ const Head$2 = st$1(FlexContainer)`
     font-size: 4.6875vw;
   }
 `;
-const Title$e = st$1(Text$5)`
+const Title$e = st$1(Text$6)`
   @media ${(props) => props.theme.media.mobile} {
     margin: 0 auto;
     font-size: 4.6875vw;
@@ -27583,7 +27583,7 @@ const Img = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-const Title$d = st$1(Text$5)`
+const Title$d = st$1(Text$6)`
   word-break: break-all;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
@@ -27745,7 +27745,7 @@ function CourseProgramm() {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27770,18 +27770,18 @@ function CourseProgramm() {
     }) })
   ] });
 }
-const Container$t = st$1(FlexContainer)`
+const Container$u = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const Text$3 = st$1(Text$5)`
+const Text$4 = st$1(Text$6)`
   font-size: 22.714px;
 `;
 function ErrorBlock() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "Что-то пошло не так" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: "Что-то пошло не так" }) });
 }
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
@@ -27808,7 +27808,7 @@ function CoursePreview() {
       }
     }
   }, [data, navigate, params.courseId, setCourseData]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$B, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
@@ -27817,7 +27817,7 @@ function CoursePreview() {
     ] })
   ] }) });
 }
-const Container$s = st$1.div`
+const Container$t = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -27976,7 +27976,7 @@ function CourseNavLesson({ data }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { $isDeleted: !!data.is_deleted, onClick: handleClick, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavItemTitle, { text: data.title, isActive: !data.isChecked }),
     data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -28021,7 +28021,7 @@ function DndBtn({ onClick: onClick2, styles: styles2 = {} }) {
     }
   );
 }
-const Container$r = st$1(FlexContainer)`
+const Container$s = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
@@ -28181,7 +28181,7 @@ function CourseNavTheme({ data, courseId }) {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Accordion$1,
     {
       sx: { width: "100%", boxShadow: "unset" },
@@ -28244,7 +28244,7 @@ function CourseNavTheme({ data, courseId }) {
     }
   ) }) });
 }
-const Container$q = st$1(FlexContainer)`
+const Container$r = st$1(FlexContainer)`
   flex-direction: column;
 `;
 const Title$b = st$1.h4`
@@ -28286,7 +28286,7 @@ function CourseNavBody({ data }) {
     setModalType(MODAL_TYPES.createTheme);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -28295,7 +28295,7 @@ function CourseNavBody({ data }) {
         onClick: openCreateThemeModal
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$q, { children: data.themes && data.themes.map((theme) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Container$r, { children: data.themes && data.themes.map((theme) => {
       if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
         return;
       }
@@ -28310,7 +28310,7 @@ function CourseNavBody({ data }) {
     }) })
   ] });
 }
-const Container$p = st$1(FlexContainer)`
+const Container$q = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
@@ -28338,7 +28338,7 @@ const bodyOverflow$1 = at$1`
     background-color: ${(props) => props.theme.colors.realWhite};
   }
 `;
-const Container$o = st$1(FlexContainer)`
+const Container$p = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -28347,7 +28347,7 @@ const TitleWrapper = st$1(FlexContainer)`
   justify-content: space-between;
   align-items: center;
 `;
-const Title$a = st$1(Text$5)`
+const Title$a = st$1(Text$6)`
   font-size: 25px;
 `;
 const ProgressBar = st$1(ProgressBar$1)`
@@ -28391,7 +28391,7 @@ function CourseNavHead({ data }) {
     setModalType(MODAL_TYPES.editChapter);
     setModalOpen(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Title$a,
@@ -28421,7 +28421,7 @@ function CourseNavHead({ data }) {
 }
 const forwardIcon = "/assets/forwardIcon.svg";
 const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-const Title$9 = st$1(Text$5)`
+const Title$9 = st$1(Text$6)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28433,7 +28433,7 @@ const Title$9 = st$1(Text$5)`
     font-size:  5.625vw;
   }
 `;
-const Container$n = st$1(FlexContainer)`
+const Container$o = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -28449,7 +28449,7 @@ st$1.div`
   top: 0;
   right: 0;
 `;
-const NoOpenLesson = st$1(Text$5)`
+const NoOpenLesson = st$1(Text$6)`
   font-size: 31px;
 `;
 const ForwardBtn = st$1(DefaultBtn)`
@@ -28478,7 +28478,7 @@ const ForwardBtn = st$1(DefaultBtn)`
     background-image: url(${forwardIconDisabled});
   }
 `;
-const Container$m = st$1(FlexContainer)`
+const Container$n = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -28499,7 +28499,7 @@ const Container$m = st$1(FlexContainer)`
     }
   }
 `;
-const Title$8 = st$1(Text$5)`
+const Title$8 = st$1(Text$6)`
   margin-bottom: 40px;
   font-size: 25px;
   line-height: 150%;
@@ -28654,7 +28654,7 @@ const {
 } = lessonTestApi;
 const wrongAnswer = "/assets/wrongAnswer.svg";
 const rightAnswer = "/assets/rightAnswer.svg";
-const Container$l = st$1(FlexContainer)`
+const Container$m = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   @media ${(props) => props.theme.media.mobile} {
@@ -28668,7 +28668,7 @@ const Container$l = st$1(FlexContainer)`
     }
   }
 `;
-const Answer = st$1(Text$5)`
+const Answer = st$1(Text$6)`
   padding-left: 56px;
   font-weight: 400;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
@@ -28681,12 +28681,12 @@ const Answer = st$1(Text$5)`
     background-size: 7.5vw;
   }
 `;
-const Comment = st$1(Text$5)`
+const Comment = st$1(Text$6)`
   font-weight: 600;
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
 function CheckedAnswer({ data }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
   ] });
@@ -28715,7 +28715,7 @@ function LessonTest({ data }) {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Container$m,
+    Container$n,
     {
       $isRight: isUserRightAnswer,
       $isPassed: isTestPassed,
@@ -28773,7 +28773,7 @@ const useMediaQuery = (query) => {
   }
   return window.matchMedia(query).matches;
 };
-const Container$k = st$1.div`
+const Container$l = st$1.div`
   margin-bottom: 30px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 6.25vw;
@@ -28788,7 +28788,7 @@ const YoutubeFrame = st$1.iframe`
   }
 `;
 function EditorYoutubeFrame({ src }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$k, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$l, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(YoutubeFrame, { src, id: "ytplayer", width: "100%" }) });
 }
 const useEditorOutput = (editorData) => {
   if (!editorData) {
@@ -28958,7 +28958,7 @@ function CourseContent() {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutput, { children: editorOutput }),
         data.data.tests.length > 0 && renderLessonTests(),
         editorData && !isFetching && !data.data.isChecked && renderForwardButton()
@@ -29048,7 +29048,7 @@ function NavBar({ activeStep }) {
     ] })
   ] });
 }
-const Container$j = st$1.div`
+const Container$k = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29058,12 +29058,12 @@ const Container$j = st$1.div`
 `;
 function Head$1({ activeStep, onClose = () => {
 } }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { activeStep }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: onClose })
   ] });
 }
-const Container$i = st$1.div`
+const Container$j = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -29143,7 +29143,7 @@ function NavPopup({ chapterData }) {
       setNavPopup(false);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Head$1,
       {
@@ -29202,7 +29202,7 @@ function Course() {
   }, [chapterId, setActiveChapterId]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$p, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
       !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -29310,7 +29310,7 @@ const {
   useUpdateCompetitionMutation
 } = competitionApi;
 const arrowLeft = "/assets/swiperArrowLeft.svg";
-const Container$h = st$1.div`
+const Container$i = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -34426,7 +34426,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$g = st$1(FlexContainer)`
+const Container$h = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -34507,7 +34507,7 @@ function Competition$1({ data, totalCount, index }) {
   const handleClickMore = (id2) => {
     navigate(`/news/competitions/${id2}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionPagination, { children: [
         "Конкурс ",
@@ -34555,7 +34555,7 @@ function CompetitionsSwiper({ data }) {
       return;
     swiperRef.current.swiper.slideNext();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Swiper2,
       {
@@ -34582,8 +34582,9 @@ function CompetitionsSwiper({ data }) {
 const star = "/assets/star.svg";
 const activeStar = "/assets/active-star.svg";
 const moreIcon = "/assets/moreIcon.svg";
-const Container$f = st$1(FlexContainer)`
+const Container$g = st$1(FlexContainer)`
   flex-direction: column;
+  position: relative;
   width: 49.7%;
   height: 400px;
   padding: 25px;
@@ -34602,7 +34603,7 @@ const InfoBlock = st$1(FlexContainer)`
 const InfoRaw = st$1(FlexContainer)`
   align-items: center;
 `;
-const InfoRawTitle = st$1(Text$5)`
+const InfoRawTitle = st$1(Text$6)`
   min-width: fit-content;
   font-size: 20px;
 `;
@@ -34612,7 +34613,7 @@ const InfoRawDots = st$1.div`
   margin: 0 2%;
   border-bottom: 5px dotted ${(props) => props.theme.colors.greyF1};
 `;
-const InfoRawValue = st$1(Text$5)`
+const InfoRawValue = st$1(Text$6)`
   min-width: fit-content;
   font-size: 22px;
 `;
@@ -34625,7 +34626,7 @@ const YamaguchiLvl = st$1(FlexContainer)`
   max-width: 40%;
   row-gap: 8px;
 `;
-const YamaguchiLvlTitle = st$1(Text$5)`
+const YamaguchiLvlTitle = st$1(Text$6)`
   font-size: 15px;
 `;
 const StarsContainer = st$1(FlexContainer)`
@@ -34647,6 +34648,31 @@ const MoreIcon = st$1(Icon$2)`
   margin-left: 13px;
   background-image: url(${moreIcon});
 `;
+const Container$f = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: rgba(190, 190, 190, .5);
+`;
+const Text$3 = st$1.p`
+  padding: 20px 25px;
+  text-align: center;
+  font-size: 29.051px;
+  font-weight: 400;
+  line-height: 100%;
+  color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => props.theme.colors.mainBlue};
+  transform: rotate(-9.76deg);
+`;
+function InDeveloping() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$f, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "В разработке" }) });
+}
 function ManagerInfo({
   percentage,
   salary,
@@ -34659,7 +34685,8 @@ function ManagerInfo({
   const progressInfoStyles = {
     marginBottom: isMobile ? "10px" : "30px"
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(InDeveloping, {}),
     percentage && /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProgressInfo,
       {
@@ -34882,7 +34909,7 @@ function NewsEl({ data }) {
 const Container$c = st$1(FlexContainer)`
   flex-direction: column;
 `;
-const Title$6 = st$1(Text$5)`
+const Title$6 = st$1(Text$6)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34907,7 +34934,7 @@ const Wrapper = st$1(FlexContainer)`
   row-gap: 22px;
   width: 25%;
 `;
-const Item = st$1(Text$5)`
+const Item = st$1(Text$6)`
   font-size: 22px;
   cursor: pointer;
 
@@ -35148,7 +35175,7 @@ const Content$1 = st$1.div`
 function Content({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { children });
 }
-const Title$5 = st$1(Text$5)`
+const Title$5 = st$1(Text$6)`
   margin-bottom: 23px;
   font-size: 22px;
 `;
@@ -35676,6 +35703,7 @@ const ImageWrapper = st$1.div`
   overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     min-width: unset;
+    max-width: unset;
     margin-bottom: 3.125vw;
     border-radius: 16.5px;
   }
@@ -35685,7 +35713,7 @@ const Image$2 = st$1.img`
   height: 100%;
   object-fit: cover;
 `;
-function Image$1({ image, description }) {
+function Image$1({ image, description, styles: styles2 = {} }) {
   const [src, setSrc] = reactExports.useState("");
   reactExports.useEffect(() => {
     if ("id" in image) {
@@ -35698,7 +35726,7 @@ function Image$1({ image, description }) {
         setSrc(image.data)
       ];
   }, [image]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(ImageWrapper, { style: styles2, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     Image$2,
     {
       src,
@@ -35777,9 +35805,9 @@ const DeleteIcon = st$1(Icon$2)`
     margin-right: 1.5625vw;
   }
 `;
-function AddImage({ name, onSet, imageData, onDelete }) {
+function AddImage({ name, onSet, imageData, onDelete, previewImageStyles = {} }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$4, { children: [
-    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData }),
+    imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { image: imageData, styles: previewImageStyles }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlsGroup, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomFileInput, { onSet, children: [
         !imageData && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddFileBtn, { children: [
@@ -35912,7 +35940,10 @@ function CreateCourseForm() {
             onSet: handleSetCourseImage,
             name: "Обложка курса",
             imageData: courseImage,
-            onDelete: handleDeleteCourseImage
+            onDelete: handleDeleteCourseImage,
+            previewImageStyles: {
+              maxWidth: "342px"
+            }
           }
         ) })
       ]
@@ -36139,7 +36170,7 @@ function CreateThemeForm() {
   );
 }
 const checklistIcon = "/assets/checklist.svg";
-const Title$4 = st$1(Text$5)`
+const Title$4 = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -49161,7 +49192,7 @@ function CreateLesson({ type }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
   ] }) });
 }
-const Title$1 = st$1(Text$5)`
+const Title$1 = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -49215,7 +49246,7 @@ const CategoriesList$1 = st$1(FlexContainer)`
   row-gap: 10px;
   margin-bottom: 20px;
 `;
-const Category$1 = st$1(Text$5)``;
+const Category$1 = st$1(Text$6)``;
 let editor$1;
 function CreateNewsForm({ type }) {
   const { setModalOpen, setModalType } = useActions();
@@ -49345,7 +49376,7 @@ const Logo = st$1.img`
   width: 30px;
   margin-right: 15px;
 `;
-const Text$1 = st$1(Text$5)`
+const Text$1 = st$1(Text$6)`
   font-size: 22.714px;
 `;
 function Loading({ styles: styles2 = {}, state, innerRef }) {
@@ -49499,7 +49530,7 @@ const CustomCheckbox$1 = st$1.div`
     transform: translate(-50%, -50%);
   }
 `;
-const CheckboxDescr = st$1(Text$5)`
+const CheckboxDescr = st$1(Text$6)`
 line-height100%`;
 function CustomCheckbox({ descr, onChange = () => {
 }, children, checked = false, isRadio = false }) {
@@ -49661,7 +49692,7 @@ const ChangeBodyBg = at$1`
     background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
 `;
-const Title = st$1(Text$5)`
+const Title = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;

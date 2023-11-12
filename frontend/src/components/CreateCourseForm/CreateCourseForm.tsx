@@ -131,6 +131,9 @@ export function CreateCourseForm() {
           name="Обложка курса"
           imageData={courseImage}
           onDelete={handleDeleteCourseImage}
+          previewImageStyles={{
+            maxWidth: '342px',
+          }}
         />
       </S.BottomContainer>
     </ModalForm>

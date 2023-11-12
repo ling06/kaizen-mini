@@ -8,6 +8,7 @@ interface IAddImageProps {
   onSet: (base64: string, extension: string) => void;
   imageData: IUploadedImage | IImage | null;
   onDelete: () => void;
+  previewImageStyles?: { [key: string]: string };
 }
 
 /**
@@ -18,12 +19,13 @@ interface IAddImageProps {
  *   - onSet: A function to handle setting the image data.
  *   - imageData: The data of the image to be displayed.
  *   - onDelete: A function to handle deleting the image data.
+ *   - previewImageStyles: An object containing styles for the preview image.
  * @return {JSX.Element} The rendered image upload component.
  */
-export function AddImage({ name, onSet, imageData, onDelete }: IAddImageProps): JSX.Element {
+export function AddImage({ name, onSet, imageData, onDelete, previewImageStyles={} }: IAddImageProps): JSX.Element {
   return (
     <S.Container>
-      {imageData && <Image image={imageData} />}
+      {imageData && <Image image={imageData} styles={previewImageStyles}/>}
       <S.ControlsGroup>
         <CustomFileInput onSet={onSet}>
           {!imageData && (
