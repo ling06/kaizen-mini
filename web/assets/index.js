@@ -29317,9 +29317,9 @@ const Container$i = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
-  padding: 25px;
   background-color: ${(props) => props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
+  overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
   }
@@ -34429,10 +34429,19 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
-const Container$h = st$1(FlexContainer)`
+const Container$h = st$1.div`
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 25px;
+  opacity: ${(props) => props.$isVisible ? 1 : 0.5};
+  background-color: ${(props) => props.$isDeleted ? "rgba(224, 54, 56, .1)" : props.theme.colors.realWhite};
+  transition: opacity 0.2s ease-in-out;
+  border-radius: ${(props) => props.theme.utils.br};
+  &:hover {
+    opacity: 1;
+  }
 `;
 const Head = st$1(FlexContainer)`
   align-items: center;
@@ -34473,6 +34482,7 @@ function Competition$1({ data, totalCount, index }) {
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
   reactExports.useEffect(() => {
     if (data.text) {
@@ -34504,13 +34514,28 @@ function Competition$1({ data, totalCount, index }) {
     setLoaderActive(true);
   };
   const handleEditCompetition = () => {
-    navigate("/competition/create-competition");
-    setUpdatingCompetitionData(data);
+    navigate(`/news/competition/edit-competition/${data.id}`);
   };
   const handleClickMore = (id2) => {
     navigate(`/news/competitions/${id2}`);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+  const handleVisibleCompetition = () => {
+    updateCompetition({
+      id: data.id,
+      status: Number(data.status) === 0 ? 1 : 0
+    }).then((res) => {
+      if ("data" in res && !res.data.result) {
+        alert("При редактировании конкурса произошла ошибка");
+      }
+      setLoaderActive(false);
+    }).catch((err) => {
+      console.error(err);
+      alert("При редактировании конкурса произошла ошибка");
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { $isDeleted: isDeleted, $isVisible: Number(data.status) === 1, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionPagination, { children: [
         "Конкурс ",
@@ -34525,7 +34550,9 @@ function Competition$1({ data, totalCount, index }) {
             onAdd: handleAddCompetition,
             onDelete: isDeleted ? void 0 : handleDeleteCompetition,
             onRestore: isDeleted ? handleRestoreCompetition : void 0,
-            onEdit: handleEditCompetition
+            onEdit: handleEditCompetition,
+            onHide: Number(data.status) === 1 ? handleVisibleCompetition : void 0,
+            onVisible: Number(data.status) === 0 ? handleVisibleCompetition : void 0
           }
         }
       )
@@ -49854,16 +49881,41 @@ st$1.div`
 `;
 let editor;
 function CreateCompetitionForm({ type }) {
+  const { setLoaderActive } = useActions();
   const navigate = useNavigate();
+  const { competitionId } = useParams();
   const [competitionName, setCompetitionName] = reactExports.useState("");
   const [competitionLink, setCompetitionLink] = reactExports.useState("");
   const [isValidName, setValidName] = reactExports.useState(false);
   const [isChangedName, setChangedName] = reactExports.useState(false);
-  const [createCompetition, status] = useCreateCompetitionMutation();
+  const [createCompetition] = useCreateCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
-  const { updatingCompetitionData } = useTypedSelector((state) => state.competition);
+  const { data, isFetching } = useGetCompetitionByIdQuery(Number(competitionId), {
+    skip: !competitionId
+  });
   reactExports.useEffect(() => {
-    if (!editor) {
+    if (data && type === "edit") {
+      setCompetitionName(data.data.title);
+      setCompetitionLink(data.data.link);
+      if (!editor) {
+        try {
+          editor = new Bi({
+            holder: "editorjs",
+            tools: EDITOR_JS_TOOLS,
+            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+            inlineToolbar: true,
+            data: {
+              blocks: JSON.parse(data.data.text || "[]")
+            }
+          });
+        } catch (e2) {
+          console.log(e2);
+        }
+      }
+    }
+  }, [data, type]);
+  reactExports.useEffect(() => {
+    if (!editor && !isFetching && !data) {
       try {
         editor = new Bi({
           holder: "editorjs",
@@ -49875,33 +49927,54 @@ function CreateCompetitionForm({ type }) {
         console.log(e2);
       }
     }
-    if (status.isSuccess) {
-      editor == null ? void 0 : editor.clear();
+    return () => {
       editor = void 0;
-      navigate("/news");
-    }
-  }, [navigate, status.isSuccess]);
+    };
+  }, [data, isFetching]);
   const handleConfirm = async () => {
-    const editorData = await (editor == null ? void 0 : editor.save().then((data) => data));
+    const editorData = await (editor == null ? void 0 : editor.save().then((data2) => data2));
     if (!isValidName) {
       setChangedName(true);
       return;
     }
     if (type !== "create") {
       updateCompetition({
-        id: updatingCompetitionData.id,
+        id: Number(competitionId),
         title: competitionName,
         text: JSON.stringify(editorData ? editorData.blocks : []),
         link: competitionLink
+      }).then((res) => {
+        setLoaderActive(false);
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при сохранении конкурса. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при сохранении конкурса. Попробуйте ещё раз!");
       });
+      setLoaderActive(true);
     } else {
       createCompetition({
         title: competitionName,
         text: JSON.stringify(editorData ? editorData.blocks : []),
         link: competitionLink
+      }).then((res) => {
+        setLoaderActive(false);
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при создании конкурса. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при создании конкурса. Попробуйте ещё раз!");
       });
+      setLoaderActive(true);
     }
-    navigate("/news");
   };
   const handleCancel = () => {
     navigate("/news");

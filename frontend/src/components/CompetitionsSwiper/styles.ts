@@ -5,9 +5,9 @@ export const Container = styled.div`
   position: relative;
   width: 49.7%;
   height: 400px;
-  padding: 25px;
   background-color: ${(props) => props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
+  overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
   }

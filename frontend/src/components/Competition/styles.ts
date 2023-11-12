@@ -1,10 +1,19 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
 
-export const Container = styled(C.FlexContainer)`
+export const Container = styled.div<{ $isDeleted: boolean; $isVisible: boolean }>`
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 25px;
+  opacity: ${(props) => (props.$isVisible ? 1 : 0.5)};
+  background-color: ${(props) => (props.$isDeleted ? 'rgba(224, 54, 56, .1)' : props.theme.colors.realWhite)};
+  transition: opacity 0.2s ease-in-out;
+  border-radius: ${props => props.theme.utils.br};
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 export const Head = styled(C.FlexContainer)`
