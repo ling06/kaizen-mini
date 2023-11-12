@@ -10,6 +10,8 @@ import { useState, useEffect } from 'react';
 import { NewsRequisites } from '../NewsRequisites';
 import { useActions } from '@/hooks/useActions';
 import { Content } from '@/layouts/Content';
+import { MediaQueries } from '@/constants';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export function CompetitionContent() {
   const { setLoaderActive } = useActions();
@@ -24,6 +26,7 @@ export function CompetitionContent() {
 
   const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
   const editorOutput = useEditorOutput(editorData);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
     if (data && data.data.text) {
@@ -92,7 +95,10 @@ export function CompetitionContent() {
           <ContentTitle title={data?.data.title} />
           <S.EditorOutputContainer>{editorOutput}</S.EditorOutputContainer>
           <S.BottomContainer>
-            <Link to={data.data.link}>
+            <Link to={data.data.link} target='_blank' style={{
+              textDecoration: 'none',
+              width: isMobile ? '100%' : 'auto',
+            }}>
               {data.data.link && (
                 <S.Link>
                   Еще подробнее

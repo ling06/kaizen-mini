@@ -34486,17 +34486,13 @@ function Competition$1({ data, totalCount, index }) {
   };
   const handleDeleteCompetition = () => {
     deleteCompetition({ id: data.id }).then(() => {
-      setLoaderActive(false);
       setDeleted(true);
     });
-    setLoaderActive(true);
   };
   const handleRestoreCompetition = () => {
     restoreCompetition({ id: data.id }).then(() => {
-      setLoaderActive(false);
       setDeleted(false);
     });
-    setLoaderActive(true);
   };
   const handleEditCompetition = () => {
     navigate(`/news/competition/edit-competition/${data.id}`);
@@ -34512,46 +34508,44 @@ function Competition$1({ data, totalCount, index }) {
       if ("data" in res && !res.data.result) {
         alert("При редактировании конкурса произошла ошибка");
       }
-      setLoaderActive(false);
     }).catch((err) => {
       console.error(err);
       alert("При редактировании конкурса произошла ошибка");
-      setLoaderActive(false);
     });
-    setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { $isDeleted: isDeleted, $isVisible: Number(data.status) === 1, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionPagination, { children: [
-        "Конкурс ",
-        index + 1 + "/" + totalCount
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        AdminBtn,
-        {
-          popupName: "Конкурс",
-          type: ADMIN_BTN_TYPES.edit,
-          popupHandlers: {
-            onAdd: handleAddCompetition,
-            onDelete: isDeleted ? void 0 : handleDeleteCompetition,
-            onRestore: isDeleted ? handleRestoreCompetition : void 0,
-            onEdit: handleEditCompetition,
-            onHide: Number(data.status) === 1 ? handleVisibleCompetition : void 0,
-            onVisible: Number(data.status) === 0 ? handleVisibleCompetition : void 0
-          }
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: data == null ? void 0 : data.title }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: competitionDescr }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      MoreBtn$1,
-      {
-        onClick: () => handleClickMore(data == null ? void 0 : data.id),
-        children: "Подробнее"
-      }
-    )
-  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Container$h,
+    {
+      $isDeleted: isDeleted,
+      $isVisible: Number(data.status) === 1,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Head, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(CompetitionPagination, { children: [
+            "Конкурс ",
+            index + 1 + "/" + totalCount
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            AdminBtn,
+            {
+              popupName: "Конкурс",
+              type: ADMIN_BTN_TYPES.edit,
+              popupHandlers: {
+                onAdd: handleAddCompetition,
+                onDelete: isDeleted ? void 0 : handleDeleteCompetition,
+                onRestore: isDeleted ? handleRestoreCompetition : void 0,
+                onEdit: handleEditCompetition,
+                onHide: Number(data.status) === 1 ? handleVisibleCompetition : void 0,
+                onVisible: Number(data.status) === 0 ? handleVisibleCompetition : void 0
+              }
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionTitle, { children: data == null ? void 0 : data.title }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionDescr, { children: competitionDescr }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn$1, { onClick: () => handleClickMore(data == null ? void 0 : data.id), children: "Подробнее" })
+      ]
+    }
+  );
 }
 function CompetitionsSwiper({ data, isError, isFetching }) {
   var _a, _b, _c, _d;
@@ -34581,7 +34575,8 @@ function CompetitionsSwiper({ data, isError, isFetching }) {
           style: { width: "100%", height: "100%" },
           autoplay: {
             delay: 4e3,
-            disableOnInteraction: false
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
           },
           loop: true,
           modules: [Autoplay],
@@ -34877,6 +34872,10 @@ const Date$1 = st$1.p`
   font-weight: 400;
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.grey93};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 6.25vw;
+    font-size: 3.75vw;
+  }
 `;
 const Author = st$1(Date$1)``;
 function NewsRequisites({
@@ -35255,6 +35254,10 @@ const Content$1 = st$1.div`
   &:hover {
     opacity: 1;
   }
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    padding: 4.6875vw;
+  }
 `;
 function Content({ children, isDeleted, isVisible }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { $isDeleted: isDeleted, $isVisible: isVisible, children });
@@ -35262,6 +35265,9 @@ function Content({ children, isDeleted, isVisible }) {
 const Title$5 = st$1(Text$6)`
   margin-bottom: 23px;
   font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 function ContentTitle({ title }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: title });
@@ -35392,9 +35398,14 @@ function NavList({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(List$1, { children });
 }
 function CompetitionAside() {
+  var _a;
   const navigate = useNavigate();
   const { competitionId } = useParams();
   const { data, isError, isFetching } = useGetAllCompetitionsQuery();
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
+  const competitionData = useGetCompetitionByIdQuery(Number(competitionId), {
+    skip: !isMobile
+  });
   const handleGoBack = () => {
     navigate("/news");
   };
@@ -35402,8 +35413,8 @@ function CompetitionAside() {
     navigate(`/news/competitions/${id2}`);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }),
-    data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NavList, { children: data.data.map(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: isMobile ? (_a = competitionData.data) == null ? void 0 : _a.data.title : void 0 }),
+    !isMobile && data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NavList, { children: data.data.map(
       (competition) => {
         if (Number(competitionId) === competition.id) {
           return null;
@@ -35424,10 +35435,17 @@ function CompetitionAside() {
 }
 const Container$8 = st$1(FlexContainer)`
   padding-top: 50px;
+  @media ${(props) => props.theme.media.mobile} {
+    flex-direction: column;
+    padding-top: 4.6875vw;
+  }
 `;
 const Container$7 = st$1(FlexContainer)`
   flex-direction: column;
   width: 25%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+  }
 `;
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
@@ -35436,6 +35454,11 @@ const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
+  @media ${(props) => props.theme.media.mobile} {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    row-gap: 9.375vw;
+  }
 `;
 const EditorOutputContainer = st$1(FlexContainer)`
   flex-direction: column;
@@ -35448,6 +35471,10 @@ const Link = st$1(DefaultBtn)`
   width: fit-content;
   min-height: 44px;
   padding: 0 20px 0 23px;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    min-height: 12.5vw;
+  }
 `;
 const LinkIcon = st$1(Icon$2)`
   margin-left: 10px;
@@ -35466,6 +35493,7 @@ function CompetitionContent() {
   });
   const [editorData, setEditorData] = reactExports.useState([]);
   const editorOutput = useEditorOutput(editorData);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   reactExports.useEffect(() => {
     if (data && data.data.text) {
       const editorData2 = JSON.parse(data.data.text);
@@ -35524,7 +35552,10 @@ function CompetitionContent() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer, { children: editorOutput }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(BottomContainer$2, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { to: data.data.link, children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { to: data.data.link, target: "_blank", style: {
+          textDecoration: "none",
+          width: isMobile ? "100%" : "auto"
+        }, children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
           "Еще подробнее",
           /* @__PURE__ */ jsxRuntimeExports.jsx(LinkIcon, {})
         ] }) }),

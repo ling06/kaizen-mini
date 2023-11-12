@@ -11,6 +11,10 @@ export const Date = styled.p`
   font-weight: 400;
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.grey93};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 6.25vw;
+    font-size: 3.75vw;
+  }
 `;
 
 export const Author = styled(Date)``;

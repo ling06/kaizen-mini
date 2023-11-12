@@ -38,12 +38,8 @@ export function CompetitionsSwiper({ data, isError, isFetching }: ICompetitionsS
 
   return (
     <S.Container>
-      {isFetching && (
-        <LoadingSmall />
-      )}
-      {isError && !isFetching && (
-        <ErrorBlock />
-      )}
+      {isFetching && <LoadingSmall />}
+      {isError && !isFetching && <ErrorBlock />}
       {data && !isError && !isFetching && (
         <>
           <Swiper
@@ -52,6 +48,7 @@ export function CompetitionsSwiper({ data, isError, isFetching }: ICompetitionsS
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             loop={true}
             modules={[Autoplay]}>

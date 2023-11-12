@@ -1,14 +1,20 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { BackBtn } from '../BackBtn';
-import * as S from './styles';
+// import * as S from './styles';
 import { NavList } from '../NavList';
-import { useGetAllCompetitionsQuery } from '@/store/api/competition.api';
+import { useGetAllCompetitionsQuery, useGetCompetitionByIdQuery } from '@/store/api/competition.api';
 import { NavListItem } from '../NavListItem';
+import { MediaQueries } from '@/constants';
+import { useMediaQuery } from '@mui/material';
 
 export function CompetitionAside() {
   const navigate = useNavigate();
   const {competitionId} = useParams();
   const { data, isError, isFetching } = useGetAllCompetitionsQuery();
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const competitionData = useGetCompetitionByIdQuery(Number(competitionId), {
+    skip: !isMobile,
+  });
 
   const handleGoBack = () => {
     navigate('/news');
@@ -20,8 +26,8 @@ export function CompetitionAside() {
 
   return (
     <>
-      <BackBtn onClick={handleGoBack} />
-      {data && !isError && !isFetching &&(
+      <BackBtn onClick={handleGoBack} text={isMobile ? competitionData.data?.data.title : undefined}/>
+      {!isMobile && data && !isError && !isFetching &&(
         <NavList>
           {data.data.map((competition) => {
             if(Number(competitionId) === competition.id) {

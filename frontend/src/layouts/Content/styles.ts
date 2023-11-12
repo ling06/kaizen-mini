@@ -19,4 +19,8 @@ export const Content = styled.div<IContentProps>`
   &:hover {
     opacity: 1;
   }
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    padding: 4.6875vw;
+  }
 `;
