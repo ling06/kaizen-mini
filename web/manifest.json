@@ -108,14 +108,13 @@
       "assets/active-star.svg",
       "assets/moreIcon.svg",
       "assets/arrow-left-blue.svg",
-      "assets/external-link.svg",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
       "assets/book.svg",
-      "assets/home.svg",
+      "assets/Home.svg",
       "assets/Save.svg",
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
@@ -217,6 +216,10 @@
     "file": "assets/Montserrat-SemiBold.woff2",
     "src": "src/assets/fonts/Montserrat-SemiBold.woff2"
   },
+  "src/assets/images/Home.svg": {
+    "file": "assets/Home.svg",
+    "src": "src/assets/images/Home.svg"
+  },
   "src/assets/images/Save.svg": {
     "file": "assets/Save.svg",
     "src": "src/assets/images/Save.svg"
@@ -314,7 +317,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-    "file": "assets/external-link.svg",
+    "file": "assets/moreIcon.svg",
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {
@@ -332,10 +335,6 @@
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
-  },
-  "src/assets/images/home.svg": {
-    "file": "assets/home.svg",
-    "src": "src/assets/images/home.svg"
   },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
