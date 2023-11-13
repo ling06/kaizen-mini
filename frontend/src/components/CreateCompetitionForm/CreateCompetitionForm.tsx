@@ -29,6 +29,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   });
   const [ckEditorData, setCkEditorData] = useState<string>('');
 
+
   useEffect(() => {
     if (data && type === 'edit') {
       setCompetitionName(data.data.title);
@@ -82,7 +83,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
       updateCompetition({
         id: Number(competitionId),
         title: competitionName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData ? ckEditorData : editorData ? editorData.blocks : [],
         link: competitionLink,
       })
         .then((res) => {
@@ -161,7 +162,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
       />
-      <CkEditor onChange={setCkEditorData} />
+      <CkEditor onChange={setCkEditorData} data={data} type={type}/>
       <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
         $isValid={isValidName}

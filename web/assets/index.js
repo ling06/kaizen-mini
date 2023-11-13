@@ -1,9 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -15483,24 +15477,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp2 = Object.defineProperty;
+var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp2 = function(obj, key, value) {
-  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp = function(obj, key, value) {
+  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp2(a2, prop, b2[prop]);
+      __defNormalProp(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp2(a2, prop, b2[prop]);
+        __defNormalProp(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -26229,10 +26223,6 @@ const loaderSlice = createSlice({
 const { reducer: reducer$4, actions: actions$3 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
-    __publicField(this, "id");
-    __publicField(this, "answer");
-    __publicField(this, "right_answer");
-    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26241,9 +26231,6 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
-    __publicField(this, "id");
-    __publicField(this, "question");
-    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -35421,7 +35408,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/external-link.svg";
+const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -65209,8 +65196,16 @@ function uploadPlugin(editor2) {
     return uploadAdapter(loader);
   };
 }
-function CkEditor({ onChange }) {
+function CkEditor({ onChange, data, type }) {
   const [editor2, setEditor] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    var _a, _b;
+    if (((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.text) && type === "edit") {
+      setEditor((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.text);
+    }
+  }, [data, type]);
+  console.log("data in ckEditor", data);
+  console.log("type", type);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     distExports.CKEditor,
     {
@@ -65221,6 +65216,7 @@ function CkEditor({ onChange }) {
         console.log("Editor is ready to use!", editor22);
       },
       onChange: (event, editor22) => {
+        console.log("editor.getData", editor22.getData());
         setEditor(editor22.getData());
         onChange(editor22.getData());
       },
@@ -65610,7 +65606,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -79060,7 +79056,7 @@ function CreateCompetitionForm({ type }) {
       updateCompetition({
         id: Number(competitionId),
         title: competitionName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData ? ckEditorData : editorData ? editorData.blocks : [],
         link: competitionLink
       }).then((res) => {
         setLoaderActive(false);
@@ -79132,7 +79128,7 @@ function CreateCompetitionForm({ type }) {
         placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData, data, type }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CompetitionNameInput,

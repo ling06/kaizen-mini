@@ -5,7 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 import { UploadAdapter, FileLoader } from '@ckeditor/ckeditor5-upload/src/filerepository';
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 
 // import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
@@ -43,8 +43,18 @@ function uploadPlugin(editor: Editor) {
   };
 }
 
-export function CkEditor({ onChange }) {
+export function CkEditor({ onChange, data, type }) {
+
   const [editor, setEditor] = useState('');
+
+  useEffect(() => {
+    if (data?.data?.text && type === 'edit') {
+      setEditor(data?.data?.text);
+    }
+  }, [data, type]);
+
+  console.log('data in ckEditor', data)
+  console.log('type', type)
   return (
     <>
       <CKEditor
@@ -55,6 +65,7 @@ export function CkEditor({ onChange }) {
           console.log('Editor is ready to use!', editor);
         }}
         onChange={(event, editor) => {
+          console.log('editor.getData', editor.getData())
           setEditor(editor.getData());
           onChange(editor.getData());
         }}
