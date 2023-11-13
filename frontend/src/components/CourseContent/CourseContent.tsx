@@ -3,19 +3,19 @@ import * as S from './styles';
 import { useCheckLessonMutation, useDeleteLessonMutation, useGetLessonByIdQuery, useRestoreLessonMutation } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
 import { useEffect, useMemo, useState } from 'react';
-import { ILesson } from '@/types/lesson.types';
+// import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
-import { IEditorJsData } from '@/types/editorJs.types';
-import { useEditorOutput } from '@/hooks/useEditorOutput';
+// import { IEditorJsData } from '@/types/editorJs.types';
+// import { useEditorOutput } from '@/hooks/useEditorOutput';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
-interface IEditorLessonData extends Omit<ILesson, 'description'> {
-  description: IEditorJsData;
-}
+// interface IEditorLessonData extends Omit<ILesson, 'description'> {
+//   description: IEditorJsData;
+// }
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();
@@ -26,7 +26,7 @@ export function CourseContent() {
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
   
-  const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
+  // const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
     skip: !lessonId,
   });
@@ -41,7 +41,7 @@ export function CourseContent() {
     }
   }, [data?.data.tests]);
 
-  const editorOutput = useEditorOutput(editorData);
+  // const editorOutput = useEditorOutput(editorData);
 
   useEffect(() => {
     if (
@@ -55,13 +55,13 @@ export function CourseContent() {
     }
   }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed]);
 
-  useEffect(() => {
-    if (data?.data.description && !isFetching) {
-      const parsedData = JSON.parse(data?.data.description);
-      setEditorData(parsedData);
-    }
-    setLoaderActive(isFetching);
-  }, [data, isFetching, setLoaderActive]);
+  // useEffect(() => {
+  //   if (data?.data.description && !isFetching) {
+  //     const parsedData = JSON.parse(data?.data.description);
+  //     setEditorData(parsedData);
+  //   }
+  //   setLoaderActive(isFetching);
+  // }, [data, isFetching, setLoaderActive]);
 
   const handleCheckLesson = () => {
     if (data && data.data.id) {
@@ -159,9 +159,10 @@ export function CourseContent() {
             )}
           </S.Title>
           <S.Container>
-            <S.EditorOutput>{editorOutput}</S.EditorOutput>
+            <div dangerouslySetInnerHTML={{ __html: data.data.description }} />
+            {/* <S.EditorOutput>{editorOutput}</S.EditorOutput> */}
             {data.data.tests.length > 0 && renderLessonTests()}
-            {editorData && !isFetching && !data.data.isChecked && renderForwardButton()}
+            {data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()}
           </S.Container>
         </>
       )}
