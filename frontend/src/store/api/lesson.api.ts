@@ -1,4 +1,4 @@
-import { ICreateLessonData, ILesson, IUpdateLessonData } from '@/types/lesson.types';
+import { ICheckLessonRes, ICreateLessonData, ILesson, IUpdateLessonData } from '@/types/lesson.types';
 import { api } from './api';
 import { IDefaultReqWithId, IDefaultRes, IDefaultResWithData } from '@/types/common.types';
 
@@ -50,7 +50,7 @@ export const lessonApi = api.injectEndpoints({
       }),
       invalidatesTags: ['LessonById', 'ChapterById'],
     }),
-    checkLesson: builder.mutation<IDefaultRes, IDefaultReqWithId>({
+    checkLesson: builder.mutation<ICheckLessonRes, IDefaultReqWithId>({
       query: (data) => ({
         url: 'course/check-lesson',
         method: 'POST',
