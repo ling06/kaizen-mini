@@ -16,7 +16,6 @@ class UserController extends ApiController
         return [
             'user' => Yii::$app->user->identity->toArray(),
             'permissions' => array_keys(Yii::$app->authManager->getPermissionsByUser(Yii::$app->user->id)),
-            't' => time(),
         ];
     }
 
