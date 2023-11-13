@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -15477,24 +15483,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp = Object.defineProperty;
+var __defProp2 = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = function(obj, key, value) {
-  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp2 = function(obj, key, value) {
+  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp(a2, prop, b2[prop]);
+      __defNormalProp2(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp(a2, prop, b2[prop]);
+        __defNormalProp2(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -26223,6 +26229,10 @@ const loaderSlice = createSlice({
 const { reducer: reducer$4, actions: actions$3 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26231,6 +26241,9 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -35496,7 +35509,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -36453,7 +36466,7 @@ const Title$4 = st$1(Text$6)`
 const LessonNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper$1 = st$1.div`
+const EditorJsWrapper$2 = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -36474,7 +36487,7 @@ const AddTestIcon = st$1(Icon$2)`
   margin-right: 10px;
   background-image: url(${checklistIcon});
 `;
-const Divider$1 = st$1.div`
+const Divider$2 = st$1.div`
   position: relative;
   width: 100%;
   height: 1px;
@@ -50001,7 +50014,7 @@ function CreateLessonForm({ type }) {
         placeholder: "Введите название урока (обязательно)"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$2, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
       tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
@@ -50009,7 +50022,7 @@ function CreateLessonForm({ type }) {
         "добавить тест"
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$2, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
       {
@@ -50037,7 +50050,7 @@ const Title$1 = st$1(Text$6)`
 const NewsNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper = st$1.div`
+const EditorJsWrapper$1 = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -50049,7 +50062,7 @@ const EditorJsWrapper = st$1.div`
 st$1.div`
   margin-bottom: 60px;
 `;
-const Divider = st$1.div`
+const Divider$1 = st$1.div`
   position: relative;
   width: 100%;
   height: 1px;
@@ -50218,13 +50231,13 @@ function CreateNewsForm({ type }) {
         placeholder: "Введите название новости (обязательно)"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
     categories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList$1, { children: categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsx(Category$1, { children: category.title })) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
       "добавить категории"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormControls,
       {
@@ -50293,7 +50306,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -50589,10 +50602,10 @@ const Title = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
-st$1(InputWithState)`
+const CompetitionNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-st$1.div`
+const EditorJsWrapper = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -50604,7 +50617,7 @@ st$1.div`
 st$1.div`
 margin-bottom: 60px;
 `;
-st$1.div`
+const Divider = st$1.div`
   position: relative;
   width: 100%;
   height: 1px;
@@ -79098,16 +79111,16 @@ function uploadAdapter(loader) {
           const file = await loader.file;
           const response = await axios$1.request({
             method: "POST",
-            url: `${"http://localhost:8080"}/upload_files`,
+            url: `/api/course/upload-temp-image`,
             data: {
-              files: file
+              image: file
             },
             headers: {
               "Content-Type": "multipart/form-data"
             }
           });
           resolve({
-            default: `${"http://localhost:8080"}/${response.data.filename}`
+            default: response.data.file.url
           });
         } catch (error) {
           reject("Hello");
@@ -79138,6 +79151,7 @@ function CkEditor({ onChange }) {
       },
       onChange: (event, editor22) => {
         setEditor(editor22.getData());
+        onChange(editor22.getData());
       },
       onBlur: (event, editor22) => {
         console.log("Blur.", editor22);
@@ -79150,15 +79164,15 @@ function CkEditor({ onChange }) {
 }
 let editor;
 function CreateCompetitionForm({ type }) {
-  useActions();
-  useNavigate();
+  const { setLoaderActive } = useActions();
+  const navigate = useNavigate();
   const { competitionId } = useParams();
   const [competitionName, setCompetitionName] = reactExports.useState("");
   const [competitionLink, setCompetitionLink] = reactExports.useState("");
-  reactExports.useState(false);
-  reactExports.useState(false);
-  useCreateCompetitionMutation();
-  useUpdateCompetitionMutation();
+  const [isValidName, setValidName] = reactExports.useState(false);
+  const [isChangedName, setChangedName] = reactExports.useState(false);
+  const [createCompetition] = useCreateCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
   const { data, isFetching } = useGetCompetitionByIdQuery(Number(competitionId), {
     skip: !competitionId
   });
@@ -79201,9 +79215,109 @@ function CreateCompetitionForm({ type }) {
       editor = void 0;
     };
   }, [data, isFetching]);
+  const handleConfirm = async () => {
+    const editorData = await (editor == null ? void 0 : editor.save().then((data2) => data2));
+    if (!isValidName) {
+      setChangedName(true);
+      return;
+    }
+    if (type !== "create") {
+      updateCompetition({
+        id: Number(competitionId),
+        title: competitionName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        link: competitionLink
+      }).then((res) => {
+        setLoaderActive(false);
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при сохранении конкурса. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при сохранении конкурса. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    } else {
+      createCompetition({
+        title: competitionName,
+        text: ckEditorData,
+        link: competitionLink
+      }).then((res) => {
+        setLoaderActive(false);
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при создании конкурса. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при создании конкурса. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    }
+  };
+  const handleCancel = () => {
+    navigate("/news");
+  };
+  const handleChangeName = (event) => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionName(event.target.value);
+    if (!isChangedName) {
+      setChangedName(true);
+    }
+  };
+  const handleChangeLink = (event) => {
+    setValidName(event.target.value.length > 1);
+    setCompetitionLink(event.target.value);
+  };
+  const controlsData = {
+    names: {
+      confirm: type === "create" ? "Создать конкурс" : "Изменить конкурс",
+      cancel: "Отмена"
+    },
+    handlers: {
+      confirm: handleConfirm,
+      cancel: handleCancel
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CompetitionNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: competitionName,
+        onChange: handleChangeName,
+        type: "text",
+        placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CompetitionNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: competitionLink,
+        onChange: handleChangeLink,
+        type: "text",
+        placeholder: type === "create" ? "Ссылка на конкурс в борбозе" : "Новая ссылка"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormControls,
+      {
+        ...controlsData,
+        containerStyles: { padding: "25px 0px 25px" }
+      }
+    )
   ] });
 }
 function CreateCompetition({ type }) {
