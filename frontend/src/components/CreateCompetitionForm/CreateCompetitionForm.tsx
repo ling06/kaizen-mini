@@ -102,7 +102,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     } else {
       createCompetition({
         title: competitionName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData,
         link: competitionLink,
       })
         .then((res) => {
@@ -153,16 +153,16 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   return (
     <>
       <S.Title>{type === 'create' ? 'Создание конкурса' : 'Редактирование конкурса'}</S.Title>
-      {/* <S.CompetitionNameInput
+      <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
         value={competitionName}
         onChange={handleChangeName}
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
-      /> */}
+      />
       <CkEditor onChange={setCkEditorData} />
-      {/* <S.EditorJsWrapper id="editorjs" />
+      <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
@@ -175,7 +175,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
       <FormControls
         {...controlsData}
         containerStyles={{ padding: '25px 0px 25px' }}
-      /> */}
+      />
     </>
   );
 }

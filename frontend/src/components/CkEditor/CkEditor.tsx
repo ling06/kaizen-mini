@@ -18,16 +18,16 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
           const file = await loader.file;
           const response = await axios.request({
             method: "POST",
-            url: `${'http://localhost:8080'}/upload_files`,
+            url: `/api/course/upload-temp-image`,
             data: {
-              files: file
+              image: file
             },
             headers: {
               "Content-Type": "multipart/form-data"
             }
           });
           resolve({
-            default: `${'http://localhost:8080'}/${response.data.filename}`
+            default: response.data.file.url,
           });
         } catch (error) {
           reject("Hello");
@@ -59,6 +59,7 @@ export function CkEditor({ onChange }) {
   }}
   onChange={(event, editor) => {
     setEditor(editor.getData());
+    onChange(editor.getData());
   }}
   onBlur={(event, editor) => {
     console.log('Blur.', editor);
