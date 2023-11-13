@@ -16,8 +16,8 @@ export function NewsContent() {
   const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
-  const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
-  const editorOutput = useEditorOutput(editorData);
+  // const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
+  // const editorOutput = useEditorOutput(editorData);
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
@@ -27,12 +27,12 @@ export function NewsContent() {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
 
-  useEffect(() => {
-    if (data && data.data.text) {
-      const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
-      setEditorData(editorData);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data.data.text) {
+  //     const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
+  //     setEditorData(editorData);
+  //   }
+  // }, [data]);
 
   const handleEditNews = () => {
     if (!data) {
@@ -89,7 +89,8 @@ export function NewsContent() {
       {data && (
         <>
           <ContentTitle title={data.data.title} />
-          <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer>
+          <div dangerouslySetInnerHTML={{ __html: data.data.text }}/>
+          {/* <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer> */}
           <S.Bottom>
             <NewsRequisites
               author={data.data.user?.name || data.data.user_id}

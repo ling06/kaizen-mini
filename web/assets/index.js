@@ -34894,7 +34894,7 @@ const Title$7 = st$1.h3`
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.mainBlue};
 `;
-const Image$3 = st$1.img`
+st$1.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
@@ -34910,7 +34910,7 @@ const MoreBtn = st$1(DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
 `;
-const ImageContainer = st$1.div`
+st$1.div`
   aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
@@ -34955,22 +34955,13 @@ function NewsRequisites({
 function NewsEl({ data }) {
   const { setLoaderActive } = useActions();
   const [authorName, setAuthorName] = reactExports.useState("");
-  const [imgUrl, setImgUrl] = reactExports.useState("");
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
   const [update2] = useUpdateNewsMutation();
   reactExports.useEffect(() => {
-    var _a;
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
-    const editorData = JSON.parse(data.text);
-    const firstImageBlock = editorData.find((block) => block.type === "image");
-    if (firstImageBlock && ((_a = firstImageBlock.data.file) == null ? void 0 : _a.url)) {
-      setImgUrl(firstImageBlock.data.file.url);
-    } else {
-      setImgUrl(null);
-    }
   }, [data.text, data.user, data.user_id]);
   const handleEditNews = () => {
     navigate(`/news/edit-news/${data.id}`);
@@ -35008,7 +34999,6 @@ function NewsEl({ data }) {
       $isVisible: Number(data.status) !== 0,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
-        imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Link$1,
@@ -35288,7 +35278,7 @@ st$1.div`
   border-radius: ${(props) => props.theme.utils.br};
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-const EditorOutputContainer$1 = st$1.div`
+st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -35338,8 +35328,6 @@ function NewsContent() {
   const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId
   });
-  const [editorData, setEditorData] = reactExports.useState([]);
-  const editorOutput = useEditorOutput(editorData);
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
@@ -35347,12 +35335,6 @@ function NewsContent() {
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
-  reactExports.useEffect(() => {
-    if (data && data.data.text) {
-      const editorData2 = JSON.parse(data.data.text);
-      setEditorData(editorData2);
-    }
-  }, [data]);
   const handleEditNews = () => {
     if (!data) {
       console.error("no data:" + data);
@@ -35402,7 +35384,7 @@ function NewsContent() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorOutputContainer$1, { children: editorData && editorData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: editorOutput }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.text } }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
         {
@@ -36466,7 +36448,7 @@ const Title$4 = st$1(Text$6)`
 const LessonNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper$2 = st$1.div`
+const EditorJsWrapper$1 = st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -50014,7 +49996,7 @@ function CreateLessonForm({ type }) {
         placeholder: "Введите название урока (обязательно)"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$2, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
       tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
@@ -50050,7 +50032,7 @@ const Title$1 = st$1(Text$6)`
 const NewsNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper$1 = st$1.div`
+st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -50098,544 +50080,6 @@ const CategoriesList$1 = st$1(FlexContainer)`
   margin-bottom: 20px;
 `;
 const Category$1 = st$1(Text$6)``;
-let editor$1;
-function CreateNewsForm({ type }) {
-  const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
-  const [createNews] = useCreateNewsMutation();
-  const navigate = useNavigate();
-  const { newsId } = useParams();
-  const [NewsName, setNewsName] = reactExports.useState("");
-  const [isValidName, setValidName] = reactExports.useState(false);
-  const [isChangedName, setChangedName] = reactExports.useState(false);
-  const categories = useTypedSelector((state) => state.news.newsCategories);
-  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
-    skip: !newsId
-  });
-  const [updateNews] = useUpdateNewsMutation();
-  reactExports.useEffect(() => {
-    if (type === "edit" && data) {
-      setNewsName(data.data.title);
-      setValidName(true);
-      setChangedName(false);
-      setNewsCategories(data.data.categories || []);
-      if (!editor$1) {
-        try {
-          editor$1 = new Bi({
-            holder: "editorjs",
-            tools: EDITOR_JS_TOOLS,
-            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-            inlineToolbar: true,
-            data: {
-              blocks: JSON.parse(data.data.text || "[]")
-            }
-          });
-        } catch (e2) {
-          console.log(e2);
-        }
-      }
-    }
-  }, [data, setNewsCategories, type]);
-  reactExports.useEffect(() => {
-    if (!editor$1 && !data && !isFetching) {
-      try {
-        editor$1 = new Bi({
-          holder: "editorjs",
-          tools: EDITOR_JS_TOOLS,
-          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-          inlineToolbar: true
-        });
-      } catch (e2) {
-        console.log(e2);
-      }
-    }
-    return () => {
-      editor$1 = void 0;
-    };
-  }, [data, isFetching]);
-  const handleConfirm = async () => {
-    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data2) => data2));
-    if (!isValidName) {
-      setChangedName(true);
-      return;
-    }
-    if (type !== "edit") {
-      createNews({
-        title: NewsName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
-        NewsCategory: categories
-      }).then((res) => {
-        if ("data" in res && res.data.result) {
-          navigate("/news");
-        } else {
-          alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
-        }
-      }).catch((err) => {
-        setLoaderActive(false);
-        console.error(err);
-        alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
-      });
-      setLoaderActive(true);
-    }
-    if (type === "edit") {
-      updateNews({
-        id: Number(newsId),
-        title: NewsName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
-        NewsCategory: categories
-      }).then((res) => {
-        if ("data" in res && res.data.result) {
-          navigate("/news");
-        }
-      }).catch((err) => {
-        setLoaderActive(false);
-        console.error(err);
-        alert("Произошла ошибка при редактировании новости. Попробуйте ещё раз!");
-      });
-      setLoaderActive(true);
-    }
-  };
-  const handleCancel = () => {
-    navigate("/news");
-  };
-  const handleChange = (event) => {
-    setValidName(event.target.value.length > 1);
-    setNewsName(event.target.value);
-    if (!isChangedName) {
-      setChangedName(true);
-    }
-  };
-  const handleOpenCategoriesModal = () => {
-    setModalType(MODAL_TYPES.newsCategory);
-    setModalOpen(true);
-  };
-  const controlsData = {
-    names: {
-      confirm: type === "edit" ? "Сохранить" : "Создать новость",
-      cancel: "Отмена"
-    },
-    handlers: {
-      confirm: handleConfirm,
-      cancel: handleCancel
-    }
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewsNameInput,
-      {
-        $isValid: isValidName,
-        $isChanged: isChangedName,
-        value: NewsName,
-        onChange: handleChange,
-        type: "text",
-        placeholder: "Введите название новости (обязательно)"
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper$1, { id: "editorjs" }),
-    categories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList$1, { children: categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsx(Category$1, { children: category.title })) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
-      "добавить категории"
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      FormControls,
-      {
-        ...controlsData,
-        containerStyles: { padding: "25px 0px 25px" }
-      }
-    )
-  ] });
-}
-const ChangeBodyBg$1 = at$1`
-  body {
-    background-color: ${(props) => props.theme.colors.realWhite} !important;
-  }
-`;
-function CreateNews({ type }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(DefaultContainer, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg$1, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNewsForm, { type })
-  ] });
-}
-const Overlay = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: ${(props) => props.theme.utils.zIndex.loading};
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity .2s ease-in-out;
-`;
-const Container$1 = st$1(FlexContainer)`
-  align-items: center;
-  width: fit-content;
-  padding: 18px 24px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-const Logo = st$1.img`
-  width: 30px;
-  margin-right: 15px;
-`;
-const Text$1 = st$1(Text$6)`
-  font-size: 22.714px;
-`;
-function Loading({ styles: styles2 = {}, state, innerRef }) {
-  const modalRoot = document.getElementById("modal-root");
-  if (!modalRoot)
-    return;
-  return ReactDOM.createPortal(
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Overlay,
-      {
-        $state: state,
-        style: styles2,
-        ref: innerRef,
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
-        ] })
-      }
-    ),
-    modalRoot
-  );
-}
-const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
-const Header$1 = st$1.header`
-  display: flex;
-  align-items: center;
-  padding: 3.125vw;
-  border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-const OpenNavBtn = st$1(Icon$2)`
-  padding: 0;
-  margin: 0;
-  margin-right: auto;
-  background-image: url(${bookIcon});
-  background-color: transparent;
-`;
-const HomeLink = st$1(Icon$2)`
-  background-image: url(${homeIcon});
-`;
-function Header() {
-  const { setNavPopup } = useActions();
-  const navigate = useNavigate();
-  const handleOpenNavPopup = () => {
-    setNavPopup(true);
-  };
-  const handleGoHome = () => {
-    navigate("/courses");
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      OpenNavBtn,
-      {
-        onClick: handleOpenNavPopup,
-        as: "button"
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(HomeLink, { onClick: handleGoHome, as: "a" })
-  ] });
-}
-const bodyOverflow = at$1`
-  body {
-    overflow: hidden;
-    background-color: ${(props) => props.theme.colors.realWhite};
-  }
-`;
-function CourseMob() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Course, {})
-  ] });
-}
-const CategoriesList = st$1(FlexContainer)`
-  flex-direction: column;
-  row-gap: 10px;
-  margin-bottom: 20px;
-`;
-const AddCategoryBtn = st$1(DefaultBtn)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  padding: 0 20px;
-`;
-const AddCategoryIcon = st$1(Icon$2)`
-  margin-right: 10px;
-  background-image: url(${addIcon});
-`;
-const saveIcon = "/assets/Save.svg";
-const Container = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: space-between;
-`;
-const Input$1 = st$1(InputWithState)`
-  max-width: 80%;
-`;
-const SaveBtn = st$1(Icon$2)`
-  padding: 0;
-  background-color: transparent;
-  background-image: url(${saveIcon});
-`;
-const DeleteBtn = st$1(SaveBtn)`
-  background-image: url(${deleteIcon$1});
-`;
-const checkboxIcon = "/assets/checkbox.svg";
-const checkboxIconChecked = "/assets/checkbox-checked.svg";
-const Label = st$1.label`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-const Input2 = st$1.input`
-  display: none;
-`;
-const CustomCheckbox$1 = st$1.div`
-  width: 24px;
-  height: 24px;
-  margin-right: 11px;
-  background-image: url(${(props) => props.$checked ? checkboxIconChecked : checkboxIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  ${(props) => {
-  if (props.$isRadio) {
-    return nt$1`
-        position: relative;
-        width: 16px;
-        height: 16px;
-        margin-right: 14px;
-        border-radius: 50%;
-        position: relative;
-        border: 1px solid #333;
-        background-image: unset;
-      `;
-  }
-}}
-
-  &::before {
-    content: '';
-    display: ${(props) => props.$checked && props.$isRadio ? "block" : "none"};
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #333;
-    transform: translate(-50%, -50%);
-  }
-`;
-const CheckboxDescr = st$1(Text$6)`
-line-height100%`;
-function CustomCheckbox({ descr, onChange = () => {
-}, children, checked = false, isRadio = false }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input2,
-      {
-        type: "checkbox",
-        onChange,
-        checked
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CustomCheckbox$1,
-      {
-        $checked: checked,
-        $isRadio: isRadio
-      }
-    ),
-    children,
-    descr && /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
-  ] });
-}
-function Category({ data, isAdded, onSave, onDelete, onToggle }) {
-  const [categoryTitle, setCategoryTitle] = reactExports.useState(data.title);
-  const [isValid, setValid] = reactExports.useState(false);
-  const [isEdit, setEdit] = reactExports.useState(false);
-  const inputRef = reactExports.useRef(null);
-  reactExports.useEffect(() => {
-    setValid(categoryTitle.length > 1);
-  }, [categoryTitle.length]);
-  const handleChange = (e2) => {
-    setCategoryTitle(e2.target.value);
-  };
-  const handleEdit = () => {
-    if (isEdit) {
-      return;
-    }
-    const isConfirm = confirm("Вы хотите отредактировать категорию?");
-    if (!isConfirm && inputRef.current) {
-      inputRef.current.blur();
-      return;
-    }
-    setEdit(true);
-  };
-  const handleDelete = () => {
-    const isConfirm = confirm("Вы хотите удалить категорию?");
-    if (!isConfirm) {
-      return;
-    }
-    onDelete();
-  };
-  const handleSave = () => {
-    onSave(data.id, categoryTitle);
-    setEdit(false);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CustomCheckbox,
-      {
-        checked: isAdded,
-        onChange: onToggle
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input$1,
-      {
-        ref: inputRef,
-        type: "text",
-        value: categoryTitle,
-        onChange: handleChange,
-        $isValid: isValid,
-        onFocus: handleEdit
-      }
-    ),
-    !isEdit && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: handleDelete }),
-    isEdit && /* @__PURE__ */ jsxRuntimeExports.jsx(SaveBtn, { onClick: handleSave })
-  ] });
-}
-function NewsCategoryForm() {
-  const { data, isError, isFetching } = useGetNewsCategoryQuery();
-  const [createCategory] = useCreateNewsCategoryMutation();
-  const [deleteCategory] = useDeleteNewsCategoryMutation();
-  const [updateCategory] = useUpdateNewsCategoryMutation();
-  const currentCategories = useTypedSelector((state) => state.news.newsCategories);
-  const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
-  const handleCreateCategory = () => {
-    createCategory({ title: "Новая категория" }).then(() => {
-      setLoaderActive(false);
-    });
-    setLoaderActive(true);
-  };
-  const handleDeleteCategory = (id2) => {
-    deleteCategory({ id: id2 }).then(() => {
-      setLoaderActive(false);
-    });
-    setLoaderActive(true);
-  };
-  const handleUpdateCategory = (id2, title) => {
-    updateCategory({ id: id2, title }).then(() => {
-      setLoaderActive(false);
-    });
-    setLoaderActive(true);
-  };
-  const handeleToggleCategory = (isAdded, category) => {
-    if (isAdded) {
-      deleteNewsCategory({ id: category.id });
-      return;
-    }
-    addNewsCategory(category);
-  };
-  const handleClose = () => {
-    setModalOpen(false);
-  };
-  const handlers = {
-    cancel: handleClose,
-    confirm: handleClose
-  };
-  const names = {
-    cancel: "Отмена",
-    confirm: "Сохранить"
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    ModalForm,
-    {
-      width: "510px",
-      handlers,
-      names,
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isFetching && data.data.map((category) => {
-          const isAdded = currentCategories.some((cat) => cat.id === category.id);
-          if (category.is_deleted) {
-            return null;
-          }
-          return /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Category,
-            {
-              data: category,
-              isAdded,
-              onDelete: () => {
-                handleDeleteCategory(category.id);
-              },
-              onSave: handleUpdateCategory,
-              onToggle: () => handeleToggleCategory(isAdded, category)
-            },
-            category.id
-          );
-        }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategoryBtn, { onClick: handleCreateCategory, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AddCategoryIcon, {}),
-          "добавить категорию"
-        ] })
-      ]
-    }
-  );
-}
-const ChangeBodyBg = at$1`
-  body {
-    background-color: ${(props) => props.theme.colors.realWhite} !important;
-  }
-`;
-const Title = st$1(Text$6)`
-  margin-bottom: 20px;
-  font-size: 92.5px;
-`;
-const CompetitionNameInput = st$1(InputWithState)`
-  margin-bottom: 15px;
-`;
-const EditorJsWrapper = st$1.div`
-  width: 100%;
-  min-height: 472px;
-  padding: 25px;
-  padding-left: 75px;
-  margin-bottom: 25px;
-  border: 1px solid ${(props) => props.theme.colors.greyEO};
-  border-radius: ${(props) => props.theme.utils.br};
-`;
-st$1.div`
-margin-bottom: 60px;
-`;
-const Divider = st$1.div`
-  position: relative;
-  width: 100%;
-  height: 1px;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100vw;
-    height: 100%;
-    background-color: ${(props) => props.theme.colors.greyF1};
-    transform: translateX(-50%);
-  }
-`;
-st$1.div`
-  position: relative;
-  margin-bottom: 50px;
-`;
 var dist = { exports: {} };
 /*!
  * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
@@ -79137,9 +78581,7 @@ function uploadPlugin(editor2) {
   };
 }
 function CkEditor({ onChange }) {
-  const [editor2, setEditor] = reactExports.useState(
-    "<p>Hello world</p><img src='https://images.unsplash.com/photo-1673859360509-1ef362f94f0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NjMzNjE2OA&ixlib=rb-4.0.3&q=80&w=1080' />"
-  );
+  const [editor2, setEditor] = reactExports.useState("");
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     distExports.CKEditor,
     {
@@ -79162,6 +78604,513 @@ function CkEditor({ onChange }) {
     }
   ) });
 }
+let editor$1;
+function CreateNewsForm({ type }) {
+  const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
+  const [createNews] = useCreateNewsMutation();
+  const navigate = useNavigate();
+  const { newsId } = useParams();
+  const [NewsName, setNewsName] = reactExports.useState("");
+  const [isValidName, setValidName] = reactExports.useState(false);
+  const [isChangedName, setChangedName] = reactExports.useState(false);
+  const categories = useTypedSelector((state) => state.news.newsCategories);
+  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+    skip: !newsId
+  });
+  const [updateNews] = useUpdateNewsMutation();
+  const [ckEditorData, setCkEditorData] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (type === "edit" && data) {
+      setNewsName(data.data.title);
+      setValidName(true);
+      setChangedName(false);
+      setNewsCategories(data.data.categories || []);
+    }
+  }, [data, setNewsCategories, type]);
+  const handleConfirm = async () => {
+    const editorData = await (editor$1 == null ? void 0 : editor$1.save().then((data2) => data2));
+    if (!isValidName) {
+      setChangedName(true);
+      return;
+    }
+    if (type !== "edit") {
+      createNews({
+        title: NewsName,
+        text: ckEditorData,
+        NewsCategory: categories
+      }).then((res) => {
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        } else {
+          alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    }
+    if (type === "edit") {
+      updateNews({
+        id: Number(newsId),
+        title: NewsName,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
+        NewsCategory: categories
+      }).then((res) => {
+        if ("data" in res && res.data.result) {
+          navigate("/news");
+        }
+      }).catch((err) => {
+        setLoaderActive(false);
+        console.error(err);
+        alert("Произошла ошибка при редактировании новости. Попробуйте ещё раз!");
+      });
+      setLoaderActive(true);
+    }
+  };
+  const handleCancel = () => {
+    navigate("/news");
+  };
+  const handleChange = (event) => {
+    setValidName(event.target.value.length > 1);
+    setNewsName(event.target.value);
+    if (!isChangedName) {
+      setChangedName(true);
+    }
+  };
+  const handleOpenCategoriesModal = () => {
+    setModalType(MODAL_TYPES.newsCategory);
+    setModalOpen(true);
+  };
+  const controlsData = {
+    names: {
+      confirm: type === "edit" ? "Сохранить" : "Создать новость",
+      cancel: "Отмена"
+    },
+    handlers: {
+      confirm: handleConfirm,
+      cancel: handleCancel
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      NewsNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: NewsName,
+        onChange: handleChange,
+        type: "text",
+        placeholder: "Введите название новости (обязательно)"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData }),
+    categories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList$1, { children: categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsx(Category$1, { children: category.title })) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
+      "добавить категории"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormControls,
+      {
+        ...controlsData,
+        containerStyles: { padding: "25px 0px 25px" }
+      }
+    )
+  ] });
+}
+const ChangeBodyBg$1 = at$1`
+  body {
+    background-color: ${(props) => props.theme.colors.realWhite} !important;
+  }
+`;
+function CreateNews({ type }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(DefaultContainer, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ChangeBodyBg$1, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNewsForm, { type })
+  ] });
+}
+const Overlay = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: ${(props) => props.theme.utils.zIndex.loading};
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: ${(props) => props.$state === "exited" || props.$state === "exiting" ? 0 : 1};
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity .2s ease-in-out;
+`;
+const Container$1 = st$1(FlexContainer)`
+  align-items: center;
+  width: fit-content;
+  padding: 18px 24px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const Logo = st$1.img`
+  width: 30px;
+  margin-right: 15px;
+`;
+const Text$1 = st$1(Text$6)`
+  font-size: 22.714px;
+`;
+function Loading({ styles: styles2 = {}, state, innerRef }) {
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot)
+    return;
+  return ReactDOM.createPortal(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Overlay,
+      {
+        $state: state,
+        style: styles2,
+        ref: innerRef,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { src: loadingLogo }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Text$1, { children: "Загрузка..." })
+        ] })
+      }
+    ),
+    modalRoot
+  );
+}
+const bookIcon = "/assets/book.svg";
+const homeIcon = "/assets/home.svg";
+const Header$1 = st$1.header`
+  display: flex;
+  align-items: center;
+  padding: 3.125vw;
+  border-bottom: 1px solid ${(props) => props.theme.colors.greyF1};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+const OpenNavBtn = st$1(Icon$2)`
+  padding: 0;
+  margin: 0;
+  margin-right: auto;
+  background-image: url(${bookIcon});
+  background-color: transparent;
+`;
+const HomeLink = st$1(Icon$2)`
+  background-image: url(${homeIcon});
+`;
+function Header() {
+  const { setNavPopup } = useActions();
+  const navigate = useNavigate();
+  const handleOpenNavPopup = () => {
+    setNavPopup(true);
+  };
+  const handleGoHome = () => {
+    navigate("/courses");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      OpenNavBtn,
+      {
+        onClick: handleOpenNavPopup,
+        as: "button"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(HomeLink, { onClick: handleGoHome, as: "a" })
+  ] });
+}
+const bodyOverflow = at$1`
+  body {
+    overflow: hidden;
+    background-color: ${(props) => props.theme.colors.realWhite};
+  }
+`;
+function CourseMob() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Course, {})
+  ] });
+}
+const CategoriesList = st$1(FlexContainer)`
+  flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 20px;
+`;
+const AddCategoryBtn = st$1(DefaultBtn)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0 20px;
+`;
+const AddCategoryIcon = st$1(Icon$2)`
+  margin-right: 10px;
+  background-image: url(${addIcon});
+`;
+const saveIcon = "/assets/Save.svg";
+const Container = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: space-between;
+`;
+const Input$1 = st$1(InputWithState)`
+  max-width: 80%;
+`;
+const SaveBtn = st$1(Icon$2)`
+  padding: 0;
+  background-color: transparent;
+  background-image: url(${saveIcon});
+`;
+const DeleteBtn = st$1(SaveBtn)`
+  background-image: url(${deleteIcon$1});
+`;
+const checkboxIcon = "/assets/checkbox.svg";
+const checkboxIconChecked = "/assets/checkbox-checked.svg";
+const Label = st$1.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+const Input2 = st$1.input`
+  display: none;
+`;
+const CustomCheckbox$1 = st$1.div`
+  width: 24px;
+  height: 24px;
+  margin-right: 11px;
+  background-image: url(${(props) => props.$checked ? checkboxIconChecked : checkboxIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+
+  ${(props) => {
+  if (props.$isRadio) {
+    return nt$1`
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin-right: 14px;
+        border-radius: 50%;
+        position: relative;
+        border: 1px solid #333;
+        background-image: unset;
+      `;
+  }
+}}
+
+  &::before {
+    content: '';
+    display: ${(props) => props.$checked && props.$isRadio ? "block" : "none"};
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+  }
+`;
+const CheckboxDescr = st$1(Text$6)`
+line-height100%`;
+function CustomCheckbox({ descr, onChange = () => {
+}, children, checked = false, isRadio = false }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Input2,
+      {
+        type: "checkbox",
+        onChange,
+        checked
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CustomCheckbox$1,
+      {
+        $checked: checked,
+        $isRadio: isRadio
+      }
+    ),
+    children,
+    descr && /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
+  ] });
+}
+function Category({ data, isAdded, onSave, onDelete, onToggle }) {
+  const [categoryTitle, setCategoryTitle] = reactExports.useState(data.title);
+  const [isValid, setValid] = reactExports.useState(false);
+  const [isEdit, setEdit] = reactExports.useState(false);
+  const inputRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    setValid(categoryTitle.length > 1);
+  }, [categoryTitle.length]);
+  const handleChange = (e2) => {
+    setCategoryTitle(e2.target.value);
+  };
+  const handleEdit = () => {
+    if (isEdit) {
+      return;
+    }
+    const isConfirm = confirm("Вы хотите отредактировать категорию?");
+    if (!isConfirm && inputRef.current) {
+      inputRef.current.blur();
+      return;
+    }
+    setEdit(true);
+  };
+  const handleDelete = () => {
+    const isConfirm = confirm("Вы хотите удалить категорию?");
+    if (!isConfirm) {
+      return;
+    }
+    onDelete();
+  };
+  const handleSave = () => {
+    onSave(data.id, categoryTitle);
+    setEdit(false);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CustomCheckbox,
+      {
+        checked: isAdded,
+        onChange: onToggle
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Input$1,
+      {
+        ref: inputRef,
+        type: "text",
+        value: categoryTitle,
+        onChange: handleChange,
+        $isValid: isValid,
+        onFocus: handleEdit
+      }
+    ),
+    !isEdit && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn, { onClick: handleDelete }),
+    isEdit && /* @__PURE__ */ jsxRuntimeExports.jsx(SaveBtn, { onClick: handleSave })
+  ] });
+}
+function NewsCategoryForm() {
+  const { data, isError, isFetching } = useGetNewsCategoryQuery();
+  const [createCategory] = useCreateNewsCategoryMutation();
+  const [deleteCategory] = useDeleteNewsCategoryMutation();
+  const [updateCategory] = useUpdateNewsCategoryMutation();
+  const currentCategories = useTypedSelector((state) => state.news.newsCategories);
+  const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
+  const handleCreateCategory = () => {
+    createCategory({ title: "Новая категория" }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  const handleDeleteCategory = (id2) => {
+    deleteCategory({ id: id2 }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  const handleUpdateCategory = (id2, title) => {
+    updateCategory({ id: id2, title }).then(() => {
+      setLoaderActive(false);
+    });
+    setLoaderActive(true);
+  };
+  const handeleToggleCategory = (isAdded, category) => {
+    if (isAdded) {
+      deleteNewsCategory({ id: category.id });
+      return;
+    }
+    addNewsCategory(category);
+  };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+  const handlers = {
+    cancel: handleClose,
+    confirm: handleClose
+  };
+  const names = {
+    cancel: "Отмена",
+    confirm: "Сохранить"
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    ModalForm,
+    {
+      width: "510px",
+      handlers,
+      names,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isFetching && data.data.map((category) => {
+          const isAdded = currentCategories.some((cat) => cat.id === category.id);
+          if (category.is_deleted) {
+            return null;
+          }
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Category,
+            {
+              data: category,
+              isAdded,
+              onDelete: () => {
+                handleDeleteCategory(category.id);
+              },
+              onSave: handleUpdateCategory,
+              onToggle: () => handeleToggleCategory(isAdded, category)
+            },
+            category.id
+          );
+        }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategoryBtn, { onClick: handleCreateCategory, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AddCategoryIcon, {}),
+          "добавить категорию"
+        ] })
+      ]
+    }
+  );
+}
+const ChangeBodyBg = at$1`
+  body {
+    background-color: ${(props) => props.theme.colors.realWhite} !important;
+  }
+`;
+const Title = st$1(Text$6)`
+  margin-bottom: 20px;
+  font-size: 92.5px;
+`;
+const CompetitionNameInput = st$1(InputWithState)`
+  margin-bottom: 15px;
+`;
+const EditorJsWrapper = st$1.div`
+  width: 100%;
+  min-height: 472px;
+  padding: 25px;
+  padding-left: 75px;
+  margin-bottom: 25px;
+  border: 1px solid ${(props) => props.theme.colors.greyEO};
+  border-radius: ${(props) => props.theme.utils.br};
+`;
+st$1.div`
+margin-bottom: 60px;
+`;
+const Divider = st$1.div`
+  position: relative;
+  width: 100%;
+  height: 1px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    background-color: ${(props) => props.theme.colors.greyF1};
+    transform: translateX(-50%);
+  }
+`;
+st$1.div`
+  position: relative;
+  margin-bottom: 50px;
+`;
 let editor;
 function CreateCompetitionForm({ type }) {
   const { setLoaderActive } = useActions();
