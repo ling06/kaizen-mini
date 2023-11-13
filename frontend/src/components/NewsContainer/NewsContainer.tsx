@@ -6,26 +6,31 @@ import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingSmall } from '../LoadingSmall';
+import { NoAvailable } from '../NoAvailable';
 
 export function NewsContainer() {
+  const navigate = useNavigate();
   const {setLoaderActive} = useActions();
   const [searchParams] = useSearchParams();
-  
+  const [categorySearchParam, setCategorySearchParam] = useState<null | string>(null);
   const { data, isError, isFetching } = useGetAllNewsQuery(undefined, {
-    skip: !!searchParams.get('category'),
+    skip: !!categorySearchParam,
   });
-  const newsByCategory = useGetNewsByCategoryQuery(Number(searchParams.get('category')), {
-    skip: !searchParams.get('category'),
+  const newsByCategory = useGetNewsByCategoryQuery(Number(categorySearchParam), {
+    skip: !categorySearchParam,
   })
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    setCategorySearchParam(searchParams.get('category'));
+  }, [searchParams])
 
   useEffect(() => {
     setLoaderActive(isFetching)
   }, [isFetching, setLoaderActive])
 
-  const handleClick = () => {
+  const handleCreateNews = () => {
     navigate('/news/create-news');
   }
 
@@ -36,7 +41,7 @@ export function NewsContainer() {
         <AdminBtn
           popupName="Новость"
           type="add"
-          onClick={handleClick}
+          onClick={handleCreateNews}
         />
       </S.Title>
       <S.ContentWrapper>
@@ -46,8 +51,11 @@ export function NewsContainer() {
             <LoadingSmall />
           )}
           {isError && <ErrorBlock />}
-          {newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => <NewsEl data={newsData} />)}
-          {data && data.data.length > 0 && data.data.map((newsData) => <NewsEl data={newsData} />)}
+          {categorySearchParam && newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => <NewsEl data={newsData} />)}
+          {!categorySearchParam && data && data.data.length > 0 && data.data.map((newsData) => <NewsEl data={newsData} />)}
+          {!newsByCategory.data?.data.length && !data?.data.length && !isFetching && !newsByCategory.isFetching && (
+            <NoAvailable text="Нет доступных новостей" onAdd={handleCreateNews}/>
+          )}  
         </S.News>
       </S.ContentWrapper>
     </S.Container>

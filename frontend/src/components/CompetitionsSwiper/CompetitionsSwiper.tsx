@@ -8,6 +8,7 @@ import { ICompetition, IGetAllCompetitions } from '@/types/competition.types';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSmall } from '../LoadingSmall';
 import { ErrorBlock } from '../ErrorBlock';
+import { NoAvailable } from '../NoAvailable';
 
 interface ICompetitionsSwiperProps {
   data?: IGetAllCompetitions;
@@ -18,8 +19,8 @@ interface ICompetitionsSwiperProps {
 export function CompetitionsSwiper({ data, isError, isFetching }: ICompetitionsSwiperProps) {
   const swiperRef = useRef(null);
   const navigate = useNavigate();
-  const handleClickCreateCompetition = () => {
-    navigate('/competition/create-competition');
+  const handleCreateCompetition = () => {
+    navigate(`/news/competition/create-competition`);
   };
 
   const handlePrev = useCallback(() => {
@@ -42,6 +43,20 @@ export function CompetitionsSwiper({ data, isError, isFetching }: ICompetitionsS
       {isError && !isFetching && <ErrorBlock />}
       {data && !isError && !isFetching && (
         <>
+            {!data.data.length && !isFetching && (
+              <NoAvailable
+                text="Нет доступных конкурсов"
+                onAdd={handleCreateCompetition}
+                style={{
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  width: '100%',
+                  height: '100%',
+                  zIndex: '2',
+                }}
+              />
+            )}
           <Swiper
             ref={swiperRef}
             style={{ width: '100%', height: '100%' }}
@@ -52,7 +67,6 @@ export function CompetitionsSwiper({ data, isError, isFetching }: ICompetitionsS
             }}
             loop={true}
             modules={[Autoplay]}>
-            {!data?.data?.length && <S.SwiperCreateBtn onClick={handleClickCreateCompetition}>Добавить</S.SwiperCreateBtn>}
             {data?.data?.length > 0 &&
               data?.data?.map((competitionData: ICompetition, index: number) => (
                 <SwiperSlide key={competitionData?.id}>

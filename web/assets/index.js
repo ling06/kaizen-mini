@@ -27787,9 +27787,38 @@ const Text$4 = st$1(Text$6)`
 function ErrorBlock() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: "Что-то пошло не так" }) });
 }
+const NoAvailableCourses = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: ${(props) => props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br};
+`;
+const NoAvailableCoursesText = st$1(Text$6)`
+  margin-right: 10px;
+  font-size: 22px;
+`;
+function NoAvailable({ text, onAdd = () => {
+}, style: style2 = {} }) {
+  const user = useTypedSelector((state) => {
+    var _a;
+    return (_a = selectUser(state).data) == null ? void 0 : _a.user;
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(NoAvailableCourses, { style: style2, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailableCoursesText, { children: text }),
+    (user == null ? void 0 : user.role) === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AdminBtn,
+      {
+        popupName: "",
+        onClick: onAdd,
+        type: "add"
+      }
+    )
+  ] });
+}
 function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
-  const { setCourseData, setLoaderActive } = useActions();
+  const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
   const params = useParams();
   const navigate = useNavigate();
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
@@ -27812,13 +27841,18 @@ function CoursePreview() {
       }
     }
   }, [data, navigate, params.courseId, setCourseData]);
+  const handleCreateCourse = () => {
+    setModalOpen(true);
+    setModalType("createCourse");
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-    data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    data && data.data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { coursesData: data.data }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgramm, {})
-    ] })
+    ] }),
+    data && data.data.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных курсов", onAdd: handleCreateCourse })
   ] }) });
 }
 const Container$t = st$1.div`
@@ -29327,17 +29361,26 @@ const SwiperNextBtn = st$1(SwiperPrevBtn)`
   left: unset;
   transform: rotate(-180deg);
 `;
-const SwiperCreateBtn = st$1.div`
+st$1(DefaultBtn)`
   z-index: 2;
   position: absolute;
-  top:0;
-  right:0;
+  top:50%;
+  left:50%;
   color:white;
-  border-radius:10%;
+  border-radius:15px;
   width: fit-content;
-  padding:20px;
+  padding:20px 30px;
   background-color:rgb(0, 122, 255);
   cursor: pointer;
+  transform: translate(-50%, -50%);
+`;
+st$1(Text$6)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 22px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 `;
 function isObject$2(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -34548,11 +34591,11 @@ function Competition$1({ data, totalCount, index }) {
   );
 }
 function CompetitionsSwiper({ data, isError, isFetching }) {
-  var _a, _b, _c, _d;
+  var _a, _b, _c;
   const swiperRef = reactExports.useRef(null);
   const navigate = useNavigate();
-  const handleClickCreateCompetition = () => {
-    navigate("/competition/create-competition");
+  const handleCreateCompetition = () => {
+    navigate(`/news/competition/create-competition`);
   };
   const handlePrev = reactExports.useCallback(() => {
     if (!swiperRef.current)
@@ -34568,7 +34611,22 @@ function CompetitionsSwiper({ data, isError, isFetching }) {
     isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
     isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      !data.data.length && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NoAvailable,
+        {
+          text: "Нет доступных конкурсов",
+          onAdd: handleCreateCompetition,
+          style: {
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            zIndex: "2"
+          }
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
         Swiper2,
         {
           ref: swiperRef,
@@ -34580,20 +34638,17 @@ function CompetitionsSwiper({ data, isError, isFetching }) {
           },
           loop: true,
           modules: [Autoplay],
-          children: [
-            !((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) && /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperCreateBtn, { onClick: handleClickCreateCompetition, children: "Добавить" }),
-            ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.length) > 0 && ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Competition$1,
-              {
-                data: competitionData,
-                totalCount: data == null ? void 0 : data.count,
-                index
-              }
-            ) }, competitionData == null ? void 0 : competitionData.id)))
-          ]
+          children: ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Competition$1,
+            {
+              data: competitionData,
+              totalCount: data == null ? void 0 : data.count,
+              index
+            }
+          ) }, competitionData == null ? void 0 : competitionData.id)))
         }
       ),
-      ((_d = data == null ? void 0 : data.data) == null ? void 0 : _d.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperPrevBtn, { onClick: handlePrev }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperNextBtn, { onClick: handleNext })
       ] })
@@ -35091,7 +35146,7 @@ function NewsCategoryWrapper({ children }) {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper, { children: [
     children,
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
+    data && data.data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
       NavListItem,
       {
         title: "Все новости",
@@ -35111,19 +35166,24 @@ function NewsCategoryWrapper({ children }) {
   ] });
 }
 function NewsContainer() {
+  var _a;
+  const navigate = useNavigate();
   const { setLoaderActive } = useActions();
   const [searchParams] = useSearchParams();
+  const [categorySearchParam, setCategorySearchParam] = reactExports.useState(null);
   const { data, isError, isFetching } = useGetAllNewsQuery(void 0, {
-    skip: !!searchParams.get("category")
+    skip: !!categorySearchParam
   });
-  const newsByCategory = useGetNewsByCategoryQuery(Number(searchParams.get("category")), {
-    skip: !searchParams.get("category")
+  const newsByCategory = useGetNewsByCategoryQuery(Number(categorySearchParam), {
+    skip: !categorySearchParam
   });
-  const navigate = useNavigate();
+  reactExports.useEffect(() => {
+    setCategorySearchParam(searchParams.get("category"));
+  }, [searchParams]);
   reactExports.useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
-  const handleClick = () => {
+  const handleCreateNews = () => {
     navigate("/news/create-news");
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
@@ -35134,7 +35194,7 @@ function NewsContainer() {
         {
           popupName: "Новость",
           type: "add",
-          onClick: handleClick
+          onClick: handleCreateNews
         }
       )
     ] }),
@@ -35143,8 +35203,9 @@ function NewsContainer() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs(News$1, { children: [
         isFetching || newsByCategory.isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
         isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
-        data && data.data.length > 0 && data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData }))
+        categorySearchParam && newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
+        !categorySearchParam && data && data.data.length > 0 && data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
+        !((_a = newsByCategory.data) == null ? void 0 : _a.data.length) && !(data == null ? void 0 : data.data.length) && !isFetching && !newsByCategory.isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных новостей", onAdd: handleCreateNews })
       ] })
     ] })
   ] });
@@ -35450,7 +35511,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -49690,7 +49751,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;

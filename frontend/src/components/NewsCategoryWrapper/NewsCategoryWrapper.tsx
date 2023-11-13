@@ -22,10 +22,12 @@ export function NewsCategoryWrapper({ children }: INewsCategoryWrapperProps) {
   return (
     <S.Wrapper>
       {children}
-      <NavListItem
-        title="Все новости"
-        onClick={handleGoToAllNews}
-      />
+      {data && data.data.length > 0 && (
+        <NavListItem
+          title="Все новости"
+          onClick={handleGoToAllNews}
+        />
+      )}
       {isLoading && <div>Загрузка...</div>}
       {isError && <div>Ошибка!</div>}
       {!isError &&

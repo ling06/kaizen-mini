@@ -10,10 +10,11 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/constants';
+import { NoAvailable } from '@/components/NoAvailable';
 
 export function CoursePreview() {
   const { data, isError, isFetching } = useGetCoursesQuery();
-  const { setCourseData, setLoaderActive } = useActions();
+  const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
   const params = useParams();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(MediaQueries.mobile);
@@ -39,16 +40,24 @@ export function CoursePreview() {
     }
   }, [data, navigate, params.courseId, setCourseData]);
 
+  const handleCreateCourse = () => {
+    setModalOpen(true);
+    setModalType('createCourse');
+  }
+
   return (
     <C.DefaultContainer>
       <S.Container>
         {isError && <ErrorBlock />}
-        {data && (
+        {data && data.data.length > 0 && (
           <>
             {!isMobile && <CourseSelect />}
             <CourseMainInfo coursesData={data.data} />
             <CourseProgramm />
           </>
+        )}
+        {data && data.data.length === 0 && (
+          <NoAvailable text="Нет доступных курсов" onAdd={handleCreateCourse}/>
         )}
       </S.Container>
     </C.DefaultContainer>
