@@ -65209,8 +65209,10 @@ function uploadPlugin(editor2) {
     return uploadAdapter(loader);
   };
 }
-function CkEditor({ onChange }) {
-  const [editor2, setEditor] = reactExports.useState("");
+function CkEditor({ onChange, initialValue }) {
+  const [editor2, setEditor] = reactExports.useState(
+    "<p>Hello world</p><img src='https://images.unsplash.com/photo-1673859360509-1ef362f94f0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NjMzNjE2OA&ixlib=rb-4.0.3&q=80&w=1080' />"
+  );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     distExports.CKEditor,
     {
