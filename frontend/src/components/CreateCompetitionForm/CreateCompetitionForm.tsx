@@ -6,6 +6,7 @@ import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateCompetitionMutation, useGetCompetitionByIdQuery, useUpdateCompetitionMutation } from '@/store/api/competition.api';
 import { useActions } from '@/hooks/useActions';
+import { CkEditor } from '../CkEditor';
 
 interface ICreateCompetitionFormProps {
   type: string;
@@ -26,6 +27,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   const { data, isFetching } = useGetCompetitionByIdQuery(Number(competitionId), {
     skip: !competitionId,
   });
+  const [ckEditorData, setCkEditorData] = useState<string>('');
 
   useEffect(() => {
     if (data && type === 'edit') {
@@ -151,15 +153,16 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   return (
     <>
       <S.Title>{type === 'create' ? 'Создание конкурса' : 'Редактирование конкурса'}</S.Title>
-      <S.CompetitionNameInput
+      {/* <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
         value={competitionName}
         onChange={handleChangeName}
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
-      />
-      <S.EditorJsWrapper id="editorjs" />
+      /> */}
+      <CkEditor onChange={setCkEditorData} />
+      {/* <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
@@ -172,7 +175,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
       <FormControls
         {...controlsData}
         containerStyles={{ padding: '25px 0px 25px' }}
-      />
+      /> */}
     </>
   );
 }
