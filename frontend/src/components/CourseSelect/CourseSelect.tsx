@@ -82,6 +82,7 @@ export function CourseSelect() {
     updateCourse({
       id: courseData.id,
       status: Number(courseData.status) === 0 ? 1 : 0,
+      image: courseData.image,
     }).then((res) => {
       if ('data' in res) {
         setCourseData(res.data.data);

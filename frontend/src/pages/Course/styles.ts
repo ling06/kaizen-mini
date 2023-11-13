@@ -20,9 +20,11 @@ export const ContentContainer = styled(C.FlexContainer)`
   max-height: 100vh;
   overflow-y: scroll;
   padding: 20px 35px 80px;
+  margin-left: auto;
   @media ${props => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 0 10vw;
+    margin: 0;
   }
 `;
 

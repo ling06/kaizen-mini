@@ -27,7 +27,7 @@ export function CreateChapterForm() {
       setChapterName(updatingChapterData.title);
       setValidName(true);
       setChangedName(true);
-      setChapterImage(data.image);
+      setChapterImage(updatingChapterData.image);
     }
   }, [data.image, formType, updatingChapterData]);
 
