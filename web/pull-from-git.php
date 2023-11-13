@@ -2,7 +2,7 @@
 // Получаем заголовки и тело запроса
 $headers = getallheaders();
 $payload = file_get_contents("php://input");
-
+//test
 // Проверяем сигнатуру HMAC с использованием секретного ключа
 $secret = 'Pu11FromGtiN0\/\/';
 $signature = 'sha1=' . hash_hmac('sha1', $payload, $secret);
