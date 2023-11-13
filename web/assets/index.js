@@ -28967,6 +28967,9 @@ function CourseContent() {
     if (data && data.data.id) {
       checkLesson({ id: data.data.id }).then((res) => {
         var _a;
+        if (!("data" in res) || "data" in res && !res.data.data) {
+          return;
+        }
         if (!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
           return;
         }
@@ -46197,7 +46200,7 @@ class vi {
     });
   }
 }
-var bundle$3 = { exports: {} };
+var bundle$4 = { exports: {} };
 (function(module, exports) {
   !function(e2, t2) {
     module.exports = t2();
@@ -46604,10 +46607,10 @@ var bundle$3 = { exports: {} };
       }();
     }]).default;
   });
-})(bundle$3);
-var bundleExports$3 = bundle$3.exports;
-const Embed = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$3);
-var bundle$2 = { exports: {} };
+})(bundle$4);
+var bundleExports$4 = bundle$4.exports;
+const Embed = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$4);
+var bundle$3 = { exports: {} };
 (function(module, exports) {
   !function(e2, t2) {
     module.exports = t2();
@@ -46991,10 +46994,10 @@ var bundle$2 = { exports: {} };
       }();
     }]).default;
   });
-})(bundle$2);
-var bundleExports$2 = bundle$2.exports;
-const List2 = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$2);
-var bundle$1 = { exports: {} };
+})(bundle$3);
+var bundleExports$3 = bundle$3.exports;
+const List2 = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$3);
+var bundle$2 = { exports: {} };
 /*!
  * Image tool
  * 
@@ -48389,10 +48392,10 @@ var bundle$1 = { exports: {} };
        */
     }]).default;
   });
-})(bundle$1);
-var bundleExports$1 = bundle$1.exports;
-const Image = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$1);
-var bundle = { exports: {} };
+})(bundle$2);
+var bundleExports$2 = bundle$2.exports;
+const Image = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$2);
+var bundle$1 = { exports: {} };
 (function(module, exports) {
   !function(t2, e2) {
     module.exports = e2();
@@ -48699,9 +48702,9 @@ var bundle = { exports: {} };
       }();
     }]).default;
   });
-})(bundle);
-var bundleExports = bundle.exports;
-const InlineCode = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports);
+})(bundle$1);
+var bundleExports$1 = bundle$1.exports;
+const InlineCode = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports$1);
 var main = { exports: {} };
 /*! For license information please see main.js.LICENSE.txt */
 (function(module, exports) {
@@ -48923,6 +48926,568 @@ var main = { exports: {} };
 })(main);
 var mainExports = main.exports;
 const Youtube = /* @__PURE__ */ getDefaultExportFromCjs(mainExports);
+var bundle = { exports: {} };
+(function(module, exports) {
+  !function(e2, l2) {
+    module.exports = l2();
+  }(window, function() {
+    return function(e2) {
+      var l2 = {};
+      function a2(_2) {
+        if (l2[_2])
+          return l2[_2].exports;
+        var t2 = l2[_2] = { i: _2, l: false, exports: {} };
+        return e2[_2].call(t2.exports, t2, t2.exports, a2), t2.l = true, t2.exports;
+      }
+      return a2.m = e2, a2.c = l2, a2.d = function(e3, l3, _2) {
+        a2.o(e3, l3) || Object.defineProperty(e3, l3, { enumerable: true, get: _2 });
+      }, a2.r = function(e3) {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e3, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e3, "__esModule", { value: true });
+      }, a2.t = function(e3, l3) {
+        if (1 & l3 && (e3 = a2(e3)), 8 & l3)
+          return e3;
+        if (4 & l3 && "object" == typeof e3 && e3 && e3.__esModule)
+          return e3;
+        var _2 = /* @__PURE__ */ Object.create(null);
+        if (a2.r(_2), Object.defineProperty(_2, "default", { enumerable: true, value: e3 }), 2 & l3 && "string" != typeof e3)
+          for (var t2 in e3)
+            a2.d(_2, t2, (function(l4) {
+              return e3[l4];
+            }).bind(null, t2));
+        return _2;
+      }, a2.n = function(e3) {
+        var l3 = e3 && e3.__esModule ? function() {
+          return e3.default;
+        } : function() {
+          return e3;
+        };
+        return a2.d(l3, "a", l3), l3;
+      }, a2.o = function(e3, l3) {
+        return Object.prototype.hasOwnProperty.call(e3, l3);
+      }, a2.p = "", a2(a2.s = 2);
+    }([function(e2, l2) {
+      e2.exports = function(e3) {
+        var l3 = [];
+        return l3.toString = function() {
+          return this.map(function(l4) {
+            var a2 = function(e4, l5) {
+              var a3 = e4[1] || "", _2 = e4[3];
+              if (!_2)
+                return a3;
+              if (l5 && "function" == typeof btoa) {
+                var t2 = (o2 = _2, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(o2)))) + " */"), r2 = _2.sources.map(function(e5) {
+                  return "/*# sourceURL=" + _2.sourceRoot + e5 + " */";
+                });
+                return [a3].concat(r2).concat([t2]).join("\n");
+              }
+              var o2;
+              return [a3].join("\n");
+            }(l4, e3);
+            return l4[2] ? "@media " + l4[2] + "{" + a2 + "}" : a2;
+          }).join("");
+        }, l3.i = function(e4, a2) {
+          "string" == typeof e4 && (e4 = [[null, e4, ""]]);
+          for (var _2 = {}, t2 = 0; t2 < this.length; t2++) {
+            var r2 = this[t2][0];
+            "number" == typeof r2 && (_2[r2] = true);
+          }
+          for (t2 = 0; t2 < e4.length; t2++) {
+            var o2 = e4[t2];
+            "number" == typeof o2[0] && _2[o2[0]] || (a2 && !o2[2] ? o2[2] = a2 : a2 && (o2[2] = "(" + o2[2] + ") and (" + a2 + ")"), l3.push(o2));
+          }
+        }, l3;
+      };
+    }, function(e2, l2, a2) {
+      var _2, t2, r2 = {}, o2 = (_2 = function() {
+        return window && document && document.all && !window.atob;
+      }, function() {
+        return void 0 === t2 && (t2 = _2.apply(this, arguments)), t2;
+      }), s2 = function(e3, l3) {
+        return l3 ? l3.querySelector(e3) : document.querySelector(e3);
+      }, c2 = function(e3) {
+        var l3 = {};
+        return function(e4, a3) {
+          if ("function" == typeof e4)
+            return e4();
+          if (void 0 === l3[e4]) {
+            var _3 = s2.call(this, e4, a3);
+            if (window.HTMLIFrameElement && _3 instanceof window.HTMLIFrameElement)
+              try {
+                _3 = _3.contentDocument.head;
+              } catch (e5) {
+                _3 = null;
+              }
+            l3[e4] = _3;
+          }
+          return l3[e4];
+        };
+      }(), d2 = null, h2 = 0, n2 = [], i2 = a2(5);
+      function v2(e3, l3) {
+        for (var a3 = 0; a3 < e3.length; a3++) {
+          var _3 = e3[a3], t3 = r2[_3.id];
+          if (t3) {
+            t3.refs++;
+            for (var o3 = 0; o3 < t3.parts.length; o3++)
+              t3.parts[o3](_3.parts[o3]);
+            for (; o3 < _3.parts.length; o3++)
+              t3.parts.push(b2(_3.parts[o3], l3));
+          } else {
+            var s3 = [];
+            for (o3 = 0; o3 < _3.parts.length; o3++)
+              s3.push(b2(_3.parts[o3], l3));
+            r2[_3.id] = { id: _3.id, refs: 1, parts: s3 };
+          }
+        }
+      }
+      function w2(e3, l3) {
+        for (var a3 = [], _3 = {}, t3 = 0; t3 < e3.length; t3++) {
+          var r3 = e3[t3], o3 = l3.base ? r3[0] + l3.base : r3[0], s3 = { css: r3[1], media: r3[2], sourceMap: r3[3] };
+          _3[o3] ? _3[o3].parts.push(s3) : a3.push(_3[o3] = { id: o3, parts: [s3] });
+        }
+        return a3;
+      }
+      function C2(e3, l3) {
+        var a3 = c2(e3.insertInto);
+        if (!a3)
+          throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+        var _3 = n2[n2.length - 1];
+        if ("top" === e3.insertAt)
+          _3 ? _3.nextSibling ? a3.insertBefore(l3, _3.nextSibling) : a3.appendChild(l3) : a3.insertBefore(l3, a3.firstChild), n2.push(l3);
+        else if ("bottom" === e3.insertAt)
+          a3.appendChild(l3);
+        else {
+          if ("object" != typeof e3.insertAt || !e3.insertAt.before)
+            throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+          var t3 = c2(e3.insertAt.before, a3);
+          a3.insertBefore(l3, t3);
+        }
+      }
+      function u2(e3) {
+        if (null === e3.parentNode)
+          return false;
+        e3.parentNode.removeChild(e3);
+        var l3 = n2.indexOf(e3);
+        l3 >= 0 && n2.splice(l3, 1);
+      }
+      function f2(e3) {
+        var l3 = document.createElement("style");
+        if (void 0 === e3.attrs.type && (e3.attrs.type = "text/css"), void 0 === e3.attrs.nonce) {
+          var _3 = function() {
+            return a2.nc;
+          }();
+          _3 && (e3.attrs.nonce = _3);
+        }
+        return p2(l3, e3.attrs), C2(e3, l3), l3;
+      }
+      function p2(e3, l3) {
+        Object.keys(l3).forEach(function(a3) {
+          e3.setAttribute(a3, l3[a3]);
+        });
+      }
+      function b2(e3, l3) {
+        var a3, _3, t3, r3;
+        if (l3.transform && e3.css) {
+          if (!(r3 = "function" == typeof l3.transform ? l3.transform(e3.css) : l3.transform.default(e3.css)))
+            return function() {
+            };
+          e3.css = r3;
+        }
+        if (l3.singleton) {
+          var o3 = h2++;
+          a3 = d2 || (d2 = f2(l3)), _3 = y2.bind(null, a3, o3, false), t3 = y2.bind(null, a3, o3, true);
+        } else
+          e3.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (a3 = function(e4) {
+            var l4 = document.createElement("link");
+            return void 0 === e4.attrs.type && (e4.attrs.type = "text/css"), e4.attrs.rel = "stylesheet", p2(l4, e4.attrs), C2(e4, l4), l4;
+          }(l3), _3 = M2.bind(null, a3, l3), t3 = function() {
+            u2(a3), a3.href && URL.revokeObjectURL(a3.href);
+          }) : (a3 = f2(l3), _3 = x2.bind(null, a3), t3 = function() {
+            u2(a3);
+          });
+        return _3(e3), function(l4) {
+          if (l4) {
+            if (l4.css === e3.css && l4.media === e3.media && l4.sourceMap === e3.sourceMap)
+              return;
+            _3(e3 = l4);
+          } else
+            t3();
+        };
+      }
+      e2.exports = function(e3, l3) {
+        if ("undefined" != typeof DEBUG && DEBUG && "object" != typeof document)
+          throw new Error("The style-loader cannot be used in a non-browser environment");
+        (l3 = l3 || {}).attrs = "object" == typeof l3.attrs ? l3.attrs : {}, l3.singleton || "boolean" == typeof l3.singleton || (l3.singleton = o2()), l3.insertInto || (l3.insertInto = "head"), l3.insertAt || (l3.insertAt = "bottom");
+        var a3 = w2(e3, l3);
+        return v2(a3, l3), function(e4) {
+          for (var _3 = [], t3 = 0; t3 < a3.length; t3++) {
+            var o3 = a3[t3];
+            (s3 = r2[o3.id]).refs--, _3.push(s3);
+          }
+          e4 && v2(w2(e4, l3), l3);
+          for (t3 = 0; t3 < _3.length; t3++) {
+            var s3;
+            if (0 === (s3 = _3[t3]).refs) {
+              for (var c3 = 0; c3 < s3.parts.length; c3++)
+                s3.parts[c3]();
+              delete r2[s3.id];
+            }
+          }
+        };
+      };
+      var m2, g2 = (m2 = [], function(e3, l3) {
+        return m2[e3] = l3, m2.filter(Boolean).join("\n");
+      });
+      function y2(e3, l3, a3, _3) {
+        var t3 = a3 ? "" : _3.css;
+        if (e3.styleSheet)
+          e3.styleSheet.cssText = g2(l3, t3);
+        else {
+          var r3 = document.createTextNode(t3), o3 = e3.childNodes;
+          o3[l3] && e3.removeChild(o3[l3]), o3.length ? e3.insertBefore(r3, o3[l3]) : e3.appendChild(r3);
+        }
+      }
+      function x2(e3, l3) {
+        var a3 = l3.css, _3 = l3.media;
+        if (_3 && e3.setAttribute("media", _3), e3.styleSheet)
+          e3.styleSheet.cssText = a3;
+        else {
+          for (; e3.firstChild; )
+            e3.removeChild(e3.firstChild);
+          e3.appendChild(document.createTextNode(a3));
+        }
+      }
+      function M2(e3, l3, a3) {
+        var _3 = a3.css, t3 = a3.sourceMap, r3 = void 0 === l3.convertToAbsoluteUrls && t3;
+        (l3.convertToAbsoluteUrls || r3) && (_3 = i2(_3)), t3 && (_3 += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(t3)))) + " */");
+        var o3 = new Blob([_3], { type: "text/css" }), s3 = e3.href;
+        e3.href = URL.createObjectURL(o3), s3 && URL.revokeObjectURL(s3);
+      }
+    }, function(e2, l2, a2) {
+      const { TableConstructor: _2 } = a2(15), t2 = { Toolbox: a2(8), InsertColBefore: a2(9), InsertColAfter: a2(10), InsertRowBefore: a2(11), InsertRowAfter: a2(12), DeleteRow: a2(13), DeleteCol: a2(14) }, r2 = "tc-table__inp";
+      e2.exports = class {
+        static get enableLineBreaks() {
+          return true;
+        }
+        static get toolbox() {
+          return { icon: t2.Toolbox, title: "Table" };
+        }
+        constructor({ data: e3, config: l3, api: a3 }) {
+          this.api = a3, this.wrapper = void 0, this.config = l3, this.data = e3, this._tableConstructor = new _2(e3, l3, a3), this.actions = [{ actionName: "InsertColBefore", icon: t2.InsertColBefore, label: "Insert column before" }, { actionName: "InsertColAfter", icon: t2.InsertColAfter, label: "Insert column after" }, { actionName: "InsertRowBefore", icon: t2.InsertRowBefore, label: "Insert row before" }, { actionName: "InsertRowAfter", icon: t2.InsertRowAfter, label: "Insert row after" }, { actionName: "DeleteRow", icon: t2.DeleteRow, label: "Delete row" }, { actionName: "DeleteCol", icon: t2.DeleteCol, label: "Delete column" }];
+        }
+        performAction(e3) {
+          switch (e3) {
+            case "InsertColBefore":
+              this._tableConstructor.table.insertColumnBefore();
+              break;
+            case "InsertColAfter":
+              this._tableConstructor.table.insertColumnAfter();
+              break;
+            case "InsertRowBefore":
+              this._tableConstructor.table.insertRowBefore();
+              break;
+            case "InsertRowAfter":
+              this._tableConstructor.table.insertRowAfter();
+              break;
+            case "DeleteRow":
+              this._tableConstructor.table.deleteRow();
+              break;
+            case "DeleteCol":
+              this._tableConstructor.table.deleteColumn();
+          }
+        }
+        renderSettings() {
+          const e3 = document.createElement("div");
+          return this.actions.forEach(({ actionName: l3, label: a3, icon: _3 }) => {
+            const t3 = this.api.i18n.t(a3), r3 = document.createElement("div");
+            r3.classList.add("cdx-settings-button"), r3.innerHTML = _3, r3.title = l3, this.api.tooltip.onHover(r3, t3, { placement: "top" }), r3.addEventListener("click", this.performAction.bind(this, l3)), e3.appendChild(r3), this._tableConstructor.table.selectedCell && this._tableConstructor.table.focusCellOnSelectedCell();
+          }), e3;
+        }
+        render() {
+          if (this.wrapper = document.createElement("div"), this.data && this.data.content)
+            this._createTableConfiguration();
+          else {
+            this.wrapper.classList.add("table-selector"), this.wrapper.setAttribute("data-hoveredClass", "m,n");
+            const e3 = 6;
+            this.createCells(e3), "table-selector" === this.wrapper.className && this.wrapper.addEventListener("mouseover", (e4) => {
+              if (e4.target.id.length) {
+                const l3 = e4.target.attributes.row.value, a3 = e4.target.attributes.column.value;
+                this.wrapper.setAttribute("data-hoveredClass", `${l3},${a3}`);
+              }
+            }), this.wrapper.addEventListener("click", (e4) => {
+              if (e4.target.id.length) {
+                const l3 = e4.target.attributes.row.value, a3 = e4.target.attributes.column.value;
+                this.wrapper.removeEventListener("mouseover", () => {
+                }), this.config.rows = l3, this.config.cols = a3, this._createTableConfiguration();
+              }
+            });
+          }
+          return this.wrapper;
+        }
+        createCells(e3) {
+          if (0 !== e3)
+            for (let l4 = 0; l4 < e3; l4++) {
+              let a3 = document.createElement("div");
+              a3.setAttribute("class", "table-row");
+              for (let _3 = 0; _3 < e3; _3++) {
+                let e4 = document.createElement("div"), t3 = document.createElement("div");
+                e4.setAttribute("class", "table-cell-container"), t3.setAttribute("class", "table-cell"), e4.setAttribute("id", `row_${l4 + 1}_cell_${_3 + 1}`), e4.setAttribute("column", _3 + 1), e4.setAttribute("row", l4 + 1), t3.setAttribute("id", "cell_" + (_3 + 1)), t3.setAttribute("column", _3 + 1), t3.setAttribute("row", l4 + 1), e4.appendChild(t3), a3.appendChild(e4);
+              }
+              this.wrapper.appendChild(a3);
+            }
+          const l3 = document.createElement("input");
+          l3.classList.add("hidden-element"), l3.setAttribute("tabindex", 0), this.wrapper.appendChild(l3);
+        }
+        _createTableConfiguration() {
+          this.wrapper.innerHTML = "", this._tableConstructor = new _2(this.data, this.config, this.api), this.wrapper.appendChild(this._tableConstructor.htmlElement);
+        }
+        save(e3) {
+          const l3 = e3.querySelector("table"), a3 = [], _3 = l3 ? l3.rows : 0;
+          if (_3.length) {
+            for (let e4 = 0; e4 < _3.length; e4++) {
+              const l4 = _3[e4], t3 = Array.from(l4.cells).map((e5) => e5.querySelector("." + r2));
+              t3.every(this._isEmpty) || a3.push(t3.map((e5) => e5.innerHTML));
+            }
+            return { content: a3 };
+          }
+        }
+        _isEmpty(e3) {
+          return !e3.textContent.trim();
+        }
+        static get pasteConfig() {
+          return { tags: ["TABLE", "TR", "TD", "TBODY", "TH"] };
+        }
+        async onPaste(e3) {
+          const l3 = e3.detail.data;
+          this.data = this.pasteHandler(l3), this._createTableConfiguration();
+        }
+        pasteHandler(e3) {
+          const { tagName: l3 } = e3, a3 = { content: [], config: { rows: 0, cols: 0 } };
+          if ("TABLE" === l3) {
+            let l4 = Array.from(e3.childNodes);
+            l4 = l4.find((e4) => "TBODY" === e4.nodeName);
+            let _3 = Array.from(l4.childNodes);
+            _3 = [_3].map((e4) => e4.filter((e5) => "TR" === e5.nodeName)), a3.config.rows = _3[0].length, a3.content = _3[0].map((e4) => {
+              let l5 = e4.childNodes;
+              return a3.config.cols = l5.length, l5 = [...l5].map((e5) => e5.innerHTML), l5;
+            });
+          }
+          return a3;
+        }
+      };
+    }, function(e2, l2, a2) {
+      var _2 = a2(4);
+      "string" == typeof _2 && (_2 = [[e2.i, _2, ""]]);
+      var t2 = { hmr: true, transform: void 0, insertInto: void 0 };
+      a2(1)(_2, t2);
+      _2.locals && (e2.exports = _2.locals);
+    }, function(e2, l2, a2) {
+      (e2.exports = a2(0)(false)).push([e2.i, ".tc-editor{padding:10px;position:relative;box-sizing:content-box;width:100%;left:-10px}", ""]);
+    }, function(e2, l2) {
+      e2.exports = function(e3) {
+        var l3 = "undefined" != typeof window && window.location;
+        if (!l3)
+          throw new Error("fixUrls requires window.location");
+        if (!e3 || "string" != typeof e3)
+          return e3;
+        var a2 = l3.protocol + "//" + l3.host, _2 = a2 + l3.pathname.replace(/\/[^\/]*$/, "/");
+        return e3.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(e4, l4) {
+          var t2, r2 = l4.trim().replace(/^"(.*)"$/, function(e5, l5) {
+            return l5;
+          }).replace(/^'(.*)'$/, function(e5, l5) {
+            return l5;
+          });
+          return /^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(r2) ? e4 : (t2 = 0 === r2.indexOf("//") ? r2 : 0 === r2.indexOf("/") ? a2 + r2 : _2 + r2.replace(/^\.\//, ""), "url(" + JSON.stringify(t2) + ")");
+        });
+      };
+    }, function(e2, l2, a2) {
+      var _2 = a2(7);
+      "string" == typeof _2 && (_2 = [[e2.i, _2, ""]]);
+      var t2 = { hmr: true, transform: void 0, insertInto: void 0 };
+      a2(1)(_2, t2);
+      _2.locals && (e2.exports = _2.locals);
+    }, function(e2, l2, a2) {
+      (e2.exports = a2(0)(false)).push([e2.i, '.tc-table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed;}.tc-table__wrap{border:1px solid #dbdbe2;border-radius:3px;position:relative;height:100%;width:100%;box-sizing:border-box}.tc-table__cell{border:1px solid #dbdbe2;padding:0;vertical-align:top}.tc-table__area{padding:10px;height:100%}.tc-table__inp{outline:none;flex-grow:100;min-height:1.5em;height:100%;overflow:hidden}.tc-table__highlight:focus-within{background-color:rgba(173,164,176,.1)}.tc-table tbody tr:first-child td{border-top:none}.tc-table tbody tr:last-child td{border-bottom:none}.tc-table tbody tr td:last-child{border-right:none}.tc-table tbody tr td:first-child{border-left:none}.table-selector{display:flex;flex-direction:column;}.table-selector .hidden-element{display:none}.table-row{display:flex;flex-direction:row}.table-cell-container{width:30px;height:30px}.table-cell{width:25px;height:25px;background:#f6f6f6;border:1px solid #e4e4e4;cursor:pointer}[data-hoveredClass="1,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="1,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="1,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="1,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="1,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="1,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="1,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="1,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="1,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="1,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="1,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="1,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="1,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="1,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="1,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="1,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="2,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,1"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="2,2"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,2"] #row_2_cell_2 #cell_2,[data-hoveredClass="2,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="2,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="2,3"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,3"] #row_2_cell_2 #cell_2,[data-hoveredClass="2,3"] #row_2_cell_3 #cell_3,[data-hoveredClass="2,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="2,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="2,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="2,4"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,4"] #row_2_cell_2 #cell_2,[data-hoveredClass="2,4"] #row_2_cell_3 #cell_3,[data-hoveredClass="2,4"] #row_2_cell_4 #cell_4,[data-hoveredClass="2,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="2,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="2,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="2,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="2,5"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,5"] #row_2_cell_2 #cell_2,[data-hoveredClass="2,5"] #row_2_cell_3 #cell_3,[data-hoveredClass="2,5"] #row_2_cell_4 #cell_4,[data-hoveredClass="2,5"] #row_2_cell_5 #cell_5,[data-hoveredClass="2,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="2,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="2,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="2,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="2,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="2,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="2,6"] #row_2_cell_1 #cell_1,[data-hoveredClass="2,6"] #row_2_cell_2 #cell_2,[data-hoveredClass="2,6"] #row_2_cell_3 #cell_3,[data-hoveredClass="2,6"] #row_2_cell_4 #cell_4,[data-hoveredClass="2,6"] #row_2_cell_5 #cell_5,[data-hoveredClass="2,6"] #row_2_cell_6 #cell_6,[data-hoveredClass="3,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,1"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,1"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="3,2"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,2"] #row_2_cell_2 #cell_2,[data-hoveredClass="3,2"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,2"] #row_3_cell_2 #cell_2,[data-hoveredClass="3,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="3,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="3,3"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,3"] #row_2_cell_2 #cell_2,[data-hoveredClass="3,3"] #row_2_cell_3 #cell_3,[data-hoveredClass="3,3"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,3"] #row_3_cell_2 #cell_2,[data-hoveredClass="3,3"] #row_3_cell_3 #cell_3,[data-hoveredClass="3,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="3,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="3,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="3,4"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,4"] #row_2_cell_2 #cell_2,[data-hoveredClass="3,4"] #row_2_cell_3 #cell_3,[data-hoveredClass="3,4"] #row_2_cell_4 #cell_4,[data-hoveredClass="3,4"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,4"] #row_3_cell_2 #cell_2,[data-hoveredClass="3,4"] #row_3_cell_3 #cell_3,[data-hoveredClass="3,4"] #row_3_cell_4 #cell_4,[data-hoveredClass="3,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="3,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="3,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="3,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="3,5"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,5"] #row_2_cell_2 #cell_2,[data-hoveredClass="3,5"] #row_2_cell_3 #cell_3,[data-hoveredClass="3,5"] #row_2_cell_4 #cell_4,[data-hoveredClass="3,5"] #row_2_cell_5 #cell_5,[data-hoveredClass="3,5"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,5"] #row_3_cell_2 #cell_2,[data-hoveredClass="3,5"] #row_3_cell_3 #cell_3,[data-hoveredClass="3,5"] #row_3_cell_4 #cell_4,[data-hoveredClass="3,5"] #row_3_cell_5 #cell_5,[data-hoveredClass="3,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="3,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="3,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="3,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="3,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="3,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="3,6"] #row_2_cell_1 #cell_1,[data-hoveredClass="3,6"] #row_2_cell_2 #cell_2,[data-hoveredClass="3,6"] #row_2_cell_3 #cell_3,[data-hoveredClass="3,6"] #row_2_cell_4 #cell_4,[data-hoveredClass="3,6"] #row_2_cell_5 #cell_5,[data-hoveredClass="3,6"] #row_2_cell_6 #cell_6,[data-hoveredClass="3,6"] #row_3_cell_1 #cell_1,[data-hoveredClass="3,6"] #row_3_cell_2 #cell_2,[data-hoveredClass="3,6"] #row_3_cell_3 #cell_3,[data-hoveredClass="3,6"] #row_3_cell_4 #cell_4,[data-hoveredClass="3,6"] #row_3_cell_5 #cell_5,[data-hoveredClass="3,6"] #row_3_cell_6 #cell_6,[data-hoveredClass="4,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,1"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,1"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,1"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="4,2"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,2"] #row_2_cell_2 #cell_2,[data-hoveredClass="4,2"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,2"] #row_3_cell_2 #cell_2,[data-hoveredClass="4,2"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,2"] #row_4_cell_2 #cell_2,[data-hoveredClass="4,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="4,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="4,3"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,3"] #row_2_cell_2 #cell_2,[data-hoveredClass="4,3"] #row_2_cell_3 #cell_3,[data-hoveredClass="4,3"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,3"] #row_3_cell_2 #cell_2,[data-hoveredClass="4,3"] #row_3_cell_3 #cell_3,[data-hoveredClass="4,3"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,3"] #row_4_cell_2 #cell_2,[data-hoveredClass="4,3"] #row_4_cell_3 #cell_3,[data-hoveredClass="4,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="4,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="4,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="4,4"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,4"] #row_2_cell_2 #cell_2,[data-hoveredClass="4,4"] #row_2_cell_3 #cell_3,[data-hoveredClass="4,4"] #row_2_cell_4 #cell_4,[data-hoveredClass="4,4"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,4"] #row_3_cell_2 #cell_2,[data-hoveredClass="4,4"] #row_3_cell_3 #cell_3,[data-hoveredClass="4,4"] #row_3_cell_4 #cell_4,[data-hoveredClass="4,4"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,4"] #row_4_cell_2 #cell_2,[data-hoveredClass="4,4"] #row_4_cell_3 #cell_3,[data-hoveredClass="4,4"] #row_4_cell_4 #cell_4,[data-hoveredClass="4,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="4,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="4,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="4,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="4,5"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,5"] #row_2_cell_2 #cell_2,[data-hoveredClass="4,5"] #row_2_cell_3 #cell_3,[data-hoveredClass="4,5"] #row_2_cell_4 #cell_4,[data-hoveredClass="4,5"] #row_2_cell_5 #cell_5,[data-hoveredClass="4,5"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,5"] #row_3_cell_2 #cell_2,[data-hoveredClass="4,5"] #row_3_cell_3 #cell_3,[data-hoveredClass="4,5"] #row_3_cell_4 #cell_4,[data-hoveredClass="4,5"] #row_3_cell_5 #cell_5,[data-hoveredClass="4,5"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,5"] #row_4_cell_2 #cell_2,[data-hoveredClass="4,5"] #row_4_cell_3 #cell_3,[data-hoveredClass="4,5"] #row_4_cell_4 #cell_4,[data-hoveredClass="4,5"] #row_4_cell_5 #cell_5,[data-hoveredClass="4,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="4,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="4,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="4,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="4,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="4,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="4,6"] #row_2_cell_1 #cell_1,[data-hoveredClass="4,6"] #row_2_cell_2 #cell_2,[data-hoveredClass="4,6"] #row_2_cell_3 #cell_3,[data-hoveredClass="4,6"] #row_2_cell_4 #cell_4,[data-hoveredClass="4,6"] #row_2_cell_5 #cell_5,[data-hoveredClass="4,6"] #row_2_cell_6 #cell_6,[data-hoveredClass="4,6"] #row_3_cell_1 #cell_1,[data-hoveredClass="4,6"] #row_3_cell_2 #cell_2,[data-hoveredClass="4,6"] #row_3_cell_3 #cell_3,[data-hoveredClass="4,6"] #row_3_cell_4 #cell_4,[data-hoveredClass="4,6"] #row_3_cell_5 #cell_5,[data-hoveredClass="4,6"] #row_3_cell_6 #cell_6,[data-hoveredClass="4,6"] #row_4_cell_1 #cell_1,[data-hoveredClass="4,6"] #row_4_cell_2 #cell_2,[data-hoveredClass="4,6"] #row_4_cell_3 #cell_3,[data-hoveredClass="4,6"] #row_4_cell_4 #cell_4,[data-hoveredClass="4,6"] #row_4_cell_5 #cell_5,[data-hoveredClass="4,6"] #row_4_cell_6 #cell_6,[data-hoveredClass="5,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,1"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,1"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,1"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,1"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="5,2"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_2_cell_2 #cell_2,[data-hoveredClass="5,2"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_3_cell_2 #cell_2,[data-hoveredClass="5,2"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_4_cell_2 #cell_2,[data-hoveredClass="5,2"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,2"] #row_5_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="5,3"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,3"] #row_2_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_2_cell_3 #cell_3,[data-hoveredClass="5,3"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,3"] #row_3_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_3_cell_3 #cell_3,[data-hoveredClass="5,3"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,3"] #row_4_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_4_cell_3 #cell_3,[data-hoveredClass="5,3"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,3"] #row_5_cell_2 #cell_2,[data-hoveredClass="5,3"] #row_5_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="5,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="5,4"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,4"] #row_2_cell_2 #cell_2,[data-hoveredClass="5,4"] #row_2_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_2_cell_4 #cell_4,[data-hoveredClass="5,4"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,4"] #row_3_cell_2 #cell_2,[data-hoveredClass="5,4"] #row_3_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_3_cell_4 #cell_4,[data-hoveredClass="5,4"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,4"] #row_4_cell_2 #cell_2,[data-hoveredClass="5,4"] #row_4_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_4_cell_4 #cell_4,[data-hoveredClass="5,4"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,4"] #row_5_cell_2 #cell_2,[data-hoveredClass="5,4"] #row_5_cell_3 #cell_3,[data-hoveredClass="5,4"] #row_5_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="5,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="5,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="5,5"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,5"] #row_2_cell_2 #cell_2,[data-hoveredClass="5,5"] #row_2_cell_3 #cell_3,[data-hoveredClass="5,5"] #row_2_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_2_cell_5 #cell_5,[data-hoveredClass="5,5"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,5"] #row_3_cell_2 #cell_2,[data-hoveredClass="5,5"] #row_3_cell_3 #cell_3,[data-hoveredClass="5,5"] #row_3_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_3_cell_5 #cell_5,[data-hoveredClass="5,5"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,5"] #row_4_cell_2 #cell_2,[data-hoveredClass="5,5"] #row_4_cell_3 #cell_3,[data-hoveredClass="5,5"] #row_4_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_4_cell_5 #cell_5,[data-hoveredClass="5,5"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,5"] #row_5_cell_2 #cell_2,[data-hoveredClass="5,5"] #row_5_cell_3 #cell_3,[data-hoveredClass="5,5"] #row_5_cell_4 #cell_4,[data-hoveredClass="5,5"] #row_5_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="5,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="5,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="5,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="5,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="5,6"] #row_2_cell_1 #cell_1,[data-hoveredClass="5,6"] #row_2_cell_2 #cell_2,[data-hoveredClass="5,6"] #row_2_cell_3 #cell_3,[data-hoveredClass="5,6"] #row_2_cell_4 #cell_4,[data-hoveredClass="5,6"] #row_2_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_2_cell_6 #cell_6,[data-hoveredClass="5,6"] #row_3_cell_1 #cell_1,[data-hoveredClass="5,6"] #row_3_cell_2 #cell_2,[data-hoveredClass="5,6"] #row_3_cell_3 #cell_3,[data-hoveredClass="5,6"] #row_3_cell_4 #cell_4,[data-hoveredClass="5,6"] #row_3_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_3_cell_6 #cell_6,[data-hoveredClass="5,6"] #row_4_cell_1 #cell_1,[data-hoveredClass="5,6"] #row_4_cell_2 #cell_2,[data-hoveredClass="5,6"] #row_4_cell_3 #cell_3,[data-hoveredClass="5,6"] #row_4_cell_4 #cell_4,[data-hoveredClass="5,6"] #row_4_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_4_cell_6 #cell_6,[data-hoveredClass="5,6"] #row_5_cell_1 #cell_1,[data-hoveredClass="5,6"] #row_5_cell_2 #cell_2,[data-hoveredClass="5,6"] #row_5_cell_3 #cell_3,[data-hoveredClass="5,6"] #row_5_cell_4 #cell_4,[data-hoveredClass="5,6"] #row_5_cell_5 #cell_5,[data-hoveredClass="5,6"] #row_5_cell_6 #cell_6,[data-hoveredClass="6,1"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,1"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,1"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,1"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,1"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,1"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_1_cell_2 #cell_2,[data-hoveredClass="6,2"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_2_cell_2 #cell_2,[data-hoveredClass="6,2"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_3_cell_2 #cell_2,[data-hoveredClass="6,2"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_4_cell_2 #cell_2,[data-hoveredClass="6,2"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_5_cell_2 #cell_2,[data-hoveredClass="6,2"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,2"] #row_6_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_1_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_1_cell_3 #cell_3,[data-hoveredClass="6,3"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_2_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_2_cell_3 #cell_3,[data-hoveredClass="6,3"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_3_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_3_cell_3 #cell_3,[data-hoveredClass="6,3"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_4_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_4_cell_3 #cell_3,[data-hoveredClass="6,3"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_5_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_5_cell_3 #cell_3,[data-hoveredClass="6,3"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,3"] #row_6_cell_2 #cell_2,[data-hoveredClass="6,3"] #row_6_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_1_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_1_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_1_cell_4 #cell_4,[data-hoveredClass="6,4"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_2_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_2_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_2_cell_4 #cell_4,[data-hoveredClass="6,4"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_3_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_3_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_3_cell_4 #cell_4,[data-hoveredClass="6,4"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_4_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_4_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_4_cell_4 #cell_4,[data-hoveredClass="6,4"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_5_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_5_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_5_cell_4 #cell_4,[data-hoveredClass="6,4"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,4"] #row_6_cell_2 #cell_2,[data-hoveredClass="6,4"] #row_6_cell_3 #cell_3,[data-hoveredClass="6,4"] #row_6_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_1_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_1_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_1_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_1_cell_5 #cell_5,[data-hoveredClass="6,5"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_2_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_2_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_2_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_2_cell_5 #cell_5,[data-hoveredClass="6,5"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_3_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_3_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_3_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_3_cell_5 #cell_5,[data-hoveredClass="6,5"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_4_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_4_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_4_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_4_cell_5 #cell_5,[data-hoveredClass="6,5"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_5_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_5_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_5_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_5_cell_5 #cell_5,[data-hoveredClass="6,5"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,5"] #row_6_cell_2 #cell_2,[data-hoveredClass="6,5"] #row_6_cell_3 #cell_3,[data-hoveredClass="6,5"] #row_6_cell_4 #cell_4,[data-hoveredClass="6,5"] #row_6_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_1_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_1_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_1_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_1_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_1_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_1_cell_6 #cell_6,[data-hoveredClass="6,6"] #row_2_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_2_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_2_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_2_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_2_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_2_cell_6 #cell_6,[data-hoveredClass="6,6"] #row_3_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_3_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_3_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_3_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_3_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_3_cell_6 #cell_6,[data-hoveredClass="6,6"] #row_4_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_4_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_4_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_4_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_4_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_4_cell_6 #cell_6,[data-hoveredClass="6,6"] #row_5_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_5_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_5_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_5_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_5_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_5_cell_6 #cell_6,[data-hoveredClass="6,6"] #row_6_cell_1 #cell_1,[data-hoveredClass="6,6"] #row_6_cell_2 #cell_2,[data-hoveredClass="6,6"] #row_6_cell_3 #cell_3,[data-hoveredClass="6,6"] #row_6_cell_4 #cell_4,[data-hoveredClass="6,6"] #row_6_cell_5 #cell_5,[data-hoveredClass="6,6"] #row_6_cell_6 #cell_6{background:#d5e4f9;border:1px solid #c0cffd}', ""]);
+    }, function(e2, l2) {
+      e2.exports = '<svg width="18" height="14"><path d="M2.833 8v1.95a1.7 1.7 0 0 0 1.7 1.7h3.45V8h-5.15zm0-2h5.15V2.35h-3.45a1.7 1.7 0 0 0-1.7 1.7V6zm12.3 2h-5.15v3.65h3.45a1.7 1.7 0 0 0 1.7-1.7V8zm0-2V4.05a1.7 1.7 0 0 0-1.7-1.7h-3.45V6h5.15zM4.533.1h8.9a3.95 3.95 0 0 1 3.95 3.95v5.9a3.95 3.95 0 0 1-3.95 3.95h-8.9a3.95 3.95 0 0 1-3.95-3.95v-5.9A3.95 3.95 0 0 1 4.533.1z"></path></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21 0 512 512" width="18" height="18"><path d="M181.332031 106.667969c-3.925781 0-7.828125-1.429688-10.921875-4.3125l-80-74.664063c-4.820312-4.480468-6.378906-11.457031-3.96875-17.558594C88.851562 4.011719 94.761719 0 101.332031 0h160c6.570313 0 12.480469 4.011719 14.871094 10.132812 2.410156 6.125.851563 13.078126-3.96875 17.558594l-80 74.664063c-3.070313 2.882812-6.976563 4.3125-10.902344 4.3125zM141.910156 32l39.421875 36.777344L220.757812 32zm0 0M90.667969 512H37.332031C16.746094 512 0 495.253906 0 474.667969V144c0-20.585938 16.746094-37.332031 37.332031-37.332031h53.335938C111.253906 106.667969 128 123.414062 128 144v330.667969C128 495.253906 111.253906 512 90.667969 512zM37.332031 138.667969C34.390625 138.667969 32 141.054688 32 144v330.667969C32 477.609375 34.390625 480 37.332031 480h53.335938C93.609375 480 96 477.609375 96 474.667969V144c0-2.945312-2.390625-5.332031-5.332031-5.332031zm0 0M432 512H272c-20.585938 0-37.332031-16.746094-37.332031-37.332031V144c0-20.585938 16.746093-37.332031 37.332031-37.332031h160c20.585938 0 37.332031 16.746093 37.332031 37.332031v330.667969C469.332031 495.253906 452.585938 512 432 512zM272 138.667969c-2.945312 0-5.332031 2.386719-5.332031 5.332031v330.667969C266.667969 477.609375 269.054688 480 272 480h160c2.945312 0 5.332031-2.390625 5.332031-5.332031V144c0-2.945312-2.386719-5.332031-5.332031-5.332031zm0 0"></path><path d="M112 325.332031H16c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h96c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0M453.332031 325.332031H250.667969c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h202.664062c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"></path><path d="M352 512c-8.832031 0-16-7.167969-16-16V122.667969c0-8.832031 7.167969-16 16-16s16 7.167969 16 16V496c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21 0 512 512" width="18" height="18"><path d="M288 106.667969c-3.925781 0-7.851562-1.429688-10.921875-4.3125l-80-74.664063c-4.800781-4.480468-6.378906-11.457031-3.96875-17.558594C195.519531 4.03125 201.429688 0 208 0h160c6.570312 0 12.480469 4.011719 14.890625 10.132812 2.410156 6.125.832031 13.078126-3.96875 17.558594l-80 74.664063c-3.070313 2.882812-6.996094 4.3125-10.921875 4.3125zM248.597656 32L288 68.777344 327.402344 32zm0 0M432 512h-53.332031c-20.589844 0-37.335938-16.746094-37.335938-37.332031V144c0-20.585938 16.746094-37.332031 37.335938-37.332031H432c20.585938 0 37.332031 16.746093 37.332031 37.332031v330.667969C469.332031 495.253906 452.585938 512 432 512zm-53.332031-373.332031c-2.945313 0-5.335938 2.386719-5.335938 5.332031v330.667969c0 2.941406 2.390625 5.332031 5.335938 5.332031H432c2.945312 0 5.332031-2.390625 5.332031-5.332031V144c0-2.945312-2.386719-5.332031-5.332031-5.332031zm0 0M197.332031 512h-160C16.746094 512 0 495.253906 0 474.667969V144c0-20.585938 16.746094-37.332031 37.332031-37.332031h160c20.589844 0 37.335938 16.746093 37.335938 37.332031v330.667969c0 20.585937-16.746094 37.332031-37.335938 37.332031zm-160-373.332031C34.390625 138.667969 32 141.054688 32 144v330.667969C32 477.609375 34.390625 480 37.332031 480h160c2.945313 0 5.335938-2.390625 5.335938-5.332031V144c0-2.945312-2.390625-5.332031-5.335938-5.332031zm0 0"></path><path d="M453.332031 325.332031h-96c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h96c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0M218.667969 325.332031H16c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h202.667969c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"></path><path d="M117.332031 512c-8.832031 0-16-7.167969-16-16V122.667969c0-8.832031 7.167969-16 16-16s16 7.167969 16 16V496c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -21 512 512" width="18" height="18"><path d="M16 277.332031c-1.984375 0-3.96875-.363281-5.867188-1.109375C4.011719 273.8125 0 267.902344 0 261.332031v-160c0-6.570312 4.011719-12.480469 10.132812-14.890625 6.144532-2.410156 13.078126-.851562 17.558594 3.96875l74.664063 80c5.761719 6.144532 5.761719 15.679688 0 21.824219l-74.664063 80C24.597656 275.5625 20.351562 277.332031 16 277.332031zm16-135.402343v78.804687l36.777344-39.402344zm0 0M474.667969 128H144c-20.585938 0-37.332031-16.746094-37.332031-37.332031V37.332031C106.667969 16.746094 123.414062 0 144 0h330.667969C495.253906 0 512 16.746094 512 37.332031v53.335938C512 111.253906 495.253906 128 474.667969 128zM144 32c-2.945312 0-5.332031 2.390625-5.332031 5.332031v53.335938C138.667969 93.609375 141.054688 96 144 96h330.667969C477.609375 96 480 93.609375 480 90.667969V37.332031C480 34.390625 477.609375 32 474.667969 32zm0 0M474.667969 469.332031H144c-20.585938 0-37.332031-16.746093-37.332031-37.332031V272c0-20.585938 16.746093-37.332031 37.332031-37.332031h330.667969C495.253906 234.667969 512 251.414062 512 272v160c0 20.585938-16.746094 37.332031-37.332031 37.332031zM144 266.667969c-2.945312 0-5.332031 2.386719-5.332031 5.332031v160c0 2.945312 2.386719 5.332031 5.332031 5.332031h330.667969C477.609375 437.332031 480 434.945312 480 432V272c0-2.945312-2.390625-5.332031-5.332031-5.332031zm0 0"></path><path d="M309.332031 128c-8.832031 0-16-7.167969-16-16V16c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v96c0 8.832031-7.167969 16-16 16zm0 0M309.332031 469.332031c-8.832031 0-16-7.167969-16-16V250.667969c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v202.664062c0 8.832031-7.167969 16-16 16zm0 0"></path><path d="M496 368H122.667969c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16H496c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"></path></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -21 512 512" width="18" height="18"><path d="M16 384c-1.984375 0-3.96875-.363281-5.867188-1.109375C4.011719 380.480469 0 374.570312 0 368V208c0-6.570312 4.011719-12.480469 10.132812-14.890625 6.144532-2.410156 13.078126-.851563 17.558594 3.96875l74.664063 80c5.761719 6.144531 5.761719 15.679687 0 21.824219l-74.664063 80C24.597656 382.230469 20.351562 384 16 384zm16-135.402344v78.804688L68.777344 288zm0 0M474.667969 469.332031H144c-20.585938 0-37.332031-16.746093-37.332031-37.332031v-53.332031c0-20.589844 16.746093-37.335938 37.332031-37.335938h330.667969c20.585937 0 37.332031 16.746094 37.332031 37.335938V432c0 20.585938-16.746094 37.332031-37.332031 37.332031zm-330.667969-96c-2.945312 0-5.332031 2.390625-5.332031 5.335938V432c0 2.945312 2.386719 5.332031 5.332031 5.332031h330.667969C477.609375 437.332031 480 434.945312 480 432v-53.332031c0-2.945313-2.390625-5.335938-5.332031-5.335938zm0 0M474.667969 234.667969H144c-20.585938 0-37.332031-16.746094-37.332031-37.335938v-160C106.667969 16.746094 123.414062 0 144 0h330.667969C495.253906 0 512 16.746094 512 37.332031v160c0 20.589844-16.746094 37.335938-37.332031 37.335938zM144 32c-2.945312 0-5.332031 2.390625-5.332031 5.332031v160c0 2.945313 2.386719 5.335938 5.332031 5.335938h330.667969c2.941406 0 5.332031-2.390625 5.332031-5.335938v-160C480 34.390625 477.609375 32 474.667969 32zm0 0"></path><path d="M309.332031 469.332031c-8.832031 0-16-7.167969-16-16v-96c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v96c0 8.832031-7.167969 16-16 16zm0 0M309.332031 234.667969c-8.832031 0-16-7.167969-16-16V16c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v202.667969c0 8.832031-7.167969 16-16 16zm0 0"></path><path d="M496 133.332031H122.667969c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16H496c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"></path></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.381 15.381" width="18" height="18"><g><path d="M0 1.732v7.732h6.053c0-.035-.004-.07-.004-.104 0-.434.061-.854.165-1.255H1.36V3.092h12.662v2.192c.546.396 1.01.897 1.359 1.477V1.732H0z"></path><path d="M11.196 5.28c-2.307 0-4.183 1.877-4.183 4.184 0 2.308 1.876 4.185 4.183 4.185 2.309 0 4.185-1.877 4.185-4.185 0-2.307-1.876-4.184-4.185-4.184zm0 7.233c-1.679 0-3.047-1.367-3.047-3.049 0-1.68 1.368-3.049 3.047-3.049 1.684 0 3.05 1.369 3.05 3.049 0 1.682-1.366 3.049-3.05 3.049z"></path><path d="M9.312 8.759h3.844v1.104H9.312z"></path></g></svg>';
+    }, function(e2, l2) {
+      e2.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="18" height="18"><path d="M13.594 20.85V24h-10V2h10v3.15c.633-.323 1.304-.565 2-.727V1c0-.551-.448-1-1-1h-12c-.55 0-1 .449-1 1v24c0 .551.449 1 1 1h12c.552 0 1-.449 1-1v-3.424c-.696-.161-1.367-.403-2-.726z"></path><path d="M17.594 6.188c-3.762 0-6.813 3.051-6.812 6.813-.001 3.761 3.05 6.812 6.812 6.812s6.813-3.051 6.813-6.813-3.052-6.812-6.813-6.812zm3.632 7.802l-7.267.001v-1.982h7.268l-.001 1.981z"></path></svg>';
+    }, function(e2, l2, a2) {
+      a2.r(l2), a2.d(l2, "TableConstructor", function() {
+        return w2;
+      });
+      a2(3);
+      function _2(e3) {
+        return !(null == e3);
+      }
+      function t2(e3, l3 = null, a3 = null, t3 = null) {
+        const r3 = document.createElement(e3);
+        if (_2(l3))
+          for (let e4 = 0; e4 < l3.length; e4++)
+            _2(l3[e4]) && r3.classList.add(l3[e4]);
+        if (_2(a3))
+          for (let e4 in a3)
+            r3.setAttribute(e4, a3[e4]);
+        if (_2(t3))
+          for (let e4 = 0; e4 < t3.length; e4++)
+            _2(t3[e4]) && r3.appendChild(t3[e4]);
+        return r3;
+      }
+      a2(6);
+      const r2 = "tc-table", o2 = "tc-table__inp", s2 = "tc-table__cell", c2 = "tc-table__wrap", d2 = "tc-table__area", h2 = "tc-table__highlight";
+      class n2 {
+        constructor() {
+          this._numberOfColumns = 0, this._numberOfRows = 0, this._element = this._createTableWrapper(), this._table = this._element.querySelector("table"), this._selectedCell = null, this._attachEvents();
+        }
+        get selectedCell() {
+          return this._selectedCell;
+        }
+        set selectedCell(e3) {
+          this._selectedCell && this._selectedCell.classList.remove(h2), this._selectedCell = e3, this._selectedCell && this._selectedCell.classList.add(h2);
+        }
+        get selectedRow() {
+          return this.selectedCell ? this.selectedCell.closest("tr") : null;
+        }
+        insertColumnAfter() {
+          this.insertColumn(1), this.focusCellOnSelectedCell();
+        }
+        insertColumnBefore() {
+          this.insertColumn(), this.focusCellOnSelectedCell();
+        }
+        insertRowBefore() {
+          this.insertRow(), this.focusCellOnSelectedCell();
+        }
+        insertRowAfter() {
+          this.insertRow(1), this.focusCellOnSelectedCell();
+        }
+        insertColumn(e3 = 0) {
+          e3 = Math.min(Math.max(e3, 0), 1);
+          const l3 = this.selectedCell ? this.selectedCell.cellIndex + e3 : 0;
+          this._numberOfColumns++;
+          const a3 = this._table.rows;
+          for (let e4 = 0; e4 < a3.length; e4++) {
+            const _3 = a3[e4].insertCell(l3);
+            this._fillCell(_3);
+          }
+        }
+        deleteColumn() {
+          if (!this.selectedCell)
+            return;
+          const e3 = this.selectedCell.cellIndex;
+          this._numberOfColumns--;
+          const l3 = this._table.rows;
+          for (let a3 = 0; a3 < l3.length; a3++)
+            l3[a3].deleteCell(e3);
+        }
+        insertRow(e3 = 0) {
+          e3 = Math.min(Math.max(e3, 0), 1);
+          const l3 = this.selectedRow ? this.selectedRow.rowIndex + e3 : 0, a3 = this._table.insertRow(l3);
+          return this._numberOfRows++, this._fillRow(a3), a3;
+        }
+        deleteRow(e3 = -1) {
+          if (!this.selectedRow)
+            return;
+          const l3 = this.selectedRow.rowIndex;
+          this._table.deleteRow(l3), this._numberOfRows--;
+        }
+        get htmlElement() {
+          return this._element;
+        }
+        get body() {
+          return this._table;
+        }
+        _createTableWrapper() {
+          return t2("div", [c2], null, [t2("table", [r2])]);
+        }
+        _createContenteditableArea() {
+          return t2("div", [o2], { contenteditable: "true" });
+        }
+        _fillCell(e3) {
+          e3.classList.add(s2);
+          const l3 = this._createContenteditableArea();
+          e3.appendChild(t2("div", [d2], null, [l3]));
+        }
+        _fillRow(e3) {
+          for (let l3 = 0; l3 < this._numberOfColumns; l3++) {
+            const l4 = e3.insertCell();
+            this._fillCell(l4);
+          }
+        }
+        _attachEvents() {
+          this._table.addEventListener("focus", (e3) => {
+            this._focusEditField(e3);
+          }, true), this._table.addEventListener("keydown", (e3) => {
+            this._pressedEnterInEditField(e3);
+          }), this._table.addEventListener("click", (e3) => {
+            this._clickedOnCell(e3);
+          }), this.htmlElement.addEventListener("keydown", (e3) => {
+            this._containerKeydown(e3);
+          });
+        }
+        _focusEditField(e3) {
+          this.selectedCell = "TD" === e3.target.tagName ? e3.target : e3.target.closest("td");
+        }
+        focusCellOnSelectedCell() {
+          this.selectedCell.childNodes[0].childNodes[0].focus();
+        }
+        _pressedEnterInEditField(e3) {
+          e3.target.classList.contains(o2) && ("Enter" !== e3.key || e3.shiftKey || e3.preventDefault());
+        }
+        _clickedOnCell(e3) {
+          if (!e3.target.classList.contains(s2))
+            return;
+          e3.target.querySelector("." + o2).focus();
+        }
+        _containerKeydown(e3) {
+          "Enter" === e3.key && e3.ctrlKey && this._containerEnterPressed(e3);
+        }
+        _containerEnterPressed(e3) {
+          this.insertRow(1).cells[0].click();
+        }
+      }
+      const i2 = "tc-editor", v2 = "tc-table__inp";
+      class w2 {
+        constructor(e3, l3, a3) {
+          this._table = new n2();
+          const _3 = this._resizeTable(e3, l3);
+          this._fillTable(e3, _3), this._container = t2("div", [i2, a3.styles && a3.styles.block], null, [this._table.htmlElement]);
+        }
+        get htmlElement() {
+          return this._container;
+        }
+        get table() {
+          return this._table;
+        }
+        _fillTable(e3, l3) {
+          if (void 0 !== e3.content)
+            for (let a3 = 0; a3 < l3.rows && a3 < e3.content.length; a3++)
+              for (let _3 = 0; _3 < l3.cols && _3 < e3.content[a3].length; _3++) {
+                this._table.body.rows[a3].cells[_3].querySelector("." + v2).innerHTML = e3.content[a3][_3];
+              }
+        }
+        _resizeTable(e3, l3) {
+          const a3 = Array.isArray(e3.content), _3 = !!a3 && e3.content.length, t3 = a3 ? e3.content.length : void 0, r3 = _3 ? e3.content[0].length : void 0, o3 = Number.parseInt(l3.rows), s3 = Number.parseInt(l3.cols), c3 = !isNaN(o3) && o3 > 0 ? o3 : void 0, d3 = !isNaN(s3) && s3 > 0 ? s3 : void 0, h3 = t3 || c3 || 1, n3 = r3 || d3 || 1;
+          for (let e4 = 0; e4 < h3; e4++)
+            this._table.insertRow();
+          for (let e4 = 0; e4 < n3; e4++)
+            this._table.insertColumn();
+          return { rows: h3, cols: n3 };
+        }
+      }
+    }]);
+  });
+})(bundle);
+var bundleExports = bundle.exports;
+const Table = /* @__PURE__ */ getDefaultExportFromCjs(bundleExports);
 const EDITOR_JS_TOOLS = {
   embed: { class: Embed, inlineToolbar: true },
   // table: Table,
@@ -48930,7 +49495,7 @@ const EDITOR_JS_TOOLS = {
     class: List2,
     inlineToolbar: true
   },
-  // table: Table,
+  table: Table,
   // warning: Warning,
   youtube: {
     class: Youtube,

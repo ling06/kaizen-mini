@@ -17,6 +17,7 @@ import InlineCode from '@editorjs/inline-code';
 import Youtube from 'editorjs-youtube-embed';
 // import Table from '@editorjs/table';
 // import SimpleImage from '@editorjs/simple-image';
+import Table from 'editorjs-table';
 
 export const EDITOR_JS_TOOLS = {
   embed: { class: Embed, inlineToolbar: true },
@@ -25,7 +26,7 @@ export const EDITOR_JS_TOOLS = {
     class: List,
     inlineToolbar: true,
   },
-  // table: Table,
+  table: Table,
   // warning: Warning,
   youtube: {
     class: Youtube,

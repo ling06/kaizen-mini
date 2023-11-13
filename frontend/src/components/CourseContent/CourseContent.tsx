@@ -66,6 +66,9 @@ export function CourseContent() {
   const handleCheckLesson = () => {
     if (data && data.data.id) {
       checkLesson({ id: data.data.id }).then((res) => {
+        if(!('data' in res) || ('data' in res) && !res.data.data) {
+          return;
+        }
         //TODO: надо дополнить эндроинт под вот это все
         if(!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
           return;

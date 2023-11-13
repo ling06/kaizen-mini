@@ -1,4 +1,4 @@
-import { IAnswer, ITest } from "./lessonTest.types";
+import { IAnswer, ITest } from './lessonTest.types';
 
 export interface ILesson {
   id: number;
@@ -14,7 +14,7 @@ export interface ILesson {
   isChecked: boolean;
 }
 
-export interface ITestDataWithOptionalIds extends Partial<Omit<ITest, 'id' | 'answers'> >{
+export interface ITestDataWithOptionalIds extends Partial<Omit<ITest, 'id' | 'answers'>> {
   id?: string;
   answers: Array<Partial<IAnswer>>;
 }
@@ -30,4 +30,11 @@ export interface IUpdateLessonData extends ICreateLessonData {
   id?: number;
   status?: number;
   isChecked?: boolean;
+}
+
+export interface ICheckLessonRes {
+  data: {
+    theme_id: number;
+  };
+  result: boolean;
 }
