@@ -28,12 +28,12 @@ export function CompetitionContent() {
   const editorOutput = useEditorOutput(editorData);
   const isMobile = useMediaQuery(MediaQueries.mobile);
 
-  useEffect(() => {
-    if (data && data.data.text) {
-      const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
-      setEditorData(editorData);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data.data.text) {
+  //     const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
+  //     setEditorData(editorData);
+  //   }
+  // }, [data]);
 
   const handleEditCompetition = () => {
     if (!data) {
@@ -94,6 +94,8 @@ export function CompetitionContent() {
         <>
           <ContentTitle title={data?.data.title} />
           <S.EditorOutputContainer>{editorOutput}</S.EditorOutputContainer>
+          <div dangerouslySetInnerHTML={{__html: data.data.text}} className="ck-content"/>
+
           <S.BottomContainer>
             <Link to={data.data.link} target='_blank' style={{
               textDecoration: 'none',
