@@ -9,10 +9,6 @@ export function CkEditor({ onChange }) {
   return (
     <CKEditor
       editor={ClassicEditor}
-      config={{
-        plugins: [ SimpleUploadAdapter],
-        
-      }}
       data="<p>Hello from CKEditor&nbsp;5!</p>"
       onReady={(editor) => {
         console.log('Editor is ready to use!', editor);
