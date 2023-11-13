@@ -25,7 +25,7 @@ export const api = createApi({
     prepareHeaders: (headers: Headers, { getState }): Headers => {
       const token = (getState() as RootState).auth.token;
       if (token) {
-        headers.set('X-CSRFToken', token);
+        headers.set('X-CSRF-Token', token);
       }
       return headers;
     },

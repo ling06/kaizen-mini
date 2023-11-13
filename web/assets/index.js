@@ -15948,7 +15948,7 @@ const api = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token2 = getState().auth.token;
       if (token2) {
-        headers.set("X-CSRFToken", token2);
+        headers.set("X-CSRF-Token", token2);
       }
       return headers;
     }
