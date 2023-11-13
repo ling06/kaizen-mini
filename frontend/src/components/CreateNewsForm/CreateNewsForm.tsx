@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
+// import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateNewsMutation, useGetNewsByIdQuery, useUpdateNewsMutation } from '@/store/api/news.api';
 import { useActions } from '@/hooks/useActions';
 import { MODAL_TYPES } from '@/constants';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { CkEditor } from '../CkEditor';
 
 interface ICreateNewsFormProps {
   type: string;
@@ -28,6 +29,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     skip: !newsId,
   });
   const [updateNews] = useUpdateNewsMutation();
+  const [ckEditorData, setCkEditorData] = useState<string>('');
 
   useEffect(() => {
     if (type === 'edit' && data) {
@@ -36,42 +38,42 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
 
-      if (!editor) {
-        try {
-          editor = new EditorJS({
-            holder: 'editorjs',
-            tools: EDITOR_JS_TOOLS,
-            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-            inlineToolbar: true,
-            data: {
-              blocks: JSON.parse(data.data.text || '[]'),
-            },
-          });
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      // if (!editor) {
+      //   try {
+      //     editor = new EditorJS({
+      //       holder: 'editorjs',
+      //       tools: EDITOR_JS_TOOLS,
+      //       i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+      //       inlineToolbar: true,
+      //       data: {
+      //         blocks: JSON.parse(data.data.text || '[]'),
+      //       },
+      //     });
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // }
     }
   }, [data, setNewsCategories, type]);
 
-  useEffect(() => {
-    if (!editor && !data && !isFetching) {
-      try {
-        editor = new EditorJS({
-          holder: 'editorjs',
-          tools: EDITOR_JS_TOOLS,
-          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-          inlineToolbar: true,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    }
+  // useEffect(() => {
+  //   if (!editor && !data && !isFetching) {
+  //     try {
+  //       editor = new EditorJS({
+  //         holder: 'editorjs',
+  //         tools: EDITOR_JS_TOOLS,
+  //         i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+  //         inlineToolbar: true,
+  //       });
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
 
-    return () => {
-      editor = undefined;
-    };
-  }, [data, isFetching]);
+  //   return () => {
+  //     editor = undefined;
+  //   };
+  // }, [data, isFetching]);
 
   const handleConfirm = async () => {
     const editorData = await editor?.save().then((data) => data);
@@ -84,7 +86,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     if (type !== 'edit') {
       createNews({
         title: NewsName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData,
         NewsCategory: categories,
       })
         .then((res) => {
@@ -162,7 +164,8 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         type="text"
         placeholder="Введите название новости (обязательно)"
       />
-      <S.EditorJsWrapper id="editorjs" />
+      {/* <S.EditorJsWrapper id="editorjs" /> */}
+      <CkEditor onChange={setCkEditorData}/>
       {categories.length > 0 && (
         <S.CategoriesList>
           {categories.map((category) => (

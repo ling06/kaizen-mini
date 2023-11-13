@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import * as S from './styles';
-import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
+// import EditorJS from '@editorjs/editorjs';
+// import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
 import {
@@ -12,12 +12,13 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
+import { CkEditor } from '../CkEditor';
 
 interface ICreateLessonFormProps {
   type: string;
 }
 
-let editor: undefined | EditorJS;
+// let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
   const { themeId, courseId, chapterId, lessonId } = useParams();
@@ -33,6 +34,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const navigation = useNavigate();
+  const [ckEditorData, setCkEditorData] = useState<string>('');
 
   useEffect(() => {
     if (data) {
@@ -40,49 +42,49 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setValidName(true);
       setChangedName(false);
       setTestsData(data.data.tests);
-      if (!editor) {
-        try {
-          editor = new EditorJS({
-            holder: 'editorjs',
-            tools: EDITOR_JS_TOOLS,
-            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-            inlineToolbar: true,
-            data: {
-              blocks: JSON.parse(data.data.description),
-            },
-          });
-        } catch (e) {
-          console.error(e);
-        }
-      }
+      // if (!editor) {
+      //   try {
+      //     editor = new EditorJS({
+      //       holder: 'editorjs',
+      //       tools: EDITOR_JS_TOOLS,
+      //       i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+      //       inlineToolbar: true,
+      //       data: {
+      //         blocks: JSON.parse(data.data.description),
+      //       },
+      //     });
+      //   } catch (e) {
+      //     console.error(e);
+      //   }
+      // }
     }
   }, [data, isError, isFetching, setTestsData,]);
 
-  useEffect(() => {
-    if (!editor && !isFetching && !data) {
-      try {
-        editor = new EditorJS({
-          holder: 'editorjs',
-          tools: EDITOR_JS_TOOLS,
-          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-          inlineToolbar: true,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
+  // useEffect(() => {
+  //   if (!editor && !isFetching && !data) {
+  //     try {
+  //       editor = new EditorJS({
+  //         holder: 'editorjs',
+  //         tools: EDITOR_JS_TOOLS,
+  //         i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+  //         inlineToolbar: true,
+  //       });
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
 
-    return () => {
-      if (editor) {
-        try {
-          editor.destroy();
-        } catch(err) {
-          console.log(err);
-        }
-        editor = undefined;
-      }
-    };
-  }, [data, isFetching]);
+  //   return () => {
+  //     if (editor) {
+  //       try {
+  //         editor.destroy();
+  //       } catch(err) {
+  //         console.log(err);
+  //       }
+  //       editor = undefined;
+  //     }
+  //   };
+  // }, [data, isFetching]);
 
   /* 
 TODO: на фронте создаются id для новых сущностей, и при запросе этих id не должно быть. 
@@ -122,9 +124,9 @@ TODO: на фронте создаются id для новых сущносте
   };
 
   const handleConfirm = async () => {
-    const editorData = await editor?.save().then((data) => data);
+    // const editorData = await editor?.save().then((data) => data);
     // console.log('editorData', editorData)
-    const editorBlocksData = JSON.stringify(editorData?.blocks || []);
+    // const editorBlocksData = JSON.stringify(editorData?.blocks || []);
 
     if (!isValidName) {
       setChangedName(true);
@@ -136,7 +138,7 @@ TODO: на фронте создаются id для новых сущносте
         id: Number(lessonId),
         theme_id: Number(data?.data.theme_id),
         title: lessonName,
-        description: editorBlocksData,
+        description: ckEditorData,
         tests: testsDataWithoutFrontIds,
       })
         .then((res) => {
@@ -155,7 +157,7 @@ TODO: на фронте создаются id для новых сущносте
     createLesson({
       title: lessonName,
       theme_id: Number(themeId),
-      description: editorBlocksData,
+      description: ckEditorData,
       tests: testsDataWithoutFrontIds,
     })
       .then((res) => {
@@ -197,7 +199,8 @@ TODO: на фронте создаются id для новых сущносте
         type="text"
         placeholder="Введите название урока (обязательно)"
       />
-      <S.EditorJsWrapper id="editorjs" />
+      {/* <S.EditorJsWrapper id="editorjs" /> */}
+      <CkEditor onChange={setCkEditorData}/>
       <S.TestWrapper>
         {tests.length > 0 && tests.map((test) => <CreateTestForm data={test} />)}
         <S.AddTest onClick={handleAddEmptyTest}>

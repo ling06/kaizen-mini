@@ -4,9 +4,9 @@ import { useDeleteCompetitionMutation, useGetCompetitionByIdQuery, useRestoreCom
 import { ContentTitle } from '../ContentTitle';
 import { LoadingSmall } from '../LoadingSmall';
 import { ErrorBlock } from '../ErrorBlock';
-import { useEditorOutput } from '@/hooks/useEditorOutput';
-import { IEditorJsData } from '@/types/editorJs.types';
-import { useState, useEffect } from 'react';
+// import { useEditorOutput } from '@/hooks/useEditorOutput';
+// import { IEditorJsData } from '@/types/editorJs.types';
+// import { useState, useEffect } from 'react';
 import { NewsRequisites } from '../NewsRequisites';
 import { useActions } from '@/hooks/useActions';
 import { Content } from '@/layouts/Content';
@@ -24,8 +24,8 @@ export function CompetitionContent() {
     skip: !competitionId,
   });
 
-  const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
-  const editorOutput = useEditorOutput(editorData);
+  // const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
+  // const editorOutput = useEditorOutput(editorData);
   const isMobile = useMediaQuery(MediaQueries.mobile);
 
   // useEffect(() => {
@@ -93,7 +93,7 @@ export function CompetitionContent() {
       {data && !isError && !isFetching && (
         <>
           <ContentTitle title={data?.data.title} />
-          <S.EditorOutputContainer>{editorOutput}</S.EditorOutputContainer>
+          {/* <S.EditorOutputContainer>{editorOutput}</S.EditorOutputContainer> */}
           <div dangerouslySetInnerHTML={{__html: data.data.text}} className="ck-content"/>
 
           <S.BottomContainer>
