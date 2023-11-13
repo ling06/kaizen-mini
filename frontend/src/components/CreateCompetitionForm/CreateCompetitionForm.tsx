@@ -4,13 +4,8 @@ import EditorJS from '@editorjs/editorjs';
 import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  useCreateCompetitionMutation,
-  useGetCompetitionByIdQuery,
-  useUpdateCompetitionMutation,
-} from '@/store/api/competition.api';
+import { useCreateCompetitionMutation, useGetCompetitionByIdQuery, useUpdateCompetitionMutation } from '@/store/api/competition.api';
 import { useActions } from '@/hooks/useActions';
-import { CkEditor } from '../CkEditor';
 
 interface ICreateCompetitionFormProps {
   type: string;
@@ -31,10 +26,6 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   const { data, isFetching } = useGetCompetitionByIdQuery(Number(competitionId), {
     skip: !competitionId,
   });
-  const [ckEditorData, setCkEditorData] = useState<string>('');
-
-  console.log(ckEditorData);
-  
 
   useEffect(() => {
     if (data && type === 'edit') {
@@ -78,8 +69,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   }, [data, isFetching]);
 
   const handleConfirm = async () => {
-    // const editorData = await editor?.save().then((data) => data);
-    const editorData = [];
+    const editorData = await editor?.save().then((data) => data);
 
     if (!isValidName) {
       setChangedName(true);
@@ -110,7 +100,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     } else {
       createCompetition({
         title: competitionName,
-        text: ckEditorData,
+        text: JSON.stringify(editorData ? editorData.blocks : []),
         link: competitionLink,
       })
         .then((res) => {
@@ -167,12 +157,9 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         value={competitionName}
         onChange={handleChangeName}
         type="text"
-        placeholder={
-          type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'
-        }
+        placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
       />
-      {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={setCkEditorData} />
+      <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
