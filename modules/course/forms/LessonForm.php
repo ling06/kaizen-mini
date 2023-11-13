@@ -112,11 +112,11 @@ class LessonForm extends Lesson
                 }
             }
         }
-        $lesson = Lesson::findOne($this->id);
-        if ($lesson->description) {
-            $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
-        }
-        $lesson->save();
+//        $lesson = Lesson::findOne($this->id);
+//        if ($lesson->description) {
+//            $lesson->description = json_encode(Image::saveEditorJsImage(json_decode($lesson->description), 'LessonsEditorJS', $this->id), JSON_UNESCAPED_UNICODE);
+//        }
+//        $lesson->save();
 
         parent::afterSave($insert, $changedAttributes);
     }

@@ -21,22 +21,22 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = useState<string>('');
 
-  useEffect(() => {
-    if (data.text) {
-      const editorData: Array<IEditorJsData> = JSON.parse(data.text);
-      const firstTextBlock = editorData.find((block) => block.type === 'paragraph');
-      if (firstTextBlock && firstTextBlock.data.text) {
-        setCompetitionDescr(firstTextBlock.data.text);
-      }
-    }
-  }, [data.text]);
+  // useEffect(() => {
+  //   if (data.text) {
+  //     const editorData: Array<IEditorJsData> = JSON.parse(data.text);
+  //     const firstTextBlock = editorData.find((block) => block.type === 'paragraph');
+  //     if (firstTextBlock && firstTextBlock.data.text) {
+  //       setCompetitionDescr(firstTextBlock.data.text);
+  //     }
+  //   }
+  // }, [data.text]);
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
 
   const handleAddCompetition = () => {
     setUpdatingCompetitionData(null);
-    navigate('/competition/create-competition');
+    navigate('/news/competition/create-competition');
   };
 
   const handleDeleteCompetition = () => {

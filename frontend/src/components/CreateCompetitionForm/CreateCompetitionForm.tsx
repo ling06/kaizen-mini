@@ -6,6 +6,7 @@ import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateCompetitionMutation, useGetCompetitionByIdQuery, useUpdateCompetitionMutation } from '@/store/api/competition.api';
 import { useActions } from '@/hooks/useActions';
+import { CkEditor } from '../CkEditor';
 
 interface ICreateCompetitionFormProps {
   type: string;
@@ -26,6 +27,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   const { data, isFetching } = useGetCompetitionByIdQuery(Number(competitionId), {
     skip: !competitionId,
   });
+  const [ckEditorData, setCkEditorData] = useState<string>('');
 
   useEffect(() => {
     if (data && type === 'edit') {
@@ -100,7 +102,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     } else {
       createCompetition({
         title: competitionName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData,
         link: competitionLink,
       })
         .then((res) => {
@@ -159,6 +161,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
       />
+      <CkEditor onChange={setCkEditorData} />
       <S.EditorJsWrapper id="editorjs" />
       <S.CompetitionNameInput
         $isValid={isValidName}
