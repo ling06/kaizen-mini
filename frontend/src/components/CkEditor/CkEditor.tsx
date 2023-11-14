@@ -12,6 +12,8 @@ import axios from 'axios';
 
 function uploadAdapter(loader: FileLoader): UploadAdapter {
   const csrf = document.querySelector('meta[name="csrf-token"]').content;
+  console.log(csrf);
+  
   return {
     upload: () => {
       return new Promise(async (resolve, reject) => {
@@ -24,8 +26,8 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
               image: file,
             },
             headers: {
-              'Content-Type': 'multipart/form-data',
-              'X-CSRF-Token': csrf,
+              'Content-Type': 'multipart/form-data',              'X-CSRF-Token': csrf,
+
             },
           });
           resolve({

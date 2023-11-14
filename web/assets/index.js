@@ -65178,6 +65178,7 @@ axios.default = axios;
 const axios$1 = axios;
 function uploadAdapter(loader) {
   const csrf = document.querySelector('meta[name="csrf-token"]').content;
+  console.log(csrf);
   return {
     upload: () => {
       return new Promise(async (resolve, reject) => {
