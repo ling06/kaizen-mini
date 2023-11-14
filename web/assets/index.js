@@ -34509,7 +34509,7 @@ function Competition$1({ data, totalCount, index }) {
     let firstParagraph = null;
     if (matches2) {
       for (const match2 of matches2) {
-        const text = match2.replace(/<[^>]+>/g, "").trim();
+        const text = match2.replace(/<[^>]+>/g, "").replace("&nbsp;", "").trim();
         if (text.length > 1) {
           firstParagraph = text;
           break;
