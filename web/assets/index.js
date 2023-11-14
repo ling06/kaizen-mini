@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 function _mergeNamespaces(n2, m2) {
   for (var i2 = 0; i2 < m2.length; i2++) {
     const e2 = m2[i2];
@@ -15477,24 +15483,24 @@ var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from
     to2[j2] = from2[i2];
   return to2;
 };
-var __defProp = Object.defineProperty;
+var __defProp2 = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = function(obj, key, value) {
-  return key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp2 = function(obj, key, value) {
+  return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 };
 var __spreadValues = function(a2, b2) {
   for (var prop in b2 || (b2 = {}))
     if (__hasOwnProp.call(b2, prop))
-      __defNormalProp(a2, prop, b2[prop]);
+      __defNormalProp2(a2, prop, b2[prop]);
   if (__getOwnPropSymbols)
     for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
       var prop = _c[_i];
       if (__propIsEnum.call(b2, prop))
-        __defNormalProp(a2, prop, b2[prop]);
+        __defNormalProp2(a2, prop, b2[prop]);
     }
   return a2;
 };
@@ -26223,6 +26229,10 @@ const loaderSlice = createSlice({
 const { reducer: reducer$4, actions: actions$3 } = loaderSlice;
 class EmptyAnswer {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "answer");
+    __publicField(this, "right_answer");
+    __publicField(this, "text");
     this.id = nanoid();
     this.answer = "";
     this.right_answer = false;
@@ -26231,6 +26241,9 @@ class EmptyAnswer {
 }
 class EmptyTest {
   constructor() {
+    __publicField(this, "id");
+    __publicField(this, "question");
+    __publicField(this, "answers");
     this.id = nanoid();
     this.question = "";
     this.answers = [
@@ -35408,7 +35421,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -65163,6 +65176,12 @@ axios.getAdapter = adapters.getAdapter;
 axios.HttpStatusCode = HttpStatusCode$1;
 axios.default = axios;
 const axios$1 = axios;
+const CkEditorContainer = st$1.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 25px;
+`;
 function uploadAdapter(loader) {
   return {
     upload: () => {
@@ -65199,14 +65218,11 @@ function uploadPlugin(editor2) {
 function CkEditor({ onChange, data, type }) {
   const [editor2, setEditor] = reactExports.useState("");
   reactExports.useEffect(() => {
-    var _a, _b;
-    if (((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.text) && type === "edit") {
-      setEditor((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.text);
+    if (data && type === "edit") {
+      setEditor(data);
     }
   }, [data, type]);
-  console.log("data in ckEditor", data);
-  console.log("type", type);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     distExports.CKEditor,
     {
       editor: ClassicEditor,
@@ -65216,15 +65232,12 @@ function CkEditor({ onChange, data, type }) {
         console.log("Editor is ready to use!", editor22);
       },
       onChange: (event, editor22) => {
-        console.log("editor.getData", editor22.getData());
         setEditor(editor22.getData());
         onChange(editor22.getData());
       },
       onBlur: (event, editor22) => {
-        console.log("Blur.", editor22);
       },
       onFocus: (event, editor22) => {
-        console.log("Focus.", editor22);
       }
     }
   ) });
@@ -65606,7 +65619,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -65905,7 +65918,7 @@ const Title = st$1(Text$6)`
 const CompetitionNameInput = st$1(InputWithState)`
   margin-bottom: 15px;
 `;
-const EditorJsWrapper = st$1.div`
+st$1.div`
   width: 100%;
   min-height: 472px;
   padding: 25px;
@@ -79012,21 +79025,9 @@ function CreateCompetitionForm({ type }) {
     if (data && type === "edit") {
       setCompetitionName(data.data.title);
       setCompetitionLink(data.data.link);
-      if (!editor) {
-        try {
-          editor = new Bi({
-            holder: "editorjs",
-            tools: EDITOR_JS_TOOLS,
-            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-            inlineToolbar: true,
-            data: {
-              blocks: JSON.parse(data.data.text || "[]")
-            }
-          });
-        } catch (e2) {
-          console.log(e2);
-        }
-      }
+      setValidName(true);
+      setChangedName(false);
+      setCkEditorData(data.data.text);
     }
   }, [data, type]);
   reactExports.useEffect(() => {
@@ -79047,7 +79048,6 @@ function CreateCompetitionForm({ type }) {
     };
   }, [data, isFetching]);
   const handleConfirm = async () => {
-    const editorData = await (editor == null ? void 0 : editor.save().then((data2) => data2));
     if (!isValidName) {
       setChangedName(true);
       return;
@@ -79056,7 +79056,7 @@ function CreateCompetitionForm({ type }) {
       updateCompetition({
         id: Number(competitionId),
         title: competitionName,
-        text: ckEditorData ? ckEditorData : editorData ? editorData.blocks : [],
+        text: ckEditorData,
         link: competitionLink
       }).then((res) => {
         setLoaderActive(false);
@@ -79115,6 +79115,9 @@ function CreateCompetitionForm({ type }) {
       cancel: handleCancel
     }
   };
+  const handleSetCkEditorData = (data2) => {
+    setCkEditorData(data2);
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -79128,8 +79131,7 @@ function CreateCompetitionForm({ type }) {
         placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: setCkEditorData, data, type }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(EditorJsWrapper, { id: "editorjs" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "", type }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CompetitionNameInput,
       {

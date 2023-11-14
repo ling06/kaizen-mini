@@ -5,8 +5,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 import { UploadAdapter, FileLoader } from '@ckeditor/ckeditor5-upload/src/filerepository';
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import * as S from './styles';
 
 // import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
@@ -43,20 +44,23 @@ function uploadPlugin(editor: Editor) {
   };
 }
 
-export function CkEditor({ onChange, data, type }) {
+interface ICkEditorProps {
+  onChange: (data: string) => void;
+  data: string;
+  type: string;
+}
 
+export function CkEditor({ onChange, data, type }: ICkEditorProps) {
   const [editor, setEditor] = useState('');
 
   useEffect(() => {
-    if (data?.data?.text && type === 'edit') {
-      setEditor(data?.data?.text);
+    if (data && type === 'edit') {
+      setEditor(data);
     }
   }, [data, type]);
 
-  console.log('data in ckEditor', data)
-  console.log('type', type)
   return (
-    <>
+    <S.CkEditorContainer>
       <CKEditor
         editor={ClassicEditor}
         config={{ extraPlugins: [uploadPlugin] }}
@@ -65,17 +69,16 @@ export function CkEditor({ onChange, data, type }) {
           console.log('Editor is ready to use!', editor);
         }}
         onChange={(event, editor) => {
-          console.log('editor.getData', editor.getData())
           setEditor(editor.getData());
           onChange(editor.getData());
         }}
         onBlur={(event, editor) => {
-          console.log('Blur.', editor);
+          // console.log('Blur.', editor);
         }}
         onFocus={(event, editor) => {
-          console.log('Focus.', editor);
+          // console.log('Focus.', editor);
         }}
       />
-    </>
+    </S.CkEditorContainer>
   );
 }

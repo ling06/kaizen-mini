@@ -34,25 +34,13 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     if (data && type === 'edit') {
       setCompetitionName(data.data.title);
       setCompetitionLink(data.data.link);
-
-      if (!editor) {
-        try {
-          editor = new EditorJS({
-            holder: 'editorjs',
-            tools: EDITOR_JS_TOOLS,
-            i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-            inlineToolbar: true,
-            data: {
-              blocks: JSON.parse(data.data.text || '[]'),
-            },
-          });
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      setValidName(true);
+      setChangedName(false);
+      setCkEditorData(data.data.text);
     }
   }, [data, type]);
 
+  //TODO: при удалении данного useEffect ckEditor выдает ошибку при добавлении изображений. Переделать эту СТРАННУЮ ШТУКУ.
   useEffect(() => {
     if (!editor && !isFetching && !data) {
       try {
@@ -72,7 +60,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   }, [data, isFetching]);
 
   const handleConfirm = async () => {
-    const editorData = await editor?.save().then((data) => data);
+    // const editorData = await editor?.save().then((data) => data);
 
     if (!isValidName) {
       setChangedName(true);
@@ -83,7 +71,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
       updateCompetition({
         id: Number(competitionId),
         title: competitionName,
-        text: ckEditorData ? ckEditorData : editorData ? editorData.blocks : [],
+        text: ckEditorData,
         link: competitionLink,
       })
         .then((res) => {
@@ -151,6 +139,10 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
     },
   };
 
+  const handleSetCkEditorData = (data: string) => {
+    setCkEditorData(data);
+  }
+
   return (
     <>
       <S.Title>{type === 'create' ? 'Создание конкурса' : 'Редактирование конкурса'}</S.Title>
@@ -162,8 +154,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
       />
-      <CkEditor onChange={setCkEditorData} data={data} type={type}/>
-      <S.EditorJsWrapper id="editorjs" />
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} type={type}/>
       <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
