@@ -161,7 +161,7 @@ export function CourseContent() {
           </S.Title>
           <S.Container>
             <CkEditorOutput/>
-            {/* <div dangerouslySetInnerHTML={{ __html: data.data.description }} /> */}
+            {/* <div dangerouslySetInnerHTML={{ __html: data.data.description }} className='ck-content'/> */}
             {/* <S.EditorOutput>{editorOutput}</S.EditorOutput> */}
             {data.data.tests.length > 0 && renderLessonTests()}
             {data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()}

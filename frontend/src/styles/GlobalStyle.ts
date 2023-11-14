@@ -138,6 +138,12 @@ body {
 ::before {
   box-sizing: border-box;
 }
+
+.ck-content {
+  font-size: 18px;
+  line-height: 170%;
+}
+
 `;
 
 export default GlobalStyle;

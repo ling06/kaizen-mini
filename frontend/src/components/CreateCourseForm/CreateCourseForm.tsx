@@ -80,7 +80,7 @@ export function CreateCourseForm() {
         description: courseDescription,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
-        image: courseImage ? courseImage.id ? courseImage.id : courseImage : null,
+        image: courseImage ? courseImage.id ? {id: courseImage.id} : courseImage : null,
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
