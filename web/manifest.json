@@ -38,13 +38,14 @@
       "assets/caret-up-mob-news.svg",
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
+      "assets/external-link.svg",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
       "assets/book.svg",
-      "assets/Home.svg",
+      "assets/home.svg",
       "assets/Save.svg",
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
@@ -145,10 +146,6 @@
   "src/assets/fonts/Montserrat-SemiBold.woff2": {
     "file": "assets/Montserrat-SemiBold.woff2",
     "src": "src/assets/fonts/Montserrat-SemiBold.woff2"
-  },
-  "src/assets/images/Home.svg": {
-    "file": "assets/Home.svg",
-    "src": "src/assets/images/Home.svg"
   },
   "src/assets/images/Save.svg": {
     "file": "assets/Save.svg",
@@ -255,7 +252,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-    "file": "assets/moreIcon.svg",
+    "file": "assets/external-link.svg",
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {
@@ -273,6 +270,10 @@
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
+  },
+  "src/assets/images/home.svg": {
+    "file": "assets/home.svg",
+    "src": "src/assets/images/home.svg"
   },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
@@ -292,7 +293,7 @@
   },
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
-    "src": "src/assets/images/external-link.svg"
+    "src": "src/assets/images/moreIcon.svg"
   },
   "src/assets/images/radio-checked.svg": {
     "file": "assets/radio-checked.svg",
