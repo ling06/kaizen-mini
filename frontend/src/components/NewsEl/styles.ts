@@ -60,7 +60,9 @@ export const Footer = styled(C.FlexContainer)`
 
 export const MoreBtn = styled(C.DefaultBtn)`
   min-height: 44px;
-  padding: 0 20%;
+  width: 158px;
+  margin-right: auto;
+
   @media ${(props) => props.theme.media.mobile} {
     display: none;
   }

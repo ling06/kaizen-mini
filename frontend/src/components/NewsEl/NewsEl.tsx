@@ -32,13 +32,16 @@ export function NewsEl({ data }: INewsElProps) {
 
     window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   const mobileNavigate = () => {
     if (isMobile) {
+      navigate(`/news/${data.id}`, { replace: true });
+    }
+  };
+
+  const DesNavigateNews = () => {
+    if (!isMobile) {
       navigate(`/news/${data.id}`, { replace: true });
     }
   };
@@ -101,12 +104,7 @@ export function NewsEl({ data }: INewsElProps) {
         </S.ImageContainer>
       )} */}
       <S.Footer>
-        <Link
-          to={`/news/${data.id}`}
-          style={{ display: "block", marginRight: "auto" }}
-        >
-          <S.MoreBtn>Подробнее</S.MoreBtn>
-        </Link>
+        <S.MoreBtn onClick={DesNavigateNews}>Подробнее</S.MoreBtn>
         <NewsRequisites
           author={authorName}
           date={data.date}

@@ -89,7 +89,7 @@ export function NewsContent() {
       {data && (
         <>
           <ContentTitle title={data.data.title} />
-          <div dangerouslySetInnerHTML={{ __html: data.data.text }}/>
+          <S.EditorContainer dangerouslySetInnerHTML={{ __html: data.data.text }}/>
           {/* <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer> */}
           <S.Bottom>
             <NewsRequisites
