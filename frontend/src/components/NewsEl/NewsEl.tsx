@@ -1,11 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
-import * as S from './styles';
-import { INews } from '@/types/news.types';
-import { useEffect, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import * as S from "./styles";
+import { INews } from "@/types/news.types";
+import { useEffect, useState } from "react";
 // import { IEditorJsData } from '@/types/editorJs.types';
-import { NewsRequisites } from '../NewsRequisites';
-import { useDeleteNewsMutation, useRestoreNewsMutation, useUpdateNewsMutation } from '@/store/api/news.api';
-import { useActions } from '@/hooks/useActions';
+import { NewsRequisites } from "../NewsRequisites";
+import {
+  useDeleteNewsMutation,
+  useRestoreNewsMutation,
+  useUpdateNewsMutation,
+} from "@/store/api/news.api";
+import { useActions } from "@/hooks/useActions";
 
 interface INewsElProps {
   data: INews;
@@ -13,12 +17,31 @@ interface INewsElProps {
 
 export function NewsEl({ data }: INewsElProps) {
   const { setLoaderActive } = useActions();
-  const [authorName, setAuthorName] = useState<string | number>('');
+  const [authorName, setAuthorName] = useState<string | number>("");
   // const [imgUrl, setImgUrl] = useState<string | null>('');
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
   const [update] = useUpdateNewsMutation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const mobileNavigate = () => {
+    if (isMobile) {
+      navigate(`/news/${data.id}`, { replace: true });
+    }
+  };
 
   useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
@@ -40,8 +63,8 @@ export function NewsEl({ data }: INewsElProps) {
     deleteNews({
       id: data.id,
     }).then((res) => {
-      if ('data' in res && !res.data.result) {
-        alert('При удалении статьи произошла ошибка');
+      if ("data" in res && !res.data.result) {
+        alert("При удалении статьи произошла ошибка");
       }
     });
     setLoaderActive(true);
@@ -51,8 +74,8 @@ export function NewsEl({ data }: INewsElProps) {
     restoreNews({
       id: data.id,
     }).then((res) => {
-      if ('data' in res && !res.data.result) {
-        alert('При востановлении статьи произошла ошибка');
+      if ("data" in res && !res.data.result) {
+        alert("При востановлении статьи произошла ошибка");
       }
     });
     setLoaderActive(true);
@@ -67,8 +90,10 @@ export function NewsEl({ data }: INewsElProps) {
 
   return (
     <S.Container
+      onClick={mobileNavigate}
       $isDeleted={!!data.is_deleted}
-      $isVisible={Number(data.status) !== 0}>
+      $isVisible={Number(data.status) !== 0}
+    >
       <S.Title>{data.title}</S.Title>
       {/* {imgUrl && (
         <S.ImageContainer>
@@ -78,7 +103,8 @@ export function NewsEl({ data }: INewsElProps) {
       <S.Footer>
         <Link
           to={`/news/${data.id}`}
-          style={{ display: 'block', marginRight: 'auto' }}>
+          style={{ display: "block", marginRight: "auto" }}
+        >
           <S.MoreBtn>Подробнее</S.MoreBtn>
         </Link>
         <NewsRequisites
@@ -88,7 +114,8 @@ export function NewsEl({ data }: INewsElProps) {
             onEdit: handleEditNews,
             onDelete: data.is_deleted ? undefined : handleDeleteNews,
             onRestore: data.is_deleted ? handleRestoreNews : undefined,
-            onVisible: Number(data.status) === 0 ? handleVisibileNews : undefined,
+            onVisible:
+              Number(data.status) === 0 ? handleVisibileNews : undefined,
             onHide: Number(data.status) === 1 ? handleVisibileNews : undefined,
           }}
         />
