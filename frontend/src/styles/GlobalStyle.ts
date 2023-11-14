@@ -108,6 +108,7 @@ input {
 img {
   border: 0;
   max-width: 100%;
+  height: 100%;
 }
 
 a {

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  @media ${(props) => props.theme.media.mobile} {
+    justify-content: flex-start;
+  }
 `;
 
 export const Date = styled.p`
