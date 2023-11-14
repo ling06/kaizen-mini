@@ -27795,10 +27795,21 @@ const NoAvailableCourses = st$1(FlexContainer)`
   min-height: 200px;
   background-color: ${(props) => props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: unset;
+    height: 43.75vw;
+  }
 `;
 const NoAvailableCoursesText = st$1(Text$6)`
   margin-right: 10px;
   font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+
+    font-size: 7.08vw;
+  }
 `;
 function NoAvailable({ text, onAdd = () => {
 }, style: style2 = {} }) {
@@ -29308,6 +29319,7 @@ const Container$i = st$1.div`
   overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
+    height: 43.75vw;
   }
 `;
 const SwiperPrevBtn = st$1.div`
@@ -29322,24 +29334,32 @@ const SwiperPrevBtn = st$1.div`
   background-position: center;
   background-size: 100%;
   cursor: pointer;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const SwiperNextBtn = st$1(SwiperPrevBtn)`
   right: 20px;
   left: unset;
   transform: rotate(-180deg);
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 st$1(DefaultBtn)`
   z-index: 2;
   position: absolute;
-  top:50%;
-  left:50%;
-  color:white;
-  border-radius:15px;
+  top: 50%;
+  left: 50%;
+  color: white;
+  border-radius: 15px;
   width: fit-content;
-  padding:20px 30px;
-  background-color:rgb(0, 122, 255);
+  padding: 20px 30px;
+  background-color: rgb(0, 122, 255);
   cursor: pointer;
   transform: translate(-50%, -50%);
+  @media ${(props) => props.theme.media.mobile} {
+  }
 `;
 st$1(Text$6)`
   position: absolute;
@@ -29348,6 +29368,9 @@ st$1(Text$6)`
   font-size: 22px;
   transform: translate(-50%, -50%);
   z-index: 2;
+
+  @media ${(props) => props.theme.media.mobile} {
+  }
 `;
 function isObject$3(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -34479,6 +34502,24 @@ function Competition$1({ data, totalCount, index }) {
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    const ckEditorData = data.text || "";
+    const regex = /<p>([^<]+)<\/p>/g;
+    const matches2 = ckEditorData.match(regex);
+    let firstParagraph = null;
+    if (matches2) {
+      for (const match2 of matches2) {
+        const text = match2.replace(/<[^>]+>/g, "").trim();
+        if (text.length > 1) {
+          firstParagraph = text;
+          break;
+        }
+      }
+    }
+    if (firstParagraph) {
+      setCompetitionDescr(firstParagraph);
+    }
+  }, [data.text]);
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
@@ -34863,12 +34904,11 @@ const Title$7 = st$1.h3`
     font-size: 3.75vw;
   }
 `;
-st$1.img`
+const Image$3 = st$1.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
-  width: 920px;
-  height: 920px;
+  width: 100%;
   object-fit: cover;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
@@ -34885,12 +34925,14 @@ const Footer = st$1(FlexContainer)`
 `;
 const MoreBtn = st$1(DefaultBtn)`
   min-height: 44px;
-  padding: 0 20%;
+  width: 158px;
+  margin-right: auto;
+
   @media ${(props) => props.theme.media.mobile} {
     display: none;
   }
 `;
-st$1.div`
+const ImageContainer = st$1.div`
   aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
@@ -34938,6 +34980,7 @@ function NewsRequisites({
 function NewsEl({ data }) {
   const { setLoaderActive } = useActions();
   const [authorName, setAuthorName] = reactExports.useState("");
+  const [imgUrl, setImgUrl] = reactExports.useState("");
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
@@ -34948,18 +34991,25 @@ function NewsEl({ data }) {
       setIsMobile(window.innerWidth <= 600);
     };
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
   const mobileNavigate = () => {
     if (isMobile) {
       navigate(`/news/${data.id}`, { replace: true });
     }
   };
+  const DesNavigateNews = () => {
+    if (!isMobile) {
+      navigate(`/news/${data.id}`, { replace: true });
+    }
+  };
   reactExports.useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
+    const ckEditorData = data.text || "";
+    const regex = /<img.*?src=\"([^\"]*)\".*?>/g;
+    const match2 = regex.exec(ckEditorData);
+    const srcValue = match2 ? match2[1] : null;
+    setImgUrl(srcValue);
   }, [data.text, data.user, data.user_id]);
   const handleEditNews = () => {
     navigate(`/news/edit-news/${data.id}`);
@@ -34998,15 +35048,9 @@ function NewsEl({ data }) {
       $isVisible: Number(data.status) !== 0,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
+        imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Link$1,
-            {
-              to: `/news/${data.id}`,
-              style: { display: "block", marginRight: "auto" },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { children: "Подробнее" })
-            }
-          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { onClick: DesNavigateNews, children: "Подробнее" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             NewsRequisites,
             {
@@ -35026,6 +35070,7 @@ function NewsEl({ data }) {
     }
   );
 }
+const dropMenuIcon = "/assets/caret-up-mob-news.svg";
 const Container$c = st$1(FlexContainer)`
   flex-direction: column;
 `;
@@ -35038,11 +35083,25 @@ const Title$6 = st$1(Text$6)`
   margin-bottom: 10px;
   font-size: 15px;
   @media ${(props) => props.theme.media.mobile} {
-    justify-content: center;
-    width: 100%;
-
-    font-size: 4.7vw;
+    display: none;
   }
+`;
+const dropMenu = st$1.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const dropMenuImg = st$1(Icon$2)`
+  background-image: url(${dropMenuIcon});
+`;
+st$1.div``;
+const titleFilter = st$1.p`
+  color: ${(props) => props.theme.colors.mainBlue};
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 149.5%;
 `;
 const ContentWrapper = st$1(FlexContainer)``;
 const News$1 = st$1(FlexContainer)`
@@ -35052,7 +35111,7 @@ const News$1 = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 10px;
   @media ${(props) => props.theme.media.desktop} {
-   border-radius: ${(props) => props.theme.utils.br};
+    border-radius: ${(props) => props.theme.utils.br};
   }
 
   @media ${(props) => props.theme.media.mobile} {
@@ -35170,13 +35229,19 @@ function NewsContainer() {
   const navigate = useNavigate();
   const { setLoaderActive } = useActions();
   const [searchParams] = useSearchParams();
-  const [categorySearchParam, setCategorySearchParam] = reactExports.useState(null);
+  const [categorySearchParam, setCategorySearchParam] = reactExports.useState(
+    null
+  );
   const { data, isError, isFetching } = useGetAllNewsQuery(void 0, {
     skip: !!categorySearchParam
   });
-  const newsByCategory = useGetNewsByCategoryQuery(Number(categorySearchParam), {
-    skip: !categorySearchParam
-  });
+  reactExports.useState("false");
+  const newsByCategory = useGetNewsByCategoryQuery(
+    Number(categorySearchParam),
+    {
+      skip: !categorySearchParam
+    }
+  );
   reactExports.useEffect(() => {
     setCategorySearchParam(searchParams.get("category"));
   }, [searchParams]);
@@ -35189,14 +35254,11 @@ function NewsContainer() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$c, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { children: [
       "Новости",
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        AdminBtn,
-        {
-          popupName: "Новость",
-          type: "add",
-          onClick: handleCreateNews
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtn, { popupName: "Новость", type: "add", onClick: handleCreateNews })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { children: "Все новости" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(dropMenuImg, {})
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ContentWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, {}),
@@ -35204,8 +35266,14 @@ function NewsContainer() {
         isFetching || newsByCategory.isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
         isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         categorySearchParam && newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
-        !categorySearchParam && data && data.data.length > 0 && data.data.map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
-        !((_a = newsByCategory.data) == null ? void 0 : _a.data.length) && !(data == null ? void 0 : data.data.length) && !isFetching && !newsByCategory.isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных новостей", onAdd: handleCreateNews })
+        !categorySearchParam && data && data.data.length > 0 && data.data.slice().reverse().map((newsData) => /* @__PURE__ */ jsxRuntimeExports.jsx(NewsEl, { data: newsData })),
+        !((_a = newsByCategory.data) == null ? void 0 : _a.data.length) && !(data == null ? void 0 : data.data.length) && !isFetching && !newsByCategory.isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NoAvailable,
+          {
+            text: "Нет доступных новостей",
+            onAdd: handleCreateNews
+          }
+        )
       ] })
     ] })
   ] });
@@ -35252,6 +35320,7 @@ const Container$a = st$1.div`
   padding-top: 25px;
 `;
 const backIcon = "/assets/arrow-left-blue.svg";
+const backIconMob = "/assets/angle-right-mob.svg";
 const Button = st$1.button`
   display: flex;
   align-items: center;
@@ -35260,22 +35329,41 @@ const Button = st$1.button`
   padding: 0;
   margin: 0;
   margin-bottom: 18px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 5vw;
+  }
 `;
 const Icon = st$1(Icon$2)`
   margin-right: 8px;
   background-image: url(${backIcon});
+  @media ${(props) => props.theme.media.mobile} {
+    background-image: url(${backIconMob});
+    margin-right: 2.81vw;
+  }
 `;
 const Text$2 = st$1.span`
   font-size: 22px;
   font-weight: 500;
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.mainBlue};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+    font-weight: 700;
+  }
 `;
 function BackBtn({ onClick: onClick2 = () => {
-}, text = "назад" }) {
+}, text }) {
+  const [textBtn, setTextBtn] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (text !== void 0) {
+      setTextBtn(text);
+    } else {
+      setTextBtn("назад");
+    }
+  }, [text]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { onClick: onClick2, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: text })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: textBtn })
   ] });
 }
 const Container$9 = st$1.div`
@@ -35295,6 +35383,20 @@ st$1.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 50px;
+`;
+st$1.div`
+  width: 100%;
+  margin-bottom: 50px;
+
+  font-family: "Montserrat";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 170%;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 3.13vw;
+
+    font-size: 4.7vw;
+  }
 `;
 const Bottom = st$1.div`
   display: flex;
@@ -35432,10 +35534,12 @@ function NewsById() {
   const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId
   });
+  const isMobile = useMediaQuery(MediaQueries.mobile);
   function handleGoBack() {
+    navigate("/news", { replace: true });
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: data == null ? void 0 : data.data.title }),
+    isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: data == null ? void 0 : data.data.title }) : null,
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
@@ -78819,7 +78923,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;

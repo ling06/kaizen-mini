@@ -1,61 +1,89 @@
-import { useGetAllNewsQuery, useGetNewsByCategoryQuery } from '@/store/api/news.api';
-import { AdminBtn } from '../AdminBtn';
-import { NewsEl } from '../NewsEl';
-import * as S from './styles';
-import { NewsCategoryWrapper } from '../NewsCategoryWrapper';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ErrorBlock } from '../ErrorBlock';
-import { useActions } from '@/hooks/useActions';
-import { useEffect, useState } from 'react';
-import { LoadingSmall } from '../LoadingSmall';
-import { NoAvailable } from '../NoAvailable';
+import {
+  useGetAllNewsQuery,
+  useGetNewsByCategoryQuery,
+} from "@/store/api/news.api";
+import { AdminBtn } from "../AdminBtn";
+import { NewsEl } from "../NewsEl";
+import * as S from "./styles";
+import { NewsCategoryWrapper } from "../NewsCategoryWrapper";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { ErrorBlock } from "../ErrorBlock";
+import { useActions } from "@/hooks/useActions";
+import { useEffect, useState } from "react";
+import { LoadingSmall } from "../LoadingSmall";
+import { NoAvailable } from "../NoAvailable";
 
 export function NewsContainer() {
   const navigate = useNavigate();
-  const {setLoaderActive} = useActions();
+  const { setLoaderActive } = useActions();
   const [searchParams] = useSearchParams();
-  const [categorySearchParam, setCategorySearchParam] = useState<null | string>(null);
+  const [categorySearchParam, setCategorySearchParam] = useState<null | string>(
+    null
+  );
   const { data, isError, isFetching } = useGetAllNewsQuery(undefined, {
     skip: !!categorySearchParam,
   });
-  const newsByCategory = useGetNewsByCategoryQuery(Number(categorySearchParam), {
-    skip: !categorySearchParam,
-  })
+  const [isOpen, setOpen] = useState("false");
+
+ 
+  const newsByCategory = useGetNewsByCategoryQuery(
+    Number(categorySearchParam),
+    {
+      skip: !categorySearchParam,
+    }
+  );
 
   useEffect(() => {
-    setCategorySearchParam(searchParams.get('category'));
-  }, [searchParams])
+    setCategorySearchParam(searchParams.get("category"));
+  }, [searchParams]);
 
   useEffect(() => {
-    setLoaderActive(isFetching)
-  }, [isFetching, setLoaderActive])
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
 
   const handleCreateNews = () => {
-    navigate('/news/create-news');
-  }
+    navigate("/news/create-news");
+  };
 
   return (
     <S.Container>
       <S.Title>
         Новости
-        <AdminBtn
-          popupName="Новость"
-          type="add"
-          onClick={handleCreateNews}
-        />
+        <AdminBtn popupName="Новость" type="add" onClick={handleCreateNews} />
       </S.Title>
+      <S.dropMenu>
+        <S.titleFilter>Все новости</S.titleFilter>
+        <S.dropMenuImg />
+
+        {/* <S.filterPopup style={{display : isOpen? "none" : "flex"}}>{dataTest.map((text) =>{ <titleFilter>{text}</titleFilter>})}</S.filterPopup> */}
+      </S.dropMenu>
       <S.ContentWrapper>
         <NewsCategoryWrapper />
         <S.News>
-          {isFetching || newsByCategory.isFetching && (
-            <LoadingSmall />
-          )}
+          {isFetching || (newsByCategory.isFetching && <LoadingSmall />)}
           {isError && <ErrorBlock />}
-          {categorySearchParam && newsByCategory.data && newsByCategory.data.data.length > 0 && newsByCategory.data.data.map((newsData) => <NewsEl data={newsData} />)}
-          {!categorySearchParam && data && data.data.length > 0 && data.data.map((newsData) => <NewsEl data={newsData} />)}
-          {!newsByCategory.data?.data.length && !data?.data.length && !isFetching && !newsByCategory.isFetching && (
-            <NoAvailable text="Нет доступных новостей" onAdd={handleCreateNews}/>
-          )}  
+          {categorySearchParam &&
+            newsByCategory.data &&
+            newsByCategory.data.data.length > 0 &&
+            newsByCategory.data.data.map((newsData) => (
+              <NewsEl data={newsData} />
+            ))}
+          {!categorySearchParam &&
+            data &&
+            data.data.length > 0 &&
+            data.data
+              .slice()
+              .reverse()
+              .map((newsData) => <NewsEl data={newsData} />)}
+          {!newsByCategory.data?.data.length &&
+            !data?.data.length &&
+            !isFetching &&
+            !newsByCategory.isFetching && (
+              <NoAvailable
+                text="Нет доступных новостей"
+                onAdd={handleCreateNews}
+              />
+            )}
         </S.News>
       </S.ContentWrapper>
     </S.Container>

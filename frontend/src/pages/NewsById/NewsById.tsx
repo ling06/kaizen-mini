@@ -1,10 +1,12 @@
 import { AdminBtn } from "@/components/AdminBtn";
-import { useGetNewsByIdQuery, } from '@/store/api/news.api';
+import { useGetNewsByIdQuery } from "@/store/api/news.api";
 import * as S from "./styles";
-import { BackBtn } from '@/components/BackBtn';
+import { BackBtn } from "@/components/BackBtn";
 import * as C from "@styles/components";
 import { NewsByIdContent } from "@/components/NewsByIdContent";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MediaQueries } from "@/constants";
 
 export function NewsById() {
   const navigate = useNavigate();
@@ -16,14 +18,18 @@ export function NewsById() {
     skip: !newsId,
   });
 
-  function handleGoBack (){
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
+  function handleGoBack() {
+    navigate("/news", { replace: true });
   }
-  
+
   return (
     <C.DefaultContainer>
       <S.Container>
-        <BackBtn onClick={handleGoBack} text={data?.data.title} />
+        {isMobile ? (
+          <BackBtn onClick={handleGoBack} text={data?.data.title} />
+        ) : null}
 
         <AdminBtn
           popupName="Новость"

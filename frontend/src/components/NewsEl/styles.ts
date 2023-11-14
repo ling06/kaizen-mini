@@ -40,8 +40,7 @@ export const Image = styled.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
-  width: 920px;
-  height: 920px;
+  width: 100%;
   object-fit: cover;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
@@ -60,7 +59,9 @@ export const Footer = styled(C.FlexContainer)`
 
 export const MoreBtn = styled(C.DefaultBtn)`
   min-height: 44px;
-  padding: 0 20%;
+  width: 158px;
+  margin-right: auto;
+
   @media ${(props) => props.theme.media.mobile} {
     display: none;
   }

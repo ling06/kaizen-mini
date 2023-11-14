@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as C from '@styles/components';
+import styled from "styled-components";
+import * as C from "@styles/components";
 
 export const Container = styled.div`
   display: flex;
@@ -15,6 +15,21 @@ export const EditorOutputContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 50px;
+`;
+
+export const EditorContainer = styled.div`
+  width: 100%;
+  margin-bottom: 50px;
+
+  font-family: "Montserrat";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 170%;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 3.13vw;
+
+    font-size: 4.7vw;
+  }
 `;
 
 export const Bottom = styled.div`
