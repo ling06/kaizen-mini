@@ -35609,7 +35609,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/external-link.svg";
+const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -79809,6 +79809,14 @@ body {
 .ck-content {
   font-size: 18px;
   line-height: 170%;
+}
+
+.ck-content[role='textbox']{
+  min-height: 400px;
+  border-radius: 0 0 15px 15px !important;
+}
+.ck-toolbar[role='toolbar']{
+  border-radius: 15px 15px 0 0 !important;
 }
 
 `;
