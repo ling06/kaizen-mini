@@ -78923,7 +78923,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
