@@ -34833,12 +34833,11 @@ const Title$7 = st$1.h3`
     font-size: 3.75vw;
   }
 `;
-st$1.img`
+const Image$3 = st$1.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
-  width: 920px;
-  height: 920px;
+  width: 100%;
   object-fit: cover;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
@@ -34860,7 +34859,7 @@ const MoreBtn = st$1(DefaultBtn)`
     display: none;
   }
 `;
-st$1.div`
+const ImageContainer = st$1.div`
   aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
@@ -34908,6 +34907,7 @@ function NewsRequisites({
 function NewsEl({ data }) {
   const { setLoaderActive } = useActions();
   const [authorName, setAuthorName] = reactExports.useState("");
+  const [imgUrl, setImgUrl] = reactExports.useState("");
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
@@ -34930,6 +34930,11 @@ function NewsEl({ data }) {
   reactExports.useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
+    const ckEditorData = data.text;
+    const regex = /<img.*?src=\"([^\"]*)\".*?>/g;
+    const match2 = regex.exec(ckEditorData);
+    const srcValue = match2 ? match2[1] : null;
+    setImgUrl(srcValue);
   }, [data.text, data.user, data.user_id]);
   const handleEditNews = () => {
     navigate(`/news/edit-news/${data.id}`);
@@ -34968,6 +34973,7 @@ function NewsEl({ data }) {
       $isVisible: Number(data.status) !== 0,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
+        imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$3, { src: imgUrl }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Link$1,

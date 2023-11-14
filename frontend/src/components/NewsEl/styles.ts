@@ -40,8 +40,7 @@ export const Image = styled.img`
   display: block;
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
-  width: 920px;
-  height: 920px;
+  width: 100%;
   object-fit: cover;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
