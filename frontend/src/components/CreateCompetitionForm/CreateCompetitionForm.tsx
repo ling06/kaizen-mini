@@ -124,7 +124,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
   };
 
   const handleChangeLink = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setValidName(event.target.value.length > 1);
+    // setValidName(event.target.value.length > 1);
     setCompetitionLink(event.target.value);
   };
 
