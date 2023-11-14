@@ -114,6 +114,7 @@ class Course extends \app\components\ActiveRecord
             $result[$key]['date'] = $chapter->date;
             $result[$key]['is_deleted'] = $chapter->is_deleted;
             $result[$key]['image'] = Image::find()->select('id, server, directory, name')->where(['model_name' => Chapter::class, 'model_pk' => $chapter->id])->one();
+            $result[$key]['percentage'] = $this->getPercentage($chapter->id);
         }
         return $result;
     }
@@ -132,7 +133,7 @@ class Course extends \app\components\ActiveRecord
      * Получить прогресс курса
      * @return array
      */
-    public function getPercentage(): array
+    public function getPercentage($chapterId = null): array
     {
         $lessons = Lesson::find()
             ->alias('lesson')
@@ -144,10 +145,14 @@ class Course extends \app\components\ActiveRecord
                 'theme.is_deleted' => false,
                 'chapter.is_deleted' => false,
                 'course.is_deleted' => false,
-                'course.id' => $this->id,
-            ])
-            ->asArray()
-            ->all();
+//                'course.id' => $this->id,
+            ]);
+        if ($chapterId) {
+            $lessons->andWhere(['chapter.id' => $chapterId]);
+        } else {
+            $lessons->andWhere(['course.id' => $this->id]);
+        }
+        $lessons = $lessons->asArray()->all();
         $lessonsCount = count($lessons);
 
         $checkedLessonsCount = UserCheck::find()

@@ -65235,6 +65235,7 @@ axios.HttpStatusCode = HttpStatusCode$1;
 axios.default = axios;
 const axios$1 = axios;
 function uploadAdapter(loader) {
+  const csrf = document.querySelector('meta[name="csrf-token"]').content;
   return {
     upload: () => {
       return new Promise(async (resolve, reject) => {
@@ -65247,7 +65248,8 @@ function uploadAdapter(loader) {
               image: file
             },
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
+              "X-CSRF-Token": csrf
             }
           });
           resolve({
