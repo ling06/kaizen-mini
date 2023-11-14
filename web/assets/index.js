@@ -16126,7 +16126,7 @@ const Container$J = st$1.div`
   left: 0;
   z-index: ${(props) => props.theme.utils.zIndex.burgerMenu};
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
@@ -27216,6 +27216,9 @@ const AddCourseBtn = st$1.button`
   margin: 0;
   margin-bottom: 2%;
   background-color: transparent;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const AddCourseBtnTitle = st$1(Text$6)`
   width: 90%;

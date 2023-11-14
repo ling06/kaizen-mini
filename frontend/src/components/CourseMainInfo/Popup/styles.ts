@@ -45,6 +45,9 @@ export const AddCourseBtn = styled.button`
   margin: 0;
   margin-bottom: 2%;
   background-color: transparent;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 
 export const AddCourseBtnTitle = styled(C.Text)`
