@@ -79829,6 +79829,12 @@ body {
 .ck-content[role='textbox']{
   min-height: 400px;
   border-radius: 0 0 15px 15px !important;
+  ol{
+    list-style-position: inside;
+  }
+  li{
+    list-style-position: inside;
+  }
 }
 .ck-toolbar[role='toolbar']{
   border-radius: 15px 15px 0 0 !important;
