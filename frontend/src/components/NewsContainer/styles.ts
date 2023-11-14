@@ -13,6 +13,12 @@ export const Title = styled(C.Text)`
   align-self: flex-end;
   margin-bottom: 10px;
   font-size: 15px;
+  @media ${props => props.theme.media.mobile} {
+    justify-content: center;
+    width: 100%;
+
+    font-size: 4.7vw;
+  }
 `;
 
 export const ContentWrapper = styled(C.FlexContainer)``;
@@ -25,5 +31,9 @@ export const News = styled(C.FlexContainer)`
   row-gap: 10px;
   @media ${(props) => props.theme.media.desktop} {
    border-radius: ${props => props.theme.utils.br};
+  }
+
+  @media ${props => props.theme.media.mobile} {
+    width: 100%;
   }
 `;

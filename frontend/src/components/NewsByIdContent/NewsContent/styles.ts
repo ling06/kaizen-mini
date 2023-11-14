@@ -20,5 +20,4 @@ export const EditorOutputContainer = styled.div`
 export const Bottom = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 `;

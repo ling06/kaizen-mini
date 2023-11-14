@@ -12,6 +12,7 @@ import * as S from './styles';
 // import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 function uploadAdapter(loader: FileLoader): UploadAdapter {
+  const csrf = document.querySelector('meta[name="csrf-token"]').content;
   return {
     upload: () => {
       return new Promise(async (resolve, reject) => {
@@ -25,6 +26,7 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
             },
             headers: {
               'Content-Type': 'multipart/form-data',
+              'X-CSRF-Token': csrf,
             },
           });
           resolve({

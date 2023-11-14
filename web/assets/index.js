@@ -34816,6 +34816,10 @@ const Container$e = st$1.div`
   &:hover {
     opacity: 1;
   }
+
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 2.5vw 3.125vw;
+  }
 `;
 const Title$7 = st$1.h3`
   margin-bottom: 25px;
@@ -34823,6 +34827,11 @@ const Title$7 = st$1.h3`
   font-weight: 700;
   line-height: 149.5%;
   color: ${(props) => props.theme.colors.mainBlue};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 4.38vw;
+
+    font-size: 3.75vw;
+  }
 `;
 st$1.img`
   display: block;
@@ -34831,14 +34840,25 @@ st$1.img`
   width: 920px;
   height: 920px;
   object-fit: cover;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2.5vw;
+  }
 `;
 const Footer = st$1(FlexContainer)`
   align-items: center;
   margin-top: 18px;
+  @media ${(props) => props.theme.media.mobile} { 
+    margin-right: auto;
+  }
 `;
 const MoreBtn = st$1(DefaultBtn)`
   min-height: 44px;
   padding: 0 20%;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 st$1.div`
   aspect-ratio: 1/1;
@@ -34848,6 +34868,9 @@ st$1.div`
 const Container$d = st$1.div`
   display: flex;
   align-items: center;
+  @media ${(props) => props.theme.media.mobile} {
+    justify-content: flex-start;
+  }
 `;
 const Date$1 = st$1.p`
   margin-right: 20px;
@@ -34889,6 +34912,21 @@ function NewsEl({ data }) {
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
   const [update2] = useUpdateNewsMutation();
+  const [isMobile, setIsMobile] = reactExports.useState(window.innerWidth <= 600);
+  reactExports.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const mobileNavigate = () => {
+    if (isMobile) {
+      navigate(`/news/${data.id}`, { replace: true });
+    }
+  };
   reactExports.useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
@@ -34925,6 +34963,7 @@ function NewsEl({ data }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Container$e,
     {
+      onClick: mobileNavigate,
       $isDeleted: !!data.is_deleted,
       $isVisible: Number(data.status) !== 0,
       children: [
@@ -34968,6 +35007,12 @@ const Title$6 = st$1(Text$6)`
   align-self: flex-end;
   margin-bottom: 10px;
   font-size: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    justify-content: center;
+    width: 100%;
+
+    font-size: 4.7vw;
+  }
 `;
 const ContentWrapper = st$1(FlexContainer)``;
 const News$1 = st$1(FlexContainer)`
@@ -34979,11 +35024,18 @@ const News$1 = st$1(FlexContainer)`
   @media ${(props) => props.theme.media.desktop} {
    border-radius: ${(props) => props.theme.utils.br};
   }
+
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+  }
 `;
 const Wrapper = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 22px;
   width: 25%;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const Item = st$1(Text$6)`
   font-size: 22px;
@@ -35217,7 +35269,6 @@ st$1.div`
 const Bottom = st$1.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 `;
 const Content$1 = st$1.div`
   display: flex;
@@ -35347,13 +35398,20 @@ function NewsById() {
   const handleCreateNews = () => {
     navigate("/news/create-news");
   };
+  const { newsId } = useParams();
+  const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
+    skip: !newsId
+  });
+  function handleGoBack() {
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: data == null ? void 0 : data.data.title }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AdminBtn,
       {
         popupName: "Новость",
         type: "add",
-        styles: { marginLeft: "auto", display: "block" },
+        styles: { marginLeft: "auto" },
         onClick: handleCreateNews
       }
     ),
@@ -35421,7 +35479,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/external-link.svg";
+const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -78240,6 +78298,7 @@ const CkEditorContainer = st$1.div`
   margin-bottom: 25px;
 `;
 function uploadAdapter(loader) {
+  const csrf = document.querySelector('meta[name="csrf-token"]').content;
   return {
     upload: () => {
       return new Promise(async (resolve, reject) => {
@@ -78252,7 +78311,8 @@ function uploadAdapter(loader) {
               image: file
             },
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
+              "X-CSRF-Token": csrf
             }
           });
           resolve({
@@ -78723,7 +78783,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -79579,6 +79639,7 @@ input {
 img {
   border: 0;
   max-width: 100%;
+  height: 100%;
 }
 
 a {
