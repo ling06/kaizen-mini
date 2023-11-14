@@ -78344,7 +78344,12 @@ function CkEditor({ onChange, data, type }) {
     distExports.CKEditor,
     {
       editor: ClassicEditor,
-      config: { extraPlugins: [uploadPlugin] },
+      config: {
+        extraPlugins: [uploadPlugin],
+        mediaEmbed: {
+          previewsInData: true
+        }
+      },
       data: editor2,
       onReady: (editor22) => {
         console.log("Editor is ready to use!", editor22);
