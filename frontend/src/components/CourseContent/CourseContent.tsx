@@ -2,6 +2,7 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
 import { useCheckLessonMutation, useDeleteLessonMutation, useGetLessonByIdQuery, useRestoreLessonMutation } from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
+import { CkEditorOutput } from '../CkEditorOutput';
 import { useEffect, useMemo, useState } from 'react';
 // import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
@@ -159,7 +160,8 @@ export function CourseContent() {
             )}
           </S.Title>
           <S.Container>
-            <div dangerouslySetInnerHTML={{ __html: data.data.description }} />
+            <CkEditorOutput/>
+            {/* <div dangerouslySetInnerHTML={{ __html: data.data.description }} /> */}
             {/* <S.EditorOutput>{editorOutput}</S.EditorOutput> */}
             {data.data.tests.length > 0 && renderLessonTests()}
             {data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()}
