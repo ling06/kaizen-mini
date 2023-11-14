@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
-// import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
+import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateNewsMutation, useGetNewsByIdQuery, useUpdateNewsMutation } from '@/store/api/news.api';
@@ -37,46 +37,30 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setValidName(true);
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
-
-      // if (!editor) {
-      //   try {
-      //     editor = new EditorJS({
-      //       holder: 'editorjs',
-      //       tools: EDITOR_JS_TOOLS,
-      //       i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-      //       inlineToolbar: true,
-      //       data: {
-      //         blocks: JSON.parse(data.data.text || '[]'),
-      //       },
-      //     });
-      //   } catch (e) {
-      //     console.log(e);
-      //   }
-      // }
     }
   }, [data, setNewsCategories, type]);
 
-  // useEffect(() => {
-  //   if (!editor && !data && !isFetching) {
-  //     try {
-  //       editor = new EditorJS({
-  //         holder: 'editorjs',
-  //         tools: EDITOR_JS_TOOLS,
-  //         i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-  //         inlineToolbar: true,
-  //       });
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
+  useEffect(() => {
+    if (!editor && !data && !isFetching) {
+      try {
+        editor = new EditorJS({
+          holder: 'editorjs',
+          tools: EDITOR_JS_TOOLS,
+          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+          inlineToolbar: true,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
-  //   return () => {
-  //     editor = undefined;
-  //   };
-  // }, [data, isFetching]);
+    return () => {
+      editor = undefined;
+    };
+  }, [data, isFetching]);
 
   const handleConfirm = async () => {
-    const editorData = await editor?.save().then((data) => data);
+    // const editorData = await editor?.save().then((data) => data);
 
     if (!isValidName) {
       setChangedName(true);
@@ -86,7 +70,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     if (type !== 'edit') {
       createNews({
         title: NewsName,
-        text: ckEditorData,
+        text: ckEditorData || "",
         NewsCategory: categories,
       })
         .then((res) => {
@@ -108,7 +92,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       updateNews({
         id: Number(newsId),
         title: NewsName,
-        text: JSON.stringify(editorData ? editorData.blocks : []),
+        text: ckEditorData || "",
         NewsCategory: categories,
       })
         .then((res) => {
@@ -153,6 +137,10 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     },
   };
 
+  const handleSetCkEditorData = (data: string) => {
+    setCkEditorData(data);
+  }
+
   return (
     <>
       <S.Title>{type === 'create' ? 'Создание новости' : 'Редактирование новости'}</S.Title>
@@ -165,7 +153,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={setCkEditorData}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} type={type}/>
       {categories.length > 0 && (
         <S.CategoriesList>
           {categories.map((category) => (
