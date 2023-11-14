@@ -9,7 +9,7 @@ export const Container = styled.div`
     width: 100%;
   }
 
-  p,
+  /* p,
   h1,
   h2,
   h3,
@@ -19,13 +19,13 @@ export const Container = styled.div`
   ul,
   ol {
     margin-bottom: 20px;
-  }
+  } */
 
-  li {
+  /* li {
     &:not(:last-child) {
       margin-bottom: 20px;
     }
-  }
+  } */
 
   td {
     padding: 5px 0;

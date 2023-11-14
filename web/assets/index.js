@@ -28539,7 +28539,7 @@ const Container$n = st$1.div`
     width: 100%;
   }
 
-  p,
+  /* p,
   h1,
   h2,
   h3,
@@ -28549,13 +28549,13 @@ const Container$n = st$1.div`
   ul,
   ol {
     margin-bottom: 20px;
-  }
+  } */
 
-  li {
+  /* li {
     &:not(:last-child) {
       margin-bottom: 20px;
     }
-  }
+  } */
 
   td {
     padding: 5px 0;
