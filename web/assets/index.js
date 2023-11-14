@@ -34449,6 +34449,24 @@ function Competition$1({ data, totalCount, index }) {
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    const ckEditorData = data.text || "";
+    const regex = /<p>([^<]+)<\/p>/g;
+    const matches2 = ckEditorData.match(regex);
+    let firstParagraph = null;
+    if (matches2) {
+      for (const match2 of matches2) {
+        const text = match2.replace(/<[^>]+>/g, "").trim();
+        if (text.length > 1) {
+          firstParagraph = text;
+          break;
+        }
+      }
+    }
+    if (firstParagraph) {
+      setCompetitionDescr(firstParagraph);
+    }
+  }, [data.text]);
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = reactExports.useState(!!(data == null ? void 0 : data.is_deleted));
   const handleAddCompetition = () => {
@@ -34930,7 +34948,7 @@ function NewsEl({ data }) {
   reactExports.useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
-    const ckEditorData = data.text;
+    const ckEditorData = data.text || "";
     const regex = /<img.*?src=\"([^\"]*)\".*?>/g;
     const match2 = regex.exec(ckEditorData);
     const srcValue = match2 ? match2[1] : null;

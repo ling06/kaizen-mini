@@ -46,7 +46,8 @@ export function NewsEl({ data }: INewsElProps) {
   useEffect(() => {
     const name = data.user ? data.user.name : data.user_id;
     setAuthorName(name);
-    const ckEditorData = data.text;
+    const ckEditorData = data.text || "";
+    // eslint-disable-next-line no-useless-escape
     const regex = /<img.*?src=\"([^\"]*)\".*?>/g;
     const match = regex.exec(ckEditorData);
     const srcValue = match ? match[1] : null;

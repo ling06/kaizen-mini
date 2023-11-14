@@ -5,7 +5,11 @@ import { ICompetition } from '@/types/competition.types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useActions } from '@/hooks/useActions';
-import { useDeleteCompetitionMutation, useRestoreCompetitionMutation, useUpdateCompetitionMutation } from '@/store/api/competition.api';
+import {
+  useDeleteCompetitionMutation,
+  useRestoreCompetitionMutation,
+  useUpdateCompetitionMutation,
+} from '@/store/api/competition.api';
 import { IEditorJsData } from '@/types/editorJs.types';
 
 interface ICompetitionCard {
@@ -21,15 +25,27 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = useState<string>('');
 
-  // useEffect(() => {
-  //   if (data.text) {
-  //     const editorData: Array<IEditorJsData> = JSON.parse(data.text);
-  //     const firstTextBlock = editorData.find((block) => block.type === 'paragraph');
-  //     if (firstTextBlock && firstTextBlock.data.text) {
-  //       setCompetitionDescr(firstTextBlock.data.text);
-  //     }
-  //   }
-  // }, [data.text]);
+  useEffect(() => {
+    const ckEditorData = data.text || '';
+    const regex = /<p>([^<]+)<\/p>/g;
+    const matches = ckEditorData.match(regex);
+    
+    let firstParagraph = null;
+    if (matches) {
+      for (const match of matches) {
+        const text = match.replace(/<[^>]+>/g, '').trim();
+        if (text.length > 1) {
+          firstParagraph = text;
+          break;
+        }
+      }
+    }
+    if(firstParagraph) {
+      setCompetitionDescr(firstParagraph);
+    }
+  }, [data.text]);
+
+  
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
