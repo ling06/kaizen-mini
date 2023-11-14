@@ -42,6 +42,7 @@ class Lesson extends \app\components\ActiveRecord
     {
         return [
             'tests' => 'test',
+            'breadCrumbs' => 'breadCrumbs',
             'isChecked' => 'isChecked',
         ];
     }
@@ -129,6 +130,47 @@ class Lesson extends \app\components\ActiveRecord
             'model_pk' => $this->id,
             'user_id' => \Yii::$app->user->id,
         ])->exists();
+    }
+
+    public function getBreadCrumbs(): array
+    {
+        $result = [];
+        $allLessons = Lesson::find()->where(['theme_id' => $this->theme_id])->all();
+        $lessonCount = 0;
+        foreach ($allLessons as $lesson) {
+            $lessonCount++;
+            if($lesson->id == $this->id) {
+                $result['lesson']['id'] = $this->id;
+                $result['lesson']['name'] = $this->title;
+                $result['lesson']['position'] = $lessonCount;
+            }
+        }
+        $result['lesson']['allQuantity'] = $lessonCount;
+        $currentTheme = Theme::find()->where(['id' => $this->theme_id])->one();
+        $allThemes = Theme::find()->where(['chapter_id' => $currentTheme->chapter_id])->all();
+        $themeCount = 0;
+        foreach ($allThemes as $theme) {
+            $themeCount++;
+            if($theme->id == $this->theme_id) {
+                $result['theme']['id'] = $this->theme_id;
+                $result['theme']['name'] = $this->theme->title;
+                $result['theme']['position'] = $themeCount;
+            }
+        }
+        $result['theme']['allQuantity'] = $themeCount;
+        $currentChapter = Chapter::find()->where(['id' => $currentTheme->chapter_id])->one();
+        $allChapters = Chapter::find()->where(['course_id' => $currentChapter->course_id])->all();
+        $chapterCount = 0;
+        foreach ($allChapters as $chapter) {
+            $chapterCount++;
+            if($chapter->id == $this->theme->chapter_id) {
+                $result['chapter']['id'] = $this->theme->chapter_id;
+                $result['chapter']['name'] = $this->theme->chapter->title;
+                $result['chapter']['position'] = $chapterCount;
+            }
+        }
+        $result['chapter']['allQuantity'] = $chapterCount;
+        return $result;
     }
 
     /**
