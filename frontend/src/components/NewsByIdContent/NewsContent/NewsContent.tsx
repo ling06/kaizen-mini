@@ -3,6 +3,7 @@ import * as S from './styles';
 import { useDeleteNewsMutation, useGetNewsByIdQuery, useRestoreNewsMutation, useUpdateNewsMutation } from '@/store/api/news.api';
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
+import { CkEditorOutput } from '@/components/CkEditorOutput';
 // import { IEditorJsData } from '@/types/editorJs.types';
 // import { useEditorOutput } from '@/hooks/useEditorOutput';
 import { ErrorBlock } from '@/components/ErrorBlock';
@@ -89,7 +90,8 @@ export function NewsContent() {
       {data && (
         <>
           <ContentTitle title={data.data.title} />
-          <div dangerouslySetInnerHTML={{ __html: data.data.text }} className="ck-content"/>
+          <CkEditorOutput data={data.data.text} />
+          {/* <div dangerouslySetInnerHTML={{ __html: data.data.text }} className="ck-content"/> */}
           {/* <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer> */}
           <S.Bottom>
             <NewsRequisites

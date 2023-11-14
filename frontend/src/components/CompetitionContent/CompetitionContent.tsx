@@ -3,6 +3,7 @@ import * as S from './styles';
 import { useDeleteCompetitionMutation, useGetCompetitionByIdQuery, useRestoreCompetitionMutation, useUpdateCompetitionMutation } from '@/store/api/competition.api';
 import { ContentTitle } from '../ContentTitle';
 import { LoadingSmall } from '../LoadingSmall';
+import { CkEditorOutput } from '../CkEditorOutput';
 import { ErrorBlock } from '../ErrorBlock';
 // import { useEditorOutput } from '@/hooks/useEditorOutput';
 // import { IEditorJsData } from '@/types/editorJs.types';
@@ -94,7 +95,8 @@ export function CompetitionContent() {
         <>
           <ContentTitle title={data?.data.title} />
           {/* <S.EditorOutputContainer>{editorOutput}</S.EditorOutputContainer> */}
-          <div dangerouslySetInnerHTML={{__html: data.data.text}} className="ck-content"/>
+          <CkEditorOutput data={data.data.text}/>
+          {/* <div dangerouslySetInnerHTML={{__html: data.data.text}} className="ck-content"/> */}
 
           <S.BottomContainer>
             <Link to={data.data.link} target='_blank' style={{

@@ -23,7 +23,7 @@ export const ContentContainer = styled(C.FlexContainer)`
   margin-left: auto;
   @media ${props => props.theme.media.mobile} {
     width: 100%;
-    padding: 3.125vw 0 10vw;
+    padding: 3.125vw 3% 10vw;
     margin: 0;
   }
 `;
