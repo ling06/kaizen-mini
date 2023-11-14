@@ -27899,7 +27899,7 @@ const lessonApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: ["LessonById"]
+      invalidatesTags: ["LessonById", "ChapterById"]
     }),
     deleteLesson: builder.mutation({
       query: (data) => ({
