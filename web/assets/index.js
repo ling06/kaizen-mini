@@ -27590,7 +27590,7 @@ const Img = st$1.img`
   object-fit: cover;
 `;
 const Title$d = st$1(Text$6)`
-  word-break: break-all;
+  word-break: break-word;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
   }
@@ -28934,7 +28934,7 @@ function CourseContent() {
         )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.description } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.description }, className: "ck-content" }),
         data.data.tests.length > 0 && renderLessonTests(),
         data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()
       ] })
@@ -35365,7 +35365,7 @@ function NewsContent() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.text } }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.text }, className: "ck-content" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
         {
@@ -79670,6 +79670,12 @@ body {
 ::before {
   box-sizing: border-box;
 }
+
+.ck-content {
+  font-size: 18px;
+  line-height: 170%;
+}
+
 `;
 const baseTheme = {
   colors: {
