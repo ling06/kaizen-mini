@@ -41,7 +41,7 @@ export const Image = styled.img`
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     height: auto;
@@ -68,7 +68,7 @@ export const MoreBtn = styled(C.DefaultBtn)`
 `;
 
 export const ImageContainer = styled.div`
-  aspect-ratio: 1/1;
+  aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
 `;

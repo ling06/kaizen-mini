@@ -27950,7 +27950,7 @@ const {
 const Title$c = st$1.p`
   font-size: 15px;
   font-weight: 500;
-  line-height: 100%;
+  line-height: 170%;
   color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
   @media ${(props) => props.theme.media.mobile} {
@@ -34909,7 +34909,7 @@ const Image$3 = st$1.img`
   margin-bottom: 20px;
   border-radius: ${(props) => props.theme.utils.br};
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     height: auto;
@@ -34933,7 +34933,7 @@ const MoreBtn = st$1(DefaultBtn)`
   }
 `;
 const ImageContainer = st$1.div`
-  aspect-ratio: 1/1;
+  aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
 `;
@@ -35086,17 +35086,17 @@ const Title$6 = st$1(Text$6)`
     display: none;
   }
 `;
-const dropMenu = st$1.div`
+st$1.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const dropMenuImg = st$1(Icon$2)`
+st$1(Icon$2)`
   background-image: url(${dropMenuIcon});
 `;
 st$1.div``;
-const titleFilter = st$1.p`
+st$1.p`
   color: ${(props) => props.theme.colors.mainBlue};
   font-family: "Montserrat";
   font-size: 15px;
@@ -35255,10 +35255,6 @@ function NewsContainer() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$6, { children: [
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtn, { popupName: "Новость", type: "add", onClick: handleCreateNews })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { children: "Все новости" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(dropMenuImg, {})
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ContentWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, {}),
@@ -35613,7 +35609,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
