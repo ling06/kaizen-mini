@@ -35354,7 +35354,7 @@ st$1.div`
   width: 100%;
   margin-bottom: 50px;
 `;
-const EditorContainer = st$1.div`
+st$1.div`
   width: 100%;
   margin-bottom: 50px;
 
@@ -35467,11 +35467,7 @@ function NewsContent() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
-<<<<<<< HEAD
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorContainer, { dangerouslySetInnerHTML: { __html: data.data.text } }),
-=======
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.text }, className: "ck-content" }),
->>>>>>> e016caf3e6bfe750cdc6d1ade029a7fc70dcec45
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
         {
@@ -35587,7 +35583,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/external-link.svg";
+const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -78897,7 +78893,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
