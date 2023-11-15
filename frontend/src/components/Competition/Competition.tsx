@@ -27,25 +27,14 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
 
   useEffect(() => {
     const ckEditorData = data.text || '';
-    const regex = /<p>([^<]+)<\/p>/g;
-    const matches = ckEditorData.match(regex);
-    
-    let firstParagraph = null;
-    if (matches) {
-      for (const match of matches) {
-        const text = match.replace(/<[^>]+>/g, '').trim();
-        if (text.length > 6 && !firstParagraph) {
-          firstParagraph = text;
-          break;
-        }
-      }
-    }
-    if(firstParagraph) {
-      setCompetitionDescr(firstParagraph);
+    const regex = /(<([^>]+)>)/gi;
+    const nbsp = /&nbsp;/gi;
+    const stringWithoutTags = ckEditorData.replace(regex, '').replace(nbsp, ' ');
+
+    if (stringWithoutTags) {
+      setCompetitionDescr(stringWithoutTags);
     }
   }, [data.text]);
-
-  
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);

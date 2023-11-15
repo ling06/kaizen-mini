@@ -35067,20 +35067,11 @@ function Competition$1({ data, totalCount, index }) {
   const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
   reactExports.useEffect(() => {
     const ckEditorData = data.text || "";
-    const regex = /<p>([^<]+)<\/p>/g;
-    const matches2 = ckEditorData.match(regex);
-    let firstParagraph = null;
-    if (matches2) {
-      for (const match2 of matches2) {
-        const text = match2.replace(/<[^>]+>/g, "").trim();
-        if (text.length > 6 && !firstParagraph) {
-          firstParagraph = text;
-          break;
-        }
-      }
-    }
-    if (firstParagraph) {
-      setCompetitionDescr(firstParagraph);
+    const regex = /(<([^>]+)>)/gi;
+    const nbsp = /&nbsp;/gi;
+    const stringWithoutTags = ckEditorData.replace(regex, "").replace(nbsp, " ");
+    if (stringWithoutTags) {
+      setCompetitionDescr(stringWithoutTags);
     }
   }, [data.text]);
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
