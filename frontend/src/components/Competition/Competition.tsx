@@ -34,7 +34,7 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
     if (matches) {
       for (const match of matches) {
         const text = match.replace(/<[^>]+>/g, '').replace('&nbsp;', '').trim();
-        if (text.length > 1) {
+        if (text.length > 1 && !firstParagraph) {
           firstParagraph = text;
           break;
         }
