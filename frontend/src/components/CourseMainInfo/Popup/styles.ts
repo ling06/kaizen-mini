@@ -9,7 +9,7 @@ export const Overlay = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
 `;
@@ -45,6 +45,9 @@ export const AddCourseBtn = styled.button`
   margin: 0;
   margin-bottom: 2%;
   background-color: transparent;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 
 export const AddCourseBtnTitle = styled(C.Text)`

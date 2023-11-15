@@ -8,7 +8,7 @@ export const Container = styled.div`
   left: 0;
   z-index: ${(props) => props.theme.utils.zIndex.burgerMenu};
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
