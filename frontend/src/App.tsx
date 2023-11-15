@@ -31,7 +31,7 @@ function App() {
     if (data && !isLoading && !data.user) {
       const base64 = btoa(window.location.href);
       const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
-      window.location.href = redirectLink;
+      window.location.replace(redirectLink);
     }
   }, [data, isLoading]);
 
