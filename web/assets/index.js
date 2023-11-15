@@ -36285,7 +36285,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -79595,7 +79595,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -80078,12 +80078,19 @@ function CreateCompetition({ type }) {
   ] });
 }
 function App() {
-  const { isLoading } = useCheckUserQuery();
+  const { data, isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
+  reactExports.useEffect(() => {
+    if (data && !isLoading && !data.user) {
+      const base64 = btoa(window.location.href);
+      const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
+      window.location.replace(redirectLink);
+    }
+  }, [data, isLoading]);
   reactExports.useEffect(() => {
     setActive(isLoading);
   }, [isLoading, setActive]);
@@ -80103,57 +80110,59 @@ function App() {
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(Main, {})
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/courses/:courseId/:chapterId/:themeId/create-lesson",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
-        }
-      ),
+      data && data.user && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/courses/:courseId/:chapterId/:themeId/create-lesson",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "create" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/edit-news/:newsId",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/competition/create-competition",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/competition/edit-competition/:competitionId",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/create-news",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
+          }
+        )
+      ] }),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
           path: "/courses/:courseId/:chapterId/:themeId?/:lessonId?",
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMob, {})
         }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/create-news",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/edit-news/:newsId",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "edit" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/competition/create-competition",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/competition/edit-competition/:competitionId",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "edit" })
-        }
       )
     ] }),
-    isModalOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
+    isModalOpen && data && data.user && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
       modalType === MODAL_TYPES.createCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),

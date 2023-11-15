@@ -16,7 +16,8 @@ class WebUser extends \yii\web\User
     {
         $returnUrl = Yii::$app->getRequest()->getHostInfo() . Yii::$app->getRequest()->getUrl();
         $url = 'https://passport.borboza.com/passport/login?returl=' . base64_encode($returnUrl);
-        return Yii::$app->getResponse()->redirect($url);
+        // return Yii::$app->getResponse()->redirect($url);
+        // return Yii::$app->redirect($url);
     }
 
     /**
