@@ -80056,9 +80056,7 @@ function App() {
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
   reactExports.useEffect(() => {
     if (data && !isLoading && !data.user) {
-      const base64 = btoa(
-        window.location.href
-      );
+      const base64 = btoa(window.location.href);
       const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
       window.location.href = redirectLink;
     }
