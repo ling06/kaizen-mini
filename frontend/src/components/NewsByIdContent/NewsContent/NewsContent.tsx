@@ -89,11 +89,7 @@ export function NewsContent() {
       {data && (
         <>
           <ContentTitle title={data.data.title} />
-<<<<<<< HEAD
-          <S.EditorContainer dangerouslySetInnerHTML={{ __html: data.data.text }}/>
-=======
           <div dangerouslySetInnerHTML={{ __html: data.data.text }} className="ck-content"/>
->>>>>>> e016caf3e6bfe750cdc6d1ade029a7fc70dcec45
           {/* <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer> */}
           <S.Bottom>
             <NewsRequisites

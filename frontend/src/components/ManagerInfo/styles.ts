@@ -43,6 +43,10 @@ export const InfoRawDots = styled.div`
 export const InfoRawValue = styled(C.Text)`
   min-width: fit-content;
   font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5vw;
+  }
+
 `;
 
 export const Footer = styled(C.FlexContainer)`
@@ -80,6 +84,9 @@ export const MoreLink = styled(C.DefaultBtn)`
   padding: 0 30px;
   border-radius: 22.689px;
   text-decoration: none !important;
+  @media ${(props) => props.theme.media.mobile} {
+    padding:  0 10px;
+  }
 `;
 
 export const MoreIcon = styled(C.Icon)`

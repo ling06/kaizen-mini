@@ -4,10 +4,7 @@ import * as C from '@styles/components';
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
-  @media ${(props) => props.theme.media.mobile} {
-    padding: 5vw 0 0 ;
-
-  }
+ 
 `;
 
 export const MainInfoWrapper = styled(C.FlexContainer)`

@@ -34,7 +34,7 @@ export function NewsCategoryWrapper({ children }: INewsCategoryWrapperProps) {
         !isLoading &&
         data &&
         data.data.map((newsCategory) => (
-          <NavListItem
+           <NavListItem
             onClick={() => handleGoToCategory(newsCategory.id)}
             title={newsCategory.title}
             key={newsCategory.id}

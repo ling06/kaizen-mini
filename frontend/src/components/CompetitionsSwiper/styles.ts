@@ -11,7 +11,26 @@ export const Container = styled.div`
   overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
-    height: 43.75vw;
+    min-height: 47.85vw;
+    height: unset;
+    background-color: transparent;
+    overflow: unset;
+  }
+
+  .swiper-pagination {
+    display: none;
+    @media ${(props) => props.theme.media.mobile} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      bottom: -5vw;
+      left: 0;
+      z-index: 222;
+    }
+  }
+
+  .swiper-pagination-bullet-active{
+    background-color: #181818;
   }
 `;
 
@@ -68,3 +87,6 @@ export const Text = styled(C.Text)`
   @media ${(props) => props.theme.media.mobile} {
   }
 `;
+
+
+ 

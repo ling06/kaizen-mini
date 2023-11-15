@@ -27808,7 +27808,7 @@ const NoAvailableCoursesText = st$1(Text$6)`
     margin: 0;
     text-align: center;
 
-    font-size: 7.08vw;
+    font-size: 6.08vw;
   }
 `;
 function NoAvailable({ text, onAdd = () => {
@@ -29289,7 +29289,26 @@ const Container$i = st$1.div`
   overflow: hidden;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
-    height: 43.75vw;
+    min-height: 47.85vw;
+    height: unset;
+    background-color: transparent;
+    overflow: unset;
+  }
+
+  .swiper-pagination {
+    display: none;
+    @media ${(props) => props.theme.media.mobile} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      bottom: -5vw;
+      left: 0;
+      z-index: 222;
+    }
+  }
+
+  .swiper-pagination-bullet-active{
+    background-color: #181818;
   }
 `;
 const SwiperPrevBtn = st$1.div`
@@ -34121,6 +34140,497 @@ const SwiperSlide = /* @__PURE__ */ reactExports.forwardRef(function(_temp, exte
   })));
 });
 SwiperSlide.displayName = "SwiperSlide";
+function createElementIfNotDefined(swiper2, originalParams, params, checkProps) {
+  if (swiper2.params.createElements) {
+    Object.keys(checkProps).forEach((key) => {
+      if (!params[key] && params.auto === true) {
+        let element = elementChildren(swiper2.el, `.${checkProps[key]}`)[0];
+        if (!element) {
+          element = createElement("div", checkProps[key]);
+          element.className = checkProps[key];
+          swiper2.el.append(element);
+        }
+        params[key] = element;
+        originalParams[key] = element;
+      }
+    });
+  }
+  return params;
+}
+function classesToSelector(classes2) {
+  if (classes2 === void 0) {
+    classes2 = "";
+  }
+  return `.${classes2.trim().replace(/([\.:!+\/])/g, "\\$1").replace(/ /g, ".")}`;
+}
+function Pagination(_ref) {
+  let {
+    swiper: swiper2,
+    extendParams,
+    on: on2,
+    emit
+  } = _ref;
+  const pfx = "swiper-pagination";
+  extendParams({
+    pagination: {
+      el: null,
+      bulletElement: "span",
+      clickable: false,
+      hideOnClick: false,
+      renderBullet: null,
+      renderProgressbar: null,
+      renderFraction: null,
+      renderCustom: null,
+      progressbarOpposite: false,
+      type: "bullets",
+      // 'bullets' or 'progressbar' or 'fraction' or 'custom'
+      dynamicBullets: false,
+      dynamicMainBullets: 1,
+      formatFractionCurrent: (number) => number,
+      formatFractionTotal: (number) => number,
+      bulletClass: `${pfx}-bullet`,
+      bulletActiveClass: `${pfx}-bullet-active`,
+      modifierClass: `${pfx}-`,
+      currentClass: `${pfx}-current`,
+      totalClass: `${pfx}-total`,
+      hiddenClass: `${pfx}-hidden`,
+      progressbarFillClass: `${pfx}-progressbar-fill`,
+      progressbarOppositeClass: `${pfx}-progressbar-opposite`,
+      clickableClass: `${pfx}-clickable`,
+      lockClass: `${pfx}-lock`,
+      horizontalClass: `${pfx}-horizontal`,
+      verticalClass: `${pfx}-vertical`,
+      paginationDisabledClass: `${pfx}-disabled`
+    }
+  });
+  swiper2.pagination = {
+    el: null,
+    bullets: []
+  };
+  let bulletSize;
+  let dynamicBulletIndex = 0;
+  const makeElementsArray = (el2) => (Array.isArray(el2) ? el2 : [el2]).filter((e2) => !!e2);
+  function isPaginationDisabled() {
+    return !swiper2.params.pagination.el || !swiper2.pagination.el || Array.isArray(swiper2.pagination.el) && swiper2.pagination.el.length === 0;
+  }
+  function setSideBullets(bulletEl, position2) {
+    const {
+      bulletActiveClass
+    } = swiper2.params.pagination;
+    if (!bulletEl)
+      return;
+    bulletEl = bulletEl[`${position2 === "prev" ? "previous" : "next"}ElementSibling`];
+    if (bulletEl) {
+      bulletEl.classList.add(`${bulletActiveClass}-${position2}`);
+      bulletEl = bulletEl[`${position2 === "prev" ? "previous" : "next"}ElementSibling`];
+      if (bulletEl) {
+        bulletEl.classList.add(`${bulletActiveClass}-${position2}-${position2}`);
+      }
+    }
+  }
+  function onBulletClick(e2) {
+    const bulletEl = e2.target.closest(classesToSelector(swiper2.params.pagination.bulletClass));
+    if (!bulletEl) {
+      return;
+    }
+    e2.preventDefault();
+    const index = elementIndex(bulletEl) * swiper2.params.slidesPerGroup;
+    if (swiper2.params.loop) {
+      if (swiper2.realIndex === index)
+        return;
+      const realIndex = swiper2.realIndex;
+      const newSlideIndex = swiper2.getSlideIndexByData(index);
+      const currentSlideIndex = swiper2.getSlideIndexByData(swiper2.realIndex);
+      const loopFix2 = (dir) => {
+        const indexBeforeLoopFix = swiper2.activeIndex;
+        swiper2.loopFix({
+          direction: dir,
+          activeSlideIndex: newSlideIndex,
+          slideTo: false
+        });
+        const indexAfterFix = swiper2.activeIndex;
+        if (indexBeforeLoopFix === indexAfterFix) {
+          swiper2.slideToLoop(realIndex, 0, false, true);
+        }
+      };
+      if (newSlideIndex > swiper2.slides.length - swiper2.loopedSlides) {
+        loopFix2(newSlideIndex > currentSlideIndex ? "next" : "prev");
+      } else if (swiper2.params.centeredSlides) {
+        const slidesPerView = swiper2.params.slidesPerView === "auto" ? swiper2.slidesPerViewDynamic() : Math.ceil(parseFloat(swiper2.params.slidesPerView, 10));
+        if (newSlideIndex < Math.floor(slidesPerView / 2)) {
+          loopFix2("prev");
+        }
+      }
+      swiper2.slideToLoop(index);
+    } else {
+      swiper2.slideTo(index);
+    }
+  }
+  function update2() {
+    const rtl = swiper2.rtl;
+    const params = swiper2.params.pagination;
+    if (isPaginationDisabled())
+      return;
+    let el2 = swiper2.pagination.el;
+    el2 = makeElementsArray(el2);
+    let current;
+    let previousIndex;
+    const slidesLength = swiper2.virtual && swiper2.params.virtual.enabled ? swiper2.virtual.slides.length : swiper2.slides.length;
+    const total = swiper2.params.loop ? Math.ceil(slidesLength / swiper2.params.slidesPerGroup) : swiper2.snapGrid.length;
+    if (swiper2.params.loop) {
+      previousIndex = swiper2.previousRealIndex || 0;
+      current = swiper2.params.slidesPerGroup > 1 ? Math.floor(swiper2.realIndex / swiper2.params.slidesPerGroup) : swiper2.realIndex;
+    } else if (typeof swiper2.snapIndex !== "undefined") {
+      current = swiper2.snapIndex;
+      previousIndex = swiper2.previousSnapIndex;
+    } else {
+      previousIndex = swiper2.previousIndex || 0;
+      current = swiper2.activeIndex || 0;
+    }
+    if (params.type === "bullets" && swiper2.pagination.bullets && swiper2.pagination.bullets.length > 0) {
+      const bullets = swiper2.pagination.bullets;
+      let firstIndex;
+      let lastIndex;
+      let midIndex;
+      if (params.dynamicBullets) {
+        bulletSize = elementOuterSize(bullets[0], swiper2.isHorizontal() ? "width" : "height", true);
+        el2.forEach((subEl) => {
+          subEl.style[swiper2.isHorizontal() ? "width" : "height"] = `${bulletSize * (params.dynamicMainBullets + 4)}px`;
+        });
+        if (params.dynamicMainBullets > 1 && previousIndex !== void 0) {
+          dynamicBulletIndex += current - (previousIndex || 0);
+          if (dynamicBulletIndex > params.dynamicMainBullets - 1) {
+            dynamicBulletIndex = params.dynamicMainBullets - 1;
+          } else if (dynamicBulletIndex < 0) {
+            dynamicBulletIndex = 0;
+          }
+        }
+        firstIndex = Math.max(current - dynamicBulletIndex, 0);
+        lastIndex = firstIndex + (Math.min(bullets.length, params.dynamicMainBullets) - 1);
+        midIndex = (lastIndex + firstIndex) / 2;
+      }
+      bullets.forEach((bulletEl) => {
+        const classesToRemove = [...["", "-next", "-next-next", "-prev", "-prev-prev", "-main"].map((suffix) => `${params.bulletActiveClass}${suffix}`)].map((s2) => typeof s2 === "string" && s2.includes(" ") ? s2.split(" ") : s2).flat();
+        bulletEl.classList.remove(...classesToRemove);
+      });
+      if (el2.length > 1) {
+        bullets.forEach((bullet) => {
+          const bulletIndex = elementIndex(bullet);
+          if (bulletIndex === current) {
+            bullet.classList.add(...params.bulletActiveClass.split(" "));
+          } else if (swiper2.isElement) {
+            bullet.setAttribute("part", "bullet");
+          }
+          if (params.dynamicBullets) {
+            if (bulletIndex >= firstIndex && bulletIndex <= lastIndex) {
+              bullet.classList.add(...`${params.bulletActiveClass}-main`.split(" "));
+            }
+            if (bulletIndex === firstIndex) {
+              setSideBullets(bullet, "prev");
+            }
+            if (bulletIndex === lastIndex) {
+              setSideBullets(bullet, "next");
+            }
+          }
+        });
+      } else {
+        const bullet = bullets[current];
+        if (bullet) {
+          bullet.classList.add(...params.bulletActiveClass.split(" "));
+        }
+        if (swiper2.isElement) {
+          bullets.forEach((bulletEl, bulletIndex) => {
+            bulletEl.setAttribute("part", bulletIndex === current ? "bullet-active" : "bullet");
+          });
+        }
+        if (params.dynamicBullets) {
+          const firstDisplayedBullet = bullets[firstIndex];
+          const lastDisplayedBullet = bullets[lastIndex];
+          for (let i2 = firstIndex; i2 <= lastIndex; i2 += 1) {
+            if (bullets[i2]) {
+              bullets[i2].classList.add(...`${params.bulletActiveClass}-main`.split(" "));
+            }
+          }
+          setSideBullets(firstDisplayedBullet, "prev");
+          setSideBullets(lastDisplayedBullet, "next");
+        }
+      }
+      if (params.dynamicBullets) {
+        const dynamicBulletsLength = Math.min(bullets.length, params.dynamicMainBullets + 4);
+        const bulletsOffset = (bulletSize * dynamicBulletsLength - bulletSize) / 2 - midIndex * bulletSize;
+        const offsetProp = rtl ? "right" : "left";
+        bullets.forEach((bullet) => {
+          bullet.style[swiper2.isHorizontal() ? offsetProp : "top"] = `${bulletsOffset}px`;
+        });
+      }
+    }
+    el2.forEach((subEl, subElIndex) => {
+      if (params.type === "fraction") {
+        subEl.querySelectorAll(classesToSelector(params.currentClass)).forEach((fractionEl) => {
+          fractionEl.textContent = params.formatFractionCurrent(current + 1);
+        });
+        subEl.querySelectorAll(classesToSelector(params.totalClass)).forEach((totalEl) => {
+          totalEl.textContent = params.formatFractionTotal(total);
+        });
+      }
+      if (params.type === "progressbar") {
+        let progressbarDirection;
+        if (params.progressbarOpposite) {
+          progressbarDirection = swiper2.isHorizontal() ? "vertical" : "horizontal";
+        } else {
+          progressbarDirection = swiper2.isHorizontal() ? "horizontal" : "vertical";
+        }
+        const scale = (current + 1) / total;
+        let scaleX = 1;
+        let scaleY = 1;
+        if (progressbarDirection === "horizontal") {
+          scaleX = scale;
+        } else {
+          scaleY = scale;
+        }
+        subEl.querySelectorAll(classesToSelector(params.progressbarFillClass)).forEach((progressEl) => {
+          progressEl.style.transform = `translate3d(0,0,0) scaleX(${scaleX}) scaleY(${scaleY})`;
+          progressEl.style.transitionDuration = `${swiper2.params.speed}ms`;
+        });
+      }
+      if (params.type === "custom" && params.renderCustom) {
+        subEl.innerHTML = params.renderCustom(swiper2, current + 1, total);
+        if (subElIndex === 0)
+          emit("paginationRender", subEl);
+      } else {
+        if (subElIndex === 0)
+          emit("paginationRender", subEl);
+        emit("paginationUpdate", subEl);
+      }
+      if (swiper2.params.watchOverflow && swiper2.enabled) {
+        subEl.classList[swiper2.isLocked ? "add" : "remove"](params.lockClass);
+      }
+    });
+  }
+  function render() {
+    const params = swiper2.params.pagination;
+    if (isPaginationDisabled())
+      return;
+    const slidesLength = swiper2.virtual && swiper2.params.virtual.enabled ? swiper2.virtual.slides.length : swiper2.slides.length;
+    let el2 = swiper2.pagination.el;
+    el2 = makeElementsArray(el2);
+    let paginationHTML = "";
+    if (params.type === "bullets") {
+      let numberOfBullets = swiper2.params.loop ? Math.ceil(slidesLength / swiper2.params.slidesPerGroup) : swiper2.snapGrid.length;
+      if (swiper2.params.freeMode && swiper2.params.freeMode.enabled && numberOfBullets > slidesLength) {
+        numberOfBullets = slidesLength;
+      }
+      for (let i2 = 0; i2 < numberOfBullets; i2 += 1) {
+        if (params.renderBullet) {
+          paginationHTML += params.renderBullet.call(swiper2, i2, params.bulletClass);
+        } else {
+          paginationHTML += `<${params.bulletElement} ${swiper2.isElement ? 'part="bullet"' : ""} class="${params.bulletClass}"></${params.bulletElement}>`;
+        }
+      }
+    }
+    if (params.type === "fraction") {
+      if (params.renderFraction) {
+        paginationHTML = params.renderFraction.call(swiper2, params.currentClass, params.totalClass);
+      } else {
+        paginationHTML = `<span class="${params.currentClass}"></span> / <span class="${params.totalClass}"></span>`;
+      }
+    }
+    if (params.type === "progressbar") {
+      if (params.renderProgressbar) {
+        paginationHTML = params.renderProgressbar.call(swiper2, params.progressbarFillClass);
+      } else {
+        paginationHTML = `<span class="${params.progressbarFillClass}"></span>`;
+      }
+    }
+    swiper2.pagination.bullets = [];
+    el2.forEach((subEl) => {
+      if (params.type !== "custom") {
+        subEl.innerHTML = paginationHTML || "";
+      }
+      if (params.type === "bullets") {
+        swiper2.pagination.bullets.push(...subEl.querySelectorAll(classesToSelector(params.bulletClass)));
+      }
+    });
+    if (params.type !== "custom") {
+      emit("paginationRender", el2[0]);
+    }
+  }
+  function init2() {
+    swiper2.params.pagination = createElementIfNotDefined(swiper2, swiper2.originalParams.pagination, swiper2.params.pagination, {
+      el: "swiper-pagination"
+    });
+    const params = swiper2.params.pagination;
+    if (!params.el)
+      return;
+    let el2;
+    if (typeof params.el === "string" && swiper2.isElement) {
+      el2 = swiper2.el.querySelector(params.el);
+    }
+    if (!el2 && typeof params.el === "string") {
+      el2 = [...document.querySelectorAll(params.el)];
+    }
+    if (!el2) {
+      el2 = params.el;
+    }
+    if (!el2 || el2.length === 0)
+      return;
+    if (swiper2.params.uniqueNavElements && typeof params.el === "string" && Array.isArray(el2) && el2.length > 1) {
+      el2 = [...swiper2.el.querySelectorAll(params.el)];
+      if (el2.length > 1) {
+        el2 = el2.filter((subEl) => {
+          if (elementParents(subEl, ".swiper")[0] !== swiper2.el)
+            return false;
+          return true;
+        })[0];
+      }
+    }
+    if (Array.isArray(el2) && el2.length === 1)
+      el2 = el2[0];
+    Object.assign(swiper2.pagination, {
+      el: el2
+    });
+    el2 = makeElementsArray(el2);
+    el2.forEach((subEl) => {
+      if (params.type === "bullets" && params.clickable) {
+        subEl.classList.add(...(params.clickableClass || "").split(" "));
+      }
+      subEl.classList.add(params.modifierClass + params.type);
+      subEl.classList.add(swiper2.isHorizontal() ? params.horizontalClass : params.verticalClass);
+      if (params.type === "bullets" && params.dynamicBullets) {
+        subEl.classList.add(`${params.modifierClass}${params.type}-dynamic`);
+        dynamicBulletIndex = 0;
+        if (params.dynamicMainBullets < 1) {
+          params.dynamicMainBullets = 1;
+        }
+      }
+      if (params.type === "progressbar" && params.progressbarOpposite) {
+        subEl.classList.add(params.progressbarOppositeClass);
+      }
+      if (params.clickable) {
+        subEl.addEventListener("click", onBulletClick);
+      }
+      if (!swiper2.enabled) {
+        subEl.classList.add(params.lockClass);
+      }
+    });
+  }
+  function destroy() {
+    const params = swiper2.params.pagination;
+    if (isPaginationDisabled())
+      return;
+    let el2 = swiper2.pagination.el;
+    if (el2) {
+      el2 = makeElementsArray(el2);
+      el2.forEach((subEl) => {
+        subEl.classList.remove(params.hiddenClass);
+        subEl.classList.remove(params.modifierClass + params.type);
+        subEl.classList.remove(swiper2.isHorizontal() ? params.horizontalClass : params.verticalClass);
+        if (params.clickable) {
+          subEl.classList.remove(...(params.clickableClass || "").split(" "));
+          subEl.removeEventListener("click", onBulletClick);
+        }
+      });
+    }
+    if (swiper2.pagination.bullets)
+      swiper2.pagination.bullets.forEach((subEl) => subEl.classList.remove(...params.bulletActiveClass.split(" ")));
+  }
+  on2("changeDirection", () => {
+    if (!swiper2.pagination || !swiper2.pagination.el)
+      return;
+    const params = swiper2.params.pagination;
+    let {
+      el: el2
+    } = swiper2.pagination;
+    el2 = makeElementsArray(el2);
+    el2.forEach((subEl) => {
+      subEl.classList.remove(params.horizontalClass, params.verticalClass);
+      subEl.classList.add(swiper2.isHorizontal() ? params.horizontalClass : params.verticalClass);
+    });
+  });
+  on2("init", () => {
+    if (swiper2.params.pagination.enabled === false) {
+      disable();
+    } else {
+      init2();
+      render();
+      update2();
+    }
+  });
+  on2("activeIndexChange", () => {
+    if (typeof swiper2.snapIndex === "undefined") {
+      update2();
+    }
+  });
+  on2("snapIndexChange", () => {
+    update2();
+  });
+  on2("snapGridLengthChange", () => {
+    render();
+    update2();
+  });
+  on2("destroy", () => {
+    destroy();
+  });
+  on2("enable disable", () => {
+    let {
+      el: el2
+    } = swiper2.pagination;
+    if (el2) {
+      el2 = makeElementsArray(el2);
+      el2.forEach((subEl) => subEl.classList[swiper2.enabled ? "remove" : "add"](swiper2.params.pagination.lockClass));
+    }
+  });
+  on2("lock unlock", () => {
+    update2();
+  });
+  on2("click", (_s, e2) => {
+    const targetEl = e2.target;
+    const el2 = makeElementsArray(swiper2.pagination.el);
+    if (swiper2.params.pagination.el && swiper2.params.pagination.hideOnClick && el2 && el2.length > 0 && !targetEl.classList.contains(swiper2.params.pagination.bulletClass)) {
+      if (swiper2.navigation && (swiper2.navigation.nextEl && targetEl === swiper2.navigation.nextEl || swiper2.navigation.prevEl && targetEl === swiper2.navigation.prevEl))
+        return;
+      const isHidden = el2[0].classList.contains(swiper2.params.pagination.hiddenClass);
+      if (isHidden === true) {
+        emit("paginationShow");
+      } else {
+        emit("paginationHide");
+      }
+      el2.forEach((subEl) => subEl.classList.toggle(swiper2.params.pagination.hiddenClass));
+    }
+  });
+  const enable = () => {
+    swiper2.el.classList.remove(swiper2.params.pagination.paginationDisabledClass);
+    let {
+      el: el2
+    } = swiper2.pagination;
+    if (el2) {
+      el2 = makeElementsArray(el2);
+      el2.forEach((subEl) => subEl.classList.remove(swiper2.params.pagination.paginationDisabledClass));
+    }
+    init2();
+    render();
+    update2();
+  };
+  const disable = () => {
+    swiper2.el.classList.add(swiper2.params.pagination.paginationDisabledClass);
+    let {
+      el: el2
+    } = swiper2.pagination;
+    if (el2) {
+      el2 = makeElementsArray(el2);
+      el2.forEach((subEl) => subEl.classList.add(swiper2.params.pagination.paginationDisabledClass));
+    }
+    destroy();
+  };
+  Object.assign(swiper2.pagination, {
+    enable,
+    disable,
+    render,
+    update: update2,
+    init: init2,
+    destroy
+  });
+}
 function Autoplay(_ref) {
   let {
     swiper: swiper2,
@@ -34417,6 +34927,7 @@ function Autoplay(_ref) {
   });
 }
 const swiper = "";
+const swiperBundle = "";
 const Container$h = st$1.div`
   display: flex;
   flex-direction: column;
@@ -34430,17 +34941,32 @@ const Container$h = st$1.div`
   &:hover {
     opacity: 1;
   }
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 4.38vw 4.38vw 4.7vw;
+    min-height: 42.81vw;
+    background-color: #fff;
+    opacity: 1;
+    transition: unset;
+  }
 `;
 const Head = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 2.5vw;
+  }
 `;
 const CompetitionPagination = st$1.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 130%;
   color: ${(props) => props.theme.colors.realBlack};
+
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.7vw;
+  }
 `;
 const CompetitionTitle = st$1.h4`
   margin-bottom: 20px;
@@ -34448,6 +34974,11 @@ const CompetitionTitle = st$1.h4`
   font-weight: 700;
   line-height: 145.5%;
   color: ${(props) => props.theme.colors.realBlack};
+
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+    line-height: 140%;
+  }
 `;
 const CompetitionDescr = st$1.p`
   font-size: 18px;
@@ -34459,12 +34990,18 @@ const CompetitionDescr = st$1.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const MoreBtn$1 = st$1(DefaultBtn)`
   width: fit-content;
   margin: auto auto 0;
   padding: 0 40px;
   border-radius: 22.689px;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 function Competition$1({ data, totalCount, index }) {
   const navigate = useNavigate();
@@ -34559,7 +35096,11 @@ function Competition$1({ data, totalCount, index }) {
     }
   );
 }
-function CompetitionsSwiper({ data, isError, isFetching }) {
+function CompetitionsSwiper({
+  data,
+  isError,
+  isFetching
+}) {
   var _a, _b, _c;
   const swiperRef = reactExports.useRef(null);
   const navigate = useNavigate();
@@ -34599,22 +35140,35 @@ function CompetitionsSwiper({ data, isError, isFetching }) {
         Swiper2,
         {
           ref: swiperRef,
-          style: { width: "100%", height: "100%" },
+          style: { width: "100%", height: "100%", overflow: "unset", position: "relative" },
           autoplay: {
             delay: 4e3,
             disableOnInteraction: false,
             pauseOnMouseEnter: true
           },
-          loop: true,
-          modules: [Autoplay],
-          children: ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map((competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Competition$1,
-            {
-              data: competitionData,
-              totalCount: data == null ? void 0 : data.count,
-              index
+          breakpoints: {
+            767: {
+              slidesPerView: 1
+            },
+            320: {
+              slidesPerView: 1.2,
+              centeredSlides: true,
+              spaceBetween: 15
             }
-          ) }, competitionData == null ? void 0 : competitionData.id)))
+          },
+          loop: true,
+          modules: [Autoplay, Pagination],
+          pagination: { clickable: true },
+          children: ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.length) > 0 && ((_b = data == null ? void 0 : data.data) == null ? void 0 : _b.map(
+            (competitionData, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Competition$1,
+              {
+                data: competitionData,
+                totalCount: data == null ? void 0 : data.count,
+                index
+              }
+            ) }, competitionData == null ? void 0 : competitionData.id)
+          ))
         }
       ),
       ((_c = data == null ? void 0 : data.data) == null ? void 0 : _c.length) > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -34661,6 +35215,10 @@ const InfoRawDots = st$1.div`
 const InfoRawValue = st$1(Text$6)`
   min-width: fit-content;
   font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5vw;
+  }
+
 `;
 const Footer$1 = st$1(FlexContainer)`
   align-items: center;
@@ -34688,6 +35246,9 @@ const MoreLink = st$1(DefaultBtn)`
   padding: 0 30px;
   border-radius: 22.689px;
   text-decoration: none !important;
+  @media ${(props) => props.theme.media.mobile} {
+    padding:  0 10px;
+  }
 `;
 const MoreIcon = st$1(Icon$2)`
   margin-left: 13px;
@@ -35040,7 +35601,6 @@ function NewsEl({ data }) {
     }
   );
 }
-const dropMenuIcon = "/assets/caret-up-mob-news.svg";
 const Container$c = st$1(FlexContainer)`
   flex-direction: column;
 `;
@@ -35055,23 +35615,6 @@ const Title$6 = st$1(Text$6)`
   @media ${(props) => props.theme.media.mobile} {
     display: none;
   }
-`;
-const dropMenu = st$1.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const dropMenuImg = st$1(Icon$2)`
-  background-image: url(${dropMenuIcon});
-`;
-st$1.div``;
-const titleFilter = st$1.p`
-  color: ${(props) => props.theme.colors.mainBlue};
-  font-family: "Montserrat";
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 149.5%;
 `;
 const ContentWrapper = st$1(FlexContainer)``;
 const News$1 = st$1(FlexContainer)`
@@ -35194,6 +35737,85 @@ function NewsCategoryWrapper({ children }) {
     ))
   ] });
 }
+const dropMenuIcon = "/assets/caret-up-mob-news.svg";
+const dropMenu = st$1.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 4.38vw;
+`;
+const dropMenuImg = st$1(Icon$2)`
+  background-image: url(${dropMenuIcon});
+`;
+const filterPopup = st$1.div`
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2vw;
+  width: 90%;
+  left: 50%;
+  top: 100%;
+  padding: 4.38vw 3.13vw;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: ${(props) => props.theme.utils.br};
+  z-index: 222;
+`;
+const titleFilter = st$1.p`
+  color: ${(props) => props.theme.colors.mainBlue};
+  font-family: "Montserrat";
+  font-size: 4.7vw;
+  font-weight: 700;
+  line-height: 149.5%;
+`;
+function NewsCategoryDropPopup({ NewsCategory }) {
+  const navigate = useNavigate();
+  const [isOpen, setOpen] = reactExports.useState(false);
+  const { data, isError, isLoading } = NewsCategory;
+  const handleToglePopupCategories = () => {
+    setOpen((prevState) => !prevState);
+  };
+  const [isTextNewsCategory, setTextNewsCategory] = reactExports.useState("Все новости");
+  const updateText = (text) => {
+    setTextNewsCategory(text);
+  };
+  const currentURL = window.location.href;
+  const handleGoToCategory = (id2, text) => {
+    navigate(`/news?category=${id2}`);
+    updateText(text);
+    setOpen(false);
+  };
+  const handleGoToAllNews = () => {
+    navigate("/news", { replace: true });
+    updateText("Все новости");
+    setOpen(false);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { onClick: handleToglePopupCategories, children: isTextNewsCategory }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      dropMenuImg,
+      {
+        style: {
+          transition: "transform .2s ease",
+          transform: `rotate(${isOpen ? "180deg" : "0"})`
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(filterPopup, { style: { display: isOpen ? "flex" : "none" }, children: [
+      currentURL !== `http://kaizen-mini.borboza.com/news` ? /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { onClick: handleGoToAllNews, children: "Все новости" }) : null,
+      !isError && !isLoading && data && data.data.map((newsCategory) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        titleFilter,
+        {
+          onClick: () => handleGoToCategory(newsCategory.id, newsCategory.title),
+          children: newsCategory.title
+        },
+        newsCategory.id
+      ))
+    ] })
+  ] }) });
+}
 function NewsContainer() {
   var _a;
   const navigate = useNavigate();
@@ -35205,7 +35827,8 @@ function NewsContainer() {
   const { data, isError, isFetching } = useGetAllNewsQuery(void 0, {
     skip: !!categorySearchParam
   });
-  reactExports.useState("false");
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const newsByIdData = useGetNewsCategoryQuery();
   const newsByCategory = useGetNewsByCategoryQuery(
     Number(categorySearchParam),
     {
@@ -35226,10 +35849,7 @@ function NewsContainer() {
       "Новости",
       /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtn, { popupName: "Новость", type: "add", onClick: handleCreateNews })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { children: "Все новости" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(dropMenuImg, {})
-    ] }),
+    isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryDropPopup, { NewsCategory: newsByIdData }) : null,
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ContentWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(News$1, { children: [
@@ -35251,6 +35871,10 @@ function NewsContainer() {
 const Container$b = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 5vw 0 0 ;
+
+  }
 `;
 const MainInfoWrapper = st$1(FlexContainer)`
   align-items: center;
@@ -35261,7 +35885,7 @@ const MainInfoWrapper = st$1(FlexContainer)`
     flex-direction: column;
     align-items: unset;
     justify-content: unset;
-    row-gap: 2vw;
+    row-gap: 11.3vw;
   }
 `;
 function NewsMain() {
@@ -35354,7 +35978,7 @@ st$1.div`
   width: 100%;
   margin-bottom: 50px;
 `;
-const EditorContainer = st$1.div`
+st$1.div`
   width: 100%;
   margin-bottom: 50px;
 
@@ -35467,11 +36091,7 @@ function NewsContent() {
     isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
     data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
-<<<<<<< HEAD
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EditorContainer, { dangerouslySetInnerHTML: { __html: data.data.text } }),
-=======
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { dangerouslySetInnerHTML: { __html: data.data.text }, className: "ck-content" }),
->>>>>>> e016caf3e6bfe750cdc6d1ade029a7fc70dcec45
       /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewsRequisites,
         {
@@ -35587,7 +36207,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/external-link.svg";
+const externalLinkIcon = "/assets/moreIcon.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -78897,7 +79517,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/home.svg";
+const homeIcon = "/assets/Home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;

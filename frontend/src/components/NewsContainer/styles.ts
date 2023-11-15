@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import * as C from "@styles/components";
-import dropMenuIcon from "@assets/images/caret-up-mob-news.svg";
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
@@ -19,25 +18,6 @@ export const Title = styled(C.Text)`
   }
 `;
 
-export const dropMenu = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-export const dropMenuImg = styled(C.Icon)`
-  background-image: url(${dropMenuIcon});
-`;
-
-export const filterPopup = styled.div``;
-
-export const titleFilter = styled.p`
-  color: ${(props) => props.theme.colors.mainBlue};
-  font-family: "Montserrat";
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 149.5%;
-`;
 
 export const ContentWrapper = styled(C.FlexContainer)``;
 

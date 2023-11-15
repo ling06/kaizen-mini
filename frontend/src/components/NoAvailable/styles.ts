@@ -21,6 +21,6 @@ export const NoAvailableCoursesText = styled(C.Text)`
     margin: 0;
     text-align: center;
 
-    font-size: 7.08vw;
+    font-size: 6.08vw;
   }
 `;

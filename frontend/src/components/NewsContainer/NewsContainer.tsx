@@ -12,6 +12,11 @@ import { useActions } from "@/hooks/useActions";
 import { useEffect, useState } from "react";
 import { LoadingSmall } from "../LoadingSmall";
 import { NoAvailable } from "../NoAvailable";
+import { useGetNewsCategoryQuery } from '@/store/api/newsCategory.api';
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MediaQueries } from "@/constants";
+import { NewsCategoryDropPopup } from "@/components/NewsCategoryDropPopup";
+
 
 export function NewsContainer() {
   const navigate = useNavigate();
@@ -23,9 +28,10 @@ export function NewsContainer() {
   const { data, isError, isFetching } = useGetAllNewsQuery(undefined, {
     skip: !!categorySearchParam,
   });
-  const [isOpen, setOpen] = useState("false");
 
- 
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const newsByIdData  = useGetNewsCategoryQuery();
+
   const newsByCategory = useGetNewsByCategoryQuery(
     Number(categorySearchParam),
     {
@@ -41,6 +47,7 @@ export function NewsContainer() {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
 
+ 
   const handleCreateNews = () => {
     navigate("/news/create-news");
   };
@@ -51,12 +58,9 @@ export function NewsContainer() {
         Новости
         <AdminBtn popupName="Новость" type="add" onClick={handleCreateNews} />
       </S.Title>
-      <S.dropMenu>
-        <S.titleFilter>Все новости</S.titleFilter>
-        <S.dropMenuImg />
-
-        {/* <S.filterPopup style={{display : isOpen? "none" : "flex"}}>{dataTest.map((text) =>{ <titleFilter>{text}</titleFilter>})}</S.filterPopup> */}
-      </S.dropMenu>
+      {isMobile ? (
+        <NewsCategoryDropPopup NewsCategory={newsByIdData} />
+      ): null}
       <S.ContentWrapper>
         <NewsCategoryWrapper />
         <S.News>
