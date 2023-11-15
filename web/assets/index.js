@@ -80080,57 +80080,59 @@ function App() {
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(Main, {})
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/courses/:courseId/:chapterId/:themeId/create-lesson",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
-        }
-      ),
+      data && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/courses/:courseId/:chapterId/:themeId/create-lesson",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "create" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/edit-news/:newsId",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/competition/create-competition",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/competition/edit-competition/:competitionId",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLesson, { type: "edit" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Route,
+          {
+            path: "/news/create-news",
+            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
+          }
+        )
+      ] }),
       isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
         Route,
         {
           path: "/courses/:courseId/:chapterId/:themeId?/:lessonId?",
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMob, {})
         }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/create-news",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/edit-news/:newsId",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateNews, { type: "edit" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/competition/create-competition",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "create" })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Route,
-        {
-          path: "/news/competition/edit-competition/:competitionId",
-          element: /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCompetition, { type: "edit" })
-        }
       )
     ] }),
-    isModalOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
+    isModalOpen && data && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
       modalType === MODAL_TYPES.createCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
