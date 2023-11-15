@@ -15,6 +15,8 @@ export const Container = styled(C.FlexContainer)`
 
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
+
+    display: none;
   }
 `;
 

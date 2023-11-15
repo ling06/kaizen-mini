@@ -64,7 +64,7 @@ export function CompetitionsSwiper({
           )}
           <Swiper
             ref={swiperRef}
-            style={{ width: "100%", height: "100%" , overflow: "unset", position: "relative"}}
+            style={{ width: "100%", height: "100%", overflowY: "unset" ,position: "relative", }}
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,

@@ -23,13 +23,21 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 3vw;
+      row-gap: 2vw;
       bottom: -5vw;
       left: 0;
       z-index: 222;
     }
   }
 
-  .swiper-pagination-bullet-active{
+  .swiper-pagination-bullet {
+    width: 1.88vw;
+    height: 1.88vw;
+  }
+
+  .swiper-pagination-bullet-active {
     background-color: #181818;
   }
 `;
@@ -87,6 +95,3 @@ export const Text = styled(C.Text)`
   @media ${(props) => props.theme.media.mobile} {
   }
 `;
-
-
- 
