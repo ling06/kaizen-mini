@@ -20,12 +20,18 @@ import { NewsCategoryForm } from './components/NewsCategoryForm';
 import { CreateCompetition } from './pages/CreateCompetition';
 
 function App() {
-  const { isLoading } = useCheckUserQuery();
+  const { data, isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = useRef(null);
   const isMobile = useMediaQuery(MediaQueries.mobile);
+
+  useEffect(() => {
+    if (data && !isLoading && !data.user) {
+      window.location.href = 'https://borboza.com/';
+    }
+  }, [data, isLoading]);
 
   useEffect(() => {
     setActive(isLoading);

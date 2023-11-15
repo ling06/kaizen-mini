@@ -36255,7 +36255,7 @@ const Container$7 = st$1(FlexContainer)`
 function AsideBar({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
 }
-const externalLinkIcon = "/assets/moreIcon.svg";
+const externalLinkIcon = "/assets/external-link.svg";
 const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -79565,7 +79565,7 @@ function Loading({ styles: styles2 = {}, state, innerRef }) {
   );
 }
 const bookIcon = "/assets/book.svg";
-const homeIcon = "/assets/Home.svg";
+const homeIcon = "/assets/home.svg";
 const Header$1 = st$1.header`
   display: flex;
   align-items: center;
@@ -80048,12 +80048,17 @@ function CreateCompetition({ type }) {
   ] });
 }
 function App() {
-  const { isLoading } = useCheckUserQuery();
+  const { data, isLoading } = useCheckUserQuery();
   const { setAuthToken, setLoaderActive: setActive } = useActions();
   const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
   const active = useTypedSelector((state) => state.loader.active);
   const loaderRef = reactExports.useRef(null);
   const isMobile = useMediaQuery$1(MediaQueries.mobile);
+  reactExports.useEffect(() => {
+    if (data && !isLoading && !data.user) {
+      window.location.href = "https://borboza.com/";
+    }
+  }, [data, isLoading]);
   reactExports.useEffect(() => {
     setActive(isLoading);
   }, [isLoading, setActive]);
