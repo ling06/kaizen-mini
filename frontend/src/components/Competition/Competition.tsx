@@ -37,11 +37,7 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
     if (stringWithoutTags) {
       setCompetitionDescr(stringWithoutTags);
     }
-<<<<<<< HEAD
-  }, [data.text]);  
-=======
   }, [data.text]);
->>>>>>> 5a188ed617c6e3a6549ef7e689b25c32555487a0
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
