@@ -125,7 +125,7 @@ class Test extends \app\components\ActiveRecord
 
     public function getUserTestAnswer(): ActiveQuery
     {
-        return $this->hasOne(UserTestAnswer::class, ['test_question_id' => 'id'])
+        return $this->hasMany(UserTestAnswer::class, ['test_question_id' => 'id'])
             ->andWhere(['user_id' => \Yii::$app->user->id])->select(['answer', 'is_right']);
     }
 

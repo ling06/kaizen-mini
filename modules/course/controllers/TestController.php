@@ -52,9 +52,9 @@ class TestController extends ApiController
     {
         $lesson = $this->findModel(Lesson::class, (int)Yii::$app->request->getBodyParam('lesson_id'));
         $test = $lesson->test ?? new Test([
-                'lesson_id' => $lesson->id,
-                'is_active' => false,
-            ]);
+            'lesson_id' => $lesson->id,
+            'is_active' => false,
+        ]);
 
         if ($test->save()) {
             return [
@@ -71,51 +71,49 @@ class TestController extends ApiController
     public function actionSendAnswer()
     {
         /** @var Question $question */
-        $question = $this->findModel(Question::class, (int)Yii::$app->request->getBodyParam('answer'));
-//        var_dump($question); die;
-        $answer = Yii::$app->request->getBodyParam('answer');
-        if (!$answer) {
+        $answers = Yii::$app->request->getBodyParam('answers');
+        if (!$answers) {
             return [
                 'result' => false,
                 'message' => 'А где ответ?',
             ];
         }
 
-        $params = [
-            'test_question_id' => Yii::$app->request->getBodyParam('test_id'),
-            'user_id' => Yii::$app->user->id,
-        ];
-        $userTestAnswer = UserTestAnswer::findOne($params);
-        if ($userTestAnswer) {
-            return [
-                'result' => false,
-                'message' => 'Вы уже ответили на этот вопрос',
+        foreach ($answers as $answer) {
+            $question = $this->findModel(Question::class, (int)$answer['answer']);
+            $params = [
+                'test_question_id' => $answer['test_id'],
+                'user_id' => Yii::$app->user->id,
+            ];
+
+            $params['answer'] = $answer['answer'];
+            $params['is_right'] = UserTestAnswer::ANSWER_IS_WRONG;
+            if ($question->right_answer) {
+                $params['is_right'] = UserTestAnswer::ANSWER_IS_RIGHT;
+            }
+
+            $userTestAnswer = UserTestAnswer::findOne($params) ?? new UserTestAnswer($params);
+            $result[] =  [
+                'result' => $userTestAnswer->save(),
+                'data' => [
+                    'isRight' => $params['is_right'],
+                    'message' => $params['is_right'] === UserTestAnswer::ANSWER_IS_RIGHT
+                        ? $variants[$answer]->rightText ?? ''
+                        : $variants[$answer]->wrongText ?? '',
+                ],
             ];
         }
-
-        $params['answer'] = $answer;
-        $params['is_right'] = UserTestAnswer::ANSWER_IS_WRONG;
-        if ($question->right_answer) {
-            $params['is_right'] = UserTestAnswer::ANSWER_IS_RIGHT;
-        }
-
-//        $variants = $question->answersList;
-
-        $userTestAnswer = new UserTestAnswer($params);
-        return [
-            'result' => $userTestAnswer->save(),
-            'data' => [
-                'isRight' => $params['is_right'],
-                'message' => $params['is_right'] === UserTestAnswer::ANSWER_IS_RIGHT
-                    ? $variants[$answer]->rightText ?? ''
-                    : $variants[$answer]->wrongText ?? '',
-            ],
-        ];
+        return $result ?? [];
     }
 
     /* @todo пока что нет в ТЗ (да и ТЗ тоже нет, чего уж там) */
-    public function actionCheckAnswer() {}
-    public function actionGetUserAnswers() {}
+    public function actionCheckAnswer()
+    {
+    }
+
+    public function actionGetUserAnswers()
+    {
+    }
 
     public function actions(): array
     {
