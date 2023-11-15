@@ -30,23 +30,18 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
 
   useEffect(() => {
     const ckEditorData = data.text || '';
-    const regex = /<p>([^<]+)<\/p>/g;
-    const matches = ckEditorData.match(regex);
-    
-    let firstParagraph = null;
-    if (matches) {
-      for (const match of matches) {
-        const text = match.replace(/<[^>]+>/g, '').replace('&nbsp;', '').trim();
-        if (text.length > 1) {
-          firstParagraph = text;
-          break;
-        }
-      }
+    const regex = /(<([^>]+)>)/gi;
+    const nbsp = /&nbsp;/gi;
+    const stringWithoutTags = ckEditorData.replace(regex, '').replace(nbsp, ' ');
+
+    if (stringWithoutTags) {
+      setCompetitionDescr(stringWithoutTags);
     }
-    if(firstParagraph) {
-      setCompetitionDescr(firstParagraph);
-    }
+<<<<<<< HEAD
   }, [data.text]);  
+=======
+  }, [data.text]);
+>>>>>>> 5a188ed617c6e3a6549ef7e689b25c32555487a0
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
