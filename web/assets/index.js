@@ -35533,6 +35533,8 @@ const Container$d = st$1.div`
   margin-left: auto;
   @media ${(props) => props.theme.media.mobile} {
     justify-content: flex-start;
+    margin: 0 auto 0 0 ;
+    
   }
 `;
 const Date$1 = st$1.p`
