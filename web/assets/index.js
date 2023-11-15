@@ -29349,13 +29349,21 @@ const Container$i = st$1.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 3vw;
+      row-gap: 2vw;
       bottom: -5vw;
       left: 0;
       z-index: 222;
     }
   }
 
-  .swiper-pagination-bullet-active{
+  .swiper-pagination-bullet {
+    width: 1.88vw;
+    height: 1.88vw;
+  }
+
+  .swiper-pagination-bullet-active {
     background-color: #181818;
   }
 `;
@@ -35188,7 +35196,7 @@ function CompetitionsSwiper({
         Swiper2,
         {
           ref: swiperRef,
-          style: { width: "100%", height: "100%", overflow: "unset", position: "relative" },
+          style: { width: "100%", height: "100%", overflowY: "unset", position: "relative" },
           autoplay: {
             delay: 4e3,
             disableOnInteraction: false,
@@ -35240,6 +35248,8 @@ const Container$g = st$1(FlexContainer)`
 
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
+
+    display: none;
   }
 `;
 const InfoBlock = st$1(FlexContainer)`
@@ -35312,7 +35322,10 @@ const Container$f = st$1.div`
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background-color: rgba(190, 190, 190, .5);
+  background-color: rgba(190, 190, 190, 0.5);
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 const Text$3 = st$1.p`
   padding: 20px 25px;
@@ -35519,6 +35532,7 @@ const ImageContainer = st$1.div`
 const Container$d = st$1.div`
   display: flex;
   align-items: center;
+  margin-left: auto;
   @media ${(props) => props.theme.media.mobile} {
     justify-content: flex-start;
   }
@@ -35829,7 +35843,22 @@ function NewsCategoryDropPopup({ NewsCategory }) {
   const updateText = (text) => {
     setTextNewsCategory(text);
   };
+  const popupRef = reactExports.useRef(null);
   const currentURL = window.location.href;
+  const handleOutsideClick = (event) => {
+    console.log(popupRef.current);
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      console.log(343434);
+      setOpen(false);
+    }
+  };
+  reactExports.useEffect(() => {
+    const handleTouchStart = (event) => handleOutsideClick(event);
+    document.addEventListener("touchstart", handleTouchStart);
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
   const handleGoToCategory = (id2, text) => {
     navigate(`/news?category=${id2}`);
     updateText(text);
@@ -35845,6 +35874,7 @@ function NewsCategoryDropPopup({ NewsCategory }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       dropMenuImg,
       {
+        ref: popupRef,
         style: {
           transition: "transform .2s ease",
           transform: `rotate(${isOpen ? "180deg" : "0"})`
@@ -80455,6 +80485,10 @@ body {
 .ck-content {
   font-size: 18px;
   line-height: 170%;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.7vw;
+    font-weight: 400;
+  }
 }
 
 .ck-content[role='textbox']{

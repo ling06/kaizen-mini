@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import normalize from './Normalize';
+import { createGlobalStyle } from "styled-components";
+import normalize from "./Normalize";
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
@@ -130,7 +130,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   line-height: 1;
-  background-color: ${props => props.theme.colors.greyF1};
+  background-color: ${(props) => props.theme.colors.greyF1};
 }
 
 *,
@@ -142,6 +142,10 @@ body {
 .ck-content {
   font-size: 18px;
   line-height: 170%;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.7vw;
+    font-weight: 400;
+  }
 }
 
 .ck-content[role='textbox']{
