@@ -33,8 +33,8 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
     let firstParagraph = null;
     if (matches) {
       for (const match of matches) {
-        const text = match.replace(/<[^>]+>/g, '').replace('&nbsp;', '').trim();
-        if (text.length > 1 && !firstParagraph) {
+        const text = match.replace(/<[^>]+>/g, '').trim();
+        if (text.length > 5 && !firstParagraph) {
           firstParagraph = text;
           break;
         }
