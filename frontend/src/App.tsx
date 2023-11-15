@@ -31,6 +31,8 @@ function App() {
     if (data && !isLoading && !data.user) {
       const base64 = btoa(window.location.href);
       const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
+      // console.log(redirectLink);
+      
       window.location.replace(redirectLink);
     }
   }, [data, isLoading]);
@@ -55,7 +57,7 @@ function App() {
             path="/*"
             element={<Main />}
           />
-          {data && data.user.role === 'admin' && (
+          {data && data.user && data.user.role === 'admin' && (
             <>
               <Route
                 path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
@@ -90,7 +92,7 @@ function App() {
             />
           )}
         </Routes>
-        {isModalOpen && data && data.user.role === 'admin' && (
+        {isModalOpen && data && data.user && data.user.role === 'admin' && (
           <ModalLayout modalType={modalType}>
             {modalType === MODAL_TYPES.createCourse && <CreateCourseForm />}
             {modalType === MODAL_TYPES.editCourse && <CreateCourseForm />}

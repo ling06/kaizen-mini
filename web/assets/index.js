@@ -80080,7 +80080,7 @@ function App() {
           element: /* @__PURE__ */ jsxRuntimeExports.jsx(Main, {})
         }
       ),
-      data && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      data && data.user && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Route,
           {
@@ -80132,7 +80132,7 @@ function App() {
         }
       )
     ] }),
-    isModalOpen && data && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
+    isModalOpen && data && data.user && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalLayout, { modalType, children: [
       modalType === MODAL_TYPES.createCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.editCourse && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateCourseForm, {}),
       modalType === MODAL_TYPES.createChapter && /* @__PURE__ */ jsxRuntimeExports.jsx(CreateChapterForm, {}),
