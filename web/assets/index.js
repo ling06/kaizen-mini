@@ -35073,7 +35073,7 @@ function Competition$1({ data, totalCount, index }) {
     if (matches2) {
       for (const match2 of matches2) {
         const text = match2.replace(/<[^>]+>/g, "").trim();
-        if (text.length > 5 && !firstParagraph) {
+        if (text.length > 6 && !firstParagraph) {
           firstParagraph = text;
           break;
         }
