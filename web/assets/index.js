@@ -35065,6 +35065,7 @@ function Competition$1({ data, totalCount, index }) {
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = reactExports.useState("");
+  const isMobile = useMediaQuery$1(MediaQueries.mobile);
   reactExports.useEffect(() => {
     const ckEditorData = data.text || "";
     const regex = /(<([^>]+)>)/gi;
@@ -35109,9 +35110,15 @@ function Competition$1({ data, totalCount, index }) {
       alert("При редактировании конкурса произошла ошибка");
     });
   };
+  const mobileNavigate = () => {
+    if (isMobile) {
+      navigate(`/news/competitions/${data.id}`, { replace: true });
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     Container$h,
     {
+      onClick: mobileNavigate,
       $isDeleted: isDeleted,
       $isVisible: Number(data.status) === 1,
       children: [
@@ -35825,7 +35832,7 @@ const titleFilter = st$1.p`
 `;
 function NewsCategoryDropPopup({ NewsCategory }) {
   const navigate = useNavigate();
-  const [isOpen, setOpen] = reactExports.useState(false);
+  const [isOpen, setOpen] = reactExports.useState();
   const { data, isError, isLoading } = NewsCategory;
   const handleToglePopupCategories = () => {
     setOpen((prevState) => !prevState);
@@ -35837,9 +35844,7 @@ function NewsCategoryDropPopup({ NewsCategory }) {
   const popupRef = reactExports.useRef(null);
   const currentURL = window.location.href;
   const handleOutsideClick = (event) => {
-    console.log(popupRef.current);
     if (popupRef.current && !popupRef.current.contains(event.target)) {
-      console.log(343434);
       setOpen(false);
     }
   };
@@ -35860,12 +35865,11 @@ function NewsCategoryDropPopup({ NewsCategory }) {
     updateText("Все новости");
     setOpen(false);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(dropMenu, { ref: popupRef, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(titleFilter, { onClick: handleToglePopupCategories, children: isTextNewsCategory }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       dropMenuImg,
       {
-        ref: popupRef,
         style: {
           transition: "transform .2s ease",
           transform: `rotate(${isOpen ? "180deg" : "0"})`
