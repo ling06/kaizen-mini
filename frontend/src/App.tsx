@@ -29,7 +29,11 @@ function App() {
 
   useEffect(() => {
     if (data && !isLoading && !data.user) {
-      window.location.href = 'https://borboza.com/';
+      const base64 = btoa(  
+        window.location.href
+      );
+      const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`
+      window.location.href = redirectLink;
     }
   }, [data, isLoading]);
 
