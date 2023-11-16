@@ -110,8 +110,7 @@ class CourseController extends ApiController
 
     public function actionUploadTempImage()
     {
-        return ['success' => 1, 'file' => ['url' => Image::uploadTmpImageEditorJs()]];
-
+        return ['url' => Image::uploadTmpImageEditorJs()];
     }
 
     public function actionGetUsersProgress()
