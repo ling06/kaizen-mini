@@ -82292,6 +82292,9 @@ Read more: ${A2}#error-${t4}`;
     function CkEditor({ onChange, data = "" }) {
       const [editor2, setEditor] = reactExports.useState(data);
       const { token: token2 } = useTypedSelector((state) => state.auth);
+      reactExports.useEffect(() => {
+        setEditor(data);
+      }, [data]);
       return /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         distExports.CKEditor,
         {
@@ -82349,7 +82352,7 @@ Read more: ${A2}#error-${t4}`;
         return () => {
           resetTestsData();
         };
-      }, [data, isError, isFetching, setTestsData]);
+      }, [data, isError, isFetching, resetTestsData, setTestsData]);
       reactExports.useEffect(() => {
         if (!editor$1 && !isFetching && !data) {
           try {
@@ -82471,7 +82474,7 @@ Read more: ${A2}#error-${t4}`;
             placeholder: "Введите название урока (обязательно)"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.description) || "", type }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.description) || "" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
           tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
@@ -82658,7 +82661,7 @@ Read more: ${A2}#error-${t4}`;
             placeholder: "Введите название новости (обязательно)"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "", type }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "" }),
         categories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList$1, { children: categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsx(Category$1, { children: category.title })) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
@@ -83187,7 +83190,7 @@ margin-bottom: 60px;
             placeholder: type === "create" ? "Введите название конкурса (обязательно)" : "Новое название"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "", type }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           CompetitionNameInput,
           {

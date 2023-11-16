@@ -1,18 +1,21 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 interface ICkEditorProps {
   onChange: (data: string) => void;
   data?: string;
-  type: string;
 }
 
 export function CkEditor({ onChange, data="" }: ICkEditorProps) {
   const [editor, setEditor] = useState(data);
   const { token } = useTypedSelector((state) => state.auth);
+
+  useEffect(() => {
+    setEditor(data);
+  }, [data])
 
   return (
     <S.CkEditorContainer>

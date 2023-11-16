@@ -130,7 +130,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} type={type}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""}/>
       {categories.length > 0 && (
         <S.CategoriesList>
           {categories.map((category) => (
