@@ -228,7 +228,7 @@ class CourseController extends ApiController
             ],
             'chapter' => [
                 'class' => GetOneAction::class,
-                'modelName' => Chapter::class,
+                'modelName' => ChapterForm::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
             ],
@@ -257,7 +257,7 @@ class CourseController extends ApiController
             ],
             'theme' => [
                 'class' => GetOneAction::class,
-                'modelName' => Theme::class,
+                'modelName' => ThemeForm::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
             ],
