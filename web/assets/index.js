@@ -36326,6 +36326,19 @@ const BottomContainer$2 = st$1(FlexContainer)`
     row-gap: 9.375vw;
   }
 `;
+const AllCompetitionsLenght = st$1.p`
+  margin-bottom: 11px;
+
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 130%;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-left: 10.94vw;
+    margin-bottom: 9.69vw;
+
+    font-size: 3.75vw;
+  }
+`;
 st$1(FlexContainer)`
   flex-direction: column;
   margin-bottom: 50px;
@@ -36346,17 +36359,53 @@ const LinkIcon = st$1(Icon$2)`
   margin-left: 10px;
   background-image: url(${externalLinkIcon});
 `;
+const ContainerBtn = st$1.div`
+  width: 100%;
+  display: flex;
+  position: absolute;
+  top: 107%;
+  right: 0;
+  justify-content: space-between;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
+`;
+const BtnLeft = st$1.button`
+  width: 24px;
+  height: 24px;
+  background-image: url(${arrowLeft});
+  background-size: contain;
+`;
+const BtnRight = st$1(BtnLeft)`
+  transform: rotate(-180deg);
+`;
 function CompetitionContent() {
-  var _a;
+  var _a, _b;
   const { setLoaderActive } = useActions();
   const { competitionId } = useParams();
   const navigate = useNavigate();
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
-  const { data, isFetching, isError } = useGetCompetitionByIdQuery(Number(competitionId), {
-    skip: !competitionId
-  });
+  const { data, isFetching, isError } = useGetCompetitionByIdQuery(
+    Number(competitionId),
+    {
+      skip: !competitionId
+    }
+  );
+  const [isAllCompetitionsLenght, setAllCompetitionsLenght] = reactExports.useState("");
+  const allCompetitions = useGetAllCompetitionsQuery();
+  const handleEditTextCompetitionLenght = () => {
+    var _a2, _b2;
+    return [
+      setAllCompetitionsLenght(
+        `Конкурс ${(data == null ? void 0 : data.data.id) === void 0 ? "1" : data == null ? void 0 : data.data.id}/${((_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length) === void 0 ? "1" : (_b2 = allCompetitions.data) == null ? void 0 : _b2.data.length}`
+      )
+    ];
+  };
+  reactExports.useEffect(() => {
+    handleEditTextCompetitionLenght();
+  }, [data, (_a = allCompetitions.data) == null ? void 0 : _a.data.length]);
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const handleEditCompetition = () => {
     if (!data) {
@@ -36405,36 +36454,75 @@ function CompetitionContent() {
     });
     setLoaderActive(true);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { isDeleted: !!(data == null ? void 0 : data.data.is_deleted), isVisible: Number(data == null ? void 0 : data.data.status) === 1, children: [
-    data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.text }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(BottomContainer$2, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { to: data.data.link, target: "_blank", style: {
-          textDecoration: "none",
-          width: isMobile ? "100%" : "auto"
-        }, children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
-          "Еще подробнее",
-          /* @__PURE__ */ jsxRuntimeExports.jsx(LinkIcon, {})
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          NewsRequisites,
-          {
-            date: data.data.date,
-            author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id,
-            adminHandlers: {
-              onDelete: data.data.is_deleted ? void 0 : handleDeleteCompetition,
-              onRestore: data.data.is_deleted ? handleRestoreCompetition : void 0,
-              onEdit: handleEditCompetition,
-              onHide: Number(data.data.status) === 1 ? handleVisibleCompetition : void 0,
-              onVisible: Number(data.data.status) === 0 ? handleVisibleCompetition : void 0
-            }
-          }
-        )
-      ] })
-    ] }),
-    isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
-    isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {})
+  const handleNextCompetition = () => {
+    var _a2, _b2;
+    if ((data == null ? void 0 : data.data.id) < ((_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length)) {
+      navigate(`/news/competitions/${(data == null ? void 0 : data.data.id) + 1}`);
+    } else if ((data == null ? void 0 : data.data.id) == ((_b2 = allCompetitions.data) == null ? void 0 : _b2.data.length)) {
+      navigate(`/news/competitions/${1}`);
+    }
+  };
+  const handleBackCompetition = () => {
+    var _a2;
+    if ((data == null ? void 0 : data.data.id) !== 1) {
+      navigate(`/news/competitions/${(data == null ? void 0 : data.data.id) - 1}`);
+    } else if ((data == null ? void 0 : data.data.id) == 1) {
+      navigate(`/news/competitions/${(_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length}`);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(AllCompetitionsLenght, { children: isAllCompetitionsLenght }) : null,
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      Content,
+      {
+        isDeleted: !!(data == null ? void 0 : data.data.is_deleted),
+        isVisible: Number(data == null ? void 0 : data.data.status) === 1,
+        children: [
+          !isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(AllCompetitionsLenght, { children: isAllCompetitionsLenght }) : null,
+          data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.text }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(BottomContainer$2, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Link$1,
+                {
+                  to: data.data.link,
+                  target: "_blank",
+                  style: {
+                    textDecoration: "none",
+                    width: isMobile ? "100%" : "auto"
+                  },
+                  children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
+                    "Еще подробнее",
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(LinkIcon, {})
+                  ] })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                NewsRequisites,
+                {
+                  date: data.data.date,
+                  author: ((_b = data.data.user) == null ? void 0 : _b.name) || data.data.user_id,
+                  adminHandlers: {
+                    onDelete: data.data.is_deleted ? void 0 : handleDeleteCompetition,
+                    onRestore: data.data.is_deleted ? handleRestoreCompetition : void 0,
+                    onEdit: handleEditCompetition,
+                    onHide: Number(data.data.status) === 1 ? handleVisibleCompetition : void 0,
+                    onVisible: Number(data.data.status) === 0 ? handleVisibleCompetition : void 0
+                  }
+                }
+              )
+            ] })
+          ] }),
+          isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
+          isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(ContainerBtn, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(BtnLeft, { onClick: handleBackCompetition }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(BtnRight, { onClick: handleNextCompetition })
+          ] })
+        ]
+      }
+    )
   ] });
 }
 function Competition() {
