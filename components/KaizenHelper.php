@@ -2,6 +2,10 @@
 
 namespace app\components;
 
+use app\modules\course\models\Chapter;
+use app\modules\course\models\Lesson;
+use app\modules\course\models\Theme;
+
 class KaizenHelper
 {
 
@@ -21,6 +25,54 @@ class KaizenHelper
             : 'http';
         $host = $_SERVER['HTTP_HOST'];
         return $protocol . '://' . $host;
+    }
+
+    public static function setPosition($modelName, $id, $position = null)
+    {
+        switch ($modelName) {
+            case Lesson::class:
+                $parentName = 'theme_id';
+                break;
+            case Chapter::class:
+                $parentName = 'course_id';
+                break;
+            case Theme::class:
+                $parentName = 'chapter_id';
+                break;
+        }
+        $model = $modelName::findOne($id);
+        if ($position !== null) {
+            $currentPositionModel = $modelName::find()->where(['position' => $position, $parentName => $model->{$parentName}])->one();
+            if ($currentPositionModel) {
+                $currentPositionModel->position = $model->position;
+                $model->position = $position;
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    $model->save();
+                    $currentPositionModel->save();
+                    $transaction->commit();
+                } catch (\Throwable $e) {
+                    $transaction->rollBack();
+                    throw $e;
+                }
+            } else {
+                $model->position = $position;
+                $model->save();
+            }
+        } else {
+            $models = $modelName::find()->where([$parentName => $model->{$parentName}])->select('position')->orderBy('position')->asArray()->all();
+            $position = 0;
+            if(empty($models)) {
+                $model->position = $position;
+                $model->save();
+            } else {
+                foreach ($models as $thisModel) {
+                    $position = $thisModel['position'];
+                }
+                $model->position = $position + 1;
+                $model->save();
+            }
+        }
     }
 
 }

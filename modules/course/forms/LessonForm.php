@@ -2,6 +2,7 @@
 
 namespace app\modules\course\forms;
 
+use app\components\KaizenHelper;
 use app\models\Image;
 use app\modules\course\models\Answer;
 use app\modules\course\models\Chapter;
@@ -47,6 +48,7 @@ class LessonForm extends Lesson
 
     public function beforeSave($insert): bool
     {
+        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
         return parent::beforeSave($insert);
     }
 

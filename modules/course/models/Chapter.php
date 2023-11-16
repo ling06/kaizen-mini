@@ -4,6 +4,7 @@ namespace app\modules\course\models;
 
 use app\components\behaviors\DeleteSoftBehavior;
 use app\components\behaviors\ImageBehavior;
+use app\components\KaizenHelper;
 use app\models\User;
 use app\modules\course\models\queries\ChapterQuery;
 use yii\behaviors\BlameableBehavior;
@@ -58,6 +59,7 @@ class Chapter extends \app\components\ActiveRecord
             [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['is_deleted'], 'boolean'],
             [['is_deleted'], 'default', 'value' => false],
+            [['position'], 'integer']
         ];
     }
 
