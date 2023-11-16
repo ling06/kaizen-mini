@@ -4,13 +4,25 @@ import path from 'path';
 import dns from 'dns';
 import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 import { createRequire } from 'node:module';
-const require = createRequire( import.meta.url );
+const require = createRequire(import.meta.url);
+import commonjs from 'vite-plugin-commonjs';
 
 dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
-  plugins: [react(),
-    ckeditor5( { theme: require.resolve( '@ckeditor/ckeditor5-theme-lark' ) } )],
+  plugins: [
+    react(),
+    commonjs({
+      filter(id) {
+        if (['ckEditor5/build/ckeditor.js'].includes(id)) {
+          return true;
+        }
+      },
+    }),
+  ],
+  optimizeDeps: {
+    include: ['ckeditor5-custom-build'],
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -30,7 +42,7 @@ export default defineConfig({
     minify: false,
     watch: {},
     outDir: '../web',
+    commonjsOptions: { exclude: ['ckeditor5-custom-build'] },
     // emptyOutDir: true,
   },
 });
-

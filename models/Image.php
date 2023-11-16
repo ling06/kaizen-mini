@@ -111,7 +111,7 @@ class Image extends \app\components\ActiveRecord
 
     public static function uploadTmpImageEditorJs()
     {
-        $file = UploadedFile::getInstanceByName('image');
+        $file = UploadedFile::getInstanceByName('upload');
         $uploadDir = Yii::getAlias(static::UPLOAD_DIR) . '/' . 'editorJsTmp/';
         $fileName = KaizenHelper::guidv4() . '.' . static::getExtension($file);
         if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);

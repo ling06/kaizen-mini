@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as S from "./styles";
 import {
@@ -20,6 +21,20 @@ import { MediaQueries } from "@/constants";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Content } from "@/layouts/Content";
+=======
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import * as S from './styles';
+import { useDeleteCompetitionMutation, useGetCompetitionByIdQuery, useRestoreCompetitionMutation, useUpdateCompetitionMutation } from '@/store/api/competition.api';
+import { ContentTitle } from '../ContentTitle';
+import { LoadingSmall } from '../LoadingSmall';
+import { CkEditorOutput } from '../CkEditorOutput';
+import { ErrorBlock } from '../ErrorBlock';
+import { NewsRequisites } from '../NewsRequisites';
+import { useActions } from '@/hooks/useActions';
+import { Content } from '@/layouts/Content';
+import { MediaQueries } from '@/constants';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+>>>>>>> c69ce13c6e7ed2eaca2026f6374271392ddbba71
 
 export function CompetitionContent() {
   const { setLoaderActive } = useActions();
@@ -28,6 +43,7 @@ export function CompetitionContent() {
   const [deleteCompetition] = useDeleteCompetitionMutation();
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
+<<<<<<< HEAD
   const { data, isFetching, isError } = useGetCompetitionByIdQuery(
     Number(competitionId),
     {
@@ -56,14 +72,12 @@ export function CompetitionContent() {
 
   // const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
   // const editorOutput = useEditorOutput(editorData);
+=======
+  const { data, isFetching, isError } = useGetCompetitionByIdQuery(Number(competitionId), {
+    skip: !competitionId,
+  });
+>>>>>>> c69ce13c6e7ed2eaca2026f6374271392ddbba71
   const isMobile = useMediaQuery(MediaQueries.mobile);
-
-  // useEffect(() => {
-  //   if (data && data.data.text) {
-  //     const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
-  //     setEditorData(editorData);
-  //   }
-  // }, [data]);
 
   const handleEditCompetition = () => {
     if (!data) {
@@ -138,6 +152,7 @@ export function CompetitionContent() {
   };
 
   return (
+<<<<<<< HEAD
     <>
       {isMobile ? (
         <S.AllCompetitionsLenght>
@@ -208,5 +223,41 @@ export function CompetitionContent() {
         </S.ContainerBtn>
       </Content>
     </>
+=======
+    <Content isDeleted={!!data?.data.is_deleted} isVisible={Number(data?.data.status) === 1}>
+      {data && !isError && !isFetching && (
+        <>
+          <ContentTitle title={data?.data.title} />
+          <CkEditorOutput data={data.data.text}/>
+          <S.BottomContainer>
+            <Link to={data.data.link} target='_blank' style={{
+              textDecoration: 'none',
+              width: isMobile ? '100%' : 'auto',
+            }}>
+              {data.data.link && (
+                <S.Link>
+                  Еще подробнее
+                  <S.LinkIcon />
+                </S.Link>
+              )}
+            </Link>
+            <NewsRequisites
+              date={data.data.date}
+              author={data.data.user?.name || data.data.user_id}
+              adminHandlers={{
+                onDelete: data.data.is_deleted ? undefined : handleDeleteCompetition,
+                onRestore: data.data.is_deleted ? handleRestoreCompetition : undefined,
+                onEdit: handleEditCompetition,
+                onHide: Number(data.data.status) === 1 ? handleVisibleCompetition : undefined,
+                onVisible: Number(data.data.status) === 0 ? handleVisibleCompetition : undefined,
+              }}
+            />
+          </S.BottomContainer>
+        </>
+      )}
+      {isFetching && <LoadingSmall />}
+      {isError && <ErrorBlock />}
+    </Content>
+>>>>>>> c69ce13c6e7ed2eaca2026f6374271392ddbba71
   );
 }

@@ -5,7 +5,9 @@ namespace app\modules\course\controllers;
 use app\components\ApiController;
 use app\components\KaizenHelper;
 use app\models\Image;
+use app\modules\course\forms\ChapterForm;
 use app\modules\course\forms\LessonForm;
+use app\modules\course\forms\ThemeForm;
 use app\modules\course\models\Chapter;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Theme;
@@ -108,8 +110,7 @@ class CourseController extends ApiController
 
     public function actionUploadTempImage()
     {
-        return ['success' => 1, 'file' => ['url' => Image::uploadTmpImageEditorJs()]];
-
+        return ['url' => Image::uploadTmpImageEditorJs()];
     }
 
     public function actionGetUsersProgress()
@@ -233,13 +234,13 @@ class CourseController extends ApiController
             ],
             'create-chapter' => [
                 'class' => CreateAction::class,
-                'modelName' => Chapter::class,
+                'modelName' => ChapterForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-chapter' => [
                 'class' => UpdateAction::class,
-                'modelName' => Chapter::class,
+                'modelName' => ChapterForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
@@ -262,13 +263,13 @@ class CourseController extends ApiController
             ],
             'create-theme' => [
                 'class' => CreateAction::class,
-                'modelName' => Theme::class,
+                'modelName' => ThemeForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update-theme' => [
                 'class' => UpdateAction::class,
-                'modelName' => Theme::class,
+                'modelName' => ThemeForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
