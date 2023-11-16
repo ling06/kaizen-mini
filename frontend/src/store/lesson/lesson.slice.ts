@@ -1,10 +1,10 @@
-import { ITest } from '@/types/lessonTest.types';
-import { EmptyAnswer } from '@/utils/EmptyAnswer';
-import { EmptyTest } from '@/utils/EmptyTest';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ITest } from "@/types/lessonTest.types";
+import { EmptyAnswer } from "@/utils/EmptyAnswer";
+import { EmptyTest } from "@/utils/EmptyTest";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface ILessonSlice {
-  tests: Array<Omit<ITest, 'userTestAnswer'>>;
+  tests: Array<Omit<ITest, "userTestAnswer">>;
   navPopup: boolean;
 }
 
@@ -35,7 +35,7 @@ interface IToggleAnswer {
 }
 
 export const lessonSlice = createSlice({
-  name: 'lesson',
+  name: "lesson",
   initialState: lessonInitialState,
   reducers: {
     addEmptyTest: (state) => {
@@ -67,7 +67,10 @@ export const lessonSlice = createSlice({
         tests: newTests,
       };
     },
-    deleteAnswer: (state, { payload }: PayloadAction<{ testId: string; answerId: string }>) => {
+    deleteAnswer: (
+      state,
+      { payload }: PayloadAction<{ testId: string; answerId: string }>
+    ) => {
       const { testId, answerId } = payload;
 
       const testIndex = state.tests.findIndex((test) => test.id === testId);
@@ -91,7 +94,14 @@ export const lessonSlice = createSlice({
       state.tests = [...payload];
     },
 
-    changeTestQuestion: (state, { payload }: PayloadAction<IChangeTestQuestion>) => {
+    resetTestsData: (state) => {
+      state.tests = [];
+    },
+
+    changeTestQuestion: (
+      state,
+      { payload }: PayloadAction<IChangeTestQuestion>
+    ) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1) {
         return state;
@@ -106,7 +116,9 @@ export const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     toggleAnswer: (state, { payload }: PayloadAction<IToggleAnswer>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1) return;
 
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {
@@ -132,7 +144,9 @@ export const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     changeAnswer: (state, { payload }: PayloadAction<IChangeAnswer>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1) return;
 
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {
@@ -152,7 +166,9 @@ export const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     changeAnswerComment: (state, { payload }: PayloadAction<IChangeAnswer>) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1) return;
 
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {

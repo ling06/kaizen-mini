@@ -26320,6 +26320,9 @@ const lessonSlice = createSlice({
     setTestsData: (state, { payload }) => {
       state.tests = [...payload];
     },
+    resetTestsData: (state) => {
+      state.tests = [];
+    },
     changeTestQuestion: (state, { payload }) => {
       const testIndex = state.tests.findIndex((test) => test.id === payload.id);
       if (testIndex === -1) {
@@ -26334,7 +26337,9 @@ const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     toggleAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1)
         return;
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {
@@ -26358,7 +26363,9 @@ const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     changeAnswer: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1)
         return;
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {
@@ -26376,7 +26383,9 @@ const lessonSlice = createSlice({
       state.tests = modifyTests;
     },
     changeAnswerComment: (state, { payload }) => {
-      const testIndex = state.tests.findIndex((test) => test.id === payload.testId);
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
       if (testIndex === -1)
         return;
       const changedAnswers = state.tests[testIndex].answers.map((answer) => {
@@ -27079,7 +27088,7 @@ const CompleteStatus = st$1(Text$6)`
 const ErrorName = st$1(LessonName)`
   margin: auto;
 `;
-const defaultPreview = "/assets/defaultCoursePreview.png";
+const defaultPreview = "/assets/course-stub-img.webp";
 const arrowRight = "/assets/arrowRight.svg";
 const Container$A = st$1(FlexContainer)`
   align-items: center;
@@ -27609,7 +27618,7 @@ const ProgressStatusWrapper = st$1(FlexContainer)`
     margin-bottom: 0;
   }
 `;
-st$1.p`
+const ProgressStatus = st$1.p`
   margin-right: auto;
   font-size: 15px;
   font-weight: 500;
@@ -27618,7 +27627,7 @@ st$1.p`
     font-size: 2.5vw;
   }
 `;
-const defaultCardImg = "/assets/defaultCardImg.png";
+const defaultCardImg = "/assets/stub-course-program.webp";
 const chapterApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getChapterById: builder.query({
@@ -27679,8 +27688,14 @@ function CourseProgrammCard({ data }) {
   const navigation = useNavigate();
   const [deleteChapter] = useDeleteChapterMutation();
   const [restoreChapter] = useRestoreChapterMutation();
+  const [isTextProgres, setTextProgres] = reactExports.useState("");
   const [isDeleted, setDeleted] = reactExports.useState(false);
-  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+  const {
+    setLoaderActive,
+    setModalOpen,
+    setModalType,
+    setUpdatingChapterData
+  } = useActions();
   const [imgSrc, setImgSrc] = reactExports.useState(null);
   reactExports.useEffect(() => {
     if (data.image) {
@@ -27694,6 +27709,9 @@ function CourseProgrammCard({ data }) {
   const handleClick = () => {
     navigation(`/courses/${data.course_id}/${data.id}/`);
   };
+  reactExports.useEffect(() => {
+    changesStatusText();
+  }, [data]);
   const handleDeleteChapter = () => {
     deleteChapter({ id: data.id }).then(() => {
       setLoaderActive(false);
@@ -27713,23 +27731,38 @@ function CourseProgrammCard({ data }) {
     setUpdatingChapterData(data);
     setModalOpen(true);
   };
+  const changesStatusText = () => {
+    if (data.percentage.percentage == 100) {
+      return setTextProgres("Пройдено");
+    } else if (data.percentage.percentage > 0 && data.percentage.percentage < 100) {
+      return setTextProgres("В процессе");
+    } else if (data.percentage.percentage == 0) {
+      return setTextProgres("Предстоит");
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatusWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      AdminBtn,
-      {
-        popupName: "Глава",
-        type: ADMIN_BTN_TYPES.edit,
-        onClick: () => {
-        },
-        popupHandlers: {
-          onDelete: isDeleted ? void 0 : handleDeleteChapter,
-          onRestore: isDeleted ? handleRestoreChapter : void 0,
-          onEdit: handleEditChapter
-        }
-      }
-    ) }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: isTextProgres }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            popupName: "Глава",
+            type: ADMIN_BTN_TYPES.edit,
+            onClick: () => {
+            },
+            popupHandlers: {
+              onDelete: isDeleted ? void 0 : handleDeleteChapter,
+              onRestore: isDeleted ? handleRestoreChapter : void 0,
+              onEdit: handleEditChapter
+            }
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar$1, { $progress: (data == null ? void 0 : data.percentage.percentage) || 0 })
+    ] })
   ] });
 }
 function CourseProgramm() {
@@ -27937,7 +27970,7 @@ const lessonApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: () => ["ChapterById", "LessonById"]
+      invalidatesTags: () => ["ChapterById", "LessonById", "Courses"]
     })
   }),
   overrideExisting: false
@@ -28895,6 +28928,7 @@ function CourseContent() {
     }
   }, [data == null ? void 0 : data.data.tests]);
   reactExports.useEffect(() => {
+    setLoaderActive(isFetching);
     if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
       setIsForwardBtnDisabled(true);
     } else {
@@ -37064,9 +37098,6 @@ function CreateChapterForm() {
         course_id: data.id,
         image: chapterImage
       }).then((res) => {
-        if ("data" in res && res.data.result) {
-          addChapter(res.data.data);
-        }
         setModalOpen(false);
       }).catch((err) => {
         console.error(err);
@@ -79175,7 +79206,7 @@ function CreateLessonForm({ type }) {
     skip: !lessonId
   });
   const tests = useTypedSelector((state) => state.lesson.tests);
-  const { addEmptyTest, setTestsData, setLoaderActive } = useActions();
+  const { addEmptyTest, setTestsData, setLoaderActive, resetTestsData } = useActions();
   const [createLesson] = useCreateLessonMutation();
   const [updateLesson] = useUpdateLessonMutation();
   const [lessonName, setLessonName] = reactExports.useState("");
@@ -79190,6 +79221,9 @@ function CreateLessonForm({ type }) {
       setChangedName(false);
       setTestsData(data.data.tests);
     }
+    return () => {
+      resetTestsData();
+    };
   }, [data, isError, isFetching, setTestsData]);
   reactExports.useEffect(() => {
     if (!editor$2 && !isFetching && !data) {
@@ -79273,7 +79307,7 @@ function CreateLessonForm({ type }) {
       description: ckEditorData || "",
       tests: testsDataWithoutFrontIds
     }).then((res) => {
-      if ("data" in res) {
+      if ("data" in res && res.data.result) {
         navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
       }
     }).catch((error) => {

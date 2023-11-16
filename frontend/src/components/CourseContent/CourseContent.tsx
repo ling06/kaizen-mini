@@ -45,6 +45,7 @@ export function CourseContent() {
   // const editorOutput = useEditorOutput(editorData);
 
   useEffect(() => {
+    setLoaderActive(isFetching);
     if (
       isFetching ||
       data?.data.isChecked ||
