@@ -154,7 +154,7 @@ export function CreateCompetitionForm({ type }: ICreateCompetitionFormProps) {
         type="text"
         placeholder={type === 'create' ? 'Введите название конкурса (обязательно)' : 'Новое название'}
       />
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} type={type}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""}/>
       <S.CompetitionNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}

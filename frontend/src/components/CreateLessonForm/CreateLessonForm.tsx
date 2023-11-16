@@ -47,7 +47,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     return () => {
       resetTestsData();
     }
-  }, [data, isError, isFetching, setTestsData,]);
+  }, [data, isError, isFetching, resetTestsData, setTestsData]);
 
   useEffect(() => {
     if (!editor && !isFetching && !data) {
@@ -189,8 +189,7 @@ TODO: на фронте создаются id для новых сущносте
         type="text"
         placeholder="Введите название урока (обязательно)"
       />
-      {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.description || ""} type={type}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.description || ""}/>
       <S.TestWrapper>
         {tests.length > 0 && tests.map((test) => <CreateTestForm data={test} />)}
         <S.AddTest onClick={handleAddEmptyTest}>
