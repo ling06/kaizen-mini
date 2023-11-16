@@ -26148,7 +26148,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           }
         ),
         !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { to: "/news", children: /* @__PURE__ */ jsxRuntimeExports.jsx(MainLogo, {}) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Nav$1, {})
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileBlock, {}),
@@ -36381,7 +36381,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
     }
-    const externalLinkIcon = "/assets/moreIcon.svg";
+    const externalLinkIcon = "/assets/external-link.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
