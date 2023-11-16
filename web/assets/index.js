@@ -83252,7 +83252,7 @@ margin-bottom: 60px;
               element: /* @__PURE__ */ jsxRuntimeExports.jsx(Main, {})
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          data && data.user && data.user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Route,
               {
