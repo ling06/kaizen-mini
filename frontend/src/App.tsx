@@ -57,7 +57,7 @@ function App() {
             path="/*"
             element={<Main />}
           />
-          {data && data.user && data.user.role === 'admin' && (
+          {/* {data && data.user && data.user.role === 'admin' && ( */}
             <>
               <Route
                 path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
@@ -84,7 +84,7 @@ function App() {
                 element={<CreateNews type={'create'} />}
               />
             </>
-          )}
+          {/* )} */}
           {isMobile && (
             <Route
               path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
