@@ -252,11 +252,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-<<<<<<< HEAD
     "file": "assets/external-link.svg",
-=======
-    "file": "assets/moreIcon.svg",
->>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {
@@ -293,7 +289,7 @@
   },
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
-    "src": "src/assets/images/external-link.svg"
+    "src": "src/assets/images/moreIcon.svg"
   },
   "src/assets/images/radio-checked.svg": {
     "file": "assets/radio-checked.svg",
