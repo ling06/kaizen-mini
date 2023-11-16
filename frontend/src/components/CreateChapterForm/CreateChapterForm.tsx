@@ -52,9 +52,9 @@ export function CreateChapterForm() {
         image: chapterImage,
       })
         .then((res) => {
-          if ('data' in res && res.data.result) {
-            addChapter(res.data.data);
-          }
+          // if ('data' in res && res.data.result) {
+          //   addChapter(res.data.data);
+          // }
           setModalOpen(false);
         })
         .catch((err) => {

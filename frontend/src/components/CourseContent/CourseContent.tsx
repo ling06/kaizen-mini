@@ -39,6 +39,7 @@ export function CourseContent() {
   }, [data?.data.tests]);
 
   useEffect(() => {
+    setLoaderActive(isFetching);
     if (
       isFetching ||
       data?.data.isChecked ||

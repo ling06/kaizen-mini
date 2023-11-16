@@ -26216,6 +26216,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         chapters: [],
         image: null
       },
+<<<<<<< HEAD
       activeChapterId: null,
       activeTheme: null,
       activeLesson: null,
@@ -26247,6 +26248,103 @@ color: ${(props) => props.theme.colors.mainBlue};
           if (!state.data || !state.data.chapters) {
             console.warn(`No chapters in course`);
             return;
+=======
+      {
+        id: nanoid(),
+        answer: "",
+        right_answer: true,
+        text: ""
+      }
+    ];
+  }
+}
+const lessonInitialState = {
+  tests: [],
+  navPopup: false
+};
+const lessonSlice = createSlice({
+  name: "lesson",
+  initialState: lessonInitialState,
+  reducers: {
+    addEmptyTest: (state) => {
+      let tests = state.tests;
+      tests = [...tests, new EmptyTest()];
+      return {
+        ...state,
+        tests
+      };
+    },
+    deleteTest: (state, { payload }) => {
+      const updatedTests = state.tests.filter((test) => test.id !== payload);
+      return {
+        ...state,
+        tests: updatedTests
+      };
+    },
+    addAnswer: (state, { payload }) => {
+      const { tests } = state;
+      const testIndex = tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1)
+        return state;
+      const newTests = [...tests];
+      newTests[testIndex] = {
+        ...newTests[testIndex],
+        answers: [...newTests[testIndex].answers, new EmptyAnswer()]
+      };
+      return {
+        ...state,
+        tests: newTests
+      };
+    },
+    deleteAnswer: (state, { payload }) => {
+      const { testId, answerId } = payload;
+      const testIndex = state.tests.findIndex((test) => test.id === testId);
+      if (testIndex === -1) {
+        return state;
+      }
+      const filteredAnswers = state.tests[testIndex].answers.filter(
+        (answer) => answer.id !== answerId
+      );
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === testId) {
+          test.answers = filteredAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    setTestsData: (state, { payload }) => {
+      state.tests = [...payload];
+    },
+    resetTestsData: (state) => {
+      state.tests = [];
+    },
+    changeTestQuestion: (state, { payload }) => {
+      const testIndex = state.tests.findIndex((test) => test.id === payload.id);
+      if (testIndex === -1) {
+        return state;
+      }
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.id) {
+          test.question = payload.question;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    toggleAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.isRight) {
+          if (answer.id === payload.answerId && payload.isRight) {
+            answer.right_answer = payload.isRight;
+          } else {
+            answer.right_answer = false;
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
           }
           const currentChapterIndex = (_b = (_a = state.data) == null ? void 0 : _a.chapters) == null ? void 0 : _b.findIndex(
             (chapter) => chapter.id === Number(payload.id)
@@ -26285,6 +26383,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         setLoaderActive(state, { payload }) {
           state.active = payload;
         }
+<<<<<<< HEAD
       }
     });
     const { reducer: reducer$4, actions: actions$3 } = loaderSlice;
@@ -26298,6 +26397,90 @@ color: ${(props) => props.theme.colors.mainBlue};
         this.answer = "";
         this.right_answer = false;
         this.text = "";
+=======
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswer: (state, { payload }) => {
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.answer = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    changeAnswerComment: (state, { payload }) => {
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
+      if (testIndex === -1)
+        return;
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.answerId === answer.id) {
+          answer.text = payload.value;
+        }
+        return answer;
+      });
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+      state.tests = modifyTests;
+    },
+    setNavPopup: (state, { payload }) => {
+      state.navPopup = payload;
+    }
+  }
+});
+const { reducer: reducer$3, actions: actions$2 } = lessonSlice;
+const competitionInitialState = {
+  updatingCompetitionData: null
+};
+const competitionSlice = createSlice({
+  name: "competition",
+  initialState: competitionInitialState,
+  reducers: {
+    setUpdatingCompetitionData: (state, { payload }) => {
+      state.updatingCompetitionData = payload ? { ...payload } : null;
+    }
+  }
+});
+const { actions: actions$1, reducer: reducer$2 } = competitionSlice;
+const initialState = {
+  newsCategories: []
+};
+const newsSlice = createSlice({
+  name: "news",
+  initialState,
+  reducers: {
+    setNewsCategories: (state, { payload }) => {
+      state.newsCategories = payload;
+    },
+    addNewsCategory: (state, { payload }) => {
+      state.newsCategories.push(payload);
+    },
+    deleteNewsCategory: (state, { payload }) => {
+      const index = state.newsCategories.findIndex(
+        (category) => category.id === payload.id || category.title === payload.title
+      );
+      if (index !== -1) {
+        state.newsCategories.splice(index, 1);
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
       }
     }
     class EmptyTest {
@@ -27140,9 +27323,15 @@ color: ${(props) => props.theme.colors.mainBlue};
     const ErrorName = st$1(LessonName)`
   margin: auto;
 `;
+<<<<<<< HEAD
     const defaultPreview = "/assets/defaultCoursePreview.png";
     const arrowRight = "/assets/arrowRight.svg";
     const Container$A = st$1(FlexContainer)`
+=======
+const defaultPreview = "/assets/course-stub-img.webp";
+const arrowRight = "/assets/arrowRight.svg";
+const Container$A = st$1(FlexContainer)`
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
   align-items: center;
   column-gap: 7px;
   flex-wrap: wrap;
@@ -27670,7 +27859,11 @@ color: ${(props) => props.theme.colors.mainBlue};
     margin-bottom: 0;
   }
 `;
+<<<<<<< HEAD
     st$1.p`
+=======
+const ProgressStatus = st$1.p`
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
   margin-right: auto;
   font-size: 15px;
   font-weight: 500;
@@ -27679,6 +27872,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     font-size: 2.5vw;
   }
 `;
+<<<<<<< HEAD
     const defaultCardImg = "/assets/defaultCardImg.png";
     const chapterApi = api.injectEndpoints({
       endpoints: (builder) => ({
@@ -27779,6 +27973,184 @@ color: ${(props) => props.theme.colors.mainBlue};
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatusWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
+=======
+const defaultCardImg = "/assets/stub-course-program.webp";
+const chapterApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getChapterById: builder.query({
+      query: (id2) => `chapter/${id2}`,
+      providesTags: () => [
+        {
+          type: "ChapterById"
+        }
+      ]
+    }),
+    createChapter: builder.mutation({
+      query: (data) => ({
+        url: "course/create-chapter",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => [
+        {
+          type: "Courses"
+        }
+      ]
+    }),
+    updateChapter: builder.mutation({
+      query: (data) => ({
+        url: "course/update-chapter",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["Courses", "ChapterById"]
+    }),
+    deleteChapter: builder.mutation({
+      query: (data) => ({
+        url: "course/delete-chapter",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["CourseById", "ChapterById"]
+    }),
+    restoreChapter: builder.mutation({
+      query: (data) => ({
+        url: "course/restore-chapter",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["CourseById", "ChapterById"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCreateChapterMutation,
+  useDeleteChapterMutation,
+  useGetChapterByIdQuery,
+  useRestoreChapterMutation,
+  useUpdateChapterMutation
+} = chapterApi;
+function CourseProgrammCard({ data }) {
+  const navigation = useNavigate();
+  const [deleteChapter] = useDeleteChapterMutation();
+  const [restoreChapter] = useRestoreChapterMutation();
+  const [isTextProgres, setTextProgres] = reactExports.useState("");
+  const [isDeleted, setDeleted] = reactExports.useState(false);
+  const {
+    setLoaderActive,
+    setModalOpen,
+    setModalType,
+    setUpdatingChapterData
+  } = useActions();
+  const [imgSrc, setImgSrc] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    if (data.image) {
+      const src = data.image.directory + "/" + data.image.name;
+      setImgSrc(src);
+    }
+  }, [data.image]);
+  reactExports.useEffect(() => {
+    Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
+  }, [data.is_deleted]);
+  const handleClick = () => {
+    navigation(`/courses/${data.course_id}/${data.id}/`);
+  };
+  reactExports.useEffect(() => {
+    changesStatusText();
+  }, [data]);
+  const handleDeleteChapter = () => {
+    deleteChapter({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(true);
+    });
+    setLoaderActive(true);
+  };
+  const handleRestoreChapter = () => {
+    restoreChapter({ id: data.id }).then(() => {
+      setLoaderActive(false);
+      setDeleted(false);
+    });
+    setLoaderActive(true);
+  };
+  const handleEditChapter = () => {
+    setModalType(MODAL_TYPES.editChapter);
+    setUpdatingChapterData(data);
+    setModalOpen(true);
+  };
+  const changesStatusText = () => {
+    if (data.percentage.percentage == 100) {
+      return setTextProgres("Пройдено");
+    } else if (data.percentage.percentage > 0 && data.percentage.percentage < 100) {
+      return setTextProgres("В процессе");
+    } else if (data.percentage.percentage == 0) {
+      return setTextProgres("Предстоит");
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: isTextProgres }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            popupName: "Глава",
+            type: ADMIN_BTN_TYPES.edit,
+            onClick: () => {
+            },
+            popupHandlers: {
+              onDelete: isDeleted ? void 0 : handleDeleteChapter,
+              onRestore: isDeleted ? handleRestoreChapter : void 0,
+              onEdit: handleEditChapter
+            }
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar$1, { $progress: (data == null ? void 0 : data.percentage.percentage) || 0 })
+    ] })
+  ] });
+}
+function CourseProgramm() {
+  const { setModalOpen, setModalType } = useActions();
+  const courseChapters = useTypedSelector((state) => {
+    var _a;
+    return (_a = state.course.data) == null ? void 0 : _a.chapters;
+  });
+  const role = useTypedSelector((state) => {
+    var _a;
+    return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
+  });
+  const [chaptersData, setChaptersData] = reactExports.useState();
+  reactExports.useEffect(() => {
+    if (courseChapters && courseChapters) {
+      setChaptersData(courseChapters);
+    } else {
+      setChaptersData([]);
+    }
+  }, [courseChapters]);
+  const openCreateChapterModal = () => {
+    setModalType(MODAL_TYPES.createChapter);
+    setModalOpen(true);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        AdminBtn,
+        {
+          popupName: "Глава",
+          type: ADMIN_BTN_TYPES.add,
+          onClick: openCreateChapterModal
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardList, { children: chaptersData && chaptersData.length > 0 && chaptersData.map((chapter) => {
+      if (!chapter.is_deleted || role === USER_ROLES.admin) {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CourseProgrammCard,
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
           {
             popupName: "Глава",
             type: ADMIN_BTN_TYPES.edit,
@@ -28001,6 +28373,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           invalidatesTags: () => ["ChapterById", "LessonById"]
         })
       }),
+<<<<<<< HEAD
       overrideExisting: false
     });
     const {
@@ -28012,6 +28385,58 @@ color: ${(props) => props.theme.colors.mainBlue};
       useUpdateLessonMutation
     } = lessonApi;
     const Title$c = st$1.p`
+=======
+      invalidatesTags: () => [
+        {
+          type: "ChapterById"
+        }
+      ]
+    }),
+    updateLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/update-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById", "ChapterById"]
+    }),
+    deleteLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/delete-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById", "ChapterById"]
+    }),
+    restoreLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/restore-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["LessonById", "ChapterById"]
+    }),
+    checkLesson: builder.mutation({
+      query: (data) => ({
+        url: "course/check-lesson",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: () => ["ChapterById", "LessonById", "Courses"]
+    })
+  }),
+  overrideExisting: false
+});
+const {
+  useCheckLessonMutation,
+  useCreateLessonMutation,
+  useDeleteLessonMutation,
+  useGetLessonByIdQuery,
+  useRestoreLessonMutation,
+  useUpdateLessonMutation
+} = lessonApi;
+const Title$c = st$1.p`
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;
@@ -28893,6 +29318,7 @@ color: ${(props) => props.theme.colors.mainBlue};
                     handleChange(`${answer.id}`);
                   }
                 },
+<<<<<<< HEAD
                 answer.id
               )),
               data.userTestAnswer && data.answers.map((answer) => {
@@ -28925,6 +29351,67 @@ color: ${(props) => props.theme.colors.mainBlue};
               }
             )
           ]
+=======
+                disabled: true
+              },
+              answer.id
+            );
+          })
+        ] }),
+        !data.userTestAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CheckBtn,
+          {
+            onClick: handleSendAnswer,
+            disabled: !checkedAnswer,
+            children: "Проверить"
+          }
+        )
+      ]
+    }
+  );
+}
+const useMediaQuery = (query) => {
+  if (!query) {
+    console.error(`useMediaQuery: ${query}. Current query is not valid!`);
+    return false;
+  }
+  return window.matchMedia(query).matches;
+};
+function CourseContent() {
+  const { setLoaderActive } = useActions();
+  const { courseId, lessonId, chapterId } = useParams();
+  const chapterData = useGetChapterByIdQuery(Number(chapterId), {
+    skip: !chapterId
+  });
+  const [deleteLesson] = useDeleteLessonMutation();
+  const [restoreLesson] = useRestoreLessonMutation();
+  const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
+    skip: !lessonId
+  });
+  const [checkLesson] = useCheckLessonMutation();
+  const [isForwardBtnDisabled, setIsForwardBtnDisabled] = reactExports.useState(true);
+  const isMobile = useMediaQuery(MediaQueries.mobile);
+  const navigate = useNavigate();
+  const isTestsPassed = reactExports.useMemo(() => {
+    if ((data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0) {
+      return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
+    }
+  }, [data == null ? void 0 : data.data.tests]);
+  reactExports.useEffect(() => {
+    setLoaderActive(isFetching);
+    if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
+      setIsForwardBtnDisabled(true);
+    } else {
+      setIsForwardBtnDisabled(false);
+    }
+  }, [data == null ? void 0 : data.data.isChecked, data == null ? void 0 : data.data.tests, isFetching, isTestsPassed]);
+  const handleCheckLesson = () => {
+    if (data && data.data.id) {
+      checkLesson({ id: data.data.id }).then((res) => {
+        var _a;
+        if (!("data" in res) || "data" in res && !res.data.data) {
+          return;
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
         }
       );
     }
@@ -35598,6 +36085,8 @@ color: ${(props) => props.theme.colors.mainBlue};
   margin-left: auto;
   @media ${(props) => props.theme.media.mobile} {
     justify-content: flex-start;
+    margin: 0 auto 0 0 ;
+    
   }
 `;
     const Date$1 = st$1.p`
@@ -37089,6 +37578,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     const BottomContainer = st$1(FlexContainer)`
   justify-content: space-between;
 `;
+<<<<<<< HEAD
     function CreateChapterForm() {
       const { data, updatingChapterData } = useTypedSelector((state) => state.course);
       const formType = useTypedSelector((state) => state.modal.modalType);
@@ -37114,6 +37604,62 @@ color: ${(props) => props.theme.colors.mainBlue};
         setChapterName(event.target.value);
         if (!isChangedName) {
           setChangedName(true);
+=======
+function CreateChapterForm() {
+  const { data, updatingChapterData } = useTypedSelector((state) => state.course);
+  const formType = useTypedSelector((state) => state.modal.modalType);
+  const { setModalOpen, addChapter, setLoaderActive, changeChapter } = useActions();
+  const [createChapter] = useCreateChapterMutation();
+  const [updateChapter] = useUpdateChapterMutation();
+  const [chapterName, setChapterName] = reactExports.useState("");
+  const [isValidName, setValidName] = reactExports.useState(false);
+  const [isChangedName, setChangedName] = reactExports.useState(false);
+  const [isEditForm, setEditForm] = reactExports.useState(false);
+  const [chapterImage, setChapterImage] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
+      setEditForm(true);
+      setChapterName(updatingChapterData.title);
+      setValidName(true);
+      setChangedName(true);
+      setChapterImage(updatingChapterData.image);
+    }
+  }, [data.image, formType, updatingChapterData]);
+  const handleChange = (event) => {
+    setValidName(event.target.value.length > 1);
+    setChapterName(event.target.value);
+    if (!isChangedName) {
+      setChangedName(true);
+    }
+  };
+  const handleConfirm = () => {
+    if (!isValidName) {
+      setChangedName(true);
+      return;
+    }
+    if ((data == null ? void 0 : data.id) && !isEditForm) {
+      createChapter({
+        title: chapterName,
+        course_id: data.id,
+        image: chapterImage
+      }).then((res) => {
+        setModalOpen(false);
+      }).catch((err) => {
+        console.error(err);
+      });
+      setLoaderActive(true);
+    }
+    console.log(updatingChapterData);
+    if (isEditForm && updatingChapterData && updatingChapterData.course_id) {
+      updateChapter({
+        course_id: updatingChapterData.course_id,
+        id: Number(updatingChapterData.id),
+        title: chapterName,
+        image: chapterImage
+      }).then((res) => {
+        if ("data" in res) {
+          changeChapter(res.data.data);
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
         }
       };
       const handleConfirm = () => {
@@ -82313,6 +82859,7 @@ Read more: ${A2}#error-${t4}`;
           setChangedName(false);
           setTestsData(data.data.tests);
         }
+<<<<<<< HEAD
       }, [data, isError, isFetching, setTestsData]);
       reactExports.useEffect(() => {
         if (!editor$1 && !isFetching && !data) {
@@ -82326,6 +82873,69 @@ Read more: ${A2}#error-${t4}`;
           } catch (e2) {
             console.error(e2);
           }
+=======
+      },
+      data: editor2,
+      onReady: (editor22) => {
+        console.log("Editor is ready to use!", editor22);
+      },
+      onChange: (event, editor22) => {
+        setEditor(editor22.getData());
+        onChange(editor22.getData());
+      },
+      onBlur: (event, editor22) => {
+      },
+      onFocus: (event, editor22) => {
+      }
+    }
+  ) });
+}
+let editor$2;
+function CreateLessonForm({ type }) {
+  const { themeId, courseId, chapterId, lessonId } = useParams();
+  const { data, isError, isFetching } = useGetLessonByIdQuery(`${lessonId}`, {
+    skip: !lessonId
+  });
+  const tests = useTypedSelector((state) => state.lesson.tests);
+  const { addEmptyTest, setTestsData, setLoaderActive, resetTestsData } = useActions();
+  const [createLesson] = useCreateLessonMutation();
+  const [updateLesson] = useUpdateLessonMutation();
+  const [lessonName, setLessonName] = reactExports.useState("");
+  const [isValidName, setValidName] = reactExports.useState(false);
+  const [isChangedName, setChangedName] = reactExports.useState(false);
+  const navigation = useNavigate();
+  const [ckEditorData, setCkEditorData] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (data) {
+      setLessonName(data.data.title);
+      setValidName(true);
+      setChangedName(false);
+      setTestsData(data.data.tests);
+    }
+    return () => {
+      resetTestsData();
+    };
+  }, [data, isError, isFetching, setTestsData]);
+  reactExports.useEffect(() => {
+    if (!editor$2 && !isFetching && !data) {
+      try {
+        editor$2 = new Bi({
+          holder: "editorjs",
+          tools: EDITOR_JS_TOOLS,
+          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
+          inlineToolbar: true
+        });
+      } catch (e2) {
+        console.error(e2);
+      }
+    }
+    return () => {
+      if (editor$2) {
+        try {
+          editor$2.destroy();
+        } catch (err) {
+          console.log(err);
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
         }
         return () => {
           if (editor$1) {
@@ -82453,7 +83063,74 @@ Read more: ${A2}#error-${t4}`;
         )
       ] });
     }
+<<<<<<< HEAD
     const ChangeBodyBg$2 = at$1`
+=======
+    createLesson({
+      title: lessonName,
+      theme_id: Number(themeId),
+      description: ckEditorData || "",
+      tests: testsDataWithoutFrontIds
+    }).then((res) => {
+      if ("data" in res && res.data.result) {
+        navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+    setLoaderActive(true);
+  };
+  const controlsData = {
+    names: {
+      confirm: type === "create" ? "Создать урок" : "Сохранить",
+      cancel: "Отмена"
+    },
+    handlers: {
+      confirm: handleConfirm,
+      cancel: () => {
+        navigation(`/courses/${courseId}/${chapterId}/${themeId}`);
+      }
+    }
+  };
+  const handleAddEmptyTest = () => {
+    addEmptyTest();
+  };
+  const handleSetCkEditorData = (data2) => {
+    setCkEditorData(data2);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      LessonNameInput,
+      {
+        $isValid: isValidName,
+        $isChanged: isChangedName,
+        value: lessonName,
+        onChange: handleChange,
+        type: "text",
+        placeholder: "Введите название урока (обязательно)"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.description) || "", type }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
+      tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AddTestIcon, {}),
+        "добавить тест"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$2, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormControls,
+      {
+        ...controlsData,
+        containerStyles: { padding: "25px 0px 25px" }
+      }
+    )
+  ] });
+}
+const ChangeBodyBg$2 = at$1`
+>>>>>>> d10206f6c57727ee3fdb2497fbdcbd47ce62f281
   body {
     background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
