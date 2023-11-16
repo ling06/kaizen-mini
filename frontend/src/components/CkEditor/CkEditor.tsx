@@ -1,6 +1,6 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './styles';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -20,7 +20,7 @@ export function CkEditor({ onChange, data="" }: ICkEditorProps) {
         editor={Editor.Editor}
         data={editor}
         config={{
-          removePlugins: ['ImageInsert', 'AutoFormat', 'Markdown'],
+          // removePlugins: ['ImageInsert', 'AutoFormat', 'Markdown', 'MediaEmbedToolbar'],
           simpleUpload: {
             uploadUrl: '/api/course/upload-temp-image',
             headers: {

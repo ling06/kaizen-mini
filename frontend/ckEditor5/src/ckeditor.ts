@@ -5,8 +5,8 @@
 
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 
-import { Alignment } from '@ckeditor/ckeditor5-alignment';
-import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
+// import { Alignment } from '@ckeditor/ckeditor5-alignment';
+// import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
 import { Autosave } from '@ckeditor/ckeditor5-autosave';
 import {
 	Bold,
@@ -36,7 +36,7 @@ import {
 	AutoImage,
 	Image,
 	ImageCaption,
-	ImageInsert,
+	// ImageInsert,
 	ImageResize,
 	ImageStyle,
 	ImageToolbar,
@@ -45,17 +45,17 @@ import {
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
 import { TextPartLanguage } from '@ckeditor/ckeditor5-language';
 import { AutoLink, Link, LinkImage } from '@ckeditor/ckeditor5-link';
-import { List, ListProperties, TodoList } from '@ckeditor/ckeditor5-list';
-import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
-import { MediaEmbed, MediaEmbedToolbar } from '@ckeditor/ckeditor5-media-embed';
+import { List /*,ListProperties, TodoList*/ } from '@ckeditor/ckeditor5-list';
+// import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
+import { MediaEmbed/*, MediaEmbedToolbar*/ } from '@ckeditor/ckeditor5-media-embed';
 import { Mention } from '@ckeditor/ckeditor5-mention';
-import { PageBreak } from '@ckeditor/ckeditor5-page-break';
+// import { PageBreak } from '@ckeditor/ckeditor5-page-break';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { RemoveFormat } from '@ckeditor/ckeditor5-remove-format';
 import { StandardEditingMode } from '@ckeditor/ckeditor5-restricted-editing';
 import { SelectAll } from '@ckeditor/ckeditor5-select-all';
-import { ShowBlocks } from '@ckeditor/ckeditor5-show-blocks';
+// import { ShowBlocks } from '@ckeditor/ckeditor5-show-blocks';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 import {
 	SpecialCharacters,
@@ -85,10 +85,10 @@ import { WordCount } from '@ckeditor/ckeditor5-word-count';
 
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
-		Alignment,
+		// Alignment,
 		AutoImage,
 		AutoLink,
-		Autoformat,
+		// Autoformat,
 		Autosave,
 		BlockQuote,
 		Bold,
@@ -108,7 +108,7 @@ class Editor extends ClassicEditor {
 		HtmlEmbed,
 		Image,
 		ImageCaption,
-		ImageInsert,
+		// ImageInsert,
 		ImageResize,
 		ImageStyle,
 		ImageToolbar,
@@ -119,17 +119,17 @@ class Editor extends ClassicEditor {
 		Link,
 		LinkImage,
 		List,
-		ListProperties,
-		Markdown,
+		// ListProperties,
+		// Markdown,
 		MediaEmbed,
-		MediaEmbedToolbar,
+		// MediaEmbedToolbar,
 		Mention,
-		PageBreak,
+		// PageBreak,
 		Paragraph,
 		PasteFromOffice,
 		RemoveFormat,
 		SelectAll,
-		ShowBlocks,
+		// ShowBlocks,
 		SimpleUploadAdapter,
 		SourceEditing,
 		SpecialCharacters,
@@ -152,7 +152,7 @@ class Editor extends ClassicEditor {
 		TableToolbar,
 		TextPartLanguage,
 		TextTransformation,
-		TodoList,
+		// TodoList,
 		Underline,
 		WordCount
 	];
@@ -160,35 +160,40 @@ class Editor extends ClassicEditor {
 	public static override defaultConfig = {
 		toolbar: {
 			items: [
+				'undo',
+				'redo',
+				'|',
 				'heading',
 				'|',
 				'bold',
 				'italic',
+				'underline',
+				'strikethrough',
+				'removeFormat',
 				'link',
+				'|',
 				'bulletedList',
 				'numberedList',
-				'|',
-				'outdent',
-				'indent',
+				// '|',
+				// 'outdent',
+				// 'indent',
 				'|',
 				'imageUpload',
-				'blockQuote',
-				'insertTable',
 				'mediaEmbed',
-				'undo',
-				'redo',
-				'alignment',
-				'findAndReplace',
-				'highlight',
+				'|',
+				'insertTable',
+				'blockQuote',
 				'horizontalLine',
-				'imageInsert',
-				'pageBreak',
-				'removeFormat',
-				'showBlocks',
+				// 'alignment',
+				// 'highlight',
+				// 'imageInsert',
+				// 'pageBreak',
+				// 'showBlocks',
+				'|',
 				'specialCharacters',
-				'strikethrough',
 				'superscript',
-				'underline'
+				'|',
+				'findAndReplace',
 			]
 		},
 		language: 'ru',
