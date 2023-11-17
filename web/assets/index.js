@@ -36381,7 +36381,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
     }
-    const externalLinkIcon = "/assets/external-link.svg";
+    const externalLinkIcon = "/assets/moreIcon.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -82592,6 +82592,7 @@ Read more: ${A2}#error-${t4}`;
         /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
       ] }) });
     }
+    const crossCategory = "/assets/cross-category.svg";
     const Title$1 = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
@@ -82616,7 +82617,7 @@ Read more: ${A2}#error-${t4}`;
   width: 100%;
   height: 1px;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 50%;
@@ -82635,20 +82636,58 @@ Read more: ${A2}#error-${t4}`;
   align-items: center;
   width: fit-content;
   padding: 0 20px;
-  margin-bottom: 115px;
 `;
     const AddIcon = st$1(Icon$2)`
   margin-right: 10px;
   background-image: url(${addIcon});
 `;
-    const CategoriesList$1 = st$1(FlexContainer)`
-  flex-direction: column;
-  row-gap: 10px;
-  margin-bottom: 20px;
+    const AddCategoryBtn$1 = st$1(DefaultBtn)`
+  width: 40px;
+  min-height: 40px;
+  padding: 0;
+  background-image: url(${addIcon});
+  background-position: center;
+  background-repeat: no-repeat;
 `;
-    const Category$1 = st$1(Text$6)``;
+    const CategoriesList$1 = st$1(FlexContainer)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 10px;
+  margin-bottom: 115px;
+`;
+    const Category$1 = st$1(FlexContainer)`
+  width: unset;
+  align-items: center;
+  padding: 9px 18px 9px 27px;
+  border-radius: 63px;
+  background-color: ${(props) => props.theme.colors.greyF1};
+`;
+    const CategoryText = st$1(Text$6)`
+  margin-right: 8px;
+
+  color: ${(props) => props.theme.colors.grey93};
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 120%;
+`;
+    const CategoryImgDelete = st$1(Icon$2)`
+  background-image: url(${crossCategory});
+  &:hover {
+    transform: rotate(180deg);
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
+`;
     function CreateNewsForm({ type }) {
-      const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
+      const {
+        setModalOpen,
+        setModalType,
+        setNewsCategories,
+        setLoaderActive,
+        deleteNewsCategory
+      } = useActions();
       const [createNews] = useCreateNewsMutation();
       const navigate = useNavigate();
       const { newsId } = useParams();
@@ -82705,7 +82744,9 @@ Read more: ${A2}#error-${t4}`;
           }).catch((err) => {
             setLoaderActive(false);
             console.error(err);
-            alert("Произошла ошибка при редактировании новости. Попробуйте ещё раз!");
+            alert(
+              "Произошла ошибка при редактировании новости. Попробуйте ещё раз!"
+            );
           });
           setLoaderActive(true);
         }
@@ -82737,6 +82778,9 @@ Read more: ${A2}#error-${t4}`;
       const handleSetCkEditorData = (data2) => {
         setCkEditorData(data2);
       };
+      const handleСancelCategori = (category) => {
+        deleteNewsCategory({ id: category });
+      };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -82751,10 +82795,23 @@ Read more: ${A2}#error-${t4}`;
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "" }),
-        categories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList$1, { children: categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsx(Category$1, { children: category.title })) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
-          "добавить категории"
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(CategoriesList$1, { children: [
+          categories.length > 0 && categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Category$1, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CategoryText, { children: category.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CategoryImgDelete,
+              {
+                onClick: () => {
+                  if (category.id !== void 0)
+                    handleСancelCategori(category.id);
+                }
+              }
+            )
+          ] }, category.id)),
+          categories.length == 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
+            "Добавить категории"
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(AddCategoryBtn$1, { onClick: handleOpenCategoriesModal })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Divider$1, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -82904,9 +82961,19 @@ Read more: ${A2}#error-${t4}`;
   padding: 0;
   background-color: transparent;
   background-image: url(${saveIcon});
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease linear;
+  }
 `;
     const DeleteBtn = st$1(SaveBtn)`
   background-image: url(${deleteIcon$1});
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: transform 0.3s ease linear;
+  }
 `;
     const checkboxIcon = "/assets/checkbox.svg";
     const checkboxIconChecked = "/assets/checkbox-checked.svg";
@@ -83036,7 +83103,7 @@ line-height100%`;
       ] });
     }
     function NewsCategoryForm() {
-      const { data, isError, isFetching } = useGetNewsCategoryQuery();
+      const { data, isError, isFetching, isLoading } = useGetNewsCategoryQuery();
       const [createCategory] = useCreateNewsCategoryMutation();
       const [deleteCategory] = useDeleteNewsCategoryMutation();
       const [updateCategory] = useUpdateNewsCategoryMutation();
@@ -83085,7 +83152,7 @@ line-height100%`;
           handlers,
           names,
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isFetching && data.data.map((category) => {
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isLoading && data.data.map((category) => {
               const isAdded = currentCategories.some((cat) => cat.id === category.id);
               if (category.is_deleted) {
                 return null;

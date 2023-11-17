@@ -7,7 +7,7 @@ import { useActions } from '@/hooks/useActions';
 import { INewsCategory } from '@/types/news.types';
 
 export function NewsCategoryForm() {
-  const { data, isError, isFetching } = useGetNewsCategoryQuery();
+  const { data, isError, isFetching, isLoading } = useGetNewsCategoryQuery();
   const [createCategory] = useCreateNewsCategoryMutation();
   const [deleteCategory] = useDeleteNewsCategoryMutation();
   const [updateCategory] = useUpdateNewsCategoryMutation();
@@ -66,7 +66,7 @@ export function NewsCategoryForm() {
       <S.CategoriesList>
         {data &&
           !isError &&
-          !isFetching &&
+          !isLoading &&
           data.data.map((category) => {
             const isAdded = currentCategories.some((cat) => cat.id === category.id);
             if (category.is_deleted) {
