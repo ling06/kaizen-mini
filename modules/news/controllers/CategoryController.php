@@ -52,13 +52,15 @@ class CategoryController extends ApiController
         $category = NewsCategory::findOne($id);
 //        var_dump($category); die;
         if (!$category) {
-            return $this->asJson(['status' => 'error', 'message' => 'Category not found']);
+            return ['status' => 'error', 'message' => 'Category not found'];
         }
         if(NewsCategories::find()->where(['news_category_id' => $id])->count() > 0){
-            return $this->asJson(['status' => 'error', 'message' => 'Category has news']);
+            return ['status' => 'error', 'message' => 'Category has news'];
         }
-        $category->delete();
-        return $this->asJson(['status' => 'success', 'message' => 'Category deleted']);
+        if($category->delete()){
+            return ['status' => 'success', 'message' => 'Category deleted'];
+        }
+        return ['status' => 'error', 'message' => 'something went wrong'];
     }
 
     public function actions(): array
