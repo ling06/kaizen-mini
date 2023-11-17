@@ -36381,7 +36381,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
     }
-    const externalLinkIcon = "/assets/external-link.svg";
+    const externalLinkIcon = "/assets/moreIcon.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
