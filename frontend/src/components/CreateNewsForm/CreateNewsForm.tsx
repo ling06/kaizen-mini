@@ -23,7 +23,10 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     setNewsCategories,
     setLoaderActive,
     deleteNewsCategory,
+    // updateNewsCategories
   } = useActions();
+  
+  // const updateNewsCategory = useSelector(updateNewsCategories)
   const [createNews] = useCreateNewsMutation();
   const navigate = useNavigate();
   const { newsId } = useParams();
@@ -36,6 +39,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   });
   const [updateNews] = useUpdateNewsMutation();
   const [ckEditorData, setCkEditorData] = useState<string>("");
+  const [isNameCategory, setNameCategory] = useState(false);
 
   useEffect(() => {
     if (type === "edit" && data) {
@@ -44,7 +48,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
     }
-  }, [data, setNewsCategories, type]);
+  }, [data, setNewsCategories, type, isNameCategory,]);
 
   const handleConfirm = async () => {
     // const editorData = await editor?.save().then((data) => data);
@@ -152,7 +156,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       <S.CategoriesList>
         {categories.length > 0 &&
           categories.map((category) => (
-            <S.Category key={category.id}>
+            <S.Category>
               <S.CategoryText>{category.title}</S.CategoryText>
               <S.CategoryImgDelete
                 onClick={() => {

@@ -7,6 +7,7 @@ interface INewsInitialState {
 interface INewsCategory {
   id?: number;
   title?: string;
+
 }
 
 const initialState: INewsInitialState = {

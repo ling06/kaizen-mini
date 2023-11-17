@@ -82687,6 +82687,7 @@ Read more: ${A2}#error-${t4}`;
         setNewsCategories,
         setLoaderActive,
         deleteNewsCategory
+        // updateNewsCategories
       } = useActions();
       const [createNews] = useCreateNewsMutation();
       const navigate = useNavigate();
@@ -82700,6 +82701,7 @@ Read more: ${A2}#error-${t4}`;
       });
       const [updateNews] = useUpdateNewsMutation();
       const [ckEditorData, setCkEditorData] = reactExports.useState("");
+      const [isNameCategory, setNameCategory] = reactExports.useState(false);
       reactExports.useEffect(() => {
         if (type === "edit" && data) {
           setNewsName(data.data.title);
@@ -82707,7 +82709,7 @@ Read more: ${A2}#error-${t4}`;
           setChangedName(false);
           setNewsCategories(data.data.categories || []);
         }
-      }, [data, setNewsCategories, type]);
+      }, [data, setNewsCategories, type, isNameCategory]);
       const handleConfirm = async () => {
         if (!isValidName) {
           setChangedName(true);
@@ -82807,7 +82809,7 @@ Read more: ${A2}#error-${t4}`;
                 }
               }
             )
-          ] }, category.id)),
+          ] })),
           categories.length == 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategory, { onClick: handleOpenCategoriesModal, children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon, {}),
             "Добавить категории"
@@ -83107,7 +83109,9 @@ line-height100%`;
       const [createCategory] = useCreateNewsCategoryMutation();
       const [deleteCategory] = useDeleteNewsCategoryMutation();
       const [updateCategory] = useUpdateNewsCategoryMutation();
-      const currentCategories = useTypedSelector((state) => state.news.newsCategories);
+      const currentCategories = useTypedSelector(
+        (state) => state.news.newsCategories
+      );
       const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
       const handleCreateCategory = () => {
         createCategory({ title: "Новая категория" }).then(() => {
@@ -83116,7 +83120,14 @@ line-height100%`;
         setLoaderActive(true);
       };
       const handleDeleteCategory = (id2) => {
-        deleteCategory({ id: id2 }).then(() => {
+        deleteCategory({ id: id2 }).then((res) => {
+          if (res.data.message === "Category has news") {
+            alert("Нельзя удалить категорию, в которой есть новости!");
+          } else if (res.data.message === "Category not found") {
+            alert("Неправильный Id категории!");
+          } else if (res.data.message === "Category deleted") {
+            alert("Категория успешно удалена.");
+          }
           setLoaderActive(false);
         });
         setLoaderActive(true);
@@ -83145,39 +83156,33 @@ line-height100%`;
         cancel: "Отмена",
         confirm: "Сохранить"
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        ModalForm,
-        {
-          width: "510px",
-          handlers,
-          names,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isLoading && data.data.map((category) => {
-              const isAdded = currentCategories.some((cat) => cat.id === category.id);
-              if (category.is_deleted) {
-                return null;
-              }
-              return /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Category,
-                {
-                  data: category,
-                  isAdded,
-                  onDelete: () => {
-                    handleDeleteCategory(category.id);
-                  },
-                  onSave: handleUpdateCategory,
-                  onToggle: () => handeleToggleCategory(isAdded, category)
-                },
-                category.id
-              );
-            }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategoryBtn, { onClick: handleCreateCategory, children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(AddCategoryIcon, {}),
-              "добавить категорию"
-            ] })
-          ]
-        }
-      );
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalForm, { width: "510px", handlers, names, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CategoriesList, { children: data && !isError && !isLoading && data.data.map((category) => {
+          const isAdded = currentCategories.some(
+            (cat) => cat.id === category.id
+          );
+          if (category.is_deleted) {
+            return null;
+          }
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Category,
+            {
+              data: category,
+              isAdded,
+              onDelete: () => {
+                handleDeleteCategory(category.id);
+              },
+              onSave: handleUpdateCategory,
+              onToggle: () => handeleToggleCategory(isAdded, category)
+            },
+            category.id
+          );
+        }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCategoryBtn, { onClick: handleCreateCategory, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AddCategoryIcon, {}),
+          "добавить категорию"
+        ] })
+      ] });
     }
     const ChangeBodyBg = at$1`
   body {

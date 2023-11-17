@@ -1,29 +1,44 @@
-import { useCreateNewsCategoryMutation, useDeleteNewsCategoryMutation, useGetNewsCategoryQuery, useUpdateNewsCategoryMutation } from '@/store/api/newsCategory.api';
-import { ModalForm } from '../ModalForm';
-import * as S from './styles';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { Category } from './Category';
-import { useActions } from '@/hooks/useActions';
-import { INewsCategory } from '@/types/news.types';
+import {
+  useCreateNewsCategoryMutation,
+  useDeleteNewsCategoryMutation,
+  useGetNewsCategoryQuery,
+  useUpdateNewsCategoryMutation,
+} from "@/store/api/newsCategory.api";
+import { ModalForm } from "../ModalForm";
+import * as S from "./styles";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { Category } from "./Category";
+import { useActions } from "@/hooks/useActions";
+import { INewsCategory } from "@/types/news.types";
+
 
 export function NewsCategoryForm() {
   const { data, isError, isFetching, isLoading } = useGetNewsCategoryQuery();
   const [createCategory] = useCreateNewsCategoryMutation();
   const [deleteCategory] = useDeleteNewsCategoryMutation();
   const [updateCategory] = useUpdateNewsCategoryMutation();
-  const currentCategories = useTypedSelector((state) => state.news.newsCategories);
-  const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
-
+  const currentCategories = useTypedSelector(
+    (state) => state.news.newsCategories
+  );
+  const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen,  } =
+    useActions();
 
   const handleCreateCategory = () => {
-    createCategory({ title: 'Новая категория' }).then(() => {
+    createCategory({ title: "Новая категория" }).then(() => {
       setLoaderActive(false);
     });
     setLoaderActive(true);
   };
 
   const handleDeleteCategory = (id: number) => {
-    deleteCategory({ id }).then(() => {
+    deleteCategory({ id }).then((res) => {
+      if (res.data.message === "Category has news") {
+        alert("Нельзя удалить категорию, в которой есть новости!");
+      } else if (res.data.message === "Category not found") {
+        alert("Неправильный Id категории!");
+      } else if (res.data.message === "Category deleted") {
+        alert("Категория успешно удалена.");
+      }
       setLoaderActive(false);
     });
     setLoaderActive(true);
@@ -46,7 +61,7 @@ export function NewsCategoryForm() {
 
   const handleClose = () => {
     setModalOpen(false);
-  }
+  };
 
   const handlers = {
     cancel: handleClose,
@@ -54,21 +69,20 @@ export function NewsCategoryForm() {
   };
 
   const names = {
-    cancel: 'Отмена',
-    confirm: 'Сохранить',
+    cancel: "Отмена",
+    confirm: "Сохранить",
   };
 
   return (
-    <ModalForm
-      width="510px"
-      handlers={handlers}
-      names={names}>
+    <ModalForm width="510px" handlers={handlers} names={names}>
       <S.CategoriesList>
         {data &&
           !isError &&
           !isLoading &&
           data.data.map((category) => {
-            const isAdded = currentCategories.some((cat) => cat.id === category.id);
+            const isAdded = currentCategories.some(
+              (cat) => cat.id === category.id
+            );
             if (category.is_deleted) {
               return null;
             }
