@@ -56,7 +56,7 @@ export const lessonApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => ['ChapterById', 'LessonById'],
+      invalidatesTags: () => ['ChapterById', 'LessonById', 'Courses'],
     }),
   }),
   overrideExisting: false,

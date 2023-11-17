@@ -11,6 +11,7 @@ export const ModalLayout = styled.div`
   height: 100vh;
   background-color: transparent;
   animation: overlayEntrance 0.3s ease-out forwards;
+  z-index: ${props => props.theme.utils.zIndex.darkOverlay};
   @media ${(props) => props.theme.media.mobile} {
     animation: unset;
   }

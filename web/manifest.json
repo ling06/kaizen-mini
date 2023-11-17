@@ -18,10 +18,10 @@
       "assets/editIconRed.svg",
       "assets/deleteIcon.svg",
       "assets/visibleIcon.svg",
-      "assets/defaultCoursePreview.png",
+      "assets/course-stub-img.webp",
       "assets/arrowRight.svg",
       "assets/loadingLogo.svg",
-      "assets/defaultCardImg.png",
+      "assets/stub-course-program.webp",
       "assets/dnd-btn.svg",
       "assets/forwardIcon.svg",
       "assets/forwardIconDisabled.svg",
@@ -45,7 +45,7 @@
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
       "assets/book.svg",
-      "assets/home.svg",
+      "assets/Home.svg",
       "assets/Save.svg",
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
@@ -147,6 +147,10 @@
     "file": "assets/Montserrat-SemiBold.woff2",
     "src": "src/assets/fonts/Montserrat-SemiBold.woff2"
   },
+  "src/assets/images/Home.svg": {
+    "file": "assets/Home.svg",
+    "src": "src/assets/images/Home.svg"
+  },
   "src/assets/images/Save.svg": {
     "file": "assets/Save.svg",
     "src": "src/assets/images/Save.svg"
@@ -215,13 +219,9 @@
     "file": "assets/close-icon.svg",
     "src": "src/assets/images/close-icon.svg"
   },
-  "src/assets/images/defaultCardImg.png": {
-    "file": "assets/defaultCardImg.png",
-    "src": "src/assets/images/defaultCardImg.png"
-  },
-  "src/assets/images/defaultCoursePreview.png": {
-    "file": "assets/defaultCoursePreview.png",
-    "src": "src/assets/images/defaultCoursePreview.png"
+  "src/assets/images/course-stub-img.webp": {
+    "file": "assets/course-stub-img.webp",
+    "src": "src/assets/images/course-stub-img.webp"
   },
   "src/assets/images/deleteIcon-white.svg": {
     "file": "assets/deleteIcon-white.svg",
@@ -271,10 +271,6 @@
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
   },
-  "src/assets/images/home.svg": {
-    "file": "assets/home.svg",
-    "src": "src/assets/images/home.svg"
-  },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
     "src": "src/assets/images/imagesIcon.svg"
@@ -310,6 +306,10 @@
   "src/assets/images/star.svg": {
     "file": "assets/star.svg",
     "src": "src/assets/images/star.svg"
+  },
+  "src/assets/images/stub-course-program.webp": {
+    "file": "assets/stub-course-program.webp",
+    "src": "src/assets/images/stub-course-program.webp"
   },
   "src/assets/images/swiperArrowLeft.svg": {
     "file": "assets/swiperArrowLeft.svg",

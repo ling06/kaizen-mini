@@ -3,8 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  margin-left: auto;
   @media ${(props) => props.theme.media.mobile} {
     justify-content: flex-start;
+    margin: 0 auto 0 0 ;
+    
   }
 `;
 

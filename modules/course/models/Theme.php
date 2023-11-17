@@ -59,6 +59,7 @@ class Theme extends \app\components\ActiveRecord
             [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['is_deleted'], 'boolean'],
             [['is_deleted'], 'default', 'value' => false],
+            [['position'], 'integer']
         ];
     }
 

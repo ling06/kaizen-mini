@@ -1,33 +1,29 @@
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
-import { useCheckLessonMutation, useDeleteLessonMutation, useGetLessonByIdQuery, useRestoreLessonMutation } from '@/store/api/lesson.api';
+import {
+  useCheckLessonMutation,
+  useDeleteLessonMutation,
+  useGetLessonByIdQuery,
+  useRestoreLessonMutation,
+} from '@/store/api/lesson.api';
 import { AdminBtn } from '../AdminBtn';
 import { CkEditorOutput } from '../CkEditorOutput';
 import { useEffect, useMemo, useState } from 'react';
-// import { ILesson } from '@/types/lesson.types';
 import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
-// import { IEditorJsData } from '@/types/editorJs.types';
-// import { useEditorOutput } from '@/hooks/useEditorOutput';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
-
-// interface IEditorLessonData extends Omit<ILesson, 'description'> {
-//   description: IEditorJsData;
-// }
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();
-  const { courseId,lessonId, chapterId } = useParams();
+  const { courseId, lessonId, chapterId } = useParams();
   const chapterData = useGetChapterByIdQuery(Number(chapterId), {
     skip: !chapterId,
   });
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
-  
-  // const [editorData, setEditorData] = useState<Array<IEditorLessonData['description']>>([]);
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
     skip: !lessonId,
   });
@@ -42,9 +38,8 @@ export function CourseContent() {
     }
   }, [data?.data.tests]);
 
-  // const editorOutput = useEditorOutput(editorData);
-
   useEffect(() => {
+    setLoaderActive(isFetching);
     if (
       isFetching ||
       data?.data.isChecked ||
@@ -56,34 +51,31 @@ export function CourseContent() {
     }
   }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed]);
 
-  // useEffect(() => {
-  //   if (data?.data.description && !isFetching) {
-  //     const parsedData = JSON.parse(data?.data.description);
-  //     setEditorData(parsedData);
-  //   }
-  //   setLoaderActive(isFetching);
-  // }, [data, isFetching, setLoaderActive]);
-
   const handleCheckLesson = () => {
     if (data && data.data.id) {
       checkLesson({ id: data.data.id }).then((res) => {
-        if(!('data' in res) || ('data' in res) && !res.data.data) {
+        if (!('data' in res) || ('data' in res && !res.data.data)) {
           return;
         }
         //TODO: надо дополнить эндроинт под вот это все
-        if(!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
+        if (!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
           return;
         }
-          const theme = chapterData.data?.data.themes.find((theme) => theme.id === res.data.data.theme_id);
-          if(!theme || !theme?.lessons) {
-            return;
-          }
-          const index = theme?.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
-          if(index && index !== -1 && theme?.lessons.length > index + 1) {
-            navigate(`/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${theme.lessons[index + 1].id}`);
-          }
-          
-        
+        const theme = chapterData.data?.data.themes.find(
+          (theme) => theme.id === res.data.data.theme_id
+        );
+        if (!theme || !theme?.lessons) {
+          return;
+        }
+        const index = theme?.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
+        if (index && index !== -1 && theme?.lessons.length > index + 1) {
+          navigate(
+            `/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${
+              theme.lessons[index + 1].id
+            }`
+          );
+        }
+
         setLoaderActive(false);
       });
       setLoaderActive(true);
@@ -110,7 +102,7 @@ export function CourseContent() {
   };
 
   const handleEditLesson = () => {
-    if(data) {
+    if (data) {
       navigate(
         generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson`, {
           courseId: String(courseId),
@@ -123,7 +115,7 @@ export function CourseContent() {
   };
 
   const handleDeleteLesson = () => {
-    if(!data) return;
+    if (!data) return;
     deleteLesson({
       id: Number(data.data.id),
     });
@@ -131,7 +123,7 @@ export function CourseContent() {
   };
 
   const handleRestoreLesson = () => {
-    if(!data) return;
+    if (!data) return;
     restoreLesson({
       id: Number(data.data.id),
     });
@@ -161,10 +153,11 @@ export function CourseContent() {
           </S.Title>
           <S.Container>
             <CkEditorOutput data={data.data.description} />
-            {/* <div dangerouslySetInnerHTML={{ __html: data.data.description }} className='ck-content'/> */}
-            {/* <S.EditorOutput>{editorOutput}</S.EditorOutput> */}
             {data.data.tests.length > 0 && renderLessonTests()}
-            {data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()}
+            {data.data.description.length > 0 &&
+              !isFetching &&
+              !data.data.isChecked &&
+              renderForwardButton()}
           </S.Container>
         </>
       )}

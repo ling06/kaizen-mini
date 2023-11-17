@@ -11,6 +11,8 @@ import {
   useUpdateCompetitionMutation,
 } from '@/store/api/competition.api';
 import { IEditorJsData } from '@/types/editorJs.types';
+import { MediaQueries } from '../../constants';
+import { useMediaQuery } from '@mui/material';
 
 interface ICompetitionCard {
   data: ICompetition;
@@ -24,28 +26,18 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
   const [restoreCompetition] = useRestoreCompetitionMutation();
   const [updateCompetition] = useUpdateCompetitionMutation();
   const [competitionDescr, setCompetitionDescr] = useState<string>('');
+  const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
     const ckEditorData = data.text || '';
-    const regex = /<p>([^<]+)<\/p>/g;
-    const matches = ckEditorData.match(regex);
-    
-    let firstParagraph = null;
-    if (matches) {
-      for (const match of matches) {
-        const text = match.replace(/<[^>]+>/g, '').replace('&nbsp;', '').trim();
-        if (text.length > 1) {
-          firstParagraph = text;
-          break;
-        }
-      }
-    }
-    if(firstParagraph) {
-      setCompetitionDescr(firstParagraph);
+    const regex = /(<([^>]+)>)/gi;
+    const nbsp = /&nbsp;/gi;
+    const stringWithoutTags = ckEditorData.replace(regex, '').replace(nbsp, ' ');
+
+    if (stringWithoutTags) {
+      setCompetitionDescr(stringWithoutTags);
     }
   }, [data.text]);
-
-  
 
   const { setLoaderActive, setUpdatingCompetitionData } = useActions();
   const [isDeleted, setDeleted] = useState<boolean>(!!data?.is_deleted);
@@ -90,8 +82,15 @@ export function Competition({ data, totalCount, index }: ICompetitionCard) {
       });
   };
 
+  const mobileNavigate = () => {
+    if (isMobile) {
+      navigate(`/news/competitions/${data.id}`, { replace: true });
+    }
+  };
+
   return (
     <S.Container
+      onClick={mobileNavigate}
       $isDeleted={isDeleted}
       $isVisible={Number(data.status) === 1}>
       <S.Head>

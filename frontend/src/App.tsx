@@ -31,7 +31,7 @@ function App() {
     if (data && !isLoading && !data.user) {
       const base64 = btoa(window.location.href);
       const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
-      window.location.href = redirectLink;
+      window.location.replace(redirectLink);
     }
   }, [data, isLoading]);
 
@@ -55,38 +55,42 @@ function App() {
             path="/*"
             element={<Main />}
           />
-          <Route
-            path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
-            element={<CreateLesson type="create" />}
-          />
-          <Route
-            path={'/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson'}
-            element={<CreateLesson type="edit" />}
-          />
+          {data && data.user && data.user.role === 'admin' && (
+            <>
+              <Route
+                path={'/courses/:courseId/:chapterId/:themeId/create-lesson'}
+                element={<CreateLesson type="create" />}
+              />
+              <Route
+                path={'/news/edit-news/:newsId'}
+                element={<CreateNews type={'edit'} />}
+              />
+              <Route
+                path={'/news/competition/create-competition'}
+                element={<CreateCompetition type="create" />}
+              />
+              <Route
+                path={'/news/competition/edit-competition/:competitionId'}
+                element={<CreateCompetition type="edit" />}
+              />
+              <Route
+                path={'/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson'}
+                element={<CreateLesson type="edit" />}
+              />
+              <Route
+                path={'/news/create-news'}
+                element={<CreateNews type={'create'} />}
+              />
+            </>
+          )}
           {isMobile && (
             <Route
               path={'/courses/:courseId/:chapterId/:themeId?/:lessonId?'}
               element={<CourseMob />}
             />
           )}
-          <Route
-            path={'/news/create-news'}
-            element={<CreateNews type={'create'} />}
-          />
-          <Route
-            path={'/news/edit-news/:newsId'}
-            element={<CreateNews type={'edit'} />}
-          />
-          <Route
-            path={'/news/competition/create-competition'}
-            element={<CreateCompetition type="create" />}
-          />
-          <Route
-            path={'/news/competition/edit-competition/:competitionId'}
-            element={<CreateCompetition type="edit" />}
-          />
         </Routes>
-        {isModalOpen && (
+        {isModalOpen && data && data.user && data.user.role === 'admin' && (
           <ModalLayout modalType={modalType}>
             {modalType === MODAL_TYPES.createCourse && <CreateCourseForm />}
             {modalType === MODAL_TYPES.editCourse && <CreateCourseForm />}

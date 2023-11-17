@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
-import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateNewsMutation, useGetNewsByIdQuery, useUpdateNewsMutation } from '@/store/api/news.api';
@@ -13,8 +11,6 @@ import { CkEditor } from '../CkEditor';
 interface ICreateNewsFormProps {
   type: string;
 }
-
-let editor: undefined | EditorJS;
 
 export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
@@ -39,25 +35,6 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setNewsCategories(data.data.categories || []);
     }
   }, [data, setNewsCategories, type]);
-
-  useEffect(() => {
-    if (!editor && !data && !isFetching) {
-      try {
-        editor = new EditorJS({
-          holder: 'editorjs',
-          tools: EDITOR_JS_TOOLS,
-          i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
-          inlineToolbar: true,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    return () => {
-      editor = undefined;
-    };
-  }, [data, isFetching]);
 
   const handleConfirm = async () => {
     // const editorData = await editor?.save().then((data) => data);
@@ -153,7 +130,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} type={type}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""}/>
       {categories.length > 0 && (
         <S.CategoriesList>
           {categories.map((category) => (

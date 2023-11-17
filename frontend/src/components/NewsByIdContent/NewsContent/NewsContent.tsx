@@ -4,8 +4,6 @@ import { useDeleteNewsMutation, useGetNewsByIdQuery, useRestoreNewsMutation, use
 import { useActions } from '@/hooks/useActions';
 import { useEffect } from 'react';
 import { CkEditorOutput } from '@/components/CkEditorOutput';
-// import { IEditorJsData } from '@/types/editorJs.types';
-// import { useEditorOutput } from '@/hooks/useEditorOutput';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { NewsRequisites } from '@/components/NewsRequisites';
 import { Content } from '@/layouts/Content';
@@ -17,8 +15,6 @@ export function NewsContent() {
   const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
-  // const [editorData, setEditorData] = useState<Array<IEditorJsData>>([]);
-  // const editorOutput = useEditorOutput(editorData);
   const navigate = useNavigate();
   const [deleteNews] = useDeleteNewsMutation();
   const [restoreNews] = useRestoreNewsMutation();
@@ -27,13 +23,6 @@ export function NewsContent() {
   useEffect(() => {
     setLoaderActive(isFetching);
   }, [isFetching, setLoaderActive]);
-
-  // useEffect(() => {
-  //   if (data && data.data.text) {
-  //     const editorData: Array<IEditorJsData> = JSON.parse(data.data.text);
-  //     setEditorData(editorData);
-  //   }
-  // }, [data]);
 
   const handleEditNews = () => {
     if (!data) {
@@ -91,8 +80,6 @@ export function NewsContent() {
         <>
           <ContentTitle title={data.data.title} />
           <CkEditorOutput data={data.data.text} />
-          {/* <div dangerouslySetInnerHTML={{ __html: data.data.text }} className="ck-content"/> */}
-          {/* <S.EditorOutputContainer>{editorData && editorData.length > 0 && <>{editorOutput}</>}</S.EditorOutputContainer> */}
           <S.Bottom>
             <NewsRequisites
               author={data.data.user?.name || data.data.user_id}

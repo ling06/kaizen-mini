@@ -1,5 +1,5 @@
-import { IImage, IUploadedImage } from './image.types';
-import { ITheme } from './theme.types';
+import { IImage, IUploadedImage } from "./image.types";
+import { ITheme } from "./theme.types";
 
 export interface IChapter {
   id: number;
@@ -10,9 +10,13 @@ export interface IChapter {
   is_deleted: number;
   themes?: Array<ITheme>;
   image: IImage | null;
+  percentage: {
+    percentage: number;
+  };
 }
 
-export interface ICreateChapterData extends Pick<IChapter, 'title' | 'course_id'> {
+export interface ICreateChapterData
+  extends Pick<IChapter, "title" | "course_id"> {
   image: IUploadedImage | null | IImage;
 }
 

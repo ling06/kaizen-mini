@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { BurgerMenu } from './BurgerMenu';
 import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/constants';
+import { Link } from 'react-router-dom';
 
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
@@ -34,7 +35,9 @@ export function Header() {
       )}
       {!isMobile && (
         <>
-          <MainLogo />
+          <Link to="/news">
+            <MainLogo />
+          </Link>
           <Nav />
         </>
       )}

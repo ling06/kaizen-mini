@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -10,7 +10,10 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background-color: rgba(190, 190, 190, .5);
+  background-color: rgba(190, 190, 190, 0.5);
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
 `;
 
 export const Text = styled.p`

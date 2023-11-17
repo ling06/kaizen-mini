@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface INewsCategoryProps {
@@ -8,7 +8,7 @@ interface INewsCategoryProps {
 
 export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
   const navigate = useNavigate();
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>();
   const { data, isError, isLoading } = NewsCategory as {
     data: object;
     isError: boolean;
@@ -21,7 +21,22 @@ export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
   const updateText = (text: string) => {
     setTextNewsCategory(text);
   };
+  const popupRef = useRef<HTMLDivElement>(null);
   const currentURL = window.location.href;
+
+  const handleOutsideClick = (event: TouchEvent) => {
+    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleTouchStart = (event: TouchEvent) => handleOutsideClick(event);
+    document.addEventListener("touchstart", handleTouchStart);
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
 
   const handleGoToCategory = (id: number, text: string) => {
     navigate(`/news?category=${id}`);
@@ -38,7 +53,7 @@ export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
 
   return (
     <>
-      <S.dropMenu>
+      <S.dropMenu ref={popupRef}>
         <S.titleFilter onClick={handleToglePopupCategories}>
           {isTextNewsCategory}
         </S.titleFilter>
@@ -49,9 +64,10 @@ export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
           }}
         />
         <S.filterPopup style={{ display: isOpen ? "flex" : "none" }}>
-          {currentURL !==
-          `http://kaizen-mini.borboza.com/news` ? (
-            <S.titleFilter onClick={handleGoToAllNews}>Все новости</S.titleFilter>
+          {currentURL !== `http://kaizen-mini.borboza.com/news` ? (
+            <S.titleFilter onClick={handleGoToAllNews}>
+              Все новости
+            </S.titleFilter>
           ) : null}
           {!isError &&
             !isLoading &&
