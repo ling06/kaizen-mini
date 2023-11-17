@@ -6,6 +6,7 @@ use app\components\actions\CreateAction;
 use app\components\actions\DeleteAction;
 use app\components\actions\RestoreAction;
 use app\components\actions\UpdateAction;
+use app\modules\news\models\NewsCategories;
 use app\modules\news\models\NewsCategory;
 use Yii;
 use app\components\actions\GetAllAction;
@@ -46,6 +47,20 @@ class CategoryController extends ApiController
         ];
     }
 
+    public function actionDelete(){
+        $id = Yii::$app->request->getBodyParams('id');
+        $category = NewsCategory::findOne($id);
+//        var_dump($category); die;
+        if (!$category) {
+            return $this->asJson(['status' => 'error', 'message' => 'Category not found']);
+        }
+        if(NewsCategories::find()->where(['news_category_id' => $id])->count() > 0){
+            return $this->asJson(['status' => 'error', 'message' => 'Category has news']);
+        }
+        $category->delete();
+        return $this->asJson(['status' => 'success', 'message' => 'Category deleted']);
+    }
+
     public function actions(): array
     {
         $scopes = [];
@@ -72,12 +87,12 @@ class CategoryController extends ApiController
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
-            'delete' => [
-                'class' => DeleteAction::class,
-                'modelName' => NewsCategory::class,
-                'modelPk' => Yii::$app->request->getBodyParam('id'),
-                'isSoft' => true,
-            ],
+//            'delete' => [
+//                'class' => DeleteAction::class,
+//                'modelName' => NewsCategory::class,
+//                'modelPk' => Yii::$app->request->getBodyParam('id'),
+//                'isSoft' => true,
+//            ],
             'restore' => [
                 'class' => RestoreAction::class,
                 'modelName' => NewsCategory::class,
