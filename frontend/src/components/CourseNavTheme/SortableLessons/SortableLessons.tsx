@@ -73,7 +73,7 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
       <SortableContext items={lessons.map((lesson) => lesson.id)}>
         {lessons.length > 0 &&
           lessons.map((lesson) => (
-            <SortableItem key={lesson.id} id={lesson.id} data={lesson}>
+            <SortableItem key={lesson.id} id={lesson.id} data={lesson} isDraggable={lesson.isDraggable}>
               <CourseNavLesson
                 key={lesson.id}
                 data={lesson}
