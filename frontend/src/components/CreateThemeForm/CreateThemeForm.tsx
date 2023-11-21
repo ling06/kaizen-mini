@@ -49,7 +49,7 @@ export function CreateThemeForm() {
       updateTheme({
         id: themeData.id,
         title: themeName,
-        chapter_id: themeData?.chapter_id,
+        position: themeData.position,
       }).then((res) => {
         if ('data' in res) {
           setModalOpen(false);

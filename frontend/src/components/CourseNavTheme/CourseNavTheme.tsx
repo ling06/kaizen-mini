@@ -1,5 +1,4 @@
 import { AdminBtn } from '../AdminBtn';
-import { CourseNavLesson } from '../CourseNavLesson';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
@@ -12,8 +11,7 @@ import { useActions } from '@/hooks/useActions';
 import { useMemo } from 'react';
 import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
+import { SortableLessons } from './SortableLessons';
 
 interface ICourseNavTheme {
   data: ITheme;
@@ -34,7 +32,6 @@ export function CourseNavTheme({
   const [restoreTheme] = useRestoreThemeMutation();
   const navigate = useNavigate();
   const { themeId } = useParams();
-  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
 
   const isThemeChecked = useMemo(() => {
     if (data.lessons && data.lessons.length > 0) {
@@ -111,16 +108,14 @@ export function CourseNavTheme({
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>
             <S.AccSum>
-              {userRole === 'admin' && (
-                <DndBtn
-                  onMouseEnter={() => {
-                    setDraggable();
-                    handleCloseAccordion();
-                  }}
-                  onMouseLeave={setNotDraggable}
-                  styles={{ marginRight: '20px' }}
-                />
-              )}
+              <DndBtn
+                onMouseEnter={() => {
+                  setDraggable();
+                  handleCloseAccordion();
+                }}
+                onMouseLeave={setNotDraggable}
+                styles={{ marginRight: '20px' }}
+              />
               <C.AccordionIcon $active={Number(themeId) === data.id} />
               <CourseNavItemTitle
                 text={data.title}
@@ -143,13 +138,7 @@ export function CourseNavTheme({
             </S.AccSum>
           </AccordionSummary>
           <AccordionDetails sx={{ paddingLeft: '102px', paddingRight: 0 }}>
-            {data.lessons &&
-              data.lessons.map((lesson) => (
-                <CourseNavLesson
-                  key={lesson.id}
-                  data={lesson}
-                />
-              ))}
+            {data.lessons && <SortableLessons data={data.lessons} />}
           </AccordionDetails>
         </Accordion>
       </S.Theme>

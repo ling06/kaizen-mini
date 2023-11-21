@@ -7,12 +7,15 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
+import { DndBtn } from '../DndBtn';
 
 interface ICourseNavLessonProps {
+  setDraggable: () => void;
+  setNotDraggable: () => void;
   data: ILesson;
 }
 
-export function CourseNavLesson({ data }: ICourseNavLessonProps) {
+export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourseNavLessonProps) {
   const [isInit, setInit] = useState<boolean>(true);
   const { setActiveLesson, setLoaderActive } = useActions();
   const navigate = useNavigate();
@@ -66,6 +69,7 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
 
   return (
     <S.Container $isDeleted={!!data.is_deleted} onClick={handleClick}>
+      <DndBtn onMouseEnter={setDraggable} onMouseLeave={setNotDraggable} styles={{marginRight: '20px'}}/>
       <CourseNavItemTitle text={data.title} isActive={!data.isChecked}/>
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn

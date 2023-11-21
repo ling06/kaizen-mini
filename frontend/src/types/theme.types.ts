@@ -9,6 +9,7 @@ export interface ITheme {
   date: string;
   is_deleted: number;
   lessons?: Array<ILesson>;
+  position: number;
 }
 
 export interface ICreateThemeData {
@@ -16,7 +17,8 @@ export interface ICreateThemeData {
   chapter_id: number;
 }
 
-export interface IUpdateThemeData extends Partial<ICreateThemeData> {
+export interface IUpdateThemeData {
   id: number;
-  position?: number;
+  position: number;
+  title?: string;
 }

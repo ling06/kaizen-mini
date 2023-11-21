@@ -7,7 +7,7 @@ import { IChapter } from '@/types/chapter.types';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import { FadedTitle } from '../FadedTitle';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { SortableItem } from '../SortableItem';
 import { useEffect, useState } from 'react';
@@ -57,16 +57,17 @@ export function CourseNavBody({ data }: ICourseNavBodyProps) {
     });
   };
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    console.log(active);
-
+    if(!over || !over.data.current) {
+      return;
+    }
     if (active.id !== over.id) {
       const oldIndex = themes.findIndex((theme) => theme.id === active.id);
       const newIndex = themes.findIndex((theme) => theme.id === over.id);
 
       updateTheme({
-        id: active.data.current.id,
+        ...active.data.current as ITheme,
         position: over.data.current.position,
       }).then((res) => {
         if ('error' in res || 'data' in res && !res.data.result) {

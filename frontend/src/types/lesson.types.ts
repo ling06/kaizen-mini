@@ -12,6 +12,7 @@ export interface ILesson {
   is_deleted: number;
   tests: Array<ITest>;
   isChecked: boolean;
+  position: number;
 }
 
 export interface ITestDataWithOptionalIds extends Partial<Omit<ITest, 'id' | 'answers'>> {
@@ -30,6 +31,7 @@ export interface IUpdateLessonData extends ICreateLessonData {
   id?: number;
   status?: number;
   isChecked?: boolean;
+  position: number;
 }
 
 export interface ICheckLessonRes {
