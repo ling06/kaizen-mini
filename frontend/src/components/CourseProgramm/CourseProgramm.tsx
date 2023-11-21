@@ -5,27 +5,34 @@ import { CourseProgrammCard } from './CourseProgrammCard';
 import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
-import { useEffect, useState } from 'react';
-import { IChapter } from '@/types/chapter.types';
+// import { useEffect, useState } from 'react';
+// import { IChapter } from '@/types/chapter.types';
+// import { DndContext } from '@dnd-kit/core';
+// import { SortableContext } from '@dnd-kit/sortable';
+// import { SortableItem } from '../SortableItem';
 
 export function CourseProgramm() {
   const { setModalOpen, setModalType } = useActions();
-  const courseChapters = useTypedSelector((state) => state.course.data?.chapters);
+  const chaptersData = useTypedSelector((state) => state.course.data?.chapters);
   const role = useTypedSelector((state) => selectUser(state).data?.user.role);
-  const [chaptersData, setChaptersData] = useState<Array<IChapter>>();
-
-  useEffect(() => {
-    if (courseChapters && courseChapters) {
-      setChaptersData(courseChapters);
-    } else {
-      setChaptersData([]);
-    }
-  }, [courseChapters]);
 
   const openCreateChapterModal = () => {
     setModalType(MODAL_TYPES.createChapter);
     setModalOpen(true);
   };
+
+  // function handleDragEnd(event) {
+  //   const {active, over} = event;
+    
+  //   if (active.id !== over.id) {
+  //     setItems((items) => {
+  //       const oldIndex = items.indexOf(active.id);
+  //       const newIndex = items.indexOf(over.id);
+        
+  //       return arrayMove(items, oldIndex, newIndex);
+  //     });
+  //   }
+  // }
 
   return (
     <S.Container>
@@ -38,18 +45,23 @@ export function CourseProgramm() {
         />
       </S.Head>
       <S.CardList>
-        {chaptersData &&
-          chaptersData.length > 0 &&
-          chaptersData.map((chapter) => {
-            if (!chapter.is_deleted || role === USER_ROLES.admin) {
-              return (
-                <CourseProgrammCard
-                  data={chapter}
-                  key={chapter.id}
-                />
-              );
-            }
-          })}
+        {/* <DndContext onDragEnd={handleDragEnd}>
+          <SortableContext items={chaptersData}> */}
+            {chaptersData &&
+              chaptersData.length > 0 &&
+              chaptersData.map((chapter) => {
+                if (!chapter.is_deleted || role === USER_ROLES.admin) {
+                  return (
+                    // <SortableItem
+                      // key={chapter.id}
+                      // id={chapter.id}>
+                      <CourseProgrammCard data={chapter} />
+                    // </SortableItem>
+                  );
+                }
+              })}
+          {/* </SortableContext>
+        </DndContext> */}
       </S.CardList>
     </S.Container>
   );
