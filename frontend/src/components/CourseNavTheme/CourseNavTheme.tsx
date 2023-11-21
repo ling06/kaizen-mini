@@ -16,9 +16,16 @@ import { CourseNavItemTitle } from '../CourseNavItemTitle';
 interface ICourseNavTheme {
   data: ITheme;
   courseId: number;
+  setDraggable: () => void;
+  setNotDraggable: () => void;
 }
 
-export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
+export function CourseNavTheme({
+  data,
+  courseId,
+  setDraggable = () => {},
+  setNotDraggable = () => {},
+}: ICourseNavTheme) {
   const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData, setLoaderActive } =
     useActions();
   const [deleteTheme] = useDeleteThemeMutation();
@@ -77,6 +84,17 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
     setLoaderActive(true);
   };
 
+  const handleCloseAccordion = () => {
+    if (!themeId) {
+      return;
+    }
+    const path = generatePath(`/courses/:courseId/:chapterId`, {
+      courseId: String(courseId),
+      chapterId: String(data.chapter_id),
+    });
+    navigate(path);
+  };
+
   return (
     <S.Container $isDeleted={!!data.is_deleted}>
       <S.Theme>
@@ -91,7 +109,11 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
             id={`${data.id}_header`}>
             <S.AccSum>
               <DndBtn
-                onClick={() => {}}
+                onMouseEnter={() => {
+                  setDraggable();
+                  handleCloseAccordion();
+                }}
+                onMouseLeave={setNotDraggable}
                 styles={{ marginRight: '20px' }}
               />
               <C.AccordionIcon $active={Number(themeId) === data.id} />

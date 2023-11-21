@@ -16,6 +16,7 @@ export interface ICreateThemeData {
   chapter_id: number;
 }
 
-export interface IUpdateThemeData extends ICreateThemeData {
+export interface IUpdateThemeData extends Partial<ICreateThemeData> {
   id: number;
+  position?: number;
 }
