@@ -27828,7 +27828,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     }
     function CourseProgramm() {
       const { setModalOpen, setModalType } = useActions();
-      const courseChapters = useTypedSelector((state) => {
+      const chaptersData = useTypedSelector((state) => {
         var _a;
         return (_a = state.course.data) == null ? void 0 : _a.chapters;
       });
@@ -27836,14 +27836,6 @@ color: ${(props) => props.theme.colors.mainBlue};
         var _a;
         return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
       });
-      const [chaptersData, setChaptersData] = reactExports.useState();
-      reactExports.useEffect(() => {
-        if (courseChapters && courseChapters) {
-          setChaptersData(courseChapters);
-        } else {
-          setChaptersData([]);
-        }
-      }, [courseChapters]);
       const openCreateChapterModal = () => {
         setModalType(MODAL_TYPES.createChapter);
         setModalOpen(true);
@@ -27862,12 +27854,11 @@ color: ${(props) => props.theme.colors.mainBlue};
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CardList, { children: chaptersData && chaptersData.length > 0 && chaptersData.map((chapter) => {
           if (!chapter.is_deleted || role === USER_ROLES.admin) {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CourseProgrammCard,
-              {
-                data: chapter
-              },
-              chapter.id
+            return (
+              // <SortableItem
+              // key={chapter.id}
+              // id={chapter.id}>
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgrammCard, { data: chapter })
             );
           }
         }) })
