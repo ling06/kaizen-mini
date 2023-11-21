@@ -3,6 +3,7 @@
 namespace app\components;
 
 use app\modules\course\models\Chapter;
+use app\modules\course\models\Course;
 use app\modules\course\models\Lesson;
 use app\modules\course\models\Theme;
 
@@ -27,7 +28,7 @@ class KaizenHelper
         return $protocol . '://' . $host;
     }
 
-    public static function setPosition($modelName, $id, $position = null)
+    public static function setPosition($modelName, $id, $position = null, $newPosition = null)
     {
         switch ($modelName) {
             case Lesson::class:
@@ -39,13 +40,16 @@ class KaizenHelper
             case Theme::class:
                 $parentName = 'chapter_id';
                 break;
+            case Course::class:
+                $parentName = 'id';
+                break;
         }
         $model = $modelName::findOne($id);
         if ($position !== null) {
-            $currentPositionModel = $modelName::find()->where(['position' => $position, $parentName => $model->{$parentName}])->one();
+            $currentPositionModel = $modelName::find()->where(['position' => $newPosition, $parentName => $model->{$parentName}])->one();
             if ($currentPositionModel) {
                 $currentPositionModel->position = $model->position;
-                $model->position = $position;
+                $model->position = $newPosition;
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     $model->save();

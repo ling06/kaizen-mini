@@ -19,7 +19,7 @@ use yii\db\StaleObjectException;
 class LessonForm extends Lesson
 {
     public $tests = [];
-
+    public $newPosition;
 
     public function rules(): array
     {
@@ -42,6 +42,7 @@ class LessonForm extends Lesson
 
     public function load($data, $formName = null): bool
     {
+        $this->newPosition = $data['newPosition'] ?? null;
         $this->tests = $data['tests'] ?? [];
         return parent::load($data, $formName);
     }
@@ -60,7 +61,7 @@ class LessonForm extends Lesson
      */
     public function afterSave($insert, $changedAttributes): void
     {
-        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
+        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position, $this->newPosition);
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->indexBy('id')->all();
         foreach ($this->tests as $tests) {

@@ -6,6 +6,7 @@ use app\components\ApiController;
 use app\components\KaizenHelper;
 use app\models\Image;
 use app\modules\course\forms\ChapterForm;
+use app\modules\course\forms\CourseForm;
 use app\modules\course\forms\LessonForm;
 use app\modules\course\forms\ThemeForm;
 use app\modules\course\models\Chapter;
@@ -193,25 +194,25 @@ class CourseController extends ApiController
         return [
             'get-one' => [
                 'class' => GetOneAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
             ],
             'get-all' => [
                 'class' => GetAllAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
             ],
             'create' => [
                 'class' => CreateAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update' => [
                 'class' => UpdateAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
