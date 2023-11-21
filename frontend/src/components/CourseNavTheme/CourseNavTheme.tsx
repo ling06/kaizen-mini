@@ -12,6 +12,8 @@ import { useActions } from '@/hooks/useActions';
 import { useMemo } from 'react';
 import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { selectUser } from '@/store/api/user.api';
 
 interface ICourseNavTheme {
   data: ITheme;
@@ -32,6 +34,7 @@ export function CourseNavTheme({
   const [restoreTheme] = useRestoreThemeMutation();
   const navigate = useNavigate();
   const { themeId } = useParams();
+  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
 
   const isThemeChecked = useMemo(() => {
     if (data.lessons && data.lessons.length > 0) {
@@ -108,14 +111,16 @@ export function CourseNavTheme({
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>
             <S.AccSum>
-              <DndBtn
-                onMouseEnter={() => {
-                  setDraggable();
-                  handleCloseAccordion();
-                }}
-                onMouseLeave={setNotDraggable}
-                styles={{ marginRight: '20px' }}
-              />
+              {userRole === 'admin' && (
+                <DndBtn
+                  onMouseEnter={() => {
+                    setDraggable();
+                    handleCloseAccordion();
+                  }}
+                  onMouseLeave={setNotDraggable}
+                  styles={{ marginRight: '20px' }}
+                />
+              )}
               <C.AccordionIcon $active={Number(themeId) === data.id} />
               <CourseNavItemTitle
                 text={data.title}
