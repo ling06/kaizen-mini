@@ -26483,12 +26483,16 @@ color: ${(props) => props.theme.colors.mainBlue};
     });
     const { actions: actions$1, reducer: reducer$2 } = competitionSlice;
     const initialState = {
-      newsCategories: []
+      newsCategories: [],
+      isUpdate: false
     };
     const newsSlice = createSlice({
       name: "news",
       initialState,
       reducers: {
+        updateNewsCategory: (state, { payload }) => {
+          state.isUpdate = payload;
+        },
         setNewsCategories: (state, { payload }) => {
           state.newsCategories = payload;
         },
@@ -82686,9 +82690,10 @@ Read more: ${A2}#error-${t4}`;
         setModalType,
         setNewsCategories,
         setLoaderActive,
-        deleteNewsCategory
-        // updateNewsCategories
+        deleteNewsCategory,
+        updateNewsCategory
       } = useActions();
+      const updateCategory = useTypedSelector((state) => state.news.isUpdate);
       const [createNews] = useCreateNewsMutation();
       const navigate = useNavigate();
       const { newsId } = useParams();
@@ -82696,7 +82701,7 @@ Read more: ${A2}#error-${t4}`;
       const [isValidName, setValidName] = reactExports.useState(false);
       const [isChangedName, setChangedName] = reactExports.useState(false);
       const categories = useTypedSelector((state) => state.news.newsCategories);
-      const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+      const { data, isFetching, refetch } = useGetNewsByIdQuery(Number(newsId), {
         skip: !newsId
       });
       const [updateNews] = useUpdateNewsMutation();
@@ -82709,7 +82714,13 @@ Read more: ${A2}#error-${t4}`;
           setChangedName(false);
           setNewsCategories(data.data.categories || []);
         }
-      }, [data, setNewsCategories, type, isNameCategory]);
+      }, [data, setNewsCategories, type, isNameCategory, updateCategory]);
+      reactExports.useEffect(() => {
+        if (updateCategory) {
+          refetch();
+          updateNewsCategory(false);
+        }
+      }, [updateCategory]);
       const handleConfirm = async () => {
         if (!isValidName) {
           setChangedName(true);
@@ -83112,7 +83123,7 @@ line-height100%`;
       const currentCategories = useTypedSelector(
         (state) => state.news.newsCategories
       );
-      const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
+      const { setLoaderActive, updateNewsCategory, deleteNewsCategory, addNewsCategory, setModalOpen } = useActions();
       const handleCreateCategory = () => {
         createCategory({ title: "Новая категория" }).then(() => {
           setLoaderActive(false);
@@ -83134,6 +83145,7 @@ line-height100%`;
       };
       const handleUpdateCategory = (id2, title) => {
         updateCategory({ id: id2, title }).then(() => {
+          updateNewsCategory(true);
           setLoaderActive(false);
         });
         setLoaderActive(true);

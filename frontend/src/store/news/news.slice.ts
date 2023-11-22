@@ -2,22 +2,28 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface INewsInitialState {
   newsCategories: INewsCategory[];
+  isUpdate: boolean,
 }
 
 interface INewsCategory {
   id?: number;
   title?: string;
-
+  isUpdate?: boolean;
 }
 
 const initialState: INewsInitialState = {
   newsCategories: [],
+  isUpdate: false,
 };
 
 const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {
+    updateNewsCategory: (state, { payload }: PayloadAction<boolean>) => {
+      state.isUpdate = payload;
+    },
+
     setNewsCategories: (state, { payload }: PayloadAction<INewsCategory[]>) => {
       state.newsCategories = payload;
     },

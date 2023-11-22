@@ -11,7 +11,6 @@ import { useActions } from "@/hooks/useActions";
 import { MODAL_TYPES } from "@/constants";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { CkEditor } from "../CkEditor";
-
 interface ICreateNewsFormProps {
   type: string;
 }
@@ -23,10 +22,10 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     setNewsCategories,
     setLoaderActive,
     deleteNewsCategory,
-    // updateNewsCategories
+    updateNewsCategory,
   } = useActions();
-  
-  // const updateNewsCategory = useSelector(updateNewsCategories)
+
+  const updateCategory = useTypedSelector((state) => state.news.isUpdate);
   const [createNews] = useCreateNewsMutation();
   const navigate = useNavigate();
   const { newsId } = useParams();
@@ -34,7 +33,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const categories = useTypedSelector((state) => state.news.newsCategories);
-  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+  const { data, isFetching, refetch  } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
   const [updateNews] = useUpdateNewsMutation();
@@ -48,11 +47,17 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
     }
-  }, [data, setNewsCategories, type, isNameCategory,]);
+  }, [data, setNewsCategories, type, isNameCategory, updateCategory]);
+
+  useEffect(() => {
+    if(updateCategory){
+      refetch()
+      updateNewsCategory(false)
+    }
+  }, [updateCategory]);
 
   const handleConfirm = async () => {
     // const editorData = await editor?.save().then((data) => data);
-
     if (!isValidName) {
       setChangedName(true);
       return;

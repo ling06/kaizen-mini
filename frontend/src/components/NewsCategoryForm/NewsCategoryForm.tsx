@@ -20,7 +20,7 @@ export function NewsCategoryForm() {
   const currentCategories = useTypedSelector(
     (state) => state.news.newsCategories
   );
-  const { setLoaderActive, deleteNewsCategory, addNewsCategory, setModalOpen,  } =
+  const { setLoaderActive,updateNewsCategory, deleteNewsCategory, addNewsCategory, setModalOpen,  } =
     useActions();
 
   const handleCreateCategory = () => {
@@ -46,6 +46,7 @@ export function NewsCategoryForm() {
 
   const handleUpdateCategory = (id: number, title: string) => {
     updateCategory({ id, title }).then(() => {
+      updateNewsCategory(true)
       setLoaderActive(false);
     });
     setLoaderActive(true);
