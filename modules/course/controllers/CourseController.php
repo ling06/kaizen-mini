@@ -48,17 +48,18 @@ class CourseController extends ApiController
                             'send-answer',
                             'check-lesson',
                             'get-user-answers',
+                            'set-positions'
                         ],
                         'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image'],
+                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image', 'set-positions'],
                         'permissions' => [Course::PERMISSION_CREATE],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image'],
+                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image', 'set-positions'],
                         'permissions' => [Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -68,6 +69,7 @@ class CourseController extends ApiController
                             'delete-chapter', 'restore-chapter',
                             'delete-lesson', 'restore-lesson',
                             'delete-theme', 'restore-theme',
+                            'set-positions'
                         ],
                         'permissions' => [Course::PERMISSION_DELETE],
                     ],
@@ -171,6 +173,46 @@ class CourseController extends ApiController
             return ['error' => 'Lesson not found'];
         }
         return ($result);
+    }
+
+    public function actionSetPositions()
+    {
+        $request = Yii::$app->request->getBodyParams();
+        switch ($request['type']) {
+            case 'Chapter':
+                $model = Chapter::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Theme':
+                $model = Theme::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Lesson':
+                $model = Lesson::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Course':
+                $model = Course::class;
+                $this->setPosition($model, $request['items']);
+                break;
+        }
+        return ['status' => 'success'];
+    }
+
+    public function setPosition($model, $items)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            foreach ($items as $item){
+                $currentItem = $model::findOne($item['id']);
+                $currentItem->position = $item['position'];
+                $currentItem->save();
+            }
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
     }
 
     public function beforeAction($action): bool

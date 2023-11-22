@@ -28,7 +28,7 @@ class KaizenHelper
         return $protocol . '://' . $host;
     }
 
-    public static function setPosition($modelName, $id, $position = null, $newPosition = null)
+    public static function setPosition($modelName, $id)
     {
         switch ($modelName) {
             case Lesson::class:
@@ -40,33 +40,12 @@ class KaizenHelper
             case Theme::class:
                 $parentName = 'chapter_id';
                 break;
-            case Course::class:
-                $parentName = 'id';
-                break;
         }
         $model = $modelName::findOne($id);
-        if ($position !== null) {
-            $currentPositionModel = $modelName::find()->where(['position' => $newPosition, $parentName => $model->{$parentName}])->one();
-            if ($currentPositionModel) {
-                $currentPositionModel->position = $model->position;
-                $model->position = $newPosition;
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    $model->save();
-                    $currentPositionModel->save();
-                    $transaction->commit();
-                } catch (\Throwable $e) {
-                    $transaction->rollBack();
-                    throw $e;
-                }
-            } else {
-                $model->position = $position;
-                $model->save();
-            }
-        } else {
+        if ($model->position === null) {
             $models = $modelName::find()->where([$parentName => $model->{$parentName}])->select('position')->orderBy('position')->asArray()->all();
             $position = 0;
-            if(empty($models)) {
+            if (empty($models)) {
                 $model->position = $position;
                 $model->save();
             } else {
