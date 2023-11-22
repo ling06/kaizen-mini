@@ -32,6 +32,7 @@ export interface IUpdateLessonData extends ICreateLessonData {
   status?: number;
   isChecked?: boolean;
   position: number;
+  newPosition?: number;
 }
 
 export interface ICheckLessonRes {

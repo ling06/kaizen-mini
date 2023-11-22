@@ -1,38 +1,34 @@
-import { AdminBtn } from "@/components/AdminBtn";
-import * as S from "./styles";
-import * as C from "@styles/components";
-import defaultCardImg from "@assets/images/stub-course-program.webp";
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from "@/constants";
-import { IChapter } from "@/types/chapter.types";
-import { useNavigate } from "react-router-dom";
-import {
-  useDeleteChapterMutation,
-  useRestoreChapterMutation,
-} from "@/store/api/chapter.api";
-import { useEffect, useState } from "react";
-import { useActions } from "@/hooks/useActions";
+import { AdminBtn } from '@/components/AdminBtn';
+import * as S from './styles';
+import * as C from '@styles/components';
+import defaultCardImg from '@assets/images/stub-course-program.webp';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import { IChapter } from '@/types/chapter.types';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
+import { useEffect, useState } from 'react';
+import { useActions } from '@/hooks/useActions';
+import { DndBtn } from '@/components/DndBtn';
+import dndIconWithArrows from '@assets/images/dnd-btn-arrows.svg';
 
 interface ICourseProgrammCard {
   data: IChapter;
+  setDraggable: () => void;
+  setNotDraggable: () => void;
 }
 
-export function CourseProgrammCard({ data }: ICourseProgrammCard) {
+export function CourseProgrammCard({ data, setDraggable, setNotDraggable  }: ICourseProgrammCard) {
   const navigation = useNavigate();
   const [deleteChapter] = useDeleteChapterMutation();
   const [restoreChapter] = useRestoreChapterMutation();
-  const [isTextProgres, setTextProgres] = useState("");
+  const [isTextProgres, setTextProgres] = useState('');
   const [isDeleted, setDeleted] = useState<boolean>(false);
-  const {
-    setLoaderActive,
-    setModalOpen,
-    setModalType,
-    setUpdatingChapterData,
-  } = useActions();
+  const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
   useEffect(() => {
     if (data.image) {
-      const src = data.image.directory + "/" + data.image.name;
+      const src = data.image.directory + '/' + data.image.name;
       setImgSrc(src);
     }
   }, [data.image]);
@@ -73,15 +69,16 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
 
   const changesStatusText = () => {
     if (data.percentage.percentage == 100) {
-      return setTextProgres("Пройдено");
-    } else if (
-      data.percentage.percentage > 0 &&
-      data.percentage.percentage < 100
-    ) {
-      return setTextProgres("В процессе");
+      return setTextProgres('Пройдено');
+    } else if (data.percentage.percentage > 0 && data.percentage.percentage < 100) {
+      return setTextProgres('В процессе');
     } else if (data.percentage.percentage == 0) {
-      return setTextProgres("Предстоит");
+      return setTextProgres('Предстоит');
     }
+  };
+
+  const dndBtnStyles = {
+    backgroundImage: `url(${dndIconWithArrows})`,
   };
 
   return (
@@ -93,16 +90,23 @@ export function CourseProgrammCard({ data }: ICourseProgrammCard) {
       <S.ProgressContainer>
         <S.ProgressStatusWrapper>
           <S.ProgressStatus>{isTextProgres}</S.ProgressStatus>
-          <AdminBtn
-            popupName="Глава"
-            type={ADMIN_BTN_TYPES.edit}
-            onClick={() => {}}
-            popupHandlers={{
-              onDelete: isDeleted ? undefined : handleDeleteChapter,
-              onRestore: isDeleted ? handleRestoreChapter : undefined,
-              onEdit: handleEditChapter,
-            }}
-          />
+          <S.BtnsGroup>
+            <DndBtn 
+              styles={dndBtnStyles}
+              onMouseEnter={ setDraggable }
+              onMouseLeave={ setNotDraggable }
+            />
+            <AdminBtn
+              popupName="Глава"
+              type={ADMIN_BTN_TYPES.edit}
+              onClick={() => {}}
+              popupHandlers={{
+                onDelete: isDeleted ? undefined : handleDeleteChapter,
+                onRestore: isDeleted ? handleRestoreChapter : undefined,
+                onEdit: handleEditChapter,
+              }}
+            />
+          </S.BtnsGroup>
         </S.ProgressStatusWrapper>
         <C.ProgressBar $progress={data?.percentage.percentage || 0} />
       </S.ProgressContainer>

@@ -21,4 +21,5 @@ export interface IUpdateThemeData {
   id: number;
   position: number;
   title?: string;
+  newPosition?: number;
 }

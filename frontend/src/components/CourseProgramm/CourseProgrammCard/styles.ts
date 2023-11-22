@@ -50,6 +50,7 @@ export const Img = styled.img`
 `;
 
 export const Title = styled(C.Text)`
+  line-height: 160%;
   word-break: break-word;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
@@ -62,7 +63,7 @@ export const ProgressContainer = styled(C.FlexContainer)`
 `;
 
 export const ProgressStatusWrapper = styled(C.FlexContainer)`
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 10px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 0;
@@ -77,4 +78,9 @@ export const ProgressStatus = styled.p`
   @media ${(props) => props.theme.media.mobile} {
     font-size: 2.5vw;
   }
+`;
+
+export const BtnsGroup = styled(C.FlexContainer)`
+  flex-direction: column;
+  width: fit-content;
 `;

@@ -37,7 +37,7 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
 
   const setDraggable = (id: number, isDraggable: boolean) => {
     setLessons((lessons) => {
-      const index = lessons.findIndex((theme) => theme.id === id);
+      const index = lessons.findIndex((lesson) => lesson.id === id);
       lessons[index].isDraggable = isDraggable;
       return [...lessons];
     });
@@ -45,7 +45,7 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    if(!over || !over.data.current) {
+    if(!over || !over.data.current || !active.data.current) {
       return;
     }
     if (active.id !== over.id) {
@@ -54,7 +54,8 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
 
       updateLesson({
         ...active.data.current as ILesson,
-        position: over.data.current.position as number,
+        position: active.data.current.position as number,
+        newPosition: over.data.current.position as number,
       }).then((res) => {
         if ('error' in res || 'data' in res && !res.data.result) {
           alert('При перемещении урока произошла ошибка');
