@@ -50148,6 +50148,7 @@ margin-bottom: 60px;
         };
         toggleAnswer(payload);
       };
+      console.log(data);
       const handleChangeAnswer = (event) => {
         changeAnswer({
           testId,
