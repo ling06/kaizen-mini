@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
 import { DndBtn } from '../DndBtn';
+import { css } from 'styled-components';
 
 interface ICourseNavLessonProps {
   setDraggable: () => void;
@@ -68,9 +69,20 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
   };
 
   return (
-    <S.Container $isDeleted={!!data.is_deleted} onClick={handleClick}>
-      <DndBtn onMouseEnter={setDraggable} onMouseLeave={setNotDraggable} styles={{marginRight: '20px'}}/>
-      <CourseNavItemTitle text={data.title} isActive={!data.isChecked}/>
+    <S.Container
+      $isDeleted={!!data.is_deleted}
+      onClick={handleClick}>
+      <DndBtn
+        onMouseEnter={setDraggable}
+        onMouseLeave={setNotDraggable}
+        styles={css`
+          margin-right: 20px;
+        `}
+      />
+      <CourseNavItemTitle
+        text={data.title}
+        isActive={!data.isChecked}
+      />
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
         popupName="Урок"

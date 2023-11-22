@@ -2,6 +2,7 @@ import { AdminBtn } from '../AdminBtn';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
+import {css} from 'styled-components';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { ITheme } from '@/types/theme.types';
 import Accordion from '@mui/material/Accordion';
@@ -114,7 +115,9 @@ export function CourseNavTheme({
                   handleCloseAccordion();
                 }}
                 onMouseLeave={setNotDraggable}
-                styles={{ marginRight: '20px' }}
+                styles={css`
+                  margin-right: 20px;
+                `}
               />
               <C.AccordionIcon $active={Number(themeId) === data.id} />
               <CourseNavItemTitle

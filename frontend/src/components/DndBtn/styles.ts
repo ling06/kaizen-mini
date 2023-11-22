@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { RuleSet } from 'styled-components';
 import dndIcon from '@assets/images/dnd-btn.svg';
 
-export const DndBtn = styled.button`
+export const DndBtn = styled.button<{$style: RuleSet<object> | undefined }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,4 +19,15 @@ export const DndBtn = styled.button`
   &:active {
     cursor: grabbing;
   }
+
+  ${(props) => {
+    if(props.$style) {
+      return props.$style;
+    }
+  }}
+  
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
+
 `;

@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { useActions } from '@/hooks/useActions';
 import { DndBtn } from '@/components/DndBtn';
 import dndIconWithArrows from '@assets/images/dnd-btn-arrows.svg';
+import dndIconWithArrowsActive from '@assets/images/dnd-btn-arrows-active.svg';
+import { css } from 'styled-components';
 
 interface ICourseProgrammCard {
   data: IChapter;
@@ -77,10 +79,6 @@ export function CourseProgrammCard({ data, setDraggable, setNotDraggable  }: ICo
     }
   };
 
-  const dndBtnStyles = {
-    backgroundImage: `url(${dndIconWithArrows})`,
-  };
-
   return (
     <S.Card $isDeleted={isDeleted}>
       <S.imgWrapper onClick={handleClick}>
@@ -92,7 +90,12 @@ export function CourseProgrammCard({ data, setDraggable, setNotDraggable  }: ICo
           <S.ProgressStatus>{isTextProgres}</S.ProgressStatus>
           <S.BtnsGroup>
             <DndBtn 
-              styles={dndBtnStyles}
+              styles={css`
+                background-image: url(${dndIconWithArrows});
+                &:hover {
+                  background-image: url(${dndIconWithArrowsActive});
+                }
+              `}
               onMouseEnter={ setDraggable }
               onMouseLeave={ setNotDraggable }
             />
