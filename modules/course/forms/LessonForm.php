@@ -48,7 +48,6 @@ class LessonForm extends Lesson
 
     public function beforeSave($insert): bool
     {
-        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
         return parent::beforeSave($insert);
     }
 
@@ -61,6 +60,7 @@ class LessonForm extends Lesson
      */
     public function afterSave($insert, $changedAttributes): void
     {
+        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->indexBy('id')->all();
         foreach ($this->tests as $tests) {
