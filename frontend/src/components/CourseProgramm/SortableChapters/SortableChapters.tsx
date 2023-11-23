@@ -7,6 +7,9 @@ import { IChapter } from '@/types/chapter.types';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import { useEffect, useState } from 'react';
+import { useSetChaptersPositionsMutation } from '@/store/api/chapter.api';
+import { CourseEntities } from '@/types/course.types';
+import { useActions } from '@/hooks/useActions';
 // import * as S from './styles';
 
 interface ISortableChaptersProps {
@@ -18,8 +21,10 @@ interface IChapterWithDrag extends IChapter {
 }
 
 export function SortableChapters({ data }: ISortableChaptersProps) {
+  const {setLoaderActive} = useActions();
   const role = useTypedSelector((state) => selectUser(state).data?.user.role);
   const [chapters, setChapters] = useState<Array<IChapterWithDrag>>([]);
+  const [setPositions] = useSetChaptersPositionsMutation();
 
   useEffect(() => {
     if (data) {
@@ -43,12 +48,27 @@ export function SortableChapters({ data }: ISortableChaptersProps) {
     }
 
     if (active.id !== over.id) {
-      setChapters((chapters) => {
-        const oldIndex = chapters.findIndex((chapter) => chapter.id === active.id);
-        const newIndex = chapters.findIndex((chapter) => chapter.id === over.id);
-
-        return arrayMove(chapters, oldIndex, newIndex);
-      });
+      const oldIndex = chapters.findIndex((chapter) => chapter.id === active.id);
+      const newIndex = chapters.findIndex((chapter) => chapter.id === over.id);
+      const changedChapters = arrayMove(chapters, oldIndex, newIndex);
+      const itemsData = changedChapters.map((chapter, index) => {
+        return {
+          id: chapter.id,
+          position: index,
+        };
+      })
+      setChapters([...changedChapters]);
+      setPositions({
+        type: CourseEntities.chapter,
+        items: 0,
+      }).then((res) => {
+        if('error' in res || 'data' in res && res.data.status !== 'success') {
+          const reversedChapters = arrayMove(chapters, newIndex, oldIndex);
+          alert('При перемещении главы произошла ошибка!');
+          setChapters([...reversedChapters]);
+        }
+      })
+      setLoaderActive(true);
     }
   }
 
