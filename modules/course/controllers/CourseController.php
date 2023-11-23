@@ -103,11 +103,13 @@ class CourseController extends ApiController
             'model_pk' => $lesson->id,
         ];
         $check = UserCheck::findOne($checkParams) ?? new UserCheck($checkParams);
+        $nextLesson = UserCheck::findNextLesson($lesson);
         return [
             'data' => [
                 'theme_id' => $lesson->theme_id,
             ],
             'result' => $check->isNewRecord ? $check->save() : true,
+            'next_lesson' => $nextLesson,
         ];
     }
 
