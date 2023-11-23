@@ -197,6 +197,9 @@ class CourseController extends ApiController
                 $model = Course::class;
                 $this->setPosition($model, $request['items']);
                 break;
+            default:
+                return ['status' => 'error', 'message' => 'incorrect type'];
+                break;
         }
         return ['status' => 'success'];
     }
