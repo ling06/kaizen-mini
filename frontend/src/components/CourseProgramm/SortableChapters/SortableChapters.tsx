@@ -66,12 +66,12 @@ export function SortableChapters({ data }: ISortableChaptersProps) {
         const isError = setPositionsErrorsHandler({
           setter: setChapters,
           res,
-          arr: chapters,
+          arr: changedChapters,
           oldIndex,
           newIndex,
         });
         if (isError) {
-          alert('При перемещении главы произошла ошибка!');
+          alert('При перемещении Главы произошла ошибка!');
         }
       });
       setLoaderActive(true);

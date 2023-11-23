@@ -55,9 +55,7 @@ export const chapterApi = api.injectEndpoints({
       query: (data) => ({
         url: 'course/set-positions',
         method: 'POST',
-        body: {
-          ...data,
-        },
+        body: data,
       }),
       invalidatesTags: ['Courses', 'CourseById'],
     }),
