@@ -87,4 +87,5 @@ export interface ISetPositionsReq {
 
 export interface ISetPositionsRes {
   status: 'success' | 'error';
+  message?: string;
 }

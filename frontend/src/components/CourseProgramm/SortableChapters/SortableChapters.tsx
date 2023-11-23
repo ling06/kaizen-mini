@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useSetChaptersPositionsMutation } from '@/store/api/chapter.api';
 import { CourseEntities } from '@/types/course.types';
 import { useActions } from '@/hooks/useActions';
+import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
 // import * as S from './styles';
 
 interface ISortableChaptersProps {
@@ -21,7 +22,7 @@ interface IChapterWithDrag extends IChapter {
 }
 
 export function SortableChapters({ data }: ISortableChaptersProps) {
-  const {setLoaderActive} = useActions();
+  const { setLoaderActive } = useActions();
   const role = useTypedSelector((state) => selectUser(state).data?.user.role);
   const [chapters, setChapters] = useState<Array<IChapterWithDrag>>([]);
   const [setPositions] = useSetChaptersPositionsMutation();
@@ -56,18 +57,23 @@ export function SortableChapters({ data }: ISortableChaptersProps) {
           id: chapter.id,
           position: index,
         };
-      })
-      setChapters([...changedChapters]);
+      });
+      setChapters(changedChapters);
       setPositions({
         type: CourseEntities.chapter,
-        items: 0,
+        items: itemsData,
       }).then((res) => {
-        if('error' in res || 'data' in res && res.data.status !== 'success') {
-          const reversedChapters = arrayMove(chapters, newIndex, oldIndex);
+        const isError = setPositionsErrorsHandler({
+          setter: setChapters,
+          res,
+          arr: chapters,
+          oldIndex,
+          newIndex,
+        });
+        if (isError) {
           alert('При перемещении главы произошла ошибка!');
-          setChapters([...reversedChapters]);
         }
-      })
+      });
       setLoaderActive(true);
     }
   }
