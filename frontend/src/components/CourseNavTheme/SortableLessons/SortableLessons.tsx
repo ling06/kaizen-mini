@@ -5,8 +5,10 @@ import { CourseNavLesson } from '@/components/CourseNavLesson';
 import { SortableItem } from '@/components/SortableItem';
 import { useEffect, useState } from 'react';
 import { ILesson } from '@/types/lesson.types';
-import { useUpdateLessonMutation } from '@/store/api/lesson.api';
 import { useActions } from '@/hooks/useActions';
+import { useSetLessonsPositionsMutation } from '@/store/api/lesson.api';
+import { CourseEntities } from '@/types/course.types';
+import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
 
 interface ISortableLessonsProps {
   data: Array<ILesson>;
@@ -19,16 +21,15 @@ interface ILessonWithDrag extends ILesson {
 export function SortableLessons({ data }: ISortableLessonsProps) {
   const { setLoaderActive } = useActions();
   const [lessons, setLessons] = useState<Array<ILessonWithDrag>>([]);
-  const [updateLesson] = useUpdateLessonMutation();
+  const [setPositions] = useSetLessonsPositionsMutation();
 
   useEffect(() => {
-    if(data) {
+    if (data) {
       const newLessons = data.map((lesson) => ({
         ...lesson,
         isDraggable: false,
       }));
-      const newLessonsSorted = newLessons.sort(
-        (a, b) => a.position - b.position);
+      const newLessonsSorted = newLessons.sort((a, b) => a.position - b.position);
       setLessons(newLessonsSorted);
       return;
     }
@@ -45,36 +46,49 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    if(!over || !over.data.current || !active.data.current) {
+    if (!over || !over.data.current || !active.data.current) {
       return;
     }
     if (active.id !== over.id) {
       const oldIndex = lessons.findIndex((lesson) => lesson.id === active.id);
       const newIndex = lessons.findIndex((lesson) => lesson.id === over.id);
-
-      updateLesson({
-        ...active.data.current as ILesson,
-        position: active.data.current.position as number,
-        newPosition: over.data.current.position as number,
+      const changedLessons = arrayMove(lessons, oldIndex, newIndex);
+      const itemsData = changedLessons.map((lesson, index) => {
+        return {
+          id: lesson.id,
+          position: index,
+        };
+      });
+      setLessons(changedLessons);
+      setPositions({
+        type: CourseEntities.lesson,
+        items: itemsData,
       }).then((res) => {
-        if ('error' in res || 'data' in res && !res.data.result) {
-          alert('При перемещении урока произошла ошибка');
+        const isError = setPositionsErrorsHandler({
+          setter: setLessons,
+          res,
+          arr: changedLessons,
+          oldIndex,
+          newIndex,
+        });
+        if (isError) {
+          alert('При перемещении Урока произошла ошибка!');
         }
       });
-      const changedThemes = arrayMove(lessons, oldIndex, newIndex);
-      setLessons(changedThemes);
       setLoaderActive(true);
     }
   }
 
   return (
-    <DndContext
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext onDragEnd={handleDragEnd}>
       <SortableContext items={lessons.map((lesson) => lesson.id)}>
         {lessons.length > 0 &&
           lessons.map((lesson) => (
-            <SortableItem key={lesson.id} id={lesson.id} data={lesson} isDraggable={lesson.isDraggable}>
+            <SortableItem
+              key={lesson.id}
+              id={lesson.id}
+              data={lesson}
+              isDraggable={lesson.isDraggable}>
               <CourseNavLesson
                 key={lesson.id}
                 data={lesson}

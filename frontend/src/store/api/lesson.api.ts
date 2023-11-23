@@ -1,6 +1,12 @@
-import { ICheckLessonRes, ICreateLessonData, ILesson, IUpdateLessonData } from '@/types/lesson.types';
+import {
+  ICheckLessonRes,
+  ICreateLessonData,
+  ILesson,
+  IUpdateLessonData,
+} from '@/types/lesson.types';
 import { api } from './api';
 import { IDefaultReqWithId, IDefaultRes, IDefaultResWithData } from '@/types/common.types';
+import { ISetPositionsReq, ISetPositionsRes } from '@/types/course.types';
 
 type ILessonRes = IDefaultResWithData<ILesson>;
 
@@ -58,6 +64,14 @@ export const lessonApi = api.injectEndpoints({
       }),
       invalidatesTags: () => ['ChapterById', 'LessonById', 'Courses'],
     }),
+    setLessonsPositions: builder.mutation<ISetPositionsRes, ISetPositionsReq>({
+      query: (data) => ({
+        url: 'course/set-positions',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['LessonById', 'ChapterById'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -69,4 +83,5 @@ export const {
   useGetLessonByIdQuery,
   useRestoreLessonMutation,
   useUpdateLessonMutation,
+  useSetLessonsPositionsMutation,
 } = lessonApi;
