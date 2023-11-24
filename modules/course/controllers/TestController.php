@@ -71,7 +71,7 @@ class TestController extends ApiController
     public function actionSendAnswer()
     {
         /** @var Question $question */
-        $answers = Yii::$app->request->getBodyParam('answers');
+        $answers = Yii::$app->request->getBodyParams();
         if (!$answers) {
             return [
                 'result' => false,
@@ -80,6 +80,7 @@ class TestController extends ApiController
         }
 
         foreach ($answers as $answer) {
+//            var_dump($answer); die;
             $question = $this->findModel(Question::class, (int)$answer['answer']);
             $params = [
                 'test_question_id' => $answer['test_id'],
