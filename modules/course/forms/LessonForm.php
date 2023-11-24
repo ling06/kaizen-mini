@@ -2,6 +2,7 @@
 
 namespace app\modules\course\forms;
 
+use app\components\KaizenHelper;
 use app\models\Image;
 use app\modules\course\models\Answer;
 use app\modules\course\models\Chapter;
@@ -59,6 +60,7 @@ class LessonForm extends Lesson
      */
     public function afterSave($insert, $changedAttributes): void
     {
+        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->indexBy('id')->all();
         foreach ($this->tests as $tests) {

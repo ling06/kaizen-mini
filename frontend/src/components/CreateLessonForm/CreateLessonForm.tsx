@@ -26,7 +26,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     skip: !lessonId,
   });
   const tests = useTypedSelector((state) => state.lesson.tests);
-  const { addEmptyTest, setTestsData, setLoaderActive } = useActions();
+  const { addEmptyTest, setTestsData, setLoaderActive, resetTestsData } = useActions();
 
   const [createLesson] = useCreateLessonMutation();
   const [updateLesson] = useUpdateLessonMutation();
@@ -43,7 +43,11 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setChangedName(false);
       setTestsData(data.data.tests);
     }
-  }, [data, isError, isFetching, setTestsData,]);
+
+    return () => {
+      resetTestsData();
+    }
+  }, [data, isError, isFetching, resetTestsData, setTestsData]);
 
   useEffect(() => {
     if (!editor && !isFetching && !data) {
@@ -134,6 +138,7 @@ TODO: на фронте создаются id для новых сущносте
 
       return;
     }
+   
 
     createLesson({
       title: lessonName,
@@ -142,7 +147,7 @@ TODO: на фронте создаются id для новых сущносте
       tests: testsDataWithoutFrontIds,
     })
       .then((res) => {
-        if ('data' in res) {
+        if ('data' in res && res.data.result) {
           navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
         }
       })
@@ -184,8 +189,7 @@ TODO: на фронте создаются id для новых сущносте
         type="text"
         placeholder="Введите название урока (обязательно)"
       />
-      {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.description || ""} type={type}/>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.description || ""}/>
       <S.TestWrapper>
         {tests.length > 0 && tests.map((test) => <CreateTestForm data={test} />)}
         <S.AddTest onClick={handleAddEmptyTest}>

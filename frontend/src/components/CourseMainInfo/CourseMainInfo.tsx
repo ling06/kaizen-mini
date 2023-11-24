@@ -1,5 +1,5 @@
 import * as S from './styles';
-import defaultPreview from '@assets/images/defaultCoursePreview.png';
+import defaultPreview from '@assets/images/course-stub-img.webp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CourseBreadcrumb } from '../CourseBreadcrumb';
 import { useTypedSelector } from '@/hooks/useTypedSelector';

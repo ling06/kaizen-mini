@@ -6,6 +6,7 @@ use app\components\behaviors\DeleteSoftBehavior;
 use app\components\behaviors\ImageBehavior;
 use app\models\Image;
 use app\models\User;
+use app\modules\course\forms\ChapterForm;
 use app\modules\course\models\queries\CourseQuery;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -112,8 +113,9 @@ class Course extends \app\components\ActiveRecord
             $result[$key]['id'] = $chapter->id;
             $result[$key]['user_id'] = $chapter->user_id;
             $result[$key]['date'] = $chapter->date;
+            $result[$key]['position'] = $chapter->position;
             $result[$key]['is_deleted'] = $chapter->is_deleted;
-            $result[$key]['image'] = Image::find()->select('id, server, directory, name')->where(['model_name' => Chapter::class, 'model_pk' => $chapter->id])->one();
+            $result[$key]['image'] = Image::find()->select('id, server, directory, name')->where(['model_name' => ChapterForm::class, 'model_pk' => $chapter->id])->one();
             $result[$key]['percentage'] = $this->getPercentage($chapter->id);
         }
         return $result;

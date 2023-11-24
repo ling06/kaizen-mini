@@ -6,6 +6,8 @@ export const Container = styled.div`
   margin-left: auto;
   @media ${(props) => props.theme.media.mobile} {
     justify-content: flex-start;
+    margin: 0 auto 0 0 ;
+    
   }
 `;
 

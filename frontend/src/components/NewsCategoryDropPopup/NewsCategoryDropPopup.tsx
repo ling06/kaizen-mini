@@ -1,4 +1,3 @@
-import { log } from "console";
 import * as S from "./styles";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ interface INewsCategoryProps {
 
 export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
   const navigate = useNavigate();
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>();
   const { data, isError, isLoading } = NewsCategory as {
     data: object;
     isError: boolean;
@@ -26,12 +25,7 @@ export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
   const currentURL = window.location.href;
 
   const handleOutsideClick = (event: TouchEvent) => {
-    console.log(popupRef.current);
-    // console.log(!popupRef.current.contains(event.target as Node));
-
     if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-      console.log(343434);
-
       setOpen(false);
     }
   };
@@ -59,12 +53,11 @@ export function NewsCategoryDropPopup({ NewsCategory }: INewsCategoryProps) {
 
   return (
     <>
-      <S.dropMenu>
+      <S.dropMenu ref={popupRef}>
         <S.titleFilter onClick={handleToglePopupCategories}>
           {isTextNewsCategory}
         </S.titleFilter>
         <S.dropMenuImg
-          ref={popupRef}
           style={{
             transition: "transform .2s ease",
             transform: `rotate(${isOpen ? "180deg" : "0"})`,
