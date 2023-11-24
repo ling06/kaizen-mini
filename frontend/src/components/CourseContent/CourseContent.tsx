@@ -14,14 +14,10 @@ import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
-import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();
   const { courseId, lessonId, chapterId } = useParams();
-  const chapterData = useGetChapterByIdQuery(Number(chapterId), {
-    skip: !chapterId,
-  });
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
@@ -49,33 +45,14 @@ export function CourseContent() {
     } else {
       setIsForwardBtnDisabled(false);
     }
-  }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed]);
+  }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed, setLoaderActive]);
 
   const handleCheckLesson = () => {
     if (data && data.data.id) {
       checkLesson({ id: data.data.id }).then((res) => {
-        if (!('data' in res) || ('data' in res && !res.data.data)) {
-          return;
+        if('error' in res || 'data' in res && !res.data.result) {
+          alert('При прохождении урока произошла ошибка!');
         }
-        //TODO: надо дополнить эндроинт под вот это все
-        if (!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
-          return;
-        }
-        const theme = chapterData.data?.data.themes.find(
-          (theme) => theme.id === res.data.data.theme_id
-        );
-        if (!theme || !theme?.lessons) {
-          return;
-        }
-        const index = theme?.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
-        if (index && index !== -1 && theme?.lessons.length > index + 1) {
-          navigate(
-            `/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${
-              theme.lessons[index + 1].id
-            }`
-          );
-        }
-
         setLoaderActive(false);
       });
       setLoaderActive(true);
