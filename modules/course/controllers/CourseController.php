@@ -48,18 +48,19 @@ class CourseController extends ApiController
                             'send-answer',
                             'check-lesson',
                             'get-user-answers',
-                            'set-positions'
+                            'set-positions',
+                            'get-users-progress',
                         ],
                         'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image', 'set-positions'],
+                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image', 'set-positions', 'get-users-progress'],
                         'permissions' => [Course::PERMISSION_CREATE],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image', 'set-positions'],
+                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image', 'set-positions', 'get-users-progress'],
                         'permissions' => [Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -69,7 +70,6 @@ class CourseController extends ApiController
                             'delete-chapter', 'restore-chapter',
                             'delete-lesson', 'restore-lesson',
                             'delete-theme', 'restore-theme',
-                            'set-positions'
                         ],
                         'permissions' => [Course::PERMISSION_DELETE],
                     ],
