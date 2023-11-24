@@ -28832,7 +28832,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           query: (data) => ({
             url: "test/send-answer",
             method: "POST",
-            body: data
+            body: { answers: data }
           }),
           invalidatesTags: () => ["LessonById"]
         })
@@ -28893,11 +28893,14 @@ color: ${(props) => props.theme.colors.mainBlue};
       const [isUserRightAnswer, setIsUserRightAnswer] = reactExports.useState(false);
       const [isTestPassed, setIsTestPassed] = reactExports.useState(false);
       reactExports.useEffect(() => {
-        if (data.userTestAnswer) {
+        if (data.userTestAnswer.length > 0) {
           setIsTestPassed(true);
           setIsUserRightAnswer(!!data.userTestAnswer.is_right);
         }
-      }, [data.userTestAnswer]);
+        console.log(654);
+        console.log(data.userTestAnswer);
+        console.log(checkedAnswer);
+      }, [data.userTestAnswer, checkedAnswer]);
       const handleChange = (answer) => {
         setCheckedAnswer(answer);
       };
@@ -28917,7 +28920,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { children: data.question }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
-              !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              data.userTestAnswer.length === 0 && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                 RadioBtn,
                 {
                   name: data.id,
@@ -28928,7 +28931,7 @@ color: ${(props) => props.theme.colors.mainBlue};
                 },
                 answer.id
               )),
-              data.userTestAnswer && data.answers.map((answer) => {
+              data.userTestAnswer.length > 0 && data.answers.map((answer) => {
                 var _a, _b;
                 if (Number(answer.id) === ((_a = data.userTestAnswer) == null ? void 0 : _a.answer)) {
                   return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
@@ -28949,7 +28952,7 @@ color: ${(props) => props.theme.colors.mainBlue};
                 );
               })
             ] }),
-            !data.userTestAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            !data.userTestAnswer || checkedAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
               CheckBtn,
               {
                 onClick: handleSendAnswer,
@@ -50148,7 +50151,6 @@ margin-bottom: 60px;
         };
         toggleAnswer(payload);
       };
-      console.log(data);
       const handleChangeAnswer = (event) => {
         changeAnswer({
           testId,
@@ -82511,7 +82513,9 @@ Read more: ${A2}#error-${t4}`;
             tests: testsDataWithoutFrontIds
           }).then((res) => {
             if ("data" in res) {
-              navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+              navigation(
+                `/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`
+              );
             }
           }).catch((error) => {
             console.error(error);
@@ -82521,12 +82525,14 @@ Read more: ${A2}#error-${t4}`;
         }
         createLesson({
           title: lessonName,
-          theme_id: Number(themeId),
           description: ckEditorData || "",
+          theme_id: Number(themeId),
           tests: testsDataWithoutFrontIds
         }).then((res) => {
           if ("data" in res && res.data.result) {
-            navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+            navigation(
+              `/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`
+            );
           }
         }).catch((error) => {
           console.error(error);
@@ -82564,7 +82570,13 @@ Read more: ${A2}#error-${t4}`;
             placeholder: "Введите название урока (обязательно)"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.description) || "" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CkEditor,
+          {
+            onChange: handleSetCkEditorData,
+            data: (data == null ? void 0 : data.data.description) || ""
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(TestWrapper, { children: [
           tests.length > 0 && tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(CreateTestForm, { data: test })),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(AddTest, { onClick: handleAddEmptyTest, children: [

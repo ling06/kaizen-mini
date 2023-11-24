@@ -27,9 +27,11 @@ export interface ICreateLessonData {
 }
 
 export interface IUpdateLessonData extends ICreateLessonData {
+
   id?: number;
   status?: number;
   isChecked?: boolean;
+
 }
 
 export interface ICheckLessonRes {
