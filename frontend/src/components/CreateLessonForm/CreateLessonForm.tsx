@@ -1,18 +1,21 @@
-import { useEffect, useMemo, useState } from 'react';
-import * as S from './styles';
-import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
-import { FormControls } from '../FormControls';
-import { CreateTestForm } from '../CreateTestForm';
+import { useEffect, useMemo, useState } from "react";
+import * as S from "./styles";
+import EditorJS from "@editorjs/editorjs";
+import {
+  EDITOR_INTERNATIONALIZATION_CONFIG,
+  EDITOR_JS_TOOLS,
+} from "@/utils/editor-tools";
+import { FormControls } from "../FormControls";
+import { CreateTestForm } from "../CreateTestForm";
 import {
   useCreateLessonMutation,
   useGetLessonByIdQuery,
   useUpdateLessonMutation,
-} from '@/store/api/lesson.api';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { useActions } from '@/hooks/useActions';
-import { CkEditor } from '../CkEditor';
+} from "@/store/api/lesson.api";
+import { useNavigate, useParams } from "react-router-dom";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useActions } from "@/hooks/useActions";
+import { CkEditor } from "../CkEditor";
 
 interface ICreateLessonFormProps {
   type: string;
@@ -26,15 +29,16 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     skip: !lessonId,
   });
   const tests = useTypedSelector((state) => state.lesson.tests);
-  const { addEmptyTest, setTestsData, setLoaderActive, resetTestsData } = useActions();
+  const { addEmptyTest, setTestsData, setLoaderActive, resetTestsData } =
+    useActions();
 
   const [createLesson] = useCreateLessonMutation();
   const [updateLesson] = useUpdateLessonMutation();
-  const [lessonName, setLessonName] = useState<string>('');
+  const [lessonName, setLessonName] = useState<string>("");
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const navigation = useNavigate();
-  const [ckEditorData, setCkEditorData] = useState<string>('');
+  const [ckEditorData, setCkEditorData] = useState<string>("");
 
   useEffect(() => {
     if (data) {
@@ -46,14 +50,14 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
 
     return () => {
       resetTestsData();
-    }
+    };
   }, [data, isError, isFetching, resetTestsData, setTestsData]);
 
   useEffect(() => {
     if (!editor && !isFetching && !data) {
       try {
         editor = new EditorJS({
-          holder: 'editorjs',
+          holder: "editorjs",
           tools: EDITOR_JS_TOOLS,
           i18n: EDITOR_INTERNATIONALIZATION_CONFIG,
           inlineToolbar: true,
@@ -67,7 +71,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       if (editor) {
         try {
           editor.destroy();
-        } catch(err) {
+        } catch (err) {
           console.log(err);
         }
         editor = undefined;
@@ -84,13 +88,13 @@ TODO: на фронте создаются id для новых сущносте
       const { id, answers, ...rest } = test;
       const clearAnswers = answers.map((answer) => {
         const { id, ...rest } = answer;
-        
-        if (id.length === 21 && typeof id === 'string') {
+
+        if (id.length === 21 && typeof id === "string") {
           return rest;
         }
         return answer;
       });
-      if (id.length === 21 && typeof id === 'string') {
+      if (id.length === 21 && typeof id === "string") {
         return {
           ...rest,
           answers: clearAnswers,
@@ -118,7 +122,7 @@ TODO: на фронте создаются id для новых сущносте
       return;
     }
 
-    if (type === 'edit') {
+    if (type === "edit") {
       updateLesson({
         id: Number(lessonId),
         theme_id: Number(data?.data.theme_id),
@@ -127,40 +131,43 @@ TODO: на фронте создаются id для новых сущносте
         tests: testsDataWithoutFrontIds,
       })
         .then((res) => {
-          if ('data' in res) {
-            navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+          if ("data" in res) {
+            navigation(
+              `/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`
+            );
           }
         })
         .catch((error) => {
           console.error(error);
         });
-        setLoaderActive(true);
+      setLoaderActive(true);
 
       return;
     }
-   
 
     createLesson({
       title: lessonName,
-      theme_id: Number(themeId),
       description: ckEditorData || "",
+      theme_id: Number(themeId),
       tests: testsDataWithoutFrontIds,
     })
       .then((res) => {
-        if ('data' in res && res.data.result) {
-          navigation(`/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`);
+        if ("data" in res && res.data.result) {
+          navigation(
+            `/courses/${courseId}/${chapterId}/${themeId}/${res.data.data.id}`
+          );
         }
       })
       .catch((error) => {
         console.error(error);
       });
-      setLoaderActive(true);
+    setLoaderActive(true);
   };
 
   const controlsData = {
     names: {
-      confirm: type === 'create' ? 'Создать урок' : 'Сохранить',
-      cancel: 'Отмена',
+      confirm: type === "create" ? "Создать урок" : "Сохранить",
+      cancel: "Отмена",
     },
     handlers: {
       confirm: handleConfirm,
@@ -176,11 +183,13 @@ TODO: на фронте создаются id для новых сущносте
 
   const handleSetCkEditorData = (data: string) => {
     setCkEditorData(data);
-  }
+  };
 
   return (
     <>
-      <S.Title>{type === 'create' ? 'Создание урока' : 'Редактирование урока'}</S.Title>
+      <S.Title>
+        {type === "create" ? "Создание урока" : "Редактирование урока"}
+      </S.Title>
       <S.LessonNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
@@ -189,9 +198,13 @@ TODO: на фронте создаются id для новых сущносте
         type="text"
         placeholder="Введите название урока (обязательно)"
       />
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.description || ""}/>
+      <CkEditor
+        onChange={handleSetCkEditorData}
+        data={data?.data.description || ""}
+      />
       <S.TestWrapper>
-        {tests.length > 0 && tests.map((test) => <CreateTestForm data={test} />)}
+        {tests.length > 0 &&
+          tests.map((test) => <CreateTestForm data={test} />)}
         <S.AddTest onClick={handleAddEmptyTest}>
           <S.AddTestIcon />
           добавить тест
@@ -200,7 +213,7 @@ TODO: на фронте создаются id для новых сущносте
       <S.Divider />
       <FormControls
         {...controlsData}
-        containerStyles={{ padding: '25px 0px 25px' }}
+        containerStyles={{ padding: "25px 0px 25px" }}
       />
     </>
   );

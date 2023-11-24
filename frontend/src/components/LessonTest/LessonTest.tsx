@@ -18,11 +18,17 @@ export function LessonTest({ data }: ILessonTestProps) {
   const [isTestPassed, setIsTestPassed] = useState<boolean>(false);
 
   useEffect(() => {
-    if (data.userTestAnswer) {
+    if (data.userTestAnswer.length > 0) {
       setIsTestPassed(true);
       setIsUserRightAnswer(!!data.userTestAnswer.is_right);
     }
-  }, [data.userTestAnswer]);
+    console.log(654);
+    console.log(data.userTestAnswer);
+    console.log(checkedAnswer);
+    
+    
+    
+  }, [data.userTestAnswer, checkedAnswer]);
 
   const handleChange = (answer: string): void => {
     setCheckedAnswer(answer);
@@ -43,7 +49,7 @@ export function LessonTest({ data }: ILessonTestProps) {
       $isPassed={isTestPassed}>
       <S.Title>{data.question}</S.Title>
       <S.Answers>
-        {!data.userTestAnswer &&
+        {data.userTestAnswer.length === 0 &&
           data.answers.map((answer) => (
             <RadioBtn
               name={data.id}
@@ -54,7 +60,7 @@ export function LessonTest({ data }: ILessonTestProps) {
               key={answer.id}
             />
           ))}
-        {data.userTestAnswer &&
+        {data.userTestAnswer.length > 0 &&
           data.answers.map((answer) => {
             if (Number(answer.id) === data.userTestAnswer?.answer) {
               return <CheckedAnswer data={answer} />;
@@ -73,7 +79,7 @@ export function LessonTest({ data }: ILessonTestProps) {
             );
           })}
       </S.Answers>
-      {!data.userTestAnswer && (
+      {!data.userTestAnswer || checkedAnswer && (
         <S.CheckBtn
           onClick={handleSendAnswer}
           disabled={!checkedAnswer}>
