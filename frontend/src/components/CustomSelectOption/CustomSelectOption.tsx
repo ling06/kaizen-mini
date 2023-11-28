@@ -22,7 +22,7 @@ export function CustomSelectOption({
   return (
     <S.CustomSelectOption>
       {!isMobile && <ProgressCounter percentage={percentage || 0} />}
-      <S.TextLabel
+      <S.TextLabel 
         $isSelected={isSelected}
         $isDeleted={isDeleted}>
         Курс: {title}

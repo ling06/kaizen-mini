@@ -115,31 +115,19 @@ export function CourseSelect() {
     setLoaderActive(true);
   };
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const selectedCourseId = event.target.value;
-    setSelectedValue(`${selectedCourseId}`);
-    navigate(`/courses/${selectedCourseId}`);
-  };
+  // const handleChange = (event: SelectChangeEvent<string>) => {
+  //   const selectedCourseId = event.target.value;
+  //   setSelectedValue(`${selectedCourseId}`);
+  //   navigate(`/courses/${selectedCourseId}`);
+  // };
 
   return (
     <S.Container>
-      <CourseCustomSelect
-        options={selectOptions}
-        value={selectedValue}
-        onChange={handleChange}
-      />
+      
       <AdminBtn
         popupName="Курс"
-        type={ADMIN_BTN_TYPES.edit}
+        type={ADMIN_BTN_TYPES.add}
         onClick={() => {}}
-        popupHandlers={{
-          onAdd: handleAddCourse,
-          onEdit: handleEditCourse,
-          onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : undefined,
-          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : undefined,
-          onDelete: courseData.is_deleted ? undefined : handleDeleteCourse,
-          onRestore: courseData.is_deleted ? handleRestoreCourse : undefined,
-        }}
       />
     </S.Container>
   );
