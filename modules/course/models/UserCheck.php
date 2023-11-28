@@ -142,9 +142,9 @@ class UserCheck extends \app\components\ActiveRecord
             }
         }
         return [
-            'lesson' => $lesson->id,
-            'theme' => $theme->id,
-            'chapter' => $chapter->id,
+            'lesson' => $lesson->id ?? 'end',
+            'theme' => $theme->id ?? 'end',
+            'chapter' => $chapter->id ?? 'end',
         ];
     }
 
