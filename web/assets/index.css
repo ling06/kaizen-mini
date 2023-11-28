@@ -1,3 +1,14 @@
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
+}
+
+.ce-block__content {
+  max-width: unset !important;
+}
+
+.ce-toolbar__content {
+  max-width: unset !important;
+}
 
 .MuiSelect-select {
   padding: 0;
@@ -974,17 +985,6 @@ button.swiper-pagination-bullet {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   overflow: hidden;
-}
-.codex-editor__redactor {
-  padding-bottom: 0 !important;
-}
-
-.ce-block__content {
-  max-width: unset !important;
-}
-
-.ce-toolbar__content {
-  max-width: unset !important;
 }
 @font-face {
   font-family: "Montserrat";
