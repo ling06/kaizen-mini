@@ -27,12 +27,8 @@ export interface ICreateLessonData {
   tests: Array<ITestDataWithOptionalIds>;
 }
 
-export interface IUpdateLessonData extends ICreateLessonData {
-  id?: number;
-  status?: number;
-  isChecked?: boolean;
-  position: number;
-  newPosition?: number;
+export interface IUpdateLessonData extends Partial<Omit<ILesson, 'id'>> {
+  id: number;
 }
 
 export interface ICheckLessonRes {
