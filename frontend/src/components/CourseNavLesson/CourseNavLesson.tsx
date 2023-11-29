@@ -4,8 +4,8 @@ import * as S from './styles';
 import * as C from '@styles/components';
 import { useActions } from '@/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
+import { useCallback, useEffect, useState } from 'react';
+import { useDeleteLessonMutation, useRestoreLessonMutation, useUpdateLessonMutation } from '@/store/api/lesson.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
 import { DndBtn } from '../DndBtn';
 import { css } from 'styled-components';
@@ -23,6 +23,14 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
   const { lessonId, chapterId, courseId } = useParams();
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
+  const [updateLesson] = useUpdateLessonMutation();
+  const [lessonStatus, setLessonStatus] = useState<number>(0);
+
+  useEffect(() => {
+    if(data) {
+      setLessonStatus(data.status);
+    }
+  }, [data])
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -68,6 +76,20 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
     setLoaderActive(true);
   };
 
+  const handleToggleLessonStatus = useCallback(() => {
+    const newStatus = lessonStatus === 1 ? 0 : 1;
+    updateLesson({
+      id: Number(data.id),
+      status: newStatus,
+    }).then((res) => {
+      if ('error' in res || "data" in res && !res.data.result) {
+        alert("При редактировании урока произошла ошибка");
+      }
+      // setLoaderActive(false);
+    })
+    setLoaderActive(true);
+  }, [data.id, lessonStatus, setLoaderActive, updateLesson])
+
   return (
     <S.Container
       $isDeleted={!!data.is_deleted}
@@ -81,7 +103,7 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
       />
       <CourseNavItemTitle
         text={data.title}
-        isActive={!data.isChecked}
+        isActive={!data.isChecked && lessonStatus === 1}
       />
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
@@ -93,6 +115,8 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
           onEdit: handleEditLesson,
           onDelete: data.is_deleted ? undefined : handleDeleteLesson,
           onRestore: data.is_deleted ? handleRestoreLesson : undefined,
+          onHide: lessonStatus > 0 ? handleToggleLessonStatus : undefined,
+          onVisible: lessonStatus === 0 ? handleToggleLessonStatus : undefined,
         }}
       />
     </S.Container>
