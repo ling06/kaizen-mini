@@ -1,6 +1,7 @@
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/common.types';
 import { ICreateThemeData, ITheme, IUpdateThemeData } from '@/types/theme.types';
 import { api } from './api';
+import { ISetPositionsRes, ISetPositionsReq } from '@/types/course.types';
 
 type TThemeRes = IDefaultResWithData<ITheme>;
 
@@ -50,6 +51,14 @@ export const themeApi = api.injectEndpoints({
       }),
       invalidatesTags: () => ['ChapterById'],
     }),
+    setThemesPositions: builder.mutation<ISetPositionsRes, ISetPositionsReq>({
+      query: (data) => ({
+        url: 'course/set-positions',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['ChapterById'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -60,4 +69,5 @@ export const {
   useGetThemeByIdQuery,
   useRestoreThemeMutation,
   useUpdateThemeMutation,
+  useSetThemesPositionsMutation,
 } = themeApi;

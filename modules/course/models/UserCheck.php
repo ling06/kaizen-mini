@@ -117,4 +117,35 @@ class UserCheck extends \app\components\ActiveRecord
         parent::afterSave($insert, $changedAttributes);
     }
 
+    public static function findNextLesson($currentLesson)
+    {
+        $lesson = Lesson::find()->where(['theme_id' => $currentLesson->theme_id, 'is_deleted' => false, 'position' => $currentLesson->position + 1])->one();
+        if ($lesson) {
+            $theme = Theme::findOne($lesson->theme_id);
+            $chapter = Chapter::findOne($theme->chapter_id);
+        } else {
+            $currentTheme = Theme::findOne($currentLesson->theme_id);
+            $theme = Theme::find()->where(['chapter_id' => $currentTheme->chapter_id, 'is_deleted' => false, 'position' => $currentTheme->position + 1])->one();
+            if ($theme) {
+                $lesson = Lesson::find()->where(['theme_id' => $theme->id, 'is_deleted' => false, 'position' => 0])->one();
+                $chapter = Chapter::findOne($theme->chapter_id);
+            } else {
+                $currentChapter = Chapter::findOne($currentTheme->chapter_id);
+                $chapter = Chapter::find()->where(['course_id' => $currentChapter->course_id, 'is_deleted' => false, 'position' => $currentChapter->position + 1])->one();
+                if ($chapter) {
+                    $theme = Theme::find()->where(['chapter_id' => $chapter->id, 'is_deleted' => false, 'position' => 0])->one();
+                    $lesson = Lesson::find()->where(['theme_id' => $theme->id, 'is_deleted' => false, 'position' => 0])->one();
+                } else {
+                    return ['lesson' => 'end', 'theme' => 'end', 'chapter' => 'end'];
+                }
+
+            }
+        }
+        return [
+            'lesson' => $lesson->id ?? 'end',
+            'theme' => $theme->id ?? 'end',
+            'chapter' => $chapter->id ?? 'end',
+        ];
+    }
+
 }

@@ -4,21 +4,33 @@ import * as S from './styles';
 import * as C from '@styles/components';
 import { useActions } from '@/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDeleteLessonMutation, useRestoreLessonMutation } from '@/store/api/lesson.api';
+import { useCallback, useEffect, useState } from 'react';
+import { useDeleteLessonMutation, useRestoreLessonMutation, useUpdateLessonMutation } from '@/store/api/lesson.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
+import { DndBtn } from '../DndBtn';
+import { css } from 'styled-components';
 
 interface ICourseNavLessonProps {
+  setDraggable: () => void;
+  setNotDraggable: () => void;
   data: ILesson;
 }
 
-export function CourseNavLesson({ data }: ICourseNavLessonProps) {
+export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourseNavLessonProps) {
   const [isInit, setInit] = useState<boolean>(true);
   const { setActiveLesson, setLoaderActive } = useActions();
   const navigate = useNavigate();
   const { lessonId, chapterId, courseId } = useParams();
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
+  const [updateLesson] = useUpdateLessonMutation();
+  const [lessonStatus, setLessonStatus] = useState<number>(0);
+
+  useEffect(() => {
+    if(data) {
+      setLessonStatus(data.status);
+    }
+  }, [data])
   const handleClick = () => {
     setActiveLesson(data);
     const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -64,9 +76,35 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
     setLoaderActive(true);
   };
 
+  const handleToggleLessonStatus = useCallback(() => {
+    const newStatus = lessonStatus === 1 ? 0 : 1;
+    updateLesson({
+      id: Number(data.id),
+      status: newStatus,
+    }).then((res) => {
+      if ('error' in res || "data" in res && !res.data.result) {
+        alert("При редактировании урока произошла ошибка");
+      }
+      // setLoaderActive(false);
+    })
+    setLoaderActive(true);
+  }, [data.id, lessonStatus, setLoaderActive, updateLesson])
+
   return (
-    <S.Container $isDeleted={!!data.is_deleted} onClick={handleClick}>
-      <CourseNavItemTitle text={data.title} isActive={!data.isChecked}/>
+    <S.Container
+      $isDeleted={!!data.is_deleted}
+      onClick={handleClick}>
+      <DndBtn
+        onMouseEnter={setDraggable}
+        onMouseLeave={setNotDraggable}
+        styles={css`
+          margin-right: 20px;
+        `}
+      />
+      <CourseNavItemTitle
+        text={data.title}
+        isActive={!data.isChecked && lessonStatus === 1}
+      />
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
         popupName="Урок"
@@ -77,6 +115,8 @@ export function CourseNavLesson({ data }: ICourseNavLessonProps) {
           onEdit: handleEditLesson,
           onDelete: data.is_deleted ? undefined : handleDeleteLesson,
           onRestore: data.is_deleted ? handleRestoreLesson : undefined,
+          onHide: lessonStatus > 0 ? handleToggleLessonStatus : undefined,
+          onVisible: lessonStatus === 0 ? handleToggleLessonStatus : undefined,
         }}
       />
     </S.Container>

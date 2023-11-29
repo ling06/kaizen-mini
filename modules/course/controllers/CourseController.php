@@ -6,6 +6,7 @@ use app\components\ApiController;
 use app\components\KaizenHelper;
 use app\models\Image;
 use app\modules\course\forms\ChapterForm;
+use app\modules\course\forms\CourseForm;
 use app\modules\course\forms\LessonForm;
 use app\modules\course\forms\ThemeForm;
 use app\modules\course\models\Chapter;
@@ -47,17 +48,19 @@ class CourseController extends ApiController
                             'send-answer',
                             'check-lesson',
                             'get-user-answers',
+                            'set-positions',
+                            'get-users-progress',
                         ],
                         'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image'],
+                        'actions' => ['create', 'create-chapter', 'create-theme', 'create-lesson', 'upload-temp-image', 'set-positions', 'get-users-progress'],
                         'permissions' => [Course::PERMISSION_CREATE],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image'],
+                        'actions' => ['update', 'update-chapter', 'update-theme', 'update-lesson', 'autosave-lesson', 'upload-temp-image', 'set-positions', 'get-users-progress'],
                         'permissions' => [Course::PERMISSION_UPDATE],
                     ],
                     [
@@ -100,11 +103,13 @@ class CourseController extends ApiController
             'model_pk' => $lesson->id,
         ];
         $check = UserCheck::findOne($checkParams) ?? new UserCheck($checkParams);
+        $nextLesson = UserCheck::findNextLesson($lesson);
         return [
             'data' => [
                 'theme_id' => $lesson->theme_id,
             ],
             'result' => $check->isNewRecord ? $check->save() : true,
+            'next_lesson' => $nextLesson,
         ];
     }
 
@@ -172,6 +177,49 @@ class CourseController extends ApiController
         return ($result);
     }
 
+    public function actionSetPositions()
+    {
+        $request = Yii::$app->request->getBodyParams();
+        switch ($request['type']) {
+            case 'Chapter':
+                $model = Chapter::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Theme':
+                $model = Theme::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Lesson':
+                $model = Lesson::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            case 'Course':
+                $model = Course::class;
+                $this->setPosition($model, $request['items']);
+                break;
+            default:
+                return ['status' => 'error', 'message' => 'incorrect type'];
+                break;
+        }
+        return ['status' => 'success'];
+    }
+
+    public function setPosition($model, $items)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            foreach ($items as $item){
+                $currentItem = $model::findOne($item['id']);
+                $currentItem->position = $item['position'];
+                $currentItem->save();
+            }
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+    }
+
     public function beforeAction($action): bool
     {
         if ($action->id === 'get-all') {
@@ -193,25 +241,25 @@ class CourseController extends ApiController
         return [
             'get-one' => [
                 'class' => GetOneAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'modelPk' => Yii::$app->request->get('id'),
                 'scopes' => $scopes,
             ],
             'get-all' => [
                 'class' => GetAllAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'page' => Yii::$app->request->get('page', 1),
                 'scopes' => $scopes,
             ],
             'create' => [
                 'class' => CreateAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],
             'update' => [
                 'class' => UpdateAction::class,
-                'modelName' => Course::class,
+                'modelName' => CourseForm::class,
                 'attributes' => Yii::$app->request->getBodyParams(),
                 'formName' => '',
             ],

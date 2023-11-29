@@ -95,6 +95,8 @@
       "assets/loadingLogo.svg",
       "assets/stub-course-program.webp",
       "assets/dnd-btn.svg",
+      "assets/dnd-btn-arrows.svg",
+      "assets/dnd-btn-arrows-active.svg",
       "assets/forwardIcon.svg",
       "assets/forwardIconDisabled.svg",
       "assets/radio.svg",
@@ -302,6 +304,14 @@
   "src/assets/images/deleteIcon.svg": {
     "file": "assets/deleteIcon.svg",
     "src": "src/assets/images/deleteIcon.svg"
+  },
+  "src/assets/images/dnd-btn-arrows-active.svg": {
+    "file": "assets/dnd-btn-arrows-active.svg",
+    "src": "src/assets/images/dnd-btn-arrows-active.svg"
+  },
+  "src/assets/images/dnd-btn-arrows.svg": {
+    "file": "assets/dnd-btn-arrows.svg",
+    "src": "src/assets/images/dnd-btn-arrows.svg"
   },
   "src/assets/images/dnd-btn.svg": {
     "file": "assets/dnd-btn.svg",

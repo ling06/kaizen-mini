@@ -82,6 +82,7 @@ class Course extends \app\components\ActiveRecord
             [['is_open'], 'default', 'value' => 1],
             [['is_deleted'], 'boolean'],
             [['is_deleted'], 'default', 'value' => false],
+            [['position'], 'integer'],
         ];
     }
 
@@ -100,6 +101,7 @@ class Course extends \app\components\ActiveRecord
             'date' => 'Дата создания',
             'is_deleted' => 'Удален ли курс',
             'image' => 'Изображение',
+            'position' => 'Позиция',
         ];
     }
 

@@ -20,7 +20,6 @@ class LessonForm extends Lesson
 {
     public $tests = [];
 
-
     public function rules(): array
     {
         $rules = parent::rules();
@@ -60,7 +59,7 @@ class LessonForm extends Lesson
      */
     public function afterSave($insert, $changedAttributes): void
     {
-        KaizenHelper::setPosition(Lesson::class, $this->id, $this->position);
+        KaizenHelper::setPosition(Lesson::class, $this->id);
         $editedTests = [];
         $testsFromDb = Test::find()->where(['lesson_id' => $this->id])->indexBy('id')->all();
         foreach ($this->tests as $tests) {

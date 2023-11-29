@@ -13,6 +13,7 @@ export interface IChapter {
   percentage: {
     percentage: number;
   };
+  position: number;
 }
 
 export interface ICreateChapterData
@@ -22,4 +23,5 @@ export interface ICreateChapterData
 
 export interface IUpdateChapterData extends ICreateChapterData {
   id: number;
+  position: number;
 }

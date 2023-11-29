@@ -46,12 +46,12 @@ export const DefaultBtn = styled.button`
 
 export const EditorTabel = styled.table``;
 
-export const Text = styled.p<{$isDeleted?: boolean}>`
+export const Text = styled.p<{ $isDeleted?: boolean }>`
   font-size: 18px;
   font-weight: 700;
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
-  text-decoration: ${props => props.$isDeleted ? 'line-through' : 'none'};
+  text-decoration: ${(props) => (props.$isDeleted ? 'line-through' : 'none')};
 
   @media ${(props) => props.theme.media.mobile} {
     font-size: 5.625vw;
@@ -142,10 +142,12 @@ export const FlexContainer = styled.div`
 `;
 
 interface IProgressBar {
-  $progress: string ;
+  $progress: string;
 }
 
-export const ProgressBar = styled(FlexContainer)<IProgressBar>`
+export const ProgressBar = styled.div<IProgressBar>`
+  display: flex;
+  width: 100%;
   position: relative;
   height: 10px;
   border-radius: 5px;
@@ -164,7 +166,7 @@ export const ProgressBar = styled(FlexContainer)<IProgressBar>`
     height: 100%;
     border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
-    transition: width .2s linear;
+    transition: width 0.2s linear;
   }
 `;
 

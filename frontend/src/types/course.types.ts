@@ -67,3 +67,25 @@ export interface ICourseProgressCompleted {
 export interface ICourseProgressError {
   error: string;
 }
+
+export enum CourseEntities {
+  course = 'Course',
+  chapter = 'Chapter',
+  theme = 'Theme',
+  lesson = 'Lesson',
+}
+
+export interface IItemWithPosition {
+  id: number;
+  position: number;
+}
+
+export interface ISetPositionsReq {
+  type: CourseEntities;
+  items: Array<IItemWithPosition>
+}
+
+export interface ISetPositionsRes {
+  status: 'success' | 'error';
+  message?: string;
+}

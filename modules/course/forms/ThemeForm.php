@@ -20,7 +20,7 @@ class ThemeForm extends Theme
 
     public function afterSave($insert, $changedAttributes): void
     {
-        KaizenHelper::setPosition(Theme::class, $this->id, $this->position);
+        KaizenHelper::setPosition(Theme::class, $this->id);
         parent::afterSave($insert, $changedAttributes);
     }
 

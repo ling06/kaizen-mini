@@ -51,23 +51,21 @@ export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} 
     }
   };
 
+  if(!isAdmin) return null;
+
   return (
-    <>
-      {isAdmin && (
-        <S.AdminBtn
-          style={styles}
-          ref={ref}
-          $type={type}
-          onClick={handleClick}>
-          {isPopup && (
-            <ControlsPopup
-              innerRef={popupInnerRef}
-              name={popupName}
-              {...popupHandlers}
-            />
-          )}
-        </S.AdminBtn>
+    <S.AdminBtn
+      style={styles}
+      ref={ref}
+      $type={type}
+      onClick={handleClick}>
+      {isPopup && (
+        <ControlsPopup
+          innerRef={popupInnerRef}
+          name={popupName}
+          {...popupHandlers}
+        />
       )}
-    </>
+    </S.AdminBtn>
   );
 }
