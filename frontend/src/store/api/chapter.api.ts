@@ -1,6 +1,7 @@
 import { api } from './api';
 import { IChapter, ICreateChapterData, IUpdateChapterData } from '@/types/chapter.types';
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/common.types';
+import { ISetPositionsReq, ISetPositionsRes } from '@/types/course.types';
 
 type IChapterRes = IDefaultResWithData<IChapter>;
 
@@ -40,7 +41,7 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CourseById', 'ChapterById'],
+      invalidatesTags: ['Courses', 'CourseById', 'ChapterById'],
     }),
     restoreChapter: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -48,7 +49,15 @@ export const chapterApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CourseById', 'ChapterById'],
+      invalidatesTags: ['Courses', 'CourseById', 'ChapterById'],
+    }),
+    setChaptersPositions: builder.mutation<ISetPositionsRes, ISetPositionsReq>({
+      query: (data) => ({
+        url: 'course/set-positions',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Courses', 'CourseById'],
     }),
   }),
   overrideExisting: false,
@@ -60,4 +69,5 @@ export const {
   useGetChapterByIdQuery,
   useRestoreChapterMutation,
   useUpdateChapterMutation,
+  useSetChaptersPositionsMutation
 } = chapterApi;

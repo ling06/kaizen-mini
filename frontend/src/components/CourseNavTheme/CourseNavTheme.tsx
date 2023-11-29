@@ -1,8 +1,8 @@
 import { AdminBtn } from '../AdminBtn';
-import { CourseNavLesson } from '../CourseNavLesson';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
+import { css } from 'styled-components';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { ITheme } from '@/types/theme.types';
 import Accordion from '@mui/material/Accordion';
@@ -12,13 +12,21 @@ import { useActions } from '@/hooks/useActions';
 import { useMemo } from 'react';
 import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
+import { SortableLessons } from './SortableLessons';
 
 interface ICourseNavTheme {
   data: ITheme;
   courseId: number;
+  setDraggable: () => void;
+  setNotDraggable: () => void;
 }
 
-export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
+export function CourseNavTheme({
+  data,
+  courseId,
+  setDraggable = () => {},
+  setNotDraggable = () => {},
+}: ICourseNavTheme) {
   const { setActiveTheme, setModalOpen, setModalType, setUpdatingThemeData, setLoaderActive } =
     useActions();
   const [deleteTheme] = useDeleteThemeMutation();
@@ -77,8 +85,19 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
     setLoaderActive(true);
   };
 
+  const handleCloseAccordion = () => {
+    if (!themeId) {
+      return;
+    }
+    const path = generatePath(`/courses/:courseId/:chapterId`, {
+      courseId: String(courseId),
+      chapterId: String(data.chapter_id),
+    });
+    navigate(path);
+  };
+
   return (
-    <S.Container $isDeleted={!!data.is_deleted}>
+    <S.Container>
       <S.Theme>
         <Accordion
           sx={{ width: '100%', boxShadow: 'unset' }}
@@ -90,17 +109,25 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>
             <S.AccSum>
-              <DndBtn
-                onClick={() => {}}
-                styles={{ marginRight: '20px' }}
-              />
-              <C.AccordionIcon $active={Number(themeId) === data.id} />
-              <CourseNavItemTitle
-                text={data.title}
-                isActive={!isThemeChecked}
-                isDeleted={!!data.is_deleted}
-              />
-              {isThemeChecked && <C.DoneIcon />}
+              <S.Inner $isDeleted={!!data.is_deleted}>
+                <DndBtn
+                  onMouseEnter={() => {
+                    setDraggable();
+                    handleCloseAccordion();
+                  }}
+                  onMouseLeave={setNotDraggable}
+                  styles={css`
+                    margin-right: 20px;
+                  `}
+                />
+                <C.AccordionIcon $active={Number(themeId) === data.id} />
+                <CourseNavItemTitle
+                  text={data.title}
+                  isActive={!isThemeChecked}
+                  isDeleted={!!data.is_deleted}
+                />
+                {isThemeChecked && <C.DoneIcon />}
+              </S.Inner>
               <AdminBtn
                 popupName="Тема"
                 styles={{ marginLeft: 'auto' }}
@@ -116,13 +143,7 @@ export function CourseNavTheme({ data, courseId }: ICourseNavTheme) {
             </S.AccSum>
           </AccordionSummary>
           <AccordionDetails sx={{ paddingLeft: '102px', paddingRight: 0 }}>
-            {data.lessons &&
-              data.lessons.map((lesson) => (
-                <CourseNavLesson
-                  key={lesson.id}
-                  data={lesson}
-                />
-              ))}
+            {data.lessons && <SortableLessons data={data.lessons} />}
           </AccordionDetails>
         </Accordion>
       </S.Theme>

@@ -1,7 +1,6 @@
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
 import {
-  useCheckLessonMutation,
   useDeleteLessonMutation,
   useGetLessonByIdQuery,
   useRestoreLessonMutation,
@@ -14,23 +13,23 @@ import { useActions } from '@/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MediaQueries } from '@/constants';
-import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
+import { useCheckLesson } from '@/hooks/useCheckLesson';
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();
   const { courseId, lessonId, chapterId } = useParams();
-  const chapterData = useGetChapterByIdQuery(Number(chapterId), {
-    skip: !chapterId,
-  });
   const [deleteLesson] = useDeleteLessonMutation();
   const [restoreLesson] = useRestoreLessonMutation();
   const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
     skip: !lessonId,
   });
-  const [checkLesson] = useCheckLessonMutation();
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const navigate = useNavigate();
+  const [handleCheckLesson] = useCheckLesson({
+    courseId: String(courseId),
+    lessonId: String(lessonId),
+  });
 
   const isTestsPassed = useMemo(() => {
     if (data?.data.tests && data?.data.tests.length > 0) {
@@ -40,47 +39,12 @@ export function CourseContent() {
 
   useEffect(() => {
     setLoaderActive(isFetching);
-    if (
-      isFetching ||
-      data?.data.isChecked ||
-      (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)
-    ) {
+    if (isFetching || (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)) {
       setIsForwardBtnDisabled(true);
     } else {
       setIsForwardBtnDisabled(false);
     }
-  }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed]);
-
-  const handleCheckLesson = () => {
-    if (data && data.data.id) {
-      checkLesson({ id: data.data.id }).then((res) => {
-        if (!('data' in res) || ('data' in res && !res.data.data)) {
-          return;
-        }
-        //TODO: надо дополнить эндроинт под вот это все
-        if (!chapterData.data || !chapterData.data.data || !chapterData.data.data.themes) {
-          return;
-        }
-        const theme = chapterData.data?.data.themes.find(
-          (theme) => theme.id === res.data.data.theme_id
-        );
-        if (!theme || !theme?.lessons) {
-          return;
-        }
-        const index = theme?.lessons.findIndex((lesson) => lesson.id === Number(lessonId));
-        if (index && index !== -1 && theme?.lessons.length > index + 1) {
-          navigate(
-            `/courses/${courseId}/${chapterId}/${res.data.data.theme_id}/${
-              theme.lessons[index + 1].id
-            }`
-          );
-        }
-
-        setLoaderActive(false);
-      });
-      setLoaderActive(true);
-    }
-  };
+  }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed, setLoaderActive]);
 
   const renderLessonTests = () => {
     return data?.data.tests.map((test) => (
@@ -89,16 +53,6 @@ export function CourseContent() {
         data={test}
       />
     ));
-  };
-
-  const renderForwardButton = () => {
-    return (
-      <S.ForwardBtn
-        onClick={handleCheckLesson}
-        disabled={isForwardBtnDisabled}>
-        Вперёд
-      </S.ForwardBtn>
-    );
   };
 
   const handleEditLesson = () => {
@@ -154,10 +108,11 @@ export function CourseContent() {
           <S.Container>
             <CkEditorOutput data={data.data.description} />
             {data.data.tests.length > 0 && renderLessonTests()}
-            {data.data.description.length > 0 &&
-              !isFetching &&
-              !data.data.isChecked &&
-              renderForwardButton()}
+            <S.ForwardBtn
+              onClick={handleCheckLesson}
+              disabled={isForwardBtnDisabled}>
+              Вперёд
+            </S.ForwardBtn>
           </S.Container>
         </>
       )}

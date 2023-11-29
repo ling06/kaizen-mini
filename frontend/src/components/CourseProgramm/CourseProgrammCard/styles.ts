@@ -15,7 +15,7 @@ export const Card = styled(C.FlexContainer)<ICard>`
     props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.realWhite};
   border-radius: ${(props) => props.theme.utils.br};
   @media ${(props) => props.theme.media.mobile} {
-    width: 49%;
+    width: 49vw;
     height: auto;
     min-height: 63.125vw;
     padding: 3.125vw 3.125vw 2.1875vw;
@@ -53,28 +53,5 @@ export const Title = styled(C.Text)`
   word-break: break-word;
   @media ${(props) => props.theme.media.mobile} {
     font-size: 3.75vw;
-  }
-`;
-
-export const ProgressContainer = styled(C.FlexContainer)`
-  flex-direction: column;
-  margin-top: auto;
-`;
-
-export const ProgressStatusWrapper = styled(C.FlexContainer)`
-  align-items: center;
-  margin-bottom: 10px;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 0;
-  }
-`;
-
-export const ProgressStatus = styled.p`
-  margin-right: auto;
-  font-size: 15px;
-  font-weight: 500;
-  color: ${(props) => props.theme.colors.realBlack};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 2.5vw;
   }
 `;

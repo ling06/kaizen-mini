@@ -1,19 +1,15 @@
 import { useActions } from '@/hooks/useActions';
 import { AdminBtn } from '../AdminBtn';
-import { CourseNavTheme } from '../CourseNavTheme';
 import * as S from './styles';
 import { MODAL_TYPES } from '@/constants';
 import { IChapter } from '@/types/chapter.types';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
 import { FadedTitle } from '../FadedTitle';
-
+import { SortableThemes } from './SortableThemes';
 interface ICourseNavBodyProps {
   data: IChapter;
 }
 export function CourseNavBody({ data }: ICourseNavBodyProps) {
   const { setModalType, setModalOpen } = useActions();
-  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
 
   const openCreateThemeModal = () => {
     setModalType(MODAL_TYPES.createTheme);
@@ -30,19 +26,9 @@ export function CourseNavBody({ data }: ICourseNavBodyProps) {
         />
       </FadedTitle>
       <S.Container>
-        {data.themes &&
-          data.themes.map((theme) => {
-            if (Number(theme.is_deleted) === 1 && userRole !== 'admin') {
-              return;
-            }
-            return (
-              <CourseNavTheme
-                data={theme}
-                courseId={data.course_id}
-                key={theme.id}
-              />
-            );
-          })}
+        {data.themes && data.themes.length > 0 && (
+          <SortableThemes data={data.themes}/>
+        )}
       </S.Container>
     </S.Container>
   );

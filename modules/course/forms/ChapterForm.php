@@ -19,7 +19,7 @@ class ChapterForm extends Chapter
 
     public function afterSave($insert, $changedAttributes): void
     {
-        KaizenHelper::setPosition(Chapter::class, $this->id, $this->position);
+        KaizenHelper::setPosition(Chapter::class, $this->id);
         parent::afterSave($insert, $changedAttributes);
     }
 
