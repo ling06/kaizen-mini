@@ -39,5 +39,10 @@ export interface ICheckLessonRes {
   data: {
     theme_id: number;
   };
+  next_lesson: {
+    lesson: number | 'end';
+    theme: number | 'end';
+    chapter: number | 'end';
+  }
   result: boolean;
 }
