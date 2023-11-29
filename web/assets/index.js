@@ -26423,6 +26423,51 @@ color: ${(props) => props.theme.colors.mainBlue};
           });
           state.tests = modifyTests;
         },
+        resetResponseStatus: (state, { payload }) => {
+          const testIndex = state.tests.findIndex(
+            (test) => test.id === payload.testId
+          );
+          if (testIndex === -1)
+            return;
+          const changedAnswers = state.tests[testIndex].answers.map((answer, index) => {
+            answer.right_answer = false;
+            if (index === state.tests[testIndex].answers.length - 1) {
+              answer.right_answer = true;
+            }
+            return answer;
+          });
+          const modifyTests = state.tests.map((test) => {
+            if (test.id === payload.testId) {
+              test.answers = changedAnswers;
+            }
+            return test;
+          });
+          state.tests = modifyTests;
+        },
+        severalAnswers: (state, { payload }) => {
+          const testIndex = state.tests.findIndex(
+            (test) => test.id === payload.testId
+          );
+          if (testIndex === -1)
+            return;
+          const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+            if (payload.isRight) {
+              if (answer.id === payload.answerId && payload.isRight) {
+                answer.right_answer = payload.isRight;
+              }
+            } else if (answer.id === payload.answerId && !payload.isRight) {
+              answer.right_answer = payload.isRight;
+            }
+            return answer;
+          });
+          const modifyTests = state.tests.map((test) => {
+            if (test.id === payload.testId) {
+              test.answers = changedAnswers;
+            }
+            return test;
+          });
+          state.tests = modifyTests;
+        },
         changeAnswer: (state, { payload }) => {
           const testIndex = state.tests.findIndex(
             (test) => test.id === payload.testId
@@ -28029,7 +28074,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           query: (data) => ({
             url: "course/check-lesson",
             method: "POST",
-            body: data
+            body: { answers: data }
           }),
           invalidatesTags: () => ["ChapterById", "LessonById", "Courses"]
         })
@@ -28679,7 +28724,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   flex-direction: column;
   padding: 40px 45px;
   border: 1px solid
-    ${(props) => props.$isPassed ? props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed : props.theme.colors.greyF1};
+    ${(props) => props.$isPassed ? props.$isRight === "testFailed" ? props.theme.colors.yRed : props.$isRight === "notAllAnswers" ? props.theme.colors.dark : props.theme.colors.mainGreen : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
   @media ${(props) => props.theme.media.mobile} {
@@ -28706,8 +28751,10 @@ color: ${(props) => props.theme.colors.mainBlue};
     const Answers = st$1(FlexContainer)`
   flex-direction: column;
   margin-bottom: 30px;
+  row-gap: 20px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 6.25vw;
+    row-gap: 6.25vw;
   }
 `;
     const CheckBtn = st$1(DefaultBtn)`
@@ -28741,12 +28788,12 @@ color: ${(props) => props.theme.colors.mainBlue};
     font-size: 4.6875vw;
   }
 
-  &:not(:last-child) {
+  /* &:not(:last-child) {
     margin-bottom: 20px;
     @media ${(props) => props.theme.media.mobile} {
       margin-bottom: 6.25vw;
     }
-  }
+  } */
 `;
     const RadioBtn$1 = st$1.input`
   appearance: none;
@@ -28767,7 +28814,12 @@ color: ${(props) => props.theme.colors.mainBlue};
     background-image: url(${radioChecked});
   }
 `;
-    function RadioBtn({ onChange, label, name, disabled = false }) {
+    function RadioBtn({
+      onChange,
+      label,
+      name,
+      disabled = false
+    }) {
       const handleChange = () => {
         if (onChange) {
           onChange();
@@ -28832,7 +28884,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           query: (data) => ({
             url: "test/send-answer",
             method: "POST",
-            body: { answers: data }
+            body: data
           }),
           invalidatesTags: () => ["LessonById"]
         })
@@ -28849,28 +28901,29 @@ color: ${(props) => props.theme.colors.mainBlue};
     } = lessonTestApi;
     const wrongAnswer = "/assets/wrongAnswer.svg";
     const rightAnswer = "/assets/rightAnswer.svg";
+    const unspecifiedAnswer = "/assets/unspecifiedAnswer.svg";
     const Container$l = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   @media ${(props) => props.theme.media.mobile} {
     row-gap: unset;
   }
-  
-  &:not(:last-child) {
+
+  /* &:not(:last-child) {
     margin-bottom: 40px;
     @media ${(props) => props.theme.media.mobile} {
       margin-bottom: 6.25vw;
     }
-  }
+  } */
 `;
     const Answer = st$1(Text$6)`
   padding-left: 56px;
   font-weight: 400;
-  color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
-  background-image: url(${(props) => props.$isRight ? rightAnswer : wrongAnswer});
+  color: ${(props) => props.$isRight === "Правильно" ? props.theme.colors.mainGreen : props.$isRight === "Неуказанный" ? props.theme.colors.realBlack : props.theme.colors.yRed};
+  background-image: url(${(props) => props.$isRight === "Правильно" ? rightAnswer : props.$isRight === "Неуказанный" ? unspecifiedAnswer : wrongAnswer});
   background-repeat: no-repeat;
   background-position: left center;
-  background-size: 36px;
+  background-size: 29px;
   @media ${(props) => props.theme.media.mobile} {
     padding-left: 9.6875vw;
     background-size: 7.5vw;
@@ -28878,31 +28931,160 @@ color: ${(props) => props.theme.colors.mainBlue};
 `;
     const Comment = st$1(Text$6)`
   font-weight: 600;
-  color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
+  color: ${(props) => props.$isRight === "Правильно" ? props.theme.colors.mainGreen : props.$isRight === "Неуказанный" ? props.theme.colors.realBlack : props.theme.colors.yRed};
 `;
-    function CheckedAnswer({ data }) {
+    function CheckedAnswer({ data, unspecified }) {
+      const [isUserAnswer, setUserAnswer] = reactExports.useState("");
+      reactExports.useEffect(() => {
+        processingUserResponses();
+      }, [data, unspecified]);
+      const processingUserResponses = () => {
+        if (unspecified) {
+          setUserAnswer("Неуказанный");
+        } else if (!!data.right_answer) {
+          setUserAnswer("Правильно");
+        } else {
+          setUserAnswer("Неправильно");
+        }
+      };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: isUserAnswer, children: data.answer }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: isUserAnswer, children: unspecified ? "Это тоже верный ответ, его нужно было указать." : data.text })
+      ] });
+    }
+    const checkboxIcon = "/assets/checkbox.svg";
+    const checkboxIconChecked = "/assets/checkbox-checked.svg";
+    const Label$1 = st$1.label`
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.7vw;
+  }
+`;
+    const Input$1 = st$1.input`
+  display: none;
+`;
+    const CustomCheckbox$1 = st$1.div`
+  width: 24px;
+  height: 24px;
+  margin-right: 11px;
+  background-image: url(${(props) => props.$checked ? checkboxIconChecked : checkboxIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+
+  ${(props) => {
+      if (props.$isRadio) {
+        return nt$1`
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin-right: 14px;
+        border-radius: 50%;
+        position: relative;
+        border: 1px solid #333;
+        background-image: unset;
+      `;
+      }
+    }}
+
+  &::before {
+    content: "";
+    display: ${(props) => props.$checked && props.$isRadio ? "block" : "none"};
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+  }
+`;
+    const CheckboxDescr = st$1(Text$6)`
+  line-height: 100%;
+`;
+    function CustomCheckbox({
+      descr,
+      onChange = () => {
+      },
+      children,
+      checked = false,
+      isRadio = false
+    }) {
+      const [isChecked, setChecked] = reactExports.useState(checked);
+      const toggleCheckedStatus = () => {
+        setChecked(!isChecked);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$1, { onChange: () => toggleCheckedStatus(), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Input$1, { type: "checkbox", onChange, checked: isChecked }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CustomCheckbox$1, { $checked: isChecked, $isRadio: isRadio }),
+        children,
+        descr && /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
       ] });
     }
     function LessonTest({ data }) {
       const { setLoaderActive } = useActions();
       const [checkedAnswer, setCheckedAnswer] = reactExports.useState(null);
       const [sendAnswer] = useSendAnswerMutation();
-      const [isUserRightAnswer, setIsUserRightAnswer] = reactExports.useState(false);
+      const [isUserRightAnswer, setIsUserRightAnswer] = reactExports.useState("");
       const [isTestPassed, setIsTestPassed] = reactExports.useState(false);
+      const [isArrayAnswer, setArrayAnswer] = reactExports.useState([]);
+      const [isMultiple, setMultiple] = reactExports.useState(false);
+      reactExports.useEffect(() => {
+        let rightAnswers = 0;
+        data.answers.map((answer) => {
+          if (answer.right_answer === "1") {
+            rightAnswers += 1;
+          }
+        });
+        setMultiple(() => {
+          if (rightAnswers > 1) {
+            return true;
+          }
+          return false;
+        });
+      }, [data]);
       reactExports.useEffect(() => {
         if (data.userTestAnswer.length > 0) {
           setIsTestPassed(true);
-          setIsUserRightAnswer(!!data.userTestAnswer.is_right);
         }
-        console.log(654);
-        console.log(data.userTestAnswer);
-        console.log(checkedAnswer);
-      }, [data.userTestAnswer, checkedAnswer]);
+        if (isMultiple) {
+          isArrayAnswer.length === 0 ? setCheckedAnswer(null) : setCheckedAnswer("1");
+        }
+        handleBorderColor();
+      }, [
+        data,
+        data.userTestAnswer,
+        checkedAnswer,
+        isArrayAnswer,
+        isUserRightAnswer
+      ]);
+      console.log(isMultiple);
+      const handleUserAnswers = (answer) => {
+        const userAnswers = data.userTestAnswer.find(
+          (userAnswer) => Number(userAnswer.answer) === Number(answer.id)
+        );
+        return userAnswers;
+      };
+      const handleBorderColor = () => {
+        data.answers.some((answer) => {
+          const userAnswer = handleUserAnswers(answer);
+          if (!answer.right_answer && Number(answer.id) === (userAnswer == null ? void 0 : userAnswer.answer)) {
+            setIsUserRightAnswer("testFailed");
+            return true;
+          }
+          if (!isMultiple && !!answer.right_answer && Number(answer.id) !== (userAnswer == null ? void 0 : userAnswer.answer)) {
+            setIsUserRightAnswer("notAllAnswers");
+            return true;
+          }
+        });
+      };
       const handleChange = (answer) => {
         setCheckedAnswer(answer);
+        console.log(checkedAnswer);
       };
       const handleSendAnswer = () => {
         if (checkedAnswer) {
@@ -28912,57 +29094,96 @@ color: ${(props) => props.theme.colors.mainBlue};
           setLoaderActive(true);
         }
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$m,
-        {
-          $isRight: isUserRightAnswer,
-          $isPassed: isTestPassed,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { children: data.question }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
-              data.userTestAnswer.length === 0 && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-                RadioBtn,
-                {
-                  name: data.id,
-                  label: `${answer.answer}`,
-                  onChange: () => {
-                    handleChange(`${answer.id}`);
-                  }
-                },
-                answer.id
-              )),
-              data.userTestAnswer.length > 0 && data.answers.map((answer) => {
-                var _a, _b;
-                if (Number(answer.id) === ((_a = data.userTestAnswer) == null ? void 0 : _a.answer)) {
-                  return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
-                }
-                if (!!answer.right_answer && Number(answer.id) !== ((_b = data.userTestAnswer) == null ? void 0 : _b.answer)) {
-                  return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
-                }
-                return /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  RadioBtn,
-                  {
-                    name: data.id,
-                    label: `${answer.answer}`,
-                    onChange: () => {
-                    },
-                    disabled: true
-                  },
-                  answer.id
-                );
-              })
-            ] }),
-            !data.userTestAnswer || checkedAnswer && /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CheckBtn,
-              {
-                onClick: handleSendAnswer,
-                disabled: !checkedAnswer,
-                children: "Проверить"
-              }
+      const handleSeveralAnswers = (answer) => {
+        const obj = {
+          test_id: data.id,
+          answer
+        };
+        const answerAlreadyExists = isArrayAnswer.some(
+          (item) => item.test_id === obj.test_id && item.answer === obj.answer
+        );
+        if (answerAlreadyExists) {
+          setArrayAnswer(
+            isArrayAnswer.filter(
+              (item) => item.test_id !== obj.test_id || item.answer !== obj.answer
             )
-          ]
+          );
+        } else {
+          setArrayAnswer((isArrayAnswer2) => {
+            return [...isArrayAnswer2, obj];
+          });
         }
-      );
+      };
+      const handleSendMultipleReplies = () => {
+        sendAnswer(isArrayAnswer).then(() => {
+          setCheckedAnswer(null);
+        });
+        setLoaderActive(true);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { $isRight: isUserRightAnswer, $isPassed: isTestPassed, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { children: data.question }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
+          data.userTestAnswer.length === 0 && data.answers.map(
+            (answer) => !isMultiple ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+              RadioBtn,
+              {
+                name: data.id,
+                label: `${answer.answer}`,
+                onChange: () => {
+                  handleChange(`${answer.id}`);
+                }
+              },
+              answer.id
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CustomCheckbox,
+              {
+                onChange: () => {
+                  handleSeveralAnswers(answer.id);
+                },
+                children: `${answer.answer}`
+              },
+              answer.id
+            )
+          ),
+          data.userTestAnswer.length > 0 && data.answers.map((answer) => {
+            const userAnswer = handleUserAnswers(answer);
+            if (!answer.right_answer && Number(answer.id) === (userAnswer == null ? void 0 : userAnswer.answer)) {
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
+            }
+            if (!!answer.right_answer && Number(answer.id) === (userAnswer == null ? void 0 : userAnswer.answer) || !isMultiple && !!answer.right_answer) {
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer });
+            }
+            if (isMultiple && !!answer.right_answer && Number(answer.id) !== (userAnswer == null ? void 0 : userAnswer.answer)) {
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(CheckedAnswer, { data: answer, unspecified: true });
+            }
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              RadioBtn,
+              {
+                name: data.id,
+                label: `${answer.answer}`,
+                onChange: () => {
+                },
+                disabled: true
+              },
+              answer.id
+            );
+          })
+        ] }),
+        !!data.userTestAnswer.length || /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CheckBtn,
+          {
+            onClick: () => {
+              if (!isMultiple) {
+                handleSendAnswer();
+              } else {
+                handleSendMultipleReplies();
+              }
+            },
+            disabled: !checkedAnswer,
+            children: "Проверить"
+          }
+        )
+      ] });
     }
     const useMediaQuery = (query) => {
       if (!query) {
@@ -36427,7 +36648,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   margin-left: 10px;
   background-image: url(${externalLinkIcon});
 `;
-    const ContainerBtn = st$1.div`
+    const ContainerBtn$1 = st$1.div`
   width: 100%;
   display: flex;
   position: absolute;
@@ -36584,7 +36805,7 @@ color: ${(props) => props.theme.colors.mainBlue};
               ] }),
               isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
               isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(ContainerBtn, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(ContainerBtn$1, { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(BtnLeft, { onClick: handleBackCompetition }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(BtnRight, { onClick: handleNextCompetition })
               ] })
@@ -50012,6 +50233,11 @@ margin-bottom: 60px;
   margin-right: 5px;
   background-image: url(${deleteIcon$1});
 `;
+    const ContainerBtn = st$1(FlexContainer)`
+  flex-direction: column;
+  row-gap: 9px;
+  justify-content: center;
+`;
     const Title$3 = st$1.h5`
   display: flex;
   align-items: center;
@@ -50069,7 +50295,7 @@ margin-bottom: 60px;
         }
       );
     }
-    const Label$1 = st$1.label`
+    const Label = st$1.label`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -50112,7 +50338,7 @@ margin-bottom: 60px;
       styles: styles2 = {},
       radioStyles = {}
     }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label$1, { style: styles2, children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { style: styles2, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           RadioInput,
           {
@@ -50128,8 +50354,19 @@ margin-bottom: 60px;
         value
       ] });
     }
-    function Variant({ data, number, testId }) {
-      const { toggleAnswer, changeAnswer, changeAnswerComment, deleteAnswer } = useActions();
+    function Variant({
+      data,
+      number,
+      testId,
+      quantityOptions
+    }) {
+      const {
+        toggleAnswer,
+        changeAnswer,
+        changeAnswerComment,
+        deleteAnswer,
+        severalAnswers
+      } = useActions();
       const [isValid, setValid] = reactExports.useState(false);
       const [isChanged, setChanged] = reactExports.useState(false);
       const [defaultCommentValue, setDefaultCommentValue] = reactExports.useState("");
@@ -50142,7 +50379,7 @@ margin-bottom: 60px;
           value: ""
         });
         data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
-      }, [changeAnswerComment, data.id, data.right_answer, testId]);
+      }, [changeAnswerComment, data.id, data.right_answer, testId, quantityOptions]);
       const handleSetRightAnswer = (isRight) => {
         const payload = {
           testId,
@@ -50150,6 +50387,13 @@ margin-bottom: 60px;
           isRight
         };
         toggleAnswer(payload);
+      };
+      const handleSeveralAnswers = (isRight) => {
+        severalAnswers({
+          testId,
+          isRight,
+          answerId: data.id
+        });
       };
       const handleChangeAnswer = (event) => {
         changeAnswer({
@@ -50204,9 +50448,13 @@ margin-bottom: 60px;
               styles: { marginRight: "25px", color: "#5B8930", ...radioFontStyles },
               name: data.id,
               value: "Верный",
-              checked: data.right_answer,
+              checked: !!data.right_answer,
               onChange: () => {
-                handleSetRightAnswer(true);
+                if (quantityOptions) {
+                  handleSetRightAnswer(true);
+                } else {
+                  handleSeveralAnswers(true);
+                }
               }
             }
           ),
@@ -50218,7 +50466,11 @@ margin-bottom: 60px;
               value: "Неверный",
               checked: !data.right_answer,
               onChange: () => {
-                handleSetRightAnswer(false);
+                if (quantityOptions) {
+                  handleSetRightAnswer(false);
+                } else {
+                  handleSeveralAnswers(false);
+                }
               }
             }
           )
@@ -50228,14 +50480,14 @@ margin-bottom: 60px;
           {
             type: "text",
             value: data.text || defaultCommentValue,
-            $isRight: data.right_answer,
+            $isRight: !!data.right_answer,
             onChange: handleChangeComment
           }
         )
       ] });
     }
     function CreateTestForm({ data }) {
-      const { changeTestQuestion, addAnswer, deleteTest } = useActions();
+      const { changeTestQuestion, addAnswer, deleteTest, resetResponseStatus } = useActions();
       const [isChanged, setChanged] = reactExports.useState(false);
       const handleChangeTestName = (event) => {
         changeTestQuestion({ id: data.id, question: event.target.value });
@@ -50243,11 +50495,40 @@ margin-bottom: 60px;
           setChanged(true);
         }
       };
+      const [isMultiple, setMultiple] = reactExports.useState(false);
+      reactExports.useEffect(() => {
+        let rightAnswers = 0;
+        data.answers.map((answer) => {
+          if (answer.right_answer === "1") {
+            rightAnswers += 1;
+          }
+        });
+        setMultiple(() => {
+          if (rightAnswers > 1) {
+            return true;
+          }
+          return false;
+        });
+      }, []);
       const handleAddVariant = () => {
         addAnswer({ id: data.id });
       };
       const handleDeleteTest = () => {
         deleteTest(data.id);
+      };
+      const toggleStatusMultiple = () => {
+        setMultiple(!isMultiple);
+      };
+      const test1 = () => {
+        if (isMultiple) {
+          const testId = data.id;
+          resetResponseStatus({ testId });
+        }
+      };
+      const radioFontStyles = {
+        color: "#007AFF",
+        fontSize: "18px",
+        fontWeight: "500"
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$2, { value: "Заголовок теста (необязательно)" }),
@@ -50266,13 +50547,39 @@ margin-bottom: 60px;
           {
             testId: data.id,
             data: answer,
-            number: index + 1
+            number: index + 1,
+            quantityOptions: !isMultiple
           }
         )) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(AddVariant, { onClick: handleAddVariant, children: "добавить вариант" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteTestBtn, { onClick: handleDeleteTest, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteTestBtnIcon, {}),
-          "удалить тест"
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(ContainerBtn, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CustomRadioButton,
+            {
+              styles: { ...radioFontStyles },
+              name: "oneOption",
+              value: "только один верный ответ",
+              checked: !isMultiple,
+              onChange: () => {
+                toggleStatusMultiple();
+                test1();
+              }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CustomRadioButton,
+            {
+              styles: { ...radioFontStyles },
+              name: "severalOptions",
+              value: "несколько верных ответов",
+              checked: isMultiple,
+              onChange: () => toggleStatusMultiple()
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteTestBtn, { onClick: handleDeleteTest, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteTestBtnIcon, {}),
+            "удалить тест"
+          ] })
         ] })
       ] });
     }
@@ -82910,7 +83217,7 @@ Read more: ${A2}#error-${t4}`;
   align-items: center;
   justify-content: space-between;
 `;
-    const Input$1 = st$1(InputWithState)`
+    const Input = st$1(InputWithState)`
   max-width: 80%;
 `;
     const SaveBtn = st$1(Icon$2)`
@@ -82921,77 +83228,6 @@ Read more: ${A2}#error-${t4}`;
     const DeleteBtn = st$1(SaveBtn)`
   background-image: url(${deleteIcon$1});
 `;
-    const checkboxIcon = "/assets/checkbox.svg";
-    const checkboxIconChecked = "/assets/checkbox-checked.svg";
-    const Label = st$1.label`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-    const Input = st$1.input`
-  display: none;
-`;
-    const CustomCheckbox$1 = st$1.div`
-  width: 24px;
-  height: 24px;
-  margin-right: 11px;
-  background-image: url(${(props) => props.$checked ? checkboxIconChecked : checkboxIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  ${(props) => {
-      if (props.$isRadio) {
-        return nt$1`
-        position: relative;
-        width: 16px;
-        height: 16px;
-        margin-right: 14px;
-        border-radius: 50%;
-        position: relative;
-        border: 1px solid #333;
-        background-image: unset;
-      `;
-      }
-    }}
-
-  &::before {
-    content: '';
-    display: ${(props) => props.$checked && props.$isRadio ? "block" : "none"};
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #333;
-    transform: translate(-50%, -50%);
-  }
-`;
-    const CheckboxDescr = st$1(Text$6)`
-line-height100%`;
-    function CustomCheckbox({ descr, onChange = () => {
-    }, children, checked = false, isRadio = false }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "checkbox",
-            onChange,
-            checked
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CustomCheckbox$1,
-          {
-            $checked: checked,
-            $isRadio: isRadio
-          }
-        ),
-        children,
-        descr && /* @__PURE__ */ jsxRuntimeExports.jsx(CheckboxDescr, { children: descr })
-      ] });
-    }
     function Category({ data, isAdded, onSave, onDelete, onToggle }) {
       const [categoryTitle, setCategoryTitle] = reactExports.useState(data.title);
       const [isValid, setValid] = reactExports.useState(false);
@@ -83034,7 +83270,7 @@ line-height100%`;
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input$1,
+          Input,
           {
             ref: inputRef,
             type: "text",

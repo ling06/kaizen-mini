@@ -47,7 +47,6 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
       setChangedName(false);
       setTestsData(data.data.tests);
     }
-
     return () => {
       resetTestsData();
     };

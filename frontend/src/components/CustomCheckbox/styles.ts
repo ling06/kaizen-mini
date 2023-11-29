@@ -1,12 +1,16 @@
-import { css, styled } from 'styled-components';
-import checkboxIcon from '@assets/images/checkbox.svg';
-import checkboxIconChecked from '@assets/images/checkbox-checked.svg';
-import * as C from '@styles/components';
+import { css, styled } from "styled-components";
+import checkboxIcon from "@assets/images/checkbox.svg";
+import checkboxIconChecked from "@assets/images/checkbox-checked.svg";
+import * as C from "@styles/components";
 
 export const Label = styled.label`
   display: flex;
   align-items: center;
+  font-size: 18px;
   cursor: pointer;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.7vw;
+  }
 `;
 
 export const Input = styled.input`
@@ -22,7 +26,8 @@ export const CustomCheckbox = styled.div<ICustomCheckboxProps>`
   width: 24px;
   height: 24px;
   margin-right: 11px;
-  background-image: url(${(props) => (props.$checked ? checkboxIconChecked : checkboxIcon)});
+  background-image: url(${(props) =>
+    props.$checked ? checkboxIconChecked : checkboxIcon});
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
@@ -43,8 +48,9 @@ export const CustomCheckbox = styled.div<ICustomCheckboxProps>`
   }}
 
   &::before {
-    content: '';
-    display: ${(props) => (props.$checked && props.$isRadio ? 'block' : 'none')};
+    content: "";
+    display: ${(props) =>
+      props.$checked && props.$isRadio ? "block" : "none"};
     position: absolute;
     top: 50%;
     left: 50%;
@@ -57,4 +63,5 @@ export const CustomCheckbox = styled.div<ICustomCheckboxProps>`
 `;
 
 export const CheckboxDescr = styled(C.Text)`
-line-height100%`;
+  line-height: 100%;
+`;

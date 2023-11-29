@@ -1,47 +1,69 @@
-import { useEffect, useState } from 'react';
-import { Title } from '../Title';
-import * as S from './styles';
-import { DeleteBtn } from '../DeleteBtn';
-import { IAnswer } from '@/types/lessonTest.types';
-import { CustomRadioButton } from '@/components/CustomRadioButton';
-import { useActions } from '@/hooks/useActions';
+import { useEffect, useState } from "react";
+import { Title } from "../Title";
+import * as S from "./styles";
+import { DeleteBtn } from "../DeleteBtn";
+import { IAnswer } from "@/types/lessonTest.types";
+import { CustomRadioButton } from "@/components/CustomRadioButton";
+import { useActions } from "@/hooks/useActions";
 
 interface IVariantProps {
   data: IAnswer;
   number: number;
   testId: string;
+  quantityOptions: boolean;
 }
 
-export function Variant({ data, number, testId }: IVariantProps) {
-  const { toggleAnswer, changeAnswer, changeAnswerComment, deleteAnswer } = useActions();
+export function Variant({
+  data,
+  number,
+  testId,
+  quantityOptions,
+}: IVariantProps) {
+  const {
+    toggleAnswer,
+    changeAnswer,
+    changeAnswerComment,
+    deleteAnswer,
+    severalAnswers,
+  } = useActions();
   const [isValid, setValid] = useState<boolean>(false);
   const [isChanged, setChanged] = useState<boolean>(false);
-  const [defaultCommentValue, setDefaultCommentValue] = useState<string>('');
+  const [defaultCommentValue, setDefaultCommentValue] = useState<string>("");
 
   useEffect(() => {
-    const trueComment = 'Верно, потому что ';
-    const falseComment = 'Неверно, потому что ';
+    const trueComment = "Верно, потому что ";
+    const falseComment = "Неверно, потому что ";
     changeAnswerComment({
       testId,
-      answerId: data.id || '',
-      value: '',
+      answerId: data.id || "",
+      value: "",
     });
-    data.right_answer ? setDefaultCommentValue(trueComment) : setDefaultCommentValue(falseComment);
-  }, [changeAnswerComment, data.id, data.right_answer, testId]);
+    data.right_answer
+      ? setDefaultCommentValue(trueComment)
+      : setDefaultCommentValue(falseComment);
+  }, [changeAnswerComment, data.id, data.right_answer, testId, quantityOptions]);
 
   const handleSetRightAnswer = (isRight: boolean) => {
     const payload = {
       testId,
-      answerId: data.id || '',
+      answerId: data.id || "",
       isRight: isRight,
     };
     toggleAnswer(payload);
   };
 
+  const handleSeveralAnswers = (isRight: boolean) => {
+    severalAnswers({
+      testId,
+      isRight: isRight,
+      answerId: data.id,
+    });
+  };
+
   const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeAnswer({
       testId,
-      answerId: data.id || '',
+      answerId: data.id || "",
       value: event.target.value,
     });
     if (event.target.value.length > 0) {
@@ -59,7 +81,7 @@ export function Variant({ data, number, testId }: IVariantProps) {
     }
     changeAnswerComment({
       testId,
-      answerId: data.id || '',
+      answerId: data.id || "",
       value: value,
     });
   };
@@ -67,13 +89,13 @@ export function Variant({ data, number, testId }: IVariantProps) {
   const handleDeleteVariant = () => {
     deleteAnswer({
       testId,
-      answerId: data.id || '',
+      answerId: data.id || "",
     });
   };
 
   const radioFontStyles = {
-    fontSize: '18px',
-    fontWeight: '600',
+    fontSize: "18px",
+    fontWeight: "600",
   };
 
   return (
@@ -90,28 +112,36 @@ export function Variant({ data, number, testId }: IVariantProps) {
       />
       <S.RadioGroup>
         <CustomRadioButton
-          styles={{ marginRight: '25px', color: '#5B8930', ...radioFontStyles }}
+          styles={{ marginRight: "25px", color: "#5B8930", ...radioFontStyles }}
           name={data.id}
           value="Верный"
-          checked={data.right_answer}
+          checked={!!data.right_answer}
           onChange={() => {
-            handleSetRightAnswer(true);
+            if (quantityOptions) {
+              handleSetRightAnswer(true);
+            } else {
+              handleSeveralAnswers(true);
+            }
           }}
         />
         <CustomRadioButton
-          styles={{ color: '#E03638', ...radioFontStyles }}
+          styles={{ color: "#E03638", ...radioFontStyles }}
           name={data.id}
           value="Неверный"
           checked={!data.right_answer}
           onChange={() => {
-            handleSetRightAnswer(false);
+            if (quantityOptions) {
+              handleSetRightAnswer(false);
+            } else {
+              handleSeveralAnswers(false);
+            }
           }}
         />
       </S.RadioGroup>
       <S.CommentInput
         type="text"
         value={data.text || defaultCommentValue}
-        $isRight={data.right_answer}
+        $isRight={!!data.right_answer}
         onChange={handleChangeComment}
       />
     </S.Container>

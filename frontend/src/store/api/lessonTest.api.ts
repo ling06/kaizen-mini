@@ -48,7 +48,7 @@ export const lessonTestApi = api.injectEndpoints({
       query: (data) => ({
         url: 'test/send-answer',
         method: 'POST',
-        body: {answers: data},
+        body: data,
       }),
       invalidatesTags: () => ['LessonById',],
     }),

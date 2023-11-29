@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import * as C from '@styles/components';
-import addIcon from '@assets/images/addIconWhite.svg';
-import deleteIcon from '@assets/images/deleteIcon.svg';
+import styled from "styled-components";
+import * as C from "@styles/components";
+import addIcon from "@assets/images/addIconWhite.svg";
+import deleteIcon from "@assets/images/deleteIcon.svg";
 
 export const Container = styled(C.FlexContainer)`
   flex-direction: column;
@@ -40,4 +40,10 @@ export const DeleteTestBtn = styled.button`
 export const DeleteTestBtnIcon = styled(C.Icon)`
   margin-right: 5px;
   background-image: url(${deleteIcon});
+`;
+
+export const ContainerBtn = styled(C.FlexContainer)`
+  flex-direction: column;
+  row-gap: 9px;
+  justify-content: center;
 `;

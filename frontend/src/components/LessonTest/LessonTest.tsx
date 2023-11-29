@@ -1,11 +1,11 @@
-import { ITest } from '@/types/lessonTest.types';
-import * as S from './styles';
-import { RadioBtn } from './RadioBtn';
-import { useEffect, useState } from 'react';
-import { useSendAnswerMutation } from '@/store/api/lessonTest.api';
-import { useActions } from '@/hooks/useActions';
-import { CheckedAnswer } from './CheckedAnswer';
-
+import { ITest } from "@/types/lessonTest.types";
+import * as S from "./styles";
+import { RadioBtn } from "./RadioBtn";
+import { useEffect, useState } from "react";
+import { useSendAnswerMutation } from "@/store/api/lessonTest.api";
+import { useActions } from "@/hooks/useActions";
+import { CheckedAnswer } from "./CheckedAnswer";
+import { CustomCheckbox } from "../CustomCheckbox/CustomCheckbox";
 interface ILessonTestProps {
   data: ITest;
 }
@@ -14,24 +14,79 @@ export function LessonTest({ data }: ILessonTestProps) {
   const { setLoaderActive } = useActions();
   const [checkedAnswer, setCheckedAnswer] = useState<null | string>(null);
   const [sendAnswer] = useSendAnswerMutation();
-  const [isUserRightAnswer, setIsUserRightAnswer] = useState<boolean>(false);
+  const [isUserRightAnswer, setIsUserRightAnswer] = useState<string>("");
   const [isTestPassed, setIsTestPassed] = useState<boolean>(false);
+  const [isArrayAnswer, setArrayAnswer] = useState<Array<object>>([]);
+  const [isMultiple, setMultiple] = useState<boolean>(false);
+
+  useEffect(() => {
+    let rightAnswers = 0;
+    data.answers.map((answer) => {
+      if (answer.right_answer === "1") {
+        rightAnswers += 1;
+      }
+    });
+    setMultiple(() => {
+      if (rightAnswers > 1) {
+        return true;
+      }
+      return false;
+    });
+  }, [data]);
 
   useEffect(() => {
     if (data.userTestAnswer.length > 0) {
       setIsTestPassed(true);
-      setIsUserRightAnswer(!!data.userTestAnswer.is_right);
+      // setIsUserRightAnswer(!!data.userTestAnswer.is_right);
     }
-    console.log(654);
-    console.log(data.userTestAnswer);
-    console.log(checkedAnswer);
-    
-    
-    
-  }, [data.userTestAnswer, checkedAnswer]);
+    if (isMultiple) {
+      isArrayAnswer.length === 0
+        ? setCheckedAnswer(null)
+        : setCheckedAnswer("1");
+    }
 
+    handleBorderColor();
+  }, [
+    data,
+    data.userTestAnswer,
+    checkedAnswer,
+    isArrayAnswer,
+    isUserRightAnswer,
+  ]);
+
+  console.log(isMultiple);
+
+  const handleUserAnswers = (answer: object) => {
+    const userAnswers = data.userTestAnswer.find(
+      (userAnswer) => Number(userAnswer.answer) === Number(answer.id)
+    );
+    return userAnswers;
+  };
+
+  const handleBorderColor = () => {
+    data.answers.some((answer) => {
+      const userAnswer = handleUserAnswers(answer);
+
+      if (!answer.right_answer && Number(answer.id) === userAnswer?.answer) {
+        setIsUserRightAnswer("testFailed");
+        return true;
+      }
+
+      if (
+        !isMultiple &&
+        !!answer.right_answer &&
+        Number(answer.id) !== userAnswer?.answer
+      ) {
+        setIsUserRightAnswer("notAllAnswers");
+        return true;
+      }
+    });
+  };
+
+  // выполняется при 1 ответе
   const handleChange = (answer: string): void => {
     setCheckedAnswer(answer);
+    console.log(checkedAnswer);
   };
 
   const handleSendAnswer = (): void => {
@@ -43,30 +98,87 @@ export function LessonTest({ data }: ILessonTestProps) {
     }
   };
 
+  // выполняется при нескольких ответах
+  const handleSeveralAnswers = (answer: string) => {
+    const obj = {
+      test_id: data.id,
+      answer: answer,
+    };
+
+    const answerAlreadyExists = isArrayAnswer.some(
+      (item) => item.test_id === obj.test_id && item.answer === obj.answer
+    );
+    if (answerAlreadyExists) {
+      setArrayAnswer(
+        isArrayAnswer.filter(
+          (item) => item.test_id !== obj.test_id || item.answer !== obj.answer
+        )
+      );
+    } else {
+      setArrayAnswer((isArrayAnswer) => {
+        return [...isArrayAnswer, obj];
+      });
+    }
+  };
+
+  const handleSendMultipleReplies = () => {
+    sendAnswer(isArrayAnswer).then(() => {
+      setCheckedAnswer(null);
+    });
+    setLoaderActive(true);
+  };
+
   return (
-    <S.Container
-      $isRight={isUserRightAnswer}
-      $isPassed={isTestPassed}>
+    <S.Container $isRight={isUserRightAnswer} $isPassed={isTestPassed}>
       <S.Title>{data.question}</S.Title>
       <S.Answers>
         {data.userTestAnswer.length === 0 &&
-          data.answers.map((answer) => (
-            <RadioBtn
-              name={data.id}
-              label={`${answer.answer}`}
-              onChange={() => {
-                handleChange(`${answer.id}`);
-              }}
-              key={answer.id}
-            />
-          ))}
+          data.answers.map((answer) =>
+            !isMultiple ? (
+              <RadioBtn
+                name={data.id}
+                label={`${answer.answer}`}
+                onChange={() => {
+                  handleChange(`${answer.id}`);
+                }}
+                key={answer.id}
+              />
+            ) : (
+              <CustomCheckbox
+                onChange={() => {
+                  handleSeveralAnswers(answer.id);
+                }}
+                children={`${answer.answer}`}
+                key={answer.id}
+              />
+            )
+          )}
+
         {data.userTestAnswer.length > 0 &&
           data.answers.map((answer) => {
-            if (Number(answer.id) === data.userTestAnswer?.answer) {
+            const userAnswer = handleUserAnswers(answer);
+            // неверный ответ
+            if (
+              !answer.right_answer &&
+              Number(answer.id) === userAnswer?.answer
+            ) {
               return <CheckedAnswer data={answer} />;
             }
-            if (!!answer.right_answer && Number(answer.id) !== data.userTestAnswer?.answer) {
+            // верный ответ
+            if (
+              (!!answer.right_answer &&
+                Number(answer.id) === userAnswer?.answer) ||
+              (!isMultiple && !!answer.right_answer)
+            ) {
               return <CheckedAnswer data={answer} />;
+            }
+            // верный ответ, который не был выбран пользователем
+            if (
+              isMultiple &&
+              !!answer.right_answer &&
+              Number(answer.id) !== userAnswer?.answer
+            ) {
+              return <CheckedAnswer data={answer} unspecified={true} />;
             }
             return (
               <RadioBtn
@@ -79,10 +191,17 @@ export function LessonTest({ data }: ILessonTestProps) {
             );
           })}
       </S.Answers>
-      {!data.userTestAnswer || checkedAnswer && (
+      {!!data.userTestAnswer.length || (
         <S.CheckBtn
-          onClick={handleSendAnswer}
-          disabled={!checkedAnswer}>
+          onClick={() => {
+            if (!isMultiple) {
+              handleSendAnswer();
+            } else {
+              handleSendMultipleReplies();
+            }
+          }}
+          disabled={!checkedAnswer}
+        >
           Проверить
         </S.CheckBtn>
       )}

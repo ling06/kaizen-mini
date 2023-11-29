@@ -13,12 +13,12 @@ export const Label = styled.label`
     font-size: 4.6875vw;
   }
 
-  &:not(:last-child) {
+  /* &:not(:last-child) {
     margin-bottom: 20px;
     @media ${(props) => props.theme.media.mobile} {
       margin-bottom: 6.25vw;
     }
-  }
+  } */
 `;
 
 export const RadioBtn = styled.input`

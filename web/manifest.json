@@ -101,6 +101,9 @@
       "assets/radio-checked.svg",
       "assets/wrongAnswer.svg",
       "assets/rightAnswer.svg",
+      "assets/unspecifiedAnswer.svg",
+      "assets/checkbox.svg",
+      "assets/checkbox-checked.svg",
       "assets/close-icon.svg",
       "assets/grey-arrow-right.svg",
       "assets/swiperArrowLeft.svg",
@@ -118,8 +121,6 @@
       "assets/book.svg",
       "assets/Home.svg",
       "assets/Save.svg",
-      "assets/checkbox.svg",
-      "assets/checkbox-checked.svg",
       "assets/Montserrat-Light.woff2",
       "assets/Montserrat-Light.woff",
       "assets/Montserrat-Light.ttf",
@@ -385,6 +386,10 @@
   "src/assets/images/swiperArrowLeft.svg": {
     "file": "assets/swiperArrowLeft.svg",
     "src": "src/assets/images/swiperArrowLeft.svg"
+  },
+  "src/assets/images/unspecifiedAnswer.svg": {
+    "file": "assets/unspecifiedAnswer.svg",
+    "src": "src/assets/images/unspecifiedAnswer.svg"
   },
   "src/assets/images/visibleIcon.svg": {
     "file": "assets/visibleIcon.svg",

@@ -2,7 +2,7 @@ export interface ITest {
   id: string;
   question: string;
   answers: Array<IAnswer>;
-  userTestAnswer: null | IUserTestAnswer;
+  userTestAnswer: Array<IUserTestAnswer>;
 }
 
 export interface IUserTestAnswer {
@@ -13,6 +13,6 @@ export interface IUserTestAnswer {
 export interface IAnswer {
   id: string;
   answer: string;
-  right_answer: boolean;
+  right_answer: string;
   text: string;
 }

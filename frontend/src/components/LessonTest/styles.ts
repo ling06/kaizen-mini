@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import * as C from '@styles/components';
+import styled from "styled-components";
+import * as C from "@styles/components";
 
 interface IContainer {
-  $isRight: boolean;
+  $isRight: string;
   $isPassed: boolean;
 }
 
@@ -14,9 +14,11 @@ export const Container = styled(C.FlexContainer)<IContainer>`
   border: 1px solid
     ${(props) =>
       props.$isPassed
-        ? props.$isRight
-          ? props.theme.colors.mainGreen
-          : props.theme.colors.yRed
+        ? props.$isRight === "testFailed"
+          ? props.theme.colors.yRed
+          : props.$isRight === "notAllAnswers"
+          ? props.theme.colors.dark
+          : props.theme.colors.mainGreen
         : props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   margin-bottom: 30px;
@@ -46,8 +48,10 @@ export const Title = styled(C.Text)`
 export const Answers = styled(C.FlexContainer)`
   flex-direction: column;
   margin-bottom: 30px;
+  row-gap: 20px;
   @media ${(props) => props.theme.media.mobile} {
     margin-bottom: 6.25vw;
+    row-gap: 6.25vw;
   }
 `;
 

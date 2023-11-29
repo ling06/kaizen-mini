@@ -34,6 +34,12 @@ interface IToggleAnswer {
   isRight: boolean;
 }
 
+interface ISeveralAnswers {
+  testId: string;
+  answerId: string;
+  isRight: boolean;
+}
+
 export const lessonSlice = createSlice({
   name: "lesson",
   initialState: lessonInitialState,
@@ -129,6 +135,57 @@ export const lessonSlice = createSlice({
             answer.right_answer = false;
           }
         } else {
+          answer.right_answer = payload.isRight;
+        }
+        return answer;
+      });
+
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+
+      state.tests = modifyTests;
+    },
+    resetResponseStatus: (state, { payload }: PayloadAction<IToggleAnswer>) => {
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
+      if (testIndex === -1) return;
+
+      const changedAnswers = state.tests[testIndex].answers.map((answer, index) => {
+        answer.right_answer = false;
+
+        if (index === state.tests[testIndex].answers.length - 1) {
+          answer.right_answer = true;
+        }
+        
+        return answer;
+      });
+
+      const modifyTests = state.tests.map((test) => {
+        if (test.id === payload.testId) {
+          test.answers = changedAnswers;
+        }
+        return test;
+      });
+
+      state.tests = modifyTests;
+    },
+    severalAnswers: (state, { payload }: PayloadAction<ISeveralAnswers>) => {
+      const testIndex = state.tests.findIndex(
+        (test) => test.id === payload.testId
+      );
+      if (testIndex === -1) return;
+
+      const changedAnswers = state.tests[testIndex].answers.map((answer) => {
+        if (payload.isRight) {
+          if (answer.id === payload.answerId && payload.isRight) {
+            answer.right_answer = payload.isRight;
+          }
+        } else if (answer.id === payload.answerId && !payload.isRight) {
           answer.right_answer = payload.isRight;
         }
         return answer;
