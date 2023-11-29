@@ -4,7 +4,7 @@ import { CourseNavHead } from '@/components/CourseNavHead';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 import { useMediaQuery } from '@mui/material';
@@ -18,10 +18,17 @@ export function Course() {
   const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const isNavPopup = useTypedSelector((state) => state.lesson.navPopup);
+  const ContentContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     lessonId ? setNavPopup(false) : setNavPopup(true);
-  }, [lessonId, setNavPopup]);
+    if (ContentContainer && ContentContainer.current && data && !isFetching) {
+      ContentContainer.current.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [data, isFetching, lessonId, setNavPopup]);
 
   useEffect(() => {
     setLoaderActive(isFetching);
@@ -45,7 +52,7 @@ export function Course() {
           </S.NavContainer>
         )}
         {isMobile && data && isNavPopup && <NavPopup chapterData={data.data} />}
-        <S.ContentContainer>
+        <S.ContentContainer ref={ContentContainer}>
           <CourseContent />
         </S.ContentContainer>
       </S.Container>

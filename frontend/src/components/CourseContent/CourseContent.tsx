@@ -26,7 +26,10 @@ export function CourseContent() {
   const [isForwardBtnDisabled, setIsForwardBtnDisabled] = useState<boolean>(true);
   const isMobile = useMediaQuery(MediaQueries.mobile);
   const navigate = useNavigate();
-  const [handleCheckLesson] = useCheckLesson({courseId: String(courseId), lessonId: String(lessonId)});
+  const [handleCheckLesson] = useCheckLesson({
+    courseId: String(courseId),
+    lessonId: String(lessonId),
+  });
 
   const isTestsPassed = useMemo(() => {
     if (data?.data.tests && data?.data.tests.length > 0) {
@@ -36,16 +39,12 @@ export function CourseContent() {
 
   useEffect(() => {
     setLoaderActive(isFetching);
-    if (
-      isFetching || (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)
-    ) {
+    if (isFetching || (data?.data.tests && data?.data.tests.length > 0 && !isTestsPassed)) {
       setIsForwardBtnDisabled(true);
     } else {
       setIsForwardBtnDisabled(false);
     }
   }, [data?.data.isChecked, data?.data.tests, isFetching, isTestsPassed, setLoaderActive]);
-
-
 
   const renderLessonTests = () => {
     return data?.data.tests.map((test) => (
