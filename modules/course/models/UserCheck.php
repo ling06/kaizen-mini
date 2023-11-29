@@ -3,6 +3,7 @@
 namespace app\modules\course\models;
 
 use app\models\User;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -119,9 +120,22 @@ class UserCheck extends \app\components\ActiveRecord
 
     public static function findNextLesson($currentLesson)
     {
-        $lesson = Lesson::find()->where(['theme_id' => $currentLesson->theme_id, 'is_deleted' => false, 'position' => $currentLesson->position + 1])->one();
-        if ($lesson) {
-            $theme = Theme::findOne($lesson->theme_id);
+        $role = Yii::$app->user->identity->role;
+        $lesson = Lesson::find()->where(['theme_id' => $currentLesson->theme_id])->orderBy('position ASC')->all();
+        $nextLesson = 0;
+        $nextLessonsTheme = $currentLesson->theme_id;
+        foreach ($lesson as $lessonItem) {
+            if ($role != 'admin' && $lessonItem->position > $currentLesson->position && $nextLesson == 0 && !$lessonItem->is_deleted) {
+                $nextLesson = $lessonItem->id;
+                $nextLessonsTheme = $lessonItem->theme_id;
+            }
+            if($role == 'admin' && $lessonItem->position > $currentLesson->position && $nextLesson == 0 ){
+                $nextLesson = $lessonItem->id;
+                $nextLessonsTheme = $lessonItem->theme_id;
+            }
+        }
+        if ($nextLesson !== 0) {
+            $theme = Theme::findOne($nextLessonsTheme);
             $chapter = Chapter::findOne($theme->chapter_id);
         } else {
             $currentTheme = Theme::findOne($currentLesson->theme_id);
@@ -142,7 +156,7 @@ class UserCheck extends \app\components\ActiveRecord
             }
         }
         return [
-            'lesson' => $lesson->id ?? 'end',
+            'lesson' => $nextLesson ?? 'end',
             'theme' => $theme->id ?? 'end',
             'chapter' => $chapter->id ?? 'end',
         ];
