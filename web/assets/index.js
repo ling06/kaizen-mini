@@ -25696,7 +25696,704 @@ var require_assets = __commonJS({
       };
     }
     [KeyboardCode.Down, KeyboardCode.Right, KeyboardCode.Up, KeyboardCode.Left];
+<<<<<<< HEAD
     const Container$K = st$1.div`
+=======
+    function SortableItem({ id: id2, children, styles: styles2 = {}, isDraggable = true, data = {} }) {
+      const { attributes, listeners, setNodeRef, transform, transition: transition2 } = useSortable({ id: id2, disabled: !isDraggable, data });
+      const style2 = {
+        transform: CSS.Transform.toString(transform),
+        transition: transition2,
+        ...styles2
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          ref: setNodeRef,
+          style: style2,
+          ...attributes,
+          ...listeners,
+          children
+        }
+      );
+    }
+    const Card = st$1(FlexContainer)`
+  flex-direction: column;
+  width: 310px;
+  height: 400px;
+  padding: 20px;
+  padding-bottom: 15px;
+  background-color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    width: 49vw;
+    height: auto;
+    min-height: 63.125vw;
+    padding: 3.125vw 3.125vw 2.1875vw;
+    border-radius: 7.597px;
+  }
+`;
+    const imgWrapper = st$1.div`
+  width: 100%;
+  aspect-ratio: 3/2;
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.greyEO};
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 2.5vw;
+    border-radius: 7.597px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+    const Img = st$1.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+    const Title$d = st$1(Text$6)`
+  word-break: break-word;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+`;
+    const defaultCardImg = "/assets/stub-course-program.webp";
+    const dndIcon = "/assets/dnd-btn.svg";
+    const DndBtn$1 = st$1.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 5px;
+  background-color: transparent;
+  cursor: grab;
+  background-image: url(${dndIcon});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  ${(props) => {
+      if (props.$style) {
+        return props.$style;
+      }
+    }}
+  
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+  }
+
+`;
+    function DndBtn({ onClick: onClick2 = () => {
+    }, onMouseEnter = () => {
+    }, onMouseLeave = () => {
+    }, styles: styles2 }) {
+      const userRole = useTypedSelector((state) => {
+        var _a;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
+      });
+      if (userRole !== "admin")
+        return null;
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        DndBtn$1,
+        {
+          $style: styles2,
+          onClick: onClick2,
+          onMouseEnter,
+          onMouseLeave
+        }
+      );
+    }
+    const ProgressContainer = st$1(FlexContainer)`
+  flex-direction: column;
+  margin-top: auto;
+`;
+    const ProgressStatusWrapper = st$1(FlexContainer)`
+  align-items: flex-end;
+  margin-bottom: 10px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 1.875vw;
+  }
+`;
+    const ProgressStatus = st$1.p`
+  margin-right: auto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 160%;
+  color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 2.5vw;
+  }
+`;
+    const BtnsGroup = st$1(FlexContainer)`
+  flex-direction: column;
+  width: fit-content;
+`;
+    const dndIconWithArrows = "/assets/dnd-btn-arrows.svg";
+    const dndIconWithArrowsActive = "/assets/dnd-btn-arrows-active.svg";
+    const chapterApi = api.injectEndpoints({
+      endpoints: (builder) => ({
+        getChapterById: builder.query({
+          query: (id2) => `chapter/${id2}`,
+          providesTags: () => [
+            {
+              type: "ChapterById"
+            }
+          ]
+        }),
+        createChapter: builder.mutation({
+          query: (data) => ({
+            url: "course/create-chapter",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => [
+            {
+              type: "Courses"
+            }
+          ]
+        }),
+        updateChapter: builder.mutation({
+          query: (data) => ({
+            url: "course/update-chapter",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "ChapterById"]
+        }),
+        deleteChapter: builder.mutation({
+          query: (data) => ({
+            url: "course/delete-chapter",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById", "ChapterById"]
+        }),
+        restoreChapter: builder.mutation({
+          query: (data) => ({
+            url: "course/restore-chapter",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById", "ChapterById"]
+        }),
+        setChaptersPositions: builder.mutation({
+          query: (data) => ({
+            url: "course/set-positions",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById"]
+        })
+      }),
+      overrideExisting: false
+    });
+    const {
+      useCreateChapterMutation,
+      useDeleteChapterMutation,
+      useGetChapterByIdQuery,
+      useRestoreChapterMutation,
+      useUpdateChapterMutation,
+      useSetChaptersPositionsMutation
+    } = chapterApi;
+    function Progress({ data, setDraggable, setNotDraggable, setDeleted, isDeleted }) {
+      const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
+      const [deleteChapter] = useDeleteChapterMutation();
+      const [restoreChapter] = useRestoreChapterMutation();
+      const setProgressStatus = reactExports.useCallback(() => {
+        if (data.percentage.percentage == 100) {
+          return "Пройдено";
+        } else if (data.percentage.percentage > 0) {
+          return "В процессе";
+        }
+        return "Предстоит";
+      }, [data.percentage.percentage]);
+      const handleDeleteChapter = () => {
+        deleteChapter({ id: data.id }).then(() => {
+          setLoaderActive(false);
+          setDeleted(true);
+        });
+        setLoaderActive(true);
+      };
+      const handleRestoreChapter = () => {
+        restoreChapter({ id: data.id }).then(() => {
+          setLoaderActive(false);
+          setDeleted(false);
+        });
+        setLoaderActive(true);
+      };
+      const handleEditChapter = () => {
+        setModalType(MODAL_TYPES.editChapter);
+        setUpdatingChapterData(data);
+        setModalOpen(true);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: setProgressStatus() }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(BtnsGroup, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              DndBtn,
+              {
+                styles: nt$1`
+            background-image: url(${dndIconWithArrows});
+            &:hover {
+              background-image: url(${dndIconWithArrowsActive});
+            }
+          `,
+                onMouseEnter: setDraggable,
+                onMouseLeave: setNotDraggable
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              AdminBtn,
+              {
+                popupName: "Глава",
+                type: ADMIN_BTN_TYPES.edit,
+                onClick: () => {
+                },
+                popupHandlers: {
+                  onDelete: isDeleted ? void 0 : handleDeleteChapter,
+                  onRestore: isDeleted ? handleRestoreChapter : void 0,
+                  onEdit: handleEditChapter
+                }
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar$1, { $progress: String(data == null ? void 0 : data.percentage.percentage) || "0" })
+      ] });
+    }
+    function CourseProgrammCard({ data, setDraggable, setNotDraggable }) {
+      const navigation = useNavigate();
+      const [isDeleted, setDeleted] = reactExports.useState(false);
+      const [imgSrc, setImgSrc] = reactExports.useState(null);
+      reactExports.useEffect(() => {
+        if (data.image) {
+          const src = data.image.directory + "/" + data.image.name;
+          setImgSrc(src);
+        }
+      }, [data.image]);
+      reactExports.useEffect(() => {
+        Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
+      }, [data.is_deleted]);
+      const handleClick = () => {
+        navigation(`/courses/${data.course_id}/${data.id}/`);
+      };
+      const setDeletedChapter = (arg) => {
+        setDeleted(arg);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Progress,
+          {
+            setDeleted: setDeletedChapter,
+            data,
+            setDraggable,
+            setNotDraggable,
+            isDeleted
+          }
+        )
+      ] });
+    }
+    var CourseEntities = /* @__PURE__ */ ((CourseEntities2) => {
+      CourseEntities2["course"] = "Course";
+      CourseEntities2["chapter"] = "Chapter";
+      CourseEntities2["theme"] = "Theme";
+      CourseEntities2["lesson"] = "Lesson";
+      return CourseEntities2;
+    })(CourseEntities || {});
+    const setPositionsErrorsHandler = ({ setter, res, arr, oldIndex, newIndex }) => {
+      if ("data" in res && res.data.status === "success") {
+        return false;
+      }
+      if ("error" in res) {
+        console.error(`Error in setPositions: ${res.error}`);
+      }
+      if ("data" in res && res.data.status !== "success") {
+        console.error(`Error in setPositions: ${res.data.message}`);
+      }
+      const reversed = arrayMove(arr, oldIndex, newIndex);
+      setter(reversed);
+      return true;
+    };
+    function SortableChapters({ data }) {
+      const { setLoaderActive } = useActions();
+      const role = useTypedSelector((state) => {
+        var _a;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
+      });
+      const [chapters, setChapters] = reactExports.useState([]);
+      const [setPositions] = useSetChaptersPositionsMutation();
+      reactExports.useEffect(() => {
+        if (data) {
+          const chaptersWithDrag = data.map((chapter) => {
+            return {
+              ...chapter,
+              isDraggable: false
+            };
+          });
+          const chaptersSorted = chaptersWithDrag.sort((a2, b2) => a2.position - b2.position);
+          setChapters(chaptersSorted);
+          return;
+        }
+        setChapters([]);
+      }, [data]);
+      function handleDragEnd(event) {
+        const { active, over } = event;
+        if (!over || !over.data.current || !active.data.current) {
+          return;
+        }
+        if (active.id !== over.id) {
+          const oldIndex = chapters.findIndex((chapter) => chapter.id === active.id);
+          const newIndex = chapters.findIndex((chapter) => chapter.id === over.id);
+          const changedChapters = arrayMove(chapters, oldIndex, newIndex);
+          const itemsData = changedChapters.map((chapter, index) => {
+            return {
+              id: chapter.id,
+              position: index
+            };
+          });
+          setChapters(changedChapters);
+          setPositions({
+            type: CourseEntities.chapter,
+            items: itemsData
+          }).then((res) => {
+            const isError = setPositionsErrorsHandler({
+              setter: setChapters,
+              res,
+              arr: changedChapters,
+              oldIndex,
+              newIndex
+            });
+            if (isError) {
+              alert("При перемещении Главы произошла ошибка!");
+            }
+          });
+          setLoaderActive(true);
+        }
+      }
+      const setDraggable = (id2, isDraggable) => {
+        setChapters((chapters2) => {
+          const index = chapters2.findIndex((chapter) => chapter.id === id2);
+          chapters2[index].isDraggable = isDraggable;
+          return [...chapters2];
+        });
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: chapters.map((chapter) => chapter.id), children: chapters.length > 0 && chapters.map((chapter) => {
+        if (!chapter.is_deleted || role === USER_ROLES.admin) {
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+            SortableItem,
+            {
+              id: chapter.id,
+              data: chapter,
+              isDraggable: chapter.isDraggable,
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CourseProgrammCard,
+                {
+                  data: chapter,
+                  setDraggable: () => {
+                    setDraggable(chapter.id, true);
+                  },
+                  setNotDraggable: () => {
+                    setDraggable(chapter.id, false);
+                  }
+                }
+              )
+            },
+            chapter.id
+          );
+        }
+      }) }) });
+    }
+    function CourseProgramm() {
+      const { setModalOpen, setModalType } = useActions();
+      const chaptersData = useTypedSelector((state) => {
+        var _a;
+        return (_a = state.course.data) == null ? void 0 : _a.chapters;
+      });
+      const openCreateChapterModal = () => {
+        setModalType(MODAL_TYPES.createChapter);
+        setModalOpen(true);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            AdminBtn,
+            {
+              popupName: "Глава",
+              type: ADMIN_BTN_TYPES.add,
+              onClick: openCreateChapterModal
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardList, { children: chaptersData && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableChapters, { data: chaptersData }) })
+      ] });
+    }
+    const Container$u = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  height: 188px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+    const Text$4 = st$1(Text$6)`
+  font-size: 22.714px;
+`;
+    function ErrorBlock() {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: "Что-то пошло не так" }) });
+    }
+    const NoAvailableCourses = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: ${(props) => props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: unset;
+    height: 43.75vw;
+  }
+`;
+    const NoAvailableCoursesText = st$1(Text$6)`
+  margin-right: 10px;
+  font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+
+    font-size: 6.08vw;
+  }
+`;
+    function NoAvailable({ text, onAdd = () => {
+    }, style: style2 = {} }) {
+      const user = useTypedSelector((state) => {
+        var _a;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.user;
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(NoAvailableCourses, { style: style2, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailableCoursesText, { children: text }),
+        (user == null ? void 0 : user.role) === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            popupName: "",
+            onClick: onAdd,
+            type: "add"
+          }
+        )
+      ] });
+    }
+    function CoursePreview() {
+      const { data, isError, isFetching } = useGetCoursesQuery();
+      const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
+      const params = useParams();
+      const navigate = useNavigate();
+      const isMobile = useMediaQuery$1(MediaQueries.mobile);
+      reactExports.useEffect(() => {
+        setLoaderActive(isFetching);
+      }, [isFetching, setLoaderActive]);
+      reactExports.useEffect(() => {
+        if (data) {
+          const currentCourseId = params.courseId || null;
+          const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
+          if (data.data.length > 0 && !currentCourseId || data.data.length > 0 && !currentCourse) {
+            navigate(`/courses/${data.data[0].id}`);
+            return;
+          }
+          if (data.data.length === 0) {
+            navigate("/courses");
+          }
+          if (currentCourse) {
+            setCourseData(currentCourse);
+          }
+        }
+      }, [data, navigate, params.courseId, setCourseData]);
+      const handleCreateCourse = () => {
+        setModalOpen(true);
+        setModalType("createCourse");
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
+        isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
+        data && data.data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { coursesData: data.data }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgramm, {})
+        ] }),
+        data && data.data.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных курсов", onAdd: handleCreateCourse })
+      ] }) });
+    }
+    const Container$t = st$1(FlexContainer)`
+  flex-direction: column;
+`;
+    const Title$c = st$1.h4`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 100%;
+  color: ${(props) => props.theme.colors.grey93};
+
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 3.125vw;
+    font-size: 3.75vw;
+  }
+`;
+    function FadedTitle({ text, children, onClick: onClick2 = () => {
+    }, styles: styles2 = {} }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        Title$c,
+        {
+          onClick: onClick2,
+          style: styles2,
+          children: [
+            text,
+            children
+          ]
+        }
+      );
+    }
+    const Container$s = st$1(FlexContainer)`
+  flex-direction: column;
+  position: relative;
+`;
+    const Theme$1 = st$1(FlexContainer)`
+  align-items: center;
+  margin-bottom: 30px;
+`;
+    const Inner = st$1(FlexContainer)`
+  width: fit-content;
+  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
+`;
+    const AccSum = st$1(FlexContainer)`
+  align-items: center;
+`;
+    st$1.button`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0;
+  margin-right: 5px;
+  background-color: transparent;
+`;
+    st$1(FlexContainer)`
+  flex-direction: column;
+  min-height: fit-content;
+`;
+    const themeApi = api.injectEndpoints({
+      endpoints: (builder) => ({
+        getThemeById: builder.query({
+          query: (id2) => `theme/${id2}`,
+          providesTags: () => [
+            {
+              type: "ThemeById"
+            }
+          ]
+        }),
+        createTheme: builder.mutation({
+          query: (data) => ({
+            url: "course/create-theme",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => [
+            {
+              type: "ChapterById"
+            }
+          ]
+        }),
+        updateTheme: builder.mutation({
+          query: (data) => ({
+            url: "course/update-theme",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => ["ChapterById"]
+        }),
+        deleteTheme: builder.mutation({
+          query: (data) => ({
+            url: "course/delete-theme",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => ["ChapterById"]
+        }),
+        restoreTheme: builder.mutation({
+          query: (data) => ({
+            url: "course/restore-theme",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => ["ChapterById"]
+        }),
+        setThemesPositions: builder.mutation({
+          query: (data) => ({
+            url: "course/set-positions",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["ChapterById"]
+        })
+      }),
+      overrideExisting: false
+    });
+    const {
+      useCreateThemeMutation,
+      useDeleteThemeMutation,
+      useGetThemeByIdQuery,
+      useRestoreThemeMutation,
+      useUpdateThemeMutation,
+      useSetThemesPositionsMutation
+    } = themeApi;
+    const Title$b = st$1.p`
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 170%;
+  color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+`;
+    function CourseNavItemTitle({
+      text = "",
+      children,
+      onClick: onClick2 = () => {
+      },
+      styles: styles2 = {},
+      isActive = true,
+      isDeleted = false
+    }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        Title$b,
+        {
+          style: styles2,
+          onClick: onClick2,
+          $active: isActive,
+          $isDeleted: isDeleted,
+          children: [
+            text,
+            children
+          ]
+        }
+      );
+    }
+    const Container$r = st$1.div`
+>>>>>>> 26f7266793896bc27b6dcc646a98756cdd457da2
   display: flex;
   align-items: center;
   width: 100%;
@@ -25791,6 +26488,13 @@ var require_assets = __commonJS({
       const { lessonId, chapterId, courseId } = useParams();
       const [deleteLesson] = useDeleteLessonMutation();
       const [restoreLesson] = useRestoreLessonMutation();
+      const [updateLesson] = useUpdateLessonMutation();
+      const [lessonStatus, setLessonStatus] = reactExports.useState(0);
+      reactExports.useEffect(() => {
+        if (data) {
+          setLessonStatus(data.status);
+        }
+      }, [data]);
       const handleClick = () => {
         setActiveLesson(data);
         const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
@@ -25831,6 +26535,18 @@ var require_assets = __commonJS({
         });
         setLoaderActive(true);
       };
+      const handleToggleLessonStatus = reactExports.useCallback(() => {
+        const newStatus = lessonStatus === 1 ? 0 : 1;
+        updateLesson({
+          id: Number(data.id),
+          status: newStatus
+        }).then((res) => {
+          if ("error" in res || "data" in res && !res.data.result) {
+            alert("При редактировании урока произошла ошибка");
+          }
+        });
+        setLoaderActive(true);
+      }, [data.id, lessonStatus, setLoaderActive, updateLesson]);
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
         Container$K,
         {
@@ -25851,7 +26567,7 @@ var require_assets = __commonJS({
               CourseNavItemTitle,
               {
                 text: data.title,
-                isActive: !data.isChecked
+                isActive: !data.isChecked && lessonStatus === 1
               }
             ),
             data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {}),
@@ -25866,7 +26582,9 @@ var require_assets = __commonJS({
                 popupHandlers: {
                   onEdit: handleEditLesson,
                   onDelete: data.is_deleted ? void 0 : handleDeleteLesson,
-                  onRestore: data.is_deleted ? handleRestoreLesson : void 0
+                  onRestore: data.is_deleted ? handleRestoreLesson : void 0,
+                  onHide: lessonStatus > 0 ? handleToggleLessonStatus : void 0,
+                  onVisible: lessonStatus === 0 ? handleToggleLessonStatus : void 0
                 }
               }
             )
@@ -26060,7 +26778,11 @@ var require_assets = __commonJS({
         });
         navigate(path);
       };
+<<<<<<< HEAD
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+=======
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+>>>>>>> 26f7266793896bc27b6dcc646a98756cdd457da2
         Accordion$1,
         {
           sx: { width: "100%", boxShadow: "unset" },
@@ -26075,29 +26797,31 @@ var require_assets = __commonJS({
                 "aria-controls": `${data.id}_content`,
                 id: `${data.id}_header`,
                 children: /* @__PURE__ */ jsxRuntimeExports.jsxs(AccSum, { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    DndBtn,
-                    {
-                      onMouseEnter: () => {
-                        setDraggable();
-                        handleCloseAccordion();
-                      },
-                      onMouseLeave: setNotDraggable,
-                      styles: nt$1`
-                  margin-right: 20px;
-                `
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionIcon, { $active: Number(themeId) === data.id }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    CourseNavItemTitle,
-                    {
-                      text: data.title,
-                      isActive: !isThemeChecked,
-                      isDeleted: !!data.is_deleted
-                    }
-                  ),
-                  isThemeChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {}),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(Inner, { $isDeleted: !!data.is_deleted, children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      DndBtn,
+                      {
+                        onMouseEnter: () => {
+                          setDraggable();
+                          handleCloseAccordion();
+                        },
+                        onMouseLeave: setNotDraggable,
+                        styles: nt$1`
+                    margin-right: 20px;
+                  `
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionIcon, { $active: Number(themeId) === data.id }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      CourseNavItemTitle,
+                      {
+                        text: data.title,
+                        isActive: !isThemeChecked,
+                        isDeleted: !!data.is_deleted
+                      }
+                    ),
+                    isThemeChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {})
+                  ] }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     AdminBtn,
                     {
@@ -26821,6 +27545,37 @@ var require_assets = __commonJS({
       }
       return window.matchMedia(query).matches;
     };
+    const useCheckLesson = ({ courseId, lessonId }) => {
+      const { setLoaderActive } = useActions();
+      const [checkLesson] = useCheckLessonMutation();
+      const navigate = useNavigate();
+      const handleError = () => {
+        alert(`Не указан ID курса или урока: courseId - ${courseId}, lessonId - ${lessonId}`);
+      };
+      const handleCheckLesson = reactExports.useCallback(() => {
+        checkLesson({
+          id: lessonId
+        }).then((res) => {
+          if ("error" in res || "data" in res && !res.data.result) {
+            alert("При прохождении урока произошла ошибка!");
+            return;
+          }
+          const nextLesson = res.data.next_lesson;
+          const path = generatePath(`/courses/:courseId/:chapterId?/:themeId?/:lessonId?`, {
+            courseId: String(courseId),
+            chapterId: nextLesson.chapter !== "end" ? String(nextLesson.chapter) : null,
+            themeId: nextLesson.theme !== "end" ? String(nextLesson.theme) : null,
+            lessonId: nextLesson.lesson !== "end" ? String(nextLesson.lesson) : null
+          });
+          navigate(path);
+        });
+        setLoaderActive(true);
+      }, [checkLesson, courseId, lessonId, navigate, setLoaderActive]);
+      if (!courseId || !lessonId) {
+        return [handleError];
+      }
+      return [handleCheckLesson];
+    };
     function CourseContent() {
       const { setLoaderActive } = useActions();
       const { courseId, lessonId, chapterId } = useParams();
@@ -26829,10 +27584,13 @@ var require_assets = __commonJS({
       const { data, isError, isFetching } = useGetLessonByIdQuery(String(lessonId), {
         skip: !lessonId
       });
-      const [checkLesson] = useCheckLessonMutation();
       const [isForwardBtnDisabled, setIsForwardBtnDisabled] = reactExports.useState(true);
       const isMobile = useMediaQuery$1(MediaQueries.mobile);
       const navigate = useNavigate();
+      const [handleCheckLesson] = useCheckLesson({
+        courseId: String(courseId),
+        lessonId: String(lessonId)
+      });
       const isTestsPassed = reactExports.useMemo(() => {
         if ((data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0) {
           return data == null ? void 0 : data.data.tests.every((test) => test.userTestAnswer);
@@ -26840,23 +27598,12 @@ var require_assets = __commonJS({
       }, [data == null ? void 0 : data.data.tests]);
       reactExports.useEffect(() => {
         setLoaderActive(isFetching);
-        if (isFetching || (data == null ? void 0 : data.data.isChecked) || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
+        if (isFetching || (data == null ? void 0 : data.data.tests) && (data == null ? void 0 : data.data.tests.length) > 0 && !isTestsPassed) {
           setIsForwardBtnDisabled(true);
         } else {
           setIsForwardBtnDisabled(false);
         }
       }, [data == null ? void 0 : data.data.isChecked, data == null ? void 0 : data.data.tests, isFetching, isTestsPassed, setLoaderActive]);
-      const handleCheckLesson = () => {
-        if (data && data.data.id) {
-          checkLesson({ id: data.data.id }).then((res) => {
-            if ("error" in res || "data" in res && !res.data.result) {
-              alert("При прохождении урока произошла ошибка!");
-            }
-            setLoaderActive(false);
-          });
-          setLoaderActive(true);
-        }
-      };
       const renderLessonTests = () => {
         return data == null ? void 0 : data.data.tests.map((test) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           LessonTest,
@@ -26865,16 +27612,6 @@ var require_assets = __commonJS({
           },
           test.id
         ));
-      };
-      const renderForwardButton = () => {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          ForwardBtn,
-          {
-            onClick: handleCheckLesson,
-            disabled: isForwardBtnDisabled,
-            children: "Вперёд"
-          }
-        );
       };
       const handleEditLesson = () => {
         if (data) {
@@ -26928,7 +27665,14 @@ var require_assets = __commonJS({
           /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.description }),
             data.data.tests.length > 0 && renderLessonTests(),
-            data.data.description.length > 0 && !isFetching && !data.data.isChecked && renderForwardButton()
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              ForwardBtn,
+              {
+                onClick: handleCheckLesson,
+                disabled: isForwardBtnDisabled,
+                children: "Вперёд"
+              }
+            )
           ] })
         ] })
       ] });
@@ -27236,9 +27980,16 @@ var require_assets = __commonJS({
       const { data, isError, isFetching } = useGetChapterByIdQuery(Number(chapterId));
       const isMobile = useMediaQuery(MediaQueries.mobile);
       const isNavPopup = useTypedSelector((state) => state.lesson.navPopup);
+      const ContentContainer$1 = reactExports.useRef(null);
       reactExports.useEffect(() => {
         lessonId ? setNavPopup(false) : setNavPopup(true);
-      }, [lessonId, setNavPopup]);
+        if (ContentContainer$1 && ContentContainer$1.current && data && !isFetching) {
+          ContentContainer$1.current.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }
+      }, [data, isFetching, lessonId, setNavPopup]);
       reactExports.useEffect(() => {
         setLoaderActive(isFetching);
       }, [isFetching, setLoaderActive]);
@@ -27256,7 +28007,7 @@ var require_assets = __commonJS({
             /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
           ] }),
           isMobile && data && isNavPopup && /* @__PURE__ */ jsxRuntimeExports.jsx(NavPopup, { chapterData: data.data }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { ref: ContentContainer$1, children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
         ] })
       ] });
     }
