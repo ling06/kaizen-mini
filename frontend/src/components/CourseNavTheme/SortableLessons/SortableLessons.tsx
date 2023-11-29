@@ -9,6 +9,8 @@ import { useActions } from '@/hooks/useActions';
 import { useSetLessonsPositionsMutation } from '@/store/api/lesson.api';
 import { CourseEntities } from '@/types/course.types';
 import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { selectUser } from '@/store/api/user.api';
 
 interface ISortableLessonsProps {
   data: Array<ILesson>;
@@ -22,6 +24,7 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
   const { setLoaderActive } = useActions();
   const [lessons, setLessons] = useState<Array<ILessonWithDrag>>([]);
   const [setPositions] = useSetLessonsPositionsMutation();
+  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
 
   useEffect(() => {
     if (data) {
@@ -83,24 +86,29 @@ export function SortableLessons({ data }: ISortableLessonsProps) {
     <DndContext onDragEnd={handleDragEnd}>
       <SortableContext items={lessons.map((lesson) => lesson.id)}>
         {lessons.length > 0 &&
-          lessons.map((lesson) => (
-            <SortableItem
-              key={lesson.id}
-              id={lesson.id}
-              data={lesson}
-              isDraggable={lesson.isDraggable}>
-              <CourseNavLesson
+          lessons.map((lesson) => {
+            if((Number(lesson.status) !== 1 || Number(lesson.is_deleted) ===1) && userRole !== 'admin') {
+              return null;
+            }
+            return (
+              <SortableItem
                 key={lesson.id}
+                id={lesson.id}
                 data={lesson}
-                setDraggable={() => {
-                  setDraggable(lesson.id, true);
-                }}
-                setNotDraggable={() => {
-                  setDraggable(lesson.id, false);
-                }}
-              />
-            </SortableItem>
-          ))}
+                isDraggable={lesson.isDraggable}>
+                <CourseNavLesson
+                  key={lesson.id}
+                  data={lesson}
+                  setDraggable={() => {
+                    setDraggable(lesson.id, true);
+                  }}
+                  setNotDraggable={() => {
+                    setDraggable(lesson.id, false);
+                  }}
+                />
+              </SortableItem>
+            );
+          })}
       </SortableContext>
     </DndContext>
   );
