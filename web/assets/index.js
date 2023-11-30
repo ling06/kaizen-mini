@@ -26635,6 +26635,10 @@ var require_assets = __commonJS({
       const { setLoaderActive } = useActions();
       const [lessons, setLessons] = reactExports.useState([]);
       const [setPositions] = useSetLessonsPositionsMutation();
+      const userRole = useTypedSelector((state) => {
+        var _a;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
+      });
       reactExports.useEffect(() => {
         if (data) {
           const newLessons = data.map((lesson) => ({
@@ -26688,28 +26692,33 @@ var require_assets = __commonJS({
           setLoaderActive(true);
         }
       }
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: lessons.map((lesson) => lesson.id), children: lessons.length > 0 && lessons.map((lesson) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        SortableItem,
-        {
-          id: lesson.id,
-          data: lesson,
-          isDraggable: lesson.isDraggable,
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            CourseNavLesson,
-            {
-              data: lesson,
-              setDraggable: () => {
-                setDraggable(lesson.id, true);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: lessons.map((lesson) => lesson.id), children: lessons.length > 0 && lessons.map((lesson) => {
+        if ((Number(lesson.status) !== 1 || Number(lesson.is_deleted) === 1) && userRole !== "admin") {
+          return null;
+        }
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          SortableItem,
+          {
+            id: lesson.id,
+            data: lesson,
+            isDraggable: lesson.isDraggable,
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CourseNavLesson,
+              {
+                data: lesson,
+                setDraggable: () => {
+                  setDraggable(lesson.id, true);
+                },
+                setNotDraggable: () => {
+                  setDraggable(lesson.id, false);
+                }
               },
-              setNotDraggable: () => {
-                setDraggable(lesson.id, false);
-              }
-            },
-            lesson.id
-          )
-        },
-        lesson.id
-      )) }) });
+              lesson.id
+            )
+          },
+          lesson.id
+        );
+      }) }) });
     }
     function CourseNavTheme({
       data,
