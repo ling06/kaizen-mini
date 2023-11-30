@@ -16,6 +16,7 @@ export const MODAL_TYPES = {
   editChapter: 'editChapter',
   editTheme: 'editTheme',
   newsCategory: 'newsCategory', 
+  selectCourse: 'selectCourse',
 };
 
 export const IS_MOBILE: boolean = window.matchMedia('(max-width: 768px)').matches;

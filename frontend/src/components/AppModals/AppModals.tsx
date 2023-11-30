@@ -7,13 +7,14 @@ import { CreateThemeForm } from "../CreateThemeForm";
 import { NewsCategoryForm } from "../NewsCategoryForm";
 import { useMemo } from "react";
 import { ErrorBlock } from "../ErrorBlock";
+import { SelectCourseForm } from "../SelectCourseForm";
 
 interface IModals {
   isAdmin: boolean;
 }
 
 export function AppModals({ isAdmin }: IModals) {
-  const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+  const { isModalOpen, modalType, modalPosition } = useTypedSelector((state) => state.modal);
 
   const modal = useMemo(() => {
     switch(modalType) {
@@ -31,6 +32,8 @@ export function AppModals({ isAdmin }: IModals) {
         return <CreateThemeForm />
       case MODAL_TYPES.newsCategory:
         return <NewsCategoryForm />
+      case MODAL_TYPES.selectCourse:
+        return <SelectCourseForm />  
       default:
         return <ErrorBlock />
     }
@@ -39,7 +42,7 @@ export function AppModals({ isAdmin }: IModals) {
   return (
     <>
       {isModalOpen && isAdmin && (
-        <ModalLayout modalType={modalType}>
+        <ModalLayout modalType={modalType} modalPosition={modalPosition}>
           {modal}
         </ModalLayout>
       )}

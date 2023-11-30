@@ -8,7 +8,7 @@ import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/constants';
 import { ProgressInfo } from '../ProgressInfo';
 import { ICourse } from '@/types/course.types';
-import { Popup } from './Popup';
+// import { Popup } from './Popup';
 import { OpenSelect } from './OpenSelect';
 import { useGetCourseProgressQuery } from '@/store/api/course.api';
 import { LoadingSmall } from '../LoadingSmall';
@@ -116,12 +116,6 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
             onError={handleLoadError}
           />
         </S.ImgWrapper>
-      )}
-      {isPopupOpen && (
-        <Popup
-          coursesData={coursesData}
-          onClose={handleClosePopup}
-        />
       )}
     </S.Container>
   );

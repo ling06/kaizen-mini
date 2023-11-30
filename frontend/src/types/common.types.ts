@@ -13,3 +13,8 @@ export interface IDefaultRes {
 export interface IDefaultReqWithId {
   id: string | number;
 }
+
+export enum ModalPosition {
+  right = 'right',
+  left = 'left',
+}

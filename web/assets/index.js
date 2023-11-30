@@ -12920,20 +12920,35 @@ var require_assets = __commonJS({
       });
     };
     F$2();
+    var ModalPosition = /* @__PURE__ */ ((ModalPosition2) => {
+      ModalPosition2["right"] = "right";
+      ModalPosition2["left"] = "left";
+      return ModalPosition2;
+    })(ModalPosition || {});
     const ModalInitialState = {
       isModalOpen: false,
-      modalType: ""
+      modalType: "",
+      modalPosition: ModalPosition.right
     };
     const modalSlice = createSlice({
       name: "modal",
       initialState: ModalInitialState,
       reducers: {
         setModalOpen: (state, { payload }) => {
-          state.isModalOpen = payload;
-          payload ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset";
+          console.log("payload", payload);
+          if (payload) {
+            state.isModalOpen = payload;
+            document.body.style.overflow = "hidden";
+            return;
+          }
+          document.body.style.overflow = "unset";
+          return ModalInitialState;
         },
         setModalType: (state, { payload }) => {
           state.modalType = payload;
+        },
+        setModalPosition: (state, { payload }) => {
+          state.modalPosition = payload;
         }
       }
     });
@@ -15933,7 +15948,8 @@ var require_assets = __commonJS({
       editCourse: "editCourse",
       editChapter: "editChapter",
       editTheme: "editTheme",
-      newsCategory: "newsCategory"
+      newsCategory: "newsCategory",
+      selectCourse: "selectCourse"
     };
     window.matchMedia("(max-width: 768px)").matches;
     const USER_ROLES = {
@@ -16285,7 +16301,7 @@ var require_assets = __commonJS({
     const editIcon$1 = "/assets/editIconRed.svg";
     const deleteIcon$1 = "/assets/deleteIcon.svg";
     const visibleIcon = "/assets/visibleIcon.svg";
-    const Overlay$3 = st$1(DarkOverlay)`
+    const Overlay$2 = st$1(DarkOverlay)`
     z-index: ${(props) => props.theme.utils.zIndex.popup};
   @media ${(props) => props.theme.media.desktop} {
     background-color: transparent;
@@ -16294,6 +16310,7 @@ var require_assets = __commonJS({
     right: 0;
     left: unset;
     width: 320px;
+    height: auto;
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
@@ -16308,7 +16325,7 @@ var require_assets = __commonJS({
     border-radius: 0px 0px 15px 15px;
   }
 `;
-    const Title$g = st$1(Text$6)`
+    const Title$h = st$1(Text$6)`
   margin-bottom: 15px;
   text-align: center;
   @media ${(props) => props.theme.media.mobile} {
@@ -16379,8 +16396,8 @@ var require_assets = __commonJS({
       onRestore,
       onVisible
     }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$3, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$N, { ref: innerRef, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$g, { children: name }),
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$N, { ref: innerRef, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$h, { children: name }),
         onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
           "скрыть"
@@ -16462,7 +16479,7 @@ var require_assets = __commonJS({
     const Container$M = st$1(FlexContainer)`
   flex-direction: column;
 `;
-    const Title$f = st$1.h4`
+    const Title$g = st$1.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16480,7 +16497,7 @@ var require_assets = __commonJS({
     function FadedTitle({ text, children, onClick: onClick2 = () => {
     }, styles = {} }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Title$f,
+        Title$g,
         {
           onClick: onClick2,
           style: styles,
@@ -16545,11 +16562,14 @@ var require_assets = __commonJS({
     const Container$L = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
-  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
 `;
     const Theme$2 = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
+`;
+    const Inner = st$1(FlexContainer)`
+  width: fit-content;
+  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
 `;
     const AccSum = st$1(FlexContainer)`
   align-items: center;
@@ -16561,36 +16581,6 @@ var require_assets = __commonJS({
   padding: 0;
   margin-right: 5px;
   background-color: transparent;
-`;
-    st$1.div`
-  width: 83%;
-  height: 0px;
-  overflow: hidden;
-  margin-left: auto;
-  transition: all 0.2s ease-in-out;
-  animation: ${(props) => props.$active ? "openAccordion" : "closeAccrodion"} .2s ease-out forwards;
-
-  @keyframes openAccordion {
-    99% {
-      height: ${(props) => props.$height};
-      overflow: hidden;
-    }
-    100% {
-      height: ${(props) => props.$height};
-      overflow: visible;
-    }
-  }
-
-  @keyframes closeAccrodion {
-    0% {
-      height: ${(props) => props.$height};
-      overflow: hidden;
-    }
-    100% {
-      height: 0px;
-      overflow: hidden;
-    }
-  }
 `;
     st$1(FlexContainer)`
   flex-direction: column;
@@ -22062,7 +22052,7 @@ var require_assets = __commonJS({
       useUpdateThemeMutation,
       useSetThemesPositionsMutation
     } = themeApi;
-    const Title$e = st$1.p`
+    const Title$f = st$1.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;
@@ -22082,7 +22072,7 @@ var require_assets = __commonJS({
       isDeleted = false
     }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Title$e,
+        Title$f,
         {
           style: styles,
           onClick: onClick2,
@@ -25696,704 +25686,7 @@ var require_assets = __commonJS({
       };
     }
     [KeyboardCode.Down, KeyboardCode.Right, KeyboardCode.Up, KeyboardCode.Left];
-<<<<<<< HEAD
     const Container$K = st$1.div`
-=======
-    function SortableItem({ id: id2, children, styles: styles2 = {}, isDraggable = true, data = {} }) {
-      const { attributes, listeners, setNodeRef, transform, transition: transition2 } = useSortable({ id: id2, disabled: !isDraggable, data });
-      const style2 = {
-        transform: CSS.Transform.toString(transform),
-        transition: transition2,
-        ...styles2
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "div",
-        {
-          ref: setNodeRef,
-          style: style2,
-          ...attributes,
-          ...listeners,
-          children
-        }
-      );
-    }
-    const Card = st$1(FlexContainer)`
-  flex-direction: column;
-  width: 310px;
-  height: 400px;
-  padding: 20px;
-  padding-bottom: 15px;
-  background-color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.realWhite};
-  border-radius: ${(props) => props.theme.utils.br};
-  @media ${(props) => props.theme.media.mobile} {
-    width: 49vw;
-    height: auto;
-    min-height: 63.125vw;
-    padding: 3.125vw 3.125vw 2.1875vw;
-    border-radius: 7.597px;
-  }
-`;
-    const imgWrapper = st$1.div`
-  width: 100%;
-  aspect-ratio: 3/2;
-  margin-bottom: 15px;
-  overflow: hidden;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.greyEO};
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 2.5vw;
-    border-radius: 7.597px;
-  }
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-    const Img = st$1.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-    const Title$d = st$1(Text$6)`
-  word-break: break-word;
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
-  }
-`;
-    const defaultCardImg = "/assets/stub-course-program.webp";
-    const dndIcon = "/assets/dnd-btn.svg";
-    const DndBtn$1 = st$1.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  padding: 5px;
-  background-color: transparent;
-  cursor: grab;
-  background-image: url(${dndIcon});
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-
-  &:active {
-    cursor: grabbing;
-  }
-
-  ${(props) => {
-      if (props.$style) {
-        return props.$style;
-      }
-    }}
-  
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-
-`;
-    function DndBtn({ onClick: onClick2 = () => {
-    }, onMouseEnter = () => {
-    }, onMouseLeave = () => {
-    }, styles: styles2 }) {
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
-      if (userRole !== "admin")
-        return null;
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(
-        DndBtn$1,
-        {
-          $style: styles2,
-          onClick: onClick2,
-          onMouseEnter,
-          onMouseLeave
-        }
-      );
-    }
-    const ProgressContainer = st$1(FlexContainer)`
-  flex-direction: column;
-  margin-top: auto;
-`;
-    const ProgressStatusWrapper = st$1(FlexContainer)`
-  align-items: flex-end;
-  margin-bottom: 10px;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 1.875vw;
-  }
-`;
-    const ProgressStatus = st$1.p`
-  margin-right: auto;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 160%;
-  color: ${(props) => props.theme.colors.realBlack};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 2.5vw;
-  }
-`;
-    const BtnsGroup = st$1(FlexContainer)`
-  flex-direction: column;
-  width: fit-content;
-`;
-    const dndIconWithArrows = "/assets/dnd-btn-arrows.svg";
-    const dndIconWithArrowsActive = "/assets/dnd-btn-arrows-active.svg";
-    const chapterApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        getChapterById: builder.query({
-          query: (id2) => `chapter/${id2}`,
-          providesTags: () => [
-            {
-              type: "ChapterById"
-            }
-          ]
-        }),
-        createChapter: builder.mutation({
-          query: (data) => ({
-            url: "course/create-chapter",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => [
-            {
-              type: "Courses"
-            }
-          ]
-        }),
-        updateChapter: builder.mutation({
-          query: (data) => ({
-            url: "course/update-chapter",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "ChapterById"]
-        }),
-        deleteChapter: builder.mutation({
-          query: (data) => ({
-            url: "course/delete-chapter",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "CourseById", "ChapterById"]
-        }),
-        restoreChapter: builder.mutation({
-          query: (data) => ({
-            url: "course/restore-chapter",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "CourseById", "ChapterById"]
-        }),
-        setChaptersPositions: builder.mutation({
-          query: (data) => ({
-            url: "course/set-positions",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "CourseById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCreateChapterMutation,
-      useDeleteChapterMutation,
-      useGetChapterByIdQuery,
-      useRestoreChapterMutation,
-      useUpdateChapterMutation,
-      useSetChaptersPositionsMutation
-    } = chapterApi;
-    function Progress({ data, setDraggable, setNotDraggable, setDeleted, isDeleted }) {
-      const { setLoaderActive, setModalOpen, setModalType, setUpdatingChapterData } = useActions();
-      const [deleteChapter] = useDeleteChapterMutation();
-      const [restoreChapter] = useRestoreChapterMutation();
-      const setProgressStatus = reactExports.useCallback(() => {
-        if (data.percentage.percentage == 100) {
-          return "Пройдено";
-        } else if (data.percentage.percentage > 0) {
-          return "В процессе";
-        }
-        return "Предстоит";
-      }, [data.percentage.percentage]);
-      const handleDeleteChapter = () => {
-        deleteChapter({ id: data.id }).then(() => {
-          setLoaderActive(false);
-          setDeleted(true);
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreChapter = () => {
-        restoreChapter({ id: data.id }).then(() => {
-          setLoaderActive(false);
-          setDeleted(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleEditChapter = () => {
-        setModalType(MODAL_TYPES.editChapter);
-        setUpdatingChapterData(data);
-        setModalOpen(true);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressStatusWrapper, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressStatus, { children: setProgressStatus() }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(BtnsGroup, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              DndBtn,
-              {
-                styles: nt$1`
-            background-image: url(${dndIconWithArrows});
-            &:hover {
-              background-image: url(${dndIconWithArrowsActive});
-            }
-          `,
-                onMouseEnter: setDraggable,
-                onMouseLeave: setNotDraggable
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              AdminBtn,
-              {
-                popupName: "Глава",
-                type: ADMIN_BTN_TYPES.edit,
-                onClick: () => {
-                },
-                popupHandlers: {
-                  onDelete: isDeleted ? void 0 : handleDeleteChapter,
-                  onRestore: isDeleted ? handleRestoreChapter : void 0,
-                  onEdit: handleEditChapter
-                }
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar$1, { $progress: String(data == null ? void 0 : data.percentage.percentage) || "0" })
-      ] });
-    }
-    function CourseProgrammCard({ data, setDraggable, setNotDraggable }) {
-      const navigation = useNavigate();
-      const [isDeleted, setDeleted] = reactExports.useState(false);
-      const [imgSrc, setImgSrc] = reactExports.useState(null);
-      reactExports.useEffect(() => {
-        if (data.image) {
-          const src = data.image.directory + "/" + data.image.name;
-          setImgSrc(src);
-        }
-      }, [data.image]);
-      reactExports.useEffect(() => {
-        Number(data.is_deleted) === 0 ? setDeleted(false) : setDeleted(true);
-      }, [data.is_deleted]);
-      const handleClick = () => {
-        navigation(`/courses/${data.course_id}/${data.id}/`);
-      };
-      const setDeletedChapter = (arg) => {
-        setDeleted(arg);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { $isDeleted: isDeleted, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(imgWrapper, { onClick: handleClick, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Img, { src: imgSrc || defaultCardImg }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$d, { children: data.title }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Progress,
-          {
-            setDeleted: setDeletedChapter,
-            data,
-            setDraggable,
-            setNotDraggable,
-            isDeleted
-          }
-        )
-      ] });
-    }
-    var CourseEntities = /* @__PURE__ */ ((CourseEntities2) => {
-      CourseEntities2["course"] = "Course";
-      CourseEntities2["chapter"] = "Chapter";
-      CourseEntities2["theme"] = "Theme";
-      CourseEntities2["lesson"] = "Lesson";
-      return CourseEntities2;
-    })(CourseEntities || {});
-    const setPositionsErrorsHandler = ({ setter, res, arr, oldIndex, newIndex }) => {
-      if ("data" in res && res.data.status === "success") {
-        return false;
-      }
-      if ("error" in res) {
-        console.error(`Error in setPositions: ${res.error}`);
-      }
-      if ("data" in res && res.data.status !== "success") {
-        console.error(`Error in setPositions: ${res.data.message}`);
-      }
-      const reversed = arrayMove(arr, oldIndex, newIndex);
-      setter(reversed);
-      return true;
-    };
-    function SortableChapters({ data }) {
-      const { setLoaderActive } = useActions();
-      const role = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
-      const [chapters, setChapters] = reactExports.useState([]);
-      const [setPositions] = useSetChaptersPositionsMutation();
-      reactExports.useEffect(() => {
-        if (data) {
-          const chaptersWithDrag = data.map((chapter) => {
-            return {
-              ...chapter,
-              isDraggable: false
-            };
-          });
-          const chaptersSorted = chaptersWithDrag.sort((a2, b2) => a2.position - b2.position);
-          setChapters(chaptersSorted);
-          return;
-        }
-        setChapters([]);
-      }, [data]);
-      function handleDragEnd(event) {
-        const { active, over } = event;
-        if (!over || !over.data.current || !active.data.current) {
-          return;
-        }
-        if (active.id !== over.id) {
-          const oldIndex = chapters.findIndex((chapter) => chapter.id === active.id);
-          const newIndex = chapters.findIndex((chapter) => chapter.id === over.id);
-          const changedChapters = arrayMove(chapters, oldIndex, newIndex);
-          const itemsData = changedChapters.map((chapter, index) => {
-            return {
-              id: chapter.id,
-              position: index
-            };
-          });
-          setChapters(changedChapters);
-          setPositions({
-            type: CourseEntities.chapter,
-            items: itemsData
-          }).then((res) => {
-            const isError = setPositionsErrorsHandler({
-              setter: setChapters,
-              res,
-              arr: changedChapters,
-              oldIndex,
-              newIndex
-            });
-            if (isError) {
-              alert("При перемещении Главы произошла ошибка!");
-            }
-          });
-          setLoaderActive(true);
-        }
-      }
-      const setDraggable = (id2, isDraggable) => {
-        setChapters((chapters2) => {
-          const index = chapters2.findIndex((chapter) => chapter.id === id2);
-          chapters2[index].isDraggable = isDraggable;
-          return [...chapters2];
-        });
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: chapters.map((chapter) => chapter.id), children: chapters.length > 0 && chapters.map((chapter) => {
-        if (!chapter.is_deleted || role === USER_ROLES.admin) {
-          return /* @__PURE__ */ jsxRuntimeExports.jsx(
-            SortableItem,
-            {
-              id: chapter.id,
-              data: chapter,
-              isDraggable: chapter.isDraggable,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                CourseProgrammCard,
-                {
-                  data: chapter,
-                  setDraggable: () => {
-                    setDraggable(chapter.id, true);
-                  },
-                  setNotDraggable: () => {
-                    setDraggable(chapter.id, false);
-                  }
-                }
-              )
-            },
-            chapter.id
-          );
-        }
-      }) }) });
-    }
-    function CourseProgramm() {
-      const { setModalOpen, setModalType } = useActions();
-      const chaptersData = useTypedSelector((state) => {
-        var _a;
-        return (_a = state.course.data) == null ? void 0 : _a.chapters;
-      });
-      const openCreateChapterModal = () => {
-        setModalType(MODAL_TYPES.createChapter);
-        setModalOpen(true);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$2, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Title$e, { as: "h4", children: "Программа курса" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            AdminBtn,
-            {
-              popupName: "Глава",
-              type: ADMIN_BTN_TYPES.add,
-              onClick: openCreateChapterModal
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardList, { children: chaptersData && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableChapters, { data: chaptersData }) })
-      ] });
-    }
-    const Container$u = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  height: 188px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-    const Text$4 = st$1(Text$6)`
-  font-size: 22.714px;
-`;
-    function ErrorBlock() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$4, { children: "Что-то пошло не так" }) });
-    }
-    const NoAvailableCourses = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  background-color: ${(props) => props.theme.colors.realWhite};
-  border-radius: ${(props) => props.theme.utils.br};
-  @media ${(props) => props.theme.media.mobile} {
-    min-height: unset;
-    height: 43.75vw;
-  }
-`;
-    const NoAvailableCoursesText = st$1(Text$6)`
-  margin-right: 10px;
-  font-size: 22px;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    margin: 0;
-    text-align: center;
-
-    font-size: 6.08vw;
-  }
-`;
-    function NoAvailable({ text, onAdd = () => {
-    }, style: style2 = {} }) {
-      const user = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user;
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(NoAvailableCourses, { style: style2, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailableCoursesText, { children: text }),
-        (user == null ? void 0 : user.role) === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "",
-            onClick: onAdd,
-            type: "add"
-          }
-        )
-      ] });
-    }
-    function CoursePreview() {
-      const { data, isError, isFetching } = useGetCoursesQuery();
-      const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
-      const params = useParams();
-      const navigate = useNavigate();
-      const isMobile = useMediaQuery$1(MediaQueries.mobile);
-      reactExports.useEffect(() => {
-        setLoaderActive(isFetching);
-      }, [isFetching, setLoaderActive]);
-      reactExports.useEffect(() => {
-        if (data) {
-          const currentCourseId = params.courseId || null;
-          const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-          if (data.data.length > 0 && !currentCourseId || data.data.length > 0 && !currentCourse) {
-            navigate(`/courses/${data.data[0].id}`);
-            return;
-          }
-          if (data.data.length === 0) {
-            navigate("/courses");
-          }
-          if (currentCourse) {
-            setCourseData(currentCourse);
-          }
-        }
-      }, [data, navigate, params.courseId, setCourseData]);
-      const handleCreateCourse = () => {
-        setModalOpen(true);
-        setModalType("createCourse");
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
-        isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        data && data.data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { coursesData: data.data }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgramm, {})
-        ] }),
-        data && data.data.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных курсов", onAdd: handleCreateCourse })
-      ] }) });
-    }
-    const Container$t = st$1(FlexContainer)`
-  flex-direction: column;
-`;
-    const Title$c = st$1.h4`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 100%;
-  color: ${(props) => props.theme.colors.grey93};
-
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 3.125vw;
-    font-size: 3.75vw;
-  }
-`;
-    function FadedTitle({ text, children, onClick: onClick2 = () => {
-    }, styles: styles2 = {} }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Title$c,
-        {
-          onClick: onClick2,
-          style: styles2,
-          children: [
-            text,
-            children
-          ]
-        }
-      );
-    }
-    const Container$s = st$1(FlexContainer)`
-  flex-direction: column;
-  position: relative;
-`;
-    const Theme$1 = st$1(FlexContainer)`
-  align-items: center;
-  margin-bottom: 30px;
-`;
-    const Inner = st$1(FlexContainer)`
-  width: fit-content;
-  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
-`;
-    const AccSum = st$1(FlexContainer)`
-  align-items: center;
-`;
-    st$1.button`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  padding: 0;
-  margin-right: 5px;
-  background-color: transparent;
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-  min-height: fit-content;
-`;
-    const themeApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        getThemeById: builder.query({
-          query: (id2) => `theme/${id2}`,
-          providesTags: () => [
-            {
-              type: "ThemeById"
-            }
-          ]
-        }),
-        createTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/create-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => [
-            {
-              type: "ChapterById"
-            }
-          ]
-        }),
-        updateTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/update-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        deleteTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/delete-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        restoreTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/restore-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        setThemesPositions: builder.mutation({
-          query: (data) => ({
-            url: "course/set-positions",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["ChapterById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCreateThemeMutation,
-      useDeleteThemeMutation,
-      useGetThemeByIdQuery,
-      useRestoreThemeMutation,
-      useUpdateThemeMutation,
-      useSetThemesPositionsMutation
-    } = themeApi;
-    const Title$b = st$1.p`
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 170%;
-  color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
-  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
-  }
-`;
-    function CourseNavItemTitle({
-      text = "",
-      children,
-      onClick: onClick2 = () => {
-      },
-      styles: styles2 = {},
-      isActive = true,
-      isDeleted = false
-    }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Title$b,
-        {
-          style: styles2,
-          onClick: onClick2,
-          $active: isActive,
-          $isDeleted: isDeleted,
-          children: [
-            text,
-            children
-          ]
-        }
-      );
-    }
-    const Container$r = st$1.div`
->>>>>>> 26f7266793896bc27b6dcc646a98756cdd457da2
   display: flex;
   align-items: center;
   width: 100%;
@@ -26635,10 +25928,6 @@ var require_assets = __commonJS({
       const { setLoaderActive } = useActions();
       const [lessons, setLessons] = reactExports.useState([]);
       const [setPositions] = useSetLessonsPositionsMutation();
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
       reactExports.useEffect(() => {
         if (data) {
           const newLessons = data.map((lesson) => ({
@@ -26692,33 +25981,28 @@ var require_assets = __commonJS({
           setLoaderActive(true);
         }
       }
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: lessons.map((lesson) => lesson.id), children: lessons.length > 0 && lessons.map((lesson) => {
-        if ((Number(lesson.status) !== 1 || Number(lesson.is_deleted) === 1) && userRole !== "admin") {
-          return null;
-        }
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          SortableItem,
-          {
-            id: lesson.id,
-            data: lesson,
-            isDraggable: lesson.isDraggable,
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CourseNavLesson,
-              {
-                data: lesson,
-                setDraggable: () => {
-                  setDraggable(lesson.id, true);
-                },
-                setNotDraggable: () => {
-                  setDraggable(lesson.id, false);
-                }
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: lessons.map((lesson) => lesson.id), children: lessons.length > 0 && lessons.map((lesson) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SortableItem,
+        {
+          id: lesson.id,
+          data: lesson,
+          isDraggable: lesson.isDraggable,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CourseNavLesson,
+            {
+              data: lesson,
+              setDraggable: () => {
+                setDraggable(lesson.id, true);
               },
-              lesson.id
-            )
-          },
-          lesson.id
-        );
-      }) }) });
+              setNotDraggable: () => {
+                setDraggable(lesson.id, false);
+              }
+            },
+            lesson.id
+          )
+        },
+        lesson.id
+      )) }) });
     }
     function CourseNavTheme({
       data,
@@ -26787,11 +26071,7 @@ var require_assets = __commonJS({
         });
         navigate(path);
       };
-<<<<<<< HEAD
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { $isDeleted: !!data.is_deleted, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-=======
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$s, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
->>>>>>> 26f7266793896bc27b6dcc646a98756cdd457da2
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         Accordion$1,
         {
           sx: { width: "100%", boxShadow: "unset" },
@@ -27005,7 +26285,7 @@ var require_assets = __commonJS({
   justify-content: space-between;
   align-items: center;
 `;
-    const Title$d = st$1(Text$6)`
+    const Title$e = st$1(Text$6)`
   font-size: 25px;
 `;
     const ProgressBar = st$1(ProgressBar$1)`
@@ -27117,7 +26397,7 @@ var require_assets = __commonJS({
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$I, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Title$d,
+            Title$e,
             {
               $isDeleted: !!data.is_deleted,
               as: "h3",
@@ -27157,7 +26437,7 @@ var require_assets = __commonJS({
     }
     const forwardIcon = "/assets/forwardIcon.svg";
     const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-    const Title$c = st$1(Text$6)`
+    const Title$d = st$1(Text$6)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27280,7 +26560,7 @@ var require_assets = __commonJS({
     }
   }
 `;
-    const Title$b = st$1(Text$6)`
+    const Title$c = st$1(Text$6)`
   margin-bottom: 40px;
   font-size: 25px;
   line-height: 150%;
@@ -27501,7 +26781,7 @@ var require_assets = __commonJS({
           $isRight: isUserRightAnswer,
           $isPassed: isTestPassed,
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: data.question }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Title$c, { children: data.question }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(Answers, { children: [
               !data.userTestAnswer && data.answers.map((answer) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                 RadioBtn,
@@ -27654,7 +26934,7 @@ var require_assets = __commonJS({
         !lessonId && /* @__PURE__ */ jsxRuntimeExports.jsx(NoOpenLesson, { children: "Выберите урок" }),
         lessonId && isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         lessonId && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$c, { as: "h2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$d, { as: "h2", children: [
             data.data.title,
             !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
               AdminBtn,
@@ -28077,7 +27357,7 @@ var require_assets = __commonJS({
     background-color: ${(props) => props.theme.colors.realWhite} !important;
   }
 `;
-    const Title$a = st$1(Text$6)`
+    const Title$b = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -72989,7 +72269,7 @@ Read more: ${A2}#error-${t4}`;
         setCkEditorData(data2);
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { children: type === "create" ? "Создание конкурса" : "Редактирование конкурса" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           CompetitionNameInput,
           {
@@ -73030,7 +72310,7 @@ Read more: ${A2}#error-${t4}`;
       ] });
     }
     const checklistIcon = "/assets/checklist.svg";
-    const Title$9 = st$1(Text$6)`
+    const Title$a = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -73107,7 +72387,7 @@ margin-bottom: 60px;
   margin-right: 5px;
   background-image: url(${deleteIcon$1});
 `;
-    const Title$8 = st$1.h5`
+    const Title$9 = st$1.h5`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73117,8 +72397,8 @@ margin-bottom: 60px;
   line-height: 120%;
   color: ${(props) => props.theme.colors.grey57};
 `;
-    function Title$7({ value, children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$8, { children: [
+    function Title$8({ value, children }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$9, { children: [
         value,
         children
       ] });
@@ -73281,7 +72561,7 @@ margin-bottom: 60px;
         fontWeight: "600"
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn$1, { onClick: handleDeleteVariant }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn$1, { onClick: handleDeleteVariant }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           VariantInput,
           {
@@ -73345,7 +72625,7 @@ margin-bottom: 60px;
         deleteTest(data.id);
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { value: "Заголовок теста (необязательно)" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { value: "Заголовок теста (необязательно)" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           TestName,
           {
@@ -73506,7 +72786,7 @@ margin-bottom: 60px;
         setCkEditorData(data2);
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$9, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$a, { children: type === "create" ? "Создание урока" : "Редактирование урока" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           LessonNameInput,
           {
@@ -73547,7 +72827,7 @@ margin-bottom: 60px;
         /* @__PURE__ */ jsxRuntimeExports.jsx(CreateLessonForm, { type })
       ] }) });
     }
-    const Title$6 = st$1(Text$6)`
+    const Title$7 = st$1(Text$6)`
   margin-bottom: 20px;
   font-size: 92.5px;
 `;
@@ -73759,7 +73039,7 @@ margin-bottom: 60px;
         setCkEditorData(data2);
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           NewsNameInput,
           {
@@ -74115,7 +73395,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     margin-bottom: 18.75vw;
   }
 `;
-    const Title$5 = st$1.h3`
+    const Title$6 = st$1.h3`
   margin-bottom: 3.125vw;
   font-size: 3.125vw;
   font-weight: 700;
@@ -74138,7 +73418,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function Aphorism() {
       const { text, author } = useAphorism();
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: "Фраза дня" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: "Фраза дня" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
       ] });
@@ -74228,18 +73508,16 @@ color: ${(props) => props.theme.colors.mainBlue};
   align-items: center;
   margin-bottom: 20px;
 `;
-    st$1.div`
-  padding: 3px 15px;
-  margin-right: 20px;
-  font-weight: 700;
-  font-size: 24.923px;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realWhite};
-  background-color: ${(props) => props.theme.colors.mainBlue};
-  border-radius: 18px;
+    const CourseName$1 = st$1(FlexContainer)`
+  align-items: center;
+  width: fit-content;
+  margin-right: auto;
+  cursor: pointer;
 `;
-    st$1(Text$6)`
-  font-weight: 24.923px;
+    const SelectIcon$1 = st$1(Icon$2)`
+  width: 33px;
+  height: 33px;
+  background-image: url(${selectIcon});
 `;
     const courseApi = api.injectEndpoints({
       endpoints: (builder) => ({
@@ -74306,6 +73584,14 @@ color: ${(props) => props.theme.colors.mainBlue};
               type: "CourseProgress"
             }
           ]
+        }),
+        setCoursesPositions: builder.mutation({
+          query: (data) => ({
+            url: "course/set-positions",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById"]
         })
       }),
       overrideExisting: false
@@ -74317,19 +73603,78 @@ color: ${(props) => props.theme.colors.mainBlue};
       useGetCourseByIdQuery,
       useRestoreCourseMutation,
       useUpdateCourseMutation,
-      useGetCourseProgressQuery
+      useGetCourseProgressQuery,
+      useSetCoursesPositionsMutation
     } = courseApi;
     const selectCourses = courseApi.endpoints.getCourses.select();
+    const Title$5 = st$1.h3`
+  font-size: 24.923px;
+  font-weight: ${(props) => props.$isSelected ? 700 : 500};
+  color: ${(props) => props.$isHidden ? props.theme.colors.grey93 : props.theme.colors.realBlack};
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
+
+  ${(props) => {
+      if (props.$styles) {
+        return props.$styles;
+      }
+    }}
+`;
+    function CourseTitle$1({ isDeleted, isSelected, isHidden, title, styles }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Title$5,
+        {
+          $isDeleted: isDeleted,
+          $isSelected: isSelected,
+          $isHidden: isHidden,
+          $styles: styles,
+          children: title
+        }
+      );
+    }
+    const Progress$1 = st$1.div`
+  padding: 3px 15px;
+  font-weight: 700;
+  font-size: 24.923px;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => {
+      let color2 = props.theme.colors.dark;
+      if (props.$isStarted) {
+        color2 = props.theme.colors.mainBlue;
+      }
+      if (props.$isHidden) {
+        color2 = props.theme.colors.grey93;
+      }
+      return color2;
+    }};
+  border-radius: 18px;
+
+
+  ${(props) => {
+      if (props.$styles) {
+        return props.$styles;
+      }
+    }}
+`;
+    function CourseProgress({ percentage, styles, isHidden }) {
+      const [isStarted, setIsStarted] = reactExports.useState(false);
+      reactExports.useEffect(() => {
+        setIsStarted(percentage > 0);
+      }, [percentage]);
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Progress$1, { $styles: styles, $isStarted: isStarted, $isHidden: isHidden, children: [
+        percentage,
+        "%"
+      ] });
+    }
     let init = true;
     function CourseSelect() {
+      var _a;
       const coursesData = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectCourses(state).data) == null ? void 0 : _a.data;
+        var _a2;
+        return (_a2 = selectCourses(state).data) == null ? void 0 : _a2.data;
       });
-      useActions();
+      const { setModalOpen, setModalType, setCourseData, setLoaderActive, setModalPosition } = useActions();
       useUpdateCourseMutation();
-      useDeleteCourseMutation();
-      useRestoreCourseMutation();
       const courseData = useTypedSelector((state) => state.course.data);
       const [selectedValue, setSelectedValue] = reactExports.useState("");
       useNavigate();
@@ -74338,14 +73683,14 @@ color: ${(props) => props.theme.colors.mainBlue};
           return [];
         }
         const options = coursesData.map((course) => {
-          var _a;
+          var _a2;
           return {
             value: `${course.id}`,
             label: course.title,
             data: {
               status: Number(course.status),
               title: course.title,
-              percentage: ((_a = course.percentage) == null ? void 0 : _a.percentage) || 0,
+              percentage: ((_a2 = course.percentage) == null ? void 0 : _a2.percentage) || 0,
               isDeleted: !!course.is_deleted
             }
           };
@@ -74366,15 +73711,49 @@ color: ${(props) => props.theme.colors.mainBlue};
           setSelectedValue(selectedCourseData == null ? void 0 : selectedCourseData.value);
         }
       }, [courseData.id, selectOptions]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$o, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        AdminBtn,
-        {
-          popupName: "Курс",
-          type: ADMIN_BTN_TYPES.add,
-          onClick: () => {
+      const marginRight = nt$1`
+    margin-right: 20px;
+  `;
+      const handleOpenSelectCourseModal = () => {
+        setModalType(MODAL_TYPES.selectCourse);
+        setModalOpen(true);
+        setModalPosition(ModalPosition.left);
+      };
+      const handleCreateCourse = () => {
+        setModalOpen(true);
+        setModalType("createCourse");
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$o, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(CourseName$1, { onClick: handleOpenSelectCourseModal, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CourseProgress,
+            {
+              percentage: ((_a = courseData.percentage) == null ? void 0 : _a.percentage) || 0,
+              styles: marginRight,
+              isHidden: !courseData.status || !!courseData.is_deleted
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CourseTitle$1,
+            {
+              title: courseData.title,
+              isSelected: true,
+              styles: marginRight,
+              isDeleted: !!courseData.is_deleted,
+              isHidden: !courseData.status
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon$1, {})
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            popupName: "Курс",
+            type: ADMIN_BTN_TYPES.add,
+            onClick: handleCreateCourse
           }
-        }
-      ) });
+        )
+      ] });
     }
     const Container$n = st$1(FlexContainer)`
   flex-direction: column;
@@ -74562,209 +73941,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         ] })
       ] });
     }
-    const Overlay$2 = st$1.div`
-  display: flex;
-  align-items: flex-end;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: ${(props) => props.theme.utils.zIndex.darkOverlay};
-`;
     const Container$j = st$1.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 4.0625vw;
-  background-color: ${(props) => props.theme.colors.realWhite};
-  border-radius: ${(props) => props.theme.utils.br} ${(props) => props.theme.utils.br} 0px 0px;
-`;
-    const CoursesList = st$1.ul`
-  display: flex;
-  flex-direction: column;
-  padding: 0 4.6875vw;
-  margin-bottom: 3.75vw;
-`;
-    const Course = st$1.li`
-  &:not(:last-child) {
-    margin-bottom: 6.25vw;
-  }
-`;
-    const AddCourseBtn = st$1.button`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 4.6875vw;
-  margin: 0;
-  margin-bottom: 2%;
-  background-color: transparent;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    const AddCourseBtnTitle = st$1(Text$6)`
-  width: 90%;
-  font-size: 4.6875vw;
-  font-weight: 600;
-  text-align: start;
-`;
-    const AddCourseBtnIcon = st$1(Icon$2)`
-  background-image: url(${addIcon$2});
-`;
-    const CloseBtnWrapper = st$1.div`
-  padding: 3.125vw 4.6875vw;
-  border-top: 1px solid ${(props) => props.theme.colors.greyF1};
-`;
-    const CloseBtn$1 = st$1(DefaultBtn)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 15.625vw;
-  color: ${(props) => props.theme.colors.grey93};
-  background-color: ${(props) => props.theme.colors.greyF1};
-`;
-    const ProgressContainer$1 = st$1.h4`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 90px;
-  height: 36px;
-  border-radius: 18px;
-  background-color: ${(props) => props.$isStart ? props.theme.colors.mainBlue : props.theme.colors.dark};
-  margin-right: 20px;
-
-  color: #fff;
-  font-family: "Montserrat";
-  font-size: 24.923px;
-  font-weight: 700;
-  line-height: 120%;
-`;
-    function ProgressCounter({ percentage = 0 }) {
-      const isStart = percentage > 0;
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(ProgressContainer$1, { $isStart: isStart, children: [
-        percentage,
-        "%"
-      ] });
-    }
-    const CustomSelectOption$1 = st$1.label`
-  display: flex;
-  align-items: center;
-  border: 0;
-  padding-bottom: 5px;
-  cursor: pointer;
-  @media ${(props) => props.theme.media.mobile} {
-    padding-bottom: 0;
-  }
-  &*:first-child {
-    padding: 0;
-  }
-  &*:focus {
-    background-color: transparent;
-  }
-`;
-    const TextLabel = st$1.p`
-  margin-right: 30px;
-  color: #000;
-  font-family: 'Montserrat';
-  font-size: 24.923px;
-  font-weight: ${(props) => props.$isSelected ? 700 : 500};
-  line-height: 120%;
-  &:first-child {
-    font-weight: 700;
-    @media ${(props) => props.theme.media.mobile} {
-      font-weight: 500;
-    }
-  }
-  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
-  @media ${(props) => props.theme.media.mobile} {
-    margin-right: 2%;
-    font-size: 4.6875vw;
-    font-weight: 500;
-  }
-`;
-    const IsHiddenIcon$1 = st$1(Icon$2)`
-  margin-left: auto;
-  margin-right: 20px;
-  background-image: url(${isHideIcon});
-  @media ${(props) => props.theme.media.mobile} {
-    margin-right: 0;
-  }
-`;
-    function CustomSelectOption({
-      percentage,
-      status,
-      title,
-      isSelected,
-      isDeleted
-    }) {
-      const isMobile = useMediaQuery(MediaQueries.mobile);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomSelectOption$1, { children: [
-        !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressCounter, { percentage: percentage || 0 }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          TextLabel,
-          {
-            $isSelected: isSelected,
-            $isDeleted: isDeleted,
-            children: [
-              "Курс: ",
-              title
-            ]
-          }
-        ),
-        status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon$1, {})
-      ] });
-    }
-    function Popup({ coursesData, onClose }) {
-      const { setModalOpen, setModalType } = useActions();
-      const selectedCourseid = useTypedSelector((state) => state.course.data.id);
-      const modalRoot = document.querySelector("#modal-root");
-      const navigate = useNavigate();
-      if (!modalRoot) {
-        return null;
-      }
-      const handleSelectCourse = (id2) => {
-        onClose();
-        navigate(`/courses/${id2}`);
-      };
-      const handleAddCourse = () => {
-        onClose();
-        setModalOpen(true);
-        setModalType(MODAL_TYPES.createCourse);
-      };
-      return ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesList, { children: coursesData && coursesData.map((course) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Course,
-            {
-              onClick: () => {
-                handleSelectCourse(course.id);
-              },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                CustomSelectOption,
-                {
-                  title: course.title,
-                  status: course.status,
-                  isDeleted: !!course.is_deleted,
-                  isSelected: Number(course.id) === Number(selectedCourseid)
-                },
-                course.id
-              )
-            }
-          )) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(AddCourseBtn, { onClick: handleAddCourse, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnTitle, { children: "Добавить курс" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AddCourseBtnIcon, {})
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtnWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: onClose, children: "Отмена" }) })
-        ] }) }),
-        modalRoot
-      );
-    }
-    const Container$i = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -74849,7 +74026,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         });
         setLoaderActive(true);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
@@ -74886,7 +74063,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   border-radius: inherit;
   background-color: ${(props) => props.theme.colors.realWhite};
 `;
-    const Container$h = st$1.div`
+    const Container$i = st$1.div`
   display: flex;
   align-items: center;
   width: fit-content;
@@ -74899,7 +74076,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   font-size: 22px;
 `;
     function LoadingSmall() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$i, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
       ] }) });
@@ -74928,9 +74105,6 @@ color: ${(props) => props.theme.colors.mainBlue};
       }, [courseData.image]);
       const handleLoadError = () => {
         setPreviewSrc(defaultPreview);
-      };
-      const handleClosePopup = () => {
-        setIsPopupOpen(false);
       };
       const handleOpenPopup = () => {
         setIsPopupOpen(true);
@@ -74988,17 +74162,10 @@ color: ${(props) => props.theme.colors.mainBlue};
             src: previewSrc,
             onError: handleLoadError
           }
-        ) }),
-        isPopupOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Popup,
-          {
-            coursesData,
-            onClose: handleClosePopup
-          }
-        )
+        ) })
       ] });
     }
-    const Container$g = st$1(FlexContainer)`
+    const Container$h = st$1(FlexContainer)`
   flex-direction: column;
 `;
     const Head$1 = st$1(FlexContainer)`
@@ -75302,7 +74469,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         setModalType(MODAL_TYPES.createChapter);
         setModalOpen(true);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$h, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { as: "h4", children: "Программа курса" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -75416,7 +74583,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       ] }) });
     }
     const arrowLeft = "/assets/swiperArrowLeft.svg";
-    const Container$f = st$1.div`
+    const Container$g = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -81072,7 +80239,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     }
     const swiper = "";
     const swiperBundle = "";
-    const Container$e = st$1.div`
+    const Container$f = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -81204,7 +80371,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         }
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$e,
+        Container$f,
         {
           onClick: mobileNavigate,
           $isDeleted: isDeleted,
@@ -81259,7 +80426,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           return;
         swiperRef.current.swiper.slideNext();
       }, []);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$f, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$g, { children: [
         isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
         isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -81323,7 +80490,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     const star = "/assets/star.svg";
     const activeStar = "/assets/active-star.svg";
     const moreIcon = "/assets/moreIcon.svg";
-    const Container$d = st$1(FlexContainer)`
+    const Container$e = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
   width: 49.7%;
@@ -81398,7 +80565,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   margin-left: 13px;
   background-image: url(${moreIcon});
 `;
-    const Container$c = st$1.div`
+    const Container$d = st$1.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81424,7 +80591,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   transform: rotate(-9.76deg);
 `;
     function InDeveloping() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$c, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "В разработке" }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$d, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$3, { children: "В разработке" }) });
     }
     function ManagerInfo({
       percentage,
@@ -81438,7 +80605,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const progressInfoStyles = {
         marginBottom: isMobile ? "10px" : "30px"
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$d, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$e, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(InDeveloping, {}),
         percentage && /* @__PURE__ */ jsxRuntimeExports.jsx(
           ProgressInfo,
@@ -81487,7 +80654,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         ] })
       ] });
     }
-    const Container$b = st$1.div`
+    const Container$c = st$1.div`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -81549,7 +80716,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   overflow: hidden;
   border-radius: ${(props) => props.theme.utils.br};
 `;
-    const Container$a = st$1.div`
+    const Container$b = st$1.div`
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -81578,7 +80745,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       onClick: onClick2 = () => {
       }
     }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$b, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Date$1, { children: date }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Author, { children: author }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -81656,7 +80823,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         });
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$b,
+        Container$c,
         {
           onClick: mobileNavigate,
           $isDeleted: !!data.is_deleted,
@@ -81685,7 +80852,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         }
       );
     }
-    const Container$9 = st$1(FlexContainer)`
+    const Container$a = st$1(FlexContainer)`
   flex-direction: column;
 `;
     const Title$1 = st$1(Text$6)`
@@ -81941,7 +81108,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const handleCreateNews = () => {
         navigate("/news/create-news");
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Title$1, { children: [
           "Новости",
           /* @__PURE__ */ jsxRuntimeExports.jsx(AdminBtn, { popupName: "Новость", type: "add", onClick: handleCreateNews })
@@ -81965,7 +81132,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         ] })
       ] });
     }
-    const Container$8 = st$1(FlexContainer)`
+    const Container$9 = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 90px 0;
   @media ${(props) => props.theme.media.mobile} {
@@ -81987,7 +81154,7 @@ color: ${(props) => props.theme.colors.mainBlue};
 `;
     function NewsMain() {
       const { data, isError, isFetching } = useGetAllCompetitionsQuery();
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(MainInfoWrapper, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionsSwiper, { data, isError, isFetching }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -82004,7 +81171,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContainer, {})
       ] }) });
     }
-    const Container$7 = st$1.div`
+    const Container$8 = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -82057,7 +81224,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: textBtn })
       ] });
     }
-    const Container$6 = st$1.div`
+    const Container$7 = st$1.div`
   display: flex;
   width: 100%;
 `;
@@ -82211,7 +81378,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const handleGoBack = () => {
         navigate("/news");
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContent, {})
       ] });
@@ -82229,7 +81396,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       function handleGoBack() {
         navigate("/news", { replace: true });
       }
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$7, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
         isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: data == null ? void 0 : data.data.title }) : null,
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
@@ -82243,13 +81410,13 @@ color: ${(props) => props.theme.colors.mainBlue};
         /* @__PURE__ */ jsxRuntimeExports.jsx(NewsByIdContent, {})
       ] }) });
     }
-    const List = st$1.ul`
+    const List$1 = st$1.ul`
   display: flex;
   flex-direction: column;
   row-gap: 22px;
 `;
     function NavList({ children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(List, { children });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(List$1, { children });
     }
     function CompetitionAside() {
       var _a;
@@ -82287,14 +81454,14 @@ color: ${(props) => props.theme.colors.mainBlue};
         ) })
       ] });
     }
-    const Container$5 = st$1(FlexContainer)`
+    const Container$6 = st$1(FlexContainer)`
   padding-top: 50px;
   @media ${(props) => props.theme.media.mobile} {
     flex-direction: column;
     padding-top: 4.6875vw;
   }
 `;
-    const Container$4 = st$1(FlexContainer)`
+    const Container$5 = st$1(FlexContainer)`
   flex-direction: column;
   width: 25%;
   @media ${(props) => props.theme.media.mobile} {
@@ -82302,7 +81469,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   }
 `;
     function AsideBar({ children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$4, { children });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$5, { children });
     }
     const externalLinkIcon = "/assets/external-link.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
@@ -82514,7 +81681,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       ] });
     }
     function Competition() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$5, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$6, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(AsideBar, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionAside, {}) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionContent, {})
       ] }) });
@@ -82616,7 +81783,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     }
     const ModalLayout$1 = st$1.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: ${(props) => props.modalPosition === "left" ? "flex-start" : "flex-end"};
   position: fixed;
   top: 0;
   left: 0;
@@ -82641,18 +81808,27 @@ color: ${(props) => props.theme.colors.mainBlue};
   position: relative;
   width: fit-content;
   height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   background-color: ${(props) => props.theme.colors.realWhite};
-  animation: windowEntrance 0.3s ease-out forwards;
+  animation: ${(props) => props.modalPosition === ModalPosition.left ? "windowEntranceLeft" : "windowEntranceRight"} 0.3s ease-out forwards;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 0 0;
     animation-name: windowEntrance;
   }
 
-  @keyframes windowEntrance {
+  @keyframes windowEntranceRight {
     0% {
       transform: translateX(100%);
+    }
+    100% {
+      transform: translate(0%);
+    }
+  }
+
+  @keyframes windowEntranceLeft {
+    0% {
+      transform: translateX(-100%);
     }
     100% {
       transform: translate(0%);
@@ -82662,7 +81838,6 @@ color: ${(props) => props.theme.colors.mainBlue};
     const ModalName = st$1.h3`
   position: absolute;
   top: 35px;
-  left: -155px;
   font-size: 92.5px;
   font-weight: 700;
   line-height: 120%;
@@ -82670,6 +81845,18 @@ color: ${(props) => props.theme.colors.mainBlue};
   transform: rotate(-180deg);
   writing-mode: vertical-lr;
   pointer-events: none;
+  ${(props) => {
+      if (props.modalPosition === ModalPosition.left) {
+        return nt$1`
+        right: -115px;
+      `;
+      }
+      if (props.modalPosition === ModalPosition.right) {
+        return nt$1`
+        left: -155px;
+      `;
+      }
+    }}
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
     align-items: center;
@@ -82684,7 +81871,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     pointer-events: unset;
   }
 `;
-    const CloseBtn = st$1.button`
+    const CloseBtn$1 = st$1.button`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: block;
@@ -82699,12 +81886,12 @@ color: ${(props) => props.theme.colors.mainBlue};
     background-size: 100%;
   }
 `;
-    function ModalLayout({ children, modalType: type }) {
+    function ModalLayout({ children, modalType, modalPosition }) {
       const { setModalOpen } = useActions();
       const [modalName, setModalName] = reactExports.useState();
       reactExports.useEffect(() => {
         let name = "";
-        switch (type) {
+        switch (modalType) {
           case MODAL_TYPES.createCourse:
             name = "Создание курса";
             break;
@@ -82726,11 +81913,14 @@ color: ${(props) => props.theme.colors.mainBlue};
           case MODAL_TYPES.newsCategory:
             name = "Категории";
             break;
+          case MODAL_TYPES.selectCourse:
+            name = "Курсы";
+            break;
           default:
-            console.error(`Unknown modal type: ${type}`);
+            console.error(`Unknown modal type: ${modalType}`);
         }
         setModalName(name);
-      }, [type]);
+      }, [modalType]);
       const modalRoot = document.getElementById("modal-root");
       if (!modalRoot)
         return;
@@ -82743,17 +81933,17 @@ color: ${(props) => props.theme.colors.mainBlue};
         setModalOpen(false);
       };
       return ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout$1, { onClick: handleOverlayClick, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Window, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalName, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout$1, { onClick: handleOverlayClick, modalPosition, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Window, { modalPosition, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalName, { modalPosition, children: [
             modalName,
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn, { onClick: handleCloseModal })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: handleCloseModal })
           ] }),
           children
         ] }) }),
         modalRoot
       );
     }
-    const Container$3 = st$1(FlexContainer)`
+    const Container$4 = st$1(FlexContainer)`
   flex-direction: column;
   width: ${(props) => props.$width};
   height: 100%;
@@ -82783,7 +81973,7 @@ color: ${(props) => props.theme.colors.mainBlue};
         onSubmit();
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$3,
+        Container$4,
         {
           $width: width2,
           style: styles,
@@ -82911,7 +82101,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     }
     const editIcon = "/assets/editIcon-with-pen.svg";
     const deleteIcon = "/assets/deleteIcon-white.svg";
-    const Container$2 = st$1.div``;
+    const Container$3 = st$1.div``;
     st$1.div`
   position: relative;
   margin-bottom: 15px;
@@ -82981,7 +82171,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   }
 `;
     function AddImage({ name, onSet, imageData, onDelete, previewImageStyles = {} }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
         imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image, { image: imageData, styles: previewImageStyles }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlsGroup, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(CustomFileInput, { onSet, children: [
@@ -83380,7 +82570,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   background-image: url(${addIcon});
 `;
     const saveIcon = "/assets/Save.svg";
-    const Container$1 = st$1(FlexContainer)`
+    const Container$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
 `;
@@ -83499,7 +82689,7 @@ line-height100%`;
         onSave(data.id, categoryTitle);
         setEdit(false);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           CustomCheckbox,
           {
@@ -83599,8 +82789,244 @@ line-height100%`;
         }
       );
     }
+    const List = st$1(FlexContainer)`
+  flex-direction: column;
+  /* overflow: hidden; */
+`;
+    const CourseWrapper = st$1(FlexContainer)`
+  align-items: center;
+  height: 63px;
+  padding: 0 20px 0 7px;
+`;
+    function Course({ data, setDraggable, setNotDraggable }) {
+      var _a;
+      const { setModalOpen, setModalPosition, setModalType, setLoaderActive } = useActions();
+      const [updateCourse] = useUpdateCourseMutation();
+      const [deleteCourse] = useDeleteCourseMutation();
+      const [restoreCourse] = useRestoreCourseMutation();
+      const navigate = useNavigate();
+      const courseProgressStyles = nt$1`
+    margin-right: 20px;
+  `;
+      const courseTitleStyles = nt$1`
+    margin-right: 20px;
+  `;
+      const dndBtnStyles = nt$1`
+    margin-right: 15px;
+  `;
+      const handleSelectCourse = () => {
+        setModalOpen(false);
+        navigate(`/courses/${data.id}`);
+      };
+      const handleEditCourse = () => {
+        if (!data.id) {
+          console.error(`No course with id: ${data.id}!`);
+          return;
+        }
+        setModalType(MODAL_TYPES.editCourse);
+        setModalPosition(ModalPosition.right);
+        setModalOpen(true);
+      };
+      const handleToggleCourseStatus = () => {
+        if (!data.id) {
+          console.error(`No course with id: ${data.id}!`);
+          return;
+        }
+        updateCourse({
+          id: data.id,
+          status: Number(data.status) === 0 ? 1 : 0,
+          image: data.image
+        }).then((res) => {
+        });
+        setLoaderActive(true);
+      };
+      const handleDeleteCourse = () => {
+        deleteCourse({
+          id: Number(data.id)
+        }).then((res) => {
+          if ("result" in res && !res.result) {
+            alert("Что-то пошло не так...");
+            console.error(`Course with id: ${data.id} not found!`);
+          }
+        });
+        setLoaderActive(true);
+      };
+      const handleRestoreCourse = () => {
+        restoreCourse({
+          id: Number(data.id)
+        }).then((res) => {
+          if ("result" in res && !res.result) {
+            alert("Что-то пошло не так...");
+            console.error(`Course with id: ${data.id} not found!`);
+          }
+        });
+        setLoaderActive(true);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(CourseWrapper, { onClick: handleSelectCourse, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          DndBtn,
+          {
+            styles: dndBtnStyles,
+            onMouseEnter: setDraggable,
+            onMouseLeave: setNotDraggable
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CourseProgress,
+          {
+            styles: courseProgressStyles,
+            percentage: ((_a = data.percentage) == null ? void 0 : _a.percentage) || 0,
+            isHidden: !data.status || !!data.is_deleted
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CourseTitle$1,
+          {
+            styles: courseTitleStyles,
+            title: data.title,
+            isDeleted: !!data.is_deleted,
+            isHidden: !data.status
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            type: ADMIN_BTN_TYPES.edit,
+            popupName: "Курс",
+            styles: { marginLeft: "auto" },
+            popupHandlers: {
+              onEdit: handleEditCourse,
+              onHide: data.status ? handleToggleCourseStatus : void 0,
+              onVisible: !data.status ? handleToggleCourseStatus : void 0,
+              onDelete: !data.is_deleted ? handleDeleteCourse : void 0,
+              onRestore: data.is_deleted ? handleRestoreCourse : void 0
+            }
+          }
+        )
+      ] });
+    }
+    function SortableList({ data }) {
+      const { setLoaderActive } = useActions();
+      const [courses, setCourses] = reactExports.useState([]);
+      const [setPositions] = useSetCoursesPositionsMutation();
+      reactExports.useEffect(() => {
+        const newCourses = data.map((course) => ({ ...course, isDraggable: false }));
+        const newCoursesSorted = newCourses.sort((a2, b2) => a2.position - b2.position);
+        setCourses(newCoursesSorted);
+      }, [data]);
+      const sortableItemStyles = {
+        backgroundColor: "#f1f1f1"
+      };
+      function handleDragEnd(event) {
+        const { active, over } = event;
+        if (!over || !over.data.current || !active.data.current) {
+          return;
+        }
+        if (active.id !== over.id) {
+          const oldIndex = courses.findIndex((course) => course.id === active.id);
+          const newIndex = courses.findIndex((course) => course.id === over.id);
+          const changedLessons = arrayMove(courses, oldIndex, newIndex);
+          const itemsData = changedLessons.map((course, index) => {
+            return {
+              id: course.id,
+              position: index
+            };
+          });
+          setCourses(changedLessons);
+          setPositions({
+            type: CourseEntities.course,
+            items: itemsData
+          }).then((res) => {
+            const isError = setPositionsErrorsHandler({
+              setter: setCourses,
+              res,
+              arr: changedLessons,
+              oldIndex,
+              newIndex
+            });
+            if (isError) {
+              alert("При перемещении Урока произошла ошибка!");
+            }
+          });
+          setLoaderActive(true);
+        }
+      }
+      const setDraggable = (id2, isDraggable) => {
+        setCourses((lessons) => {
+          const index = lessons.findIndex((lesson) => lesson.id === id2);
+          lessons[index].isDraggable = isDraggable;
+          return [...lessons];
+        });
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(List, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: courses.map((course) => course.id), children: courses.map((course, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SortableItem,
+        {
+          styles: index % 2 !== 0 ? sortableItemStyles : {},
+          id: course.id,
+          isDraggable: course.isDraggable,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Course,
+            {
+              data: course,
+              setDraggable: () => {
+                setDraggable(course.id, true);
+              },
+              setNotDraggable: () => {
+                setDraggable(course.id, false);
+              }
+            }
+          )
+        },
+        course.id
+      )) }) }) });
+    }
+    const Container$1 = st$1(FlexContainer)`
+  flex-direction: column;
+  position: relative;
+  min-width: 956px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-bottom: auto;
+`;
+    const LoadingContainer = st$1.div`
+  position: relative;
+  min-height: 200px;
+`;
+    const CloseBtn = st$1(DefaultBtn)`
+  width: 95%;
+  margin: 0 auto 20px;
+  background-color: ${(props) => props.theme.colors.greyF1};
+  color: ${(props) => props.theme.colors.grey93};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.greyEO};
+  }
+`;
+    function SelectCourseForm() {
+      const { setModalOpen } = useActions();
+      const { data, isFetching, isLoading, isError } = useGetCoursesQuery();
+      const [coursesData, setCoursesData] = reactExports.useState([]);
+      reactExports.useEffect(() => {
+        if (data && !isFetching && !isError) {
+          setCoursesData(data.data);
+        } else {
+          setCoursesData([]);
+        }
+      }, [data, isError, isFetching]);
+      const handleCloseModal = () => {
+        setModalOpen(false);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
+          isError && !isLoading && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
+          (isLoading || isFetching) && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}) }),
+          coursesData.length > 0 && !isError && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableList, { data: coursesData })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn, { onClick: handleCloseModal, children: "Отмена" })
+      ] });
+    }
     function AppModals({ isAdmin }) {
-      const { isModalOpen, modalType } = useTypedSelector((state) => state.modal);
+      const { isModalOpen, modalType, modalPosition } = useTypedSelector((state) => state.modal);
       const modal = reactExports.useMemo(() => {
         switch (modalType) {
           case MODAL_TYPES.createCourse:
@@ -83617,11 +83043,13 @@ line-height100%`;
             return /* @__PURE__ */ jsxRuntimeExports.jsx(CreateThemeForm, {});
           case MODAL_TYPES.newsCategory:
             return /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryForm, {});
+          case MODAL_TYPES.selectCourse:
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(SelectCourseForm, {});
           default:
             return /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {});
         }
       }, [modalType]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: isModalOpen && isAdmin && /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout, { modalType, children: modal }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: isModalOpen && isAdmin && /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout, { modalType, modalPosition, children: modal }) });
     }
     const Overlay = st$1(FlexContainer)`
   align-items: center;
