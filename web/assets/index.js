@@ -12983,7 +12983,8 @@ var require_assets = __commonJS({
       activeTheme: null,
       activeLesson: null,
       updatingChapterData: null,
-      updatingThemeData: null
+      updatingThemeData: null,
+      editCourseId: null
     };
     const courseSlice = createSlice({
       name: "course",
@@ -13034,6 +13035,9 @@ var require_assets = __commonJS({
         },
         setUpdatingThemeData: (state, { payload }) => {
           state.updatingThemeData = { ...payload };
+        },
+        setEditCourseId: (state, { payload }) => {
+          state.editCourseId = payload;
         }
       }
     });
@@ -27312,547 +27316,8 @@ var require_assets = __commonJS({
     const OpenNavBtn = st$1(Icon$2)`
   padding: 0;
   margin: 0;
-<<<<<<< HEAD
   margin-right: auto;
   background-image: url(${bookIcon});
-=======
-  margin-bottom: 18px;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 5vw;
-  }
-`;
-    const Icon = st$1(Icon$2)`
-  margin-right: 8px;
-  background-image: url(${backIcon});
-  @media ${(props) => props.theme.media.mobile} {
-    background-image: url(${backIconMob});
-    margin-right: 2.81vw;
-  }
-`;
-    const Text$2 = st$1.span`
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 149.5%;
-  color: ${(props) => props.theme.colors.mainBlue};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
-    font-weight: 700;
-  }
-`;
-    function BackBtn({ onClick: onClick2 = () => {
-    }, text }) {
-      const [textBtn, setTextBtn] = reactExports.useState("");
-      reactExports.useEffect(() => {
-        if (text !== void 0) {
-          setTextBtn(text);
-        } else {
-          setTextBtn("назад");
-        }
-      }, [text]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { onClick: onClick2, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Text$2, { children: textBtn })
-      ] });
-    }
-    const Container$9 = st$1.div`
-  display: flex;
-  width: 100%;
-`;
-    st$1.div`
-  display: flex;
-  flex-direction: column;
-  width: 75%;
-  padding: 15px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-    st$1.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 50px;
-`;
-    st$1.div`
-  width: 100%;
-  margin-bottom: 50px;
-
-  font-family: "Montserrat";
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 170%;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 3.13vw;
-
-    font-size: 4.7vw;
-  }
-`;
-    const Bottom = st$1.div`
-  display: flex;
-  align-items: center;
-`;
-    const Content$1 = st$1.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 75%;
-  min-height: 200px;
-  padding: 15px;
-  border-radius: ${(props) => props.theme.utils.br};
-  opacity: ${(props) => props.$isVisible ? 1 : 0.5};
-  background-color: ${(props) => props.$isDeleted ? "rgba(224, 54, 56, .1)" : props.theme.colors.realWhite};
-  transition: opacity 0.2s ease-in-out;
-  &:hover {
-    opacity: 1;
-  }
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    padding: 4.6875vw;
-  }
-`;
-    function Content({ children, isDeleted, isVisible }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Content$1, { $isDeleted: isDeleted, $isVisible: isVisible, children });
-    }
-    const Title$5 = st$1(Text$6)`
-  margin-bottom: 23px;
-  font-size: 22px;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    function ContentTitle({ title }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Title$5, { children: title });
-    }
-    function NewsContent() {
-      var _a;
-      const { setLoaderActive } = useActions();
-      const { newsId } = useParams();
-      const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
-        skip: !newsId
-      });
-      const navigate = useNavigate();
-      const [deleteNews] = useDeleteNewsMutation();
-      const [restoreNews] = useRestoreNewsMutation();
-      const [update2] = useUpdateNewsMutation();
-      reactExports.useEffect(() => {
-        setLoaderActive(isFetching);
-      }, [isFetching, setLoaderActive]);
-      const handleEditNews = () => {
-        if (!data) {
-          console.error("no data:" + data);
-          return;
-        }
-        navigate(`/news/edit-news/${data.data.id}`);
-      };
-      const handleDeleteNews = () => {
-        if (!data) {
-          console.error("no data:" + data);
-          return;
-        }
-        deleteNews({
-          id: data.data.id
-        }).then((res) => {
-          if ("data" in res && !res.data.result) {
-            alert("При удалении статьи произошла ошибка");
-          }
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreNews = () => {
-        if (!data) {
-          console.error("no data:" + data);
-          return;
-        }
-        restoreNews({
-          id: data.data.id
-        }).then((res) => {
-          if ("data" in res && !res.data.result) {
-            alert("При востановлении статьи произошла ошибка");
-          }
-        });
-        setLoaderActive(true);
-      };
-      const handleVisibileNews = () => {
-        if (!data) {
-          console.error("no data:" + data);
-          return;
-        }
-        update2({
-          id: data.data.id,
-          status: Number(data.data.status) === 0 ? 1 : 0
-        });
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Content, { isDeleted: !!(data == null ? void 0 : data.data.is_deleted), isVisible: Number(data == null ? void 0 : data.data.status) === 1, children: [
-        isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data.data.title }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.text }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Bottom, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            NewsRequisites,
-            {
-              author: ((_a = data.data.user) == null ? void 0 : _a.name) || data.data.user_id,
-              date: data.data.date,
-              adminHandlers: {
-                onEdit: handleEditNews,
-                onDelete: data.data.is_deleted ? void 0 : handleDeleteNews,
-                onRestore: data.data.is_deleted ? handleRestoreNews : void 0,
-                onVisible: Number(data.data.status) === 0 ? handleVisibileNews : void 0,
-                onHide: Number(data.data.status) === 1 ? handleVisibileNews : void 0
-              }
-            }
-          ) })
-        ] })
-      ] });
-    }
-    function NewsByIdContent() {
-      const navigate = useNavigate();
-      const handleGoBack = () => {
-        navigate("/news");
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$9, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(NewsCategoryWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(NewsContent, {})
-      ] });
-    }
-    function NewsById() {
-      const navigate = useNavigate();
-      const handleCreateNews = () => {
-        navigate("/news/create-news");
-      };
-      const { newsId } = useParams();
-      const { data, isFetching, isError } = useGetNewsByIdQuery(Number(newsId), {
-        skip: !newsId
-      });
-      const isMobile = useMediaQuery(MediaQueries.mobile);
-      function handleGoBack() {
-        navigate("/news", { replace: true });
-      }
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$a, { children: [
-        isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: data == null ? void 0 : data.data.title }) : null,
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "Новость",
-            type: "add",
-            styles: { marginLeft: "auto" },
-            onClick: handleCreateNews
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(NewsByIdContent, {})
-      ] }) });
-    }
-    const List = st$1.ul`
-  display: flex;
-  flex-direction: column;
-  row-gap: 22px;
-`;
-    function NavList({ children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(List, { children });
-    }
-    function CompetitionAside() {
-      var _a;
-      const navigate = useNavigate();
-      const { competitionId } = useParams();
-      const { data, isError, isFetching } = useGetAllCompetitionsQuery();
-      const isMobile = useMediaQuery$1(MediaQueries.mobile);
-      const competitionData = useGetCompetitionByIdQuery(Number(competitionId), {
-        skip: !isMobile
-      });
-      const handleGoBack = () => {
-        navigate("/news");
-      };
-      const handleGoToCompetition = (id2) => {
-        navigate(`/news/competitions/${id2}`);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(BackBtn, { onClick: handleGoBack, text: isMobile ? (_a = competitionData.data) == null ? void 0 : _a.data.title : void 0 }),
-        !isMobile && data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(NavList, { children: data.data.map(
-          (competition) => {
-            if (Number(competitionId) === competition.id) {
-              return null;
-            }
-            return /* @__PURE__ */ jsxRuntimeExports.jsx(
-              NavListItem,
-              {
-                title: competition.title,
-                onClick: () => {
-                  handleGoToCompetition(competition.id);
-                }
-              },
-              competition.id
-            );
-          }
-        ) })
-      ] });
-    }
-    const Container$8 = st$1(FlexContainer)`
-  padding-top: 50px;
-  @media ${(props) => props.theme.media.mobile} {
-    flex-direction: column;
-    padding-top: 4.6875vw;
-  }
-`;
-    const Container$7 = st$1(FlexContainer)`
-  flex-direction: column;
-  width: 25%;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-  }
-`;
-    function AsideBar({ children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$7, { children });
-    }
-    const externalLinkIcon = "/assets/moreIcon.svg";
-    const BottomContainer$2 = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: space-between;
-  @media ${(props) => props.theme.media.mobile} {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    row-gap: 9.375vw;
-  }
-`;
-    const AllCompetitionsLenght = st$1.p`
-  margin-bottom: 11px;
-
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 130%;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-left: 10.94vw;
-    margin-bottom: 9.69vw;
-
-    font-size: 3.75vw;
-  }
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-  margin-bottom: 50px;
-`;
-    const Link = st$1(DefaultBtn)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 44px;
-  padding: 0 20px 0 23px;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    min-height: 12.5vw;
-  }
-`;
-    const LinkIcon = st$1(Icon$2)`
-  margin-left: 10px;
-  background-image: url(${externalLinkIcon});
-`;
-    const ContainerBtn = st$1.div`
-  width: 100%;
-  display: flex;
-  position: absolute;
-  top: 107%;
-  right: 0;
-  justify-content: space-between;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    const BtnLeft = st$1.button`
-  width: 24px;
-  height: 24px;
-  background-image: url(${arrowLeft});
-  background-size: contain;
-`;
-    const BtnRight = st$1(BtnLeft)`
-  transform: rotate(-180deg);
-`;
-    function CompetitionContent() {
-      var _a, _b;
-      const { setLoaderActive } = useActions();
-      const { competitionId } = useParams();
-      const navigate = useNavigate();
-      const [deleteCompetition] = useDeleteCompetitionMutation();
-      const [restoreCompetition] = useRestoreCompetitionMutation();
-      const [updateCompetition] = useUpdateCompetitionMutation();
-      const { data, isFetching, isError } = useGetCompetitionByIdQuery(
-        Number(competitionId),
-        {
-          skip: !competitionId
-        }
-      );
-      const [isAllCompetitionsLenght, setAllCompetitionsLenght] = reactExports.useState("");
-      const allCompetitions = useGetAllCompetitionsQuery();
-      const handleEditTextCompetitionLenght = () => {
-        var _a2, _b2;
-        return [
-          setAllCompetitionsLenght(
-            `Конкурс ${(data == null ? void 0 : data.data.id) === void 0 ? "1" : data == null ? void 0 : data.data.id}/${((_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length) === void 0 ? "1" : (_b2 = allCompetitions.data) == null ? void 0 : _b2.data.length}`
-          )
-        ];
-      };
-      reactExports.useEffect(() => {
-        handleEditTextCompetitionLenght();
-      }, [data, (_a = allCompetitions.data) == null ? void 0 : _a.data.length]);
-      const isMobile = useMediaQuery(MediaQueries.mobile);
-      const handleEditCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        navigate(`/news/competition/edit-competition/${data == null ? void 0 : data.data.id}`);
-      };
-      const handleDeleteCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        deleteCompetition({ id: data.data.id }).then(() => {
-          setLoaderActive(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        restoreCompetition({ id: data.data.id }).then(() => {
-          setLoaderActive(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleVisibleCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        updateCompetition({
-          id: data.data.id,
-          status: Number(data.data.status) === 0 ? 1 : 0
-        }).then((res) => {
-          if ("data" in res && !res.data.result) {
-            alert("При редактировании конкурса произошла ошибка");
-          }
-          setLoaderActive(false);
-        }).catch((err) => {
-          console.error(err);
-          alert("При редактировании конкурса произошла ошибка");
-          setLoaderActive(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleNextCompetition = () => {
-        var _a2, _b2;
-        if ((data == null ? void 0 : data.data.id) < ((_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length)) {
-          navigate(`/news/competitions/${(data == null ? void 0 : data.data.id) + 1}`);
-        } else if ((data == null ? void 0 : data.data.id) == ((_b2 = allCompetitions.data) == null ? void 0 : _b2.data.length)) {
-          navigate(`/news/competitions/${1}`);
-        }
-      };
-      const handleBackCompetition = () => {
-        var _a2;
-        if ((data == null ? void 0 : data.data.id) !== 1) {
-          navigate(`/news/competitions/${(data == null ? void 0 : data.data.id) - 1}`);
-        } else if ((data == null ? void 0 : data.data.id) == 1) {
-          navigate(`/news/competitions/${(_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length}`);
-        }
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(AllCompetitionsLenght, { children: isAllCompetitionsLenght }) : null,
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          Content,
-          {
-            isDeleted: !!(data == null ? void 0 : data.data.is_deleted),
-            isVisible: Number(data == null ? void 0 : data.data.status) === 1,
-            children: [
-              !isMobile ? /* @__PURE__ */ jsxRuntimeExports.jsx(AllCompetitionsLenght, { children: isAllCompetitionsLenght }) : null,
-              data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ContentTitle, { title: data == null ? void 0 : data.data.title }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.text }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(BottomContainer$2, { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    Link$1,
-                    {
-                      to: data.data.link,
-                      target: "_blank",
-                      style: {
-                        textDecoration: "none",
-                        width: isMobile ? "100%" : "auto"
-                      },
-                      children: data.data.link && /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { children: [
-                        "Еще подробнее",
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(LinkIcon, {})
-                      ] })
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    NewsRequisites,
-                    {
-                      date: data.data.date,
-                      author: ((_b = data.data.user) == null ? void 0 : _b.name) || data.data.user_id,
-                      adminHandlers: {
-                        onDelete: data.data.is_deleted ? void 0 : handleDeleteCompetition,
-                        onRestore: data.data.is_deleted ? handleRestoreCompetition : void 0,
-                        onEdit: handleEditCompetition,
-                        onHide: Number(data.data.status) === 1 ? handleVisibleCompetition : void 0,
-                        onVisible: Number(data.data.status) === 0 ? handleVisibleCompetition : void 0
-                      }
-                    }
-                  )
-                ] })
-              ] }),
-              isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
-              isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(ContainerBtn, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(BtnLeft, { onClick: handleBackCompetition }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(BtnRight, { onClick: handleNextCompetition })
-              ] })
-            ]
-          }
-        )
-      ] });
-    }
-    function Competition() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$8, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AsideBar, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionAside, {}) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CompetitionContent, {})
-      ] }) });
-    }
-    function News() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsMain, {}) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/:newsId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NewsById, {}) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/competitions/:competitionId", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Competition, {}) })
-      ] });
-    }
-    function Main() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Header$2, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Route,
-            {
-              path: "/news/*",
-              element: /* @__PURE__ */ jsxRuntimeExports.jsx(News, {})
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Route,
-            {
-              path: "/courses/*",
-              element: /* @__PURE__ */ jsxRuntimeExports.jsx(Courses, {})
-            }
-          )
-        ] })
-      ] });
-    }
-    const ModalLayout$1 = st$1.div`
-  display: flex;
-  justify-content: flex-end;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
->>>>>>> f879760fb4e241b3d0d7c26b16fc10b87cb385b0
   background-color: transparent;
 `;
     const HomeLink = st$1(Icon$2)`
@@ -74094,7 +73559,7 @@ color: ${(props) => props.theme.colors.mainBlue};
             method: "POST",
             body: data
           }),
-          invalidatesTags: ["Courses"]
+          invalidatesTags: ["Courses", "CourseById"]
         }),
         deleteCourse: builder.mutation({
           query: (data) => ({
@@ -74152,13 +73617,17 @@ color: ${(props) => props.theme.colors.mainBlue};
   color: ${(props) => props.$isHidden ? props.theme.colors.grey93 : props.theme.colors.realBlack};
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
 
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 3.75vw;
+  }
+
   ${(props) => {
       if (props.$styles) {
         return props.$styles;
       }
     }}
 `;
-    function CourseTitle$1({ isDeleted, isSelected, isHidden, title, styles }) {
+    function CourseTitle({ isDeleted, isSelected, isHidden, title, styles }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(
         Title$5,
         {
@@ -74273,7 +73742,7 @@ color: ${(props) => props.theme.colors.mainBlue};
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
-            CourseTitle$1,
+            CourseTitle,
             {
               title: courseData.title,
               isSelected: true,
@@ -74493,7 +73962,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   width: 100%;
   max-width: 75%;
 `;
-    const CourseTitle = st$1(Text$6)`
+    st$1(Text$6)`
   /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;
@@ -74511,81 +73980,33 @@ color: ${(props) => props.theme.colors.mainBlue};
   margin-right: 2%;
   background-image: url(${isHideIcon});
 `;
-    function OpenSelect({ courseData, onOpen }) {
-      const { setModalOpen, setModalType, setLoaderActive, setCourseData } = useActions();
-      const [updateCourse] = useUpdateCourseMutation();
-      const [deleteCourse] = useDeleteCourseMutation();
-      const [restoreCourse] = useRestoreCourseMutation();
-      const handleAddCourse = () => {
-        setModalType(MODAL_TYPES.createCourse);
+    function OpenSelect({ courseData }) {
+      const { setModalOpen, setModalType, setModalPosition } = useActions();
+      const titleStyles = nt$1`
+    @media ${(props) => props.theme.media.mobile} {
+      font-size: 4.7vw;
+    }
+  `;
+      const handleSelectCourse = () => {
+        setModalPosition(ModalPosition.left);
         setModalOpen(true);
-      };
-      const handleEditCourse = () => {
-        if (!courseData.id) {
-          console.error(`No course with id: ${courseData.id}!`);
-          return;
-        }
-        setModalType(MODAL_TYPES.editCourse);
-        setModalOpen(true);
-      };
-      const handleToggleCourseStatus = () => {
-        if (!courseData.id) {
-          console.error(`No course with id: ${courseData.id}!`);
-          return;
-        }
-        updateCourse({
-          id: courseData.id,
-          status: Number(courseData.status) === 0 ? 1 : 0
-        }).then((res) => {
-          if ("data" in res) {
-            setCourseData(res.data.data);
-          }
-        });
-        setLoaderActive(true);
-      };
-      const handleDeleteCourse = () => {
-        deleteCourse({
-          id: Number(courseData.id)
-        }).then((res) => {
-          if ("result" in res && !res.result) {
-            alert("Что-то пошло не так...");
-            console.error(`Course with id: ${courseData.id} not found!`);
-          }
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreCourse = () => {
-        restoreCourse({
-          id: Number(courseData.id)
-        }).then((res) => {
-          if ("result" in res && !res.result) {
-            alert("Что-то пошло не так...");
-            console.error(`Course with id: ${courseData.id} not found!`);
-          }
-        });
-        setLoaderActive(true);
+        setModalType("selectCourse");
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$j, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: onOpen, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseTitle, { $isDeleted: !!courseData.is_deleted, children: courseData.title }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$1, { onClick: handleSelectCourse, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CourseTitle,
+            {
+              title: courseData.title,
+              isDeleted: !!courseData.is_deleted,
+              isHidden: !courseData.status,
+              isSelected: true,
+              styles: titleStyles
+            }
+          ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon, {})
         ] }),
-        courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "Курс",
-            type: ADMIN_BTN_TYPES.edit,
-            popupHandlers: {
-              onAdd: handleAddCourse,
-              onEdit: handleEditCourse,
-              onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : void 0,
-              onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : void 0,
-              onDelete: courseData.is_deleted ? void 0 : handleDeleteCourse,
-              onRestore: courseData.is_deleted ? handleRestoreCourse : void 0
-            }
-          }
-        )
+        courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
       ] });
     }
     const loadingLogo = "/assets/loadingLogo.svg";
@@ -74627,7 +74048,6 @@ color: ${(props) => props.theme.colors.mainBlue};
       const courseData = useTypedSelector((state) => state.course.data);
       const [previewSrc, setPreviewSrc] = reactExports.useState("");
       const isMobile = useMediaQuery(MediaQueries.mobile);
-      const [isPopupOpen, setIsPopupOpen] = reactExports.useState(false);
       const { data, isError, isFetching } = useGetCourseProgressQuery(
         { course_id: Number(courseId) },
         {
@@ -74644,9 +74064,6 @@ color: ${(props) => props.theme.colors.mainBlue};
       }, [courseData.image]);
       const handleLoadError = () => {
         setPreviewSrc(defaultPreview);
-      };
-      const handleOpenPopup = () => {
-        setIsPopupOpen(true);
       };
       const handleGoToCurrentLesson = () => {
         if (data && "chapter" in data) {
@@ -74671,8 +74088,7 @@ color: ${(props) => props.theme.colors.mainBlue};
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               OpenSelect,
               {
-                courseData,
-                onOpen: handleOpenPopup
+                courseData
               }
             )
           ] }),
@@ -82877,11 +82293,13 @@ color: ${(props) => props.theme.colors.mainBlue};
     const BottomContainer = st$1(FlexContainer)`
   justify-content: space-between;
 `;
-    const editorjs = "";
     function CreateCourseForm() {
+      const courseId = useTypedSelector((state) => state.course.editCourseId);
+      const { data, isError, isFetching } = useGetCourseByIdQuery(Number(courseId), {
+        skip: !courseId
+      });
       const { setModalOpen, setLoaderActive } = useActions();
       const modalType = useTypedSelector((state) => state.modal.modalType);
-      const courseData = useTypedSelector((state) => state.course.data);
       const [courseName, setCourseName] = reactExports.useState("");
       const [isValidName, setValidName] = reactExports.useState(false);
       const [isChangedName, setChangedName] = reactExports.useState(false);
@@ -82892,16 +82310,19 @@ color: ${(props) => props.theme.colors.mainBlue};
       const [updateCourse] = useUpdateCourseMutation();
       const navigate = useNavigate();
       reactExports.useEffect(() => {
+        setLoaderActive(isFetching);
+      }, [isFetching, setLoaderActive]);
+      reactExports.useEffect(() => {
         const isEdit = modalType === MODAL_TYPES.editCourse;
         setEditForm(isEdit);
-        if (isEdit && courseData) {
-          setCourseName((prevState) => (courseData == null ? void 0 : courseData.title) || prevState);
+        if (isEdit && data && !isError && !isFetching) {
+          setCourseName((prevState) => data.data.title || prevState);
           setChangedName(true);
           setValidName(true);
-          setCourseDescription((prevState) => (courseData == null ? void 0 : courseData.description) || prevState);
-          setCourseImage((courseData == null ? void 0 : courseData.image) || null);
+          setCourseDescription((prevState) => data.data.description || prevState);
+          setCourseImage(data.data.image || null);
         }
-      }, [courseData, modalType]);
+      }, [data, isError, isFetching, modalType]);
       const handleChange = (event) => {
         setValidName(event.target.value.length > 1);
         setCourseName(event.target.value);
@@ -82909,7 +82330,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           setChangedName(true);
         }
       };
-      const handleTeaxtAreaChange = (event) => {
+      const handleTextAreaChange = (event) => {
         setCourseDescription(event.target.value);
       };
       const handleConfirm = () => {
@@ -82931,9 +82352,9 @@ color: ${(props) => props.theme.colors.mainBlue};
           });
           setLoaderActive(true);
         }
-        if (isEditForm && courseData && courseData.id) {
+        if (isEditForm && data && data.data.id) {
           updateCourse({
-            id: courseData.id,
+            id: data.data.id,
             title: courseName,
             description: courseDescription,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -82982,7 +82403,7 @@ color: ${(props) => props.theme.colors.mainBlue};
               Textarea,
               {
                 as: "textarea",
-                onChange: handleTeaxtAreaChange,
+                onChange: handleTextAreaChange,
                 value: courseDescription
               }
             ),
@@ -83339,7 +82760,7 @@ line-height100%`;
 `;
     function Course({ data, setDraggable, setNotDraggable }) {
       var _a;
-      const { setModalOpen, setModalPosition, setModalType, setLoaderActive } = useActions();
+      const { setModalOpen, setModalPosition, setModalType, setLoaderActive, setEditCourseId } = useActions();
       const [updateCourse] = useUpdateCourseMutation();
       const [deleteCourse] = useDeleteCourseMutation();
       const [restoreCourse] = useRestoreCourseMutation();
@@ -83362,6 +82783,7 @@ line-height100%`;
           console.error(`No course with id: ${data.id}!`);
           return;
         }
+        setEditCourseId(data.id);
         setModalType(MODAL_TYPES.editCourse);
         setModalPosition(ModalPosition.right);
         setModalOpen(true);
@@ -83419,7 +82841,7 @@ line-height100%`;
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CourseTitle$1,
+          CourseTitle,
           {
             styles: courseTitleStyles,
             title: data.title,

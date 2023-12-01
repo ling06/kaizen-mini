@@ -18,7 +18,7 @@ interface ICourseProps {
 }
 
 export function Course({ data, setDraggable, setNotDraggable }: ICourseProps) {
-  const { setModalOpen, setModalPosition, setModalType, setLoaderActive } = useActions();
+  const { setModalOpen, setModalPosition, setModalType, setLoaderActive, setEditCourseId } = useActions();
   const [updateCourse] = useUpdateCourseMutation();
   const [deleteCourse] = useDeleteCourseMutation();
   const [restoreCourse] = useRestoreCourseMutation();
@@ -48,6 +48,7 @@ export function Course({ data, setDraggable, setNotDraggable }: ICourseProps) {
       console.error(`No course with id: ${data.id}!`);
       return;
     }
+    setEditCourseId(data.id);
     setModalType(MODAL_TYPES.editCourse);
     setModalPosition(ModalPosition.right);
     setModalOpen(true);
