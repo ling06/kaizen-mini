@@ -51,7 +51,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
   useEffect(() => {
     if(updateCategory){
-      refetch()
+      // refetch()
       updateNewsCategory(false)
     }
   }, [updateCategory]);
