@@ -17,21 +17,22 @@ export const SearchInput = styled.input`
   height: 64px;
   padding: 20px 30px;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 120%;
-  color: ${(props) => props.theme.colors.dark};
+  color: ${(props) => props.theme.colors.grey93};
   background-color: ${(props) => props.theme.colors.greyF1};
   border-radius: ${(props) => props.theme.utils.br};
   border: 1px solid ${(props) => props.theme.colors.grey93};
   transition: ${props => props.theme.utils.transition};
 
   &:focus {
+    color: ${props => props.theme.colors.dark};
     background-color: transparent;
     border-color: ${(props) => props.theme.colors.dark};
   }
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.grey93};
+    font-weight: 400;
   }
 `;
 

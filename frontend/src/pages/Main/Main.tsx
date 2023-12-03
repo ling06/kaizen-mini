@@ -4,6 +4,7 @@ import { Courses } from '../Courses';
 import { News } from '../News';
 import { NotFound } from '../NotFound';
 import { Users } from '../Users';
+import { User } from '../User';
 
 export function Main() {
   return (
@@ -25,6 +26,10 @@ export function Main() {
         <Route 
           path="/users"
           element={<Users />}
+        />
+        <Route 
+          path="/users/:id"
+          element={<User />}
         />
       </Routes>
     </>
