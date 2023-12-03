@@ -1,7 +1,7 @@
-import { ILayoutProps } from '@/types';
+import { ILayout } from '@/types';
 import * as S from './styles';
 
-interface IAsideBarProps extends ILayoutProps {
+interface IAsideBarProps extends ILayout {
 }
 
 export function AsideBar({ children }: IAsideBarProps) {

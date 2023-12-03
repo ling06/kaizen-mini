@@ -43,7 +43,7 @@ export interface IBaseTheme {
   };
 }
 
-export interface ILayoutProps {
+export interface ILayout {
   children: React.ReactNode;
 }
 

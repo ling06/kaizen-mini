@@ -1,6 +1,6 @@
 import { selectUser } from '@/store/api/user.api';
 import { BurgerBtn } from '../../BurgerBtn';
-import { Profile } from '../../Profile';
+import { UserAvatar } from '../../../../shared/ui/UserAvatar';
 import * as S from './styles';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { getUsername } from '@/utils/getUsername';
@@ -31,7 +31,7 @@ export function Head({ onClose }: IHead) {
       />
       {user && (
         <S.ProfileWrapper>
-          <Profile userData={user} />
+          <UserAvatar userData={user} />
           {username && (
             <S.UserName>
               <S.Name>{username.firstName}</S.Name>

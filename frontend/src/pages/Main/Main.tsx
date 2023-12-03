@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Courses } from '../Courses';
 import { News } from '../News';
 import { NotFound } from '../NotFound';
+import { Users } from '../Users';
 
 export function Main() {
   return (
@@ -21,10 +22,10 @@ export function Main() {
           path="/*"
           element={<NotFound />}
         />
-        {/* <Route
-          path="/tasks/*"
-          element={<div>TASKS</div>}
-        /> */}
+        <Route 
+          path="/users"
+          element={<Users />}
+        />
       </Routes>
     </>
   );

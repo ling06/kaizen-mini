@@ -1,7 +1,7 @@
-import { ILayoutProps } from '@/types';
+import { ILayout } from '@/types';
 import * as S from './styles';
 
-interface IContentProps extends ILayoutProps {
+interface IContentProps extends ILayout {
   isDeleted?: boolean;
   isVisible?: boolean;
 }
