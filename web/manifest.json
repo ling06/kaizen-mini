@@ -41,6 +41,11 @@
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
       "assets/external-link.svg",
+<<<<<<< HEAD
+=======
+      "assets/img-404.webp",
+      "assets/img-404-mob.webp",
+>>>>>>> task479006
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
@@ -289,6 +294,14 @@
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
     "src": "src/assets/images/imagesIcon.svg"
+  },
+  "src/assets/images/img-404-mob.webp": {
+    "file": "assets/img-404-mob.webp",
+    "src": "src/assets/images/img-404-mob.webp"
+  },
+  "src/assets/images/img-404.webp": {
+    "file": "assets/img-404.webp",
+    "src": "src/assets/images/img-404.webp"
   },
   "src/assets/images/loadingLogo.svg": {
     "file": "assets/loadingLogo.svg",
