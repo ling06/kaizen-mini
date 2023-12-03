@@ -16,16 +16,20 @@ export function LessonTest({ data }: ILessonTestProps) {
   const [sendAnswer] = useSendAnswerMutation();
   const [isUserRightAnswer, setIsUserRightAnswer] = useState<string>("");
   const [isTestPassed, setIsTestPassed] = useState<boolean>(false);
+  //TODO: сделать типизацию массива
   const [isArrayAnswer, setArrayAnswer] = useState<Array<object>>([]);
   const [isMultiple, setMultiple] = useState<boolean>(false);
 
   useEffect(() => {
     let rightAnswers = 0;
+    /*TODO: здесь нет смысла в map, можно обычным foreach воспользоваться, либо сделать array.filter, 
+    а затем проверить сколько элементов прошли проверку*/
     data.answers.map((answer) => {
       if (answer.right_answer === "1") {
         rightAnswers += 1;
       }
     });
+    /*TODO: здесь тоже нет смысла в колбеке внутри setMultiple, просто проверить количество до и в сеттер уже передать булево значение*/
     setMultiple(() => {
       if (rightAnswers > 1) {
         return true;
@@ -34,6 +38,7 @@ export function LessonTest({ data }: ILessonTestProps) {
     });
   }, [data]);
 
+  /* TODO: в этом useEffect посмотреть зависимости и обновить массив, если надо*/
   useEffect(() => {
     if (data.userTestAnswer.length > 0) {
       setIsTestPassed(true);
@@ -54,8 +59,10 @@ export function LessonTest({ data }: ILessonTestProps) {
     isUserRightAnswer,
   ]);
 
+  // TODO: убрать вывод в консоль
   console.log(isMultiple);
 
+  //TODO: что с типизацией? Заменить object на конкретный тип
   const handleUserAnswers = (answer: object) => {
     const userAnswers = data.userTestAnswer.find(
       (userAnswer) => Number(userAnswer.answer) === Number(answer.id)
@@ -64,6 +71,7 @@ export function LessonTest({ data }: ILessonTestProps) {
   };
 
   const handleBorderColor = () => {
+    //TODO: какой смысл в some? Если в итоге проверку делаешь сам и возвращаешь значение сам
     data.answers.some((answer) => {
       const userAnswer = handleUserAnswers(answer);
 
@@ -86,6 +94,7 @@ export function LessonTest({ data }: ILessonTestProps) {
   // выполняется при 1 ответе
   const handleChange = (answer: string): void => {
     setCheckedAnswer(answer);
+    //TODO: убрать вывод в консоль
     console.log(checkedAnswer);
   };
 
@@ -110,6 +119,7 @@ export function LessonTest({ data }: ILessonTestProps) {
     );
     if (answerAlreadyExists) {
       setArrayAnswer(
+        //TODO: вынести из сеттера, в сеттер передать уже переменную
         isArrayAnswer.filter(
           (item) => item.test_id !== obj.test_id || item.answer !== obj.answer
         )

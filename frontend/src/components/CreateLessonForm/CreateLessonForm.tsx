@@ -21,6 +21,7 @@ interface ICreateLessonFormProps {
   type: string;
 }
 
+//TODO: убрать
 let editor: undefined | EditorJS;
 
 export function CreateLessonForm({ type }: ICreateLessonFormProps) {
@@ -52,6 +53,7 @@ export function CreateLessonForm({ type }: ICreateLessonFormProps) {
     };
   }, [data, isError, isFetching, resetTestsData, setTestsData]);
 
+  //TODO: убрать
   useEffect(() => {
     if (!editor && !isFetching && !data) {
       try {

@@ -24,17 +24,20 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
 
   useEffect(() => {
     let rightAnswers = 0;
+    // TODO: можно поменять на array.filter и проверять length массива
     data.answers.map((answer) => {
       if (answer.right_answer === "1") {
         rightAnswers += 1;
       }
     });
+    //TODO: сюда передать уже переменную: boolean;
     setMultiple(() => {
       if (rightAnswers > 1) {
         return true;
       }
       return false;
     });
+    // TODO: в этом useEffect посмотреть зависимости и обновить массив, если надо
   }, []);
 
   const handleAddVariant = () => {
@@ -52,6 +55,7 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
   const test1 = () => {
     if (isMultiple) {
       const testId = data.id;
+      //TODO: ошибка и типизацией
       resetResponseStatus({ testId });
     }
   };
@@ -62,6 +66,7 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
     fontWeight: "500",
   };
 
+  //TODO: убрать ненужное
   // const radioFontStylesTest = {
   //   border: "1px solid #red",
   //     backColor: 'red'
