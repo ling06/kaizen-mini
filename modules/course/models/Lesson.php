@@ -132,6 +132,55 @@ class Lesson extends \app\components\ActiveRecord
         ])->exists();
     }
 
+    /**
+     * @param $lesson
+     * @param $currentLesson
+     * @return array
+     */
+    public static function checkNextLesson( $currentLesson)
+    {
+        $role = \Yii::$app->user->identity->role;
+        $currentCourse = Theme::find()
+            ->leftJoin('course_chapter', 'course_chapter.id = course_theme.chapter_id')
+            ->leftJoin('course', 'course.id = course_chapter.course_id')
+            ->where(['course_theme.id' => $currentLesson->theme_id])
+            ->select('course.id courseId')
+            ->asArray()
+            ->one();
+        $lesson =  Lesson::find()
+            ->leftJoin('course_theme', 'course_theme.id = course_lesson.theme_id')
+            ->leftJoin('course_chapter', 'course_chapter.id = course_theme.chapter_id')
+            ->orderBy('course_chapter.position ASC, course_theme.position ASC, course_lesson.position ASC')
+            ->select('course_lesson.id lessonId, course_lesson.theme_id themeId, course_theme.position themePosition, course_chapter.position chapterPosition, course_lesson.position position, course_lesson.is_deleted isDeleted, course_lesson.status status, course_chapter.id chapterId')
+            ->where(['course_chapter.course_id' => $currentCourse['courseId']])
+            ->asArray()
+            ->all();
+        $nextLesson = null;
+        $nextTheme = null;
+        $nextChapter = null;
+        $checkedLesson = null;
+        foreach ($lesson as $lessonItem) {
+            if ($role != 'admin' && !$nextLesson && !$lessonItem['isDeleted'] && $lessonItem['status'] == self::STATUS_PUBLISHED && $checkedLesson) {
+                $nextLesson = $lessonItem['lessonId'];
+                $nextTheme = $lessonItem['themeId'];
+                $nextChapter = $lessonItem['chapterId'];
+                $checkedLesson = null;
+            }
+            if($role == 'admin' && !$nextLesson && $checkedLesson){
+                $nextLesson = $lessonItem['lessonId'];
+                $nextTheme = $lessonItem['themeId'];
+                $nextChapter = $lessonItem['chapterId'];
+                $checkedLesson = null;
+            }
+            if((int)$lessonItem['lessonId'] === (int)$currentLesson->id)
+            {
+                $checkedLesson = true;
+            }
+        }
+
+        return ['lesson' => $nextLesson ?? 'end', 'theme' => $nextTheme ?? 'end', 'chapter' => $nextChapter ?? 'end'];
+    }
+
     public function getBreadCrumbs(): array
     {
         $result = [];
