@@ -37,8 +37,6 @@ export const NotFoundText = styled(C.Text)`
   text-align: center;
   color: ${(props) => props.theme.colors.dark};
   font-size: 25px;
-  font-weight: 700;
-  line-height: 120%;
   @media ${(props) => props.theme.media.mobile} {
     width: 95%;
 
@@ -53,17 +51,9 @@ export const BtnUpdate = styled(C.DefaultBtn)`
   align-items: center;
   justify-content: center;
   width: 183px;
-  min-height: 60px;
-
-  color: ${(props) => props.theme.colors.realWhite};
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 120%;
 
   @media ${(props) => props.theme.media.mobile} {
     width: 95%;
     min-height: 12.5vw;
-
-    font-size: 4.7vw;
   }
 `;

@@ -8,8 +8,7 @@ export function NotFound() {
 
   return (
     <S.Container>
-      <S.ImgContainer>
-      </S.ImgContainer>
+      <S.ImgContainer />
       <S.NotFoundText>
         К сожалению, страница не найдена или недоступна.
       </S.NotFoundText>
