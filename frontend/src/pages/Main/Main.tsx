@@ -2,6 +2,7 @@ import { Header } from '@/components/Header';
 import { Route, Routes } from 'react-router-dom';
 import { Courses } from '../Courses';
 import { News } from '../News';
+import { NotFound } from '../NotFound';
 
 export function Main() {
   return (
@@ -15,6 +16,10 @@ export function Main() {
         <Route
           path="/courses/*"
           element={<Courses />}
+        />
+        <Route 
+          path="/*"
+          element={<NotFound />}
         />
         {/* <Route
           path="/tasks/*"
