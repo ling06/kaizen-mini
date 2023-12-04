@@ -100,7 +100,12 @@ export function LessonTest({ data }: ILessonTestProps) {
 
   const handleSendAnswer = (): void => {
     if (checkedAnswer) {
-      sendAnswer({ test_id: data.id, answer: checkedAnswer }).then(() => {
+      const ansewer = {
+        test_id: data.id,
+        answer: checkedAnswer,
+      };
+
+      sendAnswer([ansewer]).then(() => {
         setCheckedAnswer(null);
       });
       setLoaderActive(true);

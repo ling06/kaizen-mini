@@ -115,16 +115,8 @@
       "assets/caret-up-mob-news.svg",
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      "assets/external-link.svg",
       "assets/img-404.webp",
       "assets/img-404-mob.webp",
->>>>>>> a85e0820333ec775c494859508d077d3111c68e0
-=======
-      "assets/external-link.svg",
->>>>>>> f7318d1253cf5bbc7531bdd767f7db3699875952
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
@@ -349,7 +341,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-    "file": "assets/external-link.svg",
+    "file": "assets/moreIcon.svg",
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {

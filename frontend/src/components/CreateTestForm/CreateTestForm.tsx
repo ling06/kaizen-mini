@@ -66,12 +66,6 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
     fontWeight: "500",
   };
 
-  //TODO: убрать ненужное
-  // const radioFontStylesTest = {
-  //   border: "1px solid #red",
-  //     backColor: 'red'
-  // };
-
   return (
     <S.Container>
       <Title value={"Заголовок теста (необязательно)"} />
