@@ -30,6 +30,11 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, './src/styles'),
     },
   },
+  //чтобы заработало надо в etc/hosts добавить 127.0.0.1 kaizen-vite.borboza.com
+  server: {
+    host: 'kaizen-vite.borboza.com',
+    port: 80,
+  },
   build: {
     manifest: true,
     rollupOptions: {
