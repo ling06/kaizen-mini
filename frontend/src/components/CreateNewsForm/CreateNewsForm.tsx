@@ -11,6 +11,7 @@ import { useActions } from "@/hooks/useActions";
 import { MODAL_TYPES } from "@/constants";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { CkEditor } from "../CkEditor";
+
 interface ICreateNewsFormProps {
   type: string;
 }
@@ -32,7 +33,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const categories = useTypedSelector((state) => state.news.newsCategories);
-  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+  const { data, isFetching,  } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
   const [updateNews] = useUpdateNewsMutation();
@@ -59,7 +60,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       createNews({
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
           if ("data" in res && res.data.result) {
@@ -81,7 +82,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         id: Number(newsId),
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
           if ("data" in res && res.data.result) {
@@ -131,7 +132,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     setCkEditorData(data);
   };
 
-  const handleСancelCategori = (category: number) => {
+  const handleСancelCategory = (category: number) => {
     deleteNewsCategory({ id: category });
   };
 
@@ -158,7 +159,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
               <S.CategoryImgDelete
                 onClick={() => {
                   if (category.id !== undefined)
-                    handleСancelCategori(category.id);
+                    handleСancelCategory(category.id);
                 }}
               />
             </S.Category>
