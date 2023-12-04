@@ -20,6 +20,9 @@ export function LessonTest({ data }: ILessonTestProps) {
   const [isArrayAnswer, setArrayAnswer] = useState<Array<object>>([]);
   const [isMultiple, setMultiple] = useState<boolean>(false);
 
+  console.log(data);
+  
+
   useEffect(() => {
     let rightAnswers = 0;
     /*TODO: здесь нет смысла в map, можно обычным foreach воспользоваться, либо сделать array.filter, 
@@ -59,9 +62,6 @@ export function LessonTest({ data }: ILessonTestProps) {
     isUserRightAnswer,
   ]);
 
-  // TODO: убрать вывод в консоль
-  console.log(isMultiple);
-
   //TODO: что с типизацией? Заменить object на конкретный тип
   const handleUserAnswers = (answer: object) => {
     const userAnswers = data.userTestAnswer.find(
@@ -94,8 +94,6 @@ export function LessonTest({ data }: ILessonTestProps) {
   // выполняется при 1 ответе
   const handleChange = (answer: string): void => {
     setCheckedAnswer(answer);
-    //TODO: убрать вывод в консоль
-    console.log(checkedAnswer);
   };
 
   const handleSendAnswer = (): void => {
@@ -142,6 +140,16 @@ export function LessonTest({ data }: ILessonTestProps) {
     });
     setLoaderActive(true);
   };
+
+  const oneCorrectAnswer = () => {
+  data.answers.forEach((answer) => {
+    const 
+
+    if () {
+      return true;
+    }
+  })
+  }
 
   return (
     <S.Container $isRight={isUserRightAnswer} $isPassed={isTestPassed}>
