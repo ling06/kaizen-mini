@@ -1,4 +1,4 @@
-import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
+import { IDefaultReqWithId, IDefaultRes } from '@/shared/types/common.types';
 import { api } from './api';
 
 

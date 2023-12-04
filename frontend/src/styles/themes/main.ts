@@ -1,4 +1,4 @@
- import { IBaseTheme } from "@/types/types";
+ import { IBaseTheme } from "@/shared/types/types";
 
 const baseTheme: IBaseTheme = {
   colors: {

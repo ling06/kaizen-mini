@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
+import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/shared/lib/editor-tools';
 import { FormControls } from '../FormControls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateCompetitionMutation, useGetCompetitionByIdQuery, useUpdateCompetitionMutation } from '@/store/api/competition.api';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { CkEditor } from '../CkEditor';
 
 interface ICreateCompetitionFormProps {

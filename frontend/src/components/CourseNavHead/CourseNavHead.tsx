@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import { IChapter } from '@/types/chapter.types';
+import { IChapter } from '@/shared/types/chapter.types';
 import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
-import { useActions } from '@/hooks/useActions';
-import { MODAL_TYPES } from '@/constants';
+import { useActions } from '@/shared/hooks/useActions';
+import { MODAL_TYPES } from '@/shared/constants';
 
 interface ICourseNavHeadProps {
   data: IChapter;

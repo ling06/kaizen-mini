@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
-import { IImage, IUploadedImage } from '@/types/image.types';
+import { IImage, IUploadedImage } from '@/shared/types/image.types';
 
 interface IImageProps {
   image: IUploadedImage | IImage;

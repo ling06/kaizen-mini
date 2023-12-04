@@ -1,7 +1,7 @@
 import { CloseBtn } from '@/components/CloseBtn';
 import { NavBar } from '../NavBar';
 import * as S from './styles';
-import { Steps } from '@/constants';
+import { Steps } from '@/shared/constants';
 
 interface IHeadProps {
   activeStep: Steps;

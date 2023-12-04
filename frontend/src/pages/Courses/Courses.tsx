@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CoursePreview } from '../CoursePreview';
 import { Course } from '../Course';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/constants';
+import { MediaQueries } from '@/shared/constants';
 
 export function Courses() {
   const isMobile = useMediaQuery(MediaQueries.mobile);

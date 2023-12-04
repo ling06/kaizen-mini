@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import * as S from './styles';
 import EditorJS from '@editorjs/editorjs';
-import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/utils/editor-tools';
+import { EDITOR_INTERNATIONALIZATION_CONFIG, EDITOR_JS_TOOLS } from '@/shared/lib/editor-tools';
 import { FormControls } from '../FormControls';
 import { CreateTestForm } from '../CreateTestForm';
 import {
@@ -10,8 +10,8 @@ import {
   useUpdateLessonMutation,
 } from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { useActions } from '@/hooks/useActions';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useActions } from '@/shared/hooks/useActions';
 import { CkEditor } from '../CkEditor';
 
 interface ICreateLessonFormProps {

@@ -5,11 +5,11 @@ import { CourseMainInfo } from '@/components/CourseMainInfo';
 import { CourseProgramm } from '@/components/CourseProgramm';
 import { useGetCoursesQuery } from '@/store/api/course.api';
 import { ErrorBlock } from '@/components/ErrorBlock';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/constants';
+import { MediaQueries } from '@/shared/constants';
 import { NoAvailable } from '@/components/NoAvailable';
 
 export function CoursePreview() {

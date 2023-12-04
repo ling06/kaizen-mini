@@ -7,9 +7,9 @@ import {
   useGetNewsByIdQuery,
   useUpdateNewsMutation,
 } from "@/store/api/news.api";
-import { useActions } from "@/hooks/useActions";
-import { MODAL_TYPES } from "@/constants";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useActions } from "@/shared/hooks/useActions";
+import { MODAL_TYPES } from "@/shared/constants";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { CkEditor } from "../CkEditor";
 interface ICreateNewsFormProps {
   type: string;

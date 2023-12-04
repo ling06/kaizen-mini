@@ -4,12 +4,12 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { CourseNavLesson } from '@/components/CourseNavLesson';
 import { SortableItem } from '@/components/SortableItem';
 import { useEffect, useState } from 'react';
-import { ILesson } from '@/types/lesson.types';
-import { useActions } from '@/hooks/useActions';
+import { ILesson } from '@/shared/types/lesson.types';
+import { useActions } from '@/shared/hooks/useActions';
 import { useSetLessonsPositionsMutation } from '@/store/api/lesson.api';
-import { CourseEntities } from '@/types/course.types';
-import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { CourseEntities } from '@/shared/types/course.types';
+import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 
 interface ISortableLessonsProps {

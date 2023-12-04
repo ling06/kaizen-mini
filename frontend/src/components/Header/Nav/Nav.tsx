@@ -1,4 +1,4 @@
-import { NAV_LINKS } from '@/constants';
+import { NAV_LINKS } from '@/shared/constants';
 import { CustomNavLink } from '../CustomNavLink';
 import * as S from './styles';
 

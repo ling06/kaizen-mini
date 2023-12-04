@@ -1,8 +1,8 @@
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
 import * as S from './styles';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { AdminBtn } from '../AdminBtn';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
 import {
   selectCourses,
   useDeleteCourseMutation,

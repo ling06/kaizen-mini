@@ -1,6 +1,6 @@
-import { ITest } from "@/types/lessonTest.types";
-import { EmptyAnswer } from "@/utils/EmptyAnswer";
-import { EmptyTest } from "@/utils/EmptyTest";
+import { ITest } from "@/shared/types/lessonTest.types";
+import { EmptyAnswer } from "@/shared/lib/EmptyAnswer";
+import { EmptyTest } from "@/shared/lib/EmptyTest";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface ILessonSlice {

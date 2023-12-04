@@ -1,7 +1,7 @@
-import { IChapter } from '@/types/chapter.types';
-import { ICourse } from '@/types/course.types';
-import { ILesson } from '@/types/lesson.types';
-import { ITheme } from '@/types/theme.types';
+import { IChapter } from '@/shared/types/chapter.types';
+import { ICourse } from '@/shared/types/course.types';
+import { ILesson } from '@/shared/types/lesson.types';
+import { ITheme } from '@/shared/types/theme.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface ICourseInitialState extends Partial<ICourse> {

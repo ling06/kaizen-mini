@@ -1,4 +1,4 @@
-import { ILayout } from '@/types';
+import { ILayout } from '@/shared/types';
 import * as S from './styles';
 import { RuleSet } from 'styled-components';
 import { ReactElement } from 'react';

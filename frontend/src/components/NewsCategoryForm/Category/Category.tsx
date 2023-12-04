@@ -1,4 +1,4 @@
-import { INewsCategory } from '@/types/news.types';
+import { INewsCategory } from '@/shared/types/news.types';
 import * as S from './styles';
 import { useEffect, useRef, useState } from 'react';
 import { CustomCheckbox } from '@/components/CustomCheckbox';

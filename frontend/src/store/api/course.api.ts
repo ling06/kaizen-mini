@@ -1,6 +1,6 @@
-import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
+import { IDefaultReqWithId, IDefaultRes } from '@/shared/types/common.types';
 import { api } from './api';
-import { IGetCourses, IGetCourseByIdRes, ICreateCourse, IUpdateCourse, ICourseProgress, ICourseProgressCompleted, ICourseProgressError } from '@/types/course.types';
+import { IGetCourses, IGetCourseByIdRes, ICreateCourse, IUpdateCourse, ICourseProgress, ICourseProgressCompleted, ICourseProgressError } from '@/shared/types/course.types';
 
 export const courseApi = api.injectEndpoints({
   endpoints: (builder) => ({

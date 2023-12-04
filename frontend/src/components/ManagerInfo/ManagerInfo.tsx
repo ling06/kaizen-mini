@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { ProgressInfo } from '../ProgressInfo';
 import * as S from './styles';
-import { MediaQueries } from '@/constants';
+import { MediaQueries } from '@/shared/constants';
 import { InDeveloping } from '../InDeveloping';
 
 interface IManagerInfo {

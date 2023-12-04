@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { ModalForm } from '../ModalForm';
 import * as S from './styles';
 import { useCreateThemeMutation, useUpdateThemeMutation } from '@/store/api/theme.api';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { useActions } from '@/hooks/useActions';
-import { MODAL_TYPES } from '@/constants';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useActions } from '@/shared/hooks/useActions';
+import { MODAL_TYPES } from '@/shared/constants';
 
 export function CreateThemeForm() {
   const { setModalOpen, setLoaderActive } = useActions();

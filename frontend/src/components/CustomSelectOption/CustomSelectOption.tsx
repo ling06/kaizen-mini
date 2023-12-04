@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { ProgressCounter } from '../ProgressCounter';
 import * as S from './styles';
-import { MediaQueries } from '@/constants';
+import { MediaQueries } from '@/shared/constants';
 
 interface ICustomSelectOpionsProps {
   percentage?: number;

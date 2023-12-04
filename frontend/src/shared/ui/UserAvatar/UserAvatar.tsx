@@ -1,7 +1,7 @@
-import { IUser } from '@/types/user.types';
+import { IUser } from '@/shared/types/user.types';
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { getInitials } from '@/utils/getInitials';
+import { getInitials } from '@/shared/lib/getInitials';
 
 interface IProfileProps {
   userData: IUser;

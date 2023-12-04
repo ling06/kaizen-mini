@@ -1,8 +1,8 @@
 import { AdminBtn } from '@/components/AdminBtn';
 import * as S from './styles';
-import { ICourse } from '@/types/course.types';
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
-import { useActions } from '@/hooks/useActions';
+import { ICourse } from '@/shared/types/course.types';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
+import { useActions } from '@/shared/hooks/useActions';
 import { useDeleteCourseMutation, useRestoreCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
 
 interface IOpenSelectProps {

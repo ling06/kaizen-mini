@@ -3,11 +3,11 @@ import * as S from './styles';
 import { ModalForm } from '../ModalForm';
 import '@styles/editorjs.css';
 import { useCreateCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
-import { useActions } from '@/hooks/useActions';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { MODAL_TYPES } from '@/constants';
+import { useActions } from '@/shared/hooks/useActions';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { MODAL_TYPES } from '@/shared/constants';
 import { AddImage } from '../AddImage';
-import { IImage, IUploadedImage } from '@/types/image.types';
+import { IImage, IUploadedImage } from '@/shared/types/image.types';
 import { useNavigate } from 'react-router-dom';
 
 export function CreateCourseForm() {

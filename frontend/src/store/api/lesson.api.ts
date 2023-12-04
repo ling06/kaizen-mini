@@ -3,10 +3,10 @@ import {
   ICreateLessonData,
   ILesson,
   IUpdateLessonData,
-} from '@/types/lesson.types';
+} from '@/shared/types/lesson.types';
 import { api } from './api';
-import { IDefaultReqWithId, IDefaultRes, IDefaultResWithData } from '@/types/common.types';
-import { ISetPositionsReq, ISetPositionsRes } from '@/types/course.types';
+import { IDefaultReqWithId, IDefaultRes, IDefaultResWithData } from '@/shared/types/common.types';
+import { ISetPositionsReq, ISetPositionsRes } from '@/shared/types/course.types';
 
 type ILessonRes = IDefaultResWithData<ILesson>;
 

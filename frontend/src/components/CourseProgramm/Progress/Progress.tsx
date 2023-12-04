@@ -1,15 +1,15 @@
 import { AdminBtn } from '@/components/AdminBtn';
 import { DndBtn } from '@/components/DndBtn';
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
 import { css } from 'styled-components';
 import * as S from './styles';
 import * as C from '@styles/components';
 import { useCallback } from 'react';
 import dndIconWithArrows from '@assets/images/dnd-btn-arrows.svg';
 import dndIconWithArrowsActive from '@assets/images/dnd-btn-arrows-active.svg';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
-import { IChapter } from '@/types/chapter.types';
+import { IChapter } from '@/shared/types/chapter.types';
 
 interface IProgressProps {
   data: IChapter;

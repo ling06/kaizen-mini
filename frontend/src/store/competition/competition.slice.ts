@@ -1,4 +1,4 @@
-import { ICompetition } from '@/types/competition.types';
+import { ICompetition } from '@/shared/types/competition.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface ICompetitionInitialState  {

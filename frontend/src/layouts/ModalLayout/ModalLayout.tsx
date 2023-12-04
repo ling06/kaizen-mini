@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
 import * as S from './styles';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { useEffect, useState } from 'react';
-import { MODAL_TYPES } from '@/constants';
+import { MODAL_TYPES } from '@/shared/constants';
 
 interface IModalLayout {
   children: React.ReactNode;

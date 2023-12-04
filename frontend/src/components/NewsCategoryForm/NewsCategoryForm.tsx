@@ -6,10 +6,10 @@ import {
 } from "@/store/api/newsCategory.api";
 import { ModalForm } from "../ModalForm";
 import * as S from "./styles";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { Category } from "./Category";
-import { useActions } from "@/hooks/useActions";
-import { INewsCategory } from "@/types/news.types";
+import { useActions } from "@/shared/hooks/useActions";
+import { INewsCategory } from "@/shared/types/news.types";
 
 
 export function NewsCategoryForm() {

@@ -1,4 +1,4 @@
-import { IAnswer } from '@/types/lessonTest.types';
+import { IAnswer } from '@/shared/types/lessonTest.types';
 import * as S from './styles';
 
 interface ICheckedAnswer {

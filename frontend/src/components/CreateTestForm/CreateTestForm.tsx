@@ -2,8 +2,8 @@ import { useState } from 'react';
 import * as S from './styles';
 import { Title } from './Title';
 import { Variant } from './Variant';
-import { ITest } from '@/types/lessonTest.types';
-import { useActions } from '@/hooks/useActions';
+import { ITest } from '@/shared/types/lessonTest.types';
+import { useActions } from '@/shared/hooks/useActions';
 
 interface ICreateTestFormProps {
   data: Omit<ITest, 'userTestAnswer'>;

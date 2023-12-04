@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './styles';
-import { INews } from '@/types/news.types';
+import { INews } from '@/shared/types/news.types';
 import { useEffect, useState } from 'react';
 // import { IEditorJsData } from '@/types/editorJs.types';
 import { NewsRequisites } from '../NewsRequisites';
@@ -9,7 +9,7 @@ import {
   useRestoreNewsMutation,
   useUpdateNewsMutation,
 } from '@/store/api/news.api';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 
 interface INewsElProps {
   data: INews;

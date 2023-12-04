@@ -57,4 +57,4 @@ export const CustomCheckbox = styled.div<ICustomCheckboxProps>`
 `;
 
 export const CheckboxDescr = styled(C.Text)`
-line-height100%`;
+line-height: 100%`;

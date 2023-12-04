@@ -1,6 +1,6 @@
-import { IGetAllNews, INewsResponse, ICreateNews, IUpdateNews } from '@/types/news.types';
+import { IGetAllNews, INewsResponse, ICreateNews, IUpdateNews } from '@/shared/types/news.types';
 import { api } from './api';
-import { IDefaultReqWithId, IDefaultRes } from '@/types/common.types';
+import { IDefaultReqWithId, IDefaultRes } from '@/shared/types/common.types';
 
 export const newsApi = api.injectEndpoints({
   endpoints: (builder) => ({

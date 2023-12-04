@@ -1,6 +1,6 @@
 import { api } from './api';
-import { ICompetition, ICreateCompetitionData, IGetAllCompetitions, IUpdateCompetitionData } from '@/types/competition.types';
-import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/types/common.types';
+import { ICompetition, ICreateCompetitionData, IGetAllCompetitions, IUpdateCompetitionData } from '@/shared/types/competition.types';
+import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/types/common.types';
 
 type ICompetitionRes = IDefaultResWithData<ICompetition>;
 

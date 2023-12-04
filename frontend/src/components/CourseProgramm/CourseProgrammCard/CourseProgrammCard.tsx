@@ -1,6 +1,6 @@
 import * as S from './styles';
 import defaultCardImg from '@assets/images/stub-course-program.webp';
-import { IChapter } from '@/types/chapter.types';
+import { IChapter } from '@/shared/types/chapter.types';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Progress } from '../Progress';

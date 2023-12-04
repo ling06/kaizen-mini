@@ -1,17 +1,17 @@
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import { ADMIN_BTN_TYPES } from '@/constants';
-import { ICompetition } from '@/types/competition.types';
+import { ADMIN_BTN_TYPES } from '@/shared/constants';
+import { ICompetition } from '@/shared/types/competition.types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import {
   useDeleteCompetitionMutation,
   useRestoreCompetitionMutation,
   useUpdateCompetitionMutation,
 } from '@/store/api/competition.api';
-import { IEditorJsData } from '@/types/editorJs.types';
-import { MediaQueries } from '../../constants';
+import { IEditorJsData } from '@/shared/types/editorJs.types';
+import { MediaQueries } from '../../shared/constants';
 import { useMediaQuery } from '@mui/material';
 
 interface ICompetitionCard {

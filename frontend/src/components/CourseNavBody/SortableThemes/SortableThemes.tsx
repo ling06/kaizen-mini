@@ -3,15 +3,15 @@ import { SortableItem } from '@/components/SortableItem';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 // import * as S from './styles';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
 import { useSetThemesPositionsMutation } from '@/store/api/theme.api';
 import { selectUser } from '@/store/api/user.api';
-import { ITheme } from '@/types/theme.types';
+import { ITheme } from '@/shared/types/theme.types';
 import { useState, useEffect } from 'react';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { useParams } from 'react-router-dom';
-import { CourseEntities } from '@/types/course.types';
-import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
+import { CourseEntities } from '@/shared/types/course.types';
+import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
 
 interface IThemeWithDrag extends ITheme {
   isDraggable: boolean;

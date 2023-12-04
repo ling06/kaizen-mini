@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Title } from '../Title';
 import * as S from './styles';
 import { DeleteBtn } from '../DeleteBtn';
-import { IAnswer } from '@/types/lessonTest.types';
+import { IAnswer } from '@/shared/types/lessonTest.types';
 import { CustomRadioButton } from '@/components/CustomRadioButton';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 
 interface IVariantProps {
   data: IAnswer;

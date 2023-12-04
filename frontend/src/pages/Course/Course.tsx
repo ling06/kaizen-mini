@@ -3,13 +3,13 @@ import * as S from './styles';
 import { CourseNavHead } from '@/components/CourseNavHead';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useParams } from 'react-router-dom';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/hooks/useActions';
 import { useEffect, useRef } from 'react';
 import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/constants';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { MediaQueries } from '@/shared/constants';
+import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
 import { NavPopup } from '@/components/NavPopup';
 
 export function Course() {

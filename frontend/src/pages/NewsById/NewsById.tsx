@@ -5,8 +5,8 @@ import { BackBtn } from "@/components/BackBtn";
 import * as C from "@styles/components";
 import { NewsByIdContent } from "@/components/NewsByIdContent";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { MediaQueries } from "@/constants";
+import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { MediaQueries } from "@/shared/constants";
 
 export function NewsById() {
   const navigate = useNavigate();

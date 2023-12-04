@@ -1,4 +1,4 @@
-import { DEFAULT_WIDTH } from '@/constants';
+import { DEFAULT_WIDTH } from '@/shared/constants';
 import styled, { css } from 'styled-components';
 import doneIcon from '@assets/images/done.svg';
 import accrodionIcon from '@assets/images/accordionIcon.svg';

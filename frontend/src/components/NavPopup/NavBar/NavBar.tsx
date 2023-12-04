@@ -1,4 +1,4 @@
-import { Steps } from '@/constants';
+import { Steps } from '@/shared/constants';
 import * as S from './styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback } from 'react';
