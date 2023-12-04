@@ -36,6 +36,7 @@ export function CkEditor({ onChange, data="" }: ICkEditorProps) {
         }}
         onReady={(editor) => {
           console.log('Editor is ready to use!');
+          onChange(editor.getData());
         }}
         onChange={(event, editor) => {
           setEditor(editor.getData());

@@ -43,11 +43,18 @@
       "assets/caret-up-mob-news.svg",
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
+<<<<<<< HEAD
+=======
+      "assets/external-link.svg",
+      "assets/img-404.webp",
+      "assets/img-404-mob.webp",
+>>>>>>> a85e0820333ec775c494859508d077d3111c68e0
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
+      "assets/cross-category.svg",
       "assets/book.svg",
       "assets/Home.svg",
       "assets/Save.svg",
@@ -225,6 +232,10 @@
     "file": "assets/course-stub-img.webp",
     "src": "src/assets/images/course-stub-img.webp"
   },
+  "src/assets/images/cross-category.svg": {
+    "file": "assets/cross-category.svg",
+    "src": "src/assets/images/cross-category.svg"
+  },
   "src/assets/images/deleteIcon-white.svg": {
     "file": "assets/deleteIcon-white.svg",
     "src": "src/assets/images/deleteIcon-white.svg"
@@ -284,6 +295,14 @@
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
     "src": "src/assets/images/imagesIcon.svg"
+  },
+  "src/assets/images/img-404-mob.webp": {
+    "file": "assets/img-404-mob.webp",
+    "src": "src/assets/images/img-404-mob.webp"
+  },
+  "src/assets/images/img-404.webp": {
+    "file": "assets/img-404.webp",
+    "src": "src/assets/images/img-404.webp"
   },
   "src/assets/images/loadingLogo.svg": {
     "file": "assets/loadingLogo.svg",
