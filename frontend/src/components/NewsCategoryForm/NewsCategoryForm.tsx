@@ -46,7 +46,7 @@ export function NewsCategoryForm() {
 
   const handleUpdateCategory = (id: number, title: string) => {
     updateCategory({ id, title }).then(() => {
-      updateNewsCategory(true)
+      updateNewsCategory({ id, title });
       setLoaderActive(false);
     });
     setLoaderActive(true);
