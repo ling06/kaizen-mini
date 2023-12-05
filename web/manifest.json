@@ -1,76 +1,4 @@
 {
-  "Montserrat-Black.ttf": {
-    "file": "assets/Montserrat-Black.ttf",
-    "src": "Montserrat-Black.ttf"
-  },
-  "Montserrat-Black.woff": {
-    "file": "assets/Montserrat-Black.woff",
-    "src": "Montserrat-Black.woff"
-  },
-  "Montserrat-Black.woff2": {
-    "file": "assets/Montserrat-Black.woff2",
-    "src": "Montserrat-Black.woff2"
-  },
-  "Montserrat-Bold.ttf": {
-    "file": "assets/Montserrat-Bold.ttf",
-    "src": "Montserrat-Bold.ttf"
-  },
-  "Montserrat-Bold.woff": {
-    "file": "assets/Montserrat-Bold.woff",
-    "src": "Montserrat-Bold.woff"
-  },
-  "Montserrat-Bold.woff2": {
-    "file": "assets/Montserrat-Bold.woff2",
-    "src": "Montserrat-Bold.woff2"
-  },
-  "Montserrat-Light.ttf": {
-    "file": "assets/Montserrat-Light.ttf",
-    "src": "Montserrat-Light.ttf"
-  },
-  "Montserrat-Light.woff": {
-    "file": "assets/Montserrat-Light.woff",
-    "src": "Montserrat-Light.woff"
-  },
-  "Montserrat-Light.woff2": {
-    "file": "assets/Montserrat-Light.woff2",
-    "src": "Montserrat-Light.woff2"
-  },
-  "Montserrat-Medium.ttf": {
-    "file": "assets/Montserrat-Medium.ttf",
-    "src": "Montserrat-Medium.ttf"
-  },
-  "Montserrat-Medium.woff": {
-    "file": "assets/Montserrat-Medium.woff",
-    "src": "Montserrat-Medium.woff"
-  },
-  "Montserrat-Medium.woff2": {
-    "file": "assets/Montserrat-Medium.woff2",
-    "src": "Montserrat-Medium.woff2"
-  },
-  "Montserrat-Regular.ttf": {
-    "file": "assets/Montserrat-Regular.ttf",
-    "src": "Montserrat-Regular.ttf"
-  },
-  "Montserrat-Regular.woff": {
-    "file": "assets/Montserrat-Regular.woff",
-    "src": "Montserrat-Regular.woff"
-  },
-  "Montserrat-Regular.woff2": {
-    "file": "assets/Montserrat-Regular.woff2",
-    "src": "Montserrat-Regular.woff2"
-  },
-  "Montserrat-SemiBold.ttf": {
-    "file": "assets/Montserrat-SemiBold.ttf",
-    "src": "Montserrat-SemiBold.ttf"
-  },
-  "Montserrat-SemiBold.woff": {
-    "file": "assets/Montserrat-SemiBold.woff",
-    "src": "Montserrat-SemiBold.woff"
-  },
-  "Montserrat-SemiBold.woff2": {
-    "file": "assets/Montserrat-SemiBold.woff2",
-    "src": "Montserrat-SemiBold.woff2"
-  },
   "index.css": {
     "file": "assets/index.css",
     "src": "index.css"
@@ -386,7 +314,7 @@
   },
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
-    "src": "src/assets/images/moreIcon.svg"
+    "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/radio-checked.svg": {
     "file": "assets/radio-checked.svg",
