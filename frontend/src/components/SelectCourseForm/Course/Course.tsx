@@ -5,7 +5,7 @@ import { CourseProgress } from '@/components/CourseProgress';
 import { CourseTitle } from '@/components/CourseTitle';
 import { css } from 'styled-components';
 import { AdminBtn } from '@/components/AdminBtn';
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/constants';
+import { ADMIN_BTN_TYPES, IS_MOBILE, MODAL_TYPES } from '@/constants';
 import { useNavigate } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
 import { ModalPosition } from '@/types/common.types';
@@ -24,12 +24,13 @@ export function Course({ data, setDraggable, setNotDraggable }: ICourseProps) {
   const [restoreCourse] = useRestoreCourseMutation();
   const navigate = useNavigate();
 
+
   const courseProgressStyles = css`
     margin-right: 20px;
   `;
 
   const courseTitleStyles = css`
-    margin-right: 20px;
+    margin-right: ${IS_MOBILE ? 0 : "20px"};
   `;
 
   const dndBtnStyles = css`

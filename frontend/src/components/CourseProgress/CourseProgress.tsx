@@ -1,6 +1,7 @@
 import { RuleSet } from 'styled-components';
 import * as S from './styles';
 import { useState, useEffect } from 'react';
+import { IS_MOBILE } from '@/constants';
 
 interface ICourseProgressProps {
   percentage: number;
@@ -15,5 +16,21 @@ export function CourseProgress({ percentage, styles, isHidden }: ICourseProgress
       setIsStarted(percentage > 0);
   }, [percentage])
 
-  return <S.Progress $styles={styles} $isStarted={isStarted} $isHidden={isHidden}>{percentage}%</S.Progress>;
+  return <S.Progress 
+      $styles={styles} 
+      $isStarted={isStarted} 
+      $isHidden={isHidden}
+      $progress={percentage}
+    >
+      {!IS_MOBILE ? 
+        percentage + '%' :
+          percentage === 100 ? 
+            '' :
+            percentage === 0 ? 
+              '00' : percentage}
+      {/* {percentage === 100 && IS_MOBILE ? '' : percentage}
+      {percentage === 0 && IS_MOBILE && '0'}
+      {IS_MOBILE ? '' : '%'} */}
+
+    </S.Progress>;
 }
