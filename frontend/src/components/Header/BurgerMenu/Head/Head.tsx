@@ -2,7 +2,7 @@ import { selectUser } from '@/store/api/user.api';
 import { BurgerBtn } from '../../BurgerBtn';
 import { UserAvatar } from '../../../../shared/ui/UserAvatar';
 import * as S from './styles';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { getUsername } from '@/shared/lib/getUsername';
 import { useEffect } from 'react';
 

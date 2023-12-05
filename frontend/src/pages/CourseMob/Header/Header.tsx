@@ -1,4 +1,4 @@
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
 

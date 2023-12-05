@@ -4,7 +4,7 @@ import { ADMIN_BTN_TYPES } from '@/shared/constants';
 import { ICompetition } from '@/shared/types/competition.types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import {
   useDeleteCompetitionMutation,
   useRestoreCompetitionMutation,

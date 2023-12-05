@@ -2,7 +2,7 @@ import { UserAvatar } from '@/shared/ui/UserAvatar';
 import * as S from './styles';
 import { IUser } from '@/shared/types/user.types';
 import { RuleSet } from 'styled-components';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import { useEffect, useState } from 'react';
 

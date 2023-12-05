@@ -15,9 +15,9 @@ import { ErrorBlock } from "../ErrorBlock";
 // import { IEditorJsData } from '@/types/editorJs.types';
 // import { useState, useEffect } from 'react';
 import { NewsRequisites } from "../NewsRequisites";
-import { useActions } from "@/shared/hooks/useActions";
+import { useActions } from "@/shared/lib/hooks/useActions";
 import { MediaQueries } from "@/shared/constants";
-import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Content } from "@/layouts/Content";
 

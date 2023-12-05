@@ -3,7 +3,7 @@ import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import { IChapter } from '@/shared/types/chapter.types';
 import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { MODAL_TYPES } from '@/shared/constants';
 
 interface ICourseNavHeadProps {

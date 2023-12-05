@@ -4,7 +4,7 @@ import * as S from './styles';
 import { useCallback, useEffect, useState } from 'react';
 import { Steps } from '@/shared/constants';
 import { IChapter } from '@/shared/types/chapter.types';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { CourseNavHead } from '../CourseNavHead';
 import { FadedTitle } from '../FadedTitle';
 import { ITheme } from '@/shared/types/theme.types';

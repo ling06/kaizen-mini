@@ -1,4 +1,4 @@
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import { MODAL_TYPES } from '@/shared/constants';

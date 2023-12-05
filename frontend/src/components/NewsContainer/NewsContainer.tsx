@@ -8,12 +8,12 @@ import * as S from "./styles";
 import { NewsCategoryWrapper } from "../NewsCategoryWrapper";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ErrorBlock } from "../ErrorBlock";
-import { useActions } from "@/shared/hooks/useActions";
+import { useActions } from "@/shared/lib/hooks/useActions";
 import { useEffect, useState } from "react";
 import { LoadingSmall } from "../LoadingSmall";
 import { NoAvailable } from "../NoAvailable";
 import { useGetNewsCategoryQuery } from '@/store/api/newsCategory.api';
-import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { MediaQueries } from "@/shared/constants";
 import { NewsCategoryDropPopup } from "@/components/NewsCategoryDropPopup";
 

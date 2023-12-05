@@ -1,8 +1,10 @@
 import { Layout } from '@/layouts/Layout';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
-import { Title } from '@/shared/ui/Title';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
+import { Title } from '@/shared/ui/BigTitle';
 import { WhiteBox } from '@/shared/ui/layouts/WhiteBox';
 import { css } from 'styled-components';
+import { SearchInListInput } from './ui/SearchInListInput';
+// import { AddedItem } from './ui/AddedItem';
 
 export function User() {
   const accesses = useTypedSelector((state) => state.accesses);
@@ -16,35 +18,15 @@ export function User() {
     margin-bottom: 25px;
   `;
 
-  const renderAccesses = () => {
-    return accesses.map((access) => {
-      if (access.sub.length > 0) {
-        return (
-          <>
-            <div>{access.type}</div>
-            <div>
-              {access.sub.map((sub) => {
-                return <div>{sub.type}</div>;
-              })}
-            </div>
-          </>
-        );
-      }
-      return (
-        <div>
-          <div>{access.type}</div>
-        </div>
-      );
-    });
-  };
-
   return (
     <Layout styles={layoutStyles}>
       <Title
         title={'Петров Иван'}
         styles={titleStyles}
       />
-      <WhiteBox>{renderAccesses()}</WhiteBox>
+      <WhiteBox>
+        <SearchInListInput />
+      </WhiteBox>
     </Layout>
   );
 }

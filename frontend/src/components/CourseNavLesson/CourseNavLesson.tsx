@@ -2,7 +2,7 @@ import { ILesson } from '@/shared/types/lesson.types';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import * as C from '@styles/components';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { useDeleteLessonMutation, useRestoreLessonMutation, useUpdateLessonMutation } from '@/store/api/lesson.api';

@@ -9,7 +9,7 @@ import {
   useRestoreNewsMutation,
   useUpdateNewsMutation,
 } from '@/store/api/news.api';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 
 interface INewsElProps {
   data: INews;

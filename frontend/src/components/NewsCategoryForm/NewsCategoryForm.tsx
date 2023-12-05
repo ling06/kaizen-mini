@@ -6,9 +6,9 @@ import {
 } from "@/store/api/newsCategory.api";
 import { ModalForm } from "../ModalForm";
 import * as S from "./styles";
-import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
+import { useTypedSelector } from "@/shared/lib/hooks/useTypedSelector";
 import { Category } from "./Category";
-import { useActions } from "@/shared/hooks/useActions";
+import { useActions } from "@/shared/lib/hooks/useActions";
 import { INewsCategory } from "@/shared/types/news.types";
 
 

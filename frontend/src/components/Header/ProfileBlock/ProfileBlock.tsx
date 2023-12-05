@@ -1,4 +1,4 @@
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import * as S from './styles';
 import { UserAvatar } from '../../../shared/ui/UserAvatar';

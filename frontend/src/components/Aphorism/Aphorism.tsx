@@ -1,4 +1,4 @@
-import { useAphorism } from '@/shared/hooks/useAphorism';
+import { useAphorism } from '@/shared/lib/hooks/useAphorism';
 import * as S from './styles';
 
 export function Aphorism() {

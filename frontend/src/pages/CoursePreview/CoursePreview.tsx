@@ -5,7 +5,7 @@ import { CourseMainInfo } from '@/components/CourseMainInfo';
 import { CourseProgramm } from '@/components/CourseProgramm';
 import { useGetCoursesQuery } from '@/store/api/course.api';
 import { ErrorBlock } from '@/components/ErrorBlock';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';

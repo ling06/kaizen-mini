@@ -1,4 +1,4 @@
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import * as S from './styles';
 import { selectUser } from '@/store/api/user.api';
 import { AdminBtn } from '../AdminBtn';

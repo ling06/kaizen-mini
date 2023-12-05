@@ -10,8 +10,8 @@ import {
   useUpdateLessonMutation,
 } from '@/store/api/lesson.api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
-import { useActions } from '@/shared/hooks/useActions';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { CkEditor } from '../CkEditor';
 
 interface ICreateLessonFormProps {

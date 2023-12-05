@@ -5,11 +5,11 @@ import { CourseNavLesson } from '@/components/CourseNavLesson';
 import { SortableItem } from '@/components/SortableItem';
 import { useEffect, useState } from 'react';
 import { ILesson } from '@/shared/types/lesson.types';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useSetLessonsPositionsMutation } from '@/store/api/lesson.api';
 import { CourseEntities } from '@/shared/types/course.types';
 import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 
 interface ISortableLessonsProps {

@@ -7,7 +7,7 @@ import * as C from '@styles/components';
 import { useCallback } from 'react';
 import dndIconWithArrows from '@assets/images/dnd-btn-arrows.svg';
 import dndIconWithArrowsActive from '@assets/images/dnd-btn-arrows-active.svg';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useDeleteChapterMutation, useRestoreChapterMutation } from '@/store/api/chapter.api';
 import { IChapter } from '@/shared/types/chapter.types';
 

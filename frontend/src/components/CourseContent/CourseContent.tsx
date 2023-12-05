@@ -9,11 +9,11 @@ import { AdminBtn } from '../AdminBtn';
 import { CkEditorOutput } from '../CkEditorOutput';
 import { useEffect, useMemo, useState } from 'react';
 import { ErrorBlock } from '../ErrorBlock';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { LessonTest } from '../LessonTest';
-import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+import { useMediaQuery } from '@/shared/lib/hooks/useMediaQuery';
 import { MediaQueries } from '@/shared/constants';
-import { useCheckLesson } from '@/shared/hooks/useCheckLesson';
+import { useCheckLesson } from '@/shared/lib/hooks/useCheckLesson';
 
 export function CourseContent() {
   const { setLoaderActive } = useActions();

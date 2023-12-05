@@ -3,7 +3,7 @@ import * as S from './styles';
 import { RadioBtn } from './RadioBtn';
 import { useEffect, useState } from 'react';
 import { useSendAnswerMutation } from '@/store/api/lessonTest.api';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { CheckedAnswer } from './CheckedAnswer';
 
 interface ILessonTestProps {

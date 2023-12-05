@@ -2,7 +2,7 @@ import * as S from './styles';
 import defaultPreview from '@assets/images/course-stub-img.webp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CourseBreadcrumb } from '../CourseBreadcrumb';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/shared/constants';

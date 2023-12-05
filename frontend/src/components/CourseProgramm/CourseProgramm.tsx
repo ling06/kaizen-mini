@@ -1,8 +1,8 @@
 import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import { useActions } from '@/shared/hooks/useActions';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { SortableChapters } from './SortableChapters';
 
 export function CourseProgramm() {

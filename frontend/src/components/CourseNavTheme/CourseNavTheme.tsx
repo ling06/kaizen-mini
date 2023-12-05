@@ -8,7 +8,7 @@ import { ITheme } from '@/shared/types/theme.types';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useMemo } from 'react';
 import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/theme.api';
 import { CourseNavItemTitle } from '../CourseNavItemTitle';

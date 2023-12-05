@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import * as S from './styles';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useEffect, useState } from 'react';
 import { MODAL_TYPES } from '@/shared/constants';
 

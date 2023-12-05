@@ -4,12 +4,12 @@ import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { CourseProgrammCard } from '../CourseProgrammCard';
 import { IChapter } from '@/shared/types/chapter.types';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import { useEffect, useState } from 'react';
 import { useSetChaptersPositionsMutation } from '@/store/api/chapter.api';
 import { CourseEntities } from '@/shared/types/course.types';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
 // import * as S from './styles';
 

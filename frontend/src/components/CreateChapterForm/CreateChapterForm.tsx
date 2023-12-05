@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ModalForm } from '../ModalForm';
 import * as S from './styles';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { useCreateChapterMutation, useUpdateChapterMutation } from '@/store/api/chapter.api';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { MODAL_TYPES } from '@/shared/constants';
 import { AddImage } from '../AddImage';
 import { IImage, IUploadedImage } from '@/shared/types/image.types';

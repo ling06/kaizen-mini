@@ -4,7 +4,7 @@ import * as S from './styles';
 import { DeleteBtn } from '../DeleteBtn';
 import { IAnswer } from '@/shared/types/lessonTest.types';
 import { CustomRadioButton } from '@/components/CustomRadioButton';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 
 interface IVariantProps {
   data: IAnswer;

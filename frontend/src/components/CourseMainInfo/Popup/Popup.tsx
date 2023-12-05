@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom';
 import * as S from './styles';
 import { CustomSelectOption } from '@/components/CustomSelectOption';
 import { ICourse } from '@/shared/types/course.types';
-import { useTypedSelector } from '@/shared/hooks/useTypedSelector';
-import { useActions } from '@/shared/hooks/useActions';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { MODAL_TYPES } from '@/shared/constants';
 import { useNavigate } from 'react-router-dom';
 

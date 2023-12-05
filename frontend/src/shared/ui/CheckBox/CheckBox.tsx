@@ -18,9 +18,9 @@ export function CheckBox({
   isLabelBold=true,
 }: ICheckBoxProps) {
   return (
-    <S.Label>
+    <S.Label> 
       <S.Input
-        type="checkbox"
+        type="checkbox" 
         onChange={onChange}
         checked={checked}
       />

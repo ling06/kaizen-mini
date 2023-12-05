@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
 import { useDeleteNewsMutation, useGetNewsByIdQuery, useRestoreNewsMutation, useUpdateNewsMutation } from '@/store/api/news.api';
-import { useActions } from '@/shared/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
 import { useEffect } from 'react';
 import { CkEditorOutput } from '@/components/CkEditorOutput';
 import { ErrorBlock } from '@/components/ErrorBlock';
