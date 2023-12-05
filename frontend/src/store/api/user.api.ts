@@ -1,5 +1,5 @@
 import { IUserWhoamiRes } from '@/shared/model/types/user.types';
-import { api } from './api';
+import { api } from '../../shared/model/api/api';
 
 //TODO: add user api
 

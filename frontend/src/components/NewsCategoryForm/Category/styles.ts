@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 import saveIcon from "@assets/images/Save.svg";
 import deleteIcon from "@assets/images/deleteIcon.svg";
 

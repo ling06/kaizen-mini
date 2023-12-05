@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 
 export const Title = styled(C.Text)`
   margin-bottom: 23px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import selectIcon from '@assets/images/accordionIcon.svg';
 import isHideIcon from '@assets/images/hideIcon.svg';
 

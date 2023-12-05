@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import logo from '@assets/images/loadingLogo.svg';
 
 export const Overlay = styled.div`

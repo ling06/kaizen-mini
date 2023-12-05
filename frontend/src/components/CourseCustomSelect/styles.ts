@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import selectIcon from '@assets/images/accordionIcon.svg';
 
 export const SelectIcon = styled(C.Icon)`

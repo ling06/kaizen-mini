@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import isHideIcon from '@assets/images/hideIcon.svg';
 
 export const CustomSelectOption = styled.label`

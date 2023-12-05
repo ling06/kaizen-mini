@@ -1,7 +1,7 @@
 import { css, styled } from 'styled-components';
 import checkboxIcon from '@assets/images/checkbox.svg';
 import checkboxIconChecked from '@assets/images/checkbox-checked.svg';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 
 export const Label = styled.label`
   display: flex;

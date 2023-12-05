@@ -1,5 +1,5 @@
 import {styled, createGlobalStyle} from "styled-components";
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 
 export const Container = styled(C.FlexContainer)`
   height: calc(100vh - 62.25px);

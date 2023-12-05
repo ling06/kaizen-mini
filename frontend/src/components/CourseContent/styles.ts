@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import forwardIcon from '@assets/images/forwardIcon.svg';
 import forwardIconDisabled from '@assets/images/forwardIconDisabled.svg';
 

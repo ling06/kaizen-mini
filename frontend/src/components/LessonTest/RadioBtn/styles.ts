@@ -1,4 +1,4 @@
-import { TextStyles } from '@/styles/base-styles';
+import { TextStyles } from '@/shared/ui/assets/styles/base-styles';
 import styled from 'styled-components';
 import radio from '@assets/images/radio.svg';
 import radioChecked from '@assets/images/radio-checked.svg';

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout } from '../layouts/Layout';
+import { Layout } from '../shared/ui/layouts/Layout';
 import { Main } from '../pages/Main';
-import { ModalLayout } from '../layouts/ModalLayout';
+import { ModalLayout } from '../shared/ui/layouts/ModalLayout';
 import { MODAL_TYPES, MediaQueries } from '../shared/model/constants';
 import { CreateCourseForm } from '../components/CreateCourseForm';
 import { CreateChapterForm } from '../components/CreateChapterForm';

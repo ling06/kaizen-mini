@@ -1,7 +1,7 @@
 import { AdminBtn } from '../AdminBtn';
 import { DndBtn } from '../DndBtn';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import { css } from 'styled-components';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { ITheme } from '@/shared/model/types/theme.types';

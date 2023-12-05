@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
-import { TextStyles } from '@/styles/base-styles';
+import * as C from '@/shared/ui/assets/styles/components';
+import { TextStyles } from '@/shared/ui/assets/styles/base-styles';
 import hideIcon from '@assets/images/hideIcon.svg';
 import addIcon from '@assets/images/addIconBlack.svg';
 import editIcon from '@assets/images/editIconRed.svg';

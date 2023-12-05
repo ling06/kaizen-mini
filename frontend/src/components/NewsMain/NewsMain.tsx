@@ -3,7 +3,7 @@ import { CompetitionsSwiper } from '../CompetitionsSwiper';
 import { ManagerInfo } from '../ManagerInfo';
 import { NewsContainer } from '../NewsContainer';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 
 export function NewsMain() {
   const { data, isError, isFetching } = useGetAllCompetitionsQuery();

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import bookIcon from '@assets/images/book.svg';
-import * as C from '../../../styles/components';
+import * as C from '../../../shared/ui/assets/styles/components';
 import homeIcon from '@assets/images/home.svg';
 
 export const Header = styled.header`

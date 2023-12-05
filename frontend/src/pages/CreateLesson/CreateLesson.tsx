@@ -1,6 +1,6 @@
 import { CreateLessonForm } from '@/components/CreateLessonForm';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 
 interface ICreateLessonProps {
   type: string;

@@ -3,7 +3,7 @@ import { DndBtn } from '@/components/DndBtn';
 import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/model/constants';
 import { css } from 'styled-components';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import { useCallback } from 'react';
 import dndIconWithArrows from '@assets/images/dnd-btn-arrows.svg';
 import dndIconWithArrowsActive from '@assets/images/dnd-btn-arrows-active.svg';

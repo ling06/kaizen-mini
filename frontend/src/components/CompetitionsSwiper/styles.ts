@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import arrowLeft from "@assets/images/swiperArrowLeft.svg";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 
 export const Container = styled.div`
   position: relative;

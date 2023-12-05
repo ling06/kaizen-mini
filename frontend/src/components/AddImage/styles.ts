@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import imagesIcon from '@assets/images/imagesIcon.svg';
 import editIcon from '@assets/images/editIcon-with-pen.svg';
 import deleteIcon from '@assets/images/deleteIcon-white.svg';

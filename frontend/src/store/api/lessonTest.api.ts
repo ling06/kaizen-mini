@@ -1,5 +1,5 @@
 import { IDefaultReqWithId, IDefaultRes } from '@/shared/model/types/common.types';
-import { api } from './api';
+import { api } from '../../shared/model/api/api';
 
 
 export const lessonTestApi = api.injectEndpoints({

@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from '../../shared/model/api/api';
 import { IChapter, ICreateChapterData, IUpdateChapterData } from '@/shared/model/types/chapter.types';
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/model/types/common.types';
 import { ISetPositionsReq, ISetPositionsRes } from '@/shared/model/types/course.types';

@@ -1,7 +1,7 @@
 import { ILesson } from '@/shared/model/types/lesson.types';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';

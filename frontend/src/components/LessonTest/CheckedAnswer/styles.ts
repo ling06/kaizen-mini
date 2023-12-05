@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import wrongAnswer from '@assets/images/wrongAnswer.svg';
 import rightAnswer from '@assets/images/rightAnswer.svg';
 

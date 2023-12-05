@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import star from '@assets/images/star.svg';
 import activeStar from '@assets/images/active-star.svg';
 import moreIcon from '@assets/images/moreIcon.svg';

@@ -1,6 +1,6 @@
 import { CourseSelect } from '@/components/CourseSelect';
 import * as S from './styles';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import { CourseMainInfo } from '@/components/CourseMainInfo';
 import { CourseProgramm } from '@/components/CourseProgramm';
 import { useGetCoursesQuery } from '@/store/api/course.api';

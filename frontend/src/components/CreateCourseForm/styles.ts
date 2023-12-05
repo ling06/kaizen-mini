@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import imagesIcon from '@assets/images/imagesIcon.svg';
 
 // export const Container = styled(C.FlexContainer)`

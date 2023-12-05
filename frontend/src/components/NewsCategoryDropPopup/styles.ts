@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import dropMenuIcon from "@assets/images/caret-up-mob-news.svg";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 
 export const dropMenu = styled.div`
   width: 100%;

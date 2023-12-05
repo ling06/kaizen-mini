@@ -1,5 +1,5 @@
 import styled, { RuleSet } from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import searchIcon from '@assets/images/search-icon.svg';
 
 export const Container = styled.div<{ $styles?: RuleSet<object> }>`

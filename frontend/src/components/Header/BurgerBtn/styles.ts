@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import burgerIconOpen from '@assets/images/burger-icon-open.svg';
 import burgerIconClose from '@assets/images/burger-icon-close.svg';
 

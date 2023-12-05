@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import arrowRight from '@assets/images/arrowRight.svg';
 
 export const Container = styled(C.FlexContainer)`

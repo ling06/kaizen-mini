@@ -19,7 +19,7 @@ import { useActions } from "@/shared/lib/hooks/useActions";
 import { MediaQueries } from "@/shared/model/constants";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import { Content } from "@/layouts/Content";
+import { Content } from "@/shared/ui/layouts/Content";
 
 export function CompetitionContent() {
   const { setLoaderActive } = useActions();

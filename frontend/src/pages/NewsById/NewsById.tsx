@@ -2,7 +2,7 @@ import { AdminBtn } from "@/components/AdminBtn";
 import { useGetNewsByIdQuery } from "@/store/api/news.api";
 import * as S from "./styles";
 import { BackBtn } from "@/components/BackBtn";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 import { NewsByIdContent } from "@/components/NewsByIdContent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";

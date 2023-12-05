@@ -1,5 +1,5 @@
 import { IDefaultReqWithId, IDefaultRes } from '@/shared/model/types/common.types';
-import { api } from './api';
+import { api } from '../../shared/model/api/api';
 import { IGetCourses, IGetCourseByIdRes, ICreateCourse, IUpdateCourse, ICourseProgress, ICourseProgressCompleted, ICourseProgressError } from '@/shared/model/types/course.types';
 
 export const courseApi = api.injectEndpoints({

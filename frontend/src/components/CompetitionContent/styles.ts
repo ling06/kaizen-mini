@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 import externalLinkIcon from "@assets/images/external-link.svg";
 import arrowLeft from "@assets/images/swiperArrowLeft.svg";
 

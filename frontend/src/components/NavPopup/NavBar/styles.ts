@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import * as C from '@styles/components';
+import * as C from '@/shared/ui/assets/styles/components';
 import arrowIcon from '@assets/images/grey-arrow-right.svg';
 
 export const NavList = styled.ul`

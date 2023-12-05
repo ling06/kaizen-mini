@@ -4,7 +4,7 @@ import {
   ILesson,
   IUpdateLessonData,
 } from '@/shared/model/types/lesson.types';
-import { api } from './api';
+import { api } from '../../shared/model/api/api';
 import { IDefaultReqWithId, IDefaultRes, IDefaultResWithData } from '@/shared/model/types/common.types';
 import { ISetPositionsReq, ISetPositionsRes } from '@/shared/model/types/course.types';
 

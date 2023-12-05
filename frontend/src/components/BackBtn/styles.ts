@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 import backIcon from "@assets/images/arrow-left-blue.svg";
 import backIconMob from "@/assets/images/angle-right-mob.svg";
 

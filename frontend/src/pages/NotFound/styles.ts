@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as C from "@styles/components";
+import * as C from "@/shared/ui/assets/styles/components";
 import imgNotFoundDes from "@assets/images/img-404.webp";
 import imgNotFoundMob from "@assets/images/img-404-mob.webp";
 
