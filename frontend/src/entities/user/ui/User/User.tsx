@@ -1,4 +1,4 @@
-import { UserAvatar } from '@/shared/ui/components/UserAvatar';
+import { UserAvatar } from '@/shared/ui/components';
 import * as S from './styles';
 import { IUser } from '@/shared/model/types/user.types';
 import { RuleSet } from 'styled-components';

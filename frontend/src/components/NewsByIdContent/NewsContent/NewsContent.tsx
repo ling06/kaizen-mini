@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { CkEditorOutput } from '@/components/CkEditorOutput';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { NewsRequisites } from '@/components/NewsRequisites';
-import { Content } from '@/shared/ui/layouts/Content';
+import { Content } from '@/shared/ui/layouts';
 import { ContentTitle } from '@/components/ContentTitle';
 
 export function NewsContent() {

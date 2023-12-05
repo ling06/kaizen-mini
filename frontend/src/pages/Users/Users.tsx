@@ -1,11 +1,10 @@
 import { SearchUserInput } from '@/feature/usersFilter/ui/SearchUserInput';
-import { Layout } from '@/shared/ui/layouts/Layout';
-import { Title } from '@/shared/ui/components/BigTitle';
-import { WhiteBox } from '@/shared/ui/layouts/WhiteBox';
 import { css } from 'styled-components';
 import { UsersList } from './ui/UsersList';
 import { User } from '@/entities/user/ui/User';
 import { useNavigate } from 'react-router-dom';
+import { BigTitle } from '@/shared/ui/components';
+import { Layout, WhiteBox } from '@/shared/ui/layouts';
 
 const users = [
   {
@@ -92,7 +91,7 @@ export function Users() {
 
   return (
     <Layout styles={layoutStyles}>
-      <Title
+      <BigTitle
         title="Пользователи"
         styles={titleStyles}
       />

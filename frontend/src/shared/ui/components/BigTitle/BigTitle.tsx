@@ -7,6 +7,6 @@ interface ITitleProps {
   styles?: RuleSet<object>;
 }
 
-export function Title({ title, styles }: ITitleProps): ReactNode {
+export function BigTitle({ title, styles }: ITitleProps): ReactNode {
   return <S.Title $styles={styles}>{title}</S.Title>;
 }

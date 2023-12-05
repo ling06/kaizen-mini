@@ -1,10 +1,10 @@
 import { selectUser } from '@/store/api/user.api';
 import { BurgerBtn } from '../../BurgerBtn';
-import { UserAvatar } from '../../../../shared/ui/components/UserAvatar';
 import * as S from './styles';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { getUsername } from '@/shared/lib/getUsername';
 import { useEffect } from 'react';
+import { UserAvatar } from '@/shared/ui/components';
 
 interface IHead {
   onClose: () => void;

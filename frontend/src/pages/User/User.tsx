@@ -1,6 +1,5 @@
-import { Layout } from '@/shared/ui/layouts/Layout';
-import { Title } from '@/shared/ui/components/BigTitle';
-import { WhiteBox } from '@/shared/ui/layouts/WhiteBox';
+import { Layout, WhiteBox } from '@/shared/ui/layouts';
+import { Title } from '@/shared/ui/components';
 import { css } from 'styled-components';
 import { SearchInListInput } from './ui/SearchInListInput';
 

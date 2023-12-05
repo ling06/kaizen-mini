@@ -1,7 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout } from '../shared/ui/layouts/Layout';
 import { Main } from '../pages/Main';
-import { ModalLayout } from '../shared/ui/layouts/ModalLayout';
 import { MODAL_TYPES, MediaQueries } from '../shared/model/constants';
 import { CreateCourseForm } from '../components/CreateCourseForm';
 import { CreateChapterForm } from '../components/CreateChapterForm';
@@ -18,6 +16,7 @@ import { useMediaQuery } from '@mui/material';
 import { CourseMob } from '../pages/CourseMob';
 import { NewsCategoryForm } from '../components/NewsCategoryForm';
 import { CreateCompetition } from '../pages/CreateCompetition';
+import { Layout, ModalLayout } from '@/shared/ui/layouts';
 
 function App() {
   const { data, isLoading } = useCheckUserQuery();
