@@ -269,7 +269,11 @@
   },
   "src/assets/images/external-link.svg": {
     "file": "assets/moreIcon.svg",
+<<<<<<< HEAD
     "src": "src/assets/images/external-link.svg"
+=======
+    "src": "src/assets/images/moreIcon.svg"
+>>>>>>> task475542
   },
   "src/assets/images/forwardIcon.svg": {
     "file": "assets/forwardIcon.svg",

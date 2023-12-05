@@ -11,6 +11,7 @@ import { useActions } from "@/hooks/useActions";
 import { MODAL_TYPES } from "@/constants";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { CkEditor } from "../CkEditor";
+
 interface ICreateNewsFormProps {
   type: string;
 }
@@ -22,10 +23,9 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     setNewsCategories,
     setLoaderActive,
     deleteNewsCategory,
-    updateNewsCategory,
   } = useActions();
 
-  const updateCategory = useTypedSelector((state) => state.news.isUpdate);
+  const setCategory = useTypedSelector((state) => state.news.newsCategories);
   const [createNews] = useCreateNewsMutation();
   const navigate = useNavigate();
   const { newsId } = useParams();
@@ -33,7 +33,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const categories = useTypedSelector((state) => state.news.newsCategories);
-  const { data, isFetching, refetch  } = useGetNewsByIdQuery(Number(newsId), {
+  const { data, isFetching,  } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
   const [updateNews] = useUpdateNewsMutation();
@@ -47,14 +47,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
     }
-  }, [data, setNewsCategories, type, isNameCategory, updateCategory]);
-
-  useEffect(() => {
-    if(updateCategory){
-      // refetch()
-      updateNewsCategory(false)
-    }
-  }, [updateCategory]);
+  }, [data, setNewsCategories, type, isNameCategory]);
 
   const handleConfirm = async () => {
     // const editorData = await editor?.save().then((data) => data);
@@ -67,7 +60,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       createNews({
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
           if ("data" in res && res.data.result) {
@@ -89,7 +82,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         id: Number(newsId),
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
           if ("data" in res && res.data.result) {
@@ -139,7 +132,7 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
     setCkEditorData(data);
   };
 
-  const handleСancelCategori = (category: number) => {
+  const handleСancelCategory = (category: number) => {
     deleteNewsCategory({ id: category });
   };
 
@@ -159,14 +152,14 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
       {/* <S.EditorJsWrapper id="editorjs" /> */}
       <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} />
       <S.CategoriesList>
-        {categories.length > 0 &&
-          categories.map((category) => (
+        {setCategory.length > 0 &&
+          setCategory.map((category) => (
             <S.Category>
               <S.CategoryText>{category.title}</S.CategoryText>
               <S.CategoryImgDelete
                 onClick={() => {
                   if (category.id !== undefined)
-                    handleСancelCategori(category.id);
+                    handleСancelCategory(category.id);
                 }}
               />
             </S.Category>
