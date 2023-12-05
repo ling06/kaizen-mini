@@ -1,9 +1,14 @@
-import styled, { RuleSet } from 'styled-components';
+import styled, { RuleSet, css } from 'styled-components';
+import * as C from '@styles/components';
+import doneIcon from '@assets/images/done-white.svg';
+import baseTheme from '@/styles/themes/main';
+import { IS_MOBILE } from '@/constants';
 
 interface IProgress {
   $isStarted: boolean;
   $styles?: RuleSet<object>;
   $isHidden?: boolean;
+  $progress?: number;
 }
 
 export const Progress = styled.div<IProgress>`
@@ -14,6 +19,9 @@ export const Progress = styled.div<IProgress>`
   color: ${(props) => props.theme.colors.realWhite};
   background-color: ${(props) => {
     let color = props.theme.colors.dark;
+    if(props.theme.media.mobile) {
+      color = props.theme.colors.mainBlue;
+    }
     if(props.$isStarted) {
       color = props.theme.colors.mainBlue;
     }
@@ -30,5 +38,43 @@ export const Progress = styled.div<IProgress>`
       return props.$styles;
     }
   }}
+
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+    padding: 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: 400;
+    font-size: 4.7vw;
+    line-height: 0;
+    border-radius: 15px;
+
+    ${(props) => { 
+      if(props.$progress === 100) {
+        return css`
+          background-image: url(${doneIcon});
+          background-color: ${!props.$isHidden && baseTheme.colors.mainGreen};
+        `
+      }
+      if(props.$progress === 0) {
+        return css`
+          
+        `
+      }
+    }}
+
+  }
 `;
+
+// export const BtnIcon = styled(C.Icon)`
+//   @media ${(props) => props.theme.media.mobile} {
+//     border-radius: 15px;
+//   }
+// `;
+
+// export const DoneIcon = styled(BtnIcon)`
+  
+// `;
 

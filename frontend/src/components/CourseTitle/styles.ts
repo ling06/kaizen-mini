@@ -14,7 +14,9 @@ export const Title = styled.h3<ITitle>`
   text-decoration: ${(props) => (props.$isDeleted ? 'line-through' : 'none')};
 
   @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
+    font-size: 4.69vw;
+    font-weight: 500;
+    color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.dark};
   }
 
   ${(props) => {
