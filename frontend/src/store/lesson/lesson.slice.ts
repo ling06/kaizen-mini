@@ -18,6 +18,13 @@ interface IChangeTestQuestion {
   question: string;
 }
 
+interface IResetResponseStatus {
+  id: number;
+  testId: number;
+  answerId: number;
+  isRight: boolean;
+}
+
 interface IChangeAnswer {
   testId: string;
   answerId: string;
@@ -149,24 +156,29 @@ export const lessonSlice = createSlice({
 
       state.tests = modifyTests;
     },
-    resetResponseStatus: (state, { payload }: PayloadAction<IToggleAnswer>) => {
+    resetResponseStatus: (
+      state,
+      { payload }: PayloadAction<IResetResponseStatus>
+    ) => {
       const testIndex = state.tests.findIndex(
-        (test) => test.id === payload.testId
+        (test) => Number(test.id) === payload.testId
       );
       if (testIndex === -1) return;
 
-      const changedAnswers = state.tests[testIndex].answers.map((answer, index) => {
-        answer.right_answer = false;
+      const changedAnswers = state.tests[testIndex].answers.map(
+        (answer, index) => {
+          answer.right_answer = "";
 
-        if (index === state.tests[testIndex].answers.length - 1) {
-          answer.right_answer = true;
+          if (index === state.tests[testIndex].answers.length - 1) {
+            answer.right_answer = "1";
+          }
+
+          return answer;
         }
-        
-        return answer;
-      });
+      );
 
       const modifyTests = state.tests.map((test) => {
-        if (test.id === payload.testId) {
+        if (Number(test.id) === payload.testId) {
           test.answers = changedAnswers;
         }
         return test;

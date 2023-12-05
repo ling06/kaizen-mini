@@ -24,21 +24,16 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
 
   useEffect(() => {
     let rightAnswers = 0;
-    // TODO: можно поменять на array.filter и проверять length массива
-    data.answers.map((answer) => {
+    data.answers.forEach((answer) => {
       if (answer.right_answer === "1") {
         rightAnswers += 1;
       }
     });
-    //TODO: сюда передать уже переменную: boolean;
-    setMultiple(() => {
-      if (rightAnswers > 1) {
-        return true;
-      }
-      return false;
-    });
-    // TODO: в этом useEffect посмотреть зависимости и обновить массив, если надо
-  }, []);
+
+    if (rightAnswers > 1) {
+      setMultiple(true);
+    }
+  }, [data]);
 
   const handleAddVariant = () => {
     addAnswer({ id: data.id });
@@ -52,11 +47,11 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
     setMultiple(!isMultiple);
   };
 
-  const test1 = () => {
+  const handleResetResponseStatus = () => {
     if (isMultiple) {
-      const testId = data.id;
-      //TODO: ошибка и типизацией
-      resetResponseStatus({ testId });
+      const testId = data?.id;
+
+      resetResponseStatus({ testId } as any);
     }
   };
 
@@ -89,33 +84,34 @@ export function CreateTestForm({ data }: ICreateTestFormProps) {
       </S.Variants>
       <S.AddVariant onClick={handleAddVariant}>добавить вариант</S.AddVariant>
       <S.ContainerBtn>
-        <CustomRadioButton
-          styles={{ ...radioFontStyles }}
-          name={"oneOption"}
-          value="только один верный ответ"
-          checked={!isMultiple}
-          onChange={() => {
-            toggleStatusMultiple();
-            test1();
-          }}
-        />
+        <form>
+          <CustomRadioButton
+            styles={{ ...radioFontStyles }}
+            name={"oneOption"}
+            value="только один верный ответ"
+            checked={!isMultiple}
+            onChange={() => {
+              toggleStatusMultiple();
+              handleResetResponseStatus();
+            }}
+          />
 
-        <CustomRadioButton
-          styles={{ ...radioFontStyles }}
-          name={"severalOptions"}
-          value="несколько верных ответов"
-          checked={isMultiple}
-          onChange={() => toggleStatusMultiple()}
-        />
+          <CustomRadioButton
+            styles={{ ...radioFontStyles }}
+            name={"severalOptions"}
+            value="несколько верных ответов"
+            checked={isMultiple}
+            onChange={() => toggleStatusMultiple()}
+          />
 
-        {/* <CustomRadioButton
+          {/* <CustomRadioButton
         styles={{ ...radioFontStyles }}
         name={data.id}
         value="пользовательский вариант ответа"
         checked={false}
         onChange={() => {}}
       /> */}
-
+        </form>
         <S.DeleteTestBtn onClick={handleDeleteTest}>
           <S.DeleteTestBtnIcon />
           удалить тест
