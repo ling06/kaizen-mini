@@ -1,7 +1,7 @@
 import { api } from './api';
-import { IChapter, ICreateChapterData, IUpdateChapterData } from '@/shared/types/chapter.types';
-import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/types/common.types';
-import { ISetPositionsReq, ISetPositionsRes } from '@/shared/types/course.types';
+import { IChapter, ICreateChapterData, IUpdateChapterData } from '@/shared/model/types/chapter.types';
+import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/model/types/common.types';
+import { ISetPositionsReq, ISetPositionsRes } from '@/shared/model/types/course.types';
 
 type IChapterRes = IDefaultResWithData<IChapter>;
 

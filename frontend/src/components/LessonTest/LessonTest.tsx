@@ -1,4 +1,4 @@
-import { ITest } from '@/shared/types/lessonTest.types';
+import { ITest } from '@/shared/model/types/lessonTest.types';
 import * as S from './styles';
 import { RadioBtn } from './RadioBtn';
 import { useEffect, useState } from 'react';

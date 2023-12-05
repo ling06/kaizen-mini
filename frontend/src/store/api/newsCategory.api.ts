@@ -3,9 +3,9 @@ import {
   INewsCategory,
   INewsCategoryMutationReq,
   INewsCategoryMutationRes,
-} from '@/shared/types/news.types';
+} from '@/shared/model/types/news.types';
 import { api } from './api';
-import { IDefaultReqWithId, IDefaultRes } from '@/shared/types/common.types';
+import { IDefaultReqWithId, IDefaultRes } from '@/shared/model/types/common.types';
 
 export const newsCategoryApi = api.injectEndpoints({
   endpoints: (builder) => ({

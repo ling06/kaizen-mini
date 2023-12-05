@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './styles';
-import { INews } from '@/shared/types/news.types';
+import { INews } from '@/shared/model/types/news.types';
 import { useEffect, useState } from 'react';
 // import { IEditorJsData } from '@/types/editorJs.types';
 import { NewsRequisites } from '../NewsRequisites';

@@ -1,6 +1,6 @@
-import { UserAvatar } from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/components/UserAvatar';
 import * as S from './styles';
-import { IUser } from '@/shared/types/user.types';
+import { IUser } from '@/shared/model/types/user.types';
 import { RuleSet } from 'styled-components';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';

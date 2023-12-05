@@ -1,6 +1,6 @@
 import { SearchUserInput } from '@/feature/usersFilter/ui/SearchUserInput';
 import { Layout } from '@/layouts/Layout';
-import { Title } from '@/shared/ui/BigTitle';
+import { Title } from '@/shared/ui/components/BigTitle';
 import { WhiteBox } from '@/shared/ui/layouts/WhiteBox';
 import { css } from 'styled-components';
 import { UsersList } from './ui/UsersList';

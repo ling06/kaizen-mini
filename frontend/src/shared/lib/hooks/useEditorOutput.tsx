@@ -1,5 +1,5 @@
 import { EditorYoutubeFrame } from '@/components/EditorYoutubeFrame';
-import { IEditorJsData } from '@/shared/types/editorJs.types';
+import { IEditorJsData } from '@/shared/model/types/editorJs.types';
 import * as C from '@styles/components';
 import { ReactNode } from 'react';
 

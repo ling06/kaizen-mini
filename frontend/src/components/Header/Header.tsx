@@ -6,7 +6,7 @@ import { BurgerBtn } from './BurgerBtn';
 import { useEffect, useState } from 'react';
 import { BurgerMenu } from './BurgerMenu';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/shared/constants';
+import { MediaQueries } from '@/shared/model/constants';
 import { Link } from 'react-router-dom';
 
 export function Header() {

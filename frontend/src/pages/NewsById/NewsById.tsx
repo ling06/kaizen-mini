@@ -6,7 +6,7 @@ import * as C from "@styles/components";
 import { NewsByIdContent } from "@/components/NewsByIdContent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { MediaQueries } from "@/shared/constants";
+import { MediaQueries } from "@/shared/model/constants";
 
 export function NewsById() {
   const navigate = useNavigate();

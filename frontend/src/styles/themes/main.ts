@@ -1,4 +1,4 @@
- import { IBaseTheme } from "@/shared/types/types";
+ import { IBaseTheme } from "@/shared/model/types/types";
 
 const baseTheme: IBaseTheme = {
   colors: {

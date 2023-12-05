@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import editIcon from '@assets/images/editIcon.svg';
 import addIcon from '@assets/images/addIcon.svg';
-import { ADMIN_BTN_TYPES } from '@/shared/constants';
+import { ADMIN_BTN_TYPES } from '@/shared/model/constants';
 
 interface IAdminBtn {
   $type: string;

@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 import { CourseContent } from '@/components/CourseContent';
 import { useGetChapterByIdQuery } from '@/store/api/chapter.api';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/shared/constants';
+import { MediaQueries } from '@/shared/model/constants';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { NavPopup } from '@/components/NavPopup';
 

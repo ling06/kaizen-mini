@@ -1,4 +1,4 @@
-import { ITest } from "@/shared/types/lessonTest.types";
+import { ITest } from "@/shared/model/types/lessonTest.types";
 import { EmptyAnswer } from "@/shared/lib/EmptyAnswer";
 import { EmptyTest } from "@/shared/lib/EmptyTest";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";

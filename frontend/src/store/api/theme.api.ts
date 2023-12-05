@@ -1,7 +1,7 @@
-import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/types/common.types';
-import { ICreateThemeData, ITheme, IUpdateThemeData } from '@/shared/types/theme.types';
+import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/model/types/common.types';
+import { ICreateThemeData, ITheme, IUpdateThemeData } from '@/shared/model/types/theme.types';
 import { api } from './api';
-import { ISetPositionsRes, ISetPositionsReq } from '@/shared/types/course.types';
+import { ISetPositionsRes, ISetPositionsReq } from '@/shared/model/types/course.types';
 
 type TThemeRes = IDefaultResWithData<ITheme>;
 

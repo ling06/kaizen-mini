@@ -1,5 +1,5 @@
-import { APHORISMS } from '@/shared/constants';
-import { IAphorism } from '@/shared/types';
+import { APHORISMS } from '@/shared/model/constants';
+import { IAphorism } from '@/shared/model/types';
 
 /**
  * Returns a random aphorism from the list of aphorisms, or a default aphorism if the list is empty.

@@ -4,7 +4,7 @@ import * as S from './styles';
 import { useCreateThemeMutation, useUpdateThemeMutation } from '@/store/api/theme.api';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { useActions } from '@/shared/lib/hooks/useActions';
-import { MODAL_TYPES } from '@/shared/constants';
+import { MODAL_TYPES } from '@/shared/model/constants';
 
 export function CreateThemeForm() {
   const { setModalOpen, setLoaderActive } = useActions();

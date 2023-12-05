@@ -1,4 +1,4 @@
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/model/constants';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import { useActions } from '@/shared/lib/hooks/useActions';

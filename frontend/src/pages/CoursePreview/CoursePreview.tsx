@@ -9,7 +9,7 @@ import { useActions } from '@/shared/lib/hooks/useActions';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/shared/constants';
+import { MediaQueries } from '@/shared/model/constants';
 import { NoAvailable } from '@/components/NoAvailable';
 
 export function CoursePreview() {

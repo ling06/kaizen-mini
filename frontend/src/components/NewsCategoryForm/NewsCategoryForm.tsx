@@ -9,7 +9,7 @@ import * as S from "./styles";
 import { useTypedSelector } from "@/shared/lib/hooks/useTypedSelector";
 import { Category } from "./Category";
 import { useActions } from "@/shared/lib/hooks/useActions";
-import { INewsCategory } from "@/shared/types/news.types";
+import { INewsCategory } from "@/shared/model/types/news.types";
 import { useEffect } from "react";
 
 export function NewsCategoryForm() {

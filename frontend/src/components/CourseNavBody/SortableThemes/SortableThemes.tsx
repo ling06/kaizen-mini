@@ -6,11 +6,11 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { useSetThemesPositionsMutation } from '@/store/api/theme.api';
 import { selectUser } from '@/store/api/user.api';
-import { ITheme } from '@/shared/types/theme.types';
+import { ITheme } from '@/shared/model/types/theme.types';
 import { useState, useEffect } from 'react';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useParams } from 'react-router-dom';
-import { CourseEntities } from '@/shared/types/course.types';
+import { CourseEntities } from '@/shared/model/types/course.types';
 import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
 
 interface IThemeWithDrag extends ITheme {

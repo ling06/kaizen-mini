@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as S from './styles';
-import { ADMIN_BTN_TYPES, USER_ROLES } from '@/shared/constants';
+import { ADMIN_BTN_TYPES, USER_ROLES } from '@/shared/model/constants';
 import { ControlsPopup, IControlsPopup } from '../ControlsPopup';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';

@@ -1,4 +1,4 @@
-import { IAnswer } from "@/shared/types/lessonTest.types";
+import { IAnswer } from "@/shared/model/types/lessonTest.types";
 import { nanoid } from "@reduxjs/toolkit";
 
 

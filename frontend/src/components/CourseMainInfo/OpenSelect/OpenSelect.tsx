@@ -1,7 +1,7 @@
 import { AdminBtn } from '@/components/AdminBtn';
 import * as S from './styles';
-import { ICourse } from '@/shared/types/course.types';
-import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/constants';
+import { ICourse } from '@/shared/model/types/course.types';
+import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/model/constants';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useDeleteCourseMutation, useRestoreCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
 

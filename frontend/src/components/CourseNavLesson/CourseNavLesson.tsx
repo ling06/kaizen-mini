@@ -1,4 +1,4 @@
-import { ILesson } from '@/shared/types/lesson.types';
+import { ILesson } from '@/shared/model/types/lesson.types';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
 import * as C from '@styles/components';

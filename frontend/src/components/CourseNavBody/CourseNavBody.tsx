@@ -1,8 +1,8 @@
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { AdminBtn } from '../AdminBtn';
 import * as S from './styles';
-import { MODAL_TYPES } from '@/shared/constants';
-import { IChapter } from '@/shared/types/chapter.types';
+import { MODAL_TYPES } from '@/shared/model/constants';
+import { IChapter } from '@/shared/model/types/chapter.types';
 import { FadedTitle } from '../FadedTitle';
 import { SortableThemes } from './SortableThemes';
 interface ICourseNavBodyProps {

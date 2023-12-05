@@ -1,4 +1,4 @@
-import { IUser } from '@/shared/types/user.types';
+import { IUser } from '@/shared/model/types/user.types';
 import * as S from './styles';
 import { useEffect, useState } from 'react';
 import { getInitials } from '@/shared/lib/getInitials';

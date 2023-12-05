@@ -1,4 +1,4 @@
-import { IImage, IUploadedImage } from '@/shared/types/image.types';
+import { IImage, IUploadedImage } from '@/shared/model/types/image.types';
 import { CustomFileInput } from '../CustomFileInput';
 import { Image } from './Image';
 import * as S from './styles';

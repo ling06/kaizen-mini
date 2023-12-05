@@ -1,14 +1,14 @@
 import { SortableItem } from '@/components/SortableItem';
-import { USER_ROLES } from '@/shared/constants';
+import { USER_ROLES } from '@/shared/model/constants';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { CourseProgrammCard } from '../CourseProgrammCard';
-import { IChapter } from '@/shared/types/chapter.types';
+import { IChapter } from '@/shared/model/types/chapter.types';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { selectUser } from '@/store/api/user.api';
 import { useEffect, useState } from 'react';
 import { useSetChaptersPositionsMutation } from '@/store/api/chapter.api';
-import { CourseEntities } from '@/shared/types/course.types';
+import { CourseEntities } from '@/shared/model/types/course.types';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
 // import * as S from './styles';

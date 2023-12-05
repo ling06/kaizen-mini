@@ -5,9 +5,9 @@ import '@styles/editorjs.css';
 import { useCreateCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { MODAL_TYPES } from '@/shared/constants';
+import { MODAL_TYPES } from '@/shared/model/constants';
 import { AddImage } from '../AddImage';
-import { IImage, IUploadedImage } from '@/shared/types/image.types';
+import { IImage, IUploadedImage } from '@/shared/model/types/image.types';
 import { useNavigate } from 'react-router-dom';
 
 export function CreateCourseForm() {

@@ -1,13 +1,10 @@
 import { Layout } from '@/layouts/Layout';
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { Title } from '@/shared/ui/BigTitle';
+import { Title } from '@/shared/ui/components/BigTitle';
 import { WhiteBox } from '@/shared/ui/layouts/WhiteBox';
 import { css } from 'styled-components';
 import { SearchInListInput } from './ui/SearchInListInput';
-// import { AddedItem } from './ui/AddedItem';
 
 export function User() {
-  const accesses = useTypedSelector((state) => state.accesses);
 
   const layoutStyles = css`
     max-width: 1266px;
@@ -22,10 +19,10 @@ export function User() {
     <Layout styles={layoutStyles}>
       <Title
         title={'Петров Иван'}
-        styles={titleStyles}
+        styles={titleStyles} 
       />
       <WhiteBox>
-        <SearchInListInput />
+        <SearchInListInput onChange={(value) => console.log(value)}/>
       </WhiteBox>
     </Layout>
   );

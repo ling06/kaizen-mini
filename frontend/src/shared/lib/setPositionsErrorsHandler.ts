@@ -1,4 +1,4 @@
-import { ISetPositionsRes } from '@/shared/types/course.types';
+import { ISetPositionsRes } from '@/shared/model/types/course.types';
 import { arrayMove } from '@dnd-kit/sortable';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';

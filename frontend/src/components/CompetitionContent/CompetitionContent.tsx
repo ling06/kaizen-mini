@@ -16,7 +16,7 @@ import { ErrorBlock } from "../ErrorBlock";
 // import { useState, useEffect } from 'react';
 import { NewsRequisites } from "../NewsRequisites";
 import { useActions } from "@/shared/lib/hooks/useActions";
-import { MediaQueries } from "@/shared/constants";
+import { MediaQueries } from "@/shared/model/constants";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Content } from "@/layouts/Content";

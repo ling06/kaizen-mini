@@ -4,7 +4,7 @@ import * as S from './styles';
 import * as C from '@styles/components';
 import { css } from 'styled-components';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
-import { ITheme } from '@/shared/types/theme.types';
+import { ITheme } from '@/shared/model/types/theme.types';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';

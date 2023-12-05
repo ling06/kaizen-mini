@@ -1,4 +1,4 @@
-import { ILayout } from '@/shared/types';
+import { ILayout } from '@/shared/model/types';
 import * as S from './styles';
 
 interface IContentProps extends ILayout {

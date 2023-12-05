@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { Competition } from "../Competition";
 import { useCallback, useRef } from "react";
-import { ICompetition, IGetAllCompetitions } from "@/shared/types/competition.types";
+import { ICompetition, IGetAllCompetitions } from "@/shared/model/types/competition.types";
 import { useNavigate } from "react-router-dom";
 import { LoadingSmall } from "../LoadingSmall";
 import { ErrorBlock } from "../ErrorBlock";

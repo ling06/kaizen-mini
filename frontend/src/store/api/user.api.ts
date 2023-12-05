@@ -1,4 +1,4 @@
-import { IUserWhoamiRes } from '@/shared/types/user.types';
+import { IUserWhoamiRes } from '@/shared/model/types/user.types';
 import { api } from './api';
 
 //TODO: add user api

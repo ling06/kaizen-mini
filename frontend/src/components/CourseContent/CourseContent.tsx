@@ -12,7 +12,7 @@ import { ErrorBlock } from '../ErrorBlock';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { LessonTest } from '../LessonTest';
 import { useMediaQuery } from '@/shared/lib/hooks/useMediaQuery';
-import { MediaQueries } from '@/shared/constants';
+import { MediaQueries } from '@/shared/model/constants';
 import { useCheckLesson } from '@/shared/lib/hooks/useCheckLesson';
 
 export function CourseContent() {

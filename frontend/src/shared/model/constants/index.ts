@@ -1,4 +1,4 @@
-import { IAphorism, INavLinks } from '@/shared/types';
+import { IAphorism, INavLinks } from '@/shared/model/types';
 
 export const ADMIN_BTN_TYPES = {
   edit: 'edit',

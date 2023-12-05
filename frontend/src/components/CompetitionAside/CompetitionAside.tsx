@@ -4,7 +4,7 @@ import { BackBtn } from '../BackBtn';
 import { NavList } from '../NavList';
 import { useGetAllCompetitionsQuery, useGetCompetitionByIdQuery } from '@/store/api/competition.api';
 import { NavListItem } from '../NavListItem';
-import { MediaQueries } from '@/shared/constants';
+import { MediaQueries } from '@/shared/model/constants';
 import { useMediaQuery } from '@mui/material';
 
 export function CompetitionAside() {

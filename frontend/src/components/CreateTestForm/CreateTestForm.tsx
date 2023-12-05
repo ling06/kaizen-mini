@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as S from './styles';
 import { Title } from './Title';
 import { Variant } from './Variant';
-import { ITest } from '@/shared/types/lessonTest.types';
+import { ITest } from '@/shared/model/types/lessonTest.types';
 import { useActions } from '@/shared/lib/hooks/useActions';
 
 interface ICreateTestFormProps {

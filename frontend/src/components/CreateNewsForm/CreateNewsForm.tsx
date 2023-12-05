@@ -8,7 +8,7 @@ import {
   useUpdateNewsMutation,
 } from "@/store/api/news.api";
 import { useActions } from "@/shared/lib/hooks/useActions";
-import { MODAL_TYPES } from "@/shared/constants";
+import { MODAL_TYPES } from "@/shared/model/constants";
 import { useTypedSelector } from "@/shared/lib/hooks/useTypedSelector";
 import { CkEditor } from "../CkEditor";
 
