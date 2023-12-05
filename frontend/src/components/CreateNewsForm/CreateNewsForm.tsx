@@ -1,93 +1,107 @@
-import { useEffect, useState } from 'react';
-import * as S from './styles';
-import { FormControls } from '../FormControls';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useCreateNewsMutation, useGetNewsByIdQuery, useUpdateNewsMutation } from '@/store/api/news.api';
-import { useActions } from '@/hooks/useActions';
-import { MODAL_TYPES } from '@/constants';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { CkEditor } from '../CkEditor';
+import { useEffect, useState } from "react";
+import * as S from "./styles";
+import { FormControls } from "../FormControls";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useCreateNewsMutation,
+  useGetNewsByIdQuery,
+  useUpdateNewsMutation,
+} from "@/store/api/news.api";
+import { useActions } from "@/hooks/useActions";
+import { MODAL_TYPES } from "@/constants";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { CkEditor } from "../CkEditor";
 
 interface ICreateNewsFormProps {
   type: string;
 }
 
 export function CreateNewsForm({ type }: ICreateNewsFormProps) {
-  const { setModalOpen, setModalType, setNewsCategories, setLoaderActive } = useActions();
+  const {
+    setModalOpen,
+    setModalType,
+    setNewsCategories,
+    setLoaderActive,
+    deleteNewsCategory,
+  } = useActions();
+
+  const setCategory = useTypedSelector((state) => state.news.newsCategories);
   const [createNews] = useCreateNewsMutation();
   const navigate = useNavigate();
   const { newsId } = useParams();
-  const [NewsName, setNewsName] = useState<string>('');
+  const [NewsName, setNewsName] = useState<string>("");
   const [isValidName, setValidName] = useState<boolean>(false);
   const [isChangedName, setChangedName] = useState<boolean>(false);
   const categories = useTypedSelector((state) => state.news.newsCategories);
-  const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
+  const { data, isFetching,  } = useGetNewsByIdQuery(Number(newsId), {
     skip: !newsId,
   });
   const [updateNews] = useUpdateNewsMutation();
-  const [ckEditorData, setCkEditorData] = useState<string>('');
+  const [ckEditorData, setCkEditorData] = useState<string>("");
+  const [isNameCategory, setNameCategory] = useState(false);
 
   useEffect(() => {
-    if (type === 'edit' && data) {
+    if (type === "edit" && data) {
       setNewsName(data.data.title);
       setValidName(true);
       setChangedName(false);
       setNewsCategories(data.data.categories || []);
     }
-  }, [data, setNewsCategories, type]);
+  }, [data, setNewsCategories, type, isNameCategory]);
 
   const handleConfirm = async () => {
     // const editorData = await editor?.save().then((data) => data);
-
     if (!isValidName) {
       setChangedName(true);
       return;
     }
 
-    if (type !== 'edit') {
+    if (type !== "edit") {
       createNews({
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
-          if ('data' in res && res.data.result) {
-            navigate('/news');
+          if ("data" in res && res.data.result) {
+            navigate("/news");
           } else {
-            alert('Произошла ошибка при создании новости. Попробуйте ещё раз!');
+            alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
           }
         })
         .catch((err) => {
           setLoaderActive(false);
           console.error(err);
-          alert('Произошла ошибка при создании новости. Попробуйте ещё раз!');
+          alert("Произошла ошибка при создании новости. Попробуйте ещё раз!");
         });
       setLoaderActive(true);
     }
 
-    if (type === 'edit') {
+    if (type === "edit") {
       updateNews({
         id: Number(newsId),
         title: NewsName,
         text: ckEditorData || "",
-        NewsCategory: categories,
+        NewsCategory: setCategory,
       })
         .then((res) => {
-          if ('data' in res && res.data.result) {
-            navigate('/news');
+          if ("data" in res && res.data.result) {
+            navigate("/news");
           }
         })
         .catch((err) => {
           setLoaderActive(false);
           console.error(err);
-          alert('Произошла ошибка при редактировании новости. Попробуйте ещё раз!');
+          alert(
+            "Произошла ошибка при редактировании новости. Попробуйте ещё раз!"
+          );
         });
       setLoaderActive(true);
     }
   };
 
   const handleCancel = () => {
-    navigate('/news');
+    navigate("/news");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -105,8 +119,8 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
   const controlsData = {
     names: {
-      confirm: type === 'edit' ? 'Сохранить' : 'Создать новость',
-      cancel: 'Отмена',
+      confirm: type === "edit" ? "Сохранить" : "Создать новость",
+      cancel: "Отмена",
     },
     handlers: {
       confirm: handleConfirm,
@@ -116,11 +130,17 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
 
   const handleSetCkEditorData = (data: string) => {
     setCkEditorData(data);
-  }
+  };
+
+  const handleСancelCategory = (category: number) => {
+    deleteNewsCategory({ id: category });
+  };
 
   return (
     <>
-      <S.Title>{type === 'create' ? 'Создание новости' : 'Редактирование новости'}</S.Title>
+      <S.Title>
+        {type === "create" ? "Создание новости" : "Редактирование новости"}
+      </S.Title>
       <S.NewsNameInput
         $isValid={isValidName}
         $isChanged={isChangedName}
@@ -130,22 +150,35 @@ export function CreateNewsForm({ type }: ICreateNewsFormProps) {
         placeholder="Введите название новости (обязательно)"
       />
       {/* <S.EditorJsWrapper id="editorjs" /> */}
-      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""}/>
-      {categories.length > 0 && (
-        <S.CategoriesList>
-          {categories.map((category) => (
-            <S.Category>{category.title}</S.Category>
+      <CkEditor onChange={handleSetCkEditorData} data={data?.data.text || ""} />
+      <S.CategoriesList>
+        {setCategory.length > 0 &&
+          setCategory.map((category) => (
+            <S.Category>
+              <S.CategoryText>{category.title}</S.CategoryText>
+              <S.CategoryImgDelete
+                onClick={() => {
+                  if (category.id !== undefined)
+                    handleСancelCategory(category.id);
+                }}
+              />
+            </S.Category>
           ))}
-        </S.CategoriesList>
-      )}
-      <S.AddCategory onClick={handleOpenCategoriesModal}>
-        <S.AddIcon />
-        добавить категории
-      </S.AddCategory>
+
+        {categories.length == 0 ? (
+          <S.AddCategory onClick={handleOpenCategoriesModal}>
+            <S.AddIcon />
+            Добавить категории
+          </S.AddCategory>
+        ) : (
+          <S.AddCategoryBtn onClick={handleOpenCategoriesModal} />
+        )}
+      </S.CategoriesList>
+
       <S.Divider />
       <FormControls
         {...controlsData}
-        containerStyles={{ padding: '25px 0px 25px' }}
+        containerStyles={{ padding: "25px 0px 25px" }}
       />
     </>
   );
