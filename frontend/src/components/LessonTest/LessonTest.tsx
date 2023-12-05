@@ -6,6 +6,7 @@ import { useSendAnswerMutation } from "@/store/api/lessonTest.api";
 import { useActions } from "@/hooks/useActions";
 import { CheckedAnswer } from "./CheckedAnswer";
 import { CustomCheckbox } from "../CustomCheckbox/CustomCheckbox";
+
 interface ILessonTestProps {
   data: ITest;
 }
@@ -29,15 +30,23 @@ export function LessonTest({ data }: ILessonTestProps) {
   const [isTestPassed, setIsTestPassed] = useState<boolean>(false);
   const [isArrayAnswer, setArrayAnswer] = useState<Array<IAnswer>>([]);
   const [isMultiple, setMultiple] = useState<boolean>(false);
-
+  const [isRightAnswers, setRightAnswers] = useState<number>(0);
   useEffect(() => {
     let rightAnswers = 0;
+    let userRightAnswers = 0;
     data.answers.forEach((answer) => {
       if (answer.right_answer === "1") {
         rightAnswers += 1;
       }
     });
 
+    data.userTestAnswer.forEach((userAnswer) => {
+      if (userAnswer.is_right === 1) {
+        userRightAnswers += 1;
+      }
+    });
+
+    setRightAnswers(userRightAnswers);
     if (rightAnswers > 1) {
       setMultiple(true);
     }
@@ -78,7 +87,7 @@ export function LessonTest({ data }: ILessonTestProps) {
         if (
           isMultiple &&
           !!answer.right_answer &&
-          Number(answer.id) != userAnswer?.answer
+          Number(answer.id) !== userAnswer?.answer
         ) {
           setIsUserRightAnswer("notAllAnswers");
           return true;
@@ -168,8 +177,8 @@ export function LessonTest({ data }: ILessonTestProps) {
             const userAnswer = handleUserAnswers(answer);
             // неверный ответ
             if (
-              !answer.right_answer &&
-              Number(answer.id) === userAnswer?.answer
+              Number(answer.id) === userAnswer?.answer &&
+              !answer.right_answer
             ) {
               return <CheckedAnswer data={answer} />;
             }
@@ -177,7 +186,8 @@ export function LessonTest({ data }: ILessonTestProps) {
             if (
               (!!answer.right_answer &&
                 Number(answer.id) === userAnswer?.answer) ||
-              (!isMultiple && !!answer.right_answer)
+              (!isMultiple && !!answer.right_answer) ||
+              (isMultiple && isRightAnswers === 0 && !!answer.right_answer)
             ) {
               return <CheckedAnswer data={answer} />;
             }
@@ -185,7 +195,8 @@ export function LessonTest({ data }: ILessonTestProps) {
             if (
               isMultiple &&
               !!answer.right_answer &&
-              Number(answer.id) !== userAnswer?.answer
+              Number(answer.id) !== userAnswer?.answer &&
+              isRightAnswers !== 0
             ) {
               return <CheckedAnswer data={answer} unspecified={true} />;
             }
