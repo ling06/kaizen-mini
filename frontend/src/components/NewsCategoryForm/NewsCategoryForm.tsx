@@ -10,7 +10,7 @@ import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { Category } from "./Category";
 import { useActions } from "@/hooks/useActions";
 import { INewsCategory } from "@/types/news.types";
-
+import { useEffect } from "react";
 
 export function NewsCategoryForm() {
   const { data, isError, isFetching, isLoading } = useGetNewsCategoryQuery();
@@ -20,14 +20,27 @@ export function NewsCategoryForm() {
   const currentCategories = useTypedSelector(
     (state) => state.news.newsCategories
   );
-  const { setLoaderActive,updateNewsCategory, deleteNewsCategory, addNewsCategory, setModalOpen,  } =
-    useActions();
+  const {
+    setLoaderActive,
+    updateNewsCategory,
+    deleteNewsCategory,
+    addNewsCategory,
+    setModalOpen,
+  } = useActions();
+
+  useEffect(() => {
+    if (isFetching) {
+      setLoaderActive(true);
+    } else {
+      setLoaderActive(false);
+    }
+  }, [isFetching]);
 
   const handleCreateCategory = () => {
     createCategory({ title: "Новая категория" }).then(() => {
       setLoaderActive(false);
     });
-    setLoaderActive(true);
+    // setLoaderActive(true);
   };
 
   const handleDeleteCategory = (id: number) => {
@@ -46,8 +59,7 @@ export function NewsCategoryForm() {
 
   const handleUpdateCategory = (id: number, title: string) => {
     updateCategory({ id, title }).then(() => {
-      updateNewsCategory(true)
-      setLoaderActive(false);
+      updateNewsCategory({ id, title });
     });
     setLoaderActive(true);
   };
