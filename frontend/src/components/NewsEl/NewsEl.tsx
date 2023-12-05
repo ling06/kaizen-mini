@@ -10,6 +10,7 @@ import {
   useUpdateNewsMutation,
 } from '@/store/api/news.api';
 import { useActions } from '@/shared/lib/hooks/useActions';
+import { useTypedSelector } from "@/shared/lib/hooks/useTypedSelector";
 
 interface INewsElProps {
   data: INews;
@@ -24,6 +25,9 @@ export function NewsEl({ data }: INewsElProps) {
   const [restoreNews] = useRestoreNewsMutation();
   const [update] = useUpdateNewsMutation();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
+  const setCategory = useTypedSelector((state) => state.news.newsCategories);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -87,6 +91,7 @@ export function NewsEl({ data }: INewsElProps) {
   const handleVisibileNews = () => {
     update({
       id: data.id,
+      NewsCategory: setCategory,
       status: Number(data.status) === 0 ? 1 : 0,
     });
   };
