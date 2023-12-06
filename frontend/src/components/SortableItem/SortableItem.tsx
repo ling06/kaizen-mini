@@ -26,8 +26,6 @@ export function SortableItem({ id, children, styles = {}, isDraggable=true, data
     ...styles,
   };
 
-  console.log(style)
-
   return (
     <div
       ref={setNodeRef}

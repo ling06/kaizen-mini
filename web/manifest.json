@@ -96,13 +96,15 @@
       "assets/close-icon.svg",
       "assets/grey-arrow-right.svg",
       "assets/book.svg",
-      "assets/Home.svg",
+      "assets/home.svg",
       "assets/checklist.svg",
       "assets/addIconWhite.svg",
+      "assets/cross-category.svg",
       "assets/mainLogo.svg",
       "assets/burger-icon-open.svg",
       "assets/burger-icon-close.svg",
       "assets/logo-mobile.svg",
+      "assets/done-white.svg",
       "assets/course-stub-img.webp",
       "assets/arrowRight.svg",
       "assets/loadingLogo.svg",
@@ -116,23 +118,11 @@
       "assets/caret-up-mob-news.svg",
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
-      "assets/external-link.svg",
-<<<<<<< HEAD
-      "assets/imagesIcon.svg",
-      "assets/editIcon-with-pen.svg",
-      "assets/deleteIcon-white.svg",
-=======
       "assets/img-404.webp",
       "assets/img-404-mob.webp",
       "assets/imagesIcon.svg",
       "assets/editIcon-with-pen.svg",
       "assets/deleteIcon-white.svg",
-      "assets/checklist.svg",
-      "assets/addIconWhite.svg",
-      "assets/cross-category.svg",
-      "assets/book.svg",
-      "assets/Home.svg",
->>>>>>> 3f8bb9323f066d0aa23aa9164bd9e82ac69e4878
       "assets/Save.svg",
       "assets/checkbox.svg",
       "assets/checkbox-checked.svg",
@@ -234,10 +224,6 @@
     "file": "assets/Montserrat-SemiBold.woff2",
     "src": "src/assets/fonts/Montserrat-SemiBold.woff2"
   },
-  "src/assets/images/Home.svg": {
-    "file": "assets/Home.svg",
-    "src": "src/assets/images/Home.svg"
-  },
   "src/assets/images/Save.svg": {
     "file": "assets/Save.svg",
     "src": "src/assets/images/Save.svg"
@@ -334,6 +320,10 @@
     "file": "assets/dnd-btn.svg",
     "src": "src/assets/images/dnd-btn.svg"
   },
+  "src/assets/images/done-white.svg": {
+    "file": "assets/done-white.svg",
+    "src": "src/assets/images/done-white.svg"
+  },
   "src/assets/images/done.svg": {
     "file": "assets/done.svg",
     "src": "src/assets/images/done.svg"
@@ -351,7 +341,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-    "file": "assets/external-link.svg",
+    "file": "assets/moreIcon.svg",
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {
@@ -369,6 +359,10 @@
   "src/assets/images/hideIcon.svg": {
     "file": "assets/hideIcon.svg",
     "src": "src/assets/images/hideIcon.svg"
+  },
+  "src/assets/images/home.svg": {
+    "file": "assets/home.svg",
+    "src": "src/assets/images/home.svg"
   },
   "src/assets/images/imagesIcon.svg": {
     "file": "assets/imagesIcon.svg",
