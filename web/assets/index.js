@@ -25907,7 +25907,6 @@ var require_assets = __commonJS({
         transition: transition2,
         ...styles
       };
-      console.log(style2);
       return /* @__PURE__ */ jsxRuntimeExports.jsx(
         "div",
         {
