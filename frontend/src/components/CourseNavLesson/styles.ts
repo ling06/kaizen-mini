@@ -7,6 +7,7 @@ interface IContainer {
 export const Container = styled.div<IContainer>`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
   margin-bottom: 30px;
   cursor: pointer;

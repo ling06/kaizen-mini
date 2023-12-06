@@ -11,6 +11,7 @@ import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/constants';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { NavPopup } from '@/components/NavPopup';
+import { css, styled } from 'styled-components';
 
 export function Course() {
   const { setActiveChapterId, setLoaderActive, setNavPopup } = useActions();
@@ -40,16 +41,33 @@ export function Course() {
     }
   }, [chapterId, setActiveChapterId]);
 
+  const HideOverflow = styled(S.NavContainer)`
+    overflow: hidden scroll;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      transform: translateX(-100px);
+      background: rgb(0, 122, 255);
+      background-color: rgb(0, 122, 255);
+      /* background-color: #F1F1F1;
+      background: #F1F1F1; */
+      border-radius: 10px;
+    }
+  `;
+
   return (
     <>
       {isError && <ErrorBlock />}
       <S.Container>
         <S.bodyOverflow />
         {!isMobile && data && (
-          <S.NavContainer>
+          <HideOverflow>
             <CourseNavHead data={data.data} />
             <CourseNavBody data={data.data} />
-          </S.NavContainer>
+          </HideOverflow>
         )}
         {isMobile && data && isNavPopup && <NavPopup chapterData={data.data} />}
         <S.ContentContainer ref={ContentContainer}>

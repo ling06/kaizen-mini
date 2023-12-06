@@ -12,6 +12,7 @@ import { useActions } from '@/hooks/useActions';
 import { useParams } from 'react-router-dom';
 import { CourseEntities } from '@/types/course.types';
 import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
+import { styled } from 'styled-components';
 
 interface IThemeWithDrag extends ITheme {
   isDraggable: boolean;
@@ -86,9 +87,11 @@ export function SortableThemes({ data }: ISortableThemesProps) {
       return [...themes];
     });
   };
-
+  
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext 
+      onDragEnd={handleDragEnd}
+    >
       {themes && (
         <SortableContext items={themes.map((theme) => theme.id)}>
           {themes.map((theme) => {

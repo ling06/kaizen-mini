@@ -102,7 +102,8 @@ export function CourseNavTheme({
         <Accordion
           sx={{ width: '100%', boxShadow: 'unset' }}
           expanded={Number(themeId) === data.id}
-          onChange={handleChange(data.id)}>
+          onChange={handleChange(data.id)}
+          >
           <AccordionSummary
             sx={{ padding: 0 }}
             expandIcon={<div style={{ display: 'none' }}></div>}
@@ -117,7 +118,7 @@ export function CourseNavTheme({
                   }}
                   onMouseLeave={setNotDraggable}
                   styles={css`
-                    margin-right: 20px;
+                    margin-right: auto;
                   `}
                 />
                 <C.AccordionIcon $active={Number(themeId) === data.id} />
@@ -142,7 +143,9 @@ export function CourseNavTheme({
               />
             </S.AccSum>
           </AccordionSummary>
-          <AccordionDetails sx={{ paddingLeft: '102px', paddingRight: 0 }}>
+          <AccordionDetails 
+            sx={{ paddingLeft: '102px', paddingRight: 0 }}
+          >
             {data.lessons && <SortableLessons data={data.lessons} />}
           </AccordionDetails>
         </Accordion>

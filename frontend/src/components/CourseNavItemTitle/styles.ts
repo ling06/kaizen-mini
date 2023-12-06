@@ -6,6 +6,7 @@ interface ITitle {
 }
 
 export const Title = styled.p<ITitle>`
+  margin-right: auto;
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;

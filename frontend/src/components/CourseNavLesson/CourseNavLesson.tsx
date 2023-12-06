@@ -108,7 +108,7 @@ export function CourseNavLesson({ data, setDraggable, setNotDraggable }: ICourse
       {data.isChecked && <C.DoneIcon />}
       <AdminBtn
         popupName="Урок"
-        styles={{ marginLeft: 'auto' }}
+        // styles={{ marginLeft: 'auto' }}
         type={'edit'}
         onClick={() => {}}
         popupHandlers={{
