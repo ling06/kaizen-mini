@@ -43,7 +43,7 @@ const adminRoutes = [
 
 const mobileRoutes = [
   {
-    path: '/courses/:courseId/:chapterId/:themeId/:lessonId',
+    path: '/courses/:courseId/:chapterId/:themeId?/:lessonId?',
     element: <CourseMob />,
   },
 ];

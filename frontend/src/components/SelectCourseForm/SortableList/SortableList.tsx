@@ -28,9 +28,15 @@ export function SortableList({ data }: ISortableListProps) {
     setCourses(newCoursesSorted);
   }, [data]);
 
-  const sortableItemStyles = {
+  // const itemStyles = {
+  //   height: "11.9vw",
+  // }
+  
+  const grayItem = {
     backgroundColor: '#f1f1f1',
-  };
+  }
+  // const grayItemStyles = Object.assign({}, itemStyles, {backgroundColor: '#f1f1f1'});
+  // console.log(grayItemStyles, itemStyles);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -81,7 +87,7 @@ export function SortableList({ data }: ISortableListProps) {
         <SortableContext items={courses.map((course) => course.id)}>
           {courses.map((course, index) => (
             <SortableItem
-              styles={index % 2 !== 0 ? sortableItemStyles : {}}
+              styles={index % 2 !== 0 ? grayItem : {}}
               key={course.id}
               id={course.id}
               isDraggable={course.isDraggable}>
