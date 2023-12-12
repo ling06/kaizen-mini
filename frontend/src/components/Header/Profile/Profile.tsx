@@ -21,6 +21,8 @@ export function Profile({ userData }: IProfileProps) {
     }
   }, [userData.name]);
 
+  
+
   return (
     <S.Container>
       <S.InitialsWrapper>

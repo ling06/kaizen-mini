@@ -81,6 +81,10 @@ function App() {
                 path={'/news/create-news'}
                 element={<CreateNews type={'create'} />}
               />
+              {/* <Route
+                path={'/admin/user-access-rights'}
+                element={}
+              /> */}
             </>
           )}
           {isMobile && (

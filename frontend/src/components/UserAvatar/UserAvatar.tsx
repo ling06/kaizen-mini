@@ -2,7 +2,7 @@ import * as S from './styles';
 
 interface IUserAvatar {
   image: string;
-  onError: () => void;
+  onError?: () => void;
 }
 
 /**

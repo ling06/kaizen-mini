@@ -1,8 +1,8 @@
-import { DEFAULT_WIDTH } from '@/constants';
-import styled, { css } from 'styled-components';
-import doneIcon from '@assets/images/done.svg';
-import accrodionIcon from '@assets/images/accordionIcon.svg';
-import { TextStyles } from './base-styles';
+import { DEFAULT_WIDTH } from "@/constants";
+import styled, { css } from "styled-components";
+import doneIcon from "@assets/images/done.svg";
+import accrodionIcon from "@assets/images/accordionIcon.svg";
+import { TextStyles } from "./base-styles";
 
 export const DarkOverlay = styled.div`
   position: fixed;
@@ -51,7 +51,7 @@ export const Text = styled.p<{ $isDeleted?: boolean }>`
   font-weight: 700;
   line-height: 120%;
   color: ${(props) => props.theme.colors.realBlack};
-  text-decoration: ${(props) => (props.$isDeleted ? 'line-through' : 'none')};
+  text-decoration: ${(props) => (props.$isDeleted ? "line-through" : "none")};
 
   @media ${(props) => props.theme.media.mobile} {
     font-size: 5.625vw;
@@ -85,10 +85,10 @@ export const Input = styled.input`
 `;
 
 export const SvgIcon = styled.svg.attrs({
-  width: '24',
-  height: '24',
-  viewBox: '0 0 24 24',
-  fill: 'none',
+  width: "24",
+  height: "24",
+  viewBox: "0 0 24 24",
+  fill: "none",
 })`
   path {
     transition: ${(props) => props.theme.utils.transition};
@@ -158,11 +158,11 @@ export const ProgressBar = styled.div<IProgressBar>`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
-    width: ${(props) => props.$progress + '%'};
+    width: ${(props) => props.$progress + "%"};
     height: 100%;
     border-radius: inherit;
     background-color: ${(props) => props.theme.colors.realBlack};
@@ -199,7 +199,7 @@ export const AccordionIcon = styled(Icon)<IAccordionIcon>`
   height: 24px;
   margin-right: 5px;
   transition: ${(props) => props.theme.utils.transition};
-  transform: ${(props) => (props.$active ? 'rotate(-180deg)' : 'none')};
+  transform: ${(props) => (props.$active ? "rotate(-180deg)" : "none")};
   background-image: url(${accrodionIcon});
 `;
 
@@ -270,3 +270,19 @@ export const EditorImg = styled.img`
 export const FlexColumn = styled(FlexContainer)`
   flex-direction: column;
 `;
+
+// admin styles
+
+export const AdminTitle = styled.h2`
+  color: #000;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+`;
+
+export const AdminText = styled(Text)`
+font-size: 15px;
+font-weight: 400;
+line-height: 120%;
+`
