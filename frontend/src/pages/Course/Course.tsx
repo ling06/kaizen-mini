@@ -42,19 +42,19 @@ export function Course() {
   }, [chapterId, setActiveChapterId]);
 
   const HideOverflow = styled(S.NavContainer)`
-    overflow: hidden scroll;
+    /* overflow: hidden scroll; */
+    overflow: hidden ;
+
 
     &::-webkit-scrollbar {
-      width: 10px;
+      /* width: 10px; */
     }
     
     &::-webkit-scrollbar-thumb {
-      transform: translateX(-100px);
+      /* transform: translateX(-100px);
       background: rgb(0, 122, 255);
       background-color: rgb(0, 122, 255);
-      /* background-color: #F1F1F1;
-      background: #F1F1F1; */
-      border-radius: 10px;
+      border-radius: 10px; */
     }
   `;
 
