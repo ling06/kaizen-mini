@@ -14,6 +14,8 @@ import { useDeleteThemeMutation, useRestoreThemeMutation } from '@/store/api/the
 import { CourseNavItemTitle } from '../CourseNavItemTitle';
 import { SortableLessons } from './SortableLessons';
 
+// import { styled } from '@mui/material';
+
 interface ICourseNavTheme {
   data: ITheme;
   courseId: number;
@@ -96,16 +98,27 @@ export function CourseNavTheme({
     navigate(path);
   };
 
+  // const styledTransition = css`
+  //   transition: all 0.3s ease;
+  // `
+
   return (
     <S.Container>
       <S.Theme>
         <Accordion
-          sx={{ width: '100%', boxShadow: 'unset' }}
+          sx={{ 
+            width: '100%', 
+            boxShadow: 'unset', 
+          }}
           expanded={Number(themeId) === data.id}
           onChange={handleChange(data.id)}
           >
           <AccordionSummary
-            sx={{ padding: 0 }}
+            sx={{ padding: 0,
+            }}
+            // styles={css`
+            //   transition: height 0.3s ease;
+            // `}
             expandIcon={<div style={{ display: 'none' }}></div>}
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>
@@ -144,7 +157,10 @@ export function CourseNavTheme({
             </S.AccSum>
           </AccordionSummary>
           <AccordionDetails 
-            sx={{ paddingLeft: '102px', paddingRight: 0 }}
+            sx={{ 
+              paddingLeft: '102px', 
+              paddingRight: 0, 
+            }}
           >
             {data.lessons && <SortableLessons data={data.lessons} />}
           </AccordionDetails>
