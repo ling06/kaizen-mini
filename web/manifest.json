@@ -346,8 +346,13 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
+<<<<<<< HEAD
     "file": "assets/external-link.svg",
     "src": "src/assets/images/external-link.svg"
+=======
+    "file": "assets/moreIcon.svg",
+    "src": "src/assets/images/moreIcon.svg"
+>>>>>>> b459136eae95f9f9dcf0c14213cc85657a75be0b
   },
   "src/assets/images/forwardIcon.svg": {
     "file": "assets/forwardIcon.svg",

@@ -73698,7 +73698,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   @media ${(props) => props.theme.media.mobile} {
     font-size: 4.69vw;
     font-weight: 500;
-    color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.dark};
+    color: ${(props) => props.$isHidden ? props.theme.colors.grey93 : props.theme.colors.dark};
   }
 
   ${(props) => {
@@ -74145,6 +74145,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const titleStyles = nt$1`
     @media ${(props) => props.theme.media.mobile} {
       font-size: 4.7vw;
+      font-weight: 700;
     }
   `;
       const handleSelectCourse = () => {

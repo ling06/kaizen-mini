@@ -15,6 +15,7 @@ export function OpenSelect({ courseData }: IOpenSelectProps) {
   const titleStyles = css`
     @media ${(props) => props.theme.media.mobile} {
       font-size: 4.7vw;
+      font-weight: 700;
     }
   `;
 
