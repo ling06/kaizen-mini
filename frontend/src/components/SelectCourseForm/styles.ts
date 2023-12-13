@@ -8,6 +8,10 @@ export const Container = styled(C.FlexContainer)`
   padding-top: 10px;
   padding-bottom: 20px;
   margin-bottom: auto;
+
+  @media ${(props) => props.theme.media.mobile} {
+    padding-top:0;
+  }
 `;
 
 export const LoadingContainer = styled.div`

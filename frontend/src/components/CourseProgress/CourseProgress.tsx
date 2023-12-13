@@ -11,10 +11,23 @@ interface ICourseProgressProps {
 
 export function CourseProgress({ percentage, styles, isHidden }: ICourseProgressProps) {
   const [isStarted, setIsStarted] = useState(false);
+  const [isPercentages, setPercentages] = useState<string>("0");
 
   useEffect(() => {
       setIsStarted(percentage > 0);
+      setPercentages(() => displayPercentages());
+
   }, [percentage])
+
+  function displayPercentages() {
+    if(IS_MOBILE){
+      if (percentage === 0) return '00';
+      if (percentage === 100) return '';
+      return String(percentage);
+    }
+    return percentage + '%';
+  }
+    
 
   return <S.Progress 
       $styles={styles} 
@@ -22,15 +35,6 @@ export function CourseProgress({ percentage, styles, isHidden }: ICourseProgress
       $isHidden={isHidden}
       $progress={percentage}
     >
-      {!IS_MOBILE ? 
-        percentage + '%' :
-          percentage === 100 ? 
-            '' :
-            percentage === 0 ? 
-              '00' : percentage}
-      {/* {percentage === 100 && IS_MOBILE ? '' : percentage}
-      {percentage === 0 && IS_MOBILE && '0'}
-      {IS_MOBILE ? '' : '%'} */}
-
+      {isPercentages}
     </S.Progress>;
 }

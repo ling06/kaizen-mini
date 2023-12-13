@@ -1,8 +1,6 @@
 import styled, { RuleSet, css } from 'styled-components';
-import * as C from '@styles/components';
 import doneIcon from '@assets/images/done-white.svg';
 import baseTheme from '@/styles/themes/main';
-import { IS_MOBILE } from '@/constants';
 
 interface IProgress {
   $isStarted: boolean;
@@ -48,7 +46,7 @@ export const Progress = styled.div<IProgress>`
     justify-content: space-around;
     font-weight: 400;
     font-size: 4.7vw;
-    line-height: 0;
+    line-height: 1;
     border-radius: 15px;
 
     ${(props) => { 
@@ -58,23 +56,8 @@ export const Progress = styled.div<IProgress>`
           background-color: ${!props.$isHidden && baseTheme.colors.mainGreen};
         `
       }
-      if(props.$progress === 0) {
-        return css`
-          
-        `
-      }
     }}
 
   }
 `;
-
-// export const BtnIcon = styled(C.Icon)`
-//   @media ${(props) => props.theme.media.mobile} {
-//     border-radius: 15px;
-//   }
-// `;
-
-// export const DoneIcon = styled(BtnIcon)`
-  
-// `;
 

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import * as S from './styles';
 import { useActions } from '@/hooks/useActions';
 import { useEffect, useState } from 'react';
-import { MODAL_TYPES } from '@/constants';
+import { MODAL_TYPES, IS_MOBILE } from '@/constants';
 import { ModalPosition } from '@/types/common.types';
 
 interface IModalLayout {
@@ -38,9 +38,9 @@ export function ModalLayout({ children, modalType, modalPosition }: IModalLayout
         break;
       case MODAL_TYPES.newsCategory: 
         name = "Категории";
-        break;  
+        break; 
       case MODAL_TYPES.selectCourse:
-        name = "Курсы";
+        (name = "Курсы") && IS_MOBILE && (name = "Выбор курса");
         break;  
       default:
         console.error(`Unknown modal type: ${modalType}`);
