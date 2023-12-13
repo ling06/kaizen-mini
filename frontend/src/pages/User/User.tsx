@@ -4,6 +4,23 @@ import { css } from 'styled-components';
 import { CustomTabs } from '@/feature/tabs';
 import { nanoid } from '@reduxjs/toolkit';
 
+const tabs = [
+  { name: 'Обучение', queryParam: 'education' },
+  { name: 'Права доступа', queryParam: 'access' },
+].map((tab) => {
+  return {
+    ...tab,
+    id: nanoid(),
+  };
+});
+const panels = [{ element: <div>Обучение</div> }, { element: <div>Права доступа</div> }].map(
+  (panel) => {
+    return {
+      ...panel,
+      id: nanoid(),
+    };
+  }
+);
 export function User() {
   const layoutStyles = css`
     max-width: 1266px;
@@ -13,21 +30,6 @@ export function User() {
   const titleStyles = css`
     margin-bottom: 25px;
   `;
-
-  const tabs = [{ name: 'Обучение', queryParam: 'education' }, { name: 'Права доступа', queryParam: 'access' }].map((tab) => {
-    return {
-      ...tab,
-      id: nanoid(),
-    };
-  });
-  const panels = [{ element: <div>Обучение</div> }, { element: <div>Права доступа</div> }].map(
-    (panel) => {
-      return {
-        ...panel,
-        id: nanoid(),
-      };
-    }
-  );
 
   return (
     <Layout styles={layoutStyles}>
