@@ -1,15 +1,15 @@
-import { ICourse } from '@/types/course.types';
 import * as S from './styles';
 import { DndBtn } from '@/components/DndBtn';
 import { CourseProgress } from '@/components/CourseProgress';
 import { CourseTitle } from '@/components/CourseTitle';
 import { css } from 'styled-components';
 import { AdminBtn } from '@/components/AdminBtn';
-import { ADMIN_BTN_TYPES, IS_MOBILE, MODAL_TYPES } from '@/constants';
 import { useNavigate } from 'react-router-dom';
-import { useActions } from '@/hooks/useActions';
-import { ModalPosition } from '@/types/common.types';
 import { useDeleteCourseMutation, useRestoreCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { IS_MOBILE, MODAL_TYPES, ADMIN_BTN_TYPES } from '@/shared/model/constants';
+import { ModalPosition } from '@/shared/model/types/common.types';
+import { ICourse } from '@/shared/model/types/course.types';
 
 interface ICourseProps {
   data: ICourse;

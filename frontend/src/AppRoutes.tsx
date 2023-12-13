@@ -4,8 +4,9 @@ import { CreateCompetition } from './pages/CreateCompetition';
 import { CreateLesson } from './pages/CreateLesson';
 import { CreateNews } from './pages/CreateNews';
 import { Main } from './pages/Main';
-import { useMediaQuery } from './hooks/useMediaQuery';
-import { MediaQueries } from './constants';
+import { useMediaQuery } from './shared/lib/hooks/useMediaQuery';
+import { MediaQueries } from './shared/model/constants';
+
 
 const routes = [
   {

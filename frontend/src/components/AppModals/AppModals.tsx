@@ -1,13 +1,13 @@
-import { MODAL_TYPES } from "@/constants";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
-import { ModalLayout } from "@/layouts/ModalLayout";
-import { CreateChapterForm } from "../CreateChapterForm";
-import { CreateCourseForm } from "../CreateCourseForm";
-import { CreateThemeForm } from "../CreateThemeForm";
-import { NewsCategoryForm } from "../NewsCategoryForm";
-import { useMemo } from "react";
-import { ErrorBlock } from "../ErrorBlock";
-import { SelectCourseForm } from "../SelectCourseForm";
+import { CreateChapterForm } from '../CreateChapterForm';
+import { CreateCourseForm } from '../CreateCourseForm';
+import { CreateThemeForm } from '../CreateThemeForm';
+import { NewsCategoryForm } from '../NewsCategoryForm';
+import { useMemo } from 'react';
+import { ErrorBlock } from '../ErrorBlock';
+import { SelectCourseForm } from '../SelectCourseForm';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
+import { MODAL_TYPES } from '@/shared/model/constants';
+import { ModalLayout } from '@/shared/ui/layouts';
 
 interface IModals {
   isAdmin: boolean;
@@ -17,32 +17,34 @@ export function AppModals({ isAdmin }: IModals) {
   const { isModalOpen, modalType, modalPosition } = useTypedSelector((state) => state.modal);
 
   const modal = useMemo(() => {
-    switch(modalType) {
+    switch (modalType) {
       case MODAL_TYPES.createCourse:
-        return <CreateCourseForm />
+        return <CreateCourseForm />;
       case MODAL_TYPES.editCourse:
-        return <CreateCourseForm />
+        return <CreateCourseForm />;
       case MODAL_TYPES.createChapter:
-        return <CreateChapterForm />
+        return <CreateChapterForm />;
       case MODAL_TYPES.editChapter:
-        return <CreateChapterForm />
+        return <CreateChapterForm />;
       case MODAL_TYPES.createTheme:
-        return <CreateThemeForm />
+        return <CreateThemeForm />;
       case MODAL_TYPES.editTheme:
-        return <CreateThemeForm />
+        return <CreateThemeForm />;
       case MODAL_TYPES.newsCategory:
-        return <NewsCategoryForm />
+        return <NewsCategoryForm />;
       case MODAL_TYPES.selectCourse:
-        return <SelectCourseForm />  
+        return <SelectCourseForm />;
       default:
-        return <ErrorBlock />
+        return <ErrorBlock />;
     }
-  }, [modalType])
+  }, [modalType]);
 
   return (
     <>
       {isModalOpen && isAdmin && (
-        <ModalLayout modalType={modalType} modalPosition={modalPosition}>
+        <ModalLayout
+          modalType={modalType}
+          modalPosition={modalPosition}>
           {modal}
         </ModalLayout>
       )}

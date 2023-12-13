@@ -1,11 +1,11 @@
 import { useGetCoursesQuery } from '@/store/api/course.api';
 import { SortableList } from './SortableList';
 import * as S from './styles';
-import { ICourse } from '@/types/course.types';
 import { useEffect, useState } from 'react';
 import { ErrorBlock } from '../ErrorBlock';
 import { LoadingSmall } from '../LoadingSmall';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { ICourse } from '@/shared/model/types/course.types';
 
 export function SelectCourseForm() {
   const {setModalOpen} = useActions();

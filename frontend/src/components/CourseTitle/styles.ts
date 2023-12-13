@@ -15,7 +15,7 @@ export const Title = styled.h3<ITitle>`
 
   @media ${(props) => props.theme.media.mobile} {
     font-size: 4.69vw;
-    font-weight: 500;
+    /* font-weight: 500; */
     color: ${(props) => props.$isHidden ? props.theme.colors.grey93 : props.theme.colors.dark};
   }
 

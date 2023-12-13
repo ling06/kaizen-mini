@@ -1,9 +1,8 @@
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { ModalPosition } from '@/shared/model/types/common.types';
 import { ICourse } from '@/shared/model/types/course.types';
-import { css } from 'styled-components';
 import * as S from './styles';
-
+import { CourseTitle } from '@/components/CourseTitle';
 
 interface IOpenSelectProps {
   courseData: ICourse;
@@ -11,13 +10,6 @@ interface IOpenSelectProps {
 
 export function OpenSelect({ courseData }: IOpenSelectProps) {
   const { setModalOpen, setModalType, setModalPosition } = useActions();
-
-  const titleStyles = css`
-    @media ${(props) => props.theme.media.mobile} {
-      font-size: 4.7vw;
-      font-weight: 700;
-    }
-  `;
 
   const handleSelectCourse = () => {
     setModalPosition(ModalPosition.left);
@@ -28,12 +20,11 @@ export function OpenSelect({ courseData }: IOpenSelectProps) {
   return (
     <S.Container>
       <S.Wrapper onClick={handleSelectCourse}>
-        <S.CourseTitle
-          title={courseData.title}
+        <CourseTitle
           isDeleted={!!courseData.is_deleted}
+          title={courseData.title}
           isHidden={!courseData.status}
           isSelected={true}
-          styles={titleStyles}
         />
         <S.SelectIcon />
       </S.Wrapper>

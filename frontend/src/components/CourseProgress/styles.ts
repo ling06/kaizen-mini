@@ -1,6 +1,5 @@
 import styled, { RuleSet, css } from 'styled-components';
 import doneIcon from '@assets/images/done-white.svg';
-import baseTheme from '@/styles/themes/main';
 
 interface IProgress {
   $isStarted: boolean;
@@ -17,19 +16,18 @@ export const Progress = styled.div<IProgress>`
   color: ${(props) => props.theme.colors.realWhite};
   background-color: ${(props) => {
     let color = props.theme.colors.dark;
-    if(props.theme.media.mobile) {
+    if (props.theme.media.mobile) {
       color = props.theme.colors.mainBlue;
     }
-    if(props.$isStarted) {
+    if (props.$isStarted) {
       color = props.theme.colors.mainBlue;
     }
-    if(props.$isHidden) {
+    if (props.$isHidden) {
       color = props.theme.colors.grey93;
     }
-    return color
+    return color;
   }};
   border-radius: 18px;
-
 
   ${(props) => {
     if (props.$styles) {
@@ -49,15 +47,13 @@ export const Progress = styled.div<IProgress>`
     line-height: 1;
     border-radius: 15px;
 
-    ${(props) => { 
-      if(props.$progress === 100) {
+    ${(props) => {
+      if (props.$progress === 100) {
         return css`
           background-image: url(${doneIcon});
-          background-color: ${!props.$isHidden && baseTheme.colors.mainGreen};
-        `
+          background-color: ${!props.$isHidden && props.theme.colors.mainGreen};
+        `;
       }
     }}
-
   }
 `;
-

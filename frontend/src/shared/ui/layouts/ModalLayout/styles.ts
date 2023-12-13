@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import closeIcon from '@assets/images/close-icon.svg';
-import { ModalPosition } from '@/types/common.types';
+import { ModalPosition } from '@/shared/model/types/common.types';
 
 interface IModalPosition {
   modalPosition: ModalPosition;
@@ -36,7 +36,9 @@ export const Window = styled.div<IModalPosition>`
   height: 100%;
   /* overflow-y: auto; */
   background-color: ${(props) => props.theme.colors.realWhite};
-  animation: ${props => props.modalPosition === ModalPosition.left ? 'windowEntranceLeft' : 'windowEntranceRight'} 0.3s ease-out forwards;
+  animation: ${(props) =>
+      props.modalPosition === ModalPosition.left ? 'windowEntranceLeft' : 'windowEntranceRight'}
+    0.3s ease-out forwards;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 0 0;

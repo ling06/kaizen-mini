@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import * as C from '@/shared/ui/assets/styles/components';
 import selectIcon from '@assets/images/accordionIcon.svg';
 import isHideIcon from '@assets/images/hideIcon.svg';
+import { TextStyles } from '@/shared/ui/assets/styles/base-styles';
 
 export const Container = styled.div`
   display: flex;
@@ -18,7 +19,8 @@ export const Wrapper = styled.div`
   max-width: 75%;
 `;
 
-export const CourseTitle = styled(C.Text)<{ $isDeleted: boolean }>`
+export const CourseTitle = styled.p<{ $isDeleted: boolean }>`
+  ${TextStyles}
   /* width: 90%; */
   margin-right: 1.875vw;
   font-size: 4.6875vw;

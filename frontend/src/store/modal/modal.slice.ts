@@ -1,4 +1,4 @@
-import { ModalPosition } from '@/types/common.types';
+import { ModalPosition } from '@/shared/model/types/common.types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IModalInitialState {

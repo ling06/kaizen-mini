@@ -1,7 +1,7 @@
-import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { useRef } from "react";
 import { Transition } from "react-transition-group";
 import { Loading } from "../Loading";
+import { useTypedSelector } from "@/shared/lib/hooks/useTypedSelector";
 
 
 export function AppLoading() {

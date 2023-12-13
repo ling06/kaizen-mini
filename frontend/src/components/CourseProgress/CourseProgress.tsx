@@ -1,7 +1,7 @@
 import { RuleSet } from 'styled-components';
 import * as S from './styles';
 import { useState, useEffect } from 'react';
-import { IS_MOBILE } from '@/constants';
+import { IS_MOBILE } from '@/shared/model/constants';
 
 interface ICourseProgressProps {
   percentage: number;

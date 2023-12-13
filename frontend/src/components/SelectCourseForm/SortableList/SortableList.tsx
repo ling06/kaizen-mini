@@ -1,4 +1,3 @@
-import { CourseEntities, ICourse } from '@/types/course.types';
 import * as S from './styles';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
@@ -6,8 +5,9 @@ import { SortableItem } from '@/components/SortableItem';
 import { Course } from '../Course';
 import { useEffect, useState } from 'react';
 import { useSetCoursesPositionsMutation } from '@/store/api/course.api';
-import { setPositionsErrorsHandler } from '@/utils/setPositionsErrorsHandler';
-import { useActions } from '@/hooks/useActions';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
+import { ICourse, CourseEntities } from '@/shared/model/types/course.types';
 
 interface ISortableListProps {
   data: Array<ICourse>;
@@ -31,10 +31,10 @@ export function SortableList({ data }: ISortableListProps) {
   // const itemStyles = {
   //   height: "11.9vw",
   // }
-  
+
   const grayItem = {
     backgroundColor: '#f1f1f1',
-  }
+  };
   // const grayItemStyles = Object.assign({}, itemStyles, {backgroundColor: '#f1f1f1'});
   // console.log(grayItemStyles, itemStyles);
 
