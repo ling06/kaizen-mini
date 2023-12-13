@@ -112,6 +112,7 @@ export function CourseNavTheme({
           }}
           expanded={Number(themeId) === data.id}
           onChange={handleChange(data.id)}
+          // TransitionComponent={}
           >
           <AccordionSummary
             sx={{ padding: 0,
