@@ -12,6 +12,7 @@ interface IDndBtn {
 
 export function DndBtn({ onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{}, styles }: IDndBtn) {
   const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
+  console.log(userRole);
   if(userRole !== 'admin') return null;
   return (
     <S.DndBtn
