@@ -13250,15 +13250,18 @@ var require_assets = __commonJS({
     });
     const { actions: actions$1, reducer: reducer$3 } = competitionSlice;
     const initialState$1 = {
-      newsCategories: [],
-      isUpdate: false
+      newsCategories: []
     };
     const newsSlice = createSlice({
       name: "news",
       initialState: initialState$1,
       reducers: {
         updateNewsCategory: (state, { payload }) => {
-          state.isUpdate = payload;
+          state.newsCategories.map((category) => {
+            if (category.id === payload.id) {
+              category.title = payload.title;
+            }
+          });
         },
         setNewsCategories: (state, { payload }) => {
           state.newsCategories = payload;
@@ -24599,7 +24602,6 @@ var require_assets = __commonJS({
           initialized.current = false;
           return;
         }
-<<<<<<< HEAD
         if (initialized.current || !initialRect) {
           return;
         }
@@ -24623,37 +24625,6 @@ var require_assets = __commonJS({
               top: rectDelta.y,
               left: rectDelta.x
             });
-=======
-      }
-    });
-    const { actions: actions$1, reducer: reducer$3 } = competitionSlice;
-    const initialState = {
-      newsCategories: []
-    };
-    const newsSlice = createSlice({
-      name: "news",
-      initialState,
-      reducers: {
-        updateNewsCategory: (state, { payload }) => {
-          state.newsCategories.map((category) => {
-            if (category.id === payload.id) {
-              category.title = payload.title;
-            }
-          });
-        },
-        setNewsCategories: (state, { payload }) => {
-          state.newsCategories = payload;
-        },
-        addNewsCategory: (state, { payload }) => {
-          state.newsCategories.push(payload);
-        },
-        deleteNewsCategory: (state, { payload }) => {
-          const index = state.newsCategories.findIndex(
-            (category) => category.id === payload.id || category.title === payload.title
-          );
-          if (index !== -1) {
-            state.newsCategories.splice(index, 1);
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
           }
         }
       }, [activeNode, x2, y2, initialRect, measure]);
@@ -27352,7 +27323,7 @@ var require_assets = __commonJS({
       ] });
     }
     const bookIcon = "/assets/book.svg";
-    const homeIcon = "/assets/home.svg";
+    const homeIcon = "/assets/Home.svg";
     const Header$3 = st$1.header`
   display: flex;
   align-items: center;
@@ -35296,7 +35267,6 @@ margin-bottom: 60px;
             var r2 = o2[n2] = { i: n2, l: false, exports: {} };
             return t2[n2].call(r2.exports, r2, r2.exports, i2), r2.l = true, r2.exports;
           }
-<<<<<<< HEAD
           return i2.m = t2, i2.c = o2, i2.d = function(n2, r2, a2) {
             i2.o(n2, r2) || Object.defineProperty(n2, r2, { enumerable: true, get: a2 });
           }, i2.r = function(n2) {
@@ -35352,55 +35322,6 @@ margin-bottom: 60px;
                 break;
               }
             return x2;
-=======
-        )
-      ] });
-    }
-    function NewsEl({ data }) {
-      const { setLoaderActive } = useActions();
-      const [authorName, setAuthorName] = reactExports.useState("");
-      const [imgUrl, setImgUrl] = reactExports.useState("");
-      const navigate = useNavigate();
-      const [deleteNews] = useDeleteNewsMutation();
-      const [restoreNews] = useRestoreNewsMutation();
-      const [update2] = useUpdateNewsMutation();
-      const [isMobile, setIsMobile] = reactExports.useState(window.innerWidth <= 600);
-      const setCategory = useTypedSelector((state) => state.news.newsCategories);
-      reactExports.useEffect(() => {
-        const handleResize = () => {
-          setIsMobile(window.innerWidth <= 600);
-        };
-        window.addEventListener("resize", handleResize);
-      }, []);
-      const mobileNavigate = () => {
-        if (isMobile) {
-          navigate(`/news/${data.id}`, { replace: true });
-        }
-      };
-      const DesNavigateNews = () => {
-        if (!isMobile) {
-          navigate(`/news/${data.id}`, { replace: true });
-        }
-      };
-      reactExports.useEffect(() => {
-        const name = data.user ? data.user.name : data.user_id;
-        setAuthorName(name);
-        const ckEditorData = data.text || "";
-        const regex = /<img.*?src=\"([^\"]*)\".*?>/g;
-        const match2 = regex.exec(ckEditorData);
-        const srcValue = match2 ? match2[1] : null;
-        setImgUrl(srcValue);
-      }, [data.text, data.user, data.user_id]);
-      const handleEditNews = () => {
-        navigate(`/news/edit-news/${data.id}`);
-      };
-      const handleDeleteNews = () => {
-        deleteNews({
-          id: data.id
-        }).then((res) => {
-          if ("data" in res && !res.data.result) {
-            alert("При удалении статьи произошла ошибка");
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
           }
           function u2(y2, x2) {
             for (var w2 = {}, I2 = [], R2 = 0; R2 < y2.length; R2++) {
@@ -35411,7 +35332,6 @@ margin-bottom: 60px;
             }
             return I2;
           }
-<<<<<<< HEAD
           function h2(y2) {
             var x2 = document.createElement("style"), w2 = y2.attributes || {};
             if (w2.nonce === void 0) {
@@ -35485,41 +35405,6 @@ margin-bottom: 60px;
                 for (var R2 = 0; R2 < w2.length; R2++) {
                   var b2 = c2(w2[R2]);
                   l2[b2].references--;
-=======
-        });
-        setLoaderActive(true);
-      };
-      const handleVisibileNews = () => {
-        update2({
-          id: data.id,
-          NewsCategory: setCategory,
-          status: Number(data.status) === 0 ? 1 : 0
-        });
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$f,
-        {
-          onClick: mobileNavigate,
-          $isDeleted: !!data.is_deleted,
-          $isVisible: Number(data.status) !== 0,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Title$7, { children: data.title }),
-            imgUrl && /* @__PURE__ */ jsxRuntimeExports.jsx(ImageContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$2, { src: imgUrl }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(Footer, { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(MoreBtn, { onClick: DesNavigateNews, children: "Подробнее" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                NewsRequisites,
-                {
-                  author: authorName,
-                  date: data.date,
-                  adminHandlers: {
-                    onEdit: handleEditNews,
-                    onDelete: data.is_deleted ? void 0 : handleDeleteNews,
-                    onRestore: data.is_deleted ? handleRestoreNews : void 0,
-                    onVisible: Number(data.status) === 0 ? handleVisibileNews : void 0,
-                    onHide: Number(data.status) === 1 ? handleVisibileNews : void 0
-                  }
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
                 }
                 for (var g2 = u2(I2, x2), E2 = 0; E2 < w2.length; E2++) {
                   var T2 = c2(w2[E2]);
@@ -36332,7 +36217,6 @@ margin-bottom: 60px;
         a2.top > 0 ? l2 = Math.abs(r2.top) - Math.abs(a2.top) : l2 = Math.abs(r2.top) + a2.height, window.scrollBy(0, -1 * l2), this.api.blocks.move(e2 - 1), this.api.toolbar.toggleBlockSettings(true);
       }
     }
-<<<<<<< HEAD
     St.isTune = true;
     var ui = Object.defineProperty, pi = Object.getOwnPropertyDescriptor, fi = (s2, e2, t2, o2) => {
       for (var i2 = o2 > 1 ? void 0 : o2 ? pi(e2, t2) : e2, n2 = s2.length - 1, r2; n2 >= 0; n2--)
@@ -36418,113 +36302,6 @@ margin-bottom: 60px;
       destroy() {
         Object.values(this.available).forEach(async (e2) => {
           D$1(e2.reset) && await e2.reset();
-=======
-    const externalLinkIcon = "/assets/moreIcon.svg";
-    const BottomContainer$2 = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: space-between;
-  @media ${(props) => props.theme.media.mobile} {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    row-gap: 9.375vw;
-  }
-`;
-    const AllCompetitionsLenght = st$1.p`
-  margin-bottom: 11px;
-
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 130%;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-left: 10.94vw;
-    margin-bottom: 9.69vw;
-
-    font-size: 3.75vw;
-  }
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-  margin-bottom: 50px;
-`;
-    const Link = st$1(DefaultBtn)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 44px;
-  padding: 0 20px 0 23px;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    min-height: 12.5vw;
-  }
-`;
-    const LinkIcon = st$1(Icon$2)`
-  margin-left: 10px;
-  background-image: url(${externalLinkIcon});
-`;
-    const ContainerBtn = st$1.div`
-  width: 100%;
-  display: flex;
-  position: absolute;
-  top: 107%;
-  right: 0;
-  justify-content: space-between;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    const BtnLeft = st$1.button`
-  width: 24px;
-  height: 24px;
-  background-image: url(${arrowLeft});
-  background-size: contain;
-`;
-    const BtnRight = st$1(BtnLeft)`
-  transform: rotate(-180deg);
-`;
-    function CompetitionContent() {
-      var _a, _b;
-      const { setLoaderActive } = useActions();
-      const { competitionId } = useParams();
-      const navigate = useNavigate();
-      const [deleteCompetition] = useDeleteCompetitionMutation();
-      const [restoreCompetition] = useRestoreCompetitionMutation();
-      const [updateCompetition] = useUpdateCompetitionMutation();
-      const { data, isFetching, isError } = useGetCompetitionByIdQuery(
-        Number(competitionId),
-        {
-          skip: !competitionId
-        }
-      );
-      const [isAllCompetitionsLenght, setAllCompetitionsLenght] = reactExports.useState("");
-      const allCompetitions = useGetAllCompetitionsQuery();
-      const handleEditTextCompetitionLenght = () => {
-        var _a2, _b2;
-        return [
-          setAllCompetitionsLenght(
-            `Конкурс ${(data == null ? void 0 : data.data.id) === void 0 ? "1" : data == null ? void 0 : data.data.id}/${((_a2 = allCompetitions.data) == null ? void 0 : _a2.data.length) === void 0 ? "1" : (_b2 = allCompetitions.data) == null ? void 0 : _b2.data.length}`
-          )
-        ];
-      };
-      reactExports.useEffect(() => {
-        handleEditTextCompetitionLenght();
-      }, [data, (_a = allCompetitions.data) == null ? void 0 : _a.data.length]);
-      const isMobile = useMediaQuery(MediaQueries.mobile);
-      const handleEditCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        navigate(`/news/competition/edit-competition/${data == null ? void 0 : data.data.id}`);
-      };
-      const handleDeleteCompetition = () => {
-        if (!data) {
-          console.error("No data:", data);
-          return;
-        }
-        deleteCompetition({ id: data.data.id }).then(() => {
-          setLoaderActive(false);
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
         });
       }
       /**
@@ -73233,10 +73010,9 @@ margin-bottom: 60px;
         setModalType,
         setNewsCategories,
         setLoaderActive,
-        deleteNewsCategory,
-        updateNewsCategory
+        deleteNewsCategory
       } = useActions();
-      const updateCategory = useTypedSelector((state) => state.news.isUpdate);
+      const setCategory = useTypedSelector((state) => state.news.newsCategories);
       const [createNews] = useCreateNewsMutation();
       const navigate = useNavigate();
       const { newsId } = useParams();
@@ -73244,7 +73020,7 @@ margin-bottom: 60px;
       const [isValidName, setValidName] = reactExports.useState(false);
       const [isChangedName, setChangedName] = reactExports.useState(false);
       const categories = useTypedSelector((state) => state.news.newsCategories);
-      const { data, isFetching, refetch } = useGetNewsByIdQuery(Number(newsId), {
+      const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
         skip: !newsId
       });
       const [updateNews] = useUpdateNewsMutation();
@@ -73257,12 +73033,7 @@ margin-bottom: 60px;
           setChangedName(false);
           setNewsCategories(data.data.categories || []);
         }
-      }, [data, setNewsCategories, type, isNameCategory, updateCategory]);
-      reactExports.useEffect(() => {
-        if (updateCategory) {
-          updateNewsCategory(false);
-        }
-      }, [updateCategory]);
+      }, [data, setNewsCategories, type, isNameCategory]);
       const handleConfirm = async () => {
         if (!isValidName) {
           setChangedName(true);
@@ -73272,7 +73043,7 @@ margin-bottom: 60px;
           createNews({
             title: NewsName,
             text: ckEditorData || "",
-            NewsCategory: categories
+            NewsCategory: setCategory
           }).then((res) => {
             if ("data" in res && res.data.result) {
               navigate("/news");
@@ -73291,7 +73062,7 @@ margin-bottom: 60px;
             id: Number(newsId),
             title: NewsName,
             text: ckEditorData || "",
-            NewsCategory: categories
+            NewsCategory: setCategory
           }).then((res) => {
             if ("data" in res && res.data.result) {
               navigate("/news");
@@ -73333,7 +73104,7 @@ margin-bottom: 60px;
       const handleSetCkEditorData = (data2) => {
         setCkEditorData(data2);
       };
-      const handleСancelCategori = (category) => {
+      const handleСancelCategory = (category) => {
         deleteNewsCategory({ id: category });
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -73351,14 +73122,14 @@ margin-bottom: 60px;
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(CategoriesList$1, { children: [
-          categories.length > 0 && categories.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Category$1, { children: [
+          setCategory.length > 0 && setCategory.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Category$1, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CategoryText, { children: category.title }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               CategoryImgDelete,
               {
                 onClick: () => {
                   if (category.id !== void 0)
-                    handleСancelCategori(category.id);
+                    handleСancelCategory(category.id);
                 }
               }
             )
@@ -73927,7 +73698,7 @@ color: ${(props) => props.theme.colors.mainBlue};
   @media ${(props) => props.theme.media.mobile} {
     font-size: 4.69vw;
     font-weight: 500;
-    color: ${(props) => props.$isDeleted ? props.theme.colors.grey93 : props.theme.colors.dark};
+    color: ${(props) => props.$isHidden ? props.theme.colors.grey93 : props.theme.colors.dark};
   }
 
   ${(props) => {
@@ -74374,6 +74145,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const titleStyles = nt$1`
     @media ${(props) => props.theme.media.mobile} {
       font-size: 4.7vw;
+      font-weight: 700;
     }
   `;
       const handleSelectCourse = () => {
@@ -81112,6 +80884,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const [restoreNews] = useRestoreNewsMutation();
       const [update2] = useUpdateNewsMutation();
       const [isMobile, setIsMobile] = reactExports.useState(window.innerWidth <= 600);
+      const setCategory = useTypedSelector((state) => state.news.newsCategories);
       reactExports.useEffect(() => {
         const handleResize = () => {
           setIsMobile(window.innerWidth <= 600);
@@ -81163,6 +80936,7 @@ color: ${(props) => props.theme.colors.mainBlue};
       const handleVisibileNews = () => {
         update2({
           id: data.id,
+          NewsCategory: setCategory,
           status: Number(data.status) === 0 ? 1 : 0
         });
       };
@@ -82584,7 +82358,6 @@ color: ${(props) => props.theme.colors.mainBlue};
     margin-right: 1.5625vw;
   }
 `;
-<<<<<<< HEAD
     function AddImage({ name, onSet, imageData, onDelete, previewImageStyles = {} }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { children: [
         imageData && /* @__PURE__ */ jsxRuntimeExports.jsx(Image, { image: imageData, styles: previewImageStyles }),
@@ -82617,30 +82390,6 @@ color: ${(props) => props.theme.colors.mainBlue};
       const [isChangedName, setChangedName] = reactExports.useState(false);
       const [isEditForm, setEditForm] = reactExports.useState(false);
       const [chapterImage, setChapterImage] = reactExports.useState(null);
-=======
-    function CreateNewsForm({ type }) {
-      const {
-        setModalOpen,
-        setModalType,
-        setNewsCategories,
-        setLoaderActive,
-        deleteNewsCategory
-      } = useActions();
-      const setCategory = useTypedSelector((state) => state.news.newsCategories);
-      const [createNews] = useCreateNewsMutation();
-      const navigate = useNavigate();
-      const { newsId } = useParams();
-      const [NewsName, setNewsName] = reactExports.useState("");
-      const [isValidName, setValidName] = reactExports.useState(false);
-      const [isChangedName, setChangedName] = reactExports.useState(false);
-      const categories = useTypedSelector((state) => state.news.newsCategories);
-      const { data, isFetching } = useGetNewsByIdQuery(Number(newsId), {
-        skip: !newsId
-      });
-      const [updateNews] = useUpdateNewsMutation();
-      const [ckEditorData, setCkEditorData] = reactExports.useState("");
-      const [isNameCategory, setNameCategory] = reactExports.useState(false);
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
       reactExports.useEffect(() => {
         if (formType === MODAL_TYPES.editChapter && updatingChapterData) {
           setEditForm(true);
@@ -82649,7 +82398,6 @@ color: ${(props) => props.theme.colors.mainBlue};
           setChangedName(true);
           setChapterImage(updatingChapterData.image);
         }
-<<<<<<< HEAD
       }, [data.image, formType, updatingChapterData]);
       const handleChange = (event) => {
         setValidName(event.target.value.length > 1);
@@ -82659,27 +82407,15 @@ color: ${(props) => props.theme.colors.mainBlue};
         }
       };
       const handleConfirm = () => {
-=======
-      }, [data, setNewsCategories, type, isNameCategory]);
-      const handleConfirm = async () => {
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
         if (!isValidName) {
           setChangedName(true);
           return;
         }
-<<<<<<< HEAD
         if ((data == null ? void 0 : data.id) && !isEditForm) {
           createChapter({
             title: chapterName,
             course_id: data.id,
             image: chapterImage
-=======
-        if (type !== "edit") {
-          createNews({
-            title: NewsName,
-            text: ckEditorData || "",
-            NewsCategory: setCategory
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
           }).then((res) => {
             setModalOpen(false);
           }).catch((err) => {
@@ -82687,7 +82423,6 @@ color: ${(props) => props.theme.colors.mainBlue};
           });
           setLoaderActive(true);
         }
-<<<<<<< HEAD
         console.log(updatingChapterData);
         if (isEditForm && updatingChapterData && updatingChapterData.course_id) {
           updateChapter({
@@ -82695,14 +82430,6 @@ color: ${(props) => props.theme.colors.mainBlue};
             id: Number(updatingChapterData.id),
             title: chapterName,
             image: chapterImage
-=======
-        if (type === "edit") {
-          updateNews({
-            id: Number(newsId),
-            title: NewsName,
-            text: ckEditorData || "",
-            NewsCategory: setCategory
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
           }).then((res) => {
             if ("data" in res) {
               changeChapter(res.data.data);
@@ -82873,7 +82600,6 @@ color: ${(props) => props.theme.colors.mainBlue};
       const handleCancel = () => {
         setModalOpen(false);
       };
-<<<<<<< HEAD
       const handleSetCourseImage = (base64, extension) => {
         setCourseImage({ data: base64, extension });
       };
@@ -82895,32 +82621,9 @@ color: ${(props) => props.theme.colors.mainBlue};
           handlers,
           names,
           children: [
-=======
-      const handleСancelCategory = (category) => {
-        deleteNewsCategory({ id: category });
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$1, { children: type === "create" ? "Создание новости" : "Редактирование новости" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          NewsNameInput,
-          {
-            $isValid: isValidName,
-            $isChanged: isChangedName,
-            value: NewsName,
-            onChange: handleChange,
-            type: "text",
-            placeholder: "Введите название новости (обязательно)"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditor, { onChange: handleSetCkEditorData, data: (data == null ? void 0 : data.data.text) || "" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(CategoriesList$1, { children: [
-          setCategory.length > 0 && setCategory.map((category) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Category$1, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CategoryText, { children: category.title }),
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               NameInput,
               {
-<<<<<<< HEAD
                 type: "text",
                 $isValid: isValidName,
                 $isChanged: isChangedName,
@@ -82946,11 +82649,6 @@ color: ${(props) => props.theme.colors.mainBlue};
                 onDelete: handleDeleteCourseImage,
                 previewImageStyles: {
                   maxWidth: "342px"
-=======
-                onClick: () => {
-                  if (category.id !== void 0)
-                    handleСancelCategory(category.id);
->>>>>>> f609a75882373b38ecf0408925245fac29eb35ac
                 }
               }
             ) })
