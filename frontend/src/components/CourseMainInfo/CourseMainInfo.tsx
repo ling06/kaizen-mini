@@ -8,7 +8,6 @@ import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/shared/model/constants';
 import { ProgressInfo } from '../ProgressInfo';
 import { ICourse } from '@/shared/model/types/course.types';
-import { Popup } from './Popup';
 import { OpenSelect } from './OpenSelect';
 import { useGetCourseProgressQuery } from '@/store/api/course.api';
 import { LoadingSmall } from '../LoadingSmall';
@@ -22,7 +21,6 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
   const courseData = useTypedSelector((state) => state.course.data);
   const [previewSrc, setPreviewSrc] = useState('');
   const isMobile = useMediaQuery(MediaQueries.mobile);
-  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const { data, isError, isFetching } = useGetCourseProgressQuery(
     { course_id: Number(courseId) },
     {
@@ -41,15 +39,6 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
 
   const handleLoadError = () => {
     setPreviewSrc(defaultPreview);
-  };
-
-  
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
-  
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
   };
   
   const handleGoToCurrentLesson = () => {
@@ -77,7 +66,6 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
             />
             <OpenSelect
               courseData={courseData}
-              onOpen={handleOpenPopup}
             />
           </>
         )}
@@ -116,12 +104,6 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
             onError={handleLoadError}
           />
         </S.ImgWrapper>
-      )}
-      {isPopupOpen && (
-        <Popup
-          coursesData={coursesData}
-          onClose={handleClosePopup}
-        />
       )}
     </S.Container>
   );

@@ -14,6 +14,7 @@ export interface ICourse {
   chapters?: Array<IChapter>;
   image: IImage | null;
   user?: IUser;
+  position: number;
   percentage?: {
     lessonCount: number;
     checkedLessonCount: number;

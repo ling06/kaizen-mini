@@ -1,6 +1,6 @@
 import { IDefaultReqWithId, IDefaultRes } from '@/shared/model/types/common.types';
 import { api } from '../../shared/model/api/api';
-import { IGetCourses, IGetCourseByIdRes, ICreateCourse, IUpdateCourse, ICourseProgress, ICourseProgressCompleted, ICourseProgressError } from '@/shared/model/types/course.types';
+import { IGetCourses, IGetCourseByIdRes, ICreateCourse, IUpdateCourse, ICourseProgress, ICourseProgressCompleted, ICourseProgressError, ISetPositionsReq, ISetPositionsRes } from '@/shared/model/types/course.types';
 
 export const courseApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -38,7 +38,7 @@ export const courseApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Courses'],
+      invalidatesTags: ['Courses', 'CourseById'],
     }),
     deleteCourse: builder.mutation<IDefaultRes, IDefaultReqWithId>({
       query: (data) => ({
@@ -56,7 +56,10 @@ export const courseApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Courses'],
     }),
-    getCourseProgress: builder.query<ICourseProgress | ICourseProgressCompleted | ICourseProgressError, { course_id: number }>({
+    getCourseProgress: builder.query<
+      ICourseProgress | ICourseProgressCompleted | ICourseProgressError,
+      { course_id: number }
+    >({
       query: (data) => ({
         url: 'course/get-users-progress',
         method: 'POST',
@@ -67,6 +70,14 @@ export const courseApi = api.injectEndpoints({
           type: 'CourseProgress',
         },
       ],
+    }),
+    setCoursesPositions: builder.mutation<ISetPositionsRes, ISetPositionsReq>({
+      query: (data) => ({
+        url: 'course/set-positions',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Courses', 'CourseById'],
     }),
   }),
   overrideExisting: false,
@@ -80,6 +91,7 @@ export const {
   useRestoreCourseMutation,
   useUpdateCourseMutation,
   useGetCourseProgressQuery,
+  useSetCoursesPositionsMutation,
 } = courseApi;
 
 export const selectCourses = courseApi.endpoints.getCourses.select();

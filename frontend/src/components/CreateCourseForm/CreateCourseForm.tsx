@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { ModalForm } from '../ModalForm';
-import '@styles/editorjs.css';
-import { useCreateCourseMutation, useUpdateCourseMutation } from '@/store/api/course.api';
+import { useCreateCourseMutation, useGetCourseByIdQuery, useUpdateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/shared/model/constants';
@@ -11,9 +10,12 @@ import { IImage, IUploadedImage } from '@/shared/model/types/image.types';
 import { useNavigate } from 'react-router-dom';
 
 export function CreateCourseForm() {
+  const courseId = useTypedSelector((state) => state.course.editCourseId);
+  const { data, isError, isFetching } = useGetCourseByIdQuery(Number(courseId), {
+    skip: !courseId,
+  });
   const { setModalOpen, setLoaderActive } = useActions();
   const modalType = useTypedSelector((state) => state.modal.modalType);
-  const courseData = useTypedSelector((state) => state.course.data);
 
   const [courseName, setCourseName] = useState<string>('');
   const [isValidName, setValidName] = useState<boolean>(false);
@@ -29,16 +31,20 @@ export function CreateCourseForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoaderActive(isFetching);
+  }, [isFetching, setLoaderActive]);
+
+  useEffect(() => {
     const isEdit = modalType === MODAL_TYPES.editCourse;
     setEditForm(isEdit);
-    if (isEdit && courseData) {
-      setCourseName((prevState) => courseData?.title || prevState);
+    if (isEdit && data && !isError && !isFetching) {
+      setCourseName((prevState) => data.data.title || prevState);
       setChangedName(true);
       setValidName(true);
-      setCourseDescription((prevState) => courseData?.description || prevState);
-      setCourseImage(courseData?.image || null);
+      setCourseDescription((prevState) => data.data.description || prevState);
+      setCourseImage(data.data.image || null);
     }
-  }, [courseData, modalType]);
+  }, [data, isError, isFetching, modalType]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValidName(event.target.value.length > 1);
@@ -48,7 +54,7 @@ export function CreateCourseForm() {
     }
   };
 
-  const handleTeaxtAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+  const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCourseDescription(event.target.value);
   };
 
@@ -65,7 +71,7 @@ export function CreateCourseForm() {
         is_open: 1,
         image: courseImage,
       }).then((res) => {
-        if('data' in res) {
+        if ('data' in res) {
           setModalOpen(false);
           navigate(`/courses/${res.data.data.id}`);
         }
@@ -73,14 +79,14 @@ export function CreateCourseForm() {
       setLoaderActive(true);
     }
 
-    if (isEditForm && courseData && courseData.id) {
+    if (isEditForm && data && data.data.id) {
       updateCourse({
-        id: courseData.id,
+        id: data.data.id,
         title: courseName,
         description: courseDescription,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
-        image: courseImage ? courseImage.id ? {id: courseImage.id} : courseImage : null,
+        image: courseImage ? (courseImage.id ? { id: courseImage.id } : courseImage) : null,
       }).then(() => setModalOpen(false));
       setLoaderActive(true);
     }
@@ -123,7 +129,7 @@ export function CreateCourseForm() {
       />
       <S.Textarea
         as={'textarea'}
-        onChange={handleTeaxtAreaChange}
+        onChange={handleTextAreaChange}
         value={courseDescription}></S.Textarea>
       <S.BottomContainer>
         <AddImage

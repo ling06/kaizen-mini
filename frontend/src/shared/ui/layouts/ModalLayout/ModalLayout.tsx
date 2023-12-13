@@ -2,20 +2,22 @@ import ReactDOM from 'react-dom';
 import * as S from './styles';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useEffect, useState } from 'react';
-import { MODAL_TYPES } from '@/shared/model/constants';
+import { IS_MOBILE, MODAL_TYPES } from '@/shared/model/constants';
+import { ModalPosition } from '@/shared/model/types/common.types';
 
 interface IModalLayout {
   children: React.ReactNode;
   modalType: string;
+  modalPosition: ModalPosition;
 }
 
-export function ModalLayout({ children, modalType: type }: IModalLayout) {
+export function ModalLayout({ children, modalType, modalPosition }: IModalLayout) {
   const { setModalOpen } = useActions();
   const [modalName, setModalName] = useState<string>();
 
   useEffect(() => {
     let name = '';
-    switch (type) {
+    switch (modalType) {
       case MODAL_TYPES.createCourse:
         name = 'Создание курса';
         break;
@@ -36,13 +38,16 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
         break;
       case MODAL_TYPES.newsCategory: 
         name = "Категории";
+        break; 
+      case MODAL_TYPES.selectCourse:
+        (name = "Курсы") && IS_MOBILE && (name = "Выбор курса");
         break;  
       default:
-        console.error(`Unknown modal type: ${type}`);
+        console.error(`Unknown modal type: ${modalType}`);
     }
 
     setModalName(name);
-  }, [type]);
+  }, [modalType]);
 
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return;
@@ -58,9 +63,9 @@ export function ModalLayout({ children, modalType: type }: IModalLayout) {
   }
 
   return ReactDOM.createPortal(
-    <S.ModalLayout onClick={handleOverlayClick}>
-      <S.Window>
-        <S.ModalName>{modalName}
+    <S.ModalLayout onClick={handleOverlayClick} modalPosition={modalPosition}>
+      <S.Window modalPosition={modalPosition}>
+        <S.ModalName modalPosition={modalPosition}>{modalName}
           <S.CloseBtn onClick={handleCloseModal}/>
         </S.ModalName>
         {children}

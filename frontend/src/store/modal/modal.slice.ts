@@ -1,13 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { ModalPosition } from '@/types/common.types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IModalInitialState {
   isModalOpen: boolean;
   modalType: string;
+  modalPosition: ModalPosition;
 }
 
 const ModalInitialState: IModalInitialState = {
   isModalOpen: false,
   modalType: '',
+  modalPosition: ModalPosition.right,
 };
 
 export const modalSlice = createSlice({
@@ -15,13 +18,22 @@ export const modalSlice = createSlice({
   initialState: ModalInitialState,
   reducers: {
     setModalOpen: (state, { payload }) => {
-      state.isModalOpen = payload;
-      payload
-        ? (document.body.style.overflow = 'hidden')
-        : (document.body.style.overflow = 'unset');
+      console.log('payload', payload);
+
+      if (payload) {
+        state.isModalOpen = payload;
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+
+      document.body.style.overflow = 'unset';
+      return ModalInitialState;
     },
     setModalType: (state, { payload }) => {
       state.modalType = payload;
+    },
+    setModalPosition: (state, { payload }: PayloadAction<ModalPosition>) => {
+      state.modalPosition = payload;
     },
   },
 });

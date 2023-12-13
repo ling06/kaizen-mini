@@ -16,6 +16,7 @@ export const Overlay = styled(C.DarkOverlay)`
     right: 0;
     left: unset;
     width: 320px;
+    height: auto;
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;

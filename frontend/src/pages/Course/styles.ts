@@ -4,6 +4,9 @@ import * as C from '@/shared/ui/assets/styles/components';
 export const Container = styled(C.FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${props => props.theme.colors.realWhite};
+  @media ${props => props.theme.media.mobile} {
+    height: 11.9vw;
+  }
 `;
 
 export const NavContainer = styled(C.FlexContainer)`
@@ -25,6 +28,7 @@ export const ContentContainer = styled(C.FlexContainer)`
     width: 100%;
     padding: 3.125vw 3% 10vw;
     margin: 0;
+    height: auto;
   }
 `;
 
