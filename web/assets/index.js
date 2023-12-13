@@ -83031,6 +83031,7 @@ line-height100%`;
   `;
       const courseTitleStyles = nt$1`
     margin-right: ${IS_MOBILE ? 0 : "20px"};
+    cursor: pointer;
   `;
       const dndBtnStyles = nt$1`
     margin-right: 15px;
