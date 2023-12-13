@@ -1,10 +1,10 @@
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
 import { Title } from '@/shared/ui/components';
 import { css } from 'styled-components';
-import { SearchInListInput } from './ui/SearchInListInput';
+import { CustomTabs } from '@/feature/tabs';
+import { nanoid } from '@reduxjs/toolkit';
 
 export function User() {
-
   const layoutStyles = css`
     max-width: 1266px;
     padding-top: 68px;
@@ -14,14 +14,32 @@ export function User() {
     margin-bottom: 25px;
   `;
 
+  const tabs = [{ name: 'Обучение', queryParam: 'education' }, { name: 'Права доступа', queryParam: 'access' }].map((tab) => {
+    return {
+      ...tab,
+      id: nanoid(),
+    };
+  });
+  const panels = [{ element: <div>Обучение</div> }, { element: <div>Права доступа</div> }].map(
+    (panel) => {
+      return {
+        ...panel,
+        id: nanoid(),
+      };
+    }
+  );
+
   return (
     <Layout styles={layoutStyles}>
       <Title
         title={'Петров Иван'}
-        styles={titleStyles} 
+        styles={titleStyles}
       />
       <WhiteBox>
-        <SearchInListInput onChange={(value) => console.log(value)}/>
+        <CustomTabs
+          tabNames={tabs}
+          tabPanels={panels}
+        />
       </WhiteBox>
     </Layout>
   );
