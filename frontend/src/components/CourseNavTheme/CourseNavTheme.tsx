@@ -106,6 +106,7 @@ export function CourseNavTheme({
     <S.Container>
       <S.Theme>
         <Accordion
+        disabled={true}
           sx={{ 
             width: '100%', 
             boxShadow: 'unset', 

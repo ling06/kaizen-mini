@@ -22065,6 +22065,7 @@ var require_assets = __commonJS({
       useSetThemesPositionsMutation
     } = themeApi;
     const Title$f = st$1.p`
+  margin-right: auto;
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;
@@ -25701,6 +25702,7 @@ var require_assets = __commonJS({
     const Container$L = st$1.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
   margin-bottom: 30px;
   cursor: pointer;
@@ -25880,7 +25882,6 @@ var require_assets = __commonJS({
               AdminBtn,
               {
                 popupName: "Урок",
-                styles: { marginLeft: "auto" },
                 type: "edit",
                 onClick: () => {
                 },
@@ -26092,14 +26093,20 @@ var require_assets = __commonJS({
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$M, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         Accordion$1,
         {
-          sx: { width: "100%", boxShadow: "unset" },
+          disabled: true,
+          sx: {
+            width: "100%",
+            boxShadow: "unset"
+          },
           expanded: Number(themeId) === data.id,
           onChange: handleChange(data.id),
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               AccordionSummary$1,
               {
-                sx: { padding: 0 },
+                sx: {
+                  padding: 0
+                },
                 expandIcon: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { display: "none" } }),
                 "aria-controls": `${data.id}_content`,
                 id: `${data.id}_header`,
@@ -26114,7 +26121,7 @@ var require_assets = __commonJS({
                         },
                         onMouseLeave: setNotDraggable,
                         styles: nt$1`
-                    margin-right: 20px;
+                    margin-right: auto;
                   `
                       }
                     ),
@@ -26148,7 +26155,16 @@ var require_assets = __commonJS({
                 ] })
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionDetails$1, { sx: { paddingLeft: "102px", paddingRight: 0 }, children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons }) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              AccordionDetails$1,
+              {
+                sx: {
+                  paddingLeft: "102px",
+                  paddingRight: 0
+                },
+                children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons })
+              }
+            )
           ]
         }
       ) }) });
@@ -26217,34 +26233,40 @@ var require_assets = __commonJS({
           return [...themes2];
         });
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: themes && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: themes.map((theme) => theme.id), children: themes.map((theme) => {
-        if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
-          return;
-        }
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          SortableItem,
-          {
-            id: theme.id,
-            isDraggable: theme.isDraggable,
-            data: theme,
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CourseNavTheme,
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        DndContext,
+        {
+          onDragEnd: handleDragEnd,
+          children: themes && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: themes.map((theme) => theme.id), children: themes.map((theme) => {
+            if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
+              return;
+            }
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              SortableItem,
               {
+                id: theme.id,
+                isDraggable: theme.isDraggable,
                 data: theme,
-                courseId: Number(courseId),
-                setDraggable: () => {
-                  setDraggable(theme.id, true);
-                },
-                setNotDraggable: () => {
-                  setDraggable(theme.id, false);
-                }
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  CourseNavTheme,
+                  {
+                    data: theme,
+                    courseId: Number(courseId),
+                    setDraggable: () => {
+                      setDraggable(theme.id, true);
+                    },
+                    setNotDraggable: () => {
+                      setDraggable(theme.id, false);
+                    }
+                  },
+                  theme.id
+                )
               },
               theme.id
-            )
-          },
-          theme.id
-        );
-      }) }) });
+            );
+          }) })
+        }
+      );
     }
     function CourseNavBody({ data }) {
       const { setModalType, setModalOpen } = useActions();
@@ -27309,11 +27331,27 @@ var require_assets = __commonJS({
           setActiveChapterId(chapterId);
         }
       }, [chapterId, setActiveChapterId]);
+      const HideOverflow = st$1(NavContainer)`
+    overflow: hidden scroll;
+    /* overflow: hidden ; */
+
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      transform: translateX(-100px);
+      background: rgb(0, 122, 255);
+      background-color: rgb(0, 122, 255);
+      border-radius: 10px;
+    }
+  `;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$K, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
-          !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
+          !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideOverflow, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
           ] }),
@@ -28679,365 +28717,6 @@ margin-bottom: 60px;
             n2.removeChild(i2), n2.normalize();
           }
         }
-<<<<<<< HEAD
-      );
-    }
-    const Container$t = st$1(FlexContainer)`
-  flex-direction: column;
-  position: relative;
-`;
-    const Theme$1 = st$1(FlexContainer)`
-  align-items: center;
-  margin-bottom: 30px;
-`;
-    const Inner = st$1(FlexContainer)`
-  width: fit-content;
-  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
-`;
-    const AccSum = st$1(FlexContainer)`
-  align-items: center;
-`;
-    st$1.button`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  padding: 0;
-  margin-right: 5px;
-  background-color: transparent;
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-  min-height: fit-content;
-`;
-    const themeApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        getThemeById: builder.query({
-          query: (id2) => `theme/${id2}`,
-          providesTags: () => [
-            {
-              type: "ThemeById"
-            }
-          ]
-        }),
-        createTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/create-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => [
-            {
-              type: "ChapterById"
-            }
-          ]
-        }),
-        updateTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/update-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        deleteTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/delete-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        restoreTheme: builder.mutation({
-          query: (data) => ({
-            url: "course/restore-theme",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById"]
-        }),
-        setThemesPositions: builder.mutation({
-          query: (data) => ({
-            url: "course/set-positions",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["ChapterById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCreateThemeMutation,
-      useDeleteThemeMutation,
-      useGetThemeByIdQuery,
-      useRestoreThemeMutation,
-      useUpdateThemeMutation,
-      useSetThemesPositionsMutation
-    } = themeApi;
-    const Title$b = st$1.p`
-  margin-right: auto;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 170%;
-  color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
-  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
-  }
-`;
-    function CourseNavItemTitle({
-      text = "",
-      children,
-      onClick: onClick2 = () => {
-      },
-      styles: styles2 = {},
-      isActive = true,
-      isDeleted = false
-    }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Title$b,
-        {
-          style: styles2,
-          onClick: onClick2,
-          $active: isActive,
-          $isDeleted: isDeleted,
-          children: [
-            text,
-            children
-          ]
-        }
-      );
-    }
-    const Container$s = st$1.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  margin-bottom: 30px;
-  cursor: pointer;
-  opacity: ${(props) => props.$isDeleted ? 0.5 : 1};
-  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-    const lessonApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        getLessonById: builder.query({
-          query: (id2) => `lesson/${id2}`,
-          providesTags: () => [
-            {
-              type: "LessonById"
-            }
-          ]
-        }),
-        createLesson: builder.mutation({
-          query: (data) => ({
-            url: "course/create-lesson",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => [
-            {
-              type: "ChapterById"
-            }
-          ]
-        }),
-        updateLesson: builder.mutation({
-          query: (data) => ({
-            url: "course/update-lesson",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["LessonById", "ChapterById"]
-        }),
-        deleteLesson: builder.mutation({
-          query: (data) => ({
-            url: "course/delete-lesson",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["LessonById", "ChapterById"]
-        }),
-        restoreLesson: builder.mutation({
-          query: (data) => ({
-            url: "course/restore-lesson",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["LessonById", "ChapterById"]
-        }),
-        checkLesson: builder.mutation({
-          query: (data) => ({
-            url: "course/check-lesson",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => ["ChapterById", "LessonById", "Courses"]
-        }),
-        setLessonsPositions: builder.mutation({
-          query: (data) => ({
-            url: "course/set-positions",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["LessonById", "ChapterById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCheckLessonMutation,
-      useCreateLessonMutation,
-      useDeleteLessonMutation,
-      useGetLessonByIdQuery,
-      useRestoreLessonMutation,
-      useUpdateLessonMutation,
-      useSetLessonsPositionsMutation
-    } = lessonApi;
-    function CourseNavLesson({ data, setDraggable, setNotDraggable }) {
-      const [isInit, setInit] = reactExports.useState(true);
-      const { setActiveLesson, setLoaderActive } = useActions();
-      const navigate = useNavigate();
-      const { lessonId, chapterId, courseId } = useParams();
-      const [deleteLesson] = useDeleteLessonMutation();
-      const [restoreLesson] = useRestoreLessonMutation();
-      const [updateLesson] = useUpdateLessonMutation();
-      const [lessonStatus, setLessonStatus] = reactExports.useState(0);
-      reactExports.useEffect(() => {
-        if (data) {
-          setLessonStatus(data.status);
-        }
-      }, [data]);
-      const handleClick = () => {
-        setActiveLesson(data);
-        const lessonPath = generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId`, {
-          courseId: String(courseId),
-          chapterId: String(chapterId),
-          themeId: String(data.theme_id),
-          lessonId: String(data.id)
-        });
-        navigate(lessonPath);
-      };
-      reactExports.useEffect(() => {
-        if (isInit && lessonId) {
-          if (data.id === Number(lessonId)) {
-            setActiveLesson(data);
-          }
-          setInit(false);
-        }
-      }, [data, isInit, lessonId, setActiveLesson]);
-      const handleEditLesson = () => {
-        navigate(
-          generatePath(`/courses/:courseId/:chapterId/:themeId/:lessonId/edit-lesson`, {
-            courseId: String(courseId),
-            chapterId: String(chapterId),
-            themeId: String(data.theme_id),
-            lessonId: String(data.id)
-          })
-        );
-      };
-      const handleDeleteLesson = () => {
-        deleteLesson({
-          id: Number(data.id)
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreLesson = () => {
-        restoreLesson({
-          id: Number(data.id)
-        });
-        setLoaderActive(true);
-      };
-      const handleToggleLessonStatus = reactExports.useCallback(() => {
-        const newStatus = lessonStatus === 1 ? 0 : 1;
-        updateLesson({
-          id: Number(data.id),
-          status: newStatus
-        }).then((res) => {
-          if ("error" in res || "data" in res && !res.data.result) {
-            alert("При редактировании урока произошла ошибка");
-          }
-        });
-        setLoaderActive(true);
-      }, [data.id, lessonStatus, setLoaderActive, updateLesson]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$s,
-        {
-          $isDeleted: !!data.is_deleted,
-          onClick: handleClick,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              DndBtn,
-              {
-                onMouseEnter: setDraggable,
-                onMouseLeave: setNotDraggable,
-                styles: nt$1`
-          margin-right: 20px;
-        `
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CourseNavItemTitle,
-              {
-                text: data.title,
-                isActive: !data.isChecked && lessonStatus === 1
-              }
-            ),
-            data.isChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {}),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              AdminBtn,
-              {
-                popupName: "Урок",
-                type: "edit",
-                onClick: () => {
-                },
-                popupHandlers: {
-                  onEdit: handleEditLesson,
-                  onDelete: data.is_deleted ? void 0 : handleDeleteLesson,
-                  onRestore: data.is_deleted ? handleRestoreLesson : void 0,
-                  onHide: lessonStatus > 0 ? handleToggleLessonStatus : void 0,
-                  onVisible: lessonStatus === 0 ? handleToggleLessonStatus : void 0
-                }
-              }
-            )
-          ]
-        }
-      );
-    }
-    function SortableLessons({ data }) {
-      const { setLoaderActive } = useActions();
-      const [lessons, setLessons] = reactExports.useState([]);
-      const [setPositions] = useSetLessonsPositionsMutation();
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
-      reactExports.useEffect(() => {
-        if (data) {
-          const newLessons = data.map((lesson) => ({
-            ...lesson,
-            isDraggable: false
-          }));
-          const newLessonsSorted = newLessons.sort((a2, b2) => a2.position - b2.position);
-          setLessons(newLessonsSorted);
-          return;
-        }
-        setLessons([]);
-      }, [data]);
-      const setDraggable = (id2, isDraggable) => {
-        setLessons((lessons2) => {
-          const index = lessons2.findIndex((lesson) => lesson.id === id2);
-          lessons2[index].isDraggable = isDraggable;
-          return [...lessons2];
-        });
-      };
-      function handleDragEnd(event) {
-        const { active, over } = event;
-        if (!over || !over.data.current || !active.data.current) {
-=======
         return o2;
       }
       /**
@@ -29082,7 +28761,6 @@ margin-bottom: 60px;
       static addFakeCursor() {
         const e2 = m2.range;
         if (e2 === null)
->>>>>>> b1558f2b069f9f443a93cb355db8525379197be3
           return;
         const t2 = d$1.make("span", "codex-editor__fake-cursor");
         t2.dataset.mutationFree = "true", e2.collapse(), e2.insertNode(t2);
@@ -29128,419 +28806,6 @@ margin-bottom: 60px;
       restore() {
         if (!this.savedSelectionRange)
           return;
-<<<<<<< HEAD
-        }
-        const path = generatePath(`/courses/:courseId/:chapterId`, {
-          courseId: String(courseId),
-          chapterId: String(data.chapter_id)
-        });
-        navigate(path);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$t, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Accordion$1,
-        {
-          sx: {
-            width: "100%",
-            boxShadow: "unset"
-          },
-          expanded: Number(themeId) === data.id,
-          onChange: handleChange(data.id),
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              AccordionSummary$1,
-              {
-                sx: {
-                  padding: 0
-                },
-                expandIcon: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { display: "none" } }),
-                "aria-controls": `${data.id}_content`,
-                id: `${data.id}_header`,
-                children: /* @__PURE__ */ jsxRuntimeExports.jsxs(AccSum, { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(Inner, { $isDeleted: !!data.is_deleted, children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      DndBtn,
-                      {
-                        onMouseEnter: () => {
-                          setDraggable();
-                          handleCloseAccordion();
-                        },
-                        onMouseLeave: setNotDraggable,
-                        styles: nt$1`
-                    margin-right: auto;
-                  `
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionIcon, { $active: Number(themeId) === data.id }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      CourseNavItemTitle,
-                      {
-                        text: data.title,
-                        isActive: !isThemeChecked,
-                        isDeleted: !!data.is_deleted
-                      }
-                    ),
-                    isThemeChecked && /* @__PURE__ */ jsxRuntimeExports.jsx(DoneIcon$2, {})
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    AdminBtn,
-                    {
-                      popupName: "Тема",
-                      styles: { marginLeft: "auto" },
-                      type: "edit",
-                      onClick: () => {
-                      },
-                      popupHandlers: {
-                        onAdd: handleAddLesson,
-                        onEdit: handleEditTheme,
-                        onDelete: data.is_deleted ? void 0 : handleDeleteTheme,
-                        onRestore: data.is_deleted ? handleRestoreTheme : void 0
-                      }
-                    }
-                  )
-                ] })
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              AccordionDetails$1,
-              {
-                sx: {
-                  paddingLeft: "102px",
-                  paddingRight: 0
-                },
-                children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons })
-              }
-            )
-          ]
-        }
-      ) }) });
-    }
-    function SortableThemes({ data }) {
-      const { setLoaderActive } = useActions();
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
-      const [themes, setThemes] = reactExports.useState([]);
-      const { courseId } = useParams();
-      const [setPositions] = useSetThemesPositionsMutation();
-      reactExports.useEffect(() => {
-        if (data) {
-          const themesData = data.map((theme) => {
-            return {
-              ...theme,
-              isDraggable: false
-            };
-          });
-          const themesDataSorted = themesData.sort((a2, b2) => a2.position - b2.position);
-          setThemes(themesDataSorted);
-          return;
-        }
-        setThemes([]);
-      }, [data]);
-      function handleDragEnd(event) {
-        const { active, over } = event;
-        if (!over || !over.data.current) {
-          return;
-        }
-        if (active.id !== over.id) {
-          const oldIndex = themes.findIndex((theme) => theme.id === active.id);
-          const newIndex = themes.findIndex((theme) => theme.id === over.id);
-          const changedThemes = arrayMove(themes, oldIndex, newIndex);
-          const itemsData = changedThemes.map((theme, index) => {
-            return {
-              id: theme.id,
-              position: index
-            };
-          });
-          setThemes(changedThemes);
-          setPositions({
-            type: CourseEntities.theme,
-            items: itemsData
-          }).then((res) => {
-            const isError = setPositionsErrorsHandler({
-              setter: setThemes,
-              res,
-              arr: changedThemes,
-              oldIndex,
-              newIndex
-            });
-            if (isError) {
-              alert("При перемещении Темы произошла ошибка!");
-            }
-          });
-          setLoaderActive(true);
-        }
-      }
-      const setDraggable = (id2, isDraggable) => {
-        setThemes((themes2) => {
-          const index = themes2.findIndex((theme) => theme.id === id2);
-          themes2[index].isDraggable = isDraggable;
-          return [...themes2];
-        });
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(
-        DndContext,
-        {
-          onDragEnd: handleDragEnd,
-          children: themes && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: themes.map((theme) => theme.id), children: themes.map((theme) => {
-            if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
-              return;
-            }
-            return /* @__PURE__ */ jsxRuntimeExports.jsx(
-              SortableItem,
-              {
-                id: theme.id,
-                isDraggable: theme.isDraggable,
-                data: theme,
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  CourseNavTheme,
-                  {
-                    data: theme,
-                    courseId: Number(courseId),
-                    setDraggable: () => {
-                      setDraggable(theme.id, true);
-                    },
-                    setNotDraggable: () => {
-                      setDraggable(theme.id, false);
-                    }
-                  },
-                  theme.id
-                )
-              },
-              theme.id
-            );
-          }) })
-        }
-      );
-    }
-    function CourseNavBody({ data }) {
-      const { setModalType, setModalOpen } = useActions();
-      const openCreateThemeModal = () => {
-        setModalType(MODAL_TYPES.createTheme);
-        setModalOpen(true);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "Тема",
-            type: "add",
-            onClick: openCreateThemeModal
-          }
-        ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Container$u, { children: data.themes && data.themes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableThemes, { data: data.themes }) })
-      ] });
-    }
-    const Container$r = st$1(FlexContainer)`
-  height: calc(100vh - 62.25px);
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-    const NavContainer = st$1(FlexContainer)`
-  flex-direction: column;
-  width: 33.25%; 
-  padding: 15px 15px 80px;
-  border-right: 1px solid ${(props) => props.theme.colors.greyF1};
-`;
-    const ContentContainer = st$1(FlexContainer)`
-  flex-direction: column;
-  position: relative;
-  width: calc(100% - 33.25%);
-  max-height: 100vh;
-  overflow-y: scroll;
-  padding: 20px 35px 80px;
-  margin-left: auto;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    padding: 3.125vw 3% 10vw;
-    margin: 0;
-  }
-`;
-    const bodyOverflow$1 = at$1`
-  body {
-    overflow: hidden;
-    background-color: ${(props) => props.theme.colors.realWhite};
-  }
-`;
-    const Container$q = st$1(FlexContainer)`
-  flex-direction: column;
-  row-gap: 18px;
-  margin-bottom: 40px;
-`;
-    const TitleWrapper = st$1(FlexContainer)`
-  justify-content: space-between;
-  align-items: center;
-`;
-    const Title$a = st$1(Text$6)`
-  font-size: 25px;
-`;
-    const ProgressBar = st$1(ProgressBar$1)`
-  height: 10px;
-`;
-    function CourseNavHead({ data }) {
-      const [deleteChapter] = useDeleteChapterMutation();
-      const [restoreChapter] = useRestoreChapterMutation();
-      const { setLoaderActive, setModalType, setUpdatingChapterData, setModalOpen } = useActions();
-      const chapterProgress = reactExports.useMemo(() => {
-        var _a;
-        if (data) {
-          let lessons = 0;
-          let checkedlessons = 0;
-          (_a = data.themes) == null ? void 0 : _a.forEach((theme) => {
-            var _a2;
-            (_a2 = theme.lessons) == null ? void 0 : _a2.forEach((lesson) => {
-              if (lesson.isChecked) {
-                checkedlessons++;
-              }
-              lessons++;
-            });
-          });
-          return checkedlessons / lessons * 100;
-        }
-      }, [data]);
-      const handleDeleteChapter = () => {
-        deleteChapter({ id: data.id }).then(() => {
-          setLoaderActive(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleRestoreChapter = () => {
-        restoreChapter({ id: data.id }).then(() => {
-          setLoaderActive(false);
-        });
-        setLoaderActive(true);
-      };
-      const handleEditChapter = () => {
-        setUpdatingChapterData(data);
-        setModalType(MODAL_TYPES.editChapter);
-        setModalOpen(true);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Title$a,
-            {
-              $isDeleted: !!data.is_deleted,
-              as: "h3",
-              children: data.title
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            AdminBtn,
-            {
-              popupName: "Глава",
-              type: "edit",
-              onClick: () => {
-              },
-              popupHandlers: {
-                onDelete: !data.is_deleted ? handleDeleteChapter : void 0,
-                onRestore: data.is_deleted ? handleRestoreChapter : void 0,
-                onEdit: handleEditChapter
-              }
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar, { $progress: `${chapterProgress}` })
-      ] });
-    }
-    const forwardIcon = "/assets/forwardIcon.svg";
-    const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
-    const Title$9 = st$1(Text$6)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 35px;
-  font-size: 31px;
-  @media ${(props) => props.theme.media.mobile} {
-    padding: 0 3.125vw;
-    margin-bottom: 6.25vw;
-    font-size:  5.625vw;
-  }
-`;
-    const Container$p = st$1(FlexContainer)`
-  flex-direction: column;
-  position: relative;
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-  padding-right: 20px;
-  @media ${(props) => props.theme.media.mobile} {
-    padding: 0;
-  }
-`;
-    st$1.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-    const NoOpenLesson = st$1(Text$6)`
-  font-size: 31px;
-`;
-    const ForwardBtn = st$1(DefaultBtn)`
-  width: 166px;
-  padding: 0 20px 0 28px;
-  text-align: start;
-  background-image: url(${forwardIcon});
-  background-repeat: no-repeat;
-  background-position: 87% 50%;
-  background-size: 33px;
-  @media ${(props) => props.theme.media.mobile} {
-    width: fit-content;
-    min-height: 15.625vw;
-    padding: 0px 15vw 0px 8vw;
-    margin: 0;
-    margin-left: auto;
-    margin-right: 3.125vw;
-    text-align: center;
-    background-position: 88% 50%;
-    background-size: 10.3125vw;
-  }
-
-  &:disabled {
-    color: ${(props) => props.theme.colors.grey57};
-    background-color: ${(props) => props.theme.colors.grey93};
-    background-image: url(${forwardIconDisabled});
-  }
-`;
-    const Container$o = st$1.div`
-  font-style: normal;
-  font-weight: 400;
-  margin-bottom: 20px;
-  .table {
-    width: 100%;
-  }
-
-  /* p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  ul,
-  ol {
-    margin-bottom: 20px;
-  } */
-
-  /* li {
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
-  } */
-
-  td {
-    padding: 5px 0;
-  }
-  ol {
-    list-style: inside;
-    &:last-of-type {
-      margin-bottom: 0px;
-    }
-  }
-  ul {
-    list-style: inside;
-    &:last-of-type {
-      margin-bottom: 0px;
-=======
         const e2 = window.getSelection();
         e2.removeAllRanges(), e2.addRange(this.savedSelectionRange);
       }
@@ -29601,7 +28866,6 @@ margin-bottom: 60px;
       }
       const r2 = Array.from(i2).some((l2) => e2.contains(l2)), a2 = Array.from(n2).some((l2) => e2.contains(l2));
       return r2 || a2;
->>>>>>> b1558f2b069f9f443a93cb355db8525379197be3
     }
     const Me = "redactor dom changed", ct = "block changed", dt = "fake cursor is about to be toggled", ht = "fake cursor have been set";
     function Je(s2, e2) {
@@ -30226,210 +29490,6 @@ margin-bottom: 60px;
           K(t2, "warn");
           return;
         }
-<<<<<<< HEAD
-      }, [chapterId, setActiveChapterId]);
-      const HideOverflow = st$1(NavContainer)`
-    overflow: hidden scroll;
-    /* overflow: hidden ; */
-
-
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      transform: translateX(-100px);
-      background: rgb(0, 122, 255);
-      background-color: rgb(0, 122, 255);
-      border-radius: 10px;
-    }
-  `;
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
-          !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideOverflow, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavBody, { data: data.data })
-          ] }),
-          isMobile && data && isNavPopup && /* @__PURE__ */ jsxRuntimeExports.jsx(NavPopup, { chapterData: data.data }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ContentContainer, { ref: ContentContainer$1, children: /* @__PURE__ */ jsxRuntimeExports.jsx(CourseContent, {}) })
-        ] })
-      ] });
-    }
-    function Courses() {
-      const isMobile = useMediaQuery$1(MediaQueries.mobile);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Route,
-          {
-            path: "/:courseId?",
-            element: /* @__PURE__ */ jsxRuntimeExports.jsx(CoursePreview, {})
-          }
-        ),
-        !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Route,
-          {
-            path: "/:courseId/:chapterId/:themeId?/:lessonId?",
-            element: /* @__PURE__ */ jsxRuntimeExports.jsx(Course, {})
-          }
-        )
-      ] }) });
-    }
-    const competitionApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        getAllCompetitions: builder.query({
-          query: () => "competition",
-          providesTags: () => [
-            {
-              type: "Competition"
-            }
-          ]
-        }),
-        getCompetitionById: builder.query({
-          query: (id2) => `competition/${id2}`,
-          providesTags: () => [
-            {
-              type: "CompetitionById"
-            }
-          ]
-        }),
-        createCompetition: builder.mutation({
-          query: (data) => ({
-            url: "competition/create",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Competition"]
-        }),
-        updateCompetition: builder.mutation({
-          query: (data) => ({
-            url: "competition/update",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Competition", "CompetitionById"]
-        }),
-        deleteCompetition: builder.mutation({
-          query: (data) => ({
-            url: "competition/delete",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Competition", "CompetitionById"]
-        }),
-        restoreCompetition: builder.mutation({
-          query: (data) => ({
-            url: "competition/restore",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Competition", "CompetitionById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCreateCompetitionMutation,
-      useDeleteCompetitionMutation,
-      useGetCompetitionByIdQuery,
-      useGetAllCompetitionsQuery,
-      useRestoreCompetitionMutation,
-      useUpdateCompetitionMutation
-    } = competitionApi;
-    const arrowLeft = "/assets/swiperArrowLeft.svg";
-    const Container$j = st$1.div`
-  position: relative;
-  width: 49.7%;
-  height: 400px;
-  background-color: ${(props) => props.theme.colors.realWhite};
-  border-radius: ${(props) => props.theme.utils.br};
-  overflow: hidden;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    min-height: 47.85vw;
-    height: unset;
-    background-color: transparent;
-    overflow: unset;
-  }
-
-  .swiper-pagination {
-    display: none;
-    @media ${(props) => props.theme.media.mobile} {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 0 3vw;
-      row-gap: 2vw;
-      bottom: -5vw;
-      left: 0;
-      z-index: 222;
-    }
-  }
-
-  .swiper-pagination-bullet {
-    width: 1.88vw;
-    height: 1.88vw;
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: #181818;
-  }
-`;
-    const SwiperPrevBtn = st$1.div`
-  position: absolute;
-  bottom: 40px;
-  left: 20px;
-  z-index: 2;
-  width: 33px;
-  height: 33px;
-  background-image: url(${arrowLeft});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  cursor: pointer;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    const SwiperNextBtn = st$1(SwiperPrevBtn)`
-  right: 20px;
-  left: unset;
-  transform: rotate(-180deg);
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    st$1(DefaultBtn)`
-  z-index: 2;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  color: white;
-  border-radius: 15px;
-  width: fit-content;
-  padding: 20px 30px;
-  background-color: rgb(0, 122, 255);
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-  @media ${(props) => props.theme.media.mobile} {
-  }
-`;
-    st$1(Text$6)`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  font-size: 22px;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-
-  @media ${(props) => props.theme.media.mobile} {
-  }
-`;
-    function isObject$2(obj) {
-      return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
-=======
         this.Editor.BlockManager.blocks.length === 0 && this.Editor.BlockManager.insert(), this.Editor.BlockManager.currentBlock && this.Editor.Caret.setToBlock(this.Editor.BlockManager.currentBlock, this.Editor.Caret.positions.END), this.Editor.Toolbar.close();
       }
       /**
@@ -30496,7 +29556,6 @@ margin-bottom: 60px;
         if (e2 === null)
           throw new Error("Index should be greater than or equal to 0");
       }
->>>>>>> b1558f2b069f9f443a93cb355db8525379197be3
     }
     class eo extends C {
       constructor() {
@@ -82568,7 +81627,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
     }
-    const externalLinkIcon = "/assets/external-link.svg";
+    const externalLinkIcon = "/assets/moreIcon.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
