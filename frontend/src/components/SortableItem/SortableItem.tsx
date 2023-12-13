@@ -12,7 +12,13 @@ interface ISortableItemProps {
 }
 
 export function SortableItem({ id, children, styles = {}, isDraggable=true, data={} }: ISortableItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id, disabled: !isDraggable, data});
+  const { 
+    attributes, 
+    listeners, 
+    setNodeRef, 
+    transform, 
+    transition 
+  } = useSortable({ id, disabled: !isDraggable, data});
 
   const style = {
     transform: CSS.Transform.toString(transform),

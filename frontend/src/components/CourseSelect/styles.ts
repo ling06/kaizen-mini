@@ -1,22 +1,21 @@
 import styled from 'styled-components';
 import * as C from '@styles/components';
+import selectIcon from '@assets/images/accordionIcon.svg';
 
 export const Container = styled(C.FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
 
-export const Progress = styled.div`
-  padding: 3px 15px;
-  margin-right: 20px;
-  font-weight: 700;
-  font-size: 24.923px;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realWhite};
-  background-color: ${(props) => props.theme.colors.mainBlue};
-  border-radius: 18px;
+export const CourseName = styled(C.FlexContainer)`
+  align-items: center;
+  width: fit-content;
+  margin-right: auto;
+  cursor: pointer;
 `;
 
-export const CourseName = styled(C.Text)`
-  font-weight: 24.923px;
+export const SelectIcon = styled(C.Icon)`
+  width: 33px;
+  height: 33px;
+  background-image: url(${selectIcon});
 `;

@@ -9,19 +9,21 @@ import {
   useRestoreCourseMutation,
   useUpdateCourseMutation,
 } from '@/store/api/course.api';
-import { CourseCustomSelect } from '../CourseCustomSelect';
 import { useEffect, useMemo, useState } from 'react';
-import { SelectChangeEvent } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { CourseTitle } from '../CourseTitle';
+import { CourseProgress } from '../CourseProgress';
+import { css } from 'styled-components';
+import { ModalPosition } from '@/types/common.types';
 
 let init = true;
 
 export function CourseSelect() {
   const coursesData = useTypedSelector((state) => selectCourses(state).data?.data);
-  const { setModalOpen, setModalType, setCourseData, setLoaderActive } = useActions();
+  const { setModalOpen, setModalType, setCourseData, setLoaderActive, setModalPosition } =
+    useActions();
   const [updateCourse] = useUpdateCourseMutation();
-  const [deleteCourse] = useDeleteCourseMutation();
-  const [restoreCourse] = useRestoreCourseMutation();
+
   const courseData = useTypedSelector((state) => state.course.data);
   const [selectedValue, setSelectedValue] = useState('');
   const navigate = useNavigate();
@@ -60,86 +62,44 @@ export function CourseSelect() {
     }
   }, [courseData.id, selectOptions]);
 
-  const handleAddCourse = () => {
-    setModalType(MODAL_TYPES.createCourse);
+
+  const marginRight = css`
+    margin-right: 20px;
+  `;
+
+  const handleOpenSelectCourseModal = () => {
+    setModalType(MODAL_TYPES.selectCourse);
     setModalOpen(true);
+    setModalPosition(ModalPosition.left);
   };
 
-  const handleEditCourse = () => {
-    if (!courseData.id) {
-      console.error(`No course with id: ${courseData.id}!`);
-      return;
-    }
-    setModalType(MODAL_TYPES.editCourse);
+  const handleCreateCourse = () => {
     setModalOpen(true);
+    setModalType('createCourse');
   };
 
-  const handleToggleCourseStatus = () => {
-    if (!courseData.id) {
-      console.error(`No course with id: ${courseData.id}!`);
-      return;
-    }
-    updateCourse({
-      id: courseData.id,
-      status: Number(courseData.status) === 0 ? 1 : 0,
-      image: courseData.image,
-    }).then((res) => {
-      if ('data' in res) {
-        setCourseData(res.data.data);
-      }
-    });
-    setLoaderActive(true);
-  };
-
-  const handleDeleteCourse = () => {
-    deleteCourse({
-      id: Number(courseData.id),
-    }).then((res) => {
-      if ('result' in res && !res.result) {
-        alert('Что-то пошло не так...');
-        console.error(`Course with id: ${courseData.id} not found!`);
-      }
-    });
-    setLoaderActive(true);
-  };
-
-  const handleRestoreCourse = () => {
-    restoreCourse({
-      id: Number(courseData.id),
-    }).then((res) => {
-      if ('result' in res && !res.result) {
-        alert('Что-то пошло не так...');
-        console.error(`Course with id: ${courseData.id} not found!`);
-      }
-    });
-    setLoaderActive(true);
-  };
-
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const selectedCourseId = event.target.value;
-    setSelectedValue(`${selectedCourseId}`);
-    navigate(`/courses/${selectedCourseId}`);
-  };
 
   return (
     <S.Container>
-      <CourseCustomSelect
-        options={selectOptions}
-        value={selectedValue}
-        onChange={handleChange}
-      />
+      <S.CourseName onClick={handleOpenSelectCourseModal}>
+        <CourseProgress
+          percentage={courseData.percentage?.percentage || 0}
+          styles={marginRight}
+          isHidden={!courseData.status || !!courseData.is_deleted}
+        />
+        <CourseTitle
+          title={courseData.title}
+          isSelected={true}
+          styles={marginRight}
+          isDeleted={!!courseData.is_deleted}
+          isHidden={!courseData.status}
+        />
+        <S.SelectIcon />
+      </S.CourseName>
       <AdminBtn
         popupName="Курс"
-        type={ADMIN_BTN_TYPES.edit}
-        onClick={() => {}}
-        popupHandlers={{
-          onAdd: handleAddCourse,
-          onEdit: handleEditCourse,
-          onHide: Number(courseData.status) === 1 ? handleToggleCourseStatus : undefined,
-          onVisible: Number(courseData.status) === 0 ? handleToggleCourseStatus : undefined,
-          onDelete: courseData.is_deleted ? undefined : handleDeleteCourse,
-          onRestore: courseData.is_deleted ? handleRestoreCourse : undefined,
-        }}
+        type={ADMIN_BTN_TYPES.add}
+        onClick={handleCreateCourse}
       />
     </S.Container>
   );
