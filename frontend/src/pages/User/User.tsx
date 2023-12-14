@@ -1,7 +1,7 @@
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
 import { Title } from '@/shared/ui/components';
 import { css } from 'styled-components';
-import { CustomTabs } from '@/feature/tabs';
+import { CustomTabs } from '@/features/tabs';
 import { nanoid } from '@reduxjs/toolkit';
 
 const tabs = [

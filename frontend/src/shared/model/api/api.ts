@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store/store';
 
-const API_URL = '/api/';
+const API_URL = 'https://api.test.kaizen.borboza.com/api/';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -23,9 +23,9 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers: Headers, { getState }): Headers => {
-      const token = (getState() as RootState).auth.token;
+      const token = (getState() as RootState).user.token;
       if (token) {
-        headers.set('X-CSRF-Token', token);
+        headers.set('Authorization', token);
       }
       return headers;
     },

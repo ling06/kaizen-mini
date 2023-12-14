@@ -1,4 +1,4 @@
-import { SearchUserInput } from '@/feature/usersFilter/ui/SearchUserInput';
+import { SearchUserInput } from '@/features/usersFilter/ui/SearchUserInput';
 import { css } from 'styled-components';
 import { UsersList } from './ui/UsersList';
 import { User } from '@/entities/user/ui/User';

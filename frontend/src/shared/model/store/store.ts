@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { reducer as authReducer } from '../../../store/auth/auth.slice';
+  import {reducer as userReducer} from '@/entities/user';
 import { reducer as modalReducer } from '../../../store/modal/modal.slice';
 import { reducer as courseReducer } from '../../../store/course/course.slice';
 import { reducer as loaderReducer } from '../../../store/loader/loader.slice';
@@ -10,7 +10,7 @@ import {reducer as accessesReducer} from '@/pages/User/model/accesses.slice';
 import { api } from '../api/api';
 
 const reducer = combineReducers({
-  auth: authReducer,
+  user: userReducer,
   modal: modalReducer,
   course: courseReducer,
   loader: loaderReducer,
