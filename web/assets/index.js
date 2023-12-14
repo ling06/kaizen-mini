@@ -16320,11 +16320,6 @@ var require_assets = __commonJS({
       background: #f1f1f1;
       border-radius: 5px;
     }
-
-    &::-moz-range-thumb{
-      background: #f1f1f1;
-      border-radius: 5px;
-    }
 `;
     const isHideIcon = "/assets/hideIcon.svg";
     const addIcon$1 = "/assets/addIconBlack.svg";
@@ -81620,7 +81615,7 @@ color: ${(props) => props.theme.colors.mainBlue};
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
     }
-    const externalLinkIcon = "/assets/moreIcon.svg";
+    const externalLinkIcon = "/assets/external-link.svg";
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
