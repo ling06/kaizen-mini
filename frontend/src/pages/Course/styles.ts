@@ -10,10 +10,20 @@ export const Container = styled(C.FlexContainer)`
 `;
 
 export const NavContainer = styled(C.FlexContainer)`
+  overflow: auto;
   flex-direction: column;
   width: 33.25%; 
   padding: 15px 15px 80px;
   border-right: 1px solid ${props => props.theme.colors.greyF1};
+
+    &::-webkit-scrollbar {
+      width: 10px; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
 `;
 
 export const ContentContainer = styled(C.FlexContainer)`

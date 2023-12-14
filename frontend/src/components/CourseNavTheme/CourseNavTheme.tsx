@@ -142,7 +142,7 @@ export function CourseNavTheme({
               />
             </S.AccSum>
           </AccordionSummary>
-          <AccordionDetails sx={{ paddingLeft: '102px', paddingRight: 0 }}>
+          <AccordionDetails sx={{ paddingLeft: '70px', paddingRight: 0 }}>
             {data.lessons && <SortableLessons data={data.lessons} />}
           </AccordionDetails>
         </Accordion>

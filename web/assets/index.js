@@ -22068,6 +22068,7 @@ var require_assets = __commonJS({
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;
+  margin-right: auto;
   color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
   @media ${(props) => props.theme.media.mobile} {
@@ -25880,7 +25881,6 @@ var require_assets = __commonJS({
               AdminBtn,
               {
                 popupName: "Урок",
-                styles: { marginLeft: "auto" },
                 type: "edit",
                 onClick: () => {
                 },
@@ -26148,7 +26148,7 @@ var require_assets = __commonJS({
                 ] })
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionDetails$1, { sx: { paddingLeft: "102px", paddingRight: 0 }, children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons }) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionDetails$1, { sx: { paddingLeft: "70px", paddingRight: 0 }, children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons }) })
           ]
         }
       ) }) });
@@ -26272,10 +26272,20 @@ var require_assets = __commonJS({
   }
 `;
     const NavContainer = st$1(FlexContainer)`
+  overflow: auto;
   flex-direction: column;
   width: 33.25%; 
   padding: 15px 15px 80px;
   border-right: 1px solid ${(props) => props.theme.colors.greyF1};
+
+    &::-webkit-scrollbar {
+      width: 10px; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
 `;
     const ContentContainer = st$1(FlexContainer)`
   flex-direction: column;
