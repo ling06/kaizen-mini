@@ -284,9 +284,4 @@ export const ScrollBar = css`
       background: #f1f1f1;
       border-radius: 5px;
     }
-
-    &::-moz-range-thumb{
-      background: #f1f1f1;
-      border-radius: 5px;
-    }
 `;
