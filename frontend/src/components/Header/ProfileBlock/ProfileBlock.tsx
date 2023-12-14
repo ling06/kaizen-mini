@@ -1,13 +1,14 @@
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import * as S from './styles';
 import { UserAvatar } from '@/shared/ui/components';
-import { selectUser } from '@/entities/user';
-
+import {  useGetMeQuery } from '@/entities/user';
 
 export function ProfileBlock() {
-  const user = useTypedSelector((state) => selectUser(state).data?.data);
-  console.log('user', user);
-  
+  const token = useTypedSelector((state) => state.user.token);
+  const { data, isLoading } = useGetMeQuery(null, { skip: !token });
 
-  return <S.Container>{user && <UserAvatar userData={user} />}</S.Container>;
+
+  return (
+    <S.Container>{data?.data && !isLoading && <UserAvatar userData={data.data} />}</S.Container>
+  );
 }

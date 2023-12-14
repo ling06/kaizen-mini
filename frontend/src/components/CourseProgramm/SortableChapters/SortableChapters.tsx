@@ -1,17 +1,13 @@
 import { SortableItem } from '@/components/SortableItem';
-import { USER_ROLES } from '@/shared/model/constants';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { CourseProgrammCard } from '../CourseProgrammCard';
 import { IChapter } from '@/shared/model/types/chapter.types';
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
 import { useEffect, useState } from 'react';
 import { useSetChaptersPositionsMutation } from '@/store/api/chapter.api';
 import { CourseEntities } from '@/shared/model/types/course.types';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { setPositionsErrorsHandler } from '@/shared/lib/setPositionsErrorsHandler';
-// import * as S from './styles';
 
 interface ISortableChaptersProps {
   data: Array<IChapter>;
@@ -23,7 +19,6 @@ interface IChapterWithDrag extends IChapter {
 
 export function SortableChapters({ data }: ISortableChaptersProps) {
   const { setLoaderActive } = useActions();
-  const role = useTypedSelector((state) => selectUser(state).data?.user.role);
   const [chapters, setChapters] = useState<Array<IChapterWithDrag>>([]);
   const [setPositions] = useSetChaptersPositionsMutation();
 
@@ -91,7 +86,6 @@ export function SortableChapters({ data }: ISortableChaptersProps) {
       <SortableContext items={chapters.map((chapter) => chapter.id)}>
         {chapters.length > 0 &&
           chapters.map((chapter) => {
-            if (!chapter.is_deleted || role === USER_ROLES.admin) {
               return (
                 <SortableItem
                   key={chapter.id}
@@ -110,7 +104,7 @@ export function SortableChapters({ data }: ISortableChaptersProps) {
                 </SortableItem>
               );
             }
-          })}
+          )}
       </SortableContext>
     </DndContext>
   );

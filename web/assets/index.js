@@ -8814,12 +8814,12 @@ var require_assets = __commonJS({
       (!target || target === "_self") && // Let browser handle "target=_blank" etc.
       !isModifiedEvent(event);
     }
-    function createSearchParams(init) {
-      if (init === void 0) {
-        init = "";
+    function createSearchParams(init2) {
+      if (init2 === void 0) {
+        init2 = "";
       }
-      return new URLSearchParams(typeof init === "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce((memo, key) => {
-        let value = init[key];
+      return new URLSearchParams(typeof init2 === "string" || Array.isArray(init2) || init2 instanceof URLSearchParams ? init2 : Object.keys(init2).reduce((memo, key) => {
+        let value = init2[key];
         return memo.concat(Array.isArray(value) ? value.map((v2) => [key, v2]) : [[key, value]]);
       }, []));
     }
@@ -11765,19 +11765,2805 @@ var require_assets = __commonJS({
       }
     });
     const { actions: actions$7, reducer: reducer$9 } = modalSlice;
-    const AuthInitialState = {
+    var __generator = globalThis && globalThis.__generator || function(thisArg, body2) {
+      var _2 = { label: 0, sent: function() {
+        if (t2[0] & 1)
+          throw t2[1];
+        return t2[1];
+      }, trys: [], ops: [] }, f2, y2, t2, g2;
+      return g2 = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g2[Symbol.iterator] = function() {
+        return this;
+      }), g2;
+      function verb(n2) {
+        return function(v2) {
+          return step([n2, v2]);
+        };
+      }
+      function step(op) {
+        if (f2)
+          throw new TypeError("Generator is already executing.");
+        while (_2)
+          try {
+            if (f2 = 1, y2 && (t2 = op[0] & 2 ? y2["return"] : op[0] ? y2["throw"] || ((t2 = y2["return"]) && t2.call(y2), 0) : y2.next) && !(t2 = t2.call(y2, op[1])).done)
+              return t2;
+            if (y2 = 0, t2)
+              op = [op[0] & 2, t2.value];
+            switch (op[0]) {
+              case 0:
+              case 1:
+                t2 = op;
+                break;
+              case 4:
+                _2.label++;
+                return { value: op[1], done: false };
+              case 5:
+                _2.label++;
+                y2 = op[1];
+                op = [0];
+                continue;
+              case 7:
+                op = _2.ops.pop();
+                _2.trys.pop();
+                continue;
+              default:
+                if (!(t2 = _2.trys, t2 = t2.length > 0 && t2[t2.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                  _2 = 0;
+                  continue;
+                }
+                if (op[0] === 3 && (!t2 || op[1] > t2[0] && op[1] < t2[3])) {
+                  _2.label = op[1];
+                  break;
+                }
+                if (op[0] === 6 && _2.label < t2[1]) {
+                  _2.label = t2[1];
+                  t2 = op;
+                  break;
+                }
+                if (t2 && _2.label < t2[2]) {
+                  _2.label = t2[2];
+                  _2.ops.push(op);
+                  break;
+                }
+                if (t2[2])
+                  _2.ops.pop();
+                _2.trys.pop();
+                continue;
+            }
+            op = body2.call(thisArg, _2);
+          } catch (e2) {
+            op = [6, e2];
+            y2 = 0;
+          } finally {
+            f2 = t2 = 0;
+          }
+        if (op[0] & 5)
+          throw op[1];
+        return { value: op[0] ? op[1] : void 0, done: true };
+      }
+    };
+    var __spreadArray$2 = globalThis && globalThis.__spreadArray || function(to2, from2) {
+      for (var i2 = 0, il2 = from2.length, j2 = to2.length; i2 < il2; i2++, j2++)
+        to2[j2] = from2[i2];
+      return to2;
+    };
+    var __defProp$1 = Object.defineProperty;
+    var __defProps$1 = Object.defineProperties;
+    var __getOwnPropDescs$1 = Object.getOwnPropertyDescriptors;
+    var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
+    var __hasOwnProp$1 = Object.prototype.hasOwnProperty;
+    var __propIsEnum$1 = Object.prototype.propertyIsEnumerable;
+    var __defNormalProp$1 = function(obj, key, value) {
+      return key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+    };
+    var __spreadValues$1 = function(a2, b2) {
+      for (var prop in b2 || (b2 = {}))
+        if (__hasOwnProp$1.call(b2, prop))
+          __defNormalProp$1(a2, prop, b2[prop]);
+      if (__getOwnPropSymbols$1)
+        for (var _j = 0, _k = __getOwnPropSymbols$1(b2); _j < _k.length; _j++) {
+          var prop = _k[_j];
+          if (__propIsEnum$1.call(b2, prop))
+            __defNormalProp$1(a2, prop, b2[prop]);
+        }
+      return a2;
+    };
+    var __spreadProps$1 = function(a2, b2) {
+      return __defProps$1(a2, __getOwnPropDescs$1(b2));
+    };
+    var __objRest = function(source, exclude) {
+      var target = {};
+      for (var prop in source)
+        if (__hasOwnProp$1.call(source, prop) && exclude.indexOf(prop) < 0)
+          target[prop] = source[prop];
+      if (source != null && __getOwnPropSymbols$1)
+        for (var _j = 0, _k = __getOwnPropSymbols$1(source); _j < _k.length; _j++) {
+          var prop = _k[_j];
+          if (exclude.indexOf(prop) < 0 && __propIsEnum$1.call(source, prop))
+            target[prop] = source[prop];
+        }
+      return target;
+    };
+    var __async = function(__this, __arguments, generator) {
+      return new Promise(function(resolve, reject) {
+        var fulfilled = function(value) {
+          try {
+            step(generator.next(value));
+          } catch (e2) {
+            reject(e2);
+          }
+        };
+        var rejected = function(value) {
+          try {
+            step(generator.throw(value));
+          } catch (e2) {
+            reject(e2);
+          }
+        };
+        var step = function(x2) {
+          return x2.done ? resolve(x2.value) : Promise.resolve(x2.value).then(fulfilled, rejected);
+        };
+        step((generator = generator.apply(__this, __arguments)).next());
+      });
+    };
+    var QueryStatus;
+    (function(QueryStatus2) {
+      QueryStatus2["uninitialized"] = "uninitialized";
+      QueryStatus2["pending"] = "pending";
+      QueryStatus2["fulfilled"] = "fulfilled";
+      QueryStatus2["rejected"] = "rejected";
+    })(QueryStatus || (QueryStatus = {}));
+    function getRequestStatusFlags(status) {
+      return {
+        status,
+        isUninitialized: status === QueryStatus.uninitialized,
+        isLoading: status === QueryStatus.pending,
+        isSuccess: status === QueryStatus.fulfilled,
+        isError: status === QueryStatus.rejected
+      };
+    }
+    function isAbsoluteUrl(url) {
+      return new RegExp("(^|:)//").test(url);
+    }
+    var withoutTrailingSlash = function(url) {
+      return url.replace(/\/$/, "");
+    };
+    var withoutLeadingSlash = function(url) {
+      return url.replace(/^\//, "");
+    };
+    function joinUrls(base, url) {
+      if (!base) {
+        return url;
+      }
+      if (!url) {
+        return base;
+      }
+      if (isAbsoluteUrl(url)) {
+        return url;
+      }
+      var delimiter2 = base.endsWith("/") || !url.startsWith("?") ? "/" : "";
+      base = withoutTrailingSlash(base);
+      url = withoutLeadingSlash(url);
+      return "" + base + delimiter2 + url;
+    }
+    var flatten = function(arr) {
+      return [].concat.apply([], arr);
+    };
+    function isOnline() {
+      return typeof navigator === "undefined" ? true : navigator.onLine === void 0 ? true : navigator.onLine;
+    }
+    function isDocumentVisible() {
+      if (typeof document === "undefined") {
+        return true;
+      }
+      return document.visibilityState !== "hidden";
+    }
+    var isPlainObject$1 = isPlainObject$2;
+    function copyWithStructuralSharing(oldObj, newObj) {
+      if (oldObj === newObj || !(isPlainObject$1(oldObj) && isPlainObject$1(newObj) || Array.isArray(oldObj) && Array.isArray(newObj))) {
+        return newObj;
+      }
+      var newKeys = Object.keys(newObj);
+      var oldKeys = Object.keys(oldObj);
+      var isSameObject = newKeys.length === oldKeys.length;
+      var mergeObj = Array.isArray(newObj) ? [] : {};
+      for (var _j = 0, newKeys_1 = newKeys; _j < newKeys_1.length; _j++) {
+        var key = newKeys_1[_j];
+        mergeObj[key] = copyWithStructuralSharing(oldObj[key], newObj[key]);
+        if (isSameObject)
+          isSameObject = oldObj[key] === mergeObj[key];
+      }
+      return isSameObject ? oldObj : mergeObj;
+    }
+    var defaultFetchFn = function() {
+      var args = [];
+      for (var _j = 0; _j < arguments.length; _j++) {
+        args[_j] = arguments[_j];
+      }
+      return fetch.apply(void 0, args);
+    };
+    var defaultValidateStatus = function(response) {
+      return response.status >= 200 && response.status <= 299;
+    };
+    var defaultIsJsonContentType = function(headers) {
+      return /ion\/(vnd\.api\+)?json/.test(headers.get("content-type") || "");
+    };
+    function stripUndefined(obj) {
+      if (!isPlainObject$2(obj)) {
+        return obj;
+      }
+      var copy2 = __spreadValues$1({}, obj);
+      for (var _j = 0, _k = Object.entries(copy2); _j < _k.length; _j++) {
+        var _l = _k[_j], k2 = _l[0], v2 = _l[1];
+        if (v2 === void 0)
+          delete copy2[k2];
+      }
+      return copy2;
+    }
+    function fetchBaseQuery(_a) {
+      var _this = this;
+      if (_a === void 0) {
+        _a = {};
+      }
+      var _b = _a, baseUrl = _b.baseUrl, _j = _b.prepareHeaders, prepareHeaders = _j === void 0 ? function(x2) {
+        return x2;
+      } : _j, _k = _b.fetchFn, fetchFn = _k === void 0 ? defaultFetchFn : _k, paramsSerializer = _b.paramsSerializer, _l = _b.isJsonContentType, isJsonContentType = _l === void 0 ? defaultIsJsonContentType : _l, _m = _b.jsonContentType, jsonContentType = _m === void 0 ? "application/json" : _m, jsonReplacer = _b.jsonReplacer, defaultTimeout = _b.timeout, globalResponseHandler = _b.responseHandler, globalValidateStatus = _b.validateStatus, baseFetchOptions = __objRest(_b, [
+        "baseUrl",
+        "prepareHeaders",
+        "fetchFn",
+        "paramsSerializer",
+        "isJsonContentType",
+        "jsonContentType",
+        "jsonReplacer",
+        "timeout",
+        "responseHandler",
+        "validateStatus"
+      ]);
+      if (typeof fetch === "undefined" && fetchFn === defaultFetchFn) {
+        console.warn("Warning: `fetch` is not available. Please supply a custom `fetchFn` property to use `fetchBaseQuery` on SSR environments.");
+      }
+      return function(arg, api2) {
+        return __async(_this, null, function() {
+          var signal, getState, extra, endpoint, forced, type, meta, _a2, url, _j2, headers, _k2, params, _l2, responseHandler, _m2, validateStatus, _o2, timeout, rest, config2, _p, isJsonifiable, divider, query, request, requestClone, response, timedOut, timeoutId, e_1, responseClone, resultData, responseText, handleResponseError_1, e_2;
+          return __generator(this, function(_q) {
+            switch (_q.label) {
+              case 0:
+                signal = api2.signal, getState = api2.getState, extra = api2.extra, endpoint = api2.endpoint, forced = api2.forced, type = api2.type;
+                _a2 = typeof arg == "string" ? { url: arg } : arg, url = _a2.url, _j2 = _a2.headers, headers = _j2 === void 0 ? new Headers(baseFetchOptions.headers) : _j2, _k2 = _a2.params, params = _k2 === void 0 ? void 0 : _k2, _l2 = _a2.responseHandler, responseHandler = _l2 === void 0 ? globalResponseHandler != null ? globalResponseHandler : "json" : _l2, _m2 = _a2.validateStatus, validateStatus = _m2 === void 0 ? globalValidateStatus != null ? globalValidateStatus : defaultValidateStatus : _m2, _o2 = _a2.timeout, timeout = _o2 === void 0 ? defaultTimeout : _o2, rest = __objRest(_a2, [
+                  "url",
+                  "headers",
+                  "params",
+                  "responseHandler",
+                  "validateStatus",
+                  "timeout"
+                ]);
+                config2 = __spreadValues$1(__spreadProps$1(__spreadValues$1({}, baseFetchOptions), {
+                  signal
+                }), rest);
+                headers = new Headers(stripUndefined(headers));
+                _p = config2;
+                return [4, prepareHeaders(headers, {
+                  getState,
+                  extra,
+                  endpoint,
+                  forced,
+                  type
+                })];
+              case 1:
+                _p.headers = _q.sent() || headers;
+                isJsonifiable = function(body2) {
+                  return typeof body2 === "object" && (isPlainObject$2(body2) || Array.isArray(body2) || typeof body2.toJSON === "function");
+                };
+                if (!config2.headers.has("content-type") && isJsonifiable(config2.body)) {
+                  config2.headers.set("content-type", jsonContentType);
+                }
+                if (isJsonifiable(config2.body) && isJsonContentType(config2.headers)) {
+                  config2.body = JSON.stringify(config2.body, jsonReplacer);
+                }
+                if (params) {
+                  divider = ~url.indexOf("?") ? "&" : "?";
+                  query = paramsSerializer ? paramsSerializer(params) : new URLSearchParams(stripUndefined(params));
+                  url += divider + query;
+                }
+                url = joinUrls(baseUrl, url);
+                request = new Request(url, config2);
+                requestClone = new Request(url, config2);
+                meta = { request: requestClone };
+                timedOut = false, timeoutId = timeout && setTimeout(function() {
+                  timedOut = true;
+                  api2.abort();
+                }, timeout);
+                _q.label = 2;
+              case 2:
+                _q.trys.push([2, 4, 5, 6]);
+                return [4, fetchFn(request)];
+              case 3:
+                response = _q.sent();
+                return [3, 6];
+              case 4:
+                e_1 = _q.sent();
+                return [2, {
+                  error: {
+                    status: timedOut ? "TIMEOUT_ERROR" : "FETCH_ERROR",
+                    error: String(e_1)
+                  },
+                  meta
+                }];
+              case 5:
+                if (timeoutId)
+                  clearTimeout(timeoutId);
+                return [
+                  7
+                  /*endfinally*/
+                ];
+              case 6:
+                responseClone = response.clone();
+                meta.response = responseClone;
+                responseText = "";
+                _q.label = 7;
+              case 7:
+                _q.trys.push([7, 9, , 10]);
+                return [4, Promise.all([
+                  handleResponse(response, responseHandler).then(function(r2) {
+                    return resultData = r2;
+                  }, function(e2) {
+                    return handleResponseError_1 = e2;
+                  }),
+                  responseClone.text().then(function(r2) {
+                    return responseText = r2;
+                  }, function() {
+                  })
+                ])];
+              case 8:
+                _q.sent();
+                if (handleResponseError_1)
+                  throw handleResponseError_1;
+                return [3, 10];
+              case 9:
+                e_2 = _q.sent();
+                return [2, {
+                  error: {
+                    status: "PARSING_ERROR",
+                    originalStatus: response.status,
+                    data: responseText,
+                    error: String(e_2)
+                  },
+                  meta
+                }];
+              case 10:
+                return [2, validateStatus(response, resultData) ? {
+                  data: resultData,
+                  meta
+                } : {
+                  error: {
+                    status: response.status,
+                    data: resultData
+                  },
+                  meta
+                }];
+            }
+          });
+        });
+      };
+      function handleResponse(response, responseHandler) {
+        return __async(this, null, function() {
+          var text;
+          return __generator(this, function(_j2) {
+            switch (_j2.label) {
+              case 0:
+                if (typeof responseHandler === "function") {
+                  return [2, responseHandler(response)];
+                }
+                if (responseHandler === "content-type") {
+                  responseHandler = isJsonContentType(response.headers) ? "json" : "text";
+                }
+                if (!(responseHandler === "json"))
+                  return [3, 2];
+                return [4, response.text()];
+              case 1:
+                text = _j2.sent();
+                return [2, text.length ? JSON.parse(text) : null];
+              case 2:
+                return [2, response.text()];
+            }
+          });
+        });
+      }
+    }
+    var HandledError = (
+      /** @class */
+      function() {
+        function HandledError2(value, meta) {
+          if (meta === void 0) {
+            meta = void 0;
+          }
+          this.value = value;
+          this.meta = meta;
+        }
+        return HandledError2;
+      }()
+    );
+    var onFocus = /* @__PURE__ */ createAction("__rtkq/focused");
+    var onFocusLost = /* @__PURE__ */ createAction("__rtkq/unfocused");
+    var onOnline = /* @__PURE__ */ createAction("__rtkq/online");
+    var onOffline = /* @__PURE__ */ createAction("__rtkq/offline");
+    var DefinitionType$1;
+    (function(DefinitionType2) {
+      DefinitionType2["query"] = "query";
+      DefinitionType2["mutation"] = "mutation";
+    })(DefinitionType$1 || (DefinitionType$1 = {}));
+    function isQueryDefinition$1(e2) {
+      return e2.type === DefinitionType$1.query;
+    }
+    function isMutationDefinition$1(e2) {
+      return e2.type === DefinitionType$1.mutation;
+    }
+    function calculateProvidedBy(description, result, error, queryArg, meta, assertTagTypes) {
+      if (isFunction(description)) {
+        return description(result, error, queryArg, meta).map(expandTagDescription).map(assertTagTypes);
+      }
+      if (Array.isArray(description)) {
+        return description.map(expandTagDescription).map(assertTagTypes);
+      }
+      return [];
+    }
+    function isFunction(t2) {
+      return typeof t2 === "function";
+    }
+    function expandTagDescription(description) {
+      return typeof description === "string" ? { type: description } : description;
+    }
+    function isNotNullish(v2) {
+      return v2 != null;
+    }
+    var forceQueryFnSymbol = Symbol("forceQueryFn");
+    var isUpsertQuery = function(arg) {
+      return typeof arg[forceQueryFnSymbol] === "function";
+    };
+    function buildInitiate(_j) {
+      var serializeQueryArgs = _j.serializeQueryArgs, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk, api2 = _j.api, context = _j.context;
+      var runningQueries = /* @__PURE__ */ new Map();
+      var runningMutations = /* @__PURE__ */ new Map();
+      var _k = api2.internalActions, unsubscribeQueryResult = _k.unsubscribeQueryResult, removeMutationResult = _k.removeMutationResult, updateSubscriptionOptions = _k.updateSubscriptionOptions;
+      return {
+        buildInitiateQuery,
+        buildInitiateMutation,
+        getRunningQueryThunk,
+        getRunningMutationThunk,
+        getRunningQueriesThunk,
+        getRunningMutationsThunk,
+        getRunningOperationPromises,
+        removalWarning
+      };
+      function removalWarning() {
+        throw new Error("This method had to be removed due to a conceptual bug in RTK.\n       Please see https://github.com/reduxjs/redux-toolkit/pull/2481 for details.\n       See https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering for new guidance on SSR.");
+      }
+      function getRunningOperationPromises() {
+        if (typeof process !== "undefined" && false) {
+          removalWarning();
+        } else {
+          var extract = function(v2) {
+            return Array.from(v2.values()).flatMap(function(queriesForStore) {
+              return queriesForStore ? Object.values(queriesForStore) : [];
+            });
+          };
+          return __spreadArray$2(__spreadArray$2([], extract(runningQueries)), extract(runningMutations)).filter(isNotNullish);
+        }
+      }
+      function getRunningQueryThunk(endpointName, queryArgs) {
+        return function(dispatch) {
+          var _a;
+          var endpointDefinition = context.endpointDefinitions[endpointName];
+          var queryCacheKey = serializeQueryArgs({
+            queryArgs,
+            endpointDefinition,
+            endpointName
+          });
+          return (_a = runningQueries.get(dispatch)) == null ? void 0 : _a[queryCacheKey];
+        };
+      }
+      function getRunningMutationThunk(_endpointName, fixedCacheKeyOrRequestId) {
+        return function(dispatch) {
+          var _a;
+          return (_a = runningMutations.get(dispatch)) == null ? void 0 : _a[fixedCacheKeyOrRequestId];
+        };
+      }
+      function getRunningQueriesThunk() {
+        return function(dispatch) {
+          return Object.values(runningQueries.get(dispatch) || {}).filter(isNotNullish);
+        };
+      }
+      function getRunningMutationsThunk() {
+        return function(dispatch) {
+          return Object.values(runningMutations.get(dispatch) || {}).filter(isNotNullish);
+        };
+      }
+      function buildInitiateQuery(endpointName, endpointDefinition) {
+        var queryAction = function(arg, _j2) {
+          var _k2 = _j2 === void 0 ? {} : _j2, _l = _k2.subscribe, subscribe = _l === void 0 ? true : _l, forceRefetch = _k2.forceRefetch, subscriptionOptions = _k2.subscriptionOptions, _m = forceQueryFnSymbol, forceQueryFn = _k2[_m];
+          return function(dispatch, getState) {
+            var _j3;
+            var _a;
+            var queryCacheKey = serializeQueryArgs({
+              queryArgs: arg,
+              endpointDefinition,
+              endpointName
+            });
+            var thunk2 = queryThunk((_j3 = {
+              type: "query",
+              subscribe,
+              forceRefetch,
+              subscriptionOptions,
+              endpointName,
+              originalArgs: arg,
+              queryCacheKey
+            }, _j3[forceQueryFnSymbol] = forceQueryFn, _j3));
+            var selector = api2.endpoints[endpointName].select(arg);
+            var thunkResult = dispatch(thunk2);
+            var stateAfter = selector(getState());
+            var requestId = thunkResult.requestId, abort = thunkResult.abort;
+            var skippedSynchronously = stateAfter.requestId !== requestId;
+            var runningQuery = (_a = runningQueries.get(dispatch)) == null ? void 0 : _a[queryCacheKey];
+            var selectFromState = function() {
+              return selector(getState());
+            };
+            var statePromise = Object.assign(forceQueryFn ? thunkResult.then(selectFromState) : skippedSynchronously && !runningQuery ? Promise.resolve(stateAfter) : Promise.all([runningQuery, thunkResult]).then(selectFromState), {
+              arg,
+              requestId,
+              subscriptionOptions,
+              queryCacheKey,
+              abort,
+              unwrap: function() {
+                return __async(this, null, function() {
+                  var result;
+                  return __generator(this, function(_j4) {
+                    switch (_j4.label) {
+                      case 0:
+                        return [4, statePromise];
+                      case 1:
+                        result = _j4.sent();
+                        if (result.isError) {
+                          throw result.error;
+                        }
+                        return [2, result.data];
+                    }
+                  });
+                });
+              },
+              refetch: function() {
+                return dispatch(queryAction(arg, { subscribe: false, forceRefetch: true }));
+              },
+              unsubscribe: function() {
+                if (subscribe)
+                  dispatch(unsubscribeQueryResult({
+                    queryCacheKey,
+                    requestId
+                  }));
+              },
+              updateSubscriptionOptions: function(options) {
+                statePromise.subscriptionOptions = options;
+                dispatch(updateSubscriptionOptions({
+                  endpointName,
+                  requestId,
+                  queryCacheKey,
+                  options
+                }));
+              }
+            });
+            if (!runningQuery && !skippedSynchronously && !forceQueryFn) {
+              var running_1 = runningQueries.get(dispatch) || {};
+              running_1[queryCacheKey] = statePromise;
+              runningQueries.set(dispatch, running_1);
+              statePromise.then(function() {
+                delete running_1[queryCacheKey];
+                if (!Object.keys(running_1).length) {
+                  runningQueries.delete(dispatch);
+                }
+              });
+            }
+            return statePromise;
+          };
+        };
+        return queryAction;
+      }
+      function buildInitiateMutation(endpointName) {
+        return function(arg, _j2) {
+          var _k2 = _j2 === void 0 ? {} : _j2, _l = _k2.track, track = _l === void 0 ? true : _l, fixedCacheKey = _k2.fixedCacheKey;
+          return function(dispatch, getState) {
+            var thunk2 = mutationThunk({
+              type: "mutation",
+              endpointName,
+              originalArgs: arg,
+              track,
+              fixedCacheKey
+            });
+            var thunkResult = dispatch(thunk2);
+            var requestId = thunkResult.requestId, abort = thunkResult.abort, unwrap = thunkResult.unwrap;
+            var returnValuePromise = thunkResult.unwrap().then(function(data) {
+              return { data };
+            }).catch(function(error) {
+              return { error };
+            });
+            var reset = function() {
+              dispatch(removeMutationResult({ requestId, fixedCacheKey }));
+            };
+            var ret = Object.assign(returnValuePromise, {
+              arg: thunkResult.arg,
+              requestId,
+              abort,
+              unwrap,
+              unsubscribe: reset,
+              reset
+            });
+            var running = runningMutations.get(dispatch) || {};
+            runningMutations.set(dispatch, running);
+            running[requestId] = ret;
+            ret.then(function() {
+              delete running[requestId];
+              if (!Object.keys(running).length) {
+                runningMutations.delete(dispatch);
+              }
+            });
+            if (fixedCacheKey) {
+              running[fixedCacheKey] = ret;
+              ret.then(function() {
+                if (running[fixedCacheKey] === ret) {
+                  delete running[fixedCacheKey];
+                  if (!Object.keys(running).length) {
+                    runningMutations.delete(dispatch);
+                  }
+                }
+              });
+            }
+            return ret;
+          };
+        };
+      }
+    }
+    function defaultTransformResponse(baseQueryReturnValue) {
+      return baseQueryReturnValue;
+    }
+    function buildThunks(_j) {
+      var _this = this;
+      var reducerPath = _j.reducerPath, baseQuery = _j.baseQuery, endpointDefinitions = _j.context.endpointDefinitions, serializeQueryArgs = _j.serializeQueryArgs, api2 = _j.api, assertTagType = _j.assertTagType;
+      var patchQueryData = function(endpointName, args, patches, updateProvided) {
+        return function(dispatch, getState) {
+          var endpointDefinition = endpointDefinitions[endpointName];
+          var queryCacheKey = serializeQueryArgs({
+            queryArgs: args,
+            endpointDefinition,
+            endpointName
+          });
+          dispatch(api2.internalActions.queryResultPatched({ queryCacheKey, patches }));
+          if (!updateProvided) {
+            return;
+          }
+          var newValue = api2.endpoints[endpointName].select(args)(getState());
+          var providedTags = calculateProvidedBy(endpointDefinition.providesTags, newValue.data, void 0, args, {}, assertTagType);
+          dispatch(api2.internalActions.updateProvidedBy({ queryCacheKey, providedTags }));
+        };
+      };
+      var updateQueryData = function(endpointName, args, updateRecipe, updateProvided) {
+        if (updateProvided === void 0) {
+          updateProvided = true;
+        }
+        return function(dispatch, getState) {
+          var _j2, _k;
+          var endpointDefinition = api2.endpoints[endpointName];
+          var currentState = endpointDefinition.select(args)(getState());
+          var ret = {
+            patches: [],
+            inversePatches: [],
+            undo: function() {
+              return dispatch(api2.util.patchQueryData(endpointName, args, ret.inversePatches, updateProvided));
+            }
+          };
+          if (currentState.status === QueryStatus.uninitialized) {
+            return ret;
+          }
+          var newValue;
+          if ("data" in currentState) {
+            if (t(currentState.data)) {
+              var _l = cn(currentState.data, updateRecipe), value = _l[0], patches = _l[1], inversePatches = _l[2];
+              (_j2 = ret.patches).push.apply(_j2, patches);
+              (_k = ret.inversePatches).push.apply(_k, inversePatches);
+              newValue = value;
+            } else {
+              newValue = updateRecipe(currentState.data);
+              ret.patches.push({ op: "replace", path: [], value: newValue });
+              ret.inversePatches.push({
+                op: "replace",
+                path: [],
+                value: currentState.data
+              });
+            }
+          }
+          dispatch(api2.util.patchQueryData(endpointName, args, ret.patches, updateProvided));
+          return ret;
+        };
+      };
+      var upsertQueryData = function(endpointName, args, value) {
+        return function(dispatch) {
+          var _j2;
+          return dispatch(api2.endpoints[endpointName].initiate(args, (_j2 = {
+            subscribe: false,
+            forceRefetch: true
+          }, _j2[forceQueryFnSymbol] = function() {
+            return {
+              data: value
+            };
+          }, _j2)));
+        };
+      };
+      var executeEndpoint = function(_0, _1) {
+        return __async(_this, [_0, _1], function(arg, _j2) {
+          var endpointDefinition, transformResponse, result, baseQueryApi_1, forceQueryFn, what, err, _k, _l, key, _m, error_1, catchedError, transformErrorResponse, _o2, e_4;
+          var _p, _q;
+          var signal = _j2.signal, abort = _j2.abort, rejectWithValue = _j2.rejectWithValue, fulfillWithValue = _j2.fulfillWithValue, dispatch = _j2.dispatch, getState = _j2.getState, extra = _j2.extra;
+          return __generator(this, function(_r) {
+            switch (_r.label) {
+              case 0:
+                endpointDefinition = endpointDefinitions[arg.endpointName];
+                _r.label = 1;
+              case 1:
+                _r.trys.push([1, 8, , 13]);
+                transformResponse = defaultTransformResponse;
+                result = void 0;
+                baseQueryApi_1 = {
+                  signal,
+                  abort,
+                  dispatch,
+                  getState,
+                  extra,
+                  endpoint: arg.endpointName,
+                  type: arg.type,
+                  forced: arg.type === "query" ? isForcedQuery(arg, getState()) : void 0
+                };
+                forceQueryFn = arg.type === "query" ? arg[forceQueryFnSymbol] : void 0;
+                if (!forceQueryFn)
+                  return [3, 2];
+                result = forceQueryFn();
+                return [3, 6];
+              case 2:
+                if (!endpointDefinition.query)
+                  return [3, 4];
+                return [4, baseQuery(endpointDefinition.query(arg.originalArgs), baseQueryApi_1, endpointDefinition.extraOptions)];
+              case 3:
+                result = _r.sent();
+                if (endpointDefinition.transformResponse) {
+                  transformResponse = endpointDefinition.transformResponse;
+                }
+                return [3, 6];
+              case 4:
+                return [4, endpointDefinition.queryFn(arg.originalArgs, baseQueryApi_1, endpointDefinition.extraOptions, function(arg2) {
+                  return baseQuery(arg2, baseQueryApi_1, endpointDefinition.extraOptions);
+                })];
+              case 5:
+                result = _r.sent();
+                _r.label = 6;
+              case 6:
+                if (typeof process !== "undefined" && false) {
+                  what = endpointDefinition.query ? "`baseQuery`" : "`queryFn`";
+                  err = void 0;
+                  if (!result) {
+                    err = what + " did not return anything.";
+                  } else if (typeof result !== "object") {
+                    err = what + " did not return an object.";
+                  } else if (result.error && result.data) {
+                    err = what + " returned an object containing both `error` and `result`.";
+                  } else if (result.error === void 0 && result.data === void 0) {
+                    err = what + " returned an object containing neither a valid `error` and `result`. At least one of them should not be `undefined`";
+                  } else {
+                    for (_k = 0, _l = Object.keys(result); _k < _l.length; _k++) {
+                      key = _l[_k];
+                      if (key !== "error" && key !== "data" && key !== "meta") {
+                        err = "The object returned by " + what + " has the unknown property " + key + ".";
+                        break;
+                      }
+                    }
+                  }
+                  if (err) {
+                    console.error("Error encountered handling the endpoint " + arg.endpointName + ".\n              " + err + "\n              It needs to return an object with either the shape `{ data: <value> }` or `{ error: <value> }` that may contain an optional `meta` property.\n              Object returned was:", result);
+                  }
+                }
+                if (result.error)
+                  throw new HandledError(result.error, result.meta);
+                _m = fulfillWithValue;
+                return [4, transformResponse(result.data, result.meta, arg.originalArgs)];
+              case 7:
+                return [2, _m.apply(void 0, [_r.sent(), (_p = {
+                  fulfilledTimeStamp: Date.now(),
+                  baseQueryMeta: result.meta
+                }, _p[SHOULD_AUTOBATCH] = true, _p)])];
+              case 8:
+                error_1 = _r.sent();
+                catchedError = error_1;
+                if (!(catchedError instanceof HandledError))
+                  return [3, 12];
+                transformErrorResponse = defaultTransformResponse;
+                if (endpointDefinition.query && endpointDefinition.transformErrorResponse) {
+                  transformErrorResponse = endpointDefinition.transformErrorResponse;
+                }
+                _r.label = 9;
+              case 9:
+                _r.trys.push([9, 11, , 12]);
+                _o2 = rejectWithValue;
+                return [4, transformErrorResponse(catchedError.value, catchedError.meta, arg.originalArgs)];
+              case 10:
+                return [2, _o2.apply(void 0, [_r.sent(), (_q = { baseQueryMeta: catchedError.meta }, _q[SHOULD_AUTOBATCH] = true, _q)])];
+              case 11:
+                e_4 = _r.sent();
+                catchedError = e_4;
+                return [3, 12];
+              case 12:
+                if (typeof process !== "undefined" && false) {
+                  console.error('An unhandled error occurred processing a request for the endpoint "' + arg.endpointName + '".\nIn the case of an unhandled error, no tags will be "provided" or "invalidated".', catchedError);
+                } else {
+                  console.error(catchedError);
+                }
+                throw catchedError;
+              case 13:
+                return [
+                  2
+                  /*return*/
+                ];
+            }
+          });
+        });
+      };
+      function isForcedQuery(arg, state) {
+        var _a, _b, _c, _d;
+        var requestState = (_b = (_a = state[reducerPath]) == null ? void 0 : _a.queries) == null ? void 0 : _b[arg.queryCacheKey];
+        var baseFetchOnMountOrArgChange = (_c = state[reducerPath]) == null ? void 0 : _c.config.refetchOnMountOrArgChange;
+        var fulfilledVal = requestState == null ? void 0 : requestState.fulfilledTimeStamp;
+        var refetchVal = (_d = arg.forceRefetch) != null ? _d : arg.subscribe && baseFetchOnMountOrArgChange;
+        if (refetchVal) {
+          return refetchVal === true || (Number(/* @__PURE__ */ new Date()) - Number(fulfilledVal)) / 1e3 >= refetchVal;
+        }
+        return false;
+      }
+      var queryThunk = createAsyncThunk(reducerPath + "/executeQuery", executeEndpoint, {
+        getPendingMeta: function() {
+          var _j2;
+          return _j2 = { startedTimeStamp: Date.now() }, _j2[SHOULD_AUTOBATCH] = true, _j2;
+        },
+        condition: function(queryThunkArgs, _j2) {
+          var getState = _j2.getState;
+          var _a, _b, _c;
+          var state = getState();
+          var requestState = (_b = (_a = state[reducerPath]) == null ? void 0 : _a.queries) == null ? void 0 : _b[queryThunkArgs.queryCacheKey];
+          var fulfilledVal = requestState == null ? void 0 : requestState.fulfilledTimeStamp;
+          var currentArg = queryThunkArgs.originalArgs;
+          var previousArg = requestState == null ? void 0 : requestState.originalArgs;
+          var endpointDefinition = endpointDefinitions[queryThunkArgs.endpointName];
+          if (isUpsertQuery(queryThunkArgs)) {
+            return true;
+          }
+          if ((requestState == null ? void 0 : requestState.status) === "pending") {
+            return false;
+          }
+          if (isForcedQuery(queryThunkArgs, state)) {
+            return true;
+          }
+          if (isQueryDefinition$1(endpointDefinition) && ((_c = endpointDefinition == null ? void 0 : endpointDefinition.forceRefetch) == null ? void 0 : _c.call(endpointDefinition, {
+            currentArg,
+            previousArg,
+            endpointState: requestState,
+            state
+          }))) {
+            return true;
+          }
+          if (fulfilledVal) {
+            return false;
+          }
+          return true;
+        },
+        dispatchConditionRejection: true
+      });
+      var mutationThunk = createAsyncThunk(reducerPath + "/executeMutation", executeEndpoint, {
+        getPendingMeta: function() {
+          var _j2;
+          return _j2 = { startedTimeStamp: Date.now() }, _j2[SHOULD_AUTOBATCH] = true, _j2;
+        }
+      });
+      var hasTheForce = function(options) {
+        return "force" in options;
+      };
+      var hasMaxAge = function(options) {
+        return "ifOlderThan" in options;
+      };
+      var prefetch = function(endpointName, arg, options) {
+        return function(dispatch, getState) {
+          var force = hasTheForce(options) && options.force;
+          var maxAge = hasMaxAge(options) && options.ifOlderThan;
+          var queryAction = function(force2) {
+            if (force2 === void 0) {
+              force2 = true;
+            }
+            return api2.endpoints[endpointName].initiate(arg, { forceRefetch: force2 });
+          };
+          var latestStateValue = api2.endpoints[endpointName].select(arg)(getState());
+          if (force) {
+            dispatch(queryAction());
+          } else if (maxAge) {
+            var lastFulfilledTs = latestStateValue == null ? void 0 : latestStateValue.fulfilledTimeStamp;
+            if (!lastFulfilledTs) {
+              dispatch(queryAction());
+              return;
+            }
+            var shouldRetrigger = (Number(/* @__PURE__ */ new Date()) - Number(new Date(lastFulfilledTs))) / 1e3 >= maxAge;
+            if (shouldRetrigger) {
+              dispatch(queryAction());
+            }
+          } else {
+            dispatch(queryAction(false));
+          }
+        };
+      };
+      function matchesEndpoint(endpointName) {
+        return function(action) {
+          var _a, _b;
+          return ((_b = (_a = action == null ? void 0 : action.meta) == null ? void 0 : _a.arg) == null ? void 0 : _b.endpointName) === endpointName;
+        };
+      }
+      function buildMatchThunkActions(thunk2, endpointName) {
+        return {
+          matchPending: isAllOf(isPending(thunk2), matchesEndpoint(endpointName)),
+          matchFulfilled: isAllOf(isFulfilled(thunk2), matchesEndpoint(endpointName)),
+          matchRejected: isAllOf(isRejected(thunk2), matchesEndpoint(endpointName))
+        };
+      }
+      return {
+        queryThunk,
+        mutationThunk,
+        prefetch,
+        updateQueryData,
+        upsertQueryData,
+        patchQueryData,
+        buildMatchThunkActions
+      };
+    }
+    function calculateProvidedByThunk(action, type, endpointDefinitions, assertTagType) {
+      return calculateProvidedBy(endpointDefinitions[action.meta.arg.endpointName][type], isFulfilled(action) ? action.payload : void 0, isRejectedWithValue(action) ? action.payload : void 0, action.meta.arg.originalArgs, "baseQueryMeta" in action.meta ? action.meta.baseQueryMeta : void 0, assertTagType);
+    }
+    function updateQuerySubstateIfExists(state, queryCacheKey, update2) {
+      var substate = state[queryCacheKey];
+      if (substate) {
+        update2(substate);
+      }
+    }
+    function getMutationCacheKey(id2) {
+      var _a;
+      return (_a = "arg" in id2 ? id2.arg.fixedCacheKey : id2.fixedCacheKey) != null ? _a : id2.requestId;
+    }
+    function updateMutationSubstateIfExists(state, id2, update2) {
+      var substate = state[getMutationCacheKey(id2)];
+      if (substate) {
+        update2(substate);
+      }
+    }
+    var initialState$2 = {};
+    function buildSlice(_j) {
+      var reducerPath = _j.reducerPath, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk, _k = _j.context, definitions = _k.endpointDefinitions, apiUid = _k.apiUid, extractRehydrationInfo = _k.extractRehydrationInfo, hasRehydrationInfo = _k.hasRehydrationInfo, assertTagType = _j.assertTagType, config2 = _j.config;
+      var resetApiState = createAction(reducerPath + "/resetApiState");
+      var querySlice = createSlice({
+        name: reducerPath + "/queries",
+        initialState: initialState$2,
+        reducers: {
+          removeQueryResult: {
+            reducer: function(draft, _j2) {
+              var queryCacheKey = _j2.payload.queryCacheKey;
+              delete draft[queryCacheKey];
+            },
+            prepare: prepareAutoBatched()
+          },
+          queryResultPatched: {
+            reducer: function(draft, _j2) {
+              var _k2 = _j2.payload, queryCacheKey = _k2.queryCacheKey, patches = _k2.patches;
+              updateQuerySubstateIfExists(draft, queryCacheKey, function(substate) {
+                substate.data = pn(substate.data, patches.concat());
+              });
+            },
+            prepare: prepareAutoBatched()
+          }
+        },
+        extraReducers: function(builder) {
+          builder.addCase(queryThunk.pending, function(draft, _j2) {
+            var meta = _j2.meta, arg = _j2.meta.arg;
+            var _a, _b;
+            var upserting = isUpsertQuery(arg);
+            if (arg.subscribe || upserting) {
+              (_b = draft[_a = arg.queryCacheKey]) != null ? _b : draft[_a] = {
+                status: QueryStatus.uninitialized,
+                endpointName: arg.endpointName
+              };
+            }
+            updateQuerySubstateIfExists(draft, arg.queryCacheKey, function(substate) {
+              substate.status = QueryStatus.pending;
+              substate.requestId = upserting && substate.requestId ? substate.requestId : meta.requestId;
+              if (arg.originalArgs !== void 0) {
+                substate.originalArgs = arg.originalArgs;
+              }
+              substate.startedTimeStamp = meta.startedTimeStamp;
+            });
+          }).addCase(queryThunk.fulfilled, function(draft, _j2) {
+            var meta = _j2.meta, payload = _j2.payload;
+            updateQuerySubstateIfExists(draft, meta.arg.queryCacheKey, function(substate) {
+              var _a;
+              if (substate.requestId !== meta.requestId && !isUpsertQuery(meta.arg))
+                return;
+              var merge2 = definitions[meta.arg.endpointName].merge;
+              substate.status = QueryStatus.fulfilled;
+              if (merge2) {
+                if (substate.data !== void 0) {
+                  var fulfilledTimeStamp_1 = meta.fulfilledTimeStamp, arg_1 = meta.arg, baseQueryMeta_1 = meta.baseQueryMeta, requestId_1 = meta.requestId;
+                  var newData = fn(substate.data, function(draftSubstateData) {
+                    return merge2(draftSubstateData, payload, {
+                      arg: arg_1.originalArgs,
+                      baseQueryMeta: baseQueryMeta_1,
+                      fulfilledTimeStamp: fulfilledTimeStamp_1,
+                      requestId: requestId_1
+                    });
+                  });
+                  substate.data = newData;
+                } else {
+                  substate.data = payload;
+                }
+              } else {
+                substate.data = ((_a = definitions[meta.arg.endpointName].structuralSharing) != null ? _a : true) ? copyWithStructuralSharing(r$1(substate.data) ? e(substate.data) : substate.data, payload) : payload;
+              }
+              delete substate.error;
+              substate.fulfilledTimeStamp = meta.fulfilledTimeStamp;
+            });
+          }).addCase(queryThunk.rejected, function(draft, _j2) {
+            var _k2 = _j2.meta, condition = _k2.condition, arg = _k2.arg, requestId = _k2.requestId, error = _j2.error, payload = _j2.payload;
+            updateQuerySubstateIfExists(draft, arg.queryCacheKey, function(substate) {
+              if (condition)
+                ;
+              else {
+                if (substate.requestId !== requestId)
+                  return;
+                substate.status = QueryStatus.rejected;
+                substate.error = payload != null ? payload : error;
+              }
+            });
+          }).addMatcher(hasRehydrationInfo, function(draft, action) {
+            var queries = extractRehydrationInfo(action).queries;
+            for (var _j2 = 0, _k2 = Object.entries(queries); _j2 < _k2.length; _j2++) {
+              var _l = _k2[_j2], key = _l[0], entry = _l[1];
+              if ((entry == null ? void 0 : entry.status) === QueryStatus.fulfilled || (entry == null ? void 0 : entry.status) === QueryStatus.rejected) {
+                draft[key] = entry;
+              }
+            }
+          });
+        }
+      });
+      var mutationSlice = createSlice({
+        name: reducerPath + "/mutations",
+        initialState: initialState$2,
+        reducers: {
+          removeMutationResult: {
+            reducer: function(draft, _j2) {
+              var payload = _j2.payload;
+              var cacheKey = getMutationCacheKey(payload);
+              if (cacheKey in draft) {
+                delete draft[cacheKey];
+              }
+            },
+            prepare: prepareAutoBatched()
+          }
+        },
+        extraReducers: function(builder) {
+          builder.addCase(mutationThunk.pending, function(draft, _j2) {
+            var meta = _j2.meta, _k2 = _j2.meta, requestId = _k2.requestId, arg = _k2.arg, startedTimeStamp = _k2.startedTimeStamp;
+            if (!arg.track)
+              return;
+            draft[getMutationCacheKey(meta)] = {
+              requestId,
+              status: QueryStatus.pending,
+              endpointName: arg.endpointName,
+              startedTimeStamp
+            };
+          }).addCase(mutationThunk.fulfilled, function(draft, _j2) {
+            var payload = _j2.payload, meta = _j2.meta;
+            if (!meta.arg.track)
+              return;
+            updateMutationSubstateIfExists(draft, meta, function(substate) {
+              if (substate.requestId !== meta.requestId)
+                return;
+              substate.status = QueryStatus.fulfilled;
+              substate.data = payload;
+              substate.fulfilledTimeStamp = meta.fulfilledTimeStamp;
+            });
+          }).addCase(mutationThunk.rejected, function(draft, _j2) {
+            var payload = _j2.payload, error = _j2.error, meta = _j2.meta;
+            if (!meta.arg.track)
+              return;
+            updateMutationSubstateIfExists(draft, meta, function(substate) {
+              if (substate.requestId !== meta.requestId)
+                return;
+              substate.status = QueryStatus.rejected;
+              substate.error = payload != null ? payload : error;
+            });
+          }).addMatcher(hasRehydrationInfo, function(draft, action) {
+            var mutations = extractRehydrationInfo(action).mutations;
+            for (var _j2 = 0, _k2 = Object.entries(mutations); _j2 < _k2.length; _j2++) {
+              var _l = _k2[_j2], key = _l[0], entry = _l[1];
+              if (((entry == null ? void 0 : entry.status) === QueryStatus.fulfilled || (entry == null ? void 0 : entry.status) === QueryStatus.rejected) && key !== (entry == null ? void 0 : entry.requestId)) {
+                draft[key] = entry;
+              }
+            }
+          });
+        }
+      });
+      var invalidationSlice = createSlice({
+        name: reducerPath + "/invalidation",
+        initialState: initialState$2,
+        reducers: {
+          updateProvidedBy: {
+            reducer: function(draft, action) {
+              var _a, _b, _c, _d;
+              var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, providedTags = _j2.providedTags;
+              for (var _k2 = 0, _l = Object.values(draft); _k2 < _l.length; _k2++) {
+                var tagTypeSubscriptions = _l[_k2];
+                for (var _m = 0, _o2 = Object.values(tagTypeSubscriptions); _m < _o2.length; _m++) {
+                  var idSubscriptions = _o2[_m];
+                  var foundAt = idSubscriptions.indexOf(queryCacheKey);
+                  if (foundAt !== -1) {
+                    idSubscriptions.splice(foundAt, 1);
+                  }
+                }
+              }
+              for (var _p = 0, providedTags_1 = providedTags; _p < providedTags_1.length; _p++) {
+                var _q = providedTags_1[_p], type = _q.type, id2 = _q.id;
+                var subscribedQueries = (_d = (_b = (_a = draft[type]) != null ? _a : draft[type] = {})[_c = id2 || "__internal_without_id"]) != null ? _d : _b[_c] = [];
+                var alreadySubscribed = subscribedQueries.includes(queryCacheKey);
+                if (!alreadySubscribed) {
+                  subscribedQueries.push(queryCacheKey);
+                }
+              }
+            },
+            prepare: prepareAutoBatched()
+          }
+        },
+        extraReducers: function(builder) {
+          builder.addCase(querySlice.actions.removeQueryResult, function(draft, _j2) {
+            var queryCacheKey = _j2.payload.queryCacheKey;
+            for (var _k2 = 0, _l = Object.values(draft); _k2 < _l.length; _k2++) {
+              var tagTypeSubscriptions = _l[_k2];
+              for (var _m = 0, _o2 = Object.values(tagTypeSubscriptions); _m < _o2.length; _m++) {
+                var idSubscriptions = _o2[_m];
+                var foundAt = idSubscriptions.indexOf(queryCacheKey);
+                if (foundAt !== -1) {
+                  idSubscriptions.splice(foundAt, 1);
+                }
+              }
+            }
+          }).addMatcher(hasRehydrationInfo, function(draft, action) {
+            var _a, _b, _c, _d;
+            var provided = extractRehydrationInfo(action).provided;
+            for (var _j2 = 0, _k2 = Object.entries(provided); _j2 < _k2.length; _j2++) {
+              var _l = _k2[_j2], type = _l[0], incomingTags = _l[1];
+              for (var _m = 0, _o2 = Object.entries(incomingTags); _m < _o2.length; _m++) {
+                var _p = _o2[_m], id2 = _p[0], cacheKeys = _p[1];
+                var subscribedQueries = (_d = (_b = (_a = draft[type]) != null ? _a : draft[type] = {})[_c = id2 || "__internal_without_id"]) != null ? _d : _b[_c] = [];
+                for (var _q = 0, cacheKeys_1 = cacheKeys; _q < cacheKeys_1.length; _q++) {
+                  var queryCacheKey = cacheKeys_1[_q];
+                  var alreadySubscribed = subscribedQueries.includes(queryCacheKey);
+                  if (!alreadySubscribed) {
+                    subscribedQueries.push(queryCacheKey);
+                  }
+                }
+              }
+            }
+          }).addMatcher(isAnyOf(isFulfilled(queryThunk), isRejectedWithValue(queryThunk)), function(draft, action) {
+            var providedTags = calculateProvidedByThunk(action, "providesTags", definitions, assertTagType);
+            var queryCacheKey = action.meta.arg.queryCacheKey;
+            invalidationSlice.caseReducers.updateProvidedBy(draft, invalidationSlice.actions.updateProvidedBy({
+              queryCacheKey,
+              providedTags
+            }));
+          });
+        }
+      });
+      var subscriptionSlice = createSlice({
+        name: reducerPath + "/subscriptions",
+        initialState: initialState$2,
+        reducers: {
+          updateSubscriptionOptions: function(d2, a2) {
+          },
+          unsubscribeQueryResult: function(d2, a2) {
+          },
+          internal_probeSubscription: function(d2, a2) {
+          }
+        }
+      });
+      var internalSubscriptionsSlice = createSlice({
+        name: reducerPath + "/internalSubscriptions",
+        initialState: initialState$2,
+        reducers: {
+          subscriptionsUpdated: {
+            reducer: function(state, action) {
+              return pn(state, action.payload);
+            },
+            prepare: prepareAutoBatched()
+          }
+        }
+      });
+      var configSlice = createSlice({
+        name: reducerPath + "/config",
+        initialState: __spreadValues$1({
+          online: isOnline(),
+          focused: isDocumentVisible(),
+          middlewareRegistered: false
+        }, config2),
+        reducers: {
+          middlewareRegistered: function(state, _j2) {
+            var payload = _j2.payload;
+            state.middlewareRegistered = state.middlewareRegistered === "conflict" || apiUid !== payload ? "conflict" : true;
+          }
+        },
+        extraReducers: function(builder) {
+          builder.addCase(onOnline, function(state) {
+            state.online = true;
+          }).addCase(onOffline, function(state) {
+            state.online = false;
+          }).addCase(onFocus, function(state) {
+            state.focused = true;
+          }).addCase(onFocusLost, function(state) {
+            state.focused = false;
+          }).addMatcher(hasRehydrationInfo, function(draft) {
+            return __spreadValues$1({}, draft);
+          });
+        }
+      });
+      var combinedReducer = combineReducers({
+        queries: querySlice.reducer,
+        mutations: mutationSlice.reducer,
+        provided: invalidationSlice.reducer,
+        subscriptions: internalSubscriptionsSlice.reducer,
+        config: configSlice.reducer
+      });
+      var reducer2 = function(state, action) {
+        return combinedReducer(resetApiState.match(action) ? void 0 : state, action);
+      };
+      var actions2 = __spreadProps$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1({}, configSlice.actions), querySlice.actions), subscriptionSlice.actions), internalSubscriptionsSlice.actions), mutationSlice.actions), invalidationSlice.actions), {
+        unsubscribeMutationResult: mutationSlice.actions.removeMutationResult,
+        resetApiState
+      });
+      return { reducer: reducer2, actions: actions2 };
+    }
+    var skipToken = /* @__PURE__ */ Symbol.for("RTKQ/skipToken");
+    var initialSubState = {
+      status: QueryStatus.uninitialized
+    };
+    var defaultQuerySubState = /* @__PURE__ */ fn(initialSubState, function() {
+    });
+    var defaultMutationSubState = /* @__PURE__ */ fn(initialSubState, function() {
+    });
+    function buildSelectors(_j) {
+      var serializeQueryArgs = _j.serializeQueryArgs, reducerPath = _j.reducerPath;
+      var selectSkippedQuery = function(state) {
+        return defaultQuerySubState;
+      };
+      var selectSkippedMutation = function(state) {
+        return defaultMutationSubState;
+      };
+      return { buildQuerySelector, buildMutationSelector, selectInvalidatedBy };
+      function withRequestFlags(substate) {
+        return __spreadValues$1(__spreadValues$1({}, substate), getRequestStatusFlags(substate.status));
+      }
+      function selectInternalState(rootState) {
+        var state = rootState[reducerPath];
+        return state;
+      }
+      function buildQuerySelector(endpointName, endpointDefinition) {
+        return function(queryArgs) {
+          var serializedArgs = serializeQueryArgs({
+            queryArgs,
+            endpointDefinition,
+            endpointName
+          });
+          var selectQuerySubstate = function(state) {
+            var _a, _b, _c;
+            return (_c = (_b = (_a = selectInternalState(state)) == null ? void 0 : _a.queries) == null ? void 0 : _b[serializedArgs]) != null ? _c : defaultQuerySubState;
+          };
+          var finalSelectQuerySubState = queryArgs === skipToken ? selectSkippedQuery : selectQuerySubstate;
+          return createSelector(finalSelectQuerySubState, withRequestFlags);
+        };
+      }
+      function buildMutationSelector() {
+        return function(id2) {
+          var _a;
+          var mutationId;
+          if (typeof id2 === "object") {
+            mutationId = (_a = getMutationCacheKey(id2)) != null ? _a : skipToken;
+          } else {
+            mutationId = id2;
+          }
+          var selectMutationSubstate = function(state) {
+            var _a2, _b, _c;
+            return (_c = (_b = (_a2 = selectInternalState(state)) == null ? void 0 : _a2.mutations) == null ? void 0 : _b[mutationId]) != null ? _c : defaultMutationSubState;
+          };
+          var finalSelectMutationSubstate = mutationId === skipToken ? selectSkippedMutation : selectMutationSubstate;
+          return createSelector(finalSelectMutationSubstate, withRequestFlags);
+        };
+      }
+      function selectInvalidatedBy(state, tags2) {
+        var _a;
+        var apiState = state[reducerPath];
+        var toInvalidate = /* @__PURE__ */ new Set();
+        for (var _j2 = 0, _k = tags2.map(expandTagDescription); _j2 < _k.length; _j2++) {
+          var tag = _k[_j2];
+          var provided = apiState.provided[tag.type];
+          if (!provided) {
+            continue;
+          }
+          var invalidateSubscriptions = (_a = tag.id !== void 0 ? provided[tag.id] : flatten(Object.values(provided))) != null ? _a : [];
+          for (var _l = 0, invalidateSubscriptions_1 = invalidateSubscriptions; _l < invalidateSubscriptions_1.length; _l++) {
+            var invalidate = invalidateSubscriptions_1[_l];
+            toInvalidate.add(invalidate);
+          }
+        }
+        return flatten(Array.from(toInvalidate.values()).map(function(queryCacheKey) {
+          var querySubState = apiState.queries[queryCacheKey];
+          return querySubState ? [
+            {
+              queryCacheKey,
+              endpointName: querySubState.endpointName,
+              originalArgs: querySubState.originalArgs
+            }
+          ] : [];
+        }));
+      }
+    }
+    var cache$1 = WeakMap ? /* @__PURE__ */ new WeakMap() : void 0;
+    var defaultSerializeQueryArgs$1 = function(_j) {
+      var endpointName = _j.endpointName, queryArgs = _j.queryArgs;
+      var serialized = "";
+      var cached = cache$1 == null ? void 0 : cache$1.get(queryArgs);
+      if (typeof cached === "string") {
+        serialized = cached;
+      } else {
+        var stringified = JSON.stringify(queryArgs, function(key, value) {
+          return isPlainObject$2(value) ? Object.keys(value).sort().reduce(function(acc, key2) {
+            acc[key2] = value[key2];
+            return acc;
+          }, {}) : value;
+        });
+        if (isPlainObject$2(queryArgs)) {
+          cache$1 == null ? void 0 : cache$1.set(queryArgs, stringified);
+        }
+        serialized = stringified;
+      }
+      return endpointName + "(" + serialized + ")";
+    };
+    function buildCreateApi() {
+      var modules = [];
+      for (var _j = 0; _j < arguments.length; _j++) {
+        modules[_j] = arguments[_j];
+      }
+      return function baseCreateApi(options) {
+        var extractRehydrationInfo = defaultMemoize(function(action) {
+          var _a, _b;
+          return (_b = options.extractRehydrationInfo) == null ? void 0 : _b.call(options, action, {
+            reducerPath: (_a = options.reducerPath) != null ? _a : "api"
+          });
+        });
+        var optionsWithDefaults = __spreadProps$1(__spreadValues$1({
+          reducerPath: "api",
+          keepUnusedDataFor: 60,
+          refetchOnMountOrArgChange: false,
+          refetchOnFocus: false,
+          refetchOnReconnect: false
+        }, options), {
+          extractRehydrationInfo,
+          serializeQueryArgs: function(queryArgsApi) {
+            var finalSerializeQueryArgs = defaultSerializeQueryArgs$1;
+            if ("serializeQueryArgs" in queryArgsApi.endpointDefinition) {
+              var endpointSQA_1 = queryArgsApi.endpointDefinition.serializeQueryArgs;
+              finalSerializeQueryArgs = function(queryArgsApi2) {
+                var initialResult = endpointSQA_1(queryArgsApi2);
+                if (typeof initialResult === "string") {
+                  return initialResult;
+                } else {
+                  return defaultSerializeQueryArgs$1(__spreadProps$1(__spreadValues$1({}, queryArgsApi2), {
+                    queryArgs: initialResult
+                  }));
+                }
+              };
+            } else if (options.serializeQueryArgs) {
+              finalSerializeQueryArgs = options.serializeQueryArgs;
+            }
+            return finalSerializeQueryArgs(queryArgsApi);
+          },
+          tagTypes: __spreadArray$2([], options.tagTypes || [])
+        });
+        var context = {
+          endpointDefinitions: {},
+          batch: function(fn2) {
+            fn2();
+          },
+          apiUid: nanoid(),
+          extractRehydrationInfo,
+          hasRehydrationInfo: defaultMemoize(function(action) {
+            return extractRehydrationInfo(action) != null;
+          })
+        };
+        var api2 = {
+          injectEndpoints,
+          enhanceEndpoints: function(_j2) {
+            var addTagTypes = _j2.addTagTypes, endpoints = _j2.endpoints;
+            if (addTagTypes) {
+              for (var _k = 0, addTagTypes_1 = addTagTypes; _k < addTagTypes_1.length; _k++) {
+                var eT = addTagTypes_1[_k];
+                if (!optionsWithDefaults.tagTypes.includes(eT)) {
+                  optionsWithDefaults.tagTypes.push(eT);
+                }
+              }
+            }
+            if (endpoints) {
+              for (var _l = 0, _m = Object.entries(endpoints); _l < _m.length; _l++) {
+                var _o2 = _m[_l], endpointName = _o2[0], partialDefinition = _o2[1];
+                if (typeof partialDefinition === "function") {
+                  partialDefinition(context.endpointDefinitions[endpointName]);
+                } else {
+                  Object.assign(context.endpointDefinitions[endpointName] || {}, partialDefinition);
+                }
+              }
+            }
+            return api2;
+          }
+        };
+        var initializedModules = modules.map(function(m2) {
+          return m2.init(api2, optionsWithDefaults, context);
+        });
+        function injectEndpoints(inject) {
+          var evaluatedEndpoints = inject.endpoints({
+            query: function(x2) {
+              return __spreadProps$1(__spreadValues$1({}, x2), { type: DefinitionType$1.query });
+            },
+            mutation: function(x2) {
+              return __spreadProps$1(__spreadValues$1({}, x2), { type: DefinitionType$1.mutation });
+            }
+          });
+          for (var _j2 = 0, _k = Object.entries(evaluatedEndpoints); _j2 < _k.length; _j2++) {
+            var _l = _k[_j2], endpointName = _l[0], definition = _l[1];
+            if (!inject.overrideExisting && endpointName in context.endpointDefinitions) {
+              if (typeof process !== "undefined" && false) {
+                console.error("called `injectEndpoints` to override already-existing endpointName " + endpointName + " without specifying `overrideExisting: true`");
+              }
+              continue;
+            }
+            context.endpointDefinitions[endpointName] = definition;
+            for (var _m = 0, initializedModules_1 = initializedModules; _m < initializedModules_1.length; _m++) {
+              var m2 = initializedModules_1[_m];
+              m2.injectEndpoint(endpointName, definition);
+            }
+          }
+          return api2;
+        }
+        return api2.injectEndpoints({ endpoints: options.endpoints });
+      };
+    }
+    function isObjectEmpty$1(obj) {
+      for (var k2 in obj) {
+        return false;
+      }
+      return true;
+    }
+    var THIRTY_TWO_BIT_MAX_TIMER_SECONDS = 2147483647 / 1e3 - 1;
+    var buildCacheCollectionHandler = function(_j) {
+      var reducerPath = _j.reducerPath, api2 = _j.api, context = _j.context, internalState = _j.internalState;
+      var _k = api2.internalActions, removeQueryResult = _k.removeQueryResult, unsubscribeQueryResult = _k.unsubscribeQueryResult;
+      function anySubscriptionsRemainingForKey(queryCacheKey) {
+        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
+        return !!subscriptions && !isObjectEmpty$1(subscriptions);
+      }
+      var currentRemovalTimeouts = {};
+      var handler = function(action, mwApi, internalState2) {
+        var _a;
+        if (unsubscribeQueryResult.match(action)) {
+          var state = mwApi.getState()[reducerPath];
+          var queryCacheKey = action.payload.queryCacheKey;
+          handleUnsubscribe(queryCacheKey, (_a = state.queries[queryCacheKey]) == null ? void 0 : _a.endpointName, mwApi, state.config);
+        }
+        if (api2.util.resetApiState.match(action)) {
+          for (var _j2 = 0, _k2 = Object.entries(currentRemovalTimeouts); _j2 < _k2.length; _j2++) {
+            var _l = _k2[_j2], key = _l[0], timeout = _l[1];
+            if (timeout)
+              clearTimeout(timeout);
+            delete currentRemovalTimeouts[key];
+          }
+        }
+        if (context.hasRehydrationInfo(action)) {
+          var state = mwApi.getState()[reducerPath];
+          var queries = context.extractRehydrationInfo(action).queries;
+          for (var _m = 0, _o2 = Object.entries(queries); _m < _o2.length; _m++) {
+            var _p = _o2[_m], queryCacheKey = _p[0], queryState = _p[1];
+            handleUnsubscribe(queryCacheKey, queryState == null ? void 0 : queryState.endpointName, mwApi, state.config);
+          }
+        }
+      };
+      function handleUnsubscribe(queryCacheKey, endpointName, api22, config2) {
+        var _a;
+        var endpointDefinition = context.endpointDefinitions[endpointName];
+        var keepUnusedDataFor = (_a = endpointDefinition == null ? void 0 : endpointDefinition.keepUnusedDataFor) != null ? _a : config2.keepUnusedDataFor;
+        if (keepUnusedDataFor === Infinity) {
+          return;
+        }
+        var finalKeepUnusedDataFor = Math.max(0, Math.min(keepUnusedDataFor, THIRTY_TWO_BIT_MAX_TIMER_SECONDS));
+        if (!anySubscriptionsRemainingForKey(queryCacheKey)) {
+          var currentTimeout = currentRemovalTimeouts[queryCacheKey];
+          if (currentTimeout) {
+            clearTimeout(currentTimeout);
+          }
+          currentRemovalTimeouts[queryCacheKey] = setTimeout(function() {
+            if (!anySubscriptionsRemainingForKey(queryCacheKey)) {
+              api22.dispatch(removeQueryResult({ queryCacheKey }));
+            }
+            delete currentRemovalTimeouts[queryCacheKey];
+          }, finalKeepUnusedDataFor * 1e3);
+        }
+      }
+      return handler;
+    };
+    var buildInvalidationByTagsHandler = function(_j) {
+      var reducerPath = _j.reducerPath, context = _j.context, endpointDefinitions = _j.context.endpointDefinitions, mutationThunk = _j.mutationThunk, api2 = _j.api, assertTagType = _j.assertTagType, refetchQuery = _j.refetchQuery;
+      var removeQueryResult = api2.internalActions.removeQueryResult;
+      var isThunkActionWithTags = isAnyOf(isFulfilled(mutationThunk), isRejectedWithValue(mutationThunk));
+      var handler = function(action, mwApi) {
+        if (isThunkActionWithTags(action)) {
+          invalidateTags(calculateProvidedByThunk(action, "invalidatesTags", endpointDefinitions, assertTagType), mwApi);
+        }
+        if (api2.util.invalidateTags.match(action)) {
+          invalidateTags(calculateProvidedBy(action.payload, void 0, void 0, void 0, void 0, assertTagType), mwApi);
+        }
+      };
+      function invalidateTags(tags2, mwApi) {
+        var rootState = mwApi.getState();
+        var state = rootState[reducerPath];
+        var toInvalidate = api2.util.selectInvalidatedBy(rootState, tags2);
+        context.batch(function() {
+          var _a;
+          var valuesArray = Array.from(toInvalidate.values());
+          for (var _j2 = 0, valuesArray_1 = valuesArray; _j2 < valuesArray_1.length; _j2++) {
+            var queryCacheKey = valuesArray_1[_j2].queryCacheKey;
+            var querySubState = state.queries[queryCacheKey];
+            var subscriptionSubState = (_a = state.subscriptions[queryCacheKey]) != null ? _a : {};
+            if (querySubState) {
+              if (Object.keys(subscriptionSubState).length === 0) {
+                mwApi.dispatch(removeQueryResult({
+                  queryCacheKey
+                }));
+              } else if (querySubState.status !== QueryStatus.uninitialized) {
+                mwApi.dispatch(refetchQuery(querySubState, queryCacheKey));
+              }
+            }
+          }
+        });
+      }
+      return handler;
+    };
+    var buildPollingHandler = function(_j) {
+      var reducerPath = _j.reducerPath, queryThunk = _j.queryThunk, api2 = _j.api, refetchQuery = _j.refetchQuery, internalState = _j.internalState;
+      var currentPolls = {};
+      var handler = function(action, mwApi) {
+        if (api2.internalActions.updateSubscriptionOptions.match(action) || api2.internalActions.unsubscribeQueryResult.match(action)) {
+          updatePollingInterval(action.payload, mwApi);
+        }
+        if (queryThunk.pending.match(action) || queryThunk.rejected.match(action) && action.meta.condition) {
+          updatePollingInterval(action.meta.arg, mwApi);
+        }
+        if (queryThunk.fulfilled.match(action) || queryThunk.rejected.match(action) && !action.meta.condition) {
+          startNextPoll(action.meta.arg, mwApi);
+        }
+        if (api2.util.resetApiState.match(action)) {
+          clearPolls();
+        }
+      };
+      function startNextPoll(_j2, api22) {
+        var queryCacheKey = _j2.queryCacheKey;
+        var state = api22.getState()[reducerPath];
+        var querySubState = state.queries[queryCacheKey];
+        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
+        if (!querySubState || querySubState.status === QueryStatus.uninitialized)
+          return;
+        var lowestPollingInterval = findLowestPollingInterval(subscriptions);
+        if (!Number.isFinite(lowestPollingInterval))
+          return;
+        var currentPoll = currentPolls[queryCacheKey];
+        if (currentPoll == null ? void 0 : currentPoll.timeout) {
+          clearTimeout(currentPoll.timeout);
+          currentPoll.timeout = void 0;
+        }
+        var nextPollTimestamp = Date.now() + lowestPollingInterval;
+        var currentInterval = currentPolls[queryCacheKey] = {
+          nextPollTimestamp,
+          pollingInterval: lowestPollingInterval,
+          timeout: setTimeout(function() {
+            currentInterval.timeout = void 0;
+            api22.dispatch(refetchQuery(querySubState, queryCacheKey));
+          }, lowestPollingInterval)
+        };
+      }
+      function updatePollingInterval(_j2, api22) {
+        var queryCacheKey = _j2.queryCacheKey;
+        var state = api22.getState()[reducerPath];
+        var querySubState = state.queries[queryCacheKey];
+        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
+        if (!querySubState || querySubState.status === QueryStatus.uninitialized) {
+          return;
+        }
+        var lowestPollingInterval = findLowestPollingInterval(subscriptions);
+        if (!Number.isFinite(lowestPollingInterval)) {
+          cleanupPollForKey(queryCacheKey);
+          return;
+        }
+        var currentPoll = currentPolls[queryCacheKey];
+        var nextPollTimestamp = Date.now() + lowestPollingInterval;
+        if (!currentPoll || nextPollTimestamp < currentPoll.nextPollTimestamp) {
+          startNextPoll({ queryCacheKey }, api22);
+        }
+      }
+      function cleanupPollForKey(key) {
+        var existingPoll = currentPolls[key];
+        if (existingPoll == null ? void 0 : existingPoll.timeout) {
+          clearTimeout(existingPoll.timeout);
+        }
+        delete currentPolls[key];
+      }
+      function clearPolls() {
+        for (var _j2 = 0, _k = Object.keys(currentPolls); _j2 < _k.length; _j2++) {
+          var key = _k[_j2];
+          cleanupPollForKey(key);
+        }
+      }
+      function findLowestPollingInterval(subscribers) {
+        if (subscribers === void 0) {
+          subscribers = {};
+        }
+        var lowestPollingInterval = Number.POSITIVE_INFINITY;
+        for (var key in subscribers) {
+          if (!!subscribers[key].pollingInterval) {
+            lowestPollingInterval = Math.min(subscribers[key].pollingInterval, lowestPollingInterval);
+          }
+        }
+        return lowestPollingInterval;
+      }
+      return handler;
+    };
+    var buildWindowEventHandler = function(_j) {
+      var reducerPath = _j.reducerPath, context = _j.context, api2 = _j.api, refetchQuery = _j.refetchQuery, internalState = _j.internalState;
+      var removeQueryResult = api2.internalActions.removeQueryResult;
+      var handler = function(action, mwApi) {
+        if (onFocus.match(action)) {
+          refetchValidQueries(mwApi, "refetchOnFocus");
+        }
+        if (onOnline.match(action)) {
+          refetchValidQueries(mwApi, "refetchOnReconnect");
+        }
+      };
+      function refetchValidQueries(api22, type) {
+        var state = api22.getState()[reducerPath];
+        var queries = state.queries;
+        var subscriptions = internalState.currentSubscriptions;
+        context.batch(function() {
+          for (var _j2 = 0, _k = Object.keys(subscriptions); _j2 < _k.length; _j2++) {
+            var queryCacheKey = _k[_j2];
+            var querySubState = queries[queryCacheKey];
+            var subscriptionSubState = subscriptions[queryCacheKey];
+            if (!subscriptionSubState || !querySubState)
+              continue;
+            var shouldRefetch = Object.values(subscriptionSubState).some(function(sub) {
+              return sub[type] === true;
+            }) || Object.values(subscriptionSubState).every(function(sub) {
+              return sub[type] === void 0;
+            }) && state.config[type];
+            if (shouldRefetch) {
+              if (Object.keys(subscriptionSubState).length === 0) {
+                api22.dispatch(removeQueryResult({
+                  queryCacheKey
+                }));
+              } else if (querySubState.status !== QueryStatus.uninitialized) {
+                api22.dispatch(refetchQuery(querySubState, queryCacheKey));
+              }
+            }
+          }
+        });
+      }
+      return handler;
+    };
+    var neverResolvedError = new Error("Promise never resolved before cacheEntryRemoved.");
+    var buildCacheLifecycleHandler = function(_j) {
+      var api2 = _j.api, reducerPath = _j.reducerPath, context = _j.context, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk;
+      _j.internalState;
+      var isQueryThunk = isAsyncThunkAction(queryThunk);
+      var isMutationThunk = isAsyncThunkAction(mutationThunk);
+      var isFulfilledThunk = isFulfilled(queryThunk, mutationThunk);
+      var lifecycleMap = {};
+      var handler = function(action, mwApi, stateBefore) {
+        var cacheKey = getCacheKey(action);
+        if (queryThunk.pending.match(action)) {
+          var oldState = stateBefore[reducerPath].queries[cacheKey];
+          var state = mwApi.getState()[reducerPath].queries[cacheKey];
+          if (!oldState && state) {
+            handleNewKey(action.meta.arg.endpointName, action.meta.arg.originalArgs, cacheKey, mwApi, action.meta.requestId);
+          }
+        } else if (mutationThunk.pending.match(action)) {
+          var state = mwApi.getState()[reducerPath].mutations[cacheKey];
+          if (state) {
+            handleNewKey(action.meta.arg.endpointName, action.meta.arg.originalArgs, cacheKey, mwApi, action.meta.requestId);
+          }
+        } else if (isFulfilledThunk(action)) {
+          var lifecycle = lifecycleMap[cacheKey];
+          if (lifecycle == null ? void 0 : lifecycle.valueResolved) {
+            lifecycle.valueResolved({
+              data: action.payload,
+              meta: action.meta.baseQueryMeta
+            });
+            delete lifecycle.valueResolved;
+          }
+        } else if (api2.internalActions.removeQueryResult.match(action) || api2.internalActions.removeMutationResult.match(action)) {
+          var lifecycle = lifecycleMap[cacheKey];
+          if (lifecycle) {
+            delete lifecycleMap[cacheKey];
+            lifecycle.cacheEntryRemoved();
+          }
+        } else if (api2.util.resetApiState.match(action)) {
+          for (var _j2 = 0, _k = Object.entries(lifecycleMap); _j2 < _k.length; _j2++) {
+            var _l = _k[_j2], cacheKey2 = _l[0], lifecycle = _l[1];
+            delete lifecycleMap[cacheKey2];
+            lifecycle.cacheEntryRemoved();
+          }
+        }
+      };
+      function getCacheKey(action) {
+        if (isQueryThunk(action))
+          return action.meta.arg.queryCacheKey;
+        if (isMutationThunk(action))
+          return action.meta.requestId;
+        if (api2.internalActions.removeQueryResult.match(action))
+          return action.payload.queryCacheKey;
+        if (api2.internalActions.removeMutationResult.match(action))
+          return getMutationCacheKey(action.payload);
+        return "";
+      }
+      function handleNewKey(endpointName, originalArgs, queryCacheKey, mwApi, requestId) {
+        var endpointDefinition = context.endpointDefinitions[endpointName];
+        var onCacheEntryAdded = endpointDefinition == null ? void 0 : endpointDefinition.onCacheEntryAdded;
+        if (!onCacheEntryAdded)
+          return;
+        var lifecycle = {};
+        var cacheEntryRemoved = new Promise(function(resolve) {
+          lifecycle.cacheEntryRemoved = resolve;
+        });
+        var cacheDataLoaded = Promise.race([
+          new Promise(function(resolve) {
+            lifecycle.valueResolved = resolve;
+          }),
+          cacheEntryRemoved.then(function() {
+            throw neverResolvedError;
+          })
+        ]);
+        cacheDataLoaded.catch(function() {
+        });
+        lifecycleMap[queryCacheKey] = lifecycle;
+        var selector = api2.endpoints[endpointName].select(endpointDefinition.type === DefinitionType$1.query ? originalArgs : queryCacheKey);
+        var extra = mwApi.dispatch(function(_2, __, extra2) {
+          return extra2;
+        });
+        var lifecycleApi = __spreadProps$1(__spreadValues$1({}, mwApi), {
+          getCacheEntry: function() {
+            return selector(mwApi.getState());
+          },
+          requestId,
+          extra,
+          updateCachedData: endpointDefinition.type === DefinitionType$1.query ? function(updateRecipe) {
+            return mwApi.dispatch(api2.util.updateQueryData(endpointName, originalArgs, updateRecipe));
+          } : void 0,
+          cacheDataLoaded,
+          cacheEntryRemoved
+        });
+        var runningHandler = onCacheEntryAdded(originalArgs, lifecycleApi);
+        Promise.resolve(runningHandler).catch(function(e2) {
+          if (e2 === neverResolvedError)
+            return;
+          throw e2;
+        });
+      }
+      return handler;
+    };
+    var buildQueryLifecycleHandler = function(_j) {
+      var api2 = _j.api, context = _j.context, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk;
+      var isPendingThunk = isPending(queryThunk, mutationThunk);
+      var isRejectedThunk = isRejected(queryThunk, mutationThunk);
+      var isFullfilledThunk = isFulfilled(queryThunk, mutationThunk);
+      var lifecycleMap = {};
+      var handler = function(action, mwApi) {
+        var _a, _b, _c;
+        if (isPendingThunk(action)) {
+          var _j2 = action.meta, requestId = _j2.requestId, _k = _j2.arg, endpointName_1 = _k.endpointName, originalArgs_1 = _k.originalArgs;
+          var endpointDefinition = context.endpointDefinitions[endpointName_1];
+          var onQueryStarted = endpointDefinition == null ? void 0 : endpointDefinition.onQueryStarted;
+          if (onQueryStarted) {
+            var lifecycle_1 = {};
+            var queryFulfilled = new Promise(function(resolve, reject) {
+              lifecycle_1.resolve = resolve;
+              lifecycle_1.reject = reject;
+            });
+            queryFulfilled.catch(function() {
+            });
+            lifecycleMap[requestId] = lifecycle_1;
+            var selector_1 = api2.endpoints[endpointName_1].select(endpointDefinition.type === DefinitionType$1.query ? originalArgs_1 : requestId);
+            var extra = mwApi.dispatch(function(_2, __, extra2) {
+              return extra2;
+            });
+            var lifecycleApi = __spreadProps$1(__spreadValues$1({}, mwApi), {
+              getCacheEntry: function() {
+                return selector_1(mwApi.getState());
+              },
+              requestId,
+              extra,
+              updateCachedData: endpointDefinition.type === DefinitionType$1.query ? function(updateRecipe) {
+                return mwApi.dispatch(api2.util.updateQueryData(endpointName_1, originalArgs_1, updateRecipe));
+              } : void 0,
+              queryFulfilled
+            });
+            onQueryStarted(originalArgs_1, lifecycleApi);
+          }
+        } else if (isFullfilledThunk(action)) {
+          var _l = action.meta, requestId = _l.requestId, baseQueryMeta = _l.baseQueryMeta;
+          (_a = lifecycleMap[requestId]) == null ? void 0 : _a.resolve({
+            data: action.payload,
+            meta: baseQueryMeta
+          });
+          delete lifecycleMap[requestId];
+        } else if (isRejectedThunk(action)) {
+          var _m = action.meta, requestId = _m.requestId, rejectedWithValue = _m.rejectedWithValue, baseQueryMeta = _m.baseQueryMeta;
+          (_c = lifecycleMap[requestId]) == null ? void 0 : _c.reject({
+            error: (_b = action.payload) != null ? _b : action.error,
+            isUnhandledError: !rejectedWithValue,
+            meta: baseQueryMeta
+          });
+          delete lifecycleMap[requestId];
+        }
+      };
+      return handler;
+    };
+    var buildDevCheckHandler = function(_j) {
+      var api2 = _j.api, apiUid = _j.context.apiUid, reducerPath = _j.reducerPath;
+      return function(action, mwApi) {
+        var _a, _b;
+        if (api2.util.resetApiState.match(action)) {
+          mwApi.dispatch(api2.internalActions.middlewareRegistered(apiUid));
+        }
+        if (typeof process !== "undefined" && false) {
+          if (api2.internalActions.middlewareRegistered.match(action) && action.payload === apiUid && ((_b = (_a = mwApi.getState()[reducerPath]) == null ? void 0 : _a.config) == null ? void 0 : _b.middlewareRegistered) === "conflict") {
+            console.warn('There is a mismatch between slice and middleware for the reducerPath "' + reducerPath + '".\nYou can only have one api per reducer path, this will lead to crashes in various situations!' + (reducerPath === "api" ? "\nIf you have multiple apis, you *have* to specify the reducerPath option when using createApi!" : ""));
+          }
+        }
+      };
+    };
+    var promise;
+    var queueMicrotaskShim = typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : globalThis) : function(cb2) {
+      return (promise || (promise = Promise.resolve())).then(cb2).catch(function(err) {
+        return setTimeout(function() {
+          throw err;
+        }, 0);
+      });
+    };
+    var buildBatchedActionsHandler = function(_j) {
+      var api2 = _j.api, queryThunk = _j.queryThunk, internalState = _j.internalState;
+      var subscriptionsPrefix = api2.reducerPath + "/subscriptions";
+      var previousSubscriptions = null;
+      var dispatchQueued = false;
+      var _k = api2.internalActions, updateSubscriptionOptions = _k.updateSubscriptionOptions, unsubscribeQueryResult = _k.unsubscribeQueryResult;
+      var actuallyMutateSubscriptions = function(mutableState, action) {
+        var _a, _b, _c, _d, _e2, _f, _g, _h, _i;
+        if (updateSubscriptionOptions.match(action)) {
+          var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, requestId = _j2.requestId, options = _j2.options;
+          if ((_a = mutableState == null ? void 0 : mutableState[queryCacheKey]) == null ? void 0 : _a[requestId]) {
+            mutableState[queryCacheKey][requestId] = options;
+          }
+          return true;
+        }
+        if (unsubscribeQueryResult.match(action)) {
+          var _k2 = action.payload, queryCacheKey = _k2.queryCacheKey, requestId = _k2.requestId;
+          if (mutableState[queryCacheKey]) {
+            delete mutableState[queryCacheKey][requestId];
+          }
+          return true;
+        }
+        if (api2.internalActions.removeQueryResult.match(action)) {
+          delete mutableState[action.payload.queryCacheKey];
+          return true;
+        }
+        if (queryThunk.pending.match(action)) {
+          var _l = action.meta, arg = _l.arg, requestId = _l.requestId;
+          if (arg.subscribe) {
+            var substate = (_c = mutableState[_b = arg.queryCacheKey]) != null ? _c : mutableState[_b] = {};
+            substate[requestId] = (_e2 = (_d = arg.subscriptionOptions) != null ? _d : substate[requestId]) != null ? _e2 : {};
+            return true;
+          }
+        }
+        if (queryThunk.rejected.match(action)) {
+          var _m = action.meta, condition = _m.condition, arg = _m.arg, requestId = _m.requestId;
+          if (condition && arg.subscribe) {
+            var substate = (_g = mutableState[_f = arg.queryCacheKey]) != null ? _g : mutableState[_f] = {};
+            substate[requestId] = (_i = (_h = arg.subscriptionOptions) != null ? _h : substate[requestId]) != null ? _i : {};
+            return true;
+          }
+        }
+        return false;
+      };
+      return function(action, mwApi) {
+        var _a, _b;
+        if (!previousSubscriptions) {
+          previousSubscriptions = JSON.parse(JSON.stringify(internalState.currentSubscriptions));
+        }
+        if (api2.util.resetApiState.match(action)) {
+          previousSubscriptions = internalState.currentSubscriptions = {};
+          return [true, false];
+        }
+        if (api2.internalActions.internal_probeSubscription.match(action)) {
+          var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, requestId = _j2.requestId;
+          var hasSubscription = !!((_a = internalState.currentSubscriptions[queryCacheKey]) == null ? void 0 : _a[requestId]);
+          return [false, hasSubscription];
+        }
+        var didMutate = actuallyMutateSubscriptions(internalState.currentSubscriptions, action);
+        if (didMutate) {
+          if (!dispatchQueued) {
+            queueMicrotaskShim(function() {
+              var newSubscriptions = JSON.parse(JSON.stringify(internalState.currentSubscriptions));
+              var _j3 = cn(previousSubscriptions, function() {
+                return newSubscriptions;
+              }), patches = _j3[1];
+              mwApi.next(api2.internalActions.subscriptionsUpdated(patches));
+              previousSubscriptions = newSubscriptions;
+              dispatchQueued = false;
+            });
+            dispatchQueued = true;
+          }
+          var isSubscriptionSliceAction = !!((_b = action.type) == null ? void 0 : _b.startsWith(subscriptionsPrefix));
+          var isAdditionalSubscriptionAction = queryThunk.rejected.match(action) && action.meta.condition && !!action.meta.arg.subscribe;
+          var actionShouldContinue = !isSubscriptionSliceAction && !isAdditionalSubscriptionAction;
+          return [actionShouldContinue, false];
+        }
+        return [true, false];
+      };
+    };
+    function buildMiddleware(input) {
+      var reducerPath = input.reducerPath, queryThunk = input.queryThunk, api2 = input.api, context = input.context;
+      var apiUid = context.apiUid;
+      var actions2 = {
+        invalidateTags: createAction(reducerPath + "/invalidateTags")
+      };
+      var isThisApiSliceAction = function(action) {
+        return !!action && typeof action.type === "string" && action.type.startsWith(reducerPath + "/");
+      };
+      var handlerBuilders = [
+        buildDevCheckHandler,
+        buildCacheCollectionHandler,
+        buildInvalidationByTagsHandler,
+        buildPollingHandler,
+        buildCacheLifecycleHandler,
+        buildQueryLifecycleHandler
+      ];
+      var middleware2 = function(mwApi) {
+        var initialized2 = false;
+        var internalState = {
+          currentSubscriptions: {}
+        };
+        var builderArgs = __spreadProps$1(__spreadValues$1({}, input), {
+          internalState,
+          refetchQuery
+        });
+        var handlers = handlerBuilders.map(function(build) {
+          return build(builderArgs);
+        });
+        var batchedActionsHandler = buildBatchedActionsHandler(builderArgs);
+        var windowEventsHandler = buildWindowEventHandler(builderArgs);
+        return function(next2) {
+          return function(action) {
+            if (!initialized2) {
+              initialized2 = true;
+              mwApi.dispatch(api2.internalActions.middlewareRegistered(apiUid));
+            }
+            var mwApiWithNext = __spreadProps$1(__spreadValues$1({}, mwApi), { next: next2 });
+            var stateBefore = mwApi.getState();
+            var _j = batchedActionsHandler(action, mwApiWithNext, stateBefore), actionShouldContinue = _j[0], hasSubscription = _j[1];
+            var res;
+            if (actionShouldContinue) {
+              res = next2(action);
+            } else {
+              res = hasSubscription;
+            }
+            if (!!mwApi.getState()[reducerPath]) {
+              windowEventsHandler(action, mwApiWithNext, stateBefore);
+              if (isThisApiSliceAction(action) || context.hasRehydrationInfo(action)) {
+                for (var _k = 0, handlers_1 = handlers; _k < handlers_1.length; _k++) {
+                  var handler = handlers_1[_k];
+                  handler(action, mwApiWithNext, stateBefore);
+                }
+              }
+            }
+            return res;
+          };
+        };
+      };
+      return { middleware: middleware2, actions: actions2 };
+      function refetchQuery(querySubState, queryCacheKey, override) {
+        if (override === void 0) {
+          override = {};
+        }
+        return queryThunk(__spreadValues$1({
+          type: "query",
+          endpointName: querySubState.endpointName,
+          originalArgs: querySubState.originalArgs,
+          subscribe: false,
+          forceRefetch: true,
+          queryCacheKey
+        }, override));
+      }
+    }
+    function safeAssign$1(target) {
+      var args = [];
+      for (var _j = 1; _j < arguments.length; _j++) {
+        args[_j - 1] = arguments[_j];
+      }
+      Object.assign.apply(Object, __spreadArray$2([target], args));
+    }
+    var coreModuleName = /* @__PURE__ */ Symbol();
+    var coreModule = function() {
+      return {
+        name: coreModuleName,
+        init: function(api2, _j, context) {
+          var baseQuery = _j.baseQuery, tagTypes = _j.tagTypes, reducerPath = _j.reducerPath, serializeQueryArgs = _j.serializeQueryArgs, keepUnusedDataFor = _j.keepUnusedDataFor, refetchOnMountOrArgChange = _j.refetchOnMountOrArgChange, refetchOnFocus = _j.refetchOnFocus, refetchOnReconnect = _j.refetchOnReconnect;
+          T$1();
+          var assertTagType = function(tag) {
+            if (typeof process !== "undefined" && false) {
+              if (!tagTypes.includes(tag.type)) {
+                console.error("Tag type '" + tag.type + "' was used, but not specified in `tagTypes`!");
+              }
+            }
+            return tag;
+          };
+          Object.assign(api2, {
+            reducerPath,
+            endpoints: {},
+            internalActions: {
+              onOnline,
+              onOffline,
+              onFocus,
+              onFocusLost
+            },
+            util: {}
+          });
+          var _k = buildThunks({
+            baseQuery,
+            reducerPath,
+            context,
+            api: api2,
+            serializeQueryArgs,
+            assertTagType
+          }), queryThunk = _k.queryThunk, mutationThunk = _k.mutationThunk, patchQueryData = _k.patchQueryData, updateQueryData = _k.updateQueryData, upsertQueryData = _k.upsertQueryData, prefetch = _k.prefetch, buildMatchThunkActions = _k.buildMatchThunkActions;
+          var _l = buildSlice({
+            context,
+            queryThunk,
+            mutationThunk,
+            reducerPath,
+            assertTagType,
+            config: {
+              refetchOnFocus,
+              refetchOnReconnect,
+              refetchOnMountOrArgChange,
+              keepUnusedDataFor,
+              reducerPath
+            }
+          }), reducer2 = _l.reducer, sliceActions = _l.actions;
+          safeAssign$1(api2.util, {
+            patchQueryData,
+            updateQueryData,
+            upsertQueryData,
+            prefetch,
+            resetApiState: sliceActions.resetApiState
+          });
+          safeAssign$1(api2.internalActions, sliceActions);
+          var _m = buildMiddleware({
+            reducerPath,
+            context,
+            queryThunk,
+            mutationThunk,
+            api: api2,
+            assertTagType
+          }), middleware2 = _m.middleware, middlewareActions = _m.actions;
+          safeAssign$1(api2.util, middlewareActions);
+          safeAssign$1(api2, { reducer: reducer2, middleware: middleware2 });
+          var _o2 = buildSelectors({
+            serializeQueryArgs,
+            reducerPath
+          }), buildQuerySelector = _o2.buildQuerySelector, buildMutationSelector = _o2.buildMutationSelector, selectInvalidatedBy = _o2.selectInvalidatedBy;
+          safeAssign$1(api2.util, { selectInvalidatedBy });
+          var _p = buildInitiate({
+            queryThunk,
+            mutationThunk,
+            api: api2,
+            serializeQueryArgs,
+            context
+          }), buildInitiateQuery = _p.buildInitiateQuery, buildInitiateMutation = _p.buildInitiateMutation, getRunningMutationThunk = _p.getRunningMutationThunk, getRunningMutationsThunk = _p.getRunningMutationsThunk, getRunningQueriesThunk = _p.getRunningQueriesThunk, getRunningQueryThunk = _p.getRunningQueryThunk, getRunningOperationPromises = _p.getRunningOperationPromises, removalWarning = _p.removalWarning;
+          safeAssign$1(api2.util, {
+            getRunningOperationPromises,
+            getRunningOperationPromise: removalWarning,
+            getRunningMutationThunk,
+            getRunningMutationsThunk,
+            getRunningQueryThunk,
+            getRunningQueriesThunk
+          });
+          return {
+            name: coreModuleName,
+            injectEndpoint: function(endpointName, definition) {
+              var _a, _b;
+              var anyApi = api2;
+              (_b = (_a = anyApi.endpoints)[endpointName]) != null ? _b : _a[endpointName] = {};
+              if (isQueryDefinition$1(definition)) {
+                safeAssign$1(anyApi.endpoints[endpointName], {
+                  name: endpointName,
+                  select: buildQuerySelector(endpointName, definition),
+                  initiate: buildInitiateQuery(endpointName, definition)
+                }, buildMatchThunkActions(queryThunk, endpointName));
+              } else if (isMutationDefinition$1(definition)) {
+                safeAssign$1(anyApi.endpoints[endpointName], {
+                  name: endpointName,
+                  select: buildMutationSelector(),
+                  initiate: buildInitiateMutation(endpointName)
+                }, buildMatchThunkActions(mutationThunk, endpointName));
+              }
+            }
+          };
+        }
+      };
+    };
+    var __spreadArray$1 = globalThis && globalThis.__spreadArray || function(to2, from2) {
+      for (var i2 = 0, il2 = from2.length, j2 = to2.length; i2 < il2; i2++, j2++)
+        to2[j2] = from2[i2];
+      return to2;
+    };
+    var __defProp2 = Object.defineProperty;
+    var __defProps = Object.defineProperties;
+    var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+    var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+    var __hasOwnProp = Object.prototype.hasOwnProperty;
+    var __propIsEnum = Object.prototype.propertyIsEnumerable;
+    var __defNormalProp2 = function(obj, key, value) {
+      return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+    };
+    var __spreadValues = function(a2, b2) {
+      for (var prop in b2 || (b2 = {}))
+        if (__hasOwnProp.call(b2, prop))
+          __defNormalProp2(a2, prop, b2[prop]);
+      if (__getOwnPropSymbols)
+        for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
+          var prop = _c[_i];
+          if (__propIsEnum.call(b2, prop))
+            __defNormalProp2(a2, prop, b2[prop]);
+        }
+      return a2;
+    };
+    var __spreadProps = function(a2, b2) {
+      return __defProps(a2, __getOwnPropDescs(b2));
+    };
+    function useStableQueryArgs(queryArgs, serialize2, endpointDefinition, endpointName) {
+      var incoming = reactExports.useMemo(function() {
+        return {
+          queryArgs,
+          serialized: typeof queryArgs == "object" ? serialize2({ queryArgs, endpointDefinition, endpointName }) : queryArgs
+        };
+      }, [queryArgs, serialize2, endpointDefinition, endpointName]);
+      var cache2 = reactExports.useRef(incoming);
+      reactExports.useEffect(function() {
+        if (cache2.current.serialized !== incoming.serialized) {
+          cache2.current = incoming;
+        }
+      }, [incoming]);
+      return cache2.current.serialized === incoming.serialized ? cache2.current.queryArgs : queryArgs;
+    }
+    var UNINITIALIZED_VALUE = Symbol();
+    function useShallowStableValue(value) {
+      var cache2 = reactExports.useRef(value);
+      reactExports.useEffect(function() {
+        if (!shallowEqual(cache2.current, value)) {
+          cache2.current = value;
+        }
+      }, [value]);
+      return shallowEqual(cache2.current, value) ? cache2.current : value;
+    }
+    var cache = WeakMap ? /* @__PURE__ */ new WeakMap() : void 0;
+    var defaultSerializeQueryArgs = function(_c) {
+      var endpointName = _c.endpointName, queryArgs = _c.queryArgs;
+      var serialized = "";
+      var cached = cache == null ? void 0 : cache.get(queryArgs);
+      if (typeof cached === "string") {
+        serialized = cached;
+      } else {
+        var stringified = JSON.stringify(queryArgs, function(key, value) {
+          return isPlainObject$2(value) ? Object.keys(value).sort().reduce(function(acc, key2) {
+            acc[key2] = value[key2];
+            return acc;
+          }, {}) : value;
+        });
+        if (isPlainObject$2(queryArgs)) {
+          cache == null ? void 0 : cache.set(queryArgs, stringified);
+        }
+        serialized = stringified;
+      }
+      return endpointName + "(" + serialized + ")";
+    };
+    var useIsomorphicLayoutEffect$2 = typeof window !== "undefined" && !!window.document && !!window.document.createElement ? reactExports.useLayoutEffect : reactExports.useEffect;
+    var defaultMutationStateSelector = function(x2) {
+      return x2;
+    };
+    var noPendingQueryStateSelector = function(selected) {
+      if (selected.isUninitialized) {
+        return __spreadProps(__spreadValues({}, selected), {
+          isUninitialized: false,
+          isFetching: true,
+          isLoading: selected.data !== void 0 ? false : true,
+          status: QueryStatus.pending
+        });
+      }
+      return selected;
+    };
+    function buildHooks(_c) {
+      var api2 = _c.api, _d = _c.moduleOptions, batch2 = _d.batch, useDispatch2 = _d.useDispatch, useSelector2 = _d.useSelector, useStore2 = _d.useStore, unstable__sideEffectsInRender = _d.unstable__sideEffectsInRender, serializeQueryArgs = _c.serializeQueryArgs, context = _c.context;
+      var usePossiblyImmediateEffect = unstable__sideEffectsInRender ? function(cb2) {
+        return cb2();
+      } : reactExports.useEffect;
+      return { buildQueryHooks, buildMutationHook, usePrefetch };
+      function queryStatePreSelector(currentState, lastResult, queryArgs) {
+        if ((lastResult == null ? void 0 : lastResult.endpointName) && currentState.isUninitialized) {
+          var endpointName = lastResult.endpointName;
+          var endpointDefinition = context.endpointDefinitions[endpointName];
+          if (serializeQueryArgs({
+            queryArgs: lastResult.originalArgs,
+            endpointDefinition,
+            endpointName
+          }) === serializeQueryArgs({
+            queryArgs,
+            endpointDefinition,
+            endpointName
+          }))
+            lastResult = void 0;
+        }
+        var data = currentState.isSuccess ? currentState.data : lastResult == null ? void 0 : lastResult.data;
+        if (data === void 0)
+          data = currentState.data;
+        var hasData = data !== void 0;
+        var isFetching = currentState.isLoading;
+        var isLoading = !hasData && isFetching;
+        var isSuccess = currentState.isSuccess || isFetching && hasData;
+        return __spreadProps(__spreadValues({}, currentState), {
+          data,
+          currentData: currentState.data,
+          isFetching,
+          isLoading,
+          isSuccess
+        });
+      }
+      function usePrefetch(endpointName, defaultOptions2) {
+        var dispatch = useDispatch2();
+        var stableDefaultOptions = useShallowStableValue(defaultOptions2);
+        return reactExports.useCallback(function(arg, options) {
+          return dispatch(api2.util.prefetch(endpointName, arg, __spreadValues(__spreadValues({}, stableDefaultOptions), options)));
+        }, [endpointName, dispatch, stableDefaultOptions]);
+      }
+      function buildQueryHooks(name) {
+        var useQuerySubscription = function(arg, _c2) {
+          var _d2 = _c2 === void 0 ? {} : _c2, refetchOnReconnect = _d2.refetchOnReconnect, refetchOnFocus = _d2.refetchOnFocus, refetchOnMountOrArgChange = _d2.refetchOnMountOrArgChange, _e2 = _d2.skip, skip = _e2 === void 0 ? false : _e2, _f = _d2.pollingInterval, pollingInterval = _f === void 0 ? 0 : _f;
+          var initiate = api2.endpoints[name].initiate;
+          var dispatch = useDispatch2();
+          var stableArg = useStableQueryArgs(skip ? skipToken : arg, defaultSerializeQueryArgs, context.endpointDefinitions[name], name);
+          var stableSubscriptionOptions = useShallowStableValue({
+            refetchOnReconnect,
+            refetchOnFocus,
+            pollingInterval
+          });
+          var lastRenderHadSubscription = reactExports.useRef(false);
+          var promiseRef = reactExports.useRef();
+          var _g = promiseRef.current || {}, queryCacheKey = _g.queryCacheKey, requestId = _g.requestId;
+          var currentRenderHasSubscription = false;
+          if (queryCacheKey && requestId) {
+            var returnedValue = dispatch(api2.internalActions.internal_probeSubscription({
+              queryCacheKey,
+              requestId
+            }));
+            currentRenderHasSubscription = !!returnedValue;
+          }
+          var subscriptionRemoved = !currentRenderHasSubscription && lastRenderHadSubscription.current;
+          usePossiblyImmediateEffect(function() {
+            lastRenderHadSubscription.current = currentRenderHasSubscription;
+          });
+          usePossiblyImmediateEffect(function() {
+            if (subscriptionRemoved) {
+              promiseRef.current = void 0;
+            }
+          }, [subscriptionRemoved]);
+          usePossiblyImmediateEffect(function() {
+            var _a;
+            var lastPromise = promiseRef.current;
+            if (typeof process !== "undefined" && false) {
+              console.log(subscriptionRemoved);
+            }
+            if (stableArg === skipToken) {
+              lastPromise == null ? void 0 : lastPromise.unsubscribe();
+              promiseRef.current = void 0;
+              return;
+            }
+            var lastSubscriptionOptions = (_a = promiseRef.current) == null ? void 0 : _a.subscriptionOptions;
+            if (!lastPromise || lastPromise.arg !== stableArg) {
+              lastPromise == null ? void 0 : lastPromise.unsubscribe();
+              var promise2 = dispatch(initiate(stableArg, {
+                subscriptionOptions: stableSubscriptionOptions,
+                forceRefetch: refetchOnMountOrArgChange
+              }));
+              promiseRef.current = promise2;
+            } else if (stableSubscriptionOptions !== lastSubscriptionOptions) {
+              lastPromise.updateSubscriptionOptions(stableSubscriptionOptions);
+            }
+          }, [
+            dispatch,
+            initiate,
+            refetchOnMountOrArgChange,
+            stableArg,
+            stableSubscriptionOptions,
+            subscriptionRemoved
+          ]);
+          reactExports.useEffect(function() {
+            return function() {
+              var _a;
+              (_a = promiseRef.current) == null ? void 0 : _a.unsubscribe();
+              promiseRef.current = void 0;
+            };
+          }, []);
+          return reactExports.useMemo(function() {
+            return {
+              refetch: function() {
+                var _a;
+                if (!promiseRef.current)
+                  throw new Error("Cannot refetch a query that has not been started yet.");
+                return (_a = promiseRef.current) == null ? void 0 : _a.refetch();
+              }
+            };
+          }, []);
+        };
+        var useLazyQuerySubscription = function(_c2) {
+          var _d2 = _c2 === void 0 ? {} : _c2, refetchOnReconnect = _d2.refetchOnReconnect, refetchOnFocus = _d2.refetchOnFocus, _e2 = _d2.pollingInterval, pollingInterval = _e2 === void 0 ? 0 : _e2;
+          var initiate = api2.endpoints[name].initiate;
+          var dispatch = useDispatch2();
+          var _f = reactExports.useState(UNINITIALIZED_VALUE), arg = _f[0], setArg = _f[1];
+          var promiseRef = reactExports.useRef();
+          var stableSubscriptionOptions = useShallowStableValue({
+            refetchOnReconnect,
+            refetchOnFocus,
+            pollingInterval
+          });
+          usePossiblyImmediateEffect(function() {
+            var _a, _b;
+            var lastSubscriptionOptions = (_a = promiseRef.current) == null ? void 0 : _a.subscriptionOptions;
+            if (stableSubscriptionOptions !== lastSubscriptionOptions) {
+              (_b = promiseRef.current) == null ? void 0 : _b.updateSubscriptionOptions(stableSubscriptionOptions);
+            }
+          }, [stableSubscriptionOptions]);
+          var subscriptionOptionsRef = reactExports.useRef(stableSubscriptionOptions);
+          usePossiblyImmediateEffect(function() {
+            subscriptionOptionsRef.current = stableSubscriptionOptions;
+          }, [stableSubscriptionOptions]);
+          var trigger = reactExports.useCallback(function(arg2, preferCacheValue) {
+            if (preferCacheValue === void 0) {
+              preferCacheValue = false;
+            }
+            var promise2;
+            batch2(function() {
+              var _a;
+              (_a = promiseRef.current) == null ? void 0 : _a.unsubscribe();
+              promiseRef.current = promise2 = dispatch(initiate(arg2, {
+                subscriptionOptions: subscriptionOptionsRef.current,
+                forceRefetch: !preferCacheValue
+              }));
+              setArg(arg2);
+            });
+            return promise2;
+          }, [dispatch, initiate]);
+          reactExports.useEffect(function() {
+            return function() {
+              var _a;
+              (_a = promiseRef == null ? void 0 : promiseRef.current) == null ? void 0 : _a.unsubscribe();
+            };
+          }, []);
+          reactExports.useEffect(function() {
+            if (arg !== UNINITIALIZED_VALUE && !promiseRef.current) {
+              trigger(arg, true);
+            }
+          }, [arg, trigger]);
+          return reactExports.useMemo(function() {
+            return [trigger, arg];
+          }, [trigger, arg]);
+        };
+        var useQueryState = function(arg, _c2) {
+          var _d2 = _c2 === void 0 ? {} : _c2, _e2 = _d2.skip, skip = _e2 === void 0 ? false : _e2, selectFromResult = _d2.selectFromResult;
+          var select = api2.endpoints[name].select;
+          var stableArg = useStableQueryArgs(skip ? skipToken : arg, serializeQueryArgs, context.endpointDefinitions[name], name);
+          var lastValue = reactExports.useRef();
+          var selectDefaultResult = reactExports.useMemo(function() {
+            return createSelector([
+              select(stableArg),
+              function(_2, lastResult) {
+                return lastResult;
+              },
+              function(_2) {
+                return stableArg;
+              }
+            ], queryStatePreSelector);
+          }, [select, stableArg]);
+          var querySelector = reactExports.useMemo(function() {
+            return selectFromResult ? createSelector([selectDefaultResult], selectFromResult) : selectDefaultResult;
+          }, [selectDefaultResult, selectFromResult]);
+          var currentState = useSelector2(function(state) {
+            return querySelector(state, lastValue.current);
+          }, shallowEqual);
+          var store2 = useStore2();
+          var newLastValue = selectDefaultResult(store2.getState(), lastValue.current);
+          useIsomorphicLayoutEffect$2(function() {
+            lastValue.current = newLastValue;
+          }, [newLastValue]);
+          return currentState;
+        };
+        return {
+          useQueryState,
+          useQuerySubscription,
+          useLazyQuerySubscription,
+          useLazyQuery: function(options) {
+            var _c2 = useLazyQuerySubscription(options), trigger = _c2[0], arg = _c2[1];
+            var queryStateResults = useQueryState(arg, __spreadProps(__spreadValues({}, options), {
+              skip: arg === UNINITIALIZED_VALUE
+            }));
+            var info = reactExports.useMemo(function() {
+              return { lastArg: arg };
+            }, [arg]);
+            return reactExports.useMemo(function() {
+              return [trigger, queryStateResults, info];
+            }, [trigger, queryStateResults, info]);
+          },
+          useQuery: function(arg, options) {
+            var querySubscriptionResults = useQuerySubscription(arg, options);
+            var queryStateResults = useQueryState(arg, __spreadValues({
+              selectFromResult: arg === skipToken || (options == null ? void 0 : options.skip) ? void 0 : noPendingQueryStateSelector
+            }, options));
+            var data = queryStateResults.data, status = queryStateResults.status, isLoading = queryStateResults.isLoading, isSuccess = queryStateResults.isSuccess, isError = queryStateResults.isError, error = queryStateResults.error;
+            reactExports.useDebugValue({ data, status, isLoading, isSuccess, isError, error });
+            return reactExports.useMemo(function() {
+              return __spreadValues(__spreadValues({}, queryStateResults), querySubscriptionResults);
+            }, [queryStateResults, querySubscriptionResults]);
+          }
+        };
+      }
+      function buildMutationHook(name) {
+        return function(_c2) {
+          var _d2 = _c2 === void 0 ? {} : _c2, _e2 = _d2.selectFromResult, selectFromResult = _e2 === void 0 ? defaultMutationStateSelector : _e2, fixedCacheKey = _d2.fixedCacheKey;
+          var _f = api2.endpoints[name], select = _f.select, initiate = _f.initiate;
+          var dispatch = useDispatch2();
+          var _g = reactExports.useState(), promise2 = _g[0], setPromise = _g[1];
+          reactExports.useEffect(function() {
+            return function() {
+              if (!(promise2 == null ? void 0 : promise2.arg.fixedCacheKey)) {
+                promise2 == null ? void 0 : promise2.reset();
+              }
+            };
+          }, [promise2]);
+          var triggerMutation = reactExports.useCallback(function(arg) {
+            var promise22 = dispatch(initiate(arg, { fixedCacheKey }));
+            setPromise(promise22);
+            return promise22;
+          }, [dispatch, initiate, fixedCacheKey]);
+          var requestId = (promise2 || {}).requestId;
+          var mutationSelector = reactExports.useMemo(function() {
+            return createSelector([select({ fixedCacheKey, requestId: promise2 == null ? void 0 : promise2.requestId })], selectFromResult);
+          }, [select, promise2, selectFromResult, fixedCacheKey]);
+          var currentState = useSelector2(mutationSelector, shallowEqual);
+          var originalArgs = fixedCacheKey == null ? promise2 == null ? void 0 : promise2.arg.originalArgs : void 0;
+          var reset = reactExports.useCallback(function() {
+            batch2(function() {
+              if (promise2) {
+                setPromise(void 0);
+              }
+              if (fixedCacheKey) {
+                dispatch(api2.internalActions.removeMutationResult({
+                  requestId,
+                  fixedCacheKey
+                }));
+              }
+            });
+          }, [dispatch, fixedCacheKey, promise2, requestId]);
+          var endpointName = currentState.endpointName, data = currentState.data, status = currentState.status, isLoading = currentState.isLoading, isSuccess = currentState.isSuccess, isError = currentState.isError, error = currentState.error;
+          reactExports.useDebugValue({
+            endpointName,
+            data,
+            status,
+            isLoading,
+            isSuccess,
+            isError,
+            error
+          });
+          var finalState = reactExports.useMemo(function() {
+            return __spreadProps(__spreadValues({}, currentState), { originalArgs, reset });
+          }, [currentState, originalArgs, reset]);
+          return reactExports.useMemo(function() {
+            return [triggerMutation, finalState];
+          }, [triggerMutation, finalState]);
+        };
+      }
+    }
+    var DefinitionType;
+    (function(DefinitionType2) {
+      DefinitionType2["query"] = "query";
+      DefinitionType2["mutation"] = "mutation";
+    })(DefinitionType || (DefinitionType = {}));
+    function isQueryDefinition(e2) {
+      return e2.type === DefinitionType.query;
+    }
+    function isMutationDefinition(e2) {
+      return e2.type === DefinitionType.mutation;
+    }
+    function capitalize$1(str) {
+      return str.replace(str[0], str[0].toUpperCase());
+    }
+    function safeAssign(target) {
+      var args = [];
+      for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+      }
+      Object.assign.apply(Object, __spreadArray$1([target], args));
+    }
+    var reactHooksModuleName = /* @__PURE__ */ Symbol();
+    var reactHooksModule = function(_c) {
+      var _d = _c === void 0 ? {} : _c, _e2 = _d.batch, batch2 = _e2 === void 0 ? reactDomExports.unstable_batchedUpdates : _e2, _f = _d.useDispatch, useDispatch$1 = _f === void 0 ? useDispatch : _f, _g = _d.useSelector, useSelector$1 = _g === void 0 ? useSelector : _g, _h = _d.useStore, useStore$1 = _h === void 0 ? useStore : _h, _j = _d.unstable__sideEffectsInRender, unstable__sideEffectsInRender = _j === void 0 ? false : _j;
+      return {
+        name: reactHooksModuleName,
+        init: function(api2, _c2, context) {
+          var serializeQueryArgs = _c2.serializeQueryArgs;
+          var anyApi = api2;
+          var _d2 = buildHooks({
+            api: api2,
+            moduleOptions: {
+              batch: batch2,
+              useDispatch: useDispatch$1,
+              useSelector: useSelector$1,
+              useStore: useStore$1,
+              unstable__sideEffectsInRender
+            },
+            serializeQueryArgs,
+            context
+          }), buildQueryHooks = _d2.buildQueryHooks, buildMutationHook = _d2.buildMutationHook, usePrefetch = _d2.usePrefetch;
+          safeAssign(anyApi, { usePrefetch });
+          safeAssign(context, { batch: batch2 });
+          return {
+            injectEndpoint: function(endpointName, definition) {
+              if (isQueryDefinition(definition)) {
+                var _c3 = buildQueryHooks(endpointName), useQuery = _c3.useQuery, useLazyQuery = _c3.useLazyQuery, useLazyQuerySubscription = _c3.useLazyQuerySubscription, useQueryState = _c3.useQueryState, useQuerySubscription = _c3.useQuerySubscription;
+                safeAssign(anyApi.endpoints[endpointName], {
+                  useQuery,
+                  useLazyQuery,
+                  useLazyQuerySubscription,
+                  useQueryState,
+                  useQuerySubscription
+                });
+                api2["use" + capitalize$1(endpointName) + "Query"] = useQuery;
+                api2["useLazy" + capitalize$1(endpointName) + "Query"] = useLazyQuery;
+              } else if (isMutationDefinition(definition)) {
+                var useMutation = buildMutationHook(endpointName);
+                safeAssign(anyApi.endpoints[endpointName], {
+                  useMutation
+                });
+                api2["use" + capitalize$1(endpointName) + "Mutation"] = useMutation;
+              }
+            }
+          };
+        }
+      };
+    };
+    var createApi = /* @__PURE__ */ buildCreateApi(coreModule(), reactHooksModule());
+    const API_URL = "https://api.test.kaizen.borboza.com/api/";
+    const api$1 = createApi({
+      reducerPath: "api",
+      tagTypes: [
+        "News",
+        "NewsById",
+        "NewsCategory",
+        "Courses",
+        "ThemeById",
+        "CourseById",
+        "ChapterById",
+        "LessonById",
+        "User",
+        "Competition",
+        "CourseProgress",
+        "NewsByCategory",
+        "CompetitionById"
+      ],
+      baseQuery: fetchBaseQuery({
+        baseUrl: API_URL,
+        prepareHeaders: (headers, { getState }) => {
+          const token2 = getState().user.token;
+          if (token2) {
+            headers.set("Authorization", `Bearer ${token2}`);
+          }
+          return headers;
+        }
+      }),
+      endpoints: () => ({})
+    });
+    const userApi$1 = api$1.injectEndpoints({
+      endpoints: (builder) => ({
+        login: builder.mutation({
+          query: (data) => ({
+            url: "auth/login",
+            method: "POST",
+            body: data
+          })
+        }),
+        logout: builder.mutation({
+          query: () => ({
+            url: "auth/logout",
+            method: "POST"
+          })
+        }),
+        getUser: builder.query({
+          query: () => ({
+            url: "auth/me",
+            method: "GET"
+          })
+        })
+      })
+    });
+    const { useLoginMutation, useLogoutMutation, useGetUserQuery } = userApi$1;
+    userApi$1.endpoints.getUser.select(null);
+    const UserInitialState = {
       token: null
     };
-    const authSlice = createSlice({
-      name: "auth",
-      initialState: AuthInitialState,
+    const userSlice = createSlice({
+      name: "user",
+      initialState: UserInitialState,
       reducers: {
         setAuthToken: (state, { payload }) => {
           state.token = payload;
         }
       }
     });
-    const { actions: actions$6, reducer: reducer$8 } = authSlice;
+    const { actions: actions$6, reducer: reducer$8 } = userSlice;
+    const useTypedSelector = useSelector;
+    /*! js-cookie v3.0.5 | MIT */
+    function assign$2(target) {
+      for (var i2 = 1; i2 < arguments.length; i2++) {
+        var source = arguments[i2];
+        for (var key in source) {
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+    var defaultConverter = {
+      read: function(value) {
+        if (value[0] === '"') {
+          value = value.slice(1, -1);
+        }
+        return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+      },
+      write: function(value) {
+        return encodeURIComponent(value).replace(
+          /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+          decodeURIComponent
+        );
+      }
+    };
+    function init(converter, defaultAttributes2) {
+      function set(name, value, attributes) {
+        if (typeof document === "undefined") {
+          return;
+        }
+        attributes = assign$2({}, defaultAttributes2, attributes);
+        if (typeof attributes.expires === "number") {
+          attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+        }
+        if (attributes.expires) {
+          attributes.expires = attributes.expires.toUTCString();
+        }
+        name = encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+        var stringifiedAttributes = "";
+        for (var attributeName in attributes) {
+          if (!attributes[attributeName]) {
+            continue;
+          }
+          stringifiedAttributes += "; " + attributeName;
+          if (attributes[attributeName] === true) {
+            continue;
+          }
+          stringifiedAttributes += "=" + attributes[attributeName].split(";")[0];
+        }
+        return document.cookie = name + "=" + converter.write(value, name) + stringifiedAttributes;
+      }
+      function get(name) {
+        if (typeof document === "undefined" || arguments.length && !name) {
+          return;
+        }
+        var cookies = document.cookie ? document.cookie.split("; ") : [];
+        var jar = {};
+        for (var i2 = 0; i2 < cookies.length; i2++) {
+          var parts = cookies[i2].split("=");
+          var value = parts.slice(1).join("=");
+          try {
+            var found = decodeURIComponent(parts[0]);
+            jar[found] = converter.read(value, found);
+            if (name === found) {
+              break;
+            }
+          } catch (e2) {
+          }
+        }
+        return name ? jar[name] : jar;
+      }
+      return Object.create(
+        {
+          set,
+          get,
+          remove: function(name, attributes) {
+            set(
+              name,
+              "",
+              assign$2({}, attributes, {
+                expires: -1
+              })
+            );
+          },
+          withAttributes: function(attributes) {
+            return init(this.converter, assign$2({}, this.attributes, attributes));
+          },
+          withConverter: function(converter2) {
+            return init(assign$2({}, this.converter, converter2), this.attributes);
+          }
+        },
+        {
+          attributes: { value: Object.freeze(defaultAttributes2) },
+          converter: { value: Object.freeze(converter) }
+        }
+      );
+    }
+    var api = init(defaultConverter, { path: "/" });
+    const useLogin = () => {
+      const { setAuthToken, setLoaderActive } = useActions();
+      const authToken = useTypedSelector((state) => state.user.token);
+      const [login] = useLoginMutation();
+      reactExports.useEffect(() => {
+        const borbozaIdCookie = api.get("orders_borboza_sid");
+        if (!borbozaIdCookie) {
+          const base64 = btoa(window.location.href);
+          const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
+          window.location.replace(redirectLink);
+          return;
+        }
+        if (authToken) {
+          return;
+        }
+        login({
+          orders_borboza_sid: borbozaIdCookie
+        }).then((res) => {
+          if ("data" in res && "access_token" in res.data) {
+            setAuthToken(res.data.access_token);
+          }
+          setLoaderActive(false);
+        });
+        setLoaderActive(true);
+      }, [authToken, login, setAuthToken, setLoaderActive]);
+      return [authToken];
+    };
     const courseInitialState = {
       data: {
         id: 0,
@@ -12061,7 +14847,7 @@ var require_assets = __commonJS({
       }
     });
     const { actions: actions$2, reducer: reducer$4 } = competitionSlice;
-    const initialState$2 = {
+    const initialState$1 = {
       accesses: [
         {
           type: "see",
@@ -12081,16 +14867,16 @@ var require_assets = __commonJS({
     };
     const accessesSlice = createSlice({
       name: "accesses",
-      initialState: initialState$2,
+      initialState: initialState$1,
       reducers: {}
     });
     const { reducer: reducer$3, actions: actions$1 } = accessesSlice;
-    const initialState$1 = {
+    const initialState = {
       newsCategories: []
     };
     const newsSlice = createSlice({
       name: "news",
-      initialState: initialState$1,
+      initialState,
       reducers: {
         updateNewsCategory: (state, { payload }) => {
           state.newsCategories.map((category) => {
@@ -12142,7 +14928,7 @@ var require_assets = __commonJS({
       };
       return __assign.apply(this, arguments);
     };
-    function __spreadArray$2(to2, from2, pack) {
+    function __spreadArray(to2, from2, pack) {
       if (pack || arguments.length === 2)
         for (var i2 = 0, l2 = from2.length, ar; i2 < l2; i2++) {
           if (ar || !(i2 in from2)) {
@@ -13097,7 +15883,7 @@ var require_assets = __commonJS({
       var n2, o2, r2 = [];
       for (var s2 in t2) {
         var i2 = t2[s2];
-        t2.hasOwnProperty(s2) && !Be$1(i2) && (Array.isArray(i2) && i2.isCss || Q(i2) ? r2.push("".concat(ze$1(s2), ":"), i2, ";") : oe$1(i2) ? r2.push.apply(r2, __spreadArray$2(__spreadArray$2(["".concat(s2, " {")], Le$1(i2), false), ["}"], false)) : r2.push("".concat(ze$1(s2), ": ").concat((n2 = s2, null == (o2 = i2) || "boolean" == typeof o2 || "" === o2 ? "" : "number" != typeof o2 || 0 === o2 || n2 in unitlessKeys || n2.startsWith("--") ? String(o2).trim() : "".concat(o2, "px")), ";")));
+        t2.hasOwnProperty(s2) && !Be$1(i2) && (Array.isArray(i2) && i2.isCss || Q(i2) ? r2.push("".concat(ze$1(s2), ":"), i2, ";") : oe$1(i2) ? r2.push.apply(r2, __spreadArray(__spreadArray(["".concat(s2, " {")], Le$1(i2), false), ["}"], false)) : r2.push("".concat(ze$1(s2), ": ").concat((n2 = s2, null == (o2 = i2) || "boolean" == typeof o2 || "" === o2 ? "" : "number" != typeof o2 || 0 === o2 || n2 in unitlessKeys || n2.startsWith("--") ? String(o2).trim() : "".concat(o2, "px")), ";")));
       }
       return r2;
     };
@@ -13248,7 +16034,7 @@ var require_assets = __commonJS({
         n2[o2 - 1] = arguments[o2];
       if (Q(t2) || oe$1(t2)) {
         var r2 = t2;
-        return tt$1(Ge$1(et$1(E, __spreadArray$2([r2], n2, true))));
+        return tt$1(Ge$1(et$1(E, __spreadArray([r2], n2, true))));
       }
       var s2 = t2;
       return 0 === n2.length && 1 === s2.length && "string" == typeof s2[0] ? Ge$1(s2) : tt$1(Ge$1(et$1(s2, n2)));
@@ -13259,7 +16045,7 @@ var require_assets = __commonJS({
       var s2 = function(t2) {
         for (var s3 = [], i2 = 1; i2 < arguments.length; i2++)
           s3[i2 - 1] = arguments[i2];
-        return n2(o2, r2, nt$1.apply(void 0, __spreadArray$2([t2], s3, false)));
+        return n2(o2, r2, nt$1.apply(void 0, __spreadArray([t2], s3, false)));
       };
       return s2.attrs = function(e2) {
         return ot$1(n2, o2, __assign(__assign({}, r2), { attrs: Array.prototype.concat(r2.attrs, e2).filter(Boolean) }));
@@ -13289,7 +16075,7 @@ var require_assets = __commonJS({
     function at$1(n2) {
       for (var r2 = [], s2 = 1; s2 < arguments.length; s2++)
         r2[s2 - 1] = arguments[s2];
-      var i2 = nt$1.apply(void 0, __spreadArray$2([n2], r2, false)), a2 = "sc-global-".concat(x$1(JSON.stringify(i2))), c2 = new it$1(i2, a2);
+      var i2 = nt$1.apply(void 0, __spreadArray([n2], r2, false)), a2 = "sc-global-".concat(x$1(JSON.stringify(i2))), c2 = new it$1(i2, a2);
       var l2 = function(e2) {
         var t2 = Ve(), n3 = React.useContext(He$1), r3 = React.useRef(t2.styleSheet.allocateGSInstance(a2)).current;
         return t2.styleSheet.server && u2(r3, e2, t2.styleSheet, n3, t2.stylis), React.useLayoutEffect(function() {
@@ -13309,3148 +16095,6 @@ var require_assets = __commonJS({
       }
       return React.memo(l2);
     }
-    const editIcon$2 = "/assets/editIcon.svg";
-    const addIcon$2 = "/assets/addIcon.svg";
-    const ADMIN_BTN_TYPES = {
-      edit: "edit",
-      add: "add"
-    };
-    const DEFAULT_WIDTH = "1267px";
-    const MODAL_TYPES = {
-      createCourse: "createCourse",
-      createCompetition: "createCompetition",
-      createChapter: "createChapter",
-      createTheme: "createTheme",
-      editCourse: "editCourse",
-      editChapter: "editChapter",
-      editTheme: "editTheme",
-      newsCategory: "newsCategory",
-      selectCourse: "selectCourse"
-    };
-    const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
-    const USER_ROLES = {
-      admin: "admin",
-      user: "user"
-    };
-    const NAV_LINKS = {
-      news: {
-        url: "/news",
-        name: "Новости",
-        icon: {
-          withIcon: false,
-          iconUrl: ""
-        }
-      },
-      education: {
-        url: "/courses",
-        name: "Курсы",
-        icon: {
-          withIcon: false,
-          iconUrl: ""
-        }
-      }
-      // tasks: {
-      //   url: '/tasks',
-      //   name: 'Задачи',
-      //   icon: {
-      //     withIcon: false,
-      //     iconUrl: '',
-      //   },
-      // },
-    };
-    const APHORISMS = [
-      {
-        text: "Нет большей жизни, чем бороться за свои мечты.",
-        author: "Хаяо Миядзаки"
-      },
-      {
-        text: "Если вы ничего не делаете, ничего не происходит.",
-        author: "Икути Кэйта"
-      },
-      {
-        text: "Самурай должен быть вежливым, даже когда смерть близка.",
-        author: "Ямамото Цунэтомо"
-      },
-      {
-        text: "Если вы будете работать только над тем, что вам нравится, вы никогда не должны будете работать ни дня в своей жизни.",
-        author: "Идзамо Томио"
-      },
-      {
-        text: "Но, в конце концов — и я подчеркиваю это — как бы вы ни были хороши или удачливы и как бы вы ни были умны и ловки, ваше дело и его судьба находятся в руках тех людей, которых вы нанимаете.",
-        author: "Акио Морита"
-      },
-      {
-        text: "Всю свою жизнь при­леж­но учись. Каж­дый день ста­новись бо­лее ис­кусным, чем ты был за день до это­го, а на сле­ду­ющий день — бо­лее ис­кусным, чем се­год­ня. Со­вер­шенс­тво­вание не име­ет кон­ца.",
-        author: "Яма­мото Цу­нэто­мо"
-      },
-      {
-        text: "Нет ничего более постыдного для человека, чем выходить из себя.",
-        author: "Сиба Есимаса"
-      },
-      {
-        text: "Искреннее сердце — это драгоценность, которую никогда никуда не спрячешь.",
-        author: "Ходзе Сигэтоки"
-      },
-      {
-        text: "Учение для человека — все равно что ветви и листья для дерева. Без него он просто не сможет жить.",
-        author: "Такэда Сингэн"
-      },
-      {
-        text: "Даже если у человека нет особых талантов, но он упорно овладевает знанием, он не опозорится перед другими.",
-        author: "Сиба Есимаса"
-      },
-      {
-        text: "Во всем надлежит действовать терпеливо.",
-        author: "Набэсима Наосигэ"
-      },
-      {
-        text: "Там, где льются изящные стихи, не остается места суесловию",
-        author: "Мурасаки Сикибу"
-      }
-    ];
-    var MediaQueries = /* @__PURE__ */ ((MediaQueries2) => {
-      MediaQueries2["mobile"] = "(max-width: 768px)";
-      MediaQueries2["desktop"] = "(min-width: 768px)";
-      return MediaQueries2;
-    })(MediaQueries || {});
-    var Steps = /* @__PURE__ */ ((Steps2) => {
-      Steps2["chapter"] = "chapter";
-      Steps2["theme"] = "theme";
-      return Steps2;
-    })(Steps || {});
-    const AdminBtn$1 = st$1.button`
-  position: relative;
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-    width: 7.5vw;
-    height: 7.5vw;
-  }
-`;
-    const doneIcon$1 = "/assets/done.svg";
-    const selectIcon = "/assets/accordionIcon.svg";
-    const TextStyles = nt$1`
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realBlack};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 5.625vw;
-  }
-`;
-    const DarkOverlay = st$1.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
-    st$1.div`
-  width: 100%;
-  max-width: ${(props) => props.$maxWidth};
-  height: 100%;
-  backdrop-filter: blur(${(props) => props.$blurValue});
-`;
-    const DefaultBtn = st$1.button`
-  min-height: 60px;
-  padding: 0 3%;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 100%;
-  color: ${(props) => props.theme.colors.realWhite};
-  background-color: ${(props) => props.theme.colors.mainBlue};
-  border-radius: ${(props) => props.theme.utils.br};
-  transition: ${(props) => props.theme.utils.transition};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 4.6875vw;
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.darkBlue};
-  }
-`;
-    st$1.table``;
-    const Text$6 = st$1.p`
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realBlack};
-  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
-
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 5.625vw;
-  }
-`;
-    const Input$2 = st$1.input`
-  width: 100%;
-  min-height: 60px;
-  padding: 19px 29px;
-  border: 1px solid ${(props) => props.theme.colors.greyEO};
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.realBlack};
-  border-radius: ${(props) => props.theme.utils.br};
-  @media ${(props) => props.theme.media.mobile} {
-    min-height: 12.5vw;
-    padding: 4.0625vw 5.3125vw;
-    font-size: 3.75vw;
-  }
-
-  &::placeholder {
-    color: ${(props) => props.theme.colors.grey93};
-  }
-
-  &:focus {
-    color: ${(props) => props.theme.colors.realBlack};
-    background-color: transparent;
-  }
-`;
-    const SvgIcon = st$1.svg.attrs({
-      width: "24",
-      height: "24",
-      viewBox: "0 0 24 24",
-      fill: "none"
-    })`
-  path {
-    transition: ${(props) => props.theme.utils.transition};
-  }
-`;
-    const InputWithState = st$1(Input$2)`
-  ${(props) => {
-      if (props.$isChanged && props.$isValid) {
-        return nt$1`
-        color: ${props.theme.colors.grey93};
-        background-color: ${props.theme.colors.greyF1};
-      `;
-      } else if (props.$isChanged) {
-        return nt$1`
-        border-color: ${props.theme.colors.yRed};
-      `;
-      }
-    }}
-`;
-    st$1.button`
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 120%;
-  color: ${(props) => props.theme.colors.mainBlue};
-  text-decoration: underline;
-  background-color: transparent;
-  transition: ${(props) => props.theme.utils.transition};
-
-  &:hover {
-    text-decoration: unset;
-    color: ${(props) => props.theme.colors.darkBlue};
-  }
-`;
-    const DefaultContainer = st$1.div`
-  width: 100%;
-  max-width: ${DEFAULT_WIDTH};
-  margin: 0 auto;
-`;
-    const FlexContainer = st$1.div`
-  display: flex;
-  width: 100%;
-`;
-    const ProgressBar$1 = st$1.div`
-  display: flex;
-  width: 100%;
-  position: relative;
-  height: 10px;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.colors.greyF1};
-  @media ${(props) => props.theme.media.mobile} {
-    height: 1.5625vw;
-    border-radius: 2.532px;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: ${(props) => props.$progress + "%"};
-    height: 100%;
-    border-radius: inherit;
-    background-color: ${(props) => props.theme.colors.realBlack};
-    transition: width 0.2s linear;
-  }
-`;
-    const Icon$2 = st$1.div`
-  display: block;
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 7.5vw;
-    height: 7.5vw;
-  }
-`;
-    const DoneIcon$2 = st$1(Icon$2)`
-  margin-right: 26px;
-  /* margin-left: auto; */
-  background-image: url(${doneIcon$1});
-`;
-    const AccordionIcon = st$1(Icon$2)`
-  display: block;
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
-  transition: ${(props) => props.theme.utils.transition};
-  transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
-  background-image: url(${selectIcon});
-`;
-    st$1(Text$6)`
-  margin-bottom: 30px;
-  font-weight: 400;
-  line-height: 150%;
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 4.6875vw;
-    padding: 0 3.125vw;
-    margin-bottom: 10%;
-  }
-`;
-    st$1(FlexContainer)`
-  width: 310px;
-  height: 400px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.grey93};
-  animation: pulse 0.5s ease-in-out infinite alternate;
-
-  @keyframes pulse {
-    100% {
-      background-color: ${(props) => props.theme.colors.greyEO};
-    }
-  }
-`;
-    st$1.ol`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-  list-style: decimal inside;
-`;
-    st$1.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-  list-style: disc inside;
-  @media ${(props) => props.theme.media.mobile} {
-    gap: 6.25vw;
-    padding: 0 3.125vw;
-    margin-bottom: 10%;
-  }
-`;
-    st$1.li`
-  display: list-item;
-  ${TextStyles}
-  font-weight: 400;
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 4.6875vw;
-  }
-`;
-    st$1.img`
-  width: 100%;
-  margin-bottom: 30px;
-  border-radius: ${(props) => props.theme.utils.br};
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 10%;
-    border-radius: unset;
-  }
-`;
-    st$1(FlexContainer)`
-  flex-direction: column;
-`;
-    const isHideIcon = "/assets/hideIcon.svg";
-    const addIcon$1 = "/assets/addIconBlack.svg";
-    const editIcon$1 = "/assets/editIconRed.svg";
-    const deleteIcon$1 = "/assets/deleteIcon.svg";
-    const visibleIcon = "/assets/visibleIcon.svg";
-    const Overlay$2 = st$1(DarkOverlay)`
-    z-index: ${(props) => props.theme.utils.zIndex.popup};
-  @media ${(props) => props.theme.media.desktop} {
-    background-color: transparent;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: unset;
-    width: 320px;
-    height: auto;
-    filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
-  }
-`;
-    const Container$S = st$1(FlexContainer)`
-  flex-direction: column;
-  width: 100%;
-  padding: 15px 10px 10px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.greyF1};
-  @media ${(props) => props.theme.media.mobile} {
-    padding: 3.125vw;
-    border-radius: 0px 0px 15px 15px;
-  }
-`;
-    const Title$k = st$1(Text$6)`
-  margin-bottom: 15px;
-  text-align: center;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-bottom: 4.6875vw;
-  }
-`;
-    const Btn = st$1.div`
-  ${TextStyles}
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 60px;
-  border-radius: ${(props) => props.theme.utils.br};
-  background-color: ${(props) => props.theme.colors.realWhite};
-  transition: ${(props) => props.theme.utils.transition};
-  @media ${(props) => props.theme.media.mobile} {
-    min-height: 18.75vw;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 5px;
-    @media ${(props) => props.theme.media.mobile} {
-      margin-bottom: 1.5625vw;
-    }
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.greyF1};
-  }
-`;
-    const HideBtn = st$1(Btn)``;
-    const VisibleBtn = st$1(Btn)``;
-    const AddBtn = st$1(Btn)``;
-    const EditBtn = st$1(Btn)``;
-    const DeleteBtn$3 = st$1(Btn)`
-  color: ${(props) => props.theme.colors.yRed};
-`;
-    const RestoreBtn = st$1(Btn)``;
-    const BtnIcon = st$1(Icon$2)`
-  margin-right: 15px;
-  @media ${(props) => props.theme.media.mobile} {
-    margin-right: 3.125vw;
-  }
-`;
-    const HideIcon = st$1(BtnIcon)`
-  background-image: url(${isHideIcon});
-`;
-    const AddIcon$1 = st$1(BtnIcon)`
-  background-image: url(${addIcon$1});
-`;
-    const EditIcon$1 = st$1(BtnIcon)`
-  background-image: url(${editIcon$1});
-`;
-    const DeleteIcon$1 = st$1(BtnIcon)`
-  background-image: url(${deleteIcon$1});
-`;
-    const VisibleIcon = st$1(BtnIcon)`
-  background-image: url(${visibleIcon});
-`;
-    function ControlsPopup({
-      innerRef,
-      name,
-      onHide,
-      onAdd,
-      onDelete,
-      onEdit,
-      onRestore,
-      onVisible
-    }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$S, { ref: innerRef, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$k, { children: name }),
-        onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
-          "скрыть"
-        ] }),
-        onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
-          "показать"
-        ] }),
-        onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon$1, {}),
-          "добавить"
-        ] }),
-        onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon$1, {}),
-          "изменить"
-        ] }),
-        onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$3, { onClick: onDelete, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon$1, {}),
-          "удалить"
-        ] }),
-        onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
-      ] }) });
-    }
-    const useTypedSelector = useSelector;
-    var __generator = globalThis && globalThis.__generator || function(thisArg, body2) {
-      var _2 = { label: 0, sent: function() {
-        if (t2[0] & 1)
-          throw t2[1];
-        return t2[1];
-      }, trys: [], ops: [] }, f2, y2, t2, g2;
-      return g2 = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g2[Symbol.iterator] = function() {
-        return this;
-      }), g2;
-      function verb(n2) {
-        return function(v2) {
-          return step([n2, v2]);
-        };
-      }
-      function step(op) {
-        if (f2)
-          throw new TypeError("Generator is already executing.");
-        while (_2)
-          try {
-            if (f2 = 1, y2 && (t2 = op[0] & 2 ? y2["return"] : op[0] ? y2["throw"] || ((t2 = y2["return"]) && t2.call(y2), 0) : y2.next) && !(t2 = t2.call(y2, op[1])).done)
-              return t2;
-            if (y2 = 0, t2)
-              op = [op[0] & 2, t2.value];
-            switch (op[0]) {
-              case 0:
-              case 1:
-                t2 = op;
-                break;
-              case 4:
-                _2.label++;
-                return { value: op[1], done: false };
-              case 5:
-                _2.label++;
-                y2 = op[1];
-                op = [0];
-                continue;
-              case 7:
-                op = _2.ops.pop();
-                _2.trys.pop();
-                continue;
-              default:
-                if (!(t2 = _2.trys, t2 = t2.length > 0 && t2[t2.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                  _2 = 0;
-                  continue;
-                }
-                if (op[0] === 3 && (!t2 || op[1] > t2[0] && op[1] < t2[3])) {
-                  _2.label = op[1];
-                  break;
-                }
-                if (op[0] === 6 && _2.label < t2[1]) {
-                  _2.label = t2[1];
-                  t2 = op;
-                  break;
-                }
-                if (t2 && _2.label < t2[2]) {
-                  _2.label = t2[2];
-                  _2.ops.push(op);
-                  break;
-                }
-                if (t2[2])
-                  _2.ops.pop();
-                _2.trys.pop();
-                continue;
-            }
-            op = body2.call(thisArg, _2);
-          } catch (e2) {
-            op = [6, e2];
-            y2 = 0;
-          } finally {
-            f2 = t2 = 0;
-          }
-        if (op[0] & 5)
-          throw op[1];
-        return { value: op[0] ? op[1] : void 0, done: true };
-      }
-    };
-    var __spreadArray$1 = globalThis && globalThis.__spreadArray || function(to2, from2) {
-      for (var i2 = 0, il2 = from2.length, j2 = to2.length; i2 < il2; i2++, j2++)
-        to2[j2] = from2[i2];
-      return to2;
-    };
-    var __defProp$1 = Object.defineProperty;
-    var __defProps$1 = Object.defineProperties;
-    var __getOwnPropDescs$1 = Object.getOwnPropertyDescriptors;
-    var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
-    var __hasOwnProp$1 = Object.prototype.hasOwnProperty;
-    var __propIsEnum$1 = Object.prototype.propertyIsEnumerable;
-    var __defNormalProp$1 = function(obj, key, value) {
-      return key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-    };
-    var __spreadValues$1 = function(a2, b2) {
-      for (var prop in b2 || (b2 = {}))
-        if (__hasOwnProp$1.call(b2, prop))
-          __defNormalProp$1(a2, prop, b2[prop]);
-      if (__getOwnPropSymbols$1)
-        for (var _j = 0, _k = __getOwnPropSymbols$1(b2); _j < _k.length; _j++) {
-          var prop = _k[_j];
-          if (__propIsEnum$1.call(b2, prop))
-            __defNormalProp$1(a2, prop, b2[prop]);
-        }
-      return a2;
-    };
-    var __spreadProps$1 = function(a2, b2) {
-      return __defProps$1(a2, __getOwnPropDescs$1(b2));
-    };
-    var __objRest = function(source, exclude) {
-      var target = {};
-      for (var prop in source)
-        if (__hasOwnProp$1.call(source, prop) && exclude.indexOf(prop) < 0)
-          target[prop] = source[prop];
-      if (source != null && __getOwnPropSymbols$1)
-        for (var _j = 0, _k = __getOwnPropSymbols$1(source); _j < _k.length; _j++) {
-          var prop = _k[_j];
-          if (exclude.indexOf(prop) < 0 && __propIsEnum$1.call(source, prop))
-            target[prop] = source[prop];
-        }
-      return target;
-    };
-    var __async = function(__this, __arguments, generator) {
-      return new Promise(function(resolve, reject) {
-        var fulfilled = function(value) {
-          try {
-            step(generator.next(value));
-          } catch (e2) {
-            reject(e2);
-          }
-        };
-        var rejected = function(value) {
-          try {
-            step(generator.throw(value));
-          } catch (e2) {
-            reject(e2);
-          }
-        };
-        var step = function(x2) {
-          return x2.done ? resolve(x2.value) : Promise.resolve(x2.value).then(fulfilled, rejected);
-        };
-        step((generator = generator.apply(__this, __arguments)).next());
-      });
-    };
-    var QueryStatus;
-    (function(QueryStatus2) {
-      QueryStatus2["uninitialized"] = "uninitialized";
-      QueryStatus2["pending"] = "pending";
-      QueryStatus2["fulfilled"] = "fulfilled";
-      QueryStatus2["rejected"] = "rejected";
-    })(QueryStatus || (QueryStatus = {}));
-    function getRequestStatusFlags(status) {
-      return {
-        status,
-        isUninitialized: status === QueryStatus.uninitialized,
-        isLoading: status === QueryStatus.pending,
-        isSuccess: status === QueryStatus.fulfilled,
-        isError: status === QueryStatus.rejected
-      };
-    }
-    function isAbsoluteUrl(url) {
-      return new RegExp("(^|:)//").test(url);
-    }
-    var withoutTrailingSlash = function(url) {
-      return url.replace(/\/$/, "");
-    };
-    var withoutLeadingSlash = function(url) {
-      return url.replace(/^\//, "");
-    };
-    function joinUrls(base, url) {
-      if (!base) {
-        return url;
-      }
-      if (!url) {
-        return base;
-      }
-      if (isAbsoluteUrl(url)) {
-        return url;
-      }
-      var delimiter2 = base.endsWith("/") || !url.startsWith("?") ? "/" : "";
-      base = withoutTrailingSlash(base);
-      url = withoutLeadingSlash(url);
-      return "" + base + delimiter2 + url;
-    }
-    var flatten = function(arr) {
-      return [].concat.apply([], arr);
-    };
-    function isOnline() {
-      return typeof navigator === "undefined" ? true : navigator.onLine === void 0 ? true : navigator.onLine;
-    }
-    function isDocumentVisible() {
-      if (typeof document === "undefined") {
-        return true;
-      }
-      return document.visibilityState !== "hidden";
-    }
-    var isPlainObject$1 = isPlainObject$2;
-    function copyWithStructuralSharing(oldObj, newObj) {
-      if (oldObj === newObj || !(isPlainObject$1(oldObj) && isPlainObject$1(newObj) || Array.isArray(oldObj) && Array.isArray(newObj))) {
-        return newObj;
-      }
-      var newKeys = Object.keys(newObj);
-      var oldKeys = Object.keys(oldObj);
-      var isSameObject = newKeys.length === oldKeys.length;
-      var mergeObj = Array.isArray(newObj) ? [] : {};
-      for (var _j = 0, newKeys_1 = newKeys; _j < newKeys_1.length; _j++) {
-        var key = newKeys_1[_j];
-        mergeObj[key] = copyWithStructuralSharing(oldObj[key], newObj[key]);
-        if (isSameObject)
-          isSameObject = oldObj[key] === mergeObj[key];
-      }
-      return isSameObject ? oldObj : mergeObj;
-    }
-    var defaultFetchFn = function() {
-      var args = [];
-      for (var _j = 0; _j < arguments.length; _j++) {
-        args[_j] = arguments[_j];
-      }
-      return fetch.apply(void 0, args);
-    };
-    var defaultValidateStatus = function(response) {
-      return response.status >= 200 && response.status <= 299;
-    };
-    var defaultIsJsonContentType = function(headers) {
-      return /ion\/(vnd\.api\+)?json/.test(headers.get("content-type") || "");
-    };
-    function stripUndefined(obj) {
-      if (!isPlainObject$2(obj)) {
-        return obj;
-      }
-      var copy2 = __spreadValues$1({}, obj);
-      for (var _j = 0, _k = Object.entries(copy2); _j < _k.length; _j++) {
-        var _l = _k[_j], k2 = _l[0], v2 = _l[1];
-        if (v2 === void 0)
-          delete copy2[k2];
-      }
-      return copy2;
-    }
-    function fetchBaseQuery(_a) {
-      var _this = this;
-      if (_a === void 0) {
-        _a = {};
-      }
-      var _b = _a, baseUrl = _b.baseUrl, _j = _b.prepareHeaders, prepareHeaders = _j === void 0 ? function(x2) {
-        return x2;
-      } : _j, _k = _b.fetchFn, fetchFn = _k === void 0 ? defaultFetchFn : _k, paramsSerializer = _b.paramsSerializer, _l = _b.isJsonContentType, isJsonContentType = _l === void 0 ? defaultIsJsonContentType : _l, _m = _b.jsonContentType, jsonContentType = _m === void 0 ? "application/json" : _m, jsonReplacer = _b.jsonReplacer, defaultTimeout = _b.timeout, globalResponseHandler = _b.responseHandler, globalValidateStatus = _b.validateStatus, baseFetchOptions = __objRest(_b, [
-        "baseUrl",
-        "prepareHeaders",
-        "fetchFn",
-        "paramsSerializer",
-        "isJsonContentType",
-        "jsonContentType",
-        "jsonReplacer",
-        "timeout",
-        "responseHandler",
-        "validateStatus"
-      ]);
-      if (typeof fetch === "undefined" && fetchFn === defaultFetchFn) {
-        console.warn("Warning: `fetch` is not available. Please supply a custom `fetchFn` property to use `fetchBaseQuery` on SSR environments.");
-      }
-      return function(arg, api2) {
-        return __async(_this, null, function() {
-          var signal, getState, extra, endpoint, forced, type, meta, _a2, url, _j2, headers, _k2, params, _l2, responseHandler, _m2, validateStatus, _o2, timeout, rest, config2, _p, isJsonifiable, divider, query, request, requestClone, response, timedOut, timeoutId, e_1, responseClone, resultData, responseText, handleResponseError_1, e_2;
-          return __generator(this, function(_q) {
-            switch (_q.label) {
-              case 0:
-                signal = api2.signal, getState = api2.getState, extra = api2.extra, endpoint = api2.endpoint, forced = api2.forced, type = api2.type;
-                _a2 = typeof arg == "string" ? { url: arg } : arg, url = _a2.url, _j2 = _a2.headers, headers = _j2 === void 0 ? new Headers(baseFetchOptions.headers) : _j2, _k2 = _a2.params, params = _k2 === void 0 ? void 0 : _k2, _l2 = _a2.responseHandler, responseHandler = _l2 === void 0 ? globalResponseHandler != null ? globalResponseHandler : "json" : _l2, _m2 = _a2.validateStatus, validateStatus = _m2 === void 0 ? globalValidateStatus != null ? globalValidateStatus : defaultValidateStatus : _m2, _o2 = _a2.timeout, timeout = _o2 === void 0 ? defaultTimeout : _o2, rest = __objRest(_a2, [
-                  "url",
-                  "headers",
-                  "params",
-                  "responseHandler",
-                  "validateStatus",
-                  "timeout"
-                ]);
-                config2 = __spreadValues$1(__spreadProps$1(__spreadValues$1({}, baseFetchOptions), {
-                  signal
-                }), rest);
-                headers = new Headers(stripUndefined(headers));
-                _p = config2;
-                return [4, prepareHeaders(headers, {
-                  getState,
-                  extra,
-                  endpoint,
-                  forced,
-                  type
-                })];
-              case 1:
-                _p.headers = _q.sent() || headers;
-                isJsonifiable = function(body2) {
-                  return typeof body2 === "object" && (isPlainObject$2(body2) || Array.isArray(body2) || typeof body2.toJSON === "function");
-                };
-                if (!config2.headers.has("content-type") && isJsonifiable(config2.body)) {
-                  config2.headers.set("content-type", jsonContentType);
-                }
-                if (isJsonifiable(config2.body) && isJsonContentType(config2.headers)) {
-                  config2.body = JSON.stringify(config2.body, jsonReplacer);
-                }
-                if (params) {
-                  divider = ~url.indexOf("?") ? "&" : "?";
-                  query = paramsSerializer ? paramsSerializer(params) : new URLSearchParams(stripUndefined(params));
-                  url += divider + query;
-                }
-                url = joinUrls(baseUrl, url);
-                request = new Request(url, config2);
-                requestClone = new Request(url, config2);
-                meta = { request: requestClone };
-                timedOut = false, timeoutId = timeout && setTimeout(function() {
-                  timedOut = true;
-                  api2.abort();
-                }, timeout);
-                _q.label = 2;
-              case 2:
-                _q.trys.push([2, 4, 5, 6]);
-                return [4, fetchFn(request)];
-              case 3:
-                response = _q.sent();
-                return [3, 6];
-              case 4:
-                e_1 = _q.sent();
-                return [2, {
-                  error: {
-                    status: timedOut ? "TIMEOUT_ERROR" : "FETCH_ERROR",
-                    error: String(e_1)
-                  },
-                  meta
-                }];
-              case 5:
-                if (timeoutId)
-                  clearTimeout(timeoutId);
-                return [
-                  7
-                  /*endfinally*/
-                ];
-              case 6:
-                responseClone = response.clone();
-                meta.response = responseClone;
-                responseText = "";
-                _q.label = 7;
-              case 7:
-                _q.trys.push([7, 9, , 10]);
-                return [4, Promise.all([
-                  handleResponse(response, responseHandler).then(function(r2) {
-                    return resultData = r2;
-                  }, function(e2) {
-                    return handleResponseError_1 = e2;
-                  }),
-                  responseClone.text().then(function(r2) {
-                    return responseText = r2;
-                  }, function() {
-                  })
-                ])];
-              case 8:
-                _q.sent();
-                if (handleResponseError_1)
-                  throw handleResponseError_1;
-                return [3, 10];
-              case 9:
-                e_2 = _q.sent();
-                return [2, {
-                  error: {
-                    status: "PARSING_ERROR",
-                    originalStatus: response.status,
-                    data: responseText,
-                    error: String(e_2)
-                  },
-                  meta
-                }];
-              case 10:
-                return [2, validateStatus(response, resultData) ? {
-                  data: resultData,
-                  meta
-                } : {
-                  error: {
-                    status: response.status,
-                    data: resultData
-                  },
-                  meta
-                }];
-            }
-          });
-        });
-      };
-      function handleResponse(response, responseHandler) {
-        return __async(this, null, function() {
-          var text;
-          return __generator(this, function(_j2) {
-            switch (_j2.label) {
-              case 0:
-                if (typeof responseHandler === "function") {
-                  return [2, responseHandler(response)];
-                }
-                if (responseHandler === "content-type") {
-                  responseHandler = isJsonContentType(response.headers) ? "json" : "text";
-                }
-                if (!(responseHandler === "json"))
-                  return [3, 2];
-                return [4, response.text()];
-              case 1:
-                text = _j2.sent();
-                return [2, text.length ? JSON.parse(text) : null];
-              case 2:
-                return [2, response.text()];
-            }
-          });
-        });
-      }
-    }
-    var HandledError = (
-      /** @class */
-      function() {
-        function HandledError2(value, meta) {
-          if (meta === void 0) {
-            meta = void 0;
-          }
-          this.value = value;
-          this.meta = meta;
-        }
-        return HandledError2;
-      }()
-    );
-    var onFocus = /* @__PURE__ */ createAction("__rtkq/focused");
-    var onFocusLost = /* @__PURE__ */ createAction("__rtkq/unfocused");
-    var onOnline = /* @__PURE__ */ createAction("__rtkq/online");
-    var onOffline = /* @__PURE__ */ createAction("__rtkq/offline");
-    var DefinitionType$1;
-    (function(DefinitionType2) {
-      DefinitionType2["query"] = "query";
-      DefinitionType2["mutation"] = "mutation";
-    })(DefinitionType$1 || (DefinitionType$1 = {}));
-    function isQueryDefinition$1(e2) {
-      return e2.type === DefinitionType$1.query;
-    }
-    function isMutationDefinition$1(e2) {
-      return e2.type === DefinitionType$1.mutation;
-    }
-    function calculateProvidedBy(description, result, error, queryArg, meta, assertTagTypes) {
-      if (isFunction(description)) {
-        return description(result, error, queryArg, meta).map(expandTagDescription).map(assertTagTypes);
-      }
-      if (Array.isArray(description)) {
-        return description.map(expandTagDescription).map(assertTagTypes);
-      }
-      return [];
-    }
-    function isFunction(t2) {
-      return typeof t2 === "function";
-    }
-    function expandTagDescription(description) {
-      return typeof description === "string" ? { type: description } : description;
-    }
-    function isNotNullish(v2) {
-      return v2 != null;
-    }
-    var forceQueryFnSymbol = Symbol("forceQueryFn");
-    var isUpsertQuery = function(arg) {
-      return typeof arg[forceQueryFnSymbol] === "function";
-    };
-    function buildInitiate(_j) {
-      var serializeQueryArgs = _j.serializeQueryArgs, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk, api2 = _j.api, context = _j.context;
-      var runningQueries = /* @__PURE__ */ new Map();
-      var runningMutations = /* @__PURE__ */ new Map();
-      var _k = api2.internalActions, unsubscribeQueryResult = _k.unsubscribeQueryResult, removeMutationResult = _k.removeMutationResult, updateSubscriptionOptions = _k.updateSubscriptionOptions;
-      return {
-        buildInitiateQuery,
-        buildInitiateMutation,
-        getRunningQueryThunk,
-        getRunningMutationThunk,
-        getRunningQueriesThunk,
-        getRunningMutationsThunk,
-        getRunningOperationPromises,
-        removalWarning
-      };
-      function removalWarning() {
-        throw new Error("This method had to be removed due to a conceptual bug in RTK.\n       Please see https://github.com/reduxjs/redux-toolkit/pull/2481 for details.\n       See https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering for new guidance on SSR.");
-      }
-      function getRunningOperationPromises() {
-        if (typeof process !== "undefined" && false) {
-          removalWarning();
-        } else {
-          var extract = function(v2) {
-            return Array.from(v2.values()).flatMap(function(queriesForStore) {
-              return queriesForStore ? Object.values(queriesForStore) : [];
-            });
-          };
-          return __spreadArray$1(__spreadArray$1([], extract(runningQueries)), extract(runningMutations)).filter(isNotNullish);
-        }
-      }
-      function getRunningQueryThunk(endpointName, queryArgs) {
-        return function(dispatch) {
-          var _a;
-          var endpointDefinition = context.endpointDefinitions[endpointName];
-          var queryCacheKey = serializeQueryArgs({
-            queryArgs,
-            endpointDefinition,
-            endpointName
-          });
-          return (_a = runningQueries.get(dispatch)) == null ? void 0 : _a[queryCacheKey];
-        };
-      }
-      function getRunningMutationThunk(_endpointName, fixedCacheKeyOrRequestId) {
-        return function(dispatch) {
-          var _a;
-          return (_a = runningMutations.get(dispatch)) == null ? void 0 : _a[fixedCacheKeyOrRequestId];
-        };
-      }
-      function getRunningQueriesThunk() {
-        return function(dispatch) {
-          return Object.values(runningQueries.get(dispatch) || {}).filter(isNotNullish);
-        };
-      }
-      function getRunningMutationsThunk() {
-        return function(dispatch) {
-          return Object.values(runningMutations.get(dispatch) || {}).filter(isNotNullish);
-        };
-      }
-      function buildInitiateQuery(endpointName, endpointDefinition) {
-        var queryAction = function(arg, _j2) {
-          var _k2 = _j2 === void 0 ? {} : _j2, _l = _k2.subscribe, subscribe = _l === void 0 ? true : _l, forceRefetch = _k2.forceRefetch, subscriptionOptions = _k2.subscriptionOptions, _m = forceQueryFnSymbol, forceQueryFn = _k2[_m];
-          return function(dispatch, getState) {
-            var _j3;
-            var _a;
-            var queryCacheKey = serializeQueryArgs({
-              queryArgs: arg,
-              endpointDefinition,
-              endpointName
-            });
-            var thunk2 = queryThunk((_j3 = {
-              type: "query",
-              subscribe,
-              forceRefetch,
-              subscriptionOptions,
-              endpointName,
-              originalArgs: arg,
-              queryCacheKey
-            }, _j3[forceQueryFnSymbol] = forceQueryFn, _j3));
-            var selector = api2.endpoints[endpointName].select(arg);
-            var thunkResult = dispatch(thunk2);
-            var stateAfter = selector(getState());
-            var requestId = thunkResult.requestId, abort = thunkResult.abort;
-            var skippedSynchronously = stateAfter.requestId !== requestId;
-            var runningQuery = (_a = runningQueries.get(dispatch)) == null ? void 0 : _a[queryCacheKey];
-            var selectFromState = function() {
-              return selector(getState());
-            };
-            var statePromise = Object.assign(forceQueryFn ? thunkResult.then(selectFromState) : skippedSynchronously && !runningQuery ? Promise.resolve(stateAfter) : Promise.all([runningQuery, thunkResult]).then(selectFromState), {
-              arg,
-              requestId,
-              subscriptionOptions,
-              queryCacheKey,
-              abort,
-              unwrap: function() {
-                return __async(this, null, function() {
-                  var result;
-                  return __generator(this, function(_j4) {
-                    switch (_j4.label) {
-                      case 0:
-                        return [4, statePromise];
-                      case 1:
-                        result = _j4.sent();
-                        if (result.isError) {
-                          throw result.error;
-                        }
-                        return [2, result.data];
-                    }
-                  });
-                });
-              },
-              refetch: function() {
-                return dispatch(queryAction(arg, { subscribe: false, forceRefetch: true }));
-              },
-              unsubscribe: function() {
-                if (subscribe)
-                  dispatch(unsubscribeQueryResult({
-                    queryCacheKey,
-                    requestId
-                  }));
-              },
-              updateSubscriptionOptions: function(options) {
-                statePromise.subscriptionOptions = options;
-                dispatch(updateSubscriptionOptions({
-                  endpointName,
-                  requestId,
-                  queryCacheKey,
-                  options
-                }));
-              }
-            });
-            if (!runningQuery && !skippedSynchronously && !forceQueryFn) {
-              var running_1 = runningQueries.get(dispatch) || {};
-              running_1[queryCacheKey] = statePromise;
-              runningQueries.set(dispatch, running_1);
-              statePromise.then(function() {
-                delete running_1[queryCacheKey];
-                if (!Object.keys(running_1).length) {
-                  runningQueries.delete(dispatch);
-                }
-              });
-            }
-            return statePromise;
-          };
-        };
-        return queryAction;
-      }
-      function buildInitiateMutation(endpointName) {
-        return function(arg, _j2) {
-          var _k2 = _j2 === void 0 ? {} : _j2, _l = _k2.track, track = _l === void 0 ? true : _l, fixedCacheKey = _k2.fixedCacheKey;
-          return function(dispatch, getState) {
-            var thunk2 = mutationThunk({
-              type: "mutation",
-              endpointName,
-              originalArgs: arg,
-              track,
-              fixedCacheKey
-            });
-            var thunkResult = dispatch(thunk2);
-            var requestId = thunkResult.requestId, abort = thunkResult.abort, unwrap = thunkResult.unwrap;
-            var returnValuePromise = thunkResult.unwrap().then(function(data) {
-              return { data };
-            }).catch(function(error) {
-              return { error };
-            });
-            var reset = function() {
-              dispatch(removeMutationResult({ requestId, fixedCacheKey }));
-            };
-            var ret = Object.assign(returnValuePromise, {
-              arg: thunkResult.arg,
-              requestId,
-              abort,
-              unwrap,
-              unsubscribe: reset,
-              reset
-            });
-            var running = runningMutations.get(dispatch) || {};
-            runningMutations.set(dispatch, running);
-            running[requestId] = ret;
-            ret.then(function() {
-              delete running[requestId];
-              if (!Object.keys(running).length) {
-                runningMutations.delete(dispatch);
-              }
-            });
-            if (fixedCacheKey) {
-              running[fixedCacheKey] = ret;
-              ret.then(function() {
-                if (running[fixedCacheKey] === ret) {
-                  delete running[fixedCacheKey];
-                  if (!Object.keys(running).length) {
-                    runningMutations.delete(dispatch);
-                  }
-                }
-              });
-            }
-            return ret;
-          };
-        };
-      }
-    }
-    function defaultTransformResponse(baseQueryReturnValue) {
-      return baseQueryReturnValue;
-    }
-    function buildThunks(_j) {
-      var _this = this;
-      var reducerPath = _j.reducerPath, baseQuery = _j.baseQuery, endpointDefinitions = _j.context.endpointDefinitions, serializeQueryArgs = _j.serializeQueryArgs, api2 = _j.api, assertTagType = _j.assertTagType;
-      var patchQueryData = function(endpointName, args, patches, updateProvided) {
-        return function(dispatch, getState) {
-          var endpointDefinition = endpointDefinitions[endpointName];
-          var queryCacheKey = serializeQueryArgs({
-            queryArgs: args,
-            endpointDefinition,
-            endpointName
-          });
-          dispatch(api2.internalActions.queryResultPatched({ queryCacheKey, patches }));
-          if (!updateProvided) {
-            return;
-          }
-          var newValue = api2.endpoints[endpointName].select(args)(getState());
-          var providedTags = calculateProvidedBy(endpointDefinition.providesTags, newValue.data, void 0, args, {}, assertTagType);
-          dispatch(api2.internalActions.updateProvidedBy({ queryCacheKey, providedTags }));
-        };
-      };
-      var updateQueryData = function(endpointName, args, updateRecipe, updateProvided) {
-        if (updateProvided === void 0) {
-          updateProvided = true;
-        }
-        return function(dispatch, getState) {
-          var _j2, _k;
-          var endpointDefinition = api2.endpoints[endpointName];
-          var currentState = endpointDefinition.select(args)(getState());
-          var ret = {
-            patches: [],
-            inversePatches: [],
-            undo: function() {
-              return dispatch(api2.util.patchQueryData(endpointName, args, ret.inversePatches, updateProvided));
-            }
-          };
-          if (currentState.status === QueryStatus.uninitialized) {
-            return ret;
-          }
-          var newValue;
-          if ("data" in currentState) {
-            if (t(currentState.data)) {
-              var _l = cn(currentState.data, updateRecipe), value = _l[0], patches = _l[1], inversePatches = _l[2];
-              (_j2 = ret.patches).push.apply(_j2, patches);
-              (_k = ret.inversePatches).push.apply(_k, inversePatches);
-              newValue = value;
-            } else {
-              newValue = updateRecipe(currentState.data);
-              ret.patches.push({ op: "replace", path: [], value: newValue });
-              ret.inversePatches.push({
-                op: "replace",
-                path: [],
-                value: currentState.data
-              });
-            }
-          }
-          dispatch(api2.util.patchQueryData(endpointName, args, ret.patches, updateProvided));
-          return ret;
-        };
-      };
-      var upsertQueryData = function(endpointName, args, value) {
-        return function(dispatch) {
-          var _j2;
-          return dispatch(api2.endpoints[endpointName].initiate(args, (_j2 = {
-            subscribe: false,
-            forceRefetch: true
-          }, _j2[forceQueryFnSymbol] = function() {
-            return {
-              data: value
-            };
-          }, _j2)));
-        };
-      };
-      var executeEndpoint = function(_0, _1) {
-        return __async(_this, [_0, _1], function(arg, _j2) {
-          var endpointDefinition, transformResponse, result, baseQueryApi_1, forceQueryFn, what, err, _k, _l, key, _m, error_1, catchedError, transformErrorResponse, _o2, e_4;
-          var _p, _q;
-          var signal = _j2.signal, abort = _j2.abort, rejectWithValue = _j2.rejectWithValue, fulfillWithValue = _j2.fulfillWithValue, dispatch = _j2.dispatch, getState = _j2.getState, extra = _j2.extra;
-          return __generator(this, function(_r) {
-            switch (_r.label) {
-              case 0:
-                endpointDefinition = endpointDefinitions[arg.endpointName];
-                _r.label = 1;
-              case 1:
-                _r.trys.push([1, 8, , 13]);
-                transformResponse = defaultTransformResponse;
-                result = void 0;
-                baseQueryApi_1 = {
-                  signal,
-                  abort,
-                  dispatch,
-                  getState,
-                  extra,
-                  endpoint: arg.endpointName,
-                  type: arg.type,
-                  forced: arg.type === "query" ? isForcedQuery(arg, getState()) : void 0
-                };
-                forceQueryFn = arg.type === "query" ? arg[forceQueryFnSymbol] : void 0;
-                if (!forceQueryFn)
-                  return [3, 2];
-                result = forceQueryFn();
-                return [3, 6];
-              case 2:
-                if (!endpointDefinition.query)
-                  return [3, 4];
-                return [4, baseQuery(endpointDefinition.query(arg.originalArgs), baseQueryApi_1, endpointDefinition.extraOptions)];
-              case 3:
-                result = _r.sent();
-                if (endpointDefinition.transformResponse) {
-                  transformResponse = endpointDefinition.transformResponse;
-                }
-                return [3, 6];
-              case 4:
-                return [4, endpointDefinition.queryFn(arg.originalArgs, baseQueryApi_1, endpointDefinition.extraOptions, function(arg2) {
-                  return baseQuery(arg2, baseQueryApi_1, endpointDefinition.extraOptions);
-                })];
-              case 5:
-                result = _r.sent();
-                _r.label = 6;
-              case 6:
-                if (typeof process !== "undefined" && false) {
-                  what = endpointDefinition.query ? "`baseQuery`" : "`queryFn`";
-                  err = void 0;
-                  if (!result) {
-                    err = what + " did not return anything.";
-                  } else if (typeof result !== "object") {
-                    err = what + " did not return an object.";
-                  } else if (result.error && result.data) {
-                    err = what + " returned an object containing both `error` and `result`.";
-                  } else if (result.error === void 0 && result.data === void 0) {
-                    err = what + " returned an object containing neither a valid `error` and `result`. At least one of them should not be `undefined`";
-                  } else {
-                    for (_k = 0, _l = Object.keys(result); _k < _l.length; _k++) {
-                      key = _l[_k];
-                      if (key !== "error" && key !== "data" && key !== "meta") {
-                        err = "The object returned by " + what + " has the unknown property " + key + ".";
-                        break;
-                      }
-                    }
-                  }
-                  if (err) {
-                    console.error("Error encountered handling the endpoint " + arg.endpointName + ".\n              " + err + "\n              It needs to return an object with either the shape `{ data: <value> }` or `{ error: <value> }` that may contain an optional `meta` property.\n              Object returned was:", result);
-                  }
-                }
-                if (result.error)
-                  throw new HandledError(result.error, result.meta);
-                _m = fulfillWithValue;
-                return [4, transformResponse(result.data, result.meta, arg.originalArgs)];
-              case 7:
-                return [2, _m.apply(void 0, [_r.sent(), (_p = {
-                  fulfilledTimeStamp: Date.now(),
-                  baseQueryMeta: result.meta
-                }, _p[SHOULD_AUTOBATCH] = true, _p)])];
-              case 8:
-                error_1 = _r.sent();
-                catchedError = error_1;
-                if (!(catchedError instanceof HandledError))
-                  return [3, 12];
-                transformErrorResponse = defaultTransformResponse;
-                if (endpointDefinition.query && endpointDefinition.transformErrorResponse) {
-                  transformErrorResponse = endpointDefinition.transformErrorResponse;
-                }
-                _r.label = 9;
-              case 9:
-                _r.trys.push([9, 11, , 12]);
-                _o2 = rejectWithValue;
-                return [4, transformErrorResponse(catchedError.value, catchedError.meta, arg.originalArgs)];
-              case 10:
-                return [2, _o2.apply(void 0, [_r.sent(), (_q = { baseQueryMeta: catchedError.meta }, _q[SHOULD_AUTOBATCH] = true, _q)])];
-              case 11:
-                e_4 = _r.sent();
-                catchedError = e_4;
-                return [3, 12];
-              case 12:
-                if (typeof process !== "undefined" && false) {
-                  console.error('An unhandled error occurred processing a request for the endpoint "' + arg.endpointName + '".\nIn the case of an unhandled error, no tags will be "provided" or "invalidated".', catchedError);
-                } else {
-                  console.error(catchedError);
-                }
-                throw catchedError;
-              case 13:
-                return [
-                  2
-                  /*return*/
-                ];
-            }
-          });
-        });
-      };
-      function isForcedQuery(arg, state) {
-        var _a, _b, _c, _d;
-        var requestState = (_b = (_a = state[reducerPath]) == null ? void 0 : _a.queries) == null ? void 0 : _b[arg.queryCacheKey];
-        var baseFetchOnMountOrArgChange = (_c = state[reducerPath]) == null ? void 0 : _c.config.refetchOnMountOrArgChange;
-        var fulfilledVal = requestState == null ? void 0 : requestState.fulfilledTimeStamp;
-        var refetchVal = (_d = arg.forceRefetch) != null ? _d : arg.subscribe && baseFetchOnMountOrArgChange;
-        if (refetchVal) {
-          return refetchVal === true || (Number(/* @__PURE__ */ new Date()) - Number(fulfilledVal)) / 1e3 >= refetchVal;
-        }
-        return false;
-      }
-      var queryThunk = createAsyncThunk(reducerPath + "/executeQuery", executeEndpoint, {
-        getPendingMeta: function() {
-          var _j2;
-          return _j2 = { startedTimeStamp: Date.now() }, _j2[SHOULD_AUTOBATCH] = true, _j2;
-        },
-        condition: function(queryThunkArgs, _j2) {
-          var getState = _j2.getState;
-          var _a, _b, _c;
-          var state = getState();
-          var requestState = (_b = (_a = state[reducerPath]) == null ? void 0 : _a.queries) == null ? void 0 : _b[queryThunkArgs.queryCacheKey];
-          var fulfilledVal = requestState == null ? void 0 : requestState.fulfilledTimeStamp;
-          var currentArg = queryThunkArgs.originalArgs;
-          var previousArg = requestState == null ? void 0 : requestState.originalArgs;
-          var endpointDefinition = endpointDefinitions[queryThunkArgs.endpointName];
-          if (isUpsertQuery(queryThunkArgs)) {
-            return true;
-          }
-          if ((requestState == null ? void 0 : requestState.status) === "pending") {
-            return false;
-          }
-          if (isForcedQuery(queryThunkArgs, state)) {
-            return true;
-          }
-          if (isQueryDefinition$1(endpointDefinition) && ((_c = endpointDefinition == null ? void 0 : endpointDefinition.forceRefetch) == null ? void 0 : _c.call(endpointDefinition, {
-            currentArg,
-            previousArg,
-            endpointState: requestState,
-            state
-          }))) {
-            return true;
-          }
-          if (fulfilledVal) {
-            return false;
-          }
-          return true;
-        },
-        dispatchConditionRejection: true
-      });
-      var mutationThunk = createAsyncThunk(reducerPath + "/executeMutation", executeEndpoint, {
-        getPendingMeta: function() {
-          var _j2;
-          return _j2 = { startedTimeStamp: Date.now() }, _j2[SHOULD_AUTOBATCH] = true, _j2;
-        }
-      });
-      var hasTheForce = function(options) {
-        return "force" in options;
-      };
-      var hasMaxAge = function(options) {
-        return "ifOlderThan" in options;
-      };
-      var prefetch = function(endpointName, arg, options) {
-        return function(dispatch, getState) {
-          var force = hasTheForce(options) && options.force;
-          var maxAge = hasMaxAge(options) && options.ifOlderThan;
-          var queryAction = function(force2) {
-            if (force2 === void 0) {
-              force2 = true;
-            }
-            return api2.endpoints[endpointName].initiate(arg, { forceRefetch: force2 });
-          };
-          var latestStateValue = api2.endpoints[endpointName].select(arg)(getState());
-          if (force) {
-            dispatch(queryAction());
-          } else if (maxAge) {
-            var lastFulfilledTs = latestStateValue == null ? void 0 : latestStateValue.fulfilledTimeStamp;
-            if (!lastFulfilledTs) {
-              dispatch(queryAction());
-              return;
-            }
-            var shouldRetrigger = (Number(/* @__PURE__ */ new Date()) - Number(new Date(lastFulfilledTs))) / 1e3 >= maxAge;
-            if (shouldRetrigger) {
-              dispatch(queryAction());
-            }
-          } else {
-            dispatch(queryAction(false));
-          }
-        };
-      };
-      function matchesEndpoint(endpointName) {
-        return function(action) {
-          var _a, _b;
-          return ((_b = (_a = action == null ? void 0 : action.meta) == null ? void 0 : _a.arg) == null ? void 0 : _b.endpointName) === endpointName;
-        };
-      }
-      function buildMatchThunkActions(thunk2, endpointName) {
-        return {
-          matchPending: isAllOf(isPending(thunk2), matchesEndpoint(endpointName)),
-          matchFulfilled: isAllOf(isFulfilled(thunk2), matchesEndpoint(endpointName)),
-          matchRejected: isAllOf(isRejected(thunk2), matchesEndpoint(endpointName))
-        };
-      }
-      return {
-        queryThunk,
-        mutationThunk,
-        prefetch,
-        updateQueryData,
-        upsertQueryData,
-        patchQueryData,
-        buildMatchThunkActions
-      };
-    }
-    function calculateProvidedByThunk(action, type, endpointDefinitions, assertTagType) {
-      return calculateProvidedBy(endpointDefinitions[action.meta.arg.endpointName][type], isFulfilled(action) ? action.payload : void 0, isRejectedWithValue(action) ? action.payload : void 0, action.meta.arg.originalArgs, "baseQueryMeta" in action.meta ? action.meta.baseQueryMeta : void 0, assertTagType);
-    }
-    function updateQuerySubstateIfExists(state, queryCacheKey, update2) {
-      var substate = state[queryCacheKey];
-      if (substate) {
-        update2(substate);
-      }
-    }
-    function getMutationCacheKey(id2) {
-      var _a;
-      return (_a = "arg" in id2 ? id2.arg.fixedCacheKey : id2.fixedCacheKey) != null ? _a : id2.requestId;
-    }
-    function updateMutationSubstateIfExists(state, id2, update2) {
-      var substate = state[getMutationCacheKey(id2)];
-      if (substate) {
-        update2(substate);
-      }
-    }
-    var initialState = {};
-    function buildSlice(_j) {
-      var reducerPath = _j.reducerPath, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk, _k = _j.context, definitions = _k.endpointDefinitions, apiUid = _k.apiUid, extractRehydrationInfo = _k.extractRehydrationInfo, hasRehydrationInfo = _k.hasRehydrationInfo, assertTagType = _j.assertTagType, config2 = _j.config;
-      var resetApiState = createAction(reducerPath + "/resetApiState");
-      var querySlice = createSlice({
-        name: reducerPath + "/queries",
-        initialState,
-        reducers: {
-          removeQueryResult: {
-            reducer: function(draft, _j2) {
-              var queryCacheKey = _j2.payload.queryCacheKey;
-              delete draft[queryCacheKey];
-            },
-            prepare: prepareAutoBatched()
-          },
-          queryResultPatched: {
-            reducer: function(draft, _j2) {
-              var _k2 = _j2.payload, queryCacheKey = _k2.queryCacheKey, patches = _k2.patches;
-              updateQuerySubstateIfExists(draft, queryCacheKey, function(substate) {
-                substate.data = pn(substate.data, patches.concat());
-              });
-            },
-            prepare: prepareAutoBatched()
-          }
-        },
-        extraReducers: function(builder) {
-          builder.addCase(queryThunk.pending, function(draft, _j2) {
-            var meta = _j2.meta, arg = _j2.meta.arg;
-            var _a, _b;
-            var upserting = isUpsertQuery(arg);
-            if (arg.subscribe || upserting) {
-              (_b = draft[_a = arg.queryCacheKey]) != null ? _b : draft[_a] = {
-                status: QueryStatus.uninitialized,
-                endpointName: arg.endpointName
-              };
-            }
-            updateQuerySubstateIfExists(draft, arg.queryCacheKey, function(substate) {
-              substate.status = QueryStatus.pending;
-              substate.requestId = upserting && substate.requestId ? substate.requestId : meta.requestId;
-              if (arg.originalArgs !== void 0) {
-                substate.originalArgs = arg.originalArgs;
-              }
-              substate.startedTimeStamp = meta.startedTimeStamp;
-            });
-          }).addCase(queryThunk.fulfilled, function(draft, _j2) {
-            var meta = _j2.meta, payload = _j2.payload;
-            updateQuerySubstateIfExists(draft, meta.arg.queryCacheKey, function(substate) {
-              var _a;
-              if (substate.requestId !== meta.requestId && !isUpsertQuery(meta.arg))
-                return;
-              var merge2 = definitions[meta.arg.endpointName].merge;
-              substate.status = QueryStatus.fulfilled;
-              if (merge2) {
-                if (substate.data !== void 0) {
-                  var fulfilledTimeStamp_1 = meta.fulfilledTimeStamp, arg_1 = meta.arg, baseQueryMeta_1 = meta.baseQueryMeta, requestId_1 = meta.requestId;
-                  var newData = fn(substate.data, function(draftSubstateData) {
-                    return merge2(draftSubstateData, payload, {
-                      arg: arg_1.originalArgs,
-                      baseQueryMeta: baseQueryMeta_1,
-                      fulfilledTimeStamp: fulfilledTimeStamp_1,
-                      requestId: requestId_1
-                    });
-                  });
-                  substate.data = newData;
-                } else {
-                  substate.data = payload;
-                }
-              } else {
-                substate.data = ((_a = definitions[meta.arg.endpointName].structuralSharing) != null ? _a : true) ? copyWithStructuralSharing(r$1(substate.data) ? e(substate.data) : substate.data, payload) : payload;
-              }
-              delete substate.error;
-              substate.fulfilledTimeStamp = meta.fulfilledTimeStamp;
-            });
-          }).addCase(queryThunk.rejected, function(draft, _j2) {
-            var _k2 = _j2.meta, condition = _k2.condition, arg = _k2.arg, requestId = _k2.requestId, error = _j2.error, payload = _j2.payload;
-            updateQuerySubstateIfExists(draft, arg.queryCacheKey, function(substate) {
-              if (condition)
-                ;
-              else {
-                if (substate.requestId !== requestId)
-                  return;
-                substate.status = QueryStatus.rejected;
-                substate.error = payload != null ? payload : error;
-              }
-            });
-          }).addMatcher(hasRehydrationInfo, function(draft, action) {
-            var queries = extractRehydrationInfo(action).queries;
-            for (var _j2 = 0, _k2 = Object.entries(queries); _j2 < _k2.length; _j2++) {
-              var _l = _k2[_j2], key = _l[0], entry = _l[1];
-              if ((entry == null ? void 0 : entry.status) === QueryStatus.fulfilled || (entry == null ? void 0 : entry.status) === QueryStatus.rejected) {
-                draft[key] = entry;
-              }
-            }
-          });
-        }
-      });
-      var mutationSlice = createSlice({
-        name: reducerPath + "/mutations",
-        initialState,
-        reducers: {
-          removeMutationResult: {
-            reducer: function(draft, _j2) {
-              var payload = _j2.payload;
-              var cacheKey = getMutationCacheKey(payload);
-              if (cacheKey in draft) {
-                delete draft[cacheKey];
-              }
-            },
-            prepare: prepareAutoBatched()
-          }
-        },
-        extraReducers: function(builder) {
-          builder.addCase(mutationThunk.pending, function(draft, _j2) {
-            var meta = _j2.meta, _k2 = _j2.meta, requestId = _k2.requestId, arg = _k2.arg, startedTimeStamp = _k2.startedTimeStamp;
-            if (!arg.track)
-              return;
-            draft[getMutationCacheKey(meta)] = {
-              requestId,
-              status: QueryStatus.pending,
-              endpointName: arg.endpointName,
-              startedTimeStamp
-            };
-          }).addCase(mutationThunk.fulfilled, function(draft, _j2) {
-            var payload = _j2.payload, meta = _j2.meta;
-            if (!meta.arg.track)
-              return;
-            updateMutationSubstateIfExists(draft, meta, function(substate) {
-              if (substate.requestId !== meta.requestId)
-                return;
-              substate.status = QueryStatus.fulfilled;
-              substate.data = payload;
-              substate.fulfilledTimeStamp = meta.fulfilledTimeStamp;
-            });
-          }).addCase(mutationThunk.rejected, function(draft, _j2) {
-            var payload = _j2.payload, error = _j2.error, meta = _j2.meta;
-            if (!meta.arg.track)
-              return;
-            updateMutationSubstateIfExists(draft, meta, function(substate) {
-              if (substate.requestId !== meta.requestId)
-                return;
-              substate.status = QueryStatus.rejected;
-              substate.error = payload != null ? payload : error;
-            });
-          }).addMatcher(hasRehydrationInfo, function(draft, action) {
-            var mutations = extractRehydrationInfo(action).mutations;
-            for (var _j2 = 0, _k2 = Object.entries(mutations); _j2 < _k2.length; _j2++) {
-              var _l = _k2[_j2], key = _l[0], entry = _l[1];
-              if (((entry == null ? void 0 : entry.status) === QueryStatus.fulfilled || (entry == null ? void 0 : entry.status) === QueryStatus.rejected) && key !== (entry == null ? void 0 : entry.requestId)) {
-                draft[key] = entry;
-              }
-            }
-          });
-        }
-      });
-      var invalidationSlice = createSlice({
-        name: reducerPath + "/invalidation",
-        initialState,
-        reducers: {
-          updateProvidedBy: {
-            reducer: function(draft, action) {
-              var _a, _b, _c, _d;
-              var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, providedTags = _j2.providedTags;
-              for (var _k2 = 0, _l = Object.values(draft); _k2 < _l.length; _k2++) {
-                var tagTypeSubscriptions = _l[_k2];
-                for (var _m = 0, _o2 = Object.values(tagTypeSubscriptions); _m < _o2.length; _m++) {
-                  var idSubscriptions = _o2[_m];
-                  var foundAt = idSubscriptions.indexOf(queryCacheKey);
-                  if (foundAt !== -1) {
-                    idSubscriptions.splice(foundAt, 1);
-                  }
-                }
-              }
-              for (var _p = 0, providedTags_1 = providedTags; _p < providedTags_1.length; _p++) {
-                var _q = providedTags_1[_p], type = _q.type, id2 = _q.id;
-                var subscribedQueries = (_d = (_b = (_a = draft[type]) != null ? _a : draft[type] = {})[_c = id2 || "__internal_without_id"]) != null ? _d : _b[_c] = [];
-                var alreadySubscribed = subscribedQueries.includes(queryCacheKey);
-                if (!alreadySubscribed) {
-                  subscribedQueries.push(queryCacheKey);
-                }
-              }
-            },
-            prepare: prepareAutoBatched()
-          }
-        },
-        extraReducers: function(builder) {
-          builder.addCase(querySlice.actions.removeQueryResult, function(draft, _j2) {
-            var queryCacheKey = _j2.payload.queryCacheKey;
-            for (var _k2 = 0, _l = Object.values(draft); _k2 < _l.length; _k2++) {
-              var tagTypeSubscriptions = _l[_k2];
-              for (var _m = 0, _o2 = Object.values(tagTypeSubscriptions); _m < _o2.length; _m++) {
-                var idSubscriptions = _o2[_m];
-                var foundAt = idSubscriptions.indexOf(queryCacheKey);
-                if (foundAt !== -1) {
-                  idSubscriptions.splice(foundAt, 1);
-                }
-              }
-            }
-          }).addMatcher(hasRehydrationInfo, function(draft, action) {
-            var _a, _b, _c, _d;
-            var provided = extractRehydrationInfo(action).provided;
-            for (var _j2 = 0, _k2 = Object.entries(provided); _j2 < _k2.length; _j2++) {
-              var _l = _k2[_j2], type = _l[0], incomingTags = _l[1];
-              for (var _m = 0, _o2 = Object.entries(incomingTags); _m < _o2.length; _m++) {
-                var _p = _o2[_m], id2 = _p[0], cacheKeys = _p[1];
-                var subscribedQueries = (_d = (_b = (_a = draft[type]) != null ? _a : draft[type] = {})[_c = id2 || "__internal_without_id"]) != null ? _d : _b[_c] = [];
-                for (var _q = 0, cacheKeys_1 = cacheKeys; _q < cacheKeys_1.length; _q++) {
-                  var queryCacheKey = cacheKeys_1[_q];
-                  var alreadySubscribed = subscribedQueries.includes(queryCacheKey);
-                  if (!alreadySubscribed) {
-                    subscribedQueries.push(queryCacheKey);
-                  }
-                }
-              }
-            }
-          }).addMatcher(isAnyOf(isFulfilled(queryThunk), isRejectedWithValue(queryThunk)), function(draft, action) {
-            var providedTags = calculateProvidedByThunk(action, "providesTags", definitions, assertTagType);
-            var queryCacheKey = action.meta.arg.queryCacheKey;
-            invalidationSlice.caseReducers.updateProvidedBy(draft, invalidationSlice.actions.updateProvidedBy({
-              queryCacheKey,
-              providedTags
-            }));
-          });
-        }
-      });
-      var subscriptionSlice = createSlice({
-        name: reducerPath + "/subscriptions",
-        initialState,
-        reducers: {
-          updateSubscriptionOptions: function(d2, a2) {
-          },
-          unsubscribeQueryResult: function(d2, a2) {
-          },
-          internal_probeSubscription: function(d2, a2) {
-          }
-        }
-      });
-      var internalSubscriptionsSlice = createSlice({
-        name: reducerPath + "/internalSubscriptions",
-        initialState,
-        reducers: {
-          subscriptionsUpdated: {
-            reducer: function(state, action) {
-              return pn(state, action.payload);
-            },
-            prepare: prepareAutoBatched()
-          }
-        }
-      });
-      var configSlice = createSlice({
-        name: reducerPath + "/config",
-        initialState: __spreadValues$1({
-          online: isOnline(),
-          focused: isDocumentVisible(),
-          middlewareRegistered: false
-        }, config2),
-        reducers: {
-          middlewareRegistered: function(state, _j2) {
-            var payload = _j2.payload;
-            state.middlewareRegistered = state.middlewareRegistered === "conflict" || apiUid !== payload ? "conflict" : true;
-          }
-        },
-        extraReducers: function(builder) {
-          builder.addCase(onOnline, function(state) {
-            state.online = true;
-          }).addCase(onOffline, function(state) {
-            state.online = false;
-          }).addCase(onFocus, function(state) {
-            state.focused = true;
-          }).addCase(onFocusLost, function(state) {
-            state.focused = false;
-          }).addMatcher(hasRehydrationInfo, function(draft) {
-            return __spreadValues$1({}, draft);
-          });
-        }
-      });
-      var combinedReducer = combineReducers({
-        queries: querySlice.reducer,
-        mutations: mutationSlice.reducer,
-        provided: invalidationSlice.reducer,
-        subscriptions: internalSubscriptionsSlice.reducer,
-        config: configSlice.reducer
-      });
-      var reducer2 = function(state, action) {
-        return combinedReducer(resetApiState.match(action) ? void 0 : state, action);
-      };
-      var actions2 = __spreadProps$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1(__spreadValues$1({}, configSlice.actions), querySlice.actions), subscriptionSlice.actions), internalSubscriptionsSlice.actions), mutationSlice.actions), invalidationSlice.actions), {
-        unsubscribeMutationResult: mutationSlice.actions.removeMutationResult,
-        resetApiState
-      });
-      return { reducer: reducer2, actions: actions2 };
-    }
-    var skipToken = /* @__PURE__ */ Symbol.for("RTKQ/skipToken");
-    var initialSubState = {
-      status: QueryStatus.uninitialized
-    };
-    var defaultQuerySubState = /* @__PURE__ */ fn(initialSubState, function() {
-    });
-    var defaultMutationSubState = /* @__PURE__ */ fn(initialSubState, function() {
-    });
-    function buildSelectors(_j) {
-      var serializeQueryArgs = _j.serializeQueryArgs, reducerPath = _j.reducerPath;
-      var selectSkippedQuery = function(state) {
-        return defaultQuerySubState;
-      };
-      var selectSkippedMutation = function(state) {
-        return defaultMutationSubState;
-      };
-      return { buildQuerySelector, buildMutationSelector, selectInvalidatedBy };
-      function withRequestFlags(substate) {
-        return __spreadValues$1(__spreadValues$1({}, substate), getRequestStatusFlags(substate.status));
-      }
-      function selectInternalState(rootState) {
-        var state = rootState[reducerPath];
-        return state;
-      }
-      function buildQuerySelector(endpointName, endpointDefinition) {
-        return function(queryArgs) {
-          var serializedArgs = serializeQueryArgs({
-            queryArgs,
-            endpointDefinition,
-            endpointName
-          });
-          var selectQuerySubstate = function(state) {
-            var _a, _b, _c;
-            return (_c = (_b = (_a = selectInternalState(state)) == null ? void 0 : _a.queries) == null ? void 0 : _b[serializedArgs]) != null ? _c : defaultQuerySubState;
-          };
-          var finalSelectQuerySubState = queryArgs === skipToken ? selectSkippedQuery : selectQuerySubstate;
-          return createSelector(finalSelectQuerySubState, withRequestFlags);
-        };
-      }
-      function buildMutationSelector() {
-        return function(id2) {
-          var _a;
-          var mutationId;
-          if (typeof id2 === "object") {
-            mutationId = (_a = getMutationCacheKey(id2)) != null ? _a : skipToken;
-          } else {
-            mutationId = id2;
-          }
-          var selectMutationSubstate = function(state) {
-            var _a2, _b, _c;
-            return (_c = (_b = (_a2 = selectInternalState(state)) == null ? void 0 : _a2.mutations) == null ? void 0 : _b[mutationId]) != null ? _c : defaultMutationSubState;
-          };
-          var finalSelectMutationSubstate = mutationId === skipToken ? selectSkippedMutation : selectMutationSubstate;
-          return createSelector(finalSelectMutationSubstate, withRequestFlags);
-        };
-      }
-      function selectInvalidatedBy(state, tags2) {
-        var _a;
-        var apiState = state[reducerPath];
-        var toInvalidate = /* @__PURE__ */ new Set();
-        for (var _j2 = 0, _k = tags2.map(expandTagDescription); _j2 < _k.length; _j2++) {
-          var tag = _k[_j2];
-          var provided = apiState.provided[tag.type];
-          if (!provided) {
-            continue;
-          }
-          var invalidateSubscriptions = (_a = tag.id !== void 0 ? provided[tag.id] : flatten(Object.values(provided))) != null ? _a : [];
-          for (var _l = 0, invalidateSubscriptions_1 = invalidateSubscriptions; _l < invalidateSubscriptions_1.length; _l++) {
-            var invalidate = invalidateSubscriptions_1[_l];
-            toInvalidate.add(invalidate);
-          }
-        }
-        return flatten(Array.from(toInvalidate.values()).map(function(queryCacheKey) {
-          var querySubState = apiState.queries[queryCacheKey];
-          return querySubState ? [
-            {
-              queryCacheKey,
-              endpointName: querySubState.endpointName,
-              originalArgs: querySubState.originalArgs
-            }
-          ] : [];
-        }));
-      }
-    }
-    var cache$1 = WeakMap ? /* @__PURE__ */ new WeakMap() : void 0;
-    var defaultSerializeQueryArgs$1 = function(_j) {
-      var endpointName = _j.endpointName, queryArgs = _j.queryArgs;
-      var serialized = "";
-      var cached = cache$1 == null ? void 0 : cache$1.get(queryArgs);
-      if (typeof cached === "string") {
-        serialized = cached;
-      } else {
-        var stringified = JSON.stringify(queryArgs, function(key, value) {
-          return isPlainObject$2(value) ? Object.keys(value).sort().reduce(function(acc, key2) {
-            acc[key2] = value[key2];
-            return acc;
-          }, {}) : value;
-        });
-        if (isPlainObject$2(queryArgs)) {
-          cache$1 == null ? void 0 : cache$1.set(queryArgs, stringified);
-        }
-        serialized = stringified;
-      }
-      return endpointName + "(" + serialized + ")";
-    };
-    function buildCreateApi() {
-      var modules = [];
-      for (var _j = 0; _j < arguments.length; _j++) {
-        modules[_j] = arguments[_j];
-      }
-      return function baseCreateApi(options) {
-        var extractRehydrationInfo = defaultMemoize(function(action) {
-          var _a, _b;
-          return (_b = options.extractRehydrationInfo) == null ? void 0 : _b.call(options, action, {
-            reducerPath: (_a = options.reducerPath) != null ? _a : "api"
-          });
-        });
-        var optionsWithDefaults = __spreadProps$1(__spreadValues$1({
-          reducerPath: "api",
-          keepUnusedDataFor: 60,
-          refetchOnMountOrArgChange: false,
-          refetchOnFocus: false,
-          refetchOnReconnect: false
-        }, options), {
-          extractRehydrationInfo,
-          serializeQueryArgs: function(queryArgsApi) {
-            var finalSerializeQueryArgs = defaultSerializeQueryArgs$1;
-            if ("serializeQueryArgs" in queryArgsApi.endpointDefinition) {
-              var endpointSQA_1 = queryArgsApi.endpointDefinition.serializeQueryArgs;
-              finalSerializeQueryArgs = function(queryArgsApi2) {
-                var initialResult = endpointSQA_1(queryArgsApi2);
-                if (typeof initialResult === "string") {
-                  return initialResult;
-                } else {
-                  return defaultSerializeQueryArgs$1(__spreadProps$1(__spreadValues$1({}, queryArgsApi2), {
-                    queryArgs: initialResult
-                  }));
-                }
-              };
-            } else if (options.serializeQueryArgs) {
-              finalSerializeQueryArgs = options.serializeQueryArgs;
-            }
-            return finalSerializeQueryArgs(queryArgsApi);
-          },
-          tagTypes: __spreadArray$1([], options.tagTypes || [])
-        });
-        var context = {
-          endpointDefinitions: {},
-          batch: function(fn2) {
-            fn2();
-          },
-          apiUid: nanoid(),
-          extractRehydrationInfo,
-          hasRehydrationInfo: defaultMemoize(function(action) {
-            return extractRehydrationInfo(action) != null;
-          })
-        };
-        var api2 = {
-          injectEndpoints,
-          enhanceEndpoints: function(_j2) {
-            var addTagTypes = _j2.addTagTypes, endpoints = _j2.endpoints;
-            if (addTagTypes) {
-              for (var _k = 0, addTagTypes_1 = addTagTypes; _k < addTagTypes_1.length; _k++) {
-                var eT = addTagTypes_1[_k];
-                if (!optionsWithDefaults.tagTypes.includes(eT)) {
-                  optionsWithDefaults.tagTypes.push(eT);
-                }
-              }
-            }
-            if (endpoints) {
-              for (var _l = 0, _m = Object.entries(endpoints); _l < _m.length; _l++) {
-                var _o2 = _m[_l], endpointName = _o2[0], partialDefinition = _o2[1];
-                if (typeof partialDefinition === "function") {
-                  partialDefinition(context.endpointDefinitions[endpointName]);
-                } else {
-                  Object.assign(context.endpointDefinitions[endpointName] || {}, partialDefinition);
-                }
-              }
-            }
-            return api2;
-          }
-        };
-        var initializedModules = modules.map(function(m2) {
-          return m2.init(api2, optionsWithDefaults, context);
-        });
-        function injectEndpoints(inject) {
-          var evaluatedEndpoints = inject.endpoints({
-            query: function(x2) {
-              return __spreadProps$1(__spreadValues$1({}, x2), { type: DefinitionType$1.query });
-            },
-            mutation: function(x2) {
-              return __spreadProps$1(__spreadValues$1({}, x2), { type: DefinitionType$1.mutation });
-            }
-          });
-          for (var _j2 = 0, _k = Object.entries(evaluatedEndpoints); _j2 < _k.length; _j2++) {
-            var _l = _k[_j2], endpointName = _l[0], definition = _l[1];
-            if (!inject.overrideExisting && endpointName in context.endpointDefinitions) {
-              if (typeof process !== "undefined" && false) {
-                console.error("called `injectEndpoints` to override already-existing endpointName " + endpointName + " without specifying `overrideExisting: true`");
-              }
-              continue;
-            }
-            context.endpointDefinitions[endpointName] = definition;
-            for (var _m = 0, initializedModules_1 = initializedModules; _m < initializedModules_1.length; _m++) {
-              var m2 = initializedModules_1[_m];
-              m2.injectEndpoint(endpointName, definition);
-            }
-          }
-          return api2;
-        }
-        return api2.injectEndpoints({ endpoints: options.endpoints });
-      };
-    }
-    function isObjectEmpty$1(obj) {
-      for (var k2 in obj) {
-        return false;
-      }
-      return true;
-    }
-    var THIRTY_TWO_BIT_MAX_TIMER_SECONDS = 2147483647 / 1e3 - 1;
-    var buildCacheCollectionHandler = function(_j) {
-      var reducerPath = _j.reducerPath, api2 = _j.api, context = _j.context, internalState = _j.internalState;
-      var _k = api2.internalActions, removeQueryResult = _k.removeQueryResult, unsubscribeQueryResult = _k.unsubscribeQueryResult;
-      function anySubscriptionsRemainingForKey(queryCacheKey) {
-        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
-        return !!subscriptions && !isObjectEmpty$1(subscriptions);
-      }
-      var currentRemovalTimeouts = {};
-      var handler = function(action, mwApi, internalState2) {
-        var _a;
-        if (unsubscribeQueryResult.match(action)) {
-          var state = mwApi.getState()[reducerPath];
-          var queryCacheKey = action.payload.queryCacheKey;
-          handleUnsubscribe(queryCacheKey, (_a = state.queries[queryCacheKey]) == null ? void 0 : _a.endpointName, mwApi, state.config);
-        }
-        if (api2.util.resetApiState.match(action)) {
-          for (var _j2 = 0, _k2 = Object.entries(currentRemovalTimeouts); _j2 < _k2.length; _j2++) {
-            var _l = _k2[_j2], key = _l[0], timeout = _l[1];
-            if (timeout)
-              clearTimeout(timeout);
-            delete currentRemovalTimeouts[key];
-          }
-        }
-        if (context.hasRehydrationInfo(action)) {
-          var state = mwApi.getState()[reducerPath];
-          var queries = context.extractRehydrationInfo(action).queries;
-          for (var _m = 0, _o2 = Object.entries(queries); _m < _o2.length; _m++) {
-            var _p = _o2[_m], queryCacheKey = _p[0], queryState = _p[1];
-            handleUnsubscribe(queryCacheKey, queryState == null ? void 0 : queryState.endpointName, mwApi, state.config);
-          }
-        }
-      };
-      function handleUnsubscribe(queryCacheKey, endpointName, api22, config2) {
-        var _a;
-        var endpointDefinition = context.endpointDefinitions[endpointName];
-        var keepUnusedDataFor = (_a = endpointDefinition == null ? void 0 : endpointDefinition.keepUnusedDataFor) != null ? _a : config2.keepUnusedDataFor;
-        if (keepUnusedDataFor === Infinity) {
-          return;
-        }
-        var finalKeepUnusedDataFor = Math.max(0, Math.min(keepUnusedDataFor, THIRTY_TWO_BIT_MAX_TIMER_SECONDS));
-        if (!anySubscriptionsRemainingForKey(queryCacheKey)) {
-          var currentTimeout = currentRemovalTimeouts[queryCacheKey];
-          if (currentTimeout) {
-            clearTimeout(currentTimeout);
-          }
-          currentRemovalTimeouts[queryCacheKey] = setTimeout(function() {
-            if (!anySubscriptionsRemainingForKey(queryCacheKey)) {
-              api22.dispatch(removeQueryResult({ queryCacheKey }));
-            }
-            delete currentRemovalTimeouts[queryCacheKey];
-          }, finalKeepUnusedDataFor * 1e3);
-        }
-      }
-      return handler;
-    };
-    var buildInvalidationByTagsHandler = function(_j) {
-      var reducerPath = _j.reducerPath, context = _j.context, endpointDefinitions = _j.context.endpointDefinitions, mutationThunk = _j.mutationThunk, api2 = _j.api, assertTagType = _j.assertTagType, refetchQuery = _j.refetchQuery;
-      var removeQueryResult = api2.internalActions.removeQueryResult;
-      var isThunkActionWithTags = isAnyOf(isFulfilled(mutationThunk), isRejectedWithValue(mutationThunk));
-      var handler = function(action, mwApi) {
-        if (isThunkActionWithTags(action)) {
-          invalidateTags(calculateProvidedByThunk(action, "invalidatesTags", endpointDefinitions, assertTagType), mwApi);
-        }
-        if (api2.util.invalidateTags.match(action)) {
-          invalidateTags(calculateProvidedBy(action.payload, void 0, void 0, void 0, void 0, assertTagType), mwApi);
-        }
-      };
-      function invalidateTags(tags2, mwApi) {
-        var rootState = mwApi.getState();
-        var state = rootState[reducerPath];
-        var toInvalidate = api2.util.selectInvalidatedBy(rootState, tags2);
-        context.batch(function() {
-          var _a;
-          var valuesArray = Array.from(toInvalidate.values());
-          for (var _j2 = 0, valuesArray_1 = valuesArray; _j2 < valuesArray_1.length; _j2++) {
-            var queryCacheKey = valuesArray_1[_j2].queryCacheKey;
-            var querySubState = state.queries[queryCacheKey];
-            var subscriptionSubState = (_a = state.subscriptions[queryCacheKey]) != null ? _a : {};
-            if (querySubState) {
-              if (Object.keys(subscriptionSubState).length === 0) {
-                mwApi.dispatch(removeQueryResult({
-                  queryCacheKey
-                }));
-              } else if (querySubState.status !== QueryStatus.uninitialized) {
-                mwApi.dispatch(refetchQuery(querySubState, queryCacheKey));
-              }
-            }
-          }
-        });
-      }
-      return handler;
-    };
-    var buildPollingHandler = function(_j) {
-      var reducerPath = _j.reducerPath, queryThunk = _j.queryThunk, api2 = _j.api, refetchQuery = _j.refetchQuery, internalState = _j.internalState;
-      var currentPolls = {};
-      var handler = function(action, mwApi) {
-        if (api2.internalActions.updateSubscriptionOptions.match(action) || api2.internalActions.unsubscribeQueryResult.match(action)) {
-          updatePollingInterval(action.payload, mwApi);
-        }
-        if (queryThunk.pending.match(action) || queryThunk.rejected.match(action) && action.meta.condition) {
-          updatePollingInterval(action.meta.arg, mwApi);
-        }
-        if (queryThunk.fulfilled.match(action) || queryThunk.rejected.match(action) && !action.meta.condition) {
-          startNextPoll(action.meta.arg, mwApi);
-        }
-        if (api2.util.resetApiState.match(action)) {
-          clearPolls();
-        }
-      };
-      function startNextPoll(_j2, api22) {
-        var queryCacheKey = _j2.queryCacheKey;
-        var state = api22.getState()[reducerPath];
-        var querySubState = state.queries[queryCacheKey];
-        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
-        if (!querySubState || querySubState.status === QueryStatus.uninitialized)
-          return;
-        var lowestPollingInterval = findLowestPollingInterval(subscriptions);
-        if (!Number.isFinite(lowestPollingInterval))
-          return;
-        var currentPoll = currentPolls[queryCacheKey];
-        if (currentPoll == null ? void 0 : currentPoll.timeout) {
-          clearTimeout(currentPoll.timeout);
-          currentPoll.timeout = void 0;
-        }
-        var nextPollTimestamp = Date.now() + lowestPollingInterval;
-        var currentInterval = currentPolls[queryCacheKey] = {
-          nextPollTimestamp,
-          pollingInterval: lowestPollingInterval,
-          timeout: setTimeout(function() {
-            currentInterval.timeout = void 0;
-            api22.dispatch(refetchQuery(querySubState, queryCacheKey));
-          }, lowestPollingInterval)
-        };
-      }
-      function updatePollingInterval(_j2, api22) {
-        var queryCacheKey = _j2.queryCacheKey;
-        var state = api22.getState()[reducerPath];
-        var querySubState = state.queries[queryCacheKey];
-        var subscriptions = internalState.currentSubscriptions[queryCacheKey];
-        if (!querySubState || querySubState.status === QueryStatus.uninitialized) {
-          return;
-        }
-        var lowestPollingInterval = findLowestPollingInterval(subscriptions);
-        if (!Number.isFinite(lowestPollingInterval)) {
-          cleanupPollForKey(queryCacheKey);
-          return;
-        }
-        var currentPoll = currentPolls[queryCacheKey];
-        var nextPollTimestamp = Date.now() + lowestPollingInterval;
-        if (!currentPoll || nextPollTimestamp < currentPoll.nextPollTimestamp) {
-          startNextPoll({ queryCacheKey }, api22);
-        }
-      }
-      function cleanupPollForKey(key) {
-        var existingPoll = currentPolls[key];
-        if (existingPoll == null ? void 0 : existingPoll.timeout) {
-          clearTimeout(existingPoll.timeout);
-        }
-        delete currentPolls[key];
-      }
-      function clearPolls() {
-        for (var _j2 = 0, _k = Object.keys(currentPolls); _j2 < _k.length; _j2++) {
-          var key = _k[_j2];
-          cleanupPollForKey(key);
-        }
-      }
-      function findLowestPollingInterval(subscribers) {
-        if (subscribers === void 0) {
-          subscribers = {};
-        }
-        var lowestPollingInterval = Number.POSITIVE_INFINITY;
-        for (var key in subscribers) {
-          if (!!subscribers[key].pollingInterval) {
-            lowestPollingInterval = Math.min(subscribers[key].pollingInterval, lowestPollingInterval);
-          }
-        }
-        return lowestPollingInterval;
-      }
-      return handler;
-    };
-    var buildWindowEventHandler = function(_j) {
-      var reducerPath = _j.reducerPath, context = _j.context, api2 = _j.api, refetchQuery = _j.refetchQuery, internalState = _j.internalState;
-      var removeQueryResult = api2.internalActions.removeQueryResult;
-      var handler = function(action, mwApi) {
-        if (onFocus.match(action)) {
-          refetchValidQueries(mwApi, "refetchOnFocus");
-        }
-        if (onOnline.match(action)) {
-          refetchValidQueries(mwApi, "refetchOnReconnect");
-        }
-      };
-      function refetchValidQueries(api22, type) {
-        var state = api22.getState()[reducerPath];
-        var queries = state.queries;
-        var subscriptions = internalState.currentSubscriptions;
-        context.batch(function() {
-          for (var _j2 = 0, _k = Object.keys(subscriptions); _j2 < _k.length; _j2++) {
-            var queryCacheKey = _k[_j2];
-            var querySubState = queries[queryCacheKey];
-            var subscriptionSubState = subscriptions[queryCacheKey];
-            if (!subscriptionSubState || !querySubState)
-              continue;
-            var shouldRefetch = Object.values(subscriptionSubState).some(function(sub) {
-              return sub[type] === true;
-            }) || Object.values(subscriptionSubState).every(function(sub) {
-              return sub[type] === void 0;
-            }) && state.config[type];
-            if (shouldRefetch) {
-              if (Object.keys(subscriptionSubState).length === 0) {
-                api22.dispatch(removeQueryResult({
-                  queryCacheKey
-                }));
-              } else if (querySubState.status !== QueryStatus.uninitialized) {
-                api22.dispatch(refetchQuery(querySubState, queryCacheKey));
-              }
-            }
-          }
-        });
-      }
-      return handler;
-    };
-    var neverResolvedError = new Error("Promise never resolved before cacheEntryRemoved.");
-    var buildCacheLifecycleHandler = function(_j) {
-      var api2 = _j.api, reducerPath = _j.reducerPath, context = _j.context, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk;
-      _j.internalState;
-      var isQueryThunk = isAsyncThunkAction(queryThunk);
-      var isMutationThunk = isAsyncThunkAction(mutationThunk);
-      var isFulfilledThunk = isFulfilled(queryThunk, mutationThunk);
-      var lifecycleMap = {};
-      var handler = function(action, mwApi, stateBefore) {
-        var cacheKey = getCacheKey(action);
-        if (queryThunk.pending.match(action)) {
-          var oldState = stateBefore[reducerPath].queries[cacheKey];
-          var state = mwApi.getState()[reducerPath].queries[cacheKey];
-          if (!oldState && state) {
-            handleNewKey(action.meta.arg.endpointName, action.meta.arg.originalArgs, cacheKey, mwApi, action.meta.requestId);
-          }
-        } else if (mutationThunk.pending.match(action)) {
-          var state = mwApi.getState()[reducerPath].mutations[cacheKey];
-          if (state) {
-            handleNewKey(action.meta.arg.endpointName, action.meta.arg.originalArgs, cacheKey, mwApi, action.meta.requestId);
-          }
-        } else if (isFulfilledThunk(action)) {
-          var lifecycle = lifecycleMap[cacheKey];
-          if (lifecycle == null ? void 0 : lifecycle.valueResolved) {
-            lifecycle.valueResolved({
-              data: action.payload,
-              meta: action.meta.baseQueryMeta
-            });
-            delete lifecycle.valueResolved;
-          }
-        } else if (api2.internalActions.removeQueryResult.match(action) || api2.internalActions.removeMutationResult.match(action)) {
-          var lifecycle = lifecycleMap[cacheKey];
-          if (lifecycle) {
-            delete lifecycleMap[cacheKey];
-            lifecycle.cacheEntryRemoved();
-          }
-        } else if (api2.util.resetApiState.match(action)) {
-          for (var _j2 = 0, _k = Object.entries(lifecycleMap); _j2 < _k.length; _j2++) {
-            var _l = _k[_j2], cacheKey2 = _l[0], lifecycle = _l[1];
-            delete lifecycleMap[cacheKey2];
-            lifecycle.cacheEntryRemoved();
-          }
-        }
-      };
-      function getCacheKey(action) {
-        if (isQueryThunk(action))
-          return action.meta.arg.queryCacheKey;
-        if (isMutationThunk(action))
-          return action.meta.requestId;
-        if (api2.internalActions.removeQueryResult.match(action))
-          return action.payload.queryCacheKey;
-        if (api2.internalActions.removeMutationResult.match(action))
-          return getMutationCacheKey(action.payload);
-        return "";
-      }
-      function handleNewKey(endpointName, originalArgs, queryCacheKey, mwApi, requestId) {
-        var endpointDefinition = context.endpointDefinitions[endpointName];
-        var onCacheEntryAdded = endpointDefinition == null ? void 0 : endpointDefinition.onCacheEntryAdded;
-        if (!onCacheEntryAdded)
-          return;
-        var lifecycle = {};
-        var cacheEntryRemoved = new Promise(function(resolve) {
-          lifecycle.cacheEntryRemoved = resolve;
-        });
-        var cacheDataLoaded = Promise.race([
-          new Promise(function(resolve) {
-            lifecycle.valueResolved = resolve;
-          }),
-          cacheEntryRemoved.then(function() {
-            throw neverResolvedError;
-          })
-        ]);
-        cacheDataLoaded.catch(function() {
-        });
-        lifecycleMap[queryCacheKey] = lifecycle;
-        var selector = api2.endpoints[endpointName].select(endpointDefinition.type === DefinitionType$1.query ? originalArgs : queryCacheKey);
-        var extra = mwApi.dispatch(function(_2, __, extra2) {
-          return extra2;
-        });
-        var lifecycleApi = __spreadProps$1(__spreadValues$1({}, mwApi), {
-          getCacheEntry: function() {
-            return selector(mwApi.getState());
-          },
-          requestId,
-          extra,
-          updateCachedData: endpointDefinition.type === DefinitionType$1.query ? function(updateRecipe) {
-            return mwApi.dispatch(api2.util.updateQueryData(endpointName, originalArgs, updateRecipe));
-          } : void 0,
-          cacheDataLoaded,
-          cacheEntryRemoved
-        });
-        var runningHandler = onCacheEntryAdded(originalArgs, lifecycleApi);
-        Promise.resolve(runningHandler).catch(function(e2) {
-          if (e2 === neverResolvedError)
-            return;
-          throw e2;
-        });
-      }
-      return handler;
-    };
-    var buildQueryLifecycleHandler = function(_j) {
-      var api2 = _j.api, context = _j.context, queryThunk = _j.queryThunk, mutationThunk = _j.mutationThunk;
-      var isPendingThunk = isPending(queryThunk, mutationThunk);
-      var isRejectedThunk = isRejected(queryThunk, mutationThunk);
-      var isFullfilledThunk = isFulfilled(queryThunk, mutationThunk);
-      var lifecycleMap = {};
-      var handler = function(action, mwApi) {
-        var _a, _b, _c;
-        if (isPendingThunk(action)) {
-          var _j2 = action.meta, requestId = _j2.requestId, _k = _j2.arg, endpointName_1 = _k.endpointName, originalArgs_1 = _k.originalArgs;
-          var endpointDefinition = context.endpointDefinitions[endpointName_1];
-          var onQueryStarted = endpointDefinition == null ? void 0 : endpointDefinition.onQueryStarted;
-          if (onQueryStarted) {
-            var lifecycle_1 = {};
-            var queryFulfilled = new Promise(function(resolve, reject) {
-              lifecycle_1.resolve = resolve;
-              lifecycle_1.reject = reject;
-            });
-            queryFulfilled.catch(function() {
-            });
-            lifecycleMap[requestId] = lifecycle_1;
-            var selector_1 = api2.endpoints[endpointName_1].select(endpointDefinition.type === DefinitionType$1.query ? originalArgs_1 : requestId);
-            var extra = mwApi.dispatch(function(_2, __, extra2) {
-              return extra2;
-            });
-            var lifecycleApi = __spreadProps$1(__spreadValues$1({}, mwApi), {
-              getCacheEntry: function() {
-                return selector_1(mwApi.getState());
-              },
-              requestId,
-              extra,
-              updateCachedData: endpointDefinition.type === DefinitionType$1.query ? function(updateRecipe) {
-                return mwApi.dispatch(api2.util.updateQueryData(endpointName_1, originalArgs_1, updateRecipe));
-              } : void 0,
-              queryFulfilled
-            });
-            onQueryStarted(originalArgs_1, lifecycleApi);
-          }
-        } else if (isFullfilledThunk(action)) {
-          var _l = action.meta, requestId = _l.requestId, baseQueryMeta = _l.baseQueryMeta;
-          (_a = lifecycleMap[requestId]) == null ? void 0 : _a.resolve({
-            data: action.payload,
-            meta: baseQueryMeta
-          });
-          delete lifecycleMap[requestId];
-        } else if (isRejectedThunk(action)) {
-          var _m = action.meta, requestId = _m.requestId, rejectedWithValue = _m.rejectedWithValue, baseQueryMeta = _m.baseQueryMeta;
-          (_c = lifecycleMap[requestId]) == null ? void 0 : _c.reject({
-            error: (_b = action.payload) != null ? _b : action.error,
-            isUnhandledError: !rejectedWithValue,
-            meta: baseQueryMeta
-          });
-          delete lifecycleMap[requestId];
-        }
-      };
-      return handler;
-    };
-    var buildDevCheckHandler = function(_j) {
-      var api2 = _j.api, apiUid = _j.context.apiUid, reducerPath = _j.reducerPath;
-      return function(action, mwApi) {
-        var _a, _b;
-        if (api2.util.resetApiState.match(action)) {
-          mwApi.dispatch(api2.internalActions.middlewareRegistered(apiUid));
-        }
-        if (typeof process !== "undefined" && false) {
-          if (api2.internalActions.middlewareRegistered.match(action) && action.payload === apiUid && ((_b = (_a = mwApi.getState()[reducerPath]) == null ? void 0 : _a.config) == null ? void 0 : _b.middlewareRegistered) === "conflict") {
-            console.warn('There is a mismatch between slice and middleware for the reducerPath "' + reducerPath + '".\nYou can only have one api per reducer path, this will lead to crashes in various situations!' + (reducerPath === "api" ? "\nIf you have multiple apis, you *have* to specify the reducerPath option when using createApi!" : ""));
-          }
-        }
-      };
-    };
-    var promise;
-    var queueMicrotaskShim = typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : globalThis) : function(cb2) {
-      return (promise || (promise = Promise.resolve())).then(cb2).catch(function(err) {
-        return setTimeout(function() {
-          throw err;
-        }, 0);
-      });
-    };
-    var buildBatchedActionsHandler = function(_j) {
-      var api2 = _j.api, queryThunk = _j.queryThunk, internalState = _j.internalState;
-      var subscriptionsPrefix = api2.reducerPath + "/subscriptions";
-      var previousSubscriptions = null;
-      var dispatchQueued = false;
-      var _k = api2.internalActions, updateSubscriptionOptions = _k.updateSubscriptionOptions, unsubscribeQueryResult = _k.unsubscribeQueryResult;
-      var actuallyMutateSubscriptions = function(mutableState, action) {
-        var _a, _b, _c, _d, _e2, _f, _g, _h, _i;
-        if (updateSubscriptionOptions.match(action)) {
-          var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, requestId = _j2.requestId, options = _j2.options;
-          if ((_a = mutableState == null ? void 0 : mutableState[queryCacheKey]) == null ? void 0 : _a[requestId]) {
-            mutableState[queryCacheKey][requestId] = options;
-          }
-          return true;
-        }
-        if (unsubscribeQueryResult.match(action)) {
-          var _k2 = action.payload, queryCacheKey = _k2.queryCacheKey, requestId = _k2.requestId;
-          if (mutableState[queryCacheKey]) {
-            delete mutableState[queryCacheKey][requestId];
-          }
-          return true;
-        }
-        if (api2.internalActions.removeQueryResult.match(action)) {
-          delete mutableState[action.payload.queryCacheKey];
-          return true;
-        }
-        if (queryThunk.pending.match(action)) {
-          var _l = action.meta, arg = _l.arg, requestId = _l.requestId;
-          if (arg.subscribe) {
-            var substate = (_c = mutableState[_b = arg.queryCacheKey]) != null ? _c : mutableState[_b] = {};
-            substate[requestId] = (_e2 = (_d = arg.subscriptionOptions) != null ? _d : substate[requestId]) != null ? _e2 : {};
-            return true;
-          }
-        }
-        if (queryThunk.rejected.match(action)) {
-          var _m = action.meta, condition = _m.condition, arg = _m.arg, requestId = _m.requestId;
-          if (condition && arg.subscribe) {
-            var substate = (_g = mutableState[_f = arg.queryCacheKey]) != null ? _g : mutableState[_f] = {};
-            substate[requestId] = (_i = (_h = arg.subscriptionOptions) != null ? _h : substate[requestId]) != null ? _i : {};
-            return true;
-          }
-        }
-        return false;
-      };
-      return function(action, mwApi) {
-        var _a, _b;
-        if (!previousSubscriptions) {
-          previousSubscriptions = JSON.parse(JSON.stringify(internalState.currentSubscriptions));
-        }
-        if (api2.util.resetApiState.match(action)) {
-          previousSubscriptions = internalState.currentSubscriptions = {};
-          return [true, false];
-        }
-        if (api2.internalActions.internal_probeSubscription.match(action)) {
-          var _j2 = action.payload, queryCacheKey = _j2.queryCacheKey, requestId = _j2.requestId;
-          var hasSubscription = !!((_a = internalState.currentSubscriptions[queryCacheKey]) == null ? void 0 : _a[requestId]);
-          return [false, hasSubscription];
-        }
-        var didMutate = actuallyMutateSubscriptions(internalState.currentSubscriptions, action);
-        if (didMutate) {
-          if (!dispatchQueued) {
-            queueMicrotaskShim(function() {
-              var newSubscriptions = JSON.parse(JSON.stringify(internalState.currentSubscriptions));
-              var _j3 = cn(previousSubscriptions, function() {
-                return newSubscriptions;
-              }), patches = _j3[1];
-              mwApi.next(api2.internalActions.subscriptionsUpdated(patches));
-              previousSubscriptions = newSubscriptions;
-              dispatchQueued = false;
-            });
-            dispatchQueued = true;
-          }
-          var isSubscriptionSliceAction = !!((_b = action.type) == null ? void 0 : _b.startsWith(subscriptionsPrefix));
-          var isAdditionalSubscriptionAction = queryThunk.rejected.match(action) && action.meta.condition && !!action.meta.arg.subscribe;
-          var actionShouldContinue = !isSubscriptionSliceAction && !isAdditionalSubscriptionAction;
-          return [actionShouldContinue, false];
-        }
-        return [true, false];
-      };
-    };
-    function buildMiddleware(input) {
-      var reducerPath = input.reducerPath, queryThunk = input.queryThunk, api2 = input.api, context = input.context;
-      var apiUid = context.apiUid;
-      var actions2 = {
-        invalidateTags: createAction(reducerPath + "/invalidateTags")
-      };
-      var isThisApiSliceAction = function(action) {
-        return !!action && typeof action.type === "string" && action.type.startsWith(reducerPath + "/");
-      };
-      var handlerBuilders = [
-        buildDevCheckHandler,
-        buildCacheCollectionHandler,
-        buildInvalidationByTagsHandler,
-        buildPollingHandler,
-        buildCacheLifecycleHandler,
-        buildQueryLifecycleHandler
-      ];
-      var middleware2 = function(mwApi) {
-        var initialized2 = false;
-        var internalState = {
-          currentSubscriptions: {}
-        };
-        var builderArgs = __spreadProps$1(__spreadValues$1({}, input), {
-          internalState,
-          refetchQuery
-        });
-        var handlers = handlerBuilders.map(function(build) {
-          return build(builderArgs);
-        });
-        var batchedActionsHandler = buildBatchedActionsHandler(builderArgs);
-        var windowEventsHandler = buildWindowEventHandler(builderArgs);
-        return function(next2) {
-          return function(action) {
-            if (!initialized2) {
-              initialized2 = true;
-              mwApi.dispatch(api2.internalActions.middlewareRegistered(apiUid));
-            }
-            var mwApiWithNext = __spreadProps$1(__spreadValues$1({}, mwApi), { next: next2 });
-            var stateBefore = mwApi.getState();
-            var _j = batchedActionsHandler(action, mwApiWithNext, stateBefore), actionShouldContinue = _j[0], hasSubscription = _j[1];
-            var res;
-            if (actionShouldContinue) {
-              res = next2(action);
-            } else {
-              res = hasSubscription;
-            }
-            if (!!mwApi.getState()[reducerPath]) {
-              windowEventsHandler(action, mwApiWithNext, stateBefore);
-              if (isThisApiSliceAction(action) || context.hasRehydrationInfo(action)) {
-                for (var _k = 0, handlers_1 = handlers; _k < handlers_1.length; _k++) {
-                  var handler = handlers_1[_k];
-                  handler(action, mwApiWithNext, stateBefore);
-                }
-              }
-            }
-            return res;
-          };
-        };
-      };
-      return { middleware: middleware2, actions: actions2 };
-      function refetchQuery(querySubState, queryCacheKey, override) {
-        if (override === void 0) {
-          override = {};
-        }
-        return queryThunk(__spreadValues$1({
-          type: "query",
-          endpointName: querySubState.endpointName,
-          originalArgs: querySubState.originalArgs,
-          subscribe: false,
-          forceRefetch: true,
-          queryCacheKey
-        }, override));
-      }
-    }
-    function safeAssign$1(target) {
-      var args = [];
-      for (var _j = 1; _j < arguments.length; _j++) {
-        args[_j - 1] = arguments[_j];
-      }
-      Object.assign.apply(Object, __spreadArray$1([target], args));
-    }
-    var coreModuleName = /* @__PURE__ */ Symbol();
-    var coreModule = function() {
-      return {
-        name: coreModuleName,
-        init: function(api2, _j, context) {
-          var baseQuery = _j.baseQuery, tagTypes = _j.tagTypes, reducerPath = _j.reducerPath, serializeQueryArgs = _j.serializeQueryArgs, keepUnusedDataFor = _j.keepUnusedDataFor, refetchOnMountOrArgChange = _j.refetchOnMountOrArgChange, refetchOnFocus = _j.refetchOnFocus, refetchOnReconnect = _j.refetchOnReconnect;
-          T$1();
-          var assertTagType = function(tag) {
-            if (typeof process !== "undefined" && false) {
-              if (!tagTypes.includes(tag.type)) {
-                console.error("Tag type '" + tag.type + "' was used, but not specified in `tagTypes`!");
-              }
-            }
-            return tag;
-          };
-          Object.assign(api2, {
-            reducerPath,
-            endpoints: {},
-            internalActions: {
-              onOnline,
-              onOffline,
-              onFocus,
-              onFocusLost
-            },
-            util: {}
-          });
-          var _k = buildThunks({
-            baseQuery,
-            reducerPath,
-            context,
-            api: api2,
-            serializeQueryArgs,
-            assertTagType
-          }), queryThunk = _k.queryThunk, mutationThunk = _k.mutationThunk, patchQueryData = _k.patchQueryData, updateQueryData = _k.updateQueryData, upsertQueryData = _k.upsertQueryData, prefetch = _k.prefetch, buildMatchThunkActions = _k.buildMatchThunkActions;
-          var _l = buildSlice({
-            context,
-            queryThunk,
-            mutationThunk,
-            reducerPath,
-            assertTagType,
-            config: {
-              refetchOnFocus,
-              refetchOnReconnect,
-              refetchOnMountOrArgChange,
-              keepUnusedDataFor,
-              reducerPath
-            }
-          }), reducer2 = _l.reducer, sliceActions = _l.actions;
-          safeAssign$1(api2.util, {
-            patchQueryData,
-            updateQueryData,
-            upsertQueryData,
-            prefetch,
-            resetApiState: sliceActions.resetApiState
-          });
-          safeAssign$1(api2.internalActions, sliceActions);
-          var _m = buildMiddleware({
-            reducerPath,
-            context,
-            queryThunk,
-            mutationThunk,
-            api: api2,
-            assertTagType
-          }), middleware2 = _m.middleware, middlewareActions = _m.actions;
-          safeAssign$1(api2.util, middlewareActions);
-          safeAssign$1(api2, { reducer: reducer2, middleware: middleware2 });
-          var _o2 = buildSelectors({
-            serializeQueryArgs,
-            reducerPath
-          }), buildQuerySelector = _o2.buildQuerySelector, buildMutationSelector = _o2.buildMutationSelector, selectInvalidatedBy = _o2.selectInvalidatedBy;
-          safeAssign$1(api2.util, { selectInvalidatedBy });
-          var _p = buildInitiate({
-            queryThunk,
-            mutationThunk,
-            api: api2,
-            serializeQueryArgs,
-            context
-          }), buildInitiateQuery = _p.buildInitiateQuery, buildInitiateMutation = _p.buildInitiateMutation, getRunningMutationThunk = _p.getRunningMutationThunk, getRunningMutationsThunk = _p.getRunningMutationsThunk, getRunningQueriesThunk = _p.getRunningQueriesThunk, getRunningQueryThunk = _p.getRunningQueryThunk, getRunningOperationPromises = _p.getRunningOperationPromises, removalWarning = _p.removalWarning;
-          safeAssign$1(api2.util, {
-            getRunningOperationPromises,
-            getRunningOperationPromise: removalWarning,
-            getRunningMutationThunk,
-            getRunningMutationsThunk,
-            getRunningQueryThunk,
-            getRunningQueriesThunk
-          });
-          return {
-            name: coreModuleName,
-            injectEndpoint: function(endpointName, definition) {
-              var _a, _b;
-              var anyApi = api2;
-              (_b = (_a = anyApi.endpoints)[endpointName]) != null ? _b : _a[endpointName] = {};
-              if (isQueryDefinition$1(definition)) {
-                safeAssign$1(anyApi.endpoints[endpointName], {
-                  name: endpointName,
-                  select: buildQuerySelector(endpointName, definition),
-                  initiate: buildInitiateQuery(endpointName, definition)
-                }, buildMatchThunkActions(queryThunk, endpointName));
-              } else if (isMutationDefinition$1(definition)) {
-                safeAssign$1(anyApi.endpoints[endpointName], {
-                  name: endpointName,
-                  select: buildMutationSelector(),
-                  initiate: buildInitiateMutation(endpointName)
-                }, buildMatchThunkActions(mutationThunk, endpointName));
-              }
-            }
-          };
-        }
-      };
-    };
-    var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from2) {
-      for (var i2 = 0, il2 = from2.length, j2 = to2.length; i2 < il2; i2++, j2++)
-        to2[j2] = from2[i2];
-      return to2;
-    };
-    var __defProp2 = Object.defineProperty;
-    var __defProps = Object.defineProperties;
-    var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-    var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-    var __hasOwnProp = Object.prototype.hasOwnProperty;
-    var __propIsEnum = Object.prototype.propertyIsEnumerable;
-    var __defNormalProp2 = function(obj, key, value) {
-      return key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-    };
-    var __spreadValues = function(a2, b2) {
-      for (var prop in b2 || (b2 = {}))
-        if (__hasOwnProp.call(b2, prop))
-          __defNormalProp2(a2, prop, b2[prop]);
-      if (__getOwnPropSymbols)
-        for (var _i = 0, _c = __getOwnPropSymbols(b2); _i < _c.length; _i++) {
-          var prop = _c[_i];
-          if (__propIsEnum.call(b2, prop))
-            __defNormalProp2(a2, prop, b2[prop]);
-        }
-      return a2;
-    };
-    var __spreadProps = function(a2, b2) {
-      return __defProps(a2, __getOwnPropDescs(b2));
-    };
-    function useStableQueryArgs(queryArgs, serialize2, endpointDefinition, endpointName) {
-      var incoming = reactExports.useMemo(function() {
-        return {
-          queryArgs,
-          serialized: typeof queryArgs == "object" ? serialize2({ queryArgs, endpointDefinition, endpointName }) : queryArgs
-        };
-      }, [queryArgs, serialize2, endpointDefinition, endpointName]);
-      var cache2 = reactExports.useRef(incoming);
-      reactExports.useEffect(function() {
-        if (cache2.current.serialized !== incoming.serialized) {
-          cache2.current = incoming;
-        }
-      }, [incoming]);
-      return cache2.current.serialized === incoming.serialized ? cache2.current.queryArgs : queryArgs;
-    }
-    var UNINITIALIZED_VALUE = Symbol();
-    function useShallowStableValue(value) {
-      var cache2 = reactExports.useRef(value);
-      reactExports.useEffect(function() {
-        if (!shallowEqual(cache2.current, value)) {
-          cache2.current = value;
-        }
-      }, [value]);
-      return shallowEqual(cache2.current, value) ? cache2.current : value;
-    }
-    var cache = WeakMap ? /* @__PURE__ */ new WeakMap() : void 0;
-    var defaultSerializeQueryArgs = function(_c) {
-      var endpointName = _c.endpointName, queryArgs = _c.queryArgs;
-      var serialized = "";
-      var cached = cache == null ? void 0 : cache.get(queryArgs);
-      if (typeof cached === "string") {
-        serialized = cached;
-      } else {
-        var stringified = JSON.stringify(queryArgs, function(key, value) {
-          return isPlainObject$2(value) ? Object.keys(value).sort().reduce(function(acc, key2) {
-            acc[key2] = value[key2];
-            return acc;
-          }, {}) : value;
-        });
-        if (isPlainObject$2(queryArgs)) {
-          cache == null ? void 0 : cache.set(queryArgs, stringified);
-        }
-        serialized = stringified;
-      }
-      return endpointName + "(" + serialized + ")";
-    };
-    var useIsomorphicLayoutEffect$2 = typeof window !== "undefined" && !!window.document && !!window.document.createElement ? reactExports.useLayoutEffect : reactExports.useEffect;
-    var defaultMutationStateSelector = function(x2) {
-      return x2;
-    };
-    var noPendingQueryStateSelector = function(selected) {
-      if (selected.isUninitialized) {
-        return __spreadProps(__spreadValues({}, selected), {
-          isUninitialized: false,
-          isFetching: true,
-          isLoading: selected.data !== void 0 ? false : true,
-          status: QueryStatus.pending
-        });
-      }
-      return selected;
-    };
-    function buildHooks(_c) {
-      var api2 = _c.api, _d = _c.moduleOptions, batch2 = _d.batch, useDispatch2 = _d.useDispatch, useSelector2 = _d.useSelector, useStore2 = _d.useStore, unstable__sideEffectsInRender = _d.unstable__sideEffectsInRender, serializeQueryArgs = _c.serializeQueryArgs, context = _c.context;
-      var usePossiblyImmediateEffect = unstable__sideEffectsInRender ? function(cb2) {
-        return cb2();
-      } : reactExports.useEffect;
-      return { buildQueryHooks, buildMutationHook, usePrefetch };
-      function queryStatePreSelector(currentState, lastResult, queryArgs) {
-        if ((lastResult == null ? void 0 : lastResult.endpointName) && currentState.isUninitialized) {
-          var endpointName = lastResult.endpointName;
-          var endpointDefinition = context.endpointDefinitions[endpointName];
-          if (serializeQueryArgs({
-            queryArgs: lastResult.originalArgs,
-            endpointDefinition,
-            endpointName
-          }) === serializeQueryArgs({
-            queryArgs,
-            endpointDefinition,
-            endpointName
-          }))
-            lastResult = void 0;
-        }
-        var data = currentState.isSuccess ? currentState.data : lastResult == null ? void 0 : lastResult.data;
-        if (data === void 0)
-          data = currentState.data;
-        var hasData = data !== void 0;
-        var isFetching = currentState.isLoading;
-        var isLoading = !hasData && isFetching;
-        var isSuccess = currentState.isSuccess || isFetching && hasData;
-        return __spreadProps(__spreadValues({}, currentState), {
-          data,
-          currentData: currentState.data,
-          isFetching,
-          isLoading,
-          isSuccess
-        });
-      }
-      function usePrefetch(endpointName, defaultOptions2) {
-        var dispatch = useDispatch2();
-        var stableDefaultOptions = useShallowStableValue(defaultOptions2);
-        return reactExports.useCallback(function(arg, options) {
-          return dispatch(api2.util.prefetch(endpointName, arg, __spreadValues(__spreadValues({}, stableDefaultOptions), options)));
-        }, [endpointName, dispatch, stableDefaultOptions]);
-      }
-      function buildQueryHooks(name) {
-        var useQuerySubscription = function(arg, _c2) {
-          var _d2 = _c2 === void 0 ? {} : _c2, refetchOnReconnect = _d2.refetchOnReconnect, refetchOnFocus = _d2.refetchOnFocus, refetchOnMountOrArgChange = _d2.refetchOnMountOrArgChange, _e2 = _d2.skip, skip = _e2 === void 0 ? false : _e2, _f = _d2.pollingInterval, pollingInterval = _f === void 0 ? 0 : _f;
-          var initiate = api2.endpoints[name].initiate;
-          var dispatch = useDispatch2();
-          var stableArg = useStableQueryArgs(skip ? skipToken : arg, defaultSerializeQueryArgs, context.endpointDefinitions[name], name);
-          var stableSubscriptionOptions = useShallowStableValue({
-            refetchOnReconnect,
-            refetchOnFocus,
-            pollingInterval
-          });
-          var lastRenderHadSubscription = reactExports.useRef(false);
-          var promiseRef = reactExports.useRef();
-          var _g = promiseRef.current || {}, queryCacheKey = _g.queryCacheKey, requestId = _g.requestId;
-          var currentRenderHasSubscription = false;
-          if (queryCacheKey && requestId) {
-            var returnedValue = dispatch(api2.internalActions.internal_probeSubscription({
-              queryCacheKey,
-              requestId
-            }));
-            currentRenderHasSubscription = !!returnedValue;
-          }
-          var subscriptionRemoved = !currentRenderHasSubscription && lastRenderHadSubscription.current;
-          usePossiblyImmediateEffect(function() {
-            lastRenderHadSubscription.current = currentRenderHasSubscription;
-          });
-          usePossiblyImmediateEffect(function() {
-            if (subscriptionRemoved) {
-              promiseRef.current = void 0;
-            }
-          }, [subscriptionRemoved]);
-          usePossiblyImmediateEffect(function() {
-            var _a;
-            var lastPromise = promiseRef.current;
-            if (typeof process !== "undefined" && false) {
-              console.log(subscriptionRemoved);
-            }
-            if (stableArg === skipToken) {
-              lastPromise == null ? void 0 : lastPromise.unsubscribe();
-              promiseRef.current = void 0;
-              return;
-            }
-            var lastSubscriptionOptions = (_a = promiseRef.current) == null ? void 0 : _a.subscriptionOptions;
-            if (!lastPromise || lastPromise.arg !== stableArg) {
-              lastPromise == null ? void 0 : lastPromise.unsubscribe();
-              var promise2 = dispatch(initiate(stableArg, {
-                subscriptionOptions: stableSubscriptionOptions,
-                forceRefetch: refetchOnMountOrArgChange
-              }));
-              promiseRef.current = promise2;
-            } else if (stableSubscriptionOptions !== lastSubscriptionOptions) {
-              lastPromise.updateSubscriptionOptions(stableSubscriptionOptions);
-            }
-          }, [
-            dispatch,
-            initiate,
-            refetchOnMountOrArgChange,
-            stableArg,
-            stableSubscriptionOptions,
-            subscriptionRemoved
-          ]);
-          reactExports.useEffect(function() {
-            return function() {
-              var _a;
-              (_a = promiseRef.current) == null ? void 0 : _a.unsubscribe();
-              promiseRef.current = void 0;
-            };
-          }, []);
-          return reactExports.useMemo(function() {
-            return {
-              refetch: function() {
-                var _a;
-                if (!promiseRef.current)
-                  throw new Error("Cannot refetch a query that has not been started yet.");
-                return (_a = promiseRef.current) == null ? void 0 : _a.refetch();
-              }
-            };
-          }, []);
-        };
-        var useLazyQuerySubscription = function(_c2) {
-          var _d2 = _c2 === void 0 ? {} : _c2, refetchOnReconnect = _d2.refetchOnReconnect, refetchOnFocus = _d2.refetchOnFocus, _e2 = _d2.pollingInterval, pollingInterval = _e2 === void 0 ? 0 : _e2;
-          var initiate = api2.endpoints[name].initiate;
-          var dispatch = useDispatch2();
-          var _f = reactExports.useState(UNINITIALIZED_VALUE), arg = _f[0], setArg = _f[1];
-          var promiseRef = reactExports.useRef();
-          var stableSubscriptionOptions = useShallowStableValue({
-            refetchOnReconnect,
-            refetchOnFocus,
-            pollingInterval
-          });
-          usePossiblyImmediateEffect(function() {
-            var _a, _b;
-            var lastSubscriptionOptions = (_a = promiseRef.current) == null ? void 0 : _a.subscriptionOptions;
-            if (stableSubscriptionOptions !== lastSubscriptionOptions) {
-              (_b = promiseRef.current) == null ? void 0 : _b.updateSubscriptionOptions(stableSubscriptionOptions);
-            }
-          }, [stableSubscriptionOptions]);
-          var subscriptionOptionsRef = reactExports.useRef(stableSubscriptionOptions);
-          usePossiblyImmediateEffect(function() {
-            subscriptionOptionsRef.current = stableSubscriptionOptions;
-          }, [stableSubscriptionOptions]);
-          var trigger = reactExports.useCallback(function(arg2, preferCacheValue) {
-            if (preferCacheValue === void 0) {
-              preferCacheValue = false;
-            }
-            var promise2;
-            batch2(function() {
-              var _a;
-              (_a = promiseRef.current) == null ? void 0 : _a.unsubscribe();
-              promiseRef.current = promise2 = dispatch(initiate(arg2, {
-                subscriptionOptions: subscriptionOptionsRef.current,
-                forceRefetch: !preferCacheValue
-              }));
-              setArg(arg2);
-            });
-            return promise2;
-          }, [dispatch, initiate]);
-          reactExports.useEffect(function() {
-            return function() {
-              var _a;
-              (_a = promiseRef == null ? void 0 : promiseRef.current) == null ? void 0 : _a.unsubscribe();
-            };
-          }, []);
-          reactExports.useEffect(function() {
-            if (arg !== UNINITIALIZED_VALUE && !promiseRef.current) {
-              trigger(arg, true);
-            }
-          }, [arg, trigger]);
-          return reactExports.useMemo(function() {
-            return [trigger, arg];
-          }, [trigger, arg]);
-        };
-        var useQueryState = function(arg, _c2) {
-          var _d2 = _c2 === void 0 ? {} : _c2, _e2 = _d2.skip, skip = _e2 === void 0 ? false : _e2, selectFromResult = _d2.selectFromResult;
-          var select = api2.endpoints[name].select;
-          var stableArg = useStableQueryArgs(skip ? skipToken : arg, serializeQueryArgs, context.endpointDefinitions[name], name);
-          var lastValue = reactExports.useRef();
-          var selectDefaultResult = reactExports.useMemo(function() {
-            return createSelector([
-              select(stableArg),
-              function(_2, lastResult) {
-                return lastResult;
-              },
-              function(_2) {
-                return stableArg;
-              }
-            ], queryStatePreSelector);
-          }, [select, stableArg]);
-          var querySelector = reactExports.useMemo(function() {
-            return selectFromResult ? createSelector([selectDefaultResult], selectFromResult) : selectDefaultResult;
-          }, [selectDefaultResult, selectFromResult]);
-          var currentState = useSelector2(function(state) {
-            return querySelector(state, lastValue.current);
-          }, shallowEqual);
-          var store2 = useStore2();
-          var newLastValue = selectDefaultResult(store2.getState(), lastValue.current);
-          useIsomorphicLayoutEffect$2(function() {
-            lastValue.current = newLastValue;
-          }, [newLastValue]);
-          return currentState;
-        };
-        return {
-          useQueryState,
-          useQuerySubscription,
-          useLazyQuerySubscription,
-          useLazyQuery: function(options) {
-            var _c2 = useLazyQuerySubscription(options), trigger = _c2[0], arg = _c2[1];
-            var queryStateResults = useQueryState(arg, __spreadProps(__spreadValues({}, options), {
-              skip: arg === UNINITIALIZED_VALUE
-            }));
-            var info = reactExports.useMemo(function() {
-              return { lastArg: arg };
-            }, [arg]);
-            return reactExports.useMemo(function() {
-              return [trigger, queryStateResults, info];
-            }, [trigger, queryStateResults, info]);
-          },
-          useQuery: function(arg, options) {
-            var querySubscriptionResults = useQuerySubscription(arg, options);
-            var queryStateResults = useQueryState(arg, __spreadValues({
-              selectFromResult: arg === skipToken || (options == null ? void 0 : options.skip) ? void 0 : noPendingQueryStateSelector
-            }, options));
-            var data = queryStateResults.data, status = queryStateResults.status, isLoading = queryStateResults.isLoading, isSuccess = queryStateResults.isSuccess, isError = queryStateResults.isError, error = queryStateResults.error;
-            reactExports.useDebugValue({ data, status, isLoading, isSuccess, isError, error });
-            return reactExports.useMemo(function() {
-              return __spreadValues(__spreadValues({}, queryStateResults), querySubscriptionResults);
-            }, [queryStateResults, querySubscriptionResults]);
-          }
-        };
-      }
-      function buildMutationHook(name) {
-        return function(_c2) {
-          var _d2 = _c2 === void 0 ? {} : _c2, _e2 = _d2.selectFromResult, selectFromResult = _e2 === void 0 ? defaultMutationStateSelector : _e2, fixedCacheKey = _d2.fixedCacheKey;
-          var _f = api2.endpoints[name], select = _f.select, initiate = _f.initiate;
-          var dispatch = useDispatch2();
-          var _g = reactExports.useState(), promise2 = _g[0], setPromise = _g[1];
-          reactExports.useEffect(function() {
-            return function() {
-              if (!(promise2 == null ? void 0 : promise2.arg.fixedCacheKey)) {
-                promise2 == null ? void 0 : promise2.reset();
-              }
-            };
-          }, [promise2]);
-          var triggerMutation = reactExports.useCallback(function(arg) {
-            var promise22 = dispatch(initiate(arg, { fixedCacheKey }));
-            setPromise(promise22);
-            return promise22;
-          }, [dispatch, initiate, fixedCacheKey]);
-          var requestId = (promise2 || {}).requestId;
-          var mutationSelector = reactExports.useMemo(function() {
-            return createSelector([select({ fixedCacheKey, requestId: promise2 == null ? void 0 : promise2.requestId })], selectFromResult);
-          }, [select, promise2, selectFromResult, fixedCacheKey]);
-          var currentState = useSelector2(mutationSelector, shallowEqual);
-          var originalArgs = fixedCacheKey == null ? promise2 == null ? void 0 : promise2.arg.originalArgs : void 0;
-          var reset = reactExports.useCallback(function() {
-            batch2(function() {
-              if (promise2) {
-                setPromise(void 0);
-              }
-              if (fixedCacheKey) {
-                dispatch(api2.internalActions.removeMutationResult({
-                  requestId,
-                  fixedCacheKey
-                }));
-              }
-            });
-          }, [dispatch, fixedCacheKey, promise2, requestId]);
-          var endpointName = currentState.endpointName, data = currentState.data, status = currentState.status, isLoading = currentState.isLoading, isSuccess = currentState.isSuccess, isError = currentState.isError, error = currentState.error;
-          reactExports.useDebugValue({
-            endpointName,
-            data,
-            status,
-            isLoading,
-            isSuccess,
-            isError,
-            error
-          });
-          var finalState = reactExports.useMemo(function() {
-            return __spreadProps(__spreadValues({}, currentState), { originalArgs, reset });
-          }, [currentState, originalArgs, reset]);
-          return reactExports.useMemo(function() {
-            return [triggerMutation, finalState];
-          }, [triggerMutation, finalState]);
-        };
-      }
-    }
-    var DefinitionType;
-    (function(DefinitionType2) {
-      DefinitionType2["query"] = "query";
-      DefinitionType2["mutation"] = "mutation";
-    })(DefinitionType || (DefinitionType = {}));
-    function isQueryDefinition(e2) {
-      return e2.type === DefinitionType.query;
-    }
-    function isMutationDefinition(e2) {
-      return e2.type === DefinitionType.mutation;
-    }
-    function capitalize$1(str) {
-      return str.replace(str[0], str[0].toUpperCase());
-    }
-    function safeAssign(target) {
-      var args = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
-        args[_i - 1] = arguments[_i];
-      }
-      Object.assign.apply(Object, __spreadArray([target], args));
-    }
-    var reactHooksModuleName = /* @__PURE__ */ Symbol();
-    var reactHooksModule = function(_c) {
-      var _d = _c === void 0 ? {} : _c, _e2 = _d.batch, batch2 = _e2 === void 0 ? reactDomExports.unstable_batchedUpdates : _e2, _f = _d.useDispatch, useDispatch$1 = _f === void 0 ? useDispatch : _f, _g = _d.useSelector, useSelector$1 = _g === void 0 ? useSelector : _g, _h = _d.useStore, useStore$1 = _h === void 0 ? useStore : _h, _j = _d.unstable__sideEffectsInRender, unstable__sideEffectsInRender = _j === void 0 ? false : _j;
-      return {
-        name: reactHooksModuleName,
-        init: function(api2, _c2, context) {
-          var serializeQueryArgs = _c2.serializeQueryArgs;
-          var anyApi = api2;
-          var _d2 = buildHooks({
-            api: api2,
-            moduleOptions: {
-              batch: batch2,
-              useDispatch: useDispatch$1,
-              useSelector: useSelector$1,
-              useStore: useStore$1,
-              unstable__sideEffectsInRender
-            },
-            serializeQueryArgs,
-            context
-          }), buildQueryHooks = _d2.buildQueryHooks, buildMutationHook = _d2.buildMutationHook, usePrefetch = _d2.usePrefetch;
-          safeAssign(anyApi, { usePrefetch });
-          safeAssign(context, { batch: batch2 });
-          return {
-            injectEndpoint: function(endpointName, definition) {
-              if (isQueryDefinition(definition)) {
-                var _c3 = buildQueryHooks(endpointName), useQuery = _c3.useQuery, useLazyQuery = _c3.useLazyQuery, useLazyQuerySubscription = _c3.useLazyQuerySubscription, useQueryState = _c3.useQueryState, useQuerySubscription = _c3.useQuerySubscription;
-                safeAssign(anyApi.endpoints[endpointName], {
-                  useQuery,
-                  useLazyQuery,
-                  useLazyQuerySubscription,
-                  useQueryState,
-                  useQuerySubscription
-                });
-                api2["use" + capitalize$1(endpointName) + "Query"] = useQuery;
-                api2["useLazy" + capitalize$1(endpointName) + "Query"] = useLazyQuery;
-              } else if (isMutationDefinition(definition)) {
-                var useMutation = buildMutationHook(endpointName);
-                safeAssign(anyApi.endpoints[endpointName], {
-                  useMutation
-                });
-                api2["use" + capitalize$1(endpointName) + "Mutation"] = useMutation;
-              }
-            }
-          };
-        }
-      };
-    };
-    var createApi = /* @__PURE__ */ buildCreateApi(coreModule(), reactHooksModule());
-    const API_URL = "/api/";
-    const api = createApi({
-      reducerPath: "api",
-      tagTypes: [
-        "News",
-        "NewsById",
-        "NewsCategory",
-        "Courses",
-        "ThemeById",
-        "CourseById",
-        "ChapterById",
-        "LessonById",
-        "User",
-        "Competition",
-        "CourseProgress",
-        "NewsByCategory",
-        "CompetitionById"
-      ],
-      baseQuery: fetchBaseQuery({
-        baseUrl: API_URL,
-        prepareHeaders: (headers, { getState }) => {
-          const token2 = getState().auth.token;
-          if (token2) {
-            headers.set("X-CSRF-Token", token2);
-          }
-          return headers;
-        }
-      }),
-      endpoints: () => ({})
-    });
-    const userApi = api.injectEndpoints({
-      endpoints: (builder) => ({
-        checkUser: builder.query({
-          query: () => "whoami",
-          providesTags: () => [
-            {
-              type: "User"
-            }
-          ]
-        })
-      }),
-      overrideExisting: false
-    });
-    const selectUser = userApi.endpoints.checkUser.select();
-    const { useCheckUserQuery } = userApi;
-<<<<<<< HEAD
-=======
     const editIcon$2 = "/assets/editIcon.svg";
     const addIcon$2 = "/assets/addIcon.svg";
     const ADMIN_BTN_TYPES = {
@@ -16846,7 +16490,7 @@ var require_assets = __commonJS({
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-    const Container$O = st$1(FlexContainer)`
+    const Container$S = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -16857,7 +16501,7 @@ var require_assets = __commonJS({
     border-radius: 0px 0px 15px 15px;
   }
 `;
-    const Title$h = st$1(Text$6)`
+    const Title$k = st$1(Text$6)`
   margin-bottom: 15px;
   text-align: center;
   @media ${(props) => props.theme.media.mobile} {
@@ -16928,8 +16572,8 @@ var require_assets = __commonJS({
       onRestore,
       onVisible
     }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$O, { ref: innerRef, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$h, { children: name }),
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$S, { ref: innerRef, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$k, { children: name }),
         onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
           "скрыть"
@@ -16953,8 +16597,20 @@ var require_assets = __commonJS({
         onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
       ] }) });
     }
-    const useTypedSelector = useSelector;
->>>>>>> 33fce56679319eef91e45f67d9f5047c79872298
+    const userApi = api$1.injectEndpoints({
+      endpoints: (builder) => ({
+        checkUser: builder.query({
+          query: () => "whoami",
+          providesTags: () => [
+            {
+              type: "User"
+            }
+          ]
+        })
+      }),
+      overrideExisting: false
+    });
+    const selectUser = userApi.endpoints.checkUser.select();
     const body = document.body;
     function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles = {} }) {
       const [isPopup, setPopup] = reactExports.useState();
@@ -22521,7 +22177,7 @@ var require_assets = __commonJS({
       }, other));
     });
     const AccordionDetails$1 = AccordionDetails;
-    const themeApi = api.injectEndpoints({
+    const themeApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getThemeById: builder.query({
           query: (id2) => `theme/${id2}`,
@@ -26235,7 +25891,7 @@ var require_assets = __commonJS({
     opacity: 1;
   }
 `;
-    const lessonApi = api.injectEndpoints({
+    const lessonApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getLessonById: builder.query({
           query: (id2) => `lesson/${id2}`,
@@ -26847,7 +26503,7 @@ var require_assets = __commonJS({
     const ProgressBar = st$1(ProgressBar$1)`
   height: 10px;
 `;
-    const chapterApi = api.injectEndpoints({
+    const chapterApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getChapterById: builder.query({
           query: (id2) => `chapter/${id2}`,
@@ -27208,7 +26864,7 @@ var require_assets = __commonJS({
         label
       ] });
     }
-    const lessonTestApi = api.injectEndpoints({
+    const lessonTestApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         addTest: builder.mutation({
           query: (data) => ({
@@ -40509,7 +40165,7 @@ margin-bottom: 60px;
         /* @__PURE__ */ jsxRuntimeExports.jsx(ConfirmBtn, { onClick: handlers.confirm, children: names.confirm })
       ] });
     }
-    const competitionApi = api.injectEndpoints({
+    const competitionApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getAllCompetitions: builder.query({
           query: () => "competition",
@@ -73472,7 +73128,7 @@ margin-bottom: 60px;
     cursor: pointer;
   }
 `;
-    const newsApi = api.injectEndpoints({
+    const newsApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getAllNews: builder.query({
           query: () => "news",
@@ -73885,7 +73541,10 @@ color: ${(props) => props.theme.colors.mainBlue};
           initials2.length > 1 ? setInitials(initials2) : setInitials(null);
         }
       }, [userData.name]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Initials, { children: [
+        initials,
+        "вв"
+      ] }) }) });
     }
     const checkboxIcon = "/assets/checkbox.svg";
     const checkboxIconChecked = "/assets/checkbox-checked.svg";
@@ -73938,11 +73597,10 @@ color: ${(props) => props.theme.colors.mainBlue};
 font-weight: ${(props) => props.$bold ? "700" : "400"};
 line-height: 100%`;
     function ProfileBlock() {
-      const user = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user;
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$B, { children: user && /* @__PURE__ */ jsxRuntimeExports.jsx(UserAvatar, { userData: user }) });
+      const token2 = useTypedSelector((state) => state.user.token);
+      const { data, isLoading } = useGetUserQuery(null, { skip: !token2 });
+      console.log(data);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$B, { children: (data == null ? void 0 : data.data) && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(UserAvatar, { userData: data.data }) });
     }
     const burgerIconOpen = "/assets/burger-icon-open.svg";
     const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -74174,7 +73832,7 @@ line-height: 100%`;
       );
     }
     function Header() {
-      const [isBurgerMenuOpen, setBurgerMenuOpen] = reactExports.useState(false);
+      const [isBurgerMenuOpen, setIsBurgerMenuOpen] = reactExports.useState(false);
       const isMobile = useMediaQuery(MediaQueries.mobile);
       reactExports.useEffect(() => {
         if (isBurgerMenuOpen && isMobile) {
@@ -74184,7 +73842,7 @@ line-height: 100%`;
         }
       }, [isBurgerMenuOpen, isMobile]);
       const handleToggleBurgerMenu = () => {
-        setBurgerMenuOpen(!isBurgerMenuOpen);
+        setIsBurgerMenuOpen(!isBurgerMenuOpen);
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Header$1, { children: [
         isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -74614,7 +74272,7 @@ line-height: 100%`;
         courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
       ] });
     }
-    const courseApi = api.injectEndpoints({
+    const courseApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getCourses: builder.query({
           query: () => "course",
@@ -75909,7 +75567,7 @@ line-height: 100%`;
         });
         observers.push(observer);
       };
-      const init = () => {
+      const init2 = () => {
         if (!swiper2.params.observer)
           return;
         if (swiper2.params.observeParents) {
@@ -75936,7 +75594,7 @@ line-height: 100%`;
         observeParents: false,
         observeSlideChildren: false
       });
-      on2("init", init);
+      on2("init", init2);
       on2("destroy", destroy);
     }
     var eventsEmitter = {
@@ -80414,7 +80072,7 @@ line-height: 100%`;
           emit("paginationRender", el2[0]);
         }
       }
-      function init() {
+      function init2() {
         swiper2.params.pagination = createElementIfNotDefined(swiper2, swiper2.originalParams.pagination, swiper2.params.pagination, {
           el: "swiper-pagination"
         });
@@ -80510,7 +80168,7 @@ line-height: 100%`;
         if (swiper2.params.pagination.enabled === false) {
           disable();
         } else {
-          init();
+          init2();
           render();
           update2();
         }
@@ -80566,7 +80224,7 @@ line-height: 100%`;
           el2 = makeElementsArray(el2);
           el2.forEach((subEl) => subEl.classList.remove(swiper2.params.pagination.paginationDisabledClass));
         }
-        init();
+        init2();
         render();
         update2();
       };
@@ -80586,7 +80244,7 @@ line-height: 100%`;
         disable,
         render,
         update: update2,
-        init,
+        init: init2,
         destroy
       });
     }
@@ -81552,7 +81210,7 @@ line-height: 100%`;
     } }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Item, { onClick: onClick2, children: title });
     }
-    const newsCategoryApi = api.injectEndpoints({
+    const newsCategoryApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         getNewsCategory: builder.query({
           query: () => "news-category",
@@ -82317,25 +81975,7 @@ line-height: 100%`;
     padding-top: 4.6875vw;
   }
 `;
-<<<<<<< HEAD
     const externalLinkIcon = "/assets/external-link.svg";
-=======
-    const Container$6 = st$1(FlexContainer)`
-  flex-direction: column;
-  width: 25%;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-  }
-`;
-    function AsideBar({ children }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
-    }
-<<<<<<< HEAD
-    const externalLinkIcon = "/assets/moreIcon.svg";
->>>>>>> 06c9cd178ef23636de0b0c3bf36521d6619d0a24
-=======
-    const externalLinkIcon = "/assets/external-link.svg";
->>>>>>> 33fce56679319eef91e45f67d9f5047c79872298
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -83459,7 +83099,7 @@ line-height: 100%`;
     function AppLoading() {
       const active = useTypedSelector((state) => state.loader.active);
       const loaderRef = reactExports.useRef(null);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
         Transition$1,
         {
           unmountOnExit: true,
@@ -83474,7 +83114,7 @@ line-height: 100%`;
             }
           )
         }
-      ) });
+      );
     }
     const Container$3 = st$1(FlexContainer)`
   flex-direction: column;
@@ -84629,36 +84269,18 @@ line-height: 100%`;
       ) });
     }
     function App() {
-      const { data, isLoading } = useCheckUserQuery();
-      const { setAuthToken, setLoaderActive } = useActions();
-      const [isAdmin, setIsAdmin] = reactExports.useState(false);
+      useLogin();
       reactExports.useEffect(() => {
-        const csrfHolder = document.querySelector('meta[name="csrf-token"]');
-        if (csrfHolder) {
-          const CSRF_TOKEN = csrfHolder.content;
-          setAuthToken(CSRF_TOKEN);
-        }
-      }, [setAuthToken]);
-      reactExports.useEffect(() => {
-        if (data && !isLoading && !data.user) {
-          const base64 = btoa(window.location.href);
-          const redirectLink = `https://passport.borboza.com/passport/login?returl=${base64}`;
-          window.location.replace(redirectLink);
-        }
-        if (data && data.user && data.user.role) {
-          const checkAdmin = data.user.role === "admin";
-          setIsAdmin(checkAdmin);
-        }
-        setLoaderActive(isLoading);
-      }, [data, isLoading, setLoaderActive]);
+        console.log("re-render");
+      });
       return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Layout, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AppRoutes, { isAdmin }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AppModals, { isAdmin }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AppRoutes, { isAdmin: true }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AppModals, { isAdmin: true }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(AppLoading, {})
       ] }) });
     }
     const reducer = combineReducers({
-      auth: reducer$8,
+      user: reducer$8,
       modal: reducer$9,
       course: reducer$7,
       loader: reducer$6,
@@ -84666,13 +84288,13 @@ line-height: 100%`;
       competition: reducer$4,
       news: reducer$2,
       accesses: reducer$3,
-      [api.reducerPath]: api.reducer
+      [api$1.reducerPath]: api$1.reducer
     });
     const store = configureStore({
       reducer,
       middleware: (getDefaultMiddleware2) => getDefaultMiddleware2({
         serializableCheck: false
-      }).concat(api.middleware)
+      }).concat(api$1.middleware)
     });
     const normalize = nt$1`
  html {

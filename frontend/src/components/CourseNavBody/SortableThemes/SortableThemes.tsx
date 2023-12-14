@@ -2,10 +2,7 @@ import { CourseNavTheme } from '@/components/CourseNavTheme';
 import { SortableItem } from '@/components/SortableItem';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
-// import * as S from './styles';
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { useSetThemesPositionsMutation } from '@/store/api/theme.api';
-import { selectUser } from '@/store/api/user.api';
 import { ITheme } from '@/shared/model/types/theme.types';
 import { useState, useEffect } from 'react';
 import { useActions } from '@/shared/lib/hooks/useActions';
@@ -21,9 +18,8 @@ interface ISortableThemesProps {
   data: Array<ITheme>;
 }
 
-export function SortableThemes({ data }: ISortableThemesProps) {
+export function SortableThemes({ data }: Readonly<ISortableThemesProps>) {
   const { setLoaderActive } = useActions();
-  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
   const [themes, setThemes] = useState<Array<IThemeWithDrag>>([]);
   const { courseId } = useParams();
   const [setPositions] = useSetThemesPositionsMutation();
@@ -36,9 +32,9 @@ export function SortableThemes({ data }: ISortableThemesProps) {
           isDraggable: false,
         };
       });
-      const themesDataSorted = themesData.sort((a, b) => a.position - b.position);
+      themesData.sort((a, b) => a.position - b.position);
 
-      setThemes(themesDataSorted);
+      setThemes(themesData);
       return;
     }
     setThemes([]);
@@ -46,7 +42,7 @@ export function SortableThemes({ data }: ISortableThemesProps) {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    if (!over || !over.data.current) {
+    if (!over?.data.current) {
       return;
     }
     if (active.id !== over.id) {
@@ -92,9 +88,7 @@ export function SortableThemes({ data }: ISortableThemesProps) {
       {themes && (
         <SortableContext items={themes.map((theme) => theme.id)}>
           {themes.map((theme) => {
-            if (Number(theme.is_deleted) === 1 && userRole !== 'admin') {
-              return;
-            }
+
             return (
               <SortableItem
                 key={theme.id}

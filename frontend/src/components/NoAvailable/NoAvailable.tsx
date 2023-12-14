@@ -1,6 +1,4 @@
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import * as S from './styles';
-import { selectUser } from '@/store/api/user.api';
 import { AdminBtn } from '../AdminBtn';
 
 interface INoAvailableProps {
@@ -9,19 +7,15 @@ interface INoAvailableProps {
   style?: { [key: string]: string };
 }
 
-export function NoAvailable({ text, onAdd = () => {}, style={} }: INoAvailableProps) {
-  const user = useTypedSelector((state) => selectUser(state).data?.user);
-
+export function NoAvailable({ text, onAdd = () => {}, style = {} }: Readonly<INoAvailableProps>) {
   return (
     <S.NoAvailableCourses style={style}>
       <S.NoAvailableCoursesText>{text}</S.NoAvailableCoursesText>
-      {user?.role === 'admin' && (
-        <AdminBtn
-          popupName=""
-          onClick={onAdd}
-          type="add"
-        />
-      )}
+      <AdminBtn
+        popupName=""
+        onClick={onAdd}
+        type="add"
+      />
     </S.NoAvailableCourses>
   );
 }

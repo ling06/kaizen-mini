@@ -1,5 +1,3 @@
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
 import * as S from './styles';
 import { RuleSet } from 'styled-components';
 
@@ -10,10 +8,7 @@ interface IDndBtn {
   styles?: RuleSet<object>;
 }
 
-export function DndBtn({ onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{}, styles }: IDndBtn) {
-  const userRole = useTypedSelector((state) => selectUser(state).data?.user.role);
-  console.log(userRole);
-  if(userRole !== 'admin') return null;
+export function DndBtn({ onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{}, styles }: Readonly<IDndBtn>) {
   return (
     <S.DndBtn
       $style={styles}

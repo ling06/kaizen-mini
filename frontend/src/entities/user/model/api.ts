@@ -16,7 +16,7 @@ export const userApi = api.injectEndpoints({
         method: 'POST',
       })
     }),
-    getUser: builder.query<User, null>({
+    getMe: builder.query<User, null>({
       query: () => ({
         url: 'auth/me',
         method: 'GET',
@@ -25,5 +25,5 @@ export const userApi = api.injectEndpoints({
   }),
 });
 
-export const {useLoginMutation, useLogoutMutation, useGetUserQuery} = userApi;
-export const selectUser = userApi.endpoints.getUser.select(null);
+export const {useLoginMutation, useLogoutMutation, useGetMeQuery} = userApi;
+export const selectUser = userApi.endpoints.getMe.select(null);

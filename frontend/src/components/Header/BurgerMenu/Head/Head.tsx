@@ -1,17 +1,17 @@
-import { selectUser } from '@/store/api/user.api';
 import { BurgerBtn } from '../../BurgerBtn';
 import * as S from './styles';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { getUsername } from '@/shared/lib/getUsername';
 import { useEffect } from 'react';
 import { UserAvatar } from '@/shared/ui/components';
+import { selectUser } from '@/entities/user';
 
 interface IHead {
   onClose: () => void;
 }
-export function Head({ onClose }: IHead) {
-  const user = useTypedSelector((state) => selectUser(state).data?.user);
-  const username = getUsername(user?.name);
+export function Head({ onClose }: Readonly<IHead>) {
+  const user = useTypedSelector((state) => selectUser(state).data?.data);
+  const username = getUsername(user?.name ?? '');
 
   useEffect(() => {
     setTimeout(() => {

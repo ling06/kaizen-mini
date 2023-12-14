@@ -1,20 +1,21 @@
 import { UserAvatar } from '@/shared/ui/components';
 import * as S from './styles';
-import { IUser } from '@/shared/model/types/user.types';
 import { RuleSet } from 'styled-components';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
+
 import { useEffect, useState } from 'react';
+import { selectUser } from '../../model/api';
+import { User as TUser } from '../..';
 
 interface IUserProps {
-  userData: IUser;
-  styles?: RuleSet<object>;
-  onClick: () => void;
-  checkCurrent?: boolean;
+  readonly userData: TUser['data'];
+  readonly styles?: RuleSet<object>;
+  readonly onClick: () => void;
+  readonly checkCurrent?: boolean;
 }
 
 export function User({ userData, styles, onClick = () => {}, checkCurrent=true }: IUserProps) {
-  const userId = useTypedSelector((state) => selectUser(state).data?.user.id);
+  const userId = useTypedSelector((state) => selectUser(state).data?.data.id);
   const [boldName, setBoldName] = useState<boolean>(false);
 
   useEffect(() => {

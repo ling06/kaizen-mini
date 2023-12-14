@@ -5,7 +5,7 @@ import { useLoginMutation } from "..";
 import Cookie from 'js-cookie';
 
 export const useLogin = () => {
-  const { setAuthToken } = useActions();
+  const { setAuthToken, setLoaderActive } = useActions();
   const authToken = useTypedSelector((state) => state.user.token);
   const [login] = useLoginMutation();
   
@@ -27,10 +27,10 @@ export const useLogin = () => {
       if ('data' in res && ('access_token' in res.data)) {
         setAuthToken(res.data.access_token);
       }
-      // setLoaderActive(false);
+      setLoaderActive(false);
     });
-    // setLoaderActive(true);
-  }, [authToken]);
+    setLoaderActive(true);
+  }, [authToken, login, setAuthToken, setLoaderActive]);
 
   return [authToken];
 }

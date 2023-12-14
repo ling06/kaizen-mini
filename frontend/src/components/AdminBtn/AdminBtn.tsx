@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import * as S from './styles';
-import { ADMIN_BTN_TYPES, USER_ROLES } from '@/shared/model/constants';
+import { ADMIN_BTN_TYPES } from '@/shared/model/constants';
 import { ControlsPopup, IControlsPopup } from '../ControlsPopup';
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
-import { selectUser } from '@/store/api/user.api';
 
 export interface IAdminBtnProps {
   type: string;
@@ -15,23 +13,16 @@ export interface IAdminBtnProps {
 
 const body = document.body;
 
-export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} }: IAdminBtnProps) {
-  const [isPopup, setPopup] = useState<boolean>();
-  const user = useTypedSelector((state) => selectUser(state).data);
+export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} }: Readonly<IAdminBtnProps>) {
+  const [isPopup, setIsPopup] = useState<boolean>();
   const ref = useRef<HTMLButtonElement>(null);
   const popupInnerRef = useRef<HTMLDivElement>(null);
-  const [isAdmin, setAdmin] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (user && user.user.role === USER_ROLES.admin) {
-      setAdmin(true);
-    }
-  }, [user]);
 
   const handleOverlayClick = (event: MouseEvent) => {
     if (!popupInnerRef.current) return;
     if (event.target !== popupInnerRef.current && event.target !== ref.current) {
-      setPopup(false);
+      setIsPopup(false);
       body.removeEventListener('click', handleOverlayClick);
     }
   };
@@ -43,15 +34,14 @@ export function AdminBtn({ type, onClick, popupName, popupHandlers, styles = {} 
     }
     if (type === ADMIN_BTN_TYPES.edit) {
       if (isPopup) {
-        setPopup(false);
+        setIsPopup(false);
       } else {
-        setPopup(true);
+        setIsPopup(true);
         body.addEventListener('click', handleOverlayClick);
       }
     }
   };
 
-  if(!isAdmin) return null;
 
   return (
     <S.AdminBtn
