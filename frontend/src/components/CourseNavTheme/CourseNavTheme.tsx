@@ -98,29 +98,19 @@ export function CourseNavTheme({
     navigate(path);
   };
 
-  // const styledTransition = css`
-  //   transition: all 0.3s ease;
-  // `
-
   return (
     <S.Container>
       <S.Theme>
         <Accordion
-        disabled={true}
           sx={{ 
             width: '100%', 
-            boxShadow: 'unset', 
+            boxShadow: 'unset',
           }}
           expanded={Number(themeId) === data.id}
           onChange={handleChange(data.id)}
-          // TransitionComponent={}
           >
           <AccordionSummary
-            sx={{ padding: 0,
-            }}
-            // styles={css`
-            //   transition: height 0.3s ease;
-            // `}
+            sx={{ padding: 0,}}
             expandIcon={<div style={{ display: 'none' }}></div>}
             aria-controls={`${data.id}_content`}
             id={`${data.id}_header`}>

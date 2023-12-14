@@ -42,10 +42,10 @@ export function Course() {
   }, [chapterId, setActiveChapterId]);
 
   const HideOverflow = styled(S.NavContainer)`
-    overflow: hidden scroll;
     /* overflow: hidden ; */
+     overflow: hidden scroll;
 
-
+    
     &::-webkit-scrollbar {
       width: 10px;
     }

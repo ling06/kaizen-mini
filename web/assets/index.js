@@ -26093,7 +26093,6 @@ var require_assets = __commonJS({
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$M, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         Accordion$1,
         {
-          disabled: true,
           sx: {
             width: "100%",
             boxShadow: "unset"
@@ -26104,9 +26103,7 @@ var require_assets = __commonJS({
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               AccordionSummary$1,
               {
-                sx: {
-                  padding: 0
-                },
+                sx: { padding: 0 },
                 expandIcon: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { display: "none" } }),
                 "aria-controls": `${data.id}_content`,
                 id: `${data.id}_header`,
@@ -27332,10 +27329,10 @@ var require_assets = __commonJS({
         }
       }, [chapterId, setActiveChapterId]);
       const HideOverflow = st$1(NavContainer)`
-    overflow: hidden scroll;
     /* overflow: hidden ; */
+     overflow: hidden scroll;
 
-
+    
     &::-webkit-scrollbar {
       width: 10px;
     }
