@@ -10,7 +10,7 @@ import { MediaQueries } from '@/shared/model/constants';
 import { Link } from 'react-router-dom';
 
 export function Header() {
-  const [isBurgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery(MediaQueries.mobile);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function Header() {
   }, [isBurgerMenuOpen, isMobile]);
 
   const handleToggleBurgerMenu = () => {
-    setBurgerMenuOpen(!isBurgerMenuOpen);
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
   return (

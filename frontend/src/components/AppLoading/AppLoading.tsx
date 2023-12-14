@@ -9,7 +9,6 @@ export function AppLoading() {
   const loaderRef = useRef(null);
 
   return (
-    <>
       <Transition
         unmountOnExit
         nodeRef={loaderRef}
@@ -22,6 +21,5 @@ export function AppLoading() {
           />
         )}
       </Transition>
-    </>
   );
 }

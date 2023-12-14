@@ -1,10 +1,10 @@
-import { IUser } from '@/shared/model/types/user.types';
 import * as S from './styles';
 import { useEffect, useState } from 'react';
 import { getInitials } from '@/shared/lib/getInitials';
+import { User } from '@/entities/user';
 
 interface IProfileProps {
-  userData: IUser;
+  readonly userData: User['data'];
 }
 
 /*
