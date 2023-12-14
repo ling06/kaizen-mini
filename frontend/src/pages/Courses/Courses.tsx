@@ -7,7 +7,6 @@ import { MediaQueries } from '@/shared/model/constants';
 export function Courses() {
   const isMobile = useMediaQuery(MediaQueries.mobile);
   return (
-    <>
       <Routes>
         <Route
           path="/:courseId?"
@@ -20,6 +19,5 @@ export function Courses() {
           />
         )}
       </Routes>
-    </>
   );
 }

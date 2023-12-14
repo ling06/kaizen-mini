@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { ModalForm } from '../ModalForm';
-import { useCreateCourseMutation, useGetCourseByIdQuery, useUpdateCourseMutation } from '@/store/api/course.api';
+import { useUpdateCourseMutation } from '@/store/api/course.api';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { MODAL_TYPES } from '@/shared/model/constants';
 import { AddImage } from '../AddImage';
 import { IImage, IUploadedImage } from '@/shared/model/types/image.types';
 import { useNavigate } from 'react-router-dom';
+import { useCreateCourseMutation, useGetCourseQuery } from '@/entities/course';
 
 export function CreateCourseForm() {
   const courseId = useTypedSelector((state) => state.course.editCourseId);
-  const { data, isError, isFetching } = useGetCourseByIdQuery(Number(courseId), {
+  const { data, isError, isFetching } = useGetCourseQuery(String(courseId), {
     skip: !courseId,
   });
   const { setModalOpen, setLoaderActive } = useActions();
@@ -24,7 +25,6 @@ export function CreateCourseForm() {
   const [courseImage, setCourseImage] = useState<IUploadedImage | IImage | null>(null);
 
   const [courseDescription, setCourseDescription] = useState<string>('');
-
   const [createCourse] = useCreateCourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
 

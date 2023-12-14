@@ -37,7 +37,7 @@ export const courseApi = api.injectEndpoints({
         url: 'course/update',
         method: 'POST',
         body: data,
-      }),
+    }),
       invalidatesTags: ['Courses', 'CourseById'],
     }),
     deleteCourse: builder.mutation<IDefaultRes, IDefaultReqWithId>({

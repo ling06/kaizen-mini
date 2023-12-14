@@ -10,6 +10,7 @@ export const api = createApi({
     'NewsById',
     'NewsCategory',
     'Courses',
+    'Course',
     'ThemeById',
     'CourseById',
     'ChapterById',

@@ -6,10 +6,11 @@ import { ErrorBlock } from '../ErrorBlock';
 import { LoadingSmall } from '../LoadingSmall';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { ICourse } from '@/shared/model/types/course.types';
+import { useGetAllCoursesQuery } from '@/entities/course';
 
 export function SelectCourseForm() {
   const {setModalOpen} = useActions();
-  const { data, isFetching, isLoading, isError } = useGetCoursesQuery();
+  const { data, isFetching, isLoading, isError } = useGetAllCoursesQuery(null);
   const [coursesData, setCoursesData] = useState<Array<ICourse>>([]);
 
   useEffect(() => {

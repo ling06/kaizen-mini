@@ -3,61 +3,52 @@ import * as S from './styles';
 import * as C from '@/shared/ui/assets/styles/components';
 import { CourseMainInfo } from '@/components/CourseMainInfo';
 import { CourseProgramm } from '@/components/CourseProgramm';
-import { useGetCoursesQuery } from '@/store/api/course.api';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { useActions } from '@/shared/lib/hooks/useActions';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import { MediaQueries } from '@/shared/model/constants';
-import { NoAvailable } from '@/components/NoAvailable';
+import { MODAL_TYPES, MediaQueries } from '@/shared/model/constants';
+import { useGetCourseQuery } from '@/entities/course';
+import { ModalPosition } from '@/shared/model/types/common.types';
+import { Button } from '@/shared/ui/components';
 
 export function CoursePreview() {
-  const { data, isError, isFetching } = useGetCoursesQuery();
-  const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
+  const {setModalPosition, setModalOpen, setModalType } =
+    useActions();
   const params = useParams();
-  const navigate = useNavigate();
+  const { data, isError } = useGetCourseQuery(params.courseId ?? '', {
+    skip: !params.courseId,
+  });
   const isMobile = useMediaQuery(MediaQueries.mobile);
 
-  useEffect(() => {
-    setLoaderActive(isFetching);
-  }, [isFetching, setLoaderActive]);
-
-  useEffect(() => {
-    if (data) {
-      const currentCourseId = params.courseId || null;
-      const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-      if ((data.data.length > 0 && !currentCourseId) || (data.data.length > 0 && !currentCourse)) {
-        navigate(`/courses/${data.data[0].id}`);
-        return;
-      }
-      if (data.data.length === 0) {
-        navigate('/courses');
-      }
-      if (currentCourse) {
-        setCourseData(currentCourse);
-      }
-    }
-  }, [data, navigate, params.courseId, setCourseData]);
-
-  const handleCreateCourse = () => {
+  const openCoursesModal = useCallback(() => {
     setModalOpen(true);
-    setModalType('createCourse');
-  }
+    setModalType(MODAL_TYPES.selectCourse);
+    setModalPosition(ModalPosition.left);
+  }, [setModalOpen, setModalPosition, setModalType]);
+
+  useEffect(() => {
+    if (!params.courseId) {
+      openCoursesModal();
+    }
+  }, [openCoursesModal, params.courseId]);
 
   return (
     <C.DefaultContainer>
       <S.Container>
         {isError && <ErrorBlock />}
-        {data && data.data.length > 0 && (
+        {data && !isError && (
           <>
-            {!isMobile && <CourseSelect />}
-            <CourseMainInfo coursesData={data.data} />
+            {!isMobile && <CourseSelect data={data.data} />}
+            <CourseMainInfo data={data.data} />
             <CourseProgramm />
           </>
         )}
-        {data && data.data.length === 0 && (
-          <NoAvailable text="Нет доступных курсов" onAdd={handleCreateCourse}/>
+        {!params.courseId && (
+          <S.NotSelectedCourse>
+            <Button text={'Выбрать курс'} onClick={openCoursesModal} />
+          </S.NotSelectedCourse>
         )}
       </S.Container>
     </C.DefaultContainer>

@@ -2,16 +2,18 @@ import { ADMIN_BTN_TYPES, MODAL_TYPES } from '@/shared/model/constants';
 import * as S from './styles';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { AdminBtn } from '../AdminBtn';
-import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { CourseTitle } from '../CourseTitle';
 import { CourseProgress } from '../CourseProgress';
 import { css } from 'styled-components';
 import { ModalPosition } from '@/shared/model/types/common.types';
+import { TCourse } from '@/entities/course';
 
-export function CourseSelect() {
+interface ICourseSelectProps {
+  data: TCourse['data'];
+}
+
+export function CourseSelect({data}: Readonly<ICourseSelectProps>) {
   const { setModalOpen, setModalType, setModalPosition } = useActions();
-
-  const courseData = useTypedSelector((state) => state.course.data);
 
   const marginRight = css`
     margin-right: 20px;
@@ -32,16 +34,16 @@ export function CourseSelect() {
     <S.Container>
       <S.CourseName onClick={handleOpenSelectCourseModal}>
         <CourseProgress
-          percentage={courseData.percentage?.percentage || 0}
+          percentage={data.percentage?.percentage || 0}
           styles={marginRight}
-          isHidden={!courseData.status || !!courseData.is_deleted}
+          isHidden={!data.status || !!data.is_deleted}
         />
         <CourseTitle
-          title={courseData.title}
+          title={data.title}
           isSelected={true}
           styles={marginRight}
-          isDeleted={!!courseData.is_deleted}
-          isHidden={!courseData.status}
+          isDeleted={!!data.is_deleted}
+          isHidden={!data.status}
         />
         <S.SelectIcon />
       </S.CourseName>

@@ -3,12 +3,12 @@ import closeIcon from '@assets/images/close-icon.svg';
 import { ModalPosition } from '@/shared/model/types/common.types';
 
 interface IModalPosition {
-  modalPosition: ModalPosition;
+  $modalPosition: ModalPosition;
 }
 
 export const ModalLayout = styled.div<IModalPosition>`
   display: flex;
-  justify-content: ${(props) => (props.modalPosition === 'left' ? 'flex-start' : 'flex-end')};
+  justify-content: ${(props) => (props.$modalPosition === 'left' ? 'flex-start' : 'flex-end')};
   position: fixed;
   top: 0;
   left: 0;
@@ -37,7 +37,7 @@ export const Window = styled.div<IModalPosition>`
   /* overflow-y: auto; */
   background-color: ${(props) => props.theme.colors.realWhite};
   animation: ${(props) =>
-      props.modalPosition === ModalPosition.left ? 'windowEntranceLeft' : 'windowEntranceRight'}
+      props.$modalPosition === ModalPosition.left ? 'windowEntranceLeft' : 'windowEntranceRight'}
     0.3s ease-out forwards;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
@@ -75,12 +75,12 @@ export const ModalName = styled.h3<IModalPosition>`
   writing-mode: vertical-lr;
   pointer-events: none;
   ${(props) => {
-    if (props.modalPosition === ModalPosition.left) {
+    if (props.$modalPosition === ModalPosition.left) {
       return css`
         right: -115px;
       `;
     }
-    if (props.modalPosition === ModalPosition.right) {
+    if (props.$modalPosition === ModalPosition.right) {
       return css`
         left: -155px;
       `;

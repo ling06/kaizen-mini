@@ -63,9 +63,9 @@ export function ModalLayout({ children, modalType, modalPosition }: IModalLayout
   }
 
   return ReactDOM.createPortal(
-    <S.ModalLayout onClick={handleOverlayClick} modalPosition={modalPosition}>
-      <S.Window modalPosition={modalPosition}>
-        <S.ModalName modalPosition={modalPosition}>{modalName}
+    <S.ModalLayout onClick={handleOverlayClick} $modalPosition={modalPosition}>
+      <S.Window $modalPosition={modalPosition}>
+        <S.ModalName $modalPosition={modalPosition}>{modalName}
           <S.CloseBtn onClick={handleCloseModal}/>
         </S.ModalName>
         {children}

@@ -7,45 +7,30 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { MediaQueries } from '@/shared/model/constants';
 import { ProgressInfo } from '../ProgressInfo';
-import { ICourse } from '@/shared/model/types/course.types';
 import { OpenSelect } from './OpenSelect';
 import { useGetCourseProgressQuery } from '@/store/api/course.api';
 import { LoadingSmall } from '../LoadingSmall';
+import { TCourse } from '@/entities/course';
 
 interface ICourseMainInfoProps {
-  coursesData: Array<ICourse>;
+  data: TCourse['data'];
 }
-export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
-  const { courseId } = useParams();
-  const navigate = useNavigate();
-  const courseData = useTypedSelector((state) => state.course.data);
-  const [previewSrc, setPreviewSrc] = useState('');
+export function CourseMainInfo({ data }: Readonly<ICourseMainInfoProps>) {
+  // const navigate = useNavigate();
   const isMobile = useMediaQuery(MediaQueries.mobile);
-  const { data, isError, isFetching } = useGetCourseProgressQuery(
-    { course_id: Number(courseId) },
-    {
-      skip: !courseId,
-    }
-  );
+  // const { data: progressData, isError, isFetching } = useGetCourseProgressQuery(
+  //   { course_id: Number(courseId) },
+  //   {
+  //     skip: !courseId,
+  //   }
+  // );
 
-  useEffect(() => {
-    if (courseData.image) {
-      const src = courseData.image.directory + '/' + courseData.image.name;
-      setPreviewSrc(src);
-      return;
-    }
-    setPreviewSrc(defaultPreview);
-  }, [courseData.image]);
-
-  const handleLoadError = () => {
-    setPreviewSrc(defaultPreview);
-  };
   
-  const handleGoToCurrentLesson = () => {
-    if (data && 'chapter' in data) {
-      navigate(`/courses/${courseId}/${data.chapter.id}/${data.theme.id}/${data.lesson.id}`);
-    }
-  };
+  // const handleGoToCurrentLesson = () => {
+  //   if (data && 'chapter' in data) {
+  //     navigate(`/courses/${courseId}/${data.chapter.id}/${data.theme.id}/${data.lesson.id}`);
+  //   }
+  // };
   
   const progressInfoStyles = {
     marginBottom: '3.13vw',
@@ -54,54 +39,54 @@ export function CourseMainInfo({ coursesData }: ICourseMainInfoProps) {
   return (
     <S.Container>
       <S.Wrapper>
-        {isFetching && (
+        {/* {isFetching && (
           <LoadingSmall />
-        )}
+        )} */}
         {isMobile && (
           <>
             <ProgressInfo
-              percentage={`${courseData.percentage?.percentage}`}
+              percentage={`${data.percentage?.percentage}`}
               text="Твой курс закончен на"
               styles={progressInfoStyles}
             />
             <OpenSelect
-              courseData={courseData}
+              data={data}
             />
           </>
         )}
-        {data && 'chapter' in data && (
+        {/* {data && 'chapter' in data && (
           <>
             <CourseBreadcrumb
               containerStyles={{ marginBottom: isMobile ? '5vw' : '30px' }}
-              chapter={{ name: data.chapter.name, position: data.chapter.position, allQuantity: data.chapter.allQuantity }}
-              theme={{ name: data.theme.name, position: data.theme.position, allQuantity: data.theme.allQuantity }}
-              lesson={{ name: data.lesson.name, position: data.lesson.position, allQuantity: data.lesson.allQuantity }}
+              chapter={{ name: progressData.data.chapter.name, position: progressData.chapter.position, allQuantity: progressData.chapter.allQuantity }}
+              theme={{ name: progressData.theme.name, position: progressData.theme.position, allQuantity: progressData.theme.allQuantity }}
+              lesson={{ name: progressData.lesson.name, position: progressData.lesson.position, allQuantity: progressData.lesson.allQuantity }}
             />
             <S.LessonName>{data.lesson.name}</S.LessonName>
             <S.OpenCourse onClick={handleGoToCurrentLesson}>Учиться</S.OpenCourse>
           </>
-        )}
+        )} */}
         {data && 'courseComplete' in data && (
           <>
             <S.CourseName>
-              {courseData.title}
+              {data.title}
             </S.CourseName>
             <S.CompleteStatus>
               Пройден
             </S.CompleteStatus>
           </>
         )}
-        {isError || data && 'error' in data && (
+        {/* {isError || data && 'error' in data && (
           <S.ErrorName>
             Информация отсутствует
           </S.ErrorName>
-        )}
+        )} */}
       </S.Wrapper>
       {!isMobile && (
         <S.ImgWrapper>
           <S.Preview
-            src={previewSrc}
-            onError={handleLoadError}
+            src={data.image || defaultPreview}
+            // onError={handleLoadError}
           />
         </S.ImgWrapper>
       )}

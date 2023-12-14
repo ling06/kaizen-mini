@@ -4,15 +4,18 @@ import { AppModals } from '@/components/AppModals';
 import { useLogin } from '@/entities/user';
 import { Layout } from '@/shared/ui/layouts';
 import { BrowserRouter } from 'react-router-dom';
-
-function App() {
-  useLogin();
-
+ function App() {
+  const [authToken] = useLogin();
+  
   return (
     <BrowserRouter>
       <Layout>
-        <AppRoutes isAdmin={true} />
-        <AppModals isAdmin={true} />
+        {authToken && (
+          <>
+            <AppRoutes isAdmin={true} />
+            <AppModals isAdmin={true} />
+          </>
+        )}
         <AppLoading />
       </Layout>
     </BrowserRouter>
