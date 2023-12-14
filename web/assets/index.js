@@ -81799,7 +81799,21 @@ line-height: 100%`;
     padding-top: 4.6875vw;
   }
 `;
+<<<<<<< HEAD
     const externalLinkIcon = "/assets/external-link.svg";
+=======
+    const Container$6 = st$1(FlexContainer)`
+  flex-direction: column;
+  width: 25%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+  }
+`;
+    function AsideBar({ children }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
+    }
+    const externalLinkIcon = "/assets/moreIcon.svg";
+>>>>>>> 06c9cd178ef23636de0b0c3bf36521d6619d0a24
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -83838,6 +83852,7 @@ line-height: 100%`;
   `;
       const courseTitleStyles = nt$1`
     margin-right: ${IS_MOBILE ? 0 : "20px"};
+    cursor: pointer;
   `;
       const dndBtnStyles = nt$1`
     margin-right: 15px;

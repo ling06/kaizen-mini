@@ -31,6 +31,7 @@ export function Course({ data, setDraggable, setNotDraggable }: ICourseProps) {
 
   const courseTitleStyles = css`
     margin-right: ${IS_MOBILE ? 0 : "20px"};
+    cursor: pointer;
   `;
 
   const dndBtnStyles = css`

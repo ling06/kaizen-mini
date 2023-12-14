@@ -48,7 +48,6 @@
       "assets/caret-up-mob-news.svg",
       "assets/arrow-left-blue.svg",
       "assets/angle-right-mob.svg",
-      "assets/external-link.svg",
       "assets/img-404.webp",
       "assets/img-404-mob.webp",
       "assets/search-icon.svg",
@@ -275,7 +274,7 @@
     "src": "src/assets/images/editIconRed.svg"
   },
   "src/assets/images/external-link.svg": {
-    "file": "assets/external-link.svg",
+    "file": "assets/moreIcon.svg",
     "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/forwardIcon.svg": {
@@ -320,7 +319,7 @@
   },
   "src/assets/images/moreIcon.svg": {
     "file": "assets/moreIcon.svg",
-    "src": "src/assets/images/moreIcon.svg"
+    "src": "src/assets/images/external-link.svg"
   },
   "src/assets/images/radio-checked.svg": {
     "file": "assets/radio-checked.svg",
