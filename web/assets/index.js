@@ -16449,6 +16449,512 @@ var require_assets = __commonJS({
     });
     const selectUser = userApi.endpoints.checkUser.select();
     const { useCheckUserQuery } = userApi;
+<<<<<<< HEAD
+=======
+    const editIcon$2 = "/assets/editIcon.svg";
+    const addIcon$2 = "/assets/addIcon.svg";
+    const ADMIN_BTN_TYPES = {
+      edit: "edit",
+      add: "add"
+    };
+    const DEFAULT_WIDTH = "1267px";
+    const MODAL_TYPES = {
+      createCourse: "createCourse",
+      createCompetition: "createCompetition",
+      createChapter: "createChapter",
+      createTheme: "createTheme",
+      editCourse: "editCourse",
+      editChapter: "editChapter",
+      editTheme: "editTheme",
+      newsCategory: "newsCategory",
+      selectCourse: "selectCourse"
+    };
+    const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
+    const USER_ROLES = {
+      admin: "admin",
+      user: "user"
+    };
+    const NAV_LINKS = {
+      news: {
+        url: "/news",
+        name: "Новости",
+        icon: {
+          withIcon: false,
+          iconUrl: ""
+        }
+      },
+      education: {
+        url: "/courses",
+        name: "Курсы",
+        icon: {
+          withIcon: false,
+          iconUrl: ""
+        }
+      }
+      // tasks: {
+      //   url: '/tasks',
+      //   name: 'Задачи',
+      //   icon: {
+      //     withIcon: false,
+      //     iconUrl: '',
+      //   },
+      // },
+    };
+    const APHORISMS = [
+      {
+        text: "Нет большей жизни, чем бороться за свои мечты.",
+        author: "Хаяо Миядзаки"
+      },
+      {
+        text: "Если вы ничего не делаете, ничего не происходит.",
+        author: "Икути Кэйта"
+      },
+      {
+        text: "Самурай должен быть вежливым, даже когда смерть близка.",
+        author: "Ямамото Цунэтомо"
+      },
+      {
+        text: "Если вы будете работать только над тем, что вам нравится, вы никогда не должны будете работать ни дня в своей жизни.",
+        author: "Идзамо Томио"
+      },
+      {
+        text: "Но, в конце концов — и я подчеркиваю это — как бы вы ни были хороши или удачливы и как бы вы ни были умны и ловки, ваше дело и его судьба находятся в руках тех людей, которых вы нанимаете.",
+        author: "Акио Морита"
+      },
+      {
+        text: "Всю свою жизнь при­леж­но учись. Каж­дый день ста­новись бо­лее ис­кусным, чем ты был за день до это­го, а на сле­ду­ющий день — бо­лее ис­кусным, чем се­год­ня. Со­вер­шенс­тво­вание не име­ет кон­ца.",
+        author: "Яма­мото Цу­нэто­мо"
+      },
+      {
+        text: "Нет ничего более постыдного для человека, чем выходить из себя.",
+        author: "Сиба Есимаса"
+      },
+      {
+        text: "Искреннее сердце — это драгоценность, которую никогда никуда не спрячешь.",
+        author: "Ходзе Сигэтоки"
+      },
+      {
+        text: "Учение для человека — все равно что ветви и листья для дерева. Без него он просто не сможет жить.",
+        author: "Такэда Сингэн"
+      },
+      {
+        text: "Даже если у человека нет особых талантов, но он упорно овладевает знанием, он не опозорится перед другими.",
+        author: "Сиба Есимаса"
+      },
+      {
+        text: "Во всем надлежит действовать терпеливо.",
+        author: "Набэсима Наосигэ"
+      },
+      {
+        text: "Там, где льются изящные стихи, не остается места суесловию",
+        author: "Мурасаки Сикибу"
+      }
+    ];
+    var MediaQueries = /* @__PURE__ */ ((MediaQueries2) => {
+      MediaQueries2["mobile"] = "(max-width: 768px)";
+      MediaQueries2["desktop"] = "(min-width: 768px)";
+      return MediaQueries2;
+    })(MediaQueries || {});
+    var Steps = /* @__PURE__ */ ((Steps2) => {
+      Steps2["chapter"] = "chapter";
+      Steps2["theme"] = "theme";
+      return Steps2;
+    })(Steps || {});
+    const AdminBtn$1 = st$1.button`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url(${(props) => props.$type === ADMIN_BTN_TYPES.edit ? editIcon$2 : addIcon$2});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  @media ${(props) => props.theme.media.mobile} {
+    display: none;
+    width: 7.5vw;
+    height: 7.5vw;
+  }
+`;
+    const doneIcon$1 = "/assets/done.svg";
+    const selectIcon = "/assets/accordionIcon.svg";
+    const TextStyles = nt$1`
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realBlack};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5.625vw;
+  }
+`;
+    const DarkOverlay = st$1.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+    st$1.div`
+  width: 100%;
+  max-width: ${(props) => props.$maxWidth};
+  height: 100%;
+  backdrop-filter: blur(${(props) => props.$blurValue});
+`;
+    const DefaultBtn = st$1.button`
+  min-height: 60px;
+  padding: 0 3%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+  color: ${(props) => props.theme.colors.realWhite};
+  background-color: ${(props) => props.theme.colors.mainBlue};
+  border-radius: ${(props) => props.theme.utils.br};
+  transition: ${(props) => props.theme.utils.transition};
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.darkBlue};
+  }
+`;
+    st$1.table``;
+    const Text$6 = st$1.p`
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realBlack};
+  text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
+
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 5.625vw;
+  }
+`;
+    const Input$2 = st$1.input`
+  width: 100%;
+  min-height: 60px;
+  padding: 19px 29px;
+  border: 1px solid ${(props) => props.theme.colors.greyEO};
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.realBlack};
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 12.5vw;
+    padding: 4.0625vw 5.3125vw;
+    font-size: 3.75vw;
+  }
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.grey93};
+  }
+
+  &:focus {
+    color: ${(props) => props.theme.colors.realBlack};
+    background-color: transparent;
+  }
+`;
+    const SvgIcon = st$1.svg.attrs({
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      fill: "none"
+    })`
+  path {
+    transition: ${(props) => props.theme.utils.transition};
+  }
+`;
+    const InputWithState = st$1(Input$2)`
+  ${(props) => {
+      if (props.$isChanged && props.$isValid) {
+        return nt$1`
+        color: ${props.theme.colors.grey93};
+        background-color: ${props.theme.colors.greyF1};
+      `;
+      } else if (props.$isChanged) {
+        return nt$1`
+        border-color: ${props.theme.colors.yRed};
+      `;
+      }
+    }}
+`;
+    st$1.button`
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 120%;
+  color: ${(props) => props.theme.colors.mainBlue};
+  text-decoration: underline;
+  background-color: transparent;
+  transition: ${(props) => props.theme.utils.transition};
+
+  &:hover {
+    text-decoration: unset;
+    color: ${(props) => props.theme.colors.darkBlue};
+  }
+`;
+    const DefaultContainer = st$1.div`
+  width: 100%;
+  max-width: ${DEFAULT_WIDTH};
+  margin: 0 auto;
+`;
+    const FlexContainer = st$1.div`
+  display: flex;
+  width: 100%;
+`;
+    const ProgressBar$1 = st$1.div`
+  display: flex;
+  width: 100%;
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    height: 1.5625vw;
+    border-radius: 2.532px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: ${(props) => props.$progress + "%"};
+    height: 100%;
+    border-radius: inherit;
+    background-color: ${(props) => props.theme.colors.realBlack};
+    transition: width 0.2s linear;
+  }
+`;
+    const Icon$2 = st$1.div`
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 7.5vw;
+    height: 7.5vw;
+  }
+`;
+    const DoneIcon$2 = st$1(Icon$2)`
+  margin-right: 26px;
+  /* margin-left: auto; */
+  background-image: url(${doneIcon$1});
+`;
+    const AccordionIcon = st$1(Icon$2)`
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  transition: ${(props) => props.theme.utils.transition};
+  transform: ${(props) => props.$active ? "rotate(-180deg)" : "none"};
+  background-image: url(${selectIcon});
+`;
+    st$1(Text$6)`
+  margin-bottom: 30px;
+  font-weight: 400;
+  line-height: 150%;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+    padding: 0 3.125vw;
+    margin-bottom: 10%;
+  }
+`;
+    st$1(FlexContainer)`
+  width: 310px;
+  height: 400px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.grey93};
+  animation: pulse 0.5s ease-in-out infinite alternate;
+
+  @keyframes pulse {
+    100% {
+      background-color: ${(props) => props.theme.colors.greyEO};
+    }
+  }
+`;
+    st$1.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  list-style: decimal inside;
+`;
+    st$1.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  list-style: disc inside;
+  @media ${(props) => props.theme.media.mobile} {
+    gap: 6.25vw;
+    padding: 0 3.125vw;
+    margin-bottom: 10%;
+  }
+`;
+    st$1.li`
+  display: list-item;
+  ${TextStyles}
+  font-weight: 400;
+  @media ${(props) => props.theme.media.mobile} {
+    font-size: 4.6875vw;
+  }
+`;
+    st$1.img`
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 10%;
+    border-radius: unset;
+  }
+`;
+    st$1(FlexContainer)`
+  flex-direction: column;
+`;
+    const ScrollBar = nt$1`
+    overflow: auto;
+    scrollbar-gutter: stable;
+    scrollbar-width: 10px;
+
+    &::-webkit-scrollbar {
+      width: 10px; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+`;
+    const isHideIcon = "/assets/hideIcon.svg";
+    const addIcon$1 = "/assets/addIconBlack.svg";
+    const editIcon$1 = "/assets/editIconRed.svg";
+    const deleteIcon$1 = "/assets/deleteIcon.svg";
+    const visibleIcon = "/assets/visibleIcon.svg";
+    const Overlay$2 = st$1(DarkOverlay)`
+    z-index: ${(props) => props.theme.utils.zIndex.popup};
+  @media ${(props) => props.theme.media.desktop} {
+    background-color: transparent;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: unset;
+    width: 320px;
+    height: auto;
+    filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
+  }
+`;
+    const Container$O = st$1(FlexContainer)`
+  flex-direction: column;
+  width: 100%;
+  padding: 15px 10px 10px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.greyF1};
+  @media ${(props) => props.theme.media.mobile} {
+    padding: 3.125vw;
+    border-radius: 0px 0px 15px 15px;
+  }
+`;
+    const Title$h = st$1(Text$6)`
+  margin-bottom: 15px;
+  text-align: center;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-bottom: 4.6875vw;
+  }
+`;
+    const Btn = st$1.div`
+  ${TextStyles}
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  border-radius: ${(props) => props.theme.utils.br};
+  background-color: ${(props) => props.theme.colors.realWhite};
+  transition: ${(props) => props.theme.utils.transition};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: 18.75vw;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+    @media ${(props) => props.theme.media.mobile} {
+      margin-bottom: 1.5625vw;
+    }
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.greyF1};
+  }
+`;
+    const HideBtn = st$1(Btn)``;
+    const VisibleBtn = st$1(Btn)``;
+    const AddBtn = st$1(Btn)``;
+    const EditBtn = st$1(Btn)``;
+    const DeleteBtn$3 = st$1(Btn)`
+  color: ${(props) => props.theme.colors.yRed};
+`;
+    const RestoreBtn = st$1(Btn)``;
+    const BtnIcon = st$1(Icon$2)`
+  margin-right: 15px;
+  @media ${(props) => props.theme.media.mobile} {
+    margin-right: 3.125vw;
+  }
+`;
+    const HideIcon = st$1(BtnIcon)`
+  background-image: url(${isHideIcon});
+`;
+    const AddIcon$1 = st$1(BtnIcon)`
+  background-image: url(${addIcon$1});
+`;
+    const EditIcon$1 = st$1(BtnIcon)`
+  background-image: url(${editIcon$1});
+`;
+    const DeleteIcon$1 = st$1(BtnIcon)`
+  background-image: url(${deleteIcon$1});
+`;
+    const VisibleIcon = st$1(BtnIcon)`
+  background-image: url(${visibleIcon});
+`;
+    function ControlsPopup({
+      innerRef,
+      name,
+      onHide,
+      onAdd,
+      onDelete,
+      onEdit,
+      onRestore,
+      onVisible
+    }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$O, { ref: innerRef, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Title$h, { children: name }),
+        onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
+          "скрыть"
+        ] }),
+        onVisible && /* @__PURE__ */ jsxRuntimeExports.jsxs(VisibleBtn, { onClick: onVisible, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(VisibleIcon, {}),
+          "показать"
+        ] }),
+        onAdd && /* @__PURE__ */ jsxRuntimeExports.jsxs(AddBtn, { onClick: onAdd, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AddIcon$1, {}),
+          "добавить"
+        ] }),
+        onEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs(EditBtn, { onClick: onEdit, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EditIcon$1, {}),
+          "изменить"
+        ] }),
+        onDelete && /* @__PURE__ */ jsxRuntimeExports.jsxs(DeleteBtn$3, { onClick: onDelete, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteIcon$1, {}),
+          "удалить"
+        ] }),
+        onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
+      ] }) });
+    }
+    const useTypedSelector = useSelector;
+>>>>>>> 33fce56679319eef91e45f67d9f5047c79872298
     const body = document.body;
     function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles = {} }) {
       const [isPopup, setPopup] = reactExports.useState();
@@ -22084,6 +22590,7 @@ var require_assets = __commonJS({
   font-size: 15px;
   font-weight: 500;
   line-height: 170%;
+  margin-right: auto;
   color: ${(props) => props.$active ? props.theme.colors.dark : props.theme.colors.grey93};
   text-decoration: ${(props) => props.$isDeleted ? "line-through" : "none"};
   @media ${(props) => props.theme.media.mobile} {
@@ -25896,7 +26403,6 @@ var require_assets = __commonJS({
               AdminBtn,
               {
                 popupName: "Урок",
-                styles: { marginLeft: "auto" },
                 type: "edit",
                 onClick: () => {
                 },
@@ -26164,7 +26670,7 @@ var require_assets = __commonJS({
                 ] })
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionDetails$1, { sx: { paddingLeft: "102px", paddingRight: 0 }, children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons }) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(AccordionDetails$1, { sx: { paddingLeft: "70px", paddingRight: 0 }, children: data.lessons && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableLessons, { data: data.lessons }) })
           ]
         }
       ) }) });
@@ -26288,12 +26794,16 @@ var require_assets = __commonJS({
   }
 `;
     const NavContainer = st$1(FlexContainer)`
+  ${ScrollBar};
   flex-direction: column;
   width: 33.25%; 
   padding: 15px 15px 80px;
   border-right: 1px solid ${(props) => props.theme.colors.greyF1};
 `;
     const ContentContainer = st$1(FlexContainer)`
+  ${ScrollBar};
+  scrollbar-width: 20px;
+
   flex-direction: column;
   position: relative;
   width: calc(100% - 33.25%);
@@ -26301,11 +26811,19 @@ var require_assets = __commonJS({
   overflow-y: scroll;
   padding: 20px 35px 80px;
   margin-left: auto;
+
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 3% 10vw;
     margin: 0;
     height: auto;
+  }
+  &::-webkit-scrollbar {
+      width: 20px; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+      border-radius: 15px;
   }
 `;
     const bodyOverflow$1 = at$1`
@@ -81812,8 +82330,12 @@ line-height: 100%`;
     function AsideBar({ children }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$6, { children });
     }
+<<<<<<< HEAD
     const externalLinkIcon = "/assets/moreIcon.svg";
 >>>>>>> 06c9cd178ef23636de0b0c3bf36521d6619d0a24
+=======
+    const externalLinkIcon = "/assets/external-link.svg";
+>>>>>>> 33fce56679319eef91e45f67d9f5047c79872298
     const BottomContainer$2 = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;

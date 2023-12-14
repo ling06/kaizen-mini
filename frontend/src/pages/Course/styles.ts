@@ -10,6 +10,7 @@ export const Container = styled(C.FlexContainer)`
 `;
 
 export const NavContainer = styled(C.FlexContainer)`
+  ${C.ScrollBar};
   flex-direction: column;
   width: 33.25%; 
   padding: 15px 15px 80px;
@@ -17,6 +18,9 @@ export const NavContainer = styled(C.FlexContainer)`
 `;
 
 export const ContentContainer = styled(C.FlexContainer)`
+  ${C.ScrollBar};
+  scrollbar-width: 20px;
+
   flex-direction: column;
   position: relative;
   width: calc(100% - 33.25%);
@@ -24,11 +28,19 @@ export const ContentContainer = styled(C.FlexContainer)`
   overflow-y: scroll;
   padding: 20px 35px 80px;
   margin-left: auto;
+
   @media ${props => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 3% 10vw;
     margin: 0;
     height: auto;
+  }
+  &::-webkit-scrollbar {
+      width: 20px; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+      border-radius: 15px;
   }
 `;
 
