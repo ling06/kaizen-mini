@@ -270,3 +270,23 @@ export const EditorImg = styled.img`
 export const FlexColumn = styled(FlexContainer)`
   flex-direction: column;
 `;
+
+export const ScrollBar = css`
+    overflow: auto;
+    scrollbar-gutter: stable;
+    scrollbar-width: 10px;
+
+    &::-webkit-scrollbar {
+      width: 10px; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+
+    &::-moz-range-thumb{
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+`;

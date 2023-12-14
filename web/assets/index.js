@@ -16307,6 +16307,25 @@ var require_assets = __commonJS({
     st$1(FlexContainer)`
   flex-direction: column;
 `;
+    const ScrollBar = nt$1`
+    overflow: auto;
+    scrollbar-gutter: stable;
+    scrollbar-width: 10px;
+
+    &::-webkit-scrollbar {
+      width: 10px; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+
+    &::-moz-range-thumb{
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+`;
     const isHideIcon = "/assets/hideIcon.svg";
     const addIcon$1 = "/assets/addIconBlack.svg";
     const editIcon$1 = "/assets/editIconRed.svg";
@@ -26272,22 +26291,16 @@ var require_assets = __commonJS({
   }
 `;
     const NavContainer = st$1(FlexContainer)`
-  overflow: auto;
+  ${ScrollBar};
   flex-direction: column;
   width: 33.25%; 
   padding: 15px 15px 80px;
   border-right: 1px solid ${(props) => props.theme.colors.greyF1};
-
-    &::-webkit-scrollbar {
-      width: 10px; 
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: #f1f1f1;
-      border-radius: 5px;
-    }
 `;
     const ContentContainer = st$1(FlexContainer)`
+  ${ScrollBar};
+  scrollbar-width: 20px;
+
   flex-direction: column;
   position: relative;
   width: calc(100% - 33.25%);
@@ -26295,11 +26308,19 @@ var require_assets = __commonJS({
   overflow-y: scroll;
   padding: 20px 35px 80px;
   margin-left: auto;
+
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
     padding: 3.125vw 3% 10vw;
     margin: 0;
     height: auto;
+  }
+  &::-webkit-scrollbar {
+      width: 20px; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+      border-radius: 15px;
   }
 `;
     const bodyOverflow$1 = at$1`
