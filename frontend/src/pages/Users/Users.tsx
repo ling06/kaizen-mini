@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { BigTitle } from '@/shared/ui/components';
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
 import { useGetUsersQuery } from '@/entities/users';
+import { LoadingSmall } from '@/components/LoadingSmall';
 
 const layoutStyles = css`
   max-width: 1266px;
@@ -45,6 +46,7 @@ export function Users() {
           styles={searchInputStyles}
         />
         <UsersList>
+          {isLoading && <LoadingSmall />}
           {!isError &&
             !isLoading &&
             data?.data.map((user) => {
