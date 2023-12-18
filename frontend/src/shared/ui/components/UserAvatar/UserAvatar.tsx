@@ -22,10 +22,8 @@ export function UserAvatar({ userData }: IProfileProps) {
   }, [userData.name]);
 
   return (
-    <S.Container>
-      <S.InitialsWrapper>
+    <S.Container $isAvatar={!!userData.avatar}>
         {userData.avatar ? <S.Avatar src={userData.avatar}/> : <S.Initials>{initials}</S.Initials>}
-      </S.InitialsWrapper>
     </S.Container>
   );
 }

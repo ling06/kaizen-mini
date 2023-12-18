@@ -6,4 +6,4 @@ export type LoginErrorRes = paths['/api/auth/login']['post']['responses']['401']
 
 export type LogoutRes = paths['/api/auth/logout']['post']['responses']['200']['content']['application/json'];
 
-export type User = components['schemas']['UserSchema'];
+export type User = paths['/api/auth/me']['get']['responses']['200']['content']['application/json'];

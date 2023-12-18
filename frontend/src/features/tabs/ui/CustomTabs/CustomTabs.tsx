@@ -27,7 +27,7 @@ interface ICustomTabsProps {
  * @param {ICustomTabsProps} tabNames - An array of tab names.
  * @param {ICustomTabsProps} tabPanels - An array of tab panels.
  */
-export function CustomTabs({ tabNames, tabPanels }: ICustomTabsProps) {
+export function CustomTabs({ tabNames, tabPanels }: Readonly<ICustomTabsProps>) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -38,10 +38,7 @@ export function CustomTabs({ tabNames, tabPanels }: ICustomTabsProps) {
       if (activeTab) {
         setSelectedIndex(tabNames.indexOf(activeTab));
       }
-      return;
     }
-
-    setSearchParams({ tab: tabNames[0].queryParam });
   }, [searchParams, setSearchParams, tabNames]);
 
   const handleSelect = (index: number) => {

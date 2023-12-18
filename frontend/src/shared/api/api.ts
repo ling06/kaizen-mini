@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store/store';
+import { RootState } from '../model/store/store';
 
 const API_URL = 'https://api.test.kaizen.borboza.com/api/';
 
@@ -20,6 +20,8 @@ export const api = createApi({
     'CourseProgress',
     'NewsByCategory',
     'CompetitionById',
+    'Users',
+    'SearchUsers',
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,

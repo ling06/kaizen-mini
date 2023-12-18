@@ -463,22 +463,20 @@ export interface components {
     };
     /** Пользователь */
     UserSchema: {
-      data: {
-        /** @example 5398 */
-        id: number;
-        /** @example https://i.pravatar.cc/300 */
-        avatar: string | null;
-        /** @example Алексей Поваров */
-        name: string | null;
-        /** @example Povarov */
-        username: string | null;
-        /** @example 1 */
-        role_id: number | null;
-        /** @example 1 */
-        isActive: number | null;
-        /** @example 2023-12-04 10:56:35 */
-        lastAction: unknown;
-      };
+      /** @example 5398 */
+      id: number;
+      /** @example https://i.pravatar.cc/300 */
+      avatar: string | null;
+      /** @example Алексей Поваров */
+      name: string | null;
+      /** @example Povarov */
+      username: string | null;
+      /** @example 1 */
+      role_id: number | null;
+      /** @example 1 */
+      isActive: number | null;
+      /** @example 2023-12-04 10:56:35 */
+      lastAction: unknown;
     };
   };
   responses: {
@@ -570,7 +568,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["UserSchema"];
+          "application/json": {
+            data: components["schemas"]["UserSchema"];
+          };
         };
       };
       /** @description Error: Unauthorized */

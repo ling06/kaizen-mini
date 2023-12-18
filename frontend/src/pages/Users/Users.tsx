@@ -5,65 +5,7 @@ import { User } from '@/entities/user/ui/User';
 import { useNavigate } from 'react-router-dom';
 import { BigTitle } from '@/shared/ui/components';
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
-
-const users = [
-  {
-    id: 4533,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Короткевич',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 453,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Иванов',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 43,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Смирнов',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 433,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Сидоров',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 533,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Борецкий',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 33,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Короткевич',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-  {
-    id: 53,
-    isActive: 1,
-    lastAction: '2023-12-03 14:21:24',
-    name: 'Александр Короткевич',
-    role: 'admin',
-    username: 'Korotkevich',
-  },
-];
+import { useGetUsersQuery } from '@/entities/users';
 
 const layoutStyles = css`
   max-width: 1266px;
@@ -84,9 +26,11 @@ const userStyles = css`
 
 export function Users() {
   const navigate = useNavigate();
+  const { data, isError, isLoading } = useGetUsersQuery(null);
+  console.log(data);
 
   const handleClickUser = (id: number) => {
-    navigate(`/users/${id}`);
+    navigate(`/users/${id}`, { relative: 'path' });
   };
 
   return (
@@ -101,15 +45,18 @@ export function Users() {
           styles={searchInputStyles}
         />
         <UsersList>
-          {users.map((user) => {
-            return (
-              <User
-                onClick={() => handleClickUser(user.id)}
-                userData={user}
-                styles={userStyles}
-              />
-            );
-          })}
+          {!isError &&
+            !isLoading &&
+            data?.data.map((user) => {
+              return (
+                <User
+                  onClick={() => handleClickUser(user.id)}
+                  userData={user}
+                  styles={userStyles}
+                  key={user.id}
+                />
+              );
+            })}
         </UsersList>
       </WhiteBox>
     </Layout>
