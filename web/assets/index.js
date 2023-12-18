@@ -14379,6 +14379,7 @@ var require_assets = __commonJS({
         "NewsById",
         "NewsCategory",
         "Courses",
+        "Course",
         "ThemeById",
         "CourseById",
         "ChapterById",
@@ -14401,7 +14402,7 @@ var require_assets = __commonJS({
       }),
       endpoints: () => ({})
     });
-    const userApi$1 = api$1.injectEndpoints({
+    const userApi = api$1.injectEndpoints({
       endpoints: (builder) => ({
         login: builder.mutation({
           query: (data) => ({
@@ -14416,7 +14417,7 @@ var require_assets = __commonJS({
             method: "POST"
           })
         }),
-        getUser: builder.query({
+        getMe: builder.query({
           query: () => ({
             url: "auth/me",
             method: "GET"
@@ -14424,8 +14425,8 @@ var require_assets = __commonJS({
         })
       })
     });
-    const { useLoginMutation, useLogoutMutation, useGetUserQuery } = userApi$1;
-    userApi$1.endpoints.getUser.select(null);
+    const { useLoginMutation, useLogoutMutation, useGetMeQuery } = userApi;
+    const selectUser = userApi.endpoints.getMe.select(null);
     const UserInitialState = {
       token: null
     };
@@ -16114,10 +16115,6 @@ var require_assets = __commonJS({
       selectCourse: "selectCourse"
     };
     const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
-    const USER_ROLES = {
-      admin: "admin",
-      user: "user"
-    };
     const NAV_LINKS = {
       news: {
         url: "/news",
@@ -16490,7 +16487,7 @@ var require_assets = __commonJS({
     filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.25));
   }
 `;
-    const Container$S = st$1(FlexContainer)`
+    const Container$R = st$1(FlexContainer)`
   flex-direction: column;
   width: 100%;
   padding: 15px 10px 10px;
@@ -16572,7 +16569,7 @@ var require_assets = __commonJS({
       onRestore,
       onVisible
     }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$S, { ref: innerRef, children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$R, { ref: innerRef, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$k, { children: name }),
         onHide && /* @__PURE__ */ jsxRuntimeExports.jsxs(HideBtn, { onClick: onHide, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(HideIcon, {}),
@@ -16597,37 +16594,16 @@ var require_assets = __commonJS({
         onRestore && /* @__PURE__ */ jsxRuntimeExports.jsx(RestoreBtn, { onClick: onRestore, children: "восстановить" })
       ] }) });
     }
-    const userApi = api$1.injectEndpoints({
-      endpoints: (builder) => ({
-        checkUser: builder.query({
-          query: () => "whoami",
-          providesTags: () => [
-            {
-              type: "User"
-            }
-          ]
-        })
-      }),
-      overrideExisting: false
-    });
-    const selectUser = userApi.endpoints.checkUser.select();
     const body = document.body;
     function AdminBtn({ type, onClick: onClick2, popupName, popupHandlers, styles = {} }) {
-      const [isPopup, setPopup] = reactExports.useState();
-      const user = useTypedSelector((state) => selectUser(state).data);
+      const [isPopup, setIsPopup] = reactExports.useState();
       const ref = reactExports.useRef(null);
       const popupInnerRef = reactExports.useRef(null);
-      const [isAdmin, setAdmin] = reactExports.useState(false);
-      reactExports.useEffect(() => {
-        if (user && user.user.role === USER_ROLES.admin) {
-          setAdmin(true);
-        }
-      }, [user]);
       const handleOverlayClick = (event) => {
         if (!popupInnerRef.current)
           return;
         if (event.target !== popupInnerRef.current && event.target !== ref.current) {
-          setPopup(false);
+          setIsPopup(false);
           body.removeEventListener("click", handleOverlayClick);
         }
       };
@@ -16638,15 +16614,13 @@ var require_assets = __commonJS({
         }
         if (type === ADMIN_BTN_TYPES.edit) {
           if (isPopup) {
-            setPopup(false);
+            setIsPopup(false);
           } else {
-            setPopup(true);
+            setIsPopup(true);
             body.addEventListener("click", handleOverlayClick);
           }
         }
       };
-      if (!isAdmin)
-        return null;
       return /* @__PURE__ */ jsxRuntimeExports.jsx(
         AdminBtn$1,
         {
@@ -16665,7 +16639,7 @@ var require_assets = __commonJS({
         }
       );
     }
-    const Container$R = st$1(FlexContainer)`
+    const Container$Q = st$1(FlexContainer)`
   flex-direction: column;
 `;
     const Title$j = st$1.h4`
@@ -16732,13 +16706,6 @@ var require_assets = __commonJS({
     }, onMouseEnter = () => {
     }, onMouseLeave = () => {
     }, styles }) {
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
-      console.log(userRole);
-      if (userRole !== "admin")
-        return null;
       return /* @__PURE__ */ jsxRuntimeExports.jsx(
         DndBtn$1,
         {
@@ -16749,11 +16716,11 @@ var require_assets = __commonJS({
         }
       );
     }
-    const Container$Q = st$1(FlexContainer)`
+    const Container$P = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
-    const Theme$2 = st$1(FlexContainer)`
+    const Theme$1 = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 30px;
 `;
@@ -25877,7 +25844,7 @@ var require_assets = __commonJS({
       };
     }
     [KeyboardCode.Down, KeyboardCode.Right, KeyboardCode.Up, KeyboardCode.Left];
-    const Container$P = st$1.div`
+    const Container$O = st$1.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -26032,7 +25999,7 @@ var require_assets = __commonJS({
         setLoaderActive(true);
       }, [data.id, lessonStatus, setLoaderActive, updateLesson]);
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$P,
+        Container$O,
         {
           $isDeleted: !!data.is_deleted,
           onClick: handleClick,
@@ -26267,7 +26234,7 @@ var require_assets = __commonJS({
         });
         navigate(path);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$Q, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$2, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$P, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         Accordion$1,
         {
           sx: { width: "100%", boxShadow: "unset" },
@@ -26333,10 +26300,6 @@ var require_assets = __commonJS({
     }
     function SortableThemes({ data }) {
       const { setLoaderActive } = useActions();
-      const userRole = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
       const [themes, setThemes] = reactExports.useState([]);
       const { courseId } = useParams();
       const [setPositions] = useSetThemesPositionsMutation();
@@ -26348,15 +26311,15 @@ var require_assets = __commonJS({
               isDraggable: false
             };
           });
-          const themesDataSorted = themesData.sort((a2, b2) => a2.position - b2.position);
-          setThemes(themesDataSorted);
+          themesData.sort((a2, b2) => a2.position - b2.position);
+          setThemes(themesData);
           return;
         }
         setThemes([]);
       }, [data]);
       function handleDragEnd(event) {
         const { active, over } = event;
-        if (!over || !over.data.current) {
+        if (!(over == null ? void 0 : over.data.current)) {
           return;
         }
         if (active.id !== over.id) {
@@ -26396,9 +26359,6 @@ var require_assets = __commonJS({
         });
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: themes && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: themes.map((theme) => theme.id), children: themes.map((theme) => {
-        if (Number(theme.is_deleted) === 1 && userRole !== "admin") {
-          return;
-        }
         return /* @__PURE__ */ jsxRuntimeExports.jsx(
           SortableItem,
           {
@@ -26430,7 +26390,7 @@ var require_assets = __commonJS({
         setModalType(MODAL_TYPES.createTheme);
         setModalOpen(true);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$R, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$Q, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(FadedTitle, { text: "Темы главы", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           AdminBtn,
           {
@@ -26439,10 +26399,10 @@ var require_assets = __commonJS({
             onClick: openCreateThemeModal
           }
         ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Container$R, { children: data.themes && data.themes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableThemes, { data: data.themes }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Container$Q, { children: data.themes && data.themes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableThemes, { data: data.themes }) })
       ] });
     }
-    const Container$O = st$1(FlexContainer)`
+    const Container$N = st$1(FlexContainer)`
   height: calc(100vh - 62.25px);
   background-color: ${(props) => props.theme.colors.realWhite};
   @media ${(props) => props.theme.media.mobile} {
@@ -26488,7 +26448,7 @@ var require_assets = __commonJS({
     background-color: ${(props) => props.theme.colors.realWhite};
   }
 `;
-    const Container$N = st$1(FlexContainer)`
+    const Container$M = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 18px;
   margin-bottom: 40px;
@@ -26606,7 +26566,7 @@ var require_assets = __commonJS({
         setModalType(MODAL_TYPES.editChapter);
         setModalOpen(true);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$N, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$M, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(TitleWrapper, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Title$h,
@@ -26634,7 +26594,7 @@ var require_assets = __commonJS({
         /* @__PURE__ */ jsxRuntimeExports.jsx(ProgressBar, { $progress: `${chapterProgress}` })
       ] });
     }
-    const Container$M = st$1(FlexContainer)`
+    const Container$L = st$1(FlexContainer)`
   align-items: center;
   justify-content: center;
   height: 188px;
@@ -26645,7 +26605,7 @@ var require_assets = __commonJS({
   font-size: 22.714px;
 `;
     function ErrorBlock() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$M, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$5, { children: "Что-то пошло не так" }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$L, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Text$5, { children: "Что-то пошло не так" }) });
     }
     const forwardIcon = "/assets/forwardIcon.svg";
     const forwardIconDisabled = "/assets/forwardIconDisabled.svg";
@@ -26661,7 +26621,7 @@ var require_assets = __commonJS({
     font-size:  5.625vw;
   }
 `;
-    const Container$L = st$1(FlexContainer)`
+    const Container$K = st$1(FlexContainer)`
   flex-direction: column;
   position: relative;
 `;
@@ -26706,7 +26666,7 @@ var require_assets = __commonJS({
     background-image: url(${forwardIconDisabled});
   }
 `;
-    const Container$K = st$1.div`
+    const Container$J = st$1.div`
   font-style: normal;
   font-weight: 400;
   margin-bottom: 20px;
@@ -26749,9 +26709,9 @@ var require_assets = __commonJS({
   }
 `;
     function CkEditorOutput({ data }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsx(Container$K, { dangerouslySetInnerHTML: { __html: data }, className: "ck-content" }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: data && /* @__PURE__ */ jsxRuntimeExports.jsx(Container$J, { dangerouslySetInnerHTML: { __html: data }, className: "ck-content" }) });
     }
-    const Container$J = st$1(FlexContainer)`
+    const Container$I = st$1(FlexContainer)`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -26927,7 +26887,7 @@ var require_assets = __commonJS({
     } = lessonTestApi;
     const wrongAnswer = "/assets/wrongAnswer.svg";
     const rightAnswer = "/assets/rightAnswer.svg";
-    const Container$I = st$1(FlexContainer)`
+    const Container$H = st$1(FlexContainer)`
   flex-direction: column;
   row-gap: 15px;
   @media ${(props) => props.theme.media.mobile} {
@@ -26959,7 +26919,7 @@ var require_assets = __commonJS({
   color: ${(props) => props.$isRight ? props.theme.colors.mainGreen : props.theme.colors.yRed};
 `;
     function CheckedAnswer({ data }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$I, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$H, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Answer, { $isRight: !!data.right_answer, children: data.answer }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Comment, { $isRight: !!data.right_answer, children: data.text })
       ] });
@@ -26988,7 +26948,7 @@ var require_assets = __commonJS({
         }
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$J,
+        Container$I,
         {
           $isRight: isUserRightAnswer,
           $isPassed: isTestPassed,
@@ -27163,7 +27123,7 @@ var require_assets = __commonJS({
               }
             )
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$L, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$K, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CkEditorOutput, { data: data.data.description }),
             data.data.tests.length > 0 && renderLessonTests(),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27259,7 +27219,7 @@ var require_assets = __commonJS({
       return match2;
     }
     const closeIcon = "/assets/close-icon.svg";
-    const Button$2 = st$1.button`
+    const Button$4 = st$1.button`
   width: 24px;
   height: 24px;
   padding: 0;
@@ -27277,7 +27237,7 @@ var require_assets = __commonJS({
     function CloseBtn$2({ onClick: onClick2 = () => {
     }, styles = {} }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button$2,
+        Button$4,
         {
           onClick: onClick2,
           style: styles
@@ -27299,7 +27259,7 @@ var require_assets = __commonJS({
   line-height: 130%;
   color: #000;
 `;
-    const Chapter$1 = st$1(NavItem)`
+    const Chapter = st$1(NavItem)`
   ${(props) => {
       if (!props.$isActive) {
         return nt$1`
@@ -27313,7 +27273,7 @@ var require_assets = __commonJS({
   margin-right: 3.125vw;
   background-image: url(${arrowIcon});
 `;
-    const Theme$1 = st$1(NavItem)`
+    const Theme = st$1(NavItem)`
   color: ${(props) => props.theme.colors.dark};
   border-color: ${(props) => props.theme.colors.dark};
 `;
@@ -27327,7 +27287,7 @@ var require_assets = __commonJS({
       }, [activeStep, chapterId, courseId, navigate]);
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavList$2, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Chapter$1,
+          Chapter,
           {
             $isActive: activeStep === Steps.chapter,
             onClick: handleClick,
@@ -27336,11 +27296,11 @@ var require_assets = __commonJS({
         ),
         activeStep === Steps.theme && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowIcon, {}),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Theme$1, { children: "Тема" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Theme, { children: "Тема" })
         ] })
       ] });
     }
-    const Container$H = st$1.div`
+    const Container$G = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27350,12 +27310,12 @@ var require_assets = __commonJS({
 `;
     function Head$3({ activeStep, onClose = () => {
     } }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$H, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar$1, { activeStep }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$2, { onClick: onClose })
       ] });
     }
-    const Container$G = st$1.div`
+    const Container$F = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -27435,7 +27395,7 @@ var require_assets = __commonJS({
           setNavPopup(false);
         }
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$G, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Head$3,
           {
@@ -27501,7 +27461,7 @@ var require_assets = __commonJS({
       }, [chapterId, setActiveChapterId]);
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$O, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$N, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(bodyOverflow$1, {}),
           !isMobile && data && /* @__PURE__ */ jsxRuntimeExports.jsxs(NavContainer, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CourseNavHead, { data: data.data }),
@@ -40125,7 +40085,7 @@ margin-bottom: 60px;
         }
       }
     };
-    const Container$F = st$1.div`
+    const Container$E = st$1.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40160,7 +40120,7 @@ margin-bottom: 60px;
   }
 `;
     function FormControls({ handlers, names, containerStyles }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$F, { style: containerStyles, children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$E, { style: containerStyles, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CancelBtn, { onClick: handlers.cancel, children: names.cancel }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(ConfirmBtn, { onClick: handlers.confirm, children: names.confirm })
       ] });
@@ -72567,7 +72527,7 @@ margin-bottom: 60px;
   }
 `;
     const addIcon = "/assets/addIconWhite.svg";
-    const Container$E = st$1(FlexContainer)`
+    const Container$D = st$1(FlexContainer)`
   flex-direction: column;
   padding-top: 40px;
   margin-bottom: 30px;
@@ -72616,7 +72576,7 @@ margin-bottom: 60px;
         children
       ] });
     }
-    const Container$D = st$1(FlexContainer)`
+    const Container$C = st$1(FlexContainer)`
   flex-direction: column;
   margin-bottom: 15px;
   &:not(:last-child) {
@@ -72773,7 +72733,7 @@ margin-bottom: 60px;
         fontSize: "18px",
         fontWeight: "600"
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$C, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { value: `Вариант ${number}`, children: number > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(DeleteBtn$1, { onClick: handleDeleteVariant }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           VariantInput,
@@ -72837,7 +72797,7 @@ margin-bottom: 60px;
       const handleDeleteTest = () => {
         deleteTest(data.id);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$E, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$D, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$b, { value: "Заголовок теста (необязательно)" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           TestName,
@@ -73435,7 +73395,7 @@ margin-bottom: 60px;
         }
       );
     }
-    const Container$C = st$1(FlexContainer)`
+    const Container$B = st$1(FlexContainer)`
   max-width: min(1360px, 73%);
   margin: 0 auto;
   width: 100%;
@@ -73451,7 +73411,7 @@ margin-bottom: 60px;
   min-height: 60px;
 `;
     function Nav$1() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$C, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$B, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavBar, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
         CustomNavLink,
         {
           ...navLink,
@@ -73459,7 +73419,7 @@ margin-bottom: 60px;
         }
       )) }) });
     }
-    const Container$B = st$1.div`
+    const Container$A = st$1.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -73497,7 +73457,7 @@ margin-bottom: 60px;
     function Title$7({ title, styles }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Title$8, { $styles: styles, children: title });
     }
-    const Container$A = st$1.div``;
+    const Container$z = st$1.div``;
     const InitialsWrapper = st$1.div`
   display: flex;
   align-items: center;
@@ -73541,10 +73501,7 @@ color: ${(props) => props.theme.colors.mainBlue};
           initials2.length > 1 ? setInitials(initials2) : setInitials(null);
         }
       }, [userData.name]);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Initials, { children: [
-        initials,
-        "вв"
-      ] }) }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$z, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(InitialsWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Initials, { children: initials }) }) });
     }
     const checkboxIcon = "/assets/checkbox.svg";
     const checkboxIconChecked = "/assets/checkbox-checked.svg";
@@ -73596,11 +73553,21 @@ color: ${(props) => props.theme.colors.mainBlue};
     st$1(Text$6)`
 font-weight: ${(props) => props.$bold ? "700" : "400"};
 line-height: 100%`;
+    const Button$3 = st$1(DefaultBtn)`
+  width: fit-content;
+
+  ${(props) => {
+      if (props.$styles) {
+        return props.$styles;
+      }
+    }}
+`;
+    const Button$2 = ({ text, onClick: onClick2, styles }) => {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$3, { $styles: styles, onClick: onClick2, children: text });
+    };
     function ProfileBlock() {
-      const token2 = useTypedSelector((state) => state.user.token);
-      const { data, isLoading } = useGetUserQuery(null, { skip: !token2 });
-      console.log(data);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$B, { children: (data == null ? void 0 : data.data) && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(UserAvatar, { userData: data.data }) });
+      const { data, isLoading } = useGetMeQuery(null);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$A, { children: (data == null ? void 0 : data.data) && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(UserAvatar, { userData: data.data }) });
     }
     const burgerIconOpen = "/assets/burger-icon-open.svg";
     const burgerIconClose = "/assets/burger-icon-close.svg";
@@ -73625,7 +73592,7 @@ line-height: 100%`;
     function BurgerBtn({ onClick: onClick2, isOpen }) {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Button$1, { onClick: onClick2, children: isOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloseIcon, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(OpenIcon, {}) });
     }
-    const Container$z = st$1.div`
+    const Container$y = st$1.div`
   display: flex;
   align-items: center;
   padding: 3.125%;
@@ -73662,9 +73629,9 @@ line-height: 100%`;
     function Head$2({ onClose }) {
       const user = useTypedSelector((state) => {
         var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.data;
       });
-      const username = getUsername(user == null ? void 0 : user.name);
+      const username = getUsername((user == null ? void 0 : user.name) ?? "");
       reactExports.useEffect(() => {
         setTimeout(() => {
           document.body.addEventListener("click", onClose);
@@ -73673,7 +73640,7 @@ line-height: 100%`;
           document.body.removeEventListener("click", onClose);
         };
       });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$z, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           BurgerBtn,
           {
@@ -73690,7 +73657,7 @@ line-height: 100%`;
         ] })
       ] });
     }
-    const Container$y = st$1.div`
+    const Container$x = st$1.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -73702,14 +73669,14 @@ line-height: 100%`;
   background-color: ${(props) => props.theme.colors.realWhite};
   overflow-y: auto;
 `;
-    const Container$x = st$1.div`
+    const Container$w = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.6vw;
 `;
     function Nav({ onClose }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$x, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$w, { children: Object.values(NAV_LINKS).map((navLink, index) => /* @__PURE__ */ reactExports.createElement(
         CustomNavLink,
         {
           ...navLink,
@@ -73718,7 +73685,7 @@ line-height: 100%`;
         }
       )) });
     }
-    const Container$w = st$1.div`
+    const Container$v = st$1.div`
   display: none;
   flex-direction: column;
   padding: 0 3.125%;
@@ -73728,7 +73695,7 @@ line-height: 100%`;
   }
 `;
     function Body({ onClose }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$w, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$v, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Nav, { onClose }) });
     }
     const useAphorism = () => {
       const defaultAphorism = {
@@ -73742,7 +73709,7 @@ line-height: 100%`;
       const randomIndex = Math.floor(Math.random() * aphorisms.length);
       return aphorisms[randomIndex];
     };
-    const Container$v = st$1.div`
+    const Container$u = st$1.div`
   display: none;
   @media ${(props) => props.theme.media.mobile} {
     display: flex;
@@ -73773,13 +73740,13 @@ line-height: 100%`;
 `;
     function Aphorism() {
       const { text, author } = useAphorism();
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$v, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Title$6, { children: "Фраза дня" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism$1, { children: text }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Author$1, { children: author })
       ] });
     }
-    const Container$u = st$1.div`
+    const Container$t = st$1.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73804,7 +73771,7 @@ line-height: 100%`;
 `;
     const logoMobile = "/assets/logo-mobile.svg";
     function Footer$2() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$u, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Aphorism, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Bottom$1, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -73823,7 +73790,7 @@ line-height: 100%`;
       if (!modalRoot)
         return null;
       return ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$y, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$x, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Head$2, { onClose }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Body, { onClose }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$2, {})
@@ -73860,7 +73827,7 @@ line-height: 100%`;
         isBurgerMenuOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(BurgerMenu, { onClose: handleToggleBurgerMenu })
       ] });
     }
-    const Container$t = st$1(FlexContainer)`
+    const Container$s = st$1(FlexContainer)`
   align-items: center;
   margin-bottom: 20px;
 `;
@@ -73983,10 +73950,9 @@ line-height: 100%`;
         }
       );
     }
-    function CourseSelect() {
+    function CourseSelect({ data }) {
       var _a;
       const { setModalOpen, setModalType, setModalPosition } = useActions();
-      const courseData = useTypedSelector((state) => state.course.data);
       const marginRight = nt$1`
     margin-right: 20px;
   `;
@@ -73999,24 +73965,24 @@ line-height: 100%`;
         setModalOpen(true);
         setModalType("createCourse");
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$t, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(CourseName$1, { onClick: handleOpenSelectCourseModal, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             CourseProgress,
             {
-              percentage: ((_a = courseData.percentage) == null ? void 0 : _a.percentage) || 0,
+              percentage: ((_a = data.percentage) == null ? void 0 : _a.percentage) || 0,
               styles: marginRight,
-              isHidden: !courseData.status || !!courseData.is_deleted
+              isHidden: !data.status || !!data.is_deleted
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             CourseTitle,
             {
-              title: courseData.title,
+              title: data.title,
               isSelected: true,
               styles: marginRight,
-              isDeleted: !!courseData.is_deleted,
-              isHidden: !courseData.status
+              isDeleted: !!data.is_deleted,
+              isHidden: !data.status
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectIcon$1, {})
@@ -74031,14 +73997,21 @@ line-height: 100%`;
         )
       ] });
     }
-    const Container$s = st$1(FlexContainer)`
+    const Container$r = st$1(FlexContainer)`
   flex-direction: column;
   padding: 60px 0 150px 0;
   @media ${(props) => props.theme.media.mobile} {
     padding: 2% 0 15%;
   }
 `;
-    const Container$r = st$1(FlexContainer)`
+    const NotSelectedCourse = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: ${(props) => props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br};
+`;
+    const Container$q = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 66px;
@@ -74097,7 +74070,7 @@ line-height: 100%`;
     font-size: 4.6875vw;
   }
 `;
-    const OpenCourse = st$1(DefaultBtn)`
+    st$1(DefaultBtn)`
   width: fit-content;
   padding: 0 40px;
   margin-top: auto;
@@ -74116,76 +74089,10 @@ line-height: 100%`;
   font-size: 22.689px;
   color: ${(props) => props.theme.colors.mainBlue};
 `;
-    const ErrorName = st$1(LessonName)`
+    st$1(LessonName)`
   margin: auto;
 `;
     const defaultPreview = "/assets/course-stub-img.webp";
-    const arrowRight = "/assets/arrowRight.svg";
-    const Container$q = st$1(FlexContainer)`
-  align-items: center;
-  column-gap: 7px;
-  flex-wrap: wrap;
-  @media ${(props) => props.theme.media.mobile} {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-    const TextStyle = nt$1`
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 130%;
-  color: ${(props) => props.theme.colors.realBlack};
-  @media ${(props) => props.theme.media.mobile} {
-    font-size: 3.75vw;
-  }
-
-  &:not(:last-child) {
-    @media ${(props) => props.theme.media.mobile} {
-      margin-bottom: 3.125vw;
-    }
-  }
-`;
-    const Chapter = st$1.p`
-  ${TextStyle}
-`;
-    const Theme = st$1.p`
-  ${TextStyle}
-`;
-    const Lesson = st$1.p`
-  ${TextStyle}
-`;
-    const Arrow = st$1(Icon$2)`
-  background-image: url(${arrowRight});
-  @media ${(props) => props.theme.media.mobile} {
-    display: none;
-  }
-`;
-    function CourseBreadcrumb({ chapter, theme, lesson, containerStyles }) {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { style: containerStyles, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Chapter, { children: [
-          "Глава ",
-          chapter.position,
-          "/",
-          chapter.allQuantity
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Arrow, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Theme, { children: [
-          "Тема ",
-          theme.position,
-          "/",
-          theme.allQuantity,
-          ": ",
-          theme.name
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Arrow, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Lesson, { children: [
-          "Урок ",
-          lesson.position,
-          "/",
-          lesson.allQuantity
-        ] })
-      ] });
-    }
     const Container$p = st$1(FlexContainer)`
   align-items: center;
   justify-content: space-between;
@@ -74272,166 +74179,19 @@ line-height: 100%`;
         courseData.status === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(IsHiddenIcon, {})
       ] });
     }
-    const courseApi = api$1.injectEndpoints({
-      endpoints: (builder) => ({
-        getCourses: builder.query({
-          query: () => "course",
-          providesTags: () => [
-            {
-              type: "Courses"
-            }
-          ]
-        }),
-        getCourseById: builder.query({
-          query: (id2) => `course/${id2}`,
-          providesTags: () => [
-            {
-              type: "CourseById"
-            }
-          ]
-        }),
-        createCourse: builder.mutation({
-          query: (data) => ({
-            url: "course/create",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: () => [
-            {
-              type: "Courses"
-            }
-          ]
-        }),
-        updateCourse: builder.mutation({
-          query: (data) => ({
-            url: "course/update",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "CourseById"]
-        }),
-        deleteCourse: builder.mutation({
-          query: (data) => ({
-            url: "course/delete",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses"]
-        }),
-        restoreCourse: builder.mutation({
-          query: (data) => ({
-            url: "course/restore",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses"]
-        }),
-        getCourseProgress: builder.query({
-          query: (data) => ({
-            url: "course/get-users-progress",
-            method: "POST",
-            body: data
-          }),
-          providesTags: () => [
-            {
-              type: "CourseProgress"
-            }
-          ]
-        }),
-        setCoursesPositions: builder.mutation({
-          query: (data) => ({
-            url: "course/set-positions",
-            method: "POST",
-            body: data
-          }),
-          invalidatesTags: ["Courses", "CourseById"]
-        })
-      }),
-      overrideExisting: false
-    });
-    const {
-      useCreateCourseMutation,
-      useDeleteCourseMutation,
-      useGetCoursesQuery,
-      useGetCourseByIdQuery,
-      useRestoreCourseMutation,
-      useUpdateCourseMutation,
-      useGetCourseProgressQuery,
-      useSetCoursesPositionsMutation
-    } = courseApi;
-    courseApi.endpoints.getCourses.select();
-    const loadingLogo = "/assets/loadingLogo.svg";
-    const Overlay$1 = st$1.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: ${(props) => props.theme.utils.zIndex.popup};
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  background-color: ${(props) => props.theme.colors.realWhite};
-`;
-    const Container$n = st$1.div`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-`;
-    const LoadingIcon = st$1(Icon$2)`
-  margin-right: 15px;
-  background-image: url(${loadingLogo});
-`;
-    const LoadingText = st$1(Text$6)`
-  font-size: 22px;
-`;
-    function LoadingSmall() {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
-      ] }) });
-    }
-    function CourseMainInfo({ coursesData }) {
+    function CourseMainInfo({ data }) {
       var _a;
-      const { courseId } = useParams();
-      const navigate = useNavigate();
-      const courseData = useTypedSelector((state) => state.course.data);
-      const [previewSrc, setPreviewSrc] = reactExports.useState("");
       const isMobile = useMediaQuery(MediaQueries.mobile);
-      const { data, isError, isFetching } = useGetCourseProgressQuery(
-        { course_id: Number(courseId) },
-        {
-          skip: !courseId
-        }
-      );
-      reactExports.useEffect(() => {
-        if (courseData.image) {
-          const src = courseData.image.directory + "/" + courseData.image.name;
-          setPreviewSrc(src);
-          return;
-        }
-        setPreviewSrc(defaultPreview);
-      }, [courseData.image]);
-      const handleLoadError = () => {
-        setPreviewSrc(defaultPreview);
-      };
-      const handleGoToCurrentLesson = () => {
-        if (data && "chapter" in data) {
-          navigate(`/courses/${courseId}/${data.chapter.id}/${data.theme.id}/${data.lesson.id}`);
-        }
-      };
       const progressInfoStyles = {
         marginBottom: "3.13vw"
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$q, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Wrapper$2, { children: [
-          isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
           isMobile && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               ProgressInfo,
               {
-                percentage: `${(_a = courseData.percentage) == null ? void 0 : _a.percentage}`,
+                percentage: `${(_a = data.percentage) == null ? void 0 : _a.percentage}`,
                 text: "Твой курс закончен на",
                 styles: progressInfoStyles
               }
@@ -74439,39 +74199,24 @@ line-height: 100%`;
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               OpenSelect,
               {
-                courseData
+                data
               }
             )
           ] }),
-          data && "chapter" in data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CourseBreadcrumb,
-              {
-                containerStyles: { marginBottom: isMobile ? "5vw" : "30px" },
-                chapter: { name: data.chapter.name, position: data.chapter.position, allQuantity: data.chapter.allQuantity },
-                theme: { name: data.theme.name, position: data.theme.position, allQuantity: data.theme.allQuantity },
-                lesson: { name: data.lesson.name, position: data.lesson.position, allQuantity: data.lesson.allQuantity }
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(LessonName, { children: data.lesson.name }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(OpenCourse, { onClick: handleGoToCurrentLesson, children: "Учиться" })
-          ] }),
           data && "courseComplete" in data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CourseName, { children: courseData.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CourseName, { children: data.title }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(CompleteStatus, { children: "Пройден" })
-          ] }),
-          isError || data && "error" in data && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorName, { children: "Информация отсутствует" })
+          ] })
         ] }),
         !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(ImgWrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           Preview,
           {
-            src: previewSrc,
-            onError: handleLoadError
+            src: data.image || defaultPreview
           }
         ) })
       ] });
     }
-    const Container$m = st$1(FlexContainer)`
+    const Container$n = st$1(FlexContainer)`
   flex-direction: column;
 `;
     const Head$1 = st$1(FlexContainer)`
@@ -74678,10 +74423,6 @@ line-height: 100%`;
     }
     function SortableChapters({ data }) {
       const { setLoaderActive } = useActions();
-      const role = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.role;
-      });
       const [chapters, setChapters] = reactExports.useState([]);
       const [setPositions] = useSetChaptersPositionsMutation();
       reactExports.useEffect(() => {
@@ -74739,8 +74480,8 @@ line-height: 100%`;
           return [...chapters2];
         });
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: chapters.map((chapter) => chapter.id), children: chapters.length > 0 && chapters.map((chapter) => {
-        if (!chapter.is_deleted || role === USER_ROLES.admin) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: chapters.map((chapter) => chapter.id), children: chapters.length > 0 && chapters.map(
+        (chapter) => {
           return /* @__PURE__ */ jsxRuntimeExports.jsx(
             SortableItem,
             {
@@ -74763,7 +74504,7 @@ line-height: 100%`;
             chapter.id
           );
         }
-      }) }) });
+      ) }) });
     }
     function CourseProgramm() {
       const { setModalOpen, setModalType } = useActions();
@@ -74775,7 +74516,7 @@ line-height: 100%`;
         setModalType(MODAL_TYPES.createChapter);
         setModalOpen(true);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$n, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Head$1, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Title$4, { as: "h4", children: "Программа курса" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -74790,88 +74531,57 @@ line-height: 100%`;
         /* @__PURE__ */ jsxRuntimeExports.jsx(CardList, { children: chaptersData && /* @__PURE__ */ jsxRuntimeExports.jsx(SortableChapters, { data: chaptersData }) })
       ] });
     }
-    const NoAvailableCourses = st$1(FlexContainer)`
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  background-color: ${(props) => props.theme.colors.realWhite};
-  border-radius: ${(props) => props.theme.utils.br};
-  @media ${(props) => props.theme.media.mobile} {
-    min-height: unset;
-    height: 43.75vw;
-  }
-`;
-    const NoAvailableCoursesText = st$1(Text$6)`
-  margin-right: 10px;
-  font-size: 22px;
-  @media ${(props) => props.theme.media.mobile} {
-    width: 100%;
-    margin: 0;
-    text-align: center;
-
-    font-size: 6.08vw;
-  }
-`;
-    function NoAvailable({ text, onAdd = () => {
-    }, style: style2 = {} }) {
-      const user = useTypedSelector((state) => {
-        var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user;
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(NoAvailableCourses, { style: style2, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailableCoursesText, { children: text }),
-        (user == null ? void 0 : user.role) === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AdminBtn,
-          {
-            popupName: "",
-            onClick: onAdd,
-            type: "add"
-          }
-        )
-      ] });
-    }
+    const courseApi$1 = api$1.injectEndpoints({
+      endpoints: (builder) => ({
+        getAllCourses: builder.query({
+          query: () => "courses",
+          providesTags: ["Courses"]
+        }),
+        getCourse: builder.query({
+          query: (id2) => `courses/${id2}`,
+          providesTags: ["Course"]
+        }),
+        createCourse: builder.mutation({
+          query: (course) => ({
+            url: "courses",
+            method: "POST",
+            body: course
+          }),
+          invalidatesTags: ["Courses"]
+        })
+      })
+    });
+    const { useGetAllCoursesQuery, useGetCourseQuery, useCreateCourseMutation: useCreateCourseMutation$1 } = courseApi$1;
     function CoursePreview() {
-      const { data, isError, isFetching } = useGetCoursesQuery();
-      const { setCourseData, setLoaderActive, setModalOpen, setModalType } = useActions();
+      const { setModalPosition, setModalOpen, setModalType } = useActions();
       const params = useParams();
-      const navigate = useNavigate();
+      const { data, isError } = useGetCourseQuery(params.courseId ?? "", {
+        skip: !params.courseId
+      });
       const isMobile = useMediaQuery(MediaQueries.mobile);
-      reactExports.useEffect(() => {
-        setLoaderActive(isFetching);
-      }, [isFetching, setLoaderActive]);
-      reactExports.useEffect(() => {
-        if (data) {
-          const currentCourseId = params.courseId || null;
-          const currentCourse = data.data.find((course) => course.id === Number(currentCourseId));
-          if (data.data.length > 0 && !currentCourseId || data.data.length > 0 && !currentCourse) {
-            navigate(`/courses/${data.data[0].id}`);
-            return;
-          }
-          if (data.data.length === 0) {
-            navigate("/courses");
-          }
-          if (currentCourse) {
-            setCourseData(currentCourse);
-          }
-        }
-      }, [data, navigate, params.courseId, setCourseData]);
-      const handleCreateCourse = () => {
+      const openCoursesModal = reactExports.useCallback(() => {
         setModalOpen(true);
-        setModalType("createCourse");
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$s, { children: [
+        setModalType(MODAL_TYPES.selectCourse);
+        setModalPosition(ModalPosition.left);
+      }, [setModalOpen, setModalPosition, setModalType]);
+      reactExports.useEffect(() => {
+        if (!params.courseId) {
+          openCoursesModal();
+        }
+      }, [openCoursesModal, params.courseId]);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(DefaultContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$r, { children: [
         isError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
-        data && data.data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, {}),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { coursesData: data.data }),
+        data && !isError && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          !isMobile && /* @__PURE__ */ jsxRuntimeExports.jsx(CourseSelect, { data: data.data }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CourseMainInfo, { data: data.data }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(CourseProgramm, {})
         ] }),
-        data && data.data.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailable, { text: "Нет доступных курсов", onAdd: handleCreateCourse })
+        !params.courseId && /* @__PURE__ */ jsxRuntimeExports.jsx(NotSelectedCourse, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Button$2, { text: "Выбрать курс", onClick: openCoursesModal }) })
       ] }) });
     }
     function Courses() {
       const isMobile = useMediaQuery(MediaQueries.mobile);
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Route,
           {
@@ -74886,10 +74596,10 @@ line-height: 100%`;
             element: /* @__PURE__ */ jsxRuntimeExports.jsx(Course$1, {})
           }
         )
-      ] }) });
+      ] });
     }
     const arrowLeft = "/assets/swiperArrowLeft.svg";
-    const Container$l = st$1.div`
+    const Container$m = st$1.div`
   position: relative;
   width: 49.7%;
   height: 400px;
@@ -80545,7 +80255,7 @@ line-height: 100%`;
     }
     const swiper = "";
     const swiperBundle = "";
-    const Container$k = st$1.div`
+    const Container$l = st$1.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -80677,7 +80387,7 @@ line-height: 100%`;
         }
       };
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Container$k,
+        Container$l,
         {
           onClick: mobileNavigate,
           $isDeleted: isDeleted,
@@ -80711,6 +80421,74 @@ line-height: 100%`;
         }
       );
     }
+    const loadingLogo = "/assets/loadingLogo.svg";
+    const Overlay$1 = st$1.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: ${(props) => props.theme.utils.zIndex.popup};
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: ${(props) => props.theme.colors.realWhite};
+`;
+    const Container$k = st$1.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+`;
+    const LoadingIcon = st$1(Icon$2)`
+  margin-right: 15px;
+  background-image: url(${loadingLogo});
+`;
+    const LoadingText = st$1(Text$6)`
+  font-size: 22px;
+`;
+    function LoadingSmall() {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Overlay$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$k, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingIcon, {}),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingText, { children: "Загрузка..." })
+      ] }) });
+    }
+    const NoAvailableCourses = st$1(FlexContainer)`
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: ${(props) => props.theme.colors.realWhite};
+  border-radius: ${(props) => props.theme.utils.br};
+  @media ${(props) => props.theme.media.mobile} {
+    min-height: unset;
+    height: 43.75vw;
+  }
+`;
+    const NoAvailableCoursesText = st$1(Text$6)`
+  margin-right: 10px;
+  font-size: 22px;
+  @media ${(props) => props.theme.media.mobile} {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+
+    font-size: 6.08vw;
+  }
+`;
+    function NoAvailable({ text, onAdd = () => {
+    }, style: style2 = {} }) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(NoAvailableCourses, { style: style2, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(NoAvailableCoursesText, { children: text }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AdminBtn,
+          {
+            popupName: "",
+            onClick: onAdd,
+            type: "add"
+          }
+        )
+      ] });
+    }
     function CompetitionsSwiper({
       data,
       isError,
@@ -80732,7 +80510,7 @@ line-height: 100%`;
           return;
         swiperRef.current.swiper.slideNext();
       }, []);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$l, { children: [
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$m, { children: [
         isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSmall, {}),
         isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorBlock, {}),
         data && !isError && !isFetching && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -81570,7 +81348,7 @@ line-height: 100%`;
 `;
     const ModalLayout$1 = st$1.div`
   display: flex;
-  justify-content: ${(props) => props.modalPosition === "left" ? "flex-start" : "flex-end"};
+  justify-content: ${(props) => props.$modalPosition === "left" ? "flex-start" : "flex-end"};
   position: fixed;
   top: 0;
   left: 0;
@@ -81597,7 +81375,7 @@ line-height: 100%`;
   height: 100%;
   /* overflow-y: auto; */
   background-color: ${(props) => props.theme.colors.realWhite};
-  animation: ${(props) => props.modalPosition === ModalPosition.left ? "windowEntranceLeft" : "windowEntranceRight"}
+  animation: ${(props) => props.$modalPosition === ModalPosition.left ? "windowEntranceLeft" : "windowEntranceRight"}
     0.3s ease-out forwards;
   @media ${(props) => props.theme.media.mobile} {
     width: 100%;
@@ -81634,12 +81412,12 @@ line-height: 100%`;
   writing-mode: vertical-lr;
   pointer-events: none;
   ${(props) => {
-      if (props.modalPosition === ModalPosition.left) {
+      if (props.$modalPosition === ModalPosition.left) {
         return nt$1`
         right: -115px;
       `;
       }
-      if (props.modalPosition === ModalPosition.right) {
+      if (props.$modalPosition === ModalPosition.right) {
         return nt$1`
         left: -155px;
       `;
@@ -81721,8 +81499,8 @@ line-height: 100%`;
         setModalOpen(false);
       };
       return ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout$1, { onClick: handleOverlayClick, modalPosition, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Window, { modalPosition, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalName, { modalPosition, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ModalLayout$1, { onClick: handleOverlayClick, $modalPosition: modalPosition, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Window, { $modalPosition: modalPosition, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalName, { $modalPosition: modalPosition, children: [
             modalName,
             /* @__PURE__ */ jsxRuntimeExports.jsx(CloseBtn$1, { onClick: handleCloseModal })
           ] }),
@@ -82354,7 +82132,7 @@ line-height: 100%`;
     }, checkCurrent = true }) {
       const userId = useTypedSelector((state) => {
         var _a;
-        return (_a = selectUser(state).data) == null ? void 0 : _a.user.id;
+        return (_a = selectUser(state).data) == null ? void 0 : _a.data.id;
       });
       const [boldName, setBoldName] = reactExports.useState(false);
       reactExports.useEffect(() => {
@@ -83511,9 +83289,97 @@ line-height: 100%`;
     const BottomContainer = st$1(FlexContainer)`
   justify-content: space-between;
 `;
+    const courseApi = api$1.injectEndpoints({
+      endpoints: (builder) => ({
+        getCourses: builder.query({
+          query: () => "course",
+          providesTags: () => [
+            {
+              type: "Courses"
+            }
+          ]
+        }),
+        getCourseById: builder.query({
+          query: (id2) => `course/${id2}`,
+          providesTags: () => [
+            {
+              type: "CourseById"
+            }
+          ]
+        }),
+        createCourse: builder.mutation({
+          query: (data) => ({
+            url: "course/create",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: () => [
+            {
+              type: "Courses"
+            }
+          ]
+        }),
+        updateCourse: builder.mutation({
+          query: (data) => ({
+            url: "course/update",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById"]
+        }),
+        deleteCourse: builder.mutation({
+          query: (data) => ({
+            url: "course/delete",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses"]
+        }),
+        restoreCourse: builder.mutation({
+          query: (data) => ({
+            url: "course/restore",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses"]
+        }),
+        getCourseProgress: builder.query({
+          query: (data) => ({
+            url: "course/get-users-progress",
+            method: "POST",
+            body: data
+          }),
+          providesTags: () => [
+            {
+              type: "CourseProgress"
+            }
+          ]
+        }),
+        setCoursesPositions: builder.mutation({
+          query: (data) => ({
+            url: "course/set-positions",
+            method: "POST",
+            body: data
+          }),
+          invalidatesTags: ["Courses", "CourseById"]
+        })
+      }),
+      overrideExisting: false
+    });
+    const {
+      useCreateCourseMutation,
+      useDeleteCourseMutation,
+      useGetCoursesQuery,
+      useGetCourseByIdQuery,
+      useRestoreCourseMutation,
+      useUpdateCourseMutation,
+      useGetCourseProgressQuery,
+      useSetCoursesPositionsMutation
+    } = courseApi;
+    courseApi.endpoints.getCourses.select();
     function CreateCourseForm() {
       const courseId = useTypedSelector((state) => state.course.editCourseId);
-      const { data, isError, isFetching } = useGetCourseByIdQuery(Number(courseId), {
+      const { data, isError, isFetching } = useGetCourseQuery(String(courseId), {
         skip: !courseId
       });
       const { setModalOpen, setLoaderActive } = useActions();
@@ -83524,7 +83390,7 @@ line-height: 100%`;
       const [isEditForm, setEditForm] = reactExports.useState(false);
       const [courseImage, setCourseImage] = reactExports.useState(null);
       const [courseDescription, setCourseDescription] = reactExports.useState("");
-      const [createCourse] = useCreateCourseMutation();
+      const [createCourse] = useCreateCourseMutation$1();
       const [updateCourse] = useUpdateCourseMutation();
       const navigate = useNavigate();
       reactExports.useEffect(() => {
@@ -84214,7 +84080,7 @@ line-height: 100%`;
 `;
     function SelectCourseForm() {
       const { setModalOpen } = useActions();
-      const { data, isFetching, isLoading, isError } = useGetCoursesQuery();
+      const { data, isFetching, isLoading, isError } = useGetAllCoursesQuery(null);
       const [coursesData, setCoursesData] = reactExports.useState([]);
       reactExports.useEffect(() => {
         if (data && !isFetching && !isError) {
@@ -84269,13 +84135,12 @@ line-height: 100%`;
       ) });
     }
     function App() {
-      useLogin();
-      reactExports.useEffect(() => {
-        console.log("re-render");
-      });
+      const [authToken] = useLogin();
       return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Layout, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AppRoutes, { isAdmin: true }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AppModals, { isAdmin: true }),
+        authToken && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AppRoutes, { isAdmin: true }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AppModals, { isAdmin: true })
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(AppLoading, {})
       ] }) });
     }

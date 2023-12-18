@@ -466,6 +466,8 @@ export interface components {
       data: {
         /** @example 5398 */
         id: number;
+        /** @example https://i.pravatar.cc/300 */
+        avatar: string | null;
         /** @example Алексей Поваров */
         name: string | null;
         /** @example Povarov */
@@ -526,12 +528,14 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            /** @example foobar */
-            access_token?: string;
-            /** @example bearer */
-            token_type?: string;
-            /** @example 20160 */
-            expires_in?: number;
+            data: {
+              /** @example foobar */
+              access_token: string;
+              /** @example bearer */
+              token_type: string;
+              /** @example 20160 */
+              expires_in?: number;
+            };
           };
         };
       };
@@ -988,7 +992,7 @@ export interface operations {
            * @example Описание
            */
           description: string;
-          tests: {
+          tests?: {
               /**
                * @description Вопрос
                * @example Вопрос
@@ -1128,7 +1132,7 @@ export interface operations {
            * @example Описание
            */
           description: string;
-          tests: {
+          tests?: {
               /**
                * @description Вопрос
                * @example Вопрос
@@ -1138,7 +1142,7 @@ export interface operations {
                * @description ID
                * @example 1
                */
-              id: number;
+              id?: number;
               /**
                * @description Активен
                * @example true
@@ -1164,7 +1168,7 @@ export interface operations {
                    * @description ID
                    * @example 1
                    */
-                  id: number;
+                  id?: number;
                   /**
                    * @description Открыт
                    * @example true

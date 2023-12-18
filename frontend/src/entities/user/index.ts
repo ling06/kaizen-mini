@@ -1,4 +1,4 @@
-export * from './model/api';
+export * from './api/api';
 export * from './model/user.slice';
 export * from './hooks/useLogin';
 

@@ -24,8 +24,8 @@ export const useLogin = () => {
     login({
       orders_borboza_sid: borbozaIdCookie,
     }).then((res) => {
-      if ('data' in res && ('access_token' in res.data)) {
-        setAuthToken(res.data.access_token);
+      if ('data' in res && 'data' in res.data) {
+        setAuthToken(res.data.data.access_token);
       }
       setLoaderActive(false);
     });

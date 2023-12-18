@@ -36,12 +36,11 @@
       "assets/logo-mobile.svg",
       "assets/done-white.svg",
       "assets/course-stub-img.webp",
-      "assets/arrowRight.svg",
-      "assets/loadingLogo.svg",
       "assets/stub-course-program.webp",
       "assets/dnd-btn-arrows.svg",
       "assets/dnd-btn-arrows-active.svg",
       "assets/swiperArrowLeft.svg",
+      "assets/loadingLogo.svg",
       "assets/star.svg",
       "assets/active-star.svg",
       "assets/moreIcon.svg",
@@ -189,10 +188,6 @@
   "src/assets/images/arrow-left-blue.svg": {
     "file": "assets/arrow-left-blue.svg",
     "src": "src/assets/images/arrow-left-blue.svg"
-  },
-  "src/assets/images/arrowRight.svg": {
-    "file": "assets/arrowRight.svg",
-    "src": "src/assets/images/arrowRight.svg"
   },
   "src/assets/images/book.svg": {
     "file": "assets/book.svg",

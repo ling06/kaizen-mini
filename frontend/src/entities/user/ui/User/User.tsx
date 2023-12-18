@@ -4,7 +4,7 @@ import { RuleSet } from 'styled-components';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 
 import { useEffect, useState } from 'react';
-import { selectUser } from '../../model/api';
+import { selectUser } from '../../api/api';
 import { User as TUser } from '../..';
 
 interface IUserProps {

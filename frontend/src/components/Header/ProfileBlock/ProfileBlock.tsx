@@ -4,6 +4,8 @@ import {  useGetMeQuery } from '@/entities/user';
 
 export function ProfileBlock() {
   const { data, isLoading } = useGetMeQuery(null);
+  console.log(data);
+  
 
   return (
     <S.Container>{data?.data && !isLoading && <UserAvatar userData={data.data} />}</S.Container>

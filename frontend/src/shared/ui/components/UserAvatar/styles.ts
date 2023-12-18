@@ -28,3 +28,8 @@ color: ${(props) => props.theme.colors.mainBlue};
   font-size: 3.125vw;
 }
 `;
+
+export const Avatar = styled.img`
+  display: block;
+  width: 100%;
+`;

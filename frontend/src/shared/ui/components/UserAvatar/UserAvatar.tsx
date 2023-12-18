@@ -24,7 +24,7 @@ export function UserAvatar({ userData }: IProfileProps) {
   return (
     <S.Container>
       <S.InitialsWrapper>
-        <S.Initials>{initials}</S.Initials>
+        {userData.avatar ? <S.Avatar src={userData.avatar}/> : <S.Initials>{initials}</S.Initials>}
       </S.InitialsWrapper>
     </S.Container>
   );
