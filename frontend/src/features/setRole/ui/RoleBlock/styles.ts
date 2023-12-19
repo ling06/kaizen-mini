@@ -12,3 +12,14 @@ export const Title = styled(C.Text)`
   margin-bottom: 15px;
   font-weight: 600;
 `;
+
+export const SetBtn = styled(C.DefaultBtn)`
+   width: fit-content;
+   padding: 0 25px;
+`;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+`;

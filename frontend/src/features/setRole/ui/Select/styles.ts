@@ -4,7 +4,6 @@ import arrow from '@assets/images/accordionIcon.svg';
 
 export const Container = styled.div`
   position: relative;
-  width: 100%;
 `;
 
 export const OpenBtn = styled.button`

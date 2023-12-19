@@ -10,6 +10,7 @@ interface IRoleBlockProps {
 export function RoleBlock({ roleId }: IRoleBlockProps) {
   const {data} = useGetRolesQuery(null);
   const [role, setRole] = useState<TRole | null>(null);
+  const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     if(!data) return;
@@ -19,6 +20,7 @@ export function RoleBlock({ roleId }: IRoleBlockProps) {
   }, [data, roleId])
   const handleSelect = (option: TRole) => {
     setRole(option);
+    setIsChanged(true);
   }
 
   return (
@@ -26,7 +28,10 @@ export function RoleBlock({ roleId }: IRoleBlockProps) {
       <S.Title>Шаблон роли</S.Title>
       {
         data && role && (
-          <Select selectedValue={role} options={data.data} onSelect={handleSelect}/>
+          <S.SelectWrapper>
+            <Select selectedValue={role} options={data.data} onSelect={handleSelect}/>
+            {isChanged && <S.SetBtn>Установить</S.SetBtn>}
+          </S.SelectWrapper>
         )
       }
     </S.Container>
