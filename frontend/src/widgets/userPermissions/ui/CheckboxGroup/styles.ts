@@ -19,5 +19,5 @@ export const CheckboxList = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  column-gap: 50px;
+  /* column-gap: 50px; */
 `;

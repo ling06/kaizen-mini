@@ -7,7 +7,7 @@ import { reducer as lessonReducer } from '../../../store/lesson/lesson.slice';
 import { reducer as competitionReducer } from '../../../store/competition/competition.slice';
 import {reducer as newsReducer} from '../../../store/news/news.slice';
 import {reducer as accessesReducer} from '@/pages/User/model/accesses.slice';
-import { api } from '../../api/api';
+import { api } from '../../api';
 
 const reducer = combineReducers({
   user: userReducer,

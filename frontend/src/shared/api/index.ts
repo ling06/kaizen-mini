@@ -22,6 +22,8 @@ export const api = createApi({
     'CompetitionById',
     'Users',
     'SearchUsers',
+    'Roles',
+    'Role',
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,

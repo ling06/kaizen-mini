@@ -1,4 +1,4 @@
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { LoginErrorRes, LoginReq, LoginRes, LogoutRes, User } from '../model/types';
 
 export const userApi = api.injectEndpoints({

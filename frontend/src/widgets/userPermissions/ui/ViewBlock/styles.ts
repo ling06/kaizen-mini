@@ -20,3 +20,9 @@ export const Divider = styled.div`
   background-color: ${props => props.theme.colors.greyF1};
 `;
 
+export const List = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 75px;
+`;

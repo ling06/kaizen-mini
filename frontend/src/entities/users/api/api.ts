@@ -1,4 +1,4 @@
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { TExtendedUser, TSearchUsers, TUsers } from '../model/types';
 
 export const usersApi = api.injectEndpoints({

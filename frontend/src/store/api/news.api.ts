@@ -1,5 +1,5 @@
 import { IGetAllNews, INewsResponse, ICreateNews, IUpdateNews } from '@/shared/model/types/news.types';
-import { api } from '../../shared/api/api';
+import { api } from '../../shared/api';
 import { IDefaultReqWithId, IDefaultRes } from '@/shared/model/types/common.types';
 
 export const newsApi = api.injectEndpoints({

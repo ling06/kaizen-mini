@@ -1,4 +1,4 @@
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { TPermission, TPermissions } from '../model/types';
 
 export const permissionsApi = api.injectEndpoints({

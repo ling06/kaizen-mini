@@ -1,4 +1,4 @@
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { TCourse, TNewCourse, TNewCourseRes } from './types';
 
 export const courseApi = api.injectEndpoints({

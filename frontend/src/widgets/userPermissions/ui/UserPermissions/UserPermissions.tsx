@@ -4,12 +4,15 @@ import * as S from './styles';
 import { TExtendedUser } from '@/entities/users';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { PermissionsBlock } from '../PermissionsBlock';
+import { RoleBlock } from '@/features/setRole';
+import { TRole } from '@/entities/role';
 
 interface IUserPermissionsProps {
   userPermissions: TExtendedUser['data']['permissions'] | undefined;
+  userRole: TRole | undefined;
 }
 
-export function UserPermissions({ userPermissions }: Readonly<IUserPermissionsProps>) {
+export function UserPermissions({ userPermissions, userRole }: Readonly<IUserPermissionsProps>) {
   const { data, isError } = useGetPermissionsQuery(null);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,6 +31,11 @@ export function UserPermissions({ userPermissions }: Readonly<IUserPermissionsPr
     <S.Form onSubmit={handleSubmit}>
       {data && userPermissions && (
         <>
+        {
+          userRole && (
+            <RoleBlock roleId={userRole.id}/>
+          )
+        }
           <ViewBlock
             viewPermissions={data.data.view}
             userViewPermissions={userPermissions}

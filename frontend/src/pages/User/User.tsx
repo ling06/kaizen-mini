@@ -28,7 +28,7 @@ const titleStyles = css`
 `;
 export function User() {
   const { userId } = useParams();
-  const { data, isLoading, isError } = useGetUserQuery(`${userId}`, {
+  const { data } = useGetUserQuery(`${userId}`, {
     skip: !userId,
   });
   console.log(data?.data);
@@ -40,11 +40,11 @@ export function User() {
         id: 'education',
       },
       {
-        element: <UserPermissions userPermissions={data?.data.permissions}/>,
+        element: <UserPermissions userPermissions={data?.data.permissions} userRole={data?.data.role}/>,
         id: 'permissions',
       },
     ];
-  }, [data?.data.permissions]);
+  }, [data?.data.permissions, data?.data.role]);
 
   return (
     <Layout styles={layoutStyles}>

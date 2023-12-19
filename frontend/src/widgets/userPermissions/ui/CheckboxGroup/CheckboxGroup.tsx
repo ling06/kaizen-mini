@@ -3,6 +3,7 @@ import * as S from './styles';
 import { TExtendedUser } from '@/entities/users';
 import { UncontrolledCheckBox } from '../UncontrolledCheckBox';
 import { PERMISSIONS } from '@/shared/model/constants';
+import { css } from 'styled-components';
 
 interface ICheckboxGroupProps {
   groupName?: string;
@@ -10,7 +11,11 @@ interface ICheckboxGroupProps {
   userPermissions: TExtendedUser['data']['permissions'];
 }
 
-export function CheckboxGroup({ groupName, permissions, userPermissions }: ICheckboxGroupProps) {
+const checkBoxWidth = css`
+  min-width: 150px;
+`;
+
+export function CheckboxGroup({ groupName, permissions, userPermissions }: Readonly<ICheckboxGroupProps>) {
   return (
     <S.Group>
       {groupName && <S.GroupName>{groupName}</S.GroupName>}
@@ -23,6 +28,7 @@ export function CheckboxGroup({ groupName, permissions, userPermissions }: IChec
               label={PERMISSIONS[`${permission.code.replace('#', '_')}`]}
               checked={!!userPermissions.find((userPermission) => userPermission.code === permission.code)}
               isLabelBold={false}
+              styles={checkBoxWidth}
             />
           );
         })}

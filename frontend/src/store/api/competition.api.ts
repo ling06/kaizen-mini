@@ -1,4 +1,4 @@
-import { api } from '../../shared/api/api';
+import { api } from '../../shared/api';
 import { ICompetition, ICreateCompetitionData, IGetAllCompetitions, IUpdateCompetitionData } from '@/shared/model/types/competition.types';
 import { IDefaultResWithData, IDefaultRes, IDefaultReqWithId } from '@/shared/model/types/common.types';
 

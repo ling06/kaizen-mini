@@ -4,7 +4,6 @@ import { TExtendedUser } from '@/entities/users';
 import { useMemo } from 'react';
 import { UncontrolledCheckBox } from '../UncontrolledCheckBox';
 import { PERMISSIONS } from '@/shared/model/constants';
-import { CheckboxGroup } from '../CheckboxGroup';
 import { css } from 'styled-components';
 interface IViewBlockProps {
   viewPermissions: TPermissions['data']['view'];
@@ -15,7 +14,7 @@ const checkBoxMargin = css`
   margin-bottom: 25px;
 `;
 
-export function ViewBlock({ viewPermissions, userViewPermissions }: IViewBlockProps) {
+export function ViewBlock({ viewPermissions, userViewPermissions }: Readonly<IViewBlockProps>) {
   const sorted = useMemo(() => {
     const index = viewPermissions.findIndex((permission) => !permission.code.includes('#'));
     if (index !== -1) {
@@ -38,11 +37,20 @@ export function ViewBlock({ viewPermissions, userViewPermissions }: IViewBlockPr
             }
             styles={checkBoxMargin}
           />
-          <CheckboxGroup
-            groupName={''}
-            permissions={sorted?.others}
-            userPermissions={userViewPermissions}
-          />
+          <S.List>
+            {sorted?.others.map((permission) => (
+              <UncontrolledCheckBox
+                key={permission.code}
+                name={permission.code}
+                label={PERMISSIONS[`${permission.code.replace('#', '_')}`]}
+                checked={
+                  !!userViewPermissions.find((userPermission) => userPermission.code === permission.code)
+                }
+                styles={checkBoxMargin}
+                isLabelBold={false}
+              />
+            ))}
+          </S.List>
         </>
       )}
       <S.Divider />
