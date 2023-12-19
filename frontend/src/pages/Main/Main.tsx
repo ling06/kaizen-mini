@@ -1,5 +1,5 @@
 import { Header } from '@/components/Header';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Courses } from '../Courses';
 import { News } from '../News';
 import { NotFound } from '../NotFound';
@@ -11,17 +11,14 @@ export function Main() {
     <>
       <Header />
       <Routes>
+        <Route path="/" element={<Navigate to="/news"/>}/>
         <Route
-          path="/news/*"
+          path="/news/:newsId?/competitions?/:competitionId?"
           element={<News />}
         />
         <Route
-          path="/courses/*"
+          path="/courses/:courseId?/:chapterId?/:themeId?/:lessonId?"
           element={<Courses />}
-        />
-        <Route 
-          path="/*"
-          element={<NotFound />}
         />
         <Route 
           path="/users"
@@ -31,6 +28,7 @@ export function Main() {
           path="/users/:id"
           element={<User />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

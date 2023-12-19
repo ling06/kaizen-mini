@@ -5,8 +5,9 @@ import { User } from '@/entities/user/ui/User';
 import { useNavigate } from 'react-router-dom';
 import { BigTitle } from '@/shared/ui/components';
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
-import { useGetUsersQuery } from '@/entities/users';
+import { useGetUsersQuery, useSearchUsersQuery } from '@/entities/users';
 import { LoadingSmall } from '@/components/LoadingSmall';
+import { useState } from 'react';
 
 const layoutStyles = css`
   max-width: 1266px;
@@ -27,7 +28,16 @@ const userStyles = css`
 
 export function Users() {
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
   const { data, isError, isLoading } = useGetUsersQuery(null);
+  const {
+    data: searchData,
+    isError: searchError,
+    isLoading: searchLoading,
+  } = useSearchUsersQuery(searchValue, {
+    skip: !searchValue,
+  });
+
   console.log(data);
 
   const handleClickUser = (id: number) => {
@@ -42,14 +52,30 @@ export function Users() {
       />
       <WhiteBox>
         <SearchUserInput
-          onSearch={(value) => console.log(value)}
+          onInput={setSearchValue}
           styles={searchInputStyles}
         />
         <UsersList>
-          {isLoading && <LoadingSmall />}
+          {(isLoading || searchLoading) && <LoadingSmall />}
           {!isError &&
             !isLoading &&
+            !searchValue &&
             data?.data.map((user) => {
+              return (
+                <User
+                  onClick={() => handleClickUser(user.id)}
+                  userData={user}
+                  styles={userStyles}
+                  key={user.id}
+                />
+              );
+            })}
+          {searchValue &&
+            !searchError &&
+            !searchLoading &&
+            searchData &&
+            searchData?.data.length > 0 &&
+            searchData?.data.map((user) => {
               return (
                 <User
                   onClick={() => handleClickUser(user.id)}

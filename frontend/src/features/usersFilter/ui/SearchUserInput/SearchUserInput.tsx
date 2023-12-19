@@ -3,17 +3,20 @@ import * as S from './styles';
 import { useState } from 'react';
 
 interface ISearchUserInputProps {
-  onSearch: (value: string) => void;
+  onInput: (value: string) => void;
   placeholder?: string;
   styles?: RuleSet<object>;
 }
 
-export function SearchUserInput({ placeholder, styles, onSearch }: ISearchUserInputProps) {
+let timerId: ReturnType<typeof setTimeout>;
+
+export function SearchUserInput({ placeholder, styles, onInput }: Readonly<ISearchUserInputProps>) {
   const [value, setValue] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    onSearch(e.target.value);
+    clearTimeout(timerId);
+    timerId = setTimeout(() => onInput(e.target.value), 300);
   }
 
   return (
@@ -21,7 +24,7 @@ export function SearchUserInput({ placeholder, styles, onSearch }: ISearchUserIn
       <S.SearchInput
         onChange={handleChange}
         type="text"
-        placeholder={placeholder || 'найти пользователя'}
+        placeholder={placeholder ?? 'найти пользователя'}
         value={value}
       />
       <S.SearchIcon />

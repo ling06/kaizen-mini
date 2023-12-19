@@ -7,7 +7,6 @@ import { Main } from './pages/Main';
 import { useMediaQuery } from './shared/lib/hooks/useMediaQuery';
 import { MediaQueries } from './shared/model/constants';
 
-
 const routes = [
   {
     path: '/*',
