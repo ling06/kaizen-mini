@@ -15,16 +15,16 @@ interface IUserProps {
 }
 
 export function User({ userData, styles, onClick = () => {}, checkCurrent=true }: IUserProps) {
-  const userId = useTypedSelector((state) => selectUser(state).data?.data.id);
+  const myId = useTypedSelector((state) => selectUser(state).data?.data.id);
   const [boldName, setBoldName] = useState<boolean>(false);
 
   useEffect(() => {
     if(!checkCurrent) {
       return;
     }
-    const isMe = userData.id === userId;
+    const isMe = userData.id === myId;
     setBoldName(isMe);
-  }, [checkCurrent, userData.id, userId]);
+  }, [checkCurrent, userData.id, myId]);
 
   return (
     <S.Container

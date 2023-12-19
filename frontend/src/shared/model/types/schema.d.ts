@@ -92,6 +92,10 @@ export interface paths {
     /** Право доступа */
     get: operations["dc5d0ab4ade7e7649527f92b02f55c77"];
   };
+  "/api/set-positions": {
+    /** Изменение сортировки сущностей */
+    patch: operations["d3b6e5dab819279488aaf8a468c40337"];
+  };
   "/api/roles": {
     /** Список ролей */
     get: operations["8b150689fdb24b3de912b09517f91093"];
@@ -1405,7 +1409,15 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: components["schemas"]["PermissionSchema"][];
+            data: {
+              view: components["schemas"]["PermissionSchema"][];
+              create: components["schemas"]["PermissionSchema"][];
+              sort: components["schemas"]["PermissionSchema"][];
+              edit: components["schemas"]["PermissionSchema"][];
+              soft_delete: components["schemas"]["PermissionSchema"][];
+              restore: components["schemas"]["PermissionSchema"][];
+              force_delete: components["schemas"]["PermissionSchema"][];
+            };
           };
         };
       };
@@ -1437,6 +1449,52 @@ export interface operations {
         content: {
           "application/json": {
             data: components["schemas"]["PermissionSchema"];
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Изменение сортировки сущностей */
+  d3b6e5dab819279488aaf8a468c40337: {
+    requestBody?: {
+      content: {
+        "application/json": {
+          /**
+           * @description Тип сущности
+           * @example Chapter
+           */
+          type: string;
+          items: {
+              /**
+               * @description ID сущности
+               * @example 4
+               */
+              id: number;
+              /**
+               * @description Позиция сущности
+               * @example 0
+               */
+              position: number;
+            }[];
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example succes */
+            result?: string;
           };
         };
       };

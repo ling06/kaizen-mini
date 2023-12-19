@@ -35,6 +35,8 @@ export function CustomTabs({ tabNames, tabPanels }: Readonly<ICustomTabsProps>) 
     const activeTabQueryParam = searchParams.get('tab');
     if (activeTabQueryParam) {
       const activeTab = tabNames.find((tab) => tab.queryParam === activeTabQueryParam);
+      console.log(activeTab);
+      
       if (activeTab) {
         setSelectedIndex(tabNames.indexOf(activeTab));
       }
@@ -47,7 +49,7 @@ export function CustomTabs({ tabNames, tabPanels }: Readonly<ICustomTabsProps>) 
   };
 
   return (
-    <Tabs onSelect={handleSelect}>
+    <Tabs onSelect={handleSelect} selectedIndex={selectedIndex}>
       <S.Container>
         <TabList>
           <CustomTabList>

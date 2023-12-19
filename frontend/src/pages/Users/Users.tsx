@@ -8,6 +8,7 @@ import { Layout, WhiteBox } from '@/shared/ui/layouts';
 import { useGetUsersQuery, useSearchUsersQuery } from '@/entities/users';
 import { LoadingSmall } from '@/components/LoadingSmall';
 import { useState } from 'react';
+import { NoResult } from './ui/NoResult';
 
 const layoutStyles = css`
   max-width: 1266px;
@@ -34,6 +35,7 @@ export function Users() {
     data: searchData,
     isError: searchError,
     isLoading: searchLoading,
+    isFetching: searchFetching,
   } = useSearchUsersQuery(searchValue, {
     skip: !searchValue,
   });
@@ -56,7 +58,7 @@ export function Users() {
           styles={searchInputStyles}
         />
         <UsersList>
-          {(isLoading || searchLoading) && <LoadingSmall />}
+          {(isLoading || searchLoading || searchFetching) && <LoadingSmall />}
           {!isError &&
             !isLoading &&
             !searchValue &&
@@ -85,6 +87,7 @@ export function Users() {
                 />
               );
             })}
+            {searchValue && searchData?.data.length === 0 && <NoResult value={searchValue}/>}
         </UsersList>
       </WhiteBox>
     </Layout>

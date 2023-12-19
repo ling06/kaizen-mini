@@ -7,22 +7,25 @@ interface ICheckBoxProps {
   checked?: boolean;
   isRadio?: boolean;
   isLabelBold?: boolean;
+  name?: string;
 }
 
 export function CheckBox({
   label,
-  onChange: onChange = () => {},
+  onChange = () => {},
   children,
   checked = false,
   isRadio = false,
   isLabelBold=true,
-}: ICheckBoxProps) {
+  name,
+}: Readonly<ICheckBoxProps>) {
   return (
     <S.Label> 
       <S.Input
         type="checkbox" 
         onChange={onChange}
         checked={checked}
+        name={name ?? ''}
       />
       <S.CustomCheckbox
         $checked={checked}

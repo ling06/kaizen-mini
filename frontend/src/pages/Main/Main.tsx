@@ -25,7 +25,7 @@ export function Main() {
           element={<Users />}
         />
         <Route 
-          path="/users/:id"
+          path="/users/:userId"
           element={<User />}
         />
         <Route path="*" element={<NotFound />} />
