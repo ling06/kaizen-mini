@@ -120,6 +120,10 @@ export interface paths {
     /** Список найденных пользователей для поля поиска пользователя */
     get: operations["a75927159322bd00ab8baddaaffd1ceb"];
   };
+  "/api/users/{id}/update-role": {
+    /** Изменение роли пользователя */
+    patch: operations["5561ef6c0c7dc0b5a1d963865c89b2f8"];
+  };
   "/api/users/{id}/update-permissions": {
     /** Изменение прав пользователя */
     patch: operations["deb346455a84834c9d107daf92f522f3"];
@@ -1646,13 +1650,13 @@ export interface operations {
       };
     };
   };
-  /** Изменение прав пользователя */
-  deb346455a84834c9d107daf92f522f3: {
+  /** Изменение роли пользователя */
+  "5561ef6c0c7dc0b5a1d963865c89b2f8": {
     parameters: {
       path: {
         /**
          * @description ID пользователя
-         * @example 1
+         * @example 345
          */
         id: number;
       };
@@ -1664,7 +1668,42 @@ export interface operations {
            * @description ID роли
            * @example 1
            */
-          role_id: number | null;
+          role_id: number;
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserExtendedSchema"];
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Изменение прав пользователя */
+  deb346455a84834c9d107daf92f522f3: {
+    parameters: {
+      path: {
+        /**
+         * @description ID пользователя
+         * @example 345
+         */
+        id: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
           /**
            * @description Права доступа
            * @example [
@@ -1680,10 +1719,7 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": {
-            /** @example success */
-            result?: string;
-          };
+          "application/json": components["schemas"]["UserExtendedSchema"];
         };
       };
       /** @description Message: Unauthorized */

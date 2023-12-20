@@ -4,6 +4,8 @@ import {
   TSearchUsers,
   TUpdatePermissionsReq,
   TUpdatePermissionsRes,
+  TUpdateRoleReq,
+  TUpdateRoleRes,
   TUsers,
 } from '../model/types';
 
@@ -25,17 +27,32 @@ export const usersApi = api.injectEndpoints({
       TUpdatePermissionsRes,
       TUpdatePermissionsReq & { userId: number }
     >({
-      query: ({ userId, role_id, permissions }) => ({
+      query: ({ userId, permissions }) => ({
         url: `users/${userId}/update-permissions`,
         method: 'PATCH',
         body: {
-          role_id,
           permissions,
         },
       }),
       invalidatesTags: ['User'],
     }),
+    updateUserRole: builder.mutation<TUpdateRoleRes, TUpdateRoleReq & { userId: number }>({
+      query: ({ userId, role_id }) => ({
+        url: `users/${userId}/update-role`,
+        method: 'PATCH',
+        body: {
+          role_id,
+        },
+      }),
+      // invalidatesTags: ['User'],
+    }),
   }),
 });
 
-export const { useGetUserQuery, useGetUsersQuery, useSearchUsersQuery, useUpdateUserPermissionsMutation } = usersApi;
+export const {
+  useGetUserQuery,
+  useGetUsersQuery,
+  useSearchUsersQuery,
+  useUpdateUserPermissionsMutation,
+  useUpdateUserRoleMutation,
+} = usersApi;

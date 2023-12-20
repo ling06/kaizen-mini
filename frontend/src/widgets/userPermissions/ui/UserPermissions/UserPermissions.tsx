@@ -56,6 +56,7 @@ export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsP
     <S.Form onSubmit={handleSubmit}>
       {role && (
         <RoleBlock
+          userId={userId}
           isOriginal={isOriginal}
           roleId={role?.id}
           onChange={handleRoleChange}
@@ -102,7 +103,7 @@ export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsP
       )}
       <S.ButtonsGroup>
         <S.Divider />
-        <NoBgButton text='сохранить как роль'>
+        <NoBgButton text="сохранить как роль">
           <S.SaveIcon />
         </NoBgButton>
         <NoBgButton text="сохранить">
