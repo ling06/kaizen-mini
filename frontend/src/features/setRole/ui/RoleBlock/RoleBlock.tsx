@@ -6,9 +6,17 @@ import { Select } from '../Select';
 interface IRoleBlockProps {
   roleId: number;
   onChange: (role: TRole) => void;
+  isOriginal: boolean;
 }
 
-export function RoleBlock({ roleId, onChange }: IRoleBlockProps) {
+const ORIGINAL_ROLE = {
+  id: 0,
+  name: 'Самобытный',
+  description: '',
+  permissions: []
+}
+
+export function RoleBlock({ roleId, onChange, isOriginal=false }: IRoleBlockProps) {
   const {data} = useGetRolesQuery(null);
   const [role, setRole] = useState<TRole | null>(null);
   const [isChanged, setIsChanged] = useState(false);
@@ -31,8 +39,8 @@ export function RoleBlock({ roleId, onChange }: IRoleBlockProps) {
       {
         data && role && (
           <S.SelectWrapper>
-            <Select selectedValue={role} options={data.data} onSelect={handleSelect}/>
-            {isChanged && <S.SetBtn>Установить</S.SetBtn>}
+            <Select initialRoleId={roleId} selectedValue={isOriginal ? ORIGINAL_ROLE : role} options={data.data} onSelect={handleSelect}/>
+            {isChanged && !isOriginal && <S.SetBtn>Установить</S.SetBtn>}
           </S.SelectWrapper>
         )
       }

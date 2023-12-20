@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { RuleSet } from 'styled-components';
 
@@ -8,6 +8,7 @@ interface IUncontrolledCheckBoxProps {
   name?: string;
   isLabelBold?: boolean;
   styles?: RuleSet<object>;
+  onChange?: () => void;
 }
 
 export function UncontrolledCheckBox({
@@ -16,11 +17,18 @@ export function UncontrolledCheckBox({
   name,
   isLabelBold = true,
   styles,
+  onChange=()=>{},
 }: Readonly<IUncontrolledCheckBoxProps>) {
-  const [isChecked, setIsChecked] = useState<boolean>(!!checked);
+  
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
+  useEffect(() => {
+    setIsChecked(!!checked);
+  }, [checked])
+  
   const handleChange = () => {
-    setIsChecked(!isChecked);
+    setIsChecked(!isChecked); 
+    onChange();
   };
 
   return (

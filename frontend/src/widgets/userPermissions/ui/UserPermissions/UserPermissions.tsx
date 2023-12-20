@@ -8,6 +8,7 @@ import { RoleBlock } from '@/features/setRole';
 import { TRole } from '@/entities/role';
 import { useState } from 'react';
 import { useActions } from '@/shared/lib/hooks/useActions';
+import { NoBgButton } from '@/shared/ui/components';
 
 interface IUserPermissionsProps {
   userPermissions: TExtendedUser['permissions'] | undefined;
@@ -15,24 +16,22 @@ interface IUserPermissionsProps {
   userId: number;
 }
 
-export function UserPermissions({
-  userPermissions,
-  userRole,
-  userId,
-}: Readonly<IUserPermissionsProps>) {
-  const {setLoaderActive} = useActions();
-  const [role, setRole] = useState<TRole | null>(userRole || null);
+export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsProps>) {
+  const { setLoaderActive } = useActions();
+  const [role, setRole] = useState<TRole | null>(userRole ?? null);
   const { data, isError } = useGetPermissionsQuery(null);
   const [updateUserPermissions] = useUpdateUserPermissionsMutation();
+  const [isOriginal, setIsOriginal] = useState<boolean>(false);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const data = new FormData(event.target as HTMLFormElement);
     const formData = Object.fromEntries(data.entries());
     const permissions = Object.keys(formData).map((key) => key);
-    
+
     updateUserPermissions({
       userId,
-      role_id: role?.id || null,
+      role_id: role?.id ?? null,
       permissions: permissions,
     }).then((res) => {
       setLoaderActive(false);
@@ -42,6 +41,11 @@ export function UserPermissions({
 
   const handleRoleChange = (role: TRole) => {
     setRole(role);
+    setIsOriginal(false);
+  };
+
+  const handleSetOriginalRole = () => {
+    setIsOriginal(true);
   };
 
   if (!data && isError) {
@@ -52,6 +56,7 @@ export function UserPermissions({
     <S.Form onSubmit={handleSubmit}>
       {role && (
         <RoleBlock
+          isOriginal={isOriginal}
           roleId={role?.id}
           onChange={handleRoleChange}
         />
@@ -59,36 +64,51 @@ export function UserPermissions({
       {data && role && (
         <>
           <ViewBlock
+            onChange={handleSetOriginalRole}
             viewPermissions={data.data.view}
             userViewPermissions={role.permissions}
           />
           <PermissionsBlock
             permissions={data.data.create}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
           <PermissionsBlock
             permissions={data.data.sort}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
           <PermissionsBlock
             permissions={data.data.edit}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
           <PermissionsBlock
             permissions={data.data.soft_delete}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
           <PermissionsBlock
             permissions={data.data.force_delete}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
           <PermissionsBlock
             permissions={data.data.restore}
             userPermissions={role.permissions}
+            onChange={handleSetOriginalRole}
           />
         </>
       )}
-      <button>Сохранить</button>
+      <S.ButtonsGroup>
+        <S.Divider />
+        <NoBgButton text='сохранить как роль'>
+          <S.SaveIcon />
+        </NoBgButton>
+        <NoBgButton text="сохранить">
+          <S.SaveIcon />
+        </NoBgButton>
+      </S.ButtonsGroup>
     </S.Form>
   );
 }

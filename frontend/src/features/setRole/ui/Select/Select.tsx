@@ -5,10 +5,11 @@ import { TRole } from '@/entities/role';
 interface ISelectProps {
   selectedValue: TRole;
   options: Array<TRole>;
+  initialRoleId?: number;
   onSelect: (option: TRole) => void;
 }
 
-export function Select({ selectedValue, options, onSelect }: Readonly<ISelectProps>) {
+export function Select({ selectedValue, options, onSelect, initialRoleId }: Readonly<ISelectProps>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = (event: React.MouseEvent) => {
@@ -37,6 +38,7 @@ export function Select({ selectedValue, options, onSelect }: Readonly<ISelectPro
           <S.Options>
             {options.map((option) => (
               <S.Option
+                $isInitial={option.id === initialRoleId}
                 key={option.id}
                 onClick={() => {
                   handleSelect(option);

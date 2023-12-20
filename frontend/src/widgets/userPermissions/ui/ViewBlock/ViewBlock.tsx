@@ -8,13 +8,14 @@ import { css } from 'styled-components';
 interface IViewBlockProps {
   viewPermissions: TPermissions['data']['view'];
   userViewPermissions: TExtendedUser['data']['permissions'];
+  onChange?: () => void;
 }
 
 const checkBoxMargin = css`
   margin-bottom: 25px;
 `;
 
-export function ViewBlock({ viewPermissions, userViewPermissions }: Readonly<IViewBlockProps>) {
+export function ViewBlock({ viewPermissions, userViewPermissions, onChange=()=>{} }: Readonly<IViewBlockProps>) {
   const sorted = useMemo(() => {
     const index = viewPermissions.findIndex((permission) => !permission.code.includes('#'));
     if (index !== -1) {
@@ -37,6 +38,7 @@ export function ViewBlock({ viewPermissions, userViewPermissions }: Readonly<IVi
               !!userViewPermissions.find((permission) => permission.code === sorted.main.code)
             }
             styles={checkBoxMargin}
+            onChange={onChange}
           />
           <S.List>
             {sorted?.others.map((permission) => (
@@ -49,6 +51,7 @@ export function ViewBlock({ viewPermissions, userViewPermissions }: Readonly<IVi
                 }
                 styles={checkBoxMargin}
                 isLabelBold={false}
+                onChange={onChange}
               />
             ))}
           </S.List>

@@ -9,13 +9,14 @@ interface ICheckboxGroupProps {
   groupName?: string;
   permissions: Array<TPermission>;
   userPermissions: TExtendedUser['data']['permissions'];
+  onChange?: () => void;
 }
 
 const checkBoxWidth = css`
   min-width: 150px;
 `;
 
-export function CheckboxGroup({ groupName, permissions, userPermissions }: Readonly<ICheckboxGroupProps>) {
+export function CheckboxGroup({ groupName, permissions, userPermissions, onChange=()=>{} }: Readonly<ICheckboxGroupProps>) {
   return (
     <S.Group>
       {groupName && <S.GroupName>{groupName}</S.GroupName>}
@@ -29,6 +30,7 @@ export function CheckboxGroup({ groupName, permissions, userPermissions }: Reado
               checked={!![...userPermissions].find((userPermission) => userPermission.code === permission.code)}
               isLabelBold={false}
               styles={checkBoxWidth}
+              onChange={onChange}
             />
           );
         })}

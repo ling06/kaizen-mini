@@ -9,15 +9,14 @@ import { css } from 'styled-components';
 export interface IPermissionsBlockProps {
   permissions: Array<TPermission>;
   userPermissions: Array<TPermission>;
+  onChange?: () => void;
 }
 
 const checkBoxMargin = css`
   margin-bottom: 25px;
 `;
 
-export function PermissionsBlock({ permissions, userPermissions }: IPermissionsBlockProps) {
-  console.log(userPermissions);
-  
+export function PermissionsBlock({ permissions, userPermissions, onChange }: Readonly<IPermissionsBlockProps>) {
   const divided = useMemo(() => {
     const index = permissions.findIndex((permission) => !permission.code.includes('#'));
     if (index !== -1) {
@@ -41,21 +40,25 @@ export function PermissionsBlock({ permissions, userPermissions }: IPermissionsB
         name={divided.main.code}
         checked={!!userPermissions.find((permission) => permission.code === divided.main.code)}
         styles={checkBoxMargin}
+        onChange={onChange}
       />
       <CheckboxGroup
         groupName={'Новости'}
         permissions={news}
         userPermissions={userPermissions}
+        onChange={onChange}
       />
       <CheckboxGroup
         groupName={'Курсы'}
         permissions={courses}
         userPermissions={userPermissions}
+        onChange={onChange}
       />
       <CheckboxGroup
         groupName={'База знаний'}
         permissions={knowledge}
         userPermissions={userPermissions}
+        onChange={onChange}
       />
     </S.PermissionsBlock>
   );

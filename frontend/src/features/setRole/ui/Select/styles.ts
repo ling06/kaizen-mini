@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as C from '@/shared/ui/assets/styles/components';
 import arrow from '@assets/images/accordionIcon.svg';
 
@@ -48,12 +48,22 @@ export const Options = styled.ul`
   overflow-y: auto;
 `;
 
-export const Option = styled.li`
+export const Option = styled.li<{ $isInitial?: boolean}>`
   display: flex;
   flex-direction: column;
   padding: 15px 30px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+
+  ${props => {
+    if (props.$isInitial) {
+      return css`
+        * {
+          color: ${props => props.theme.colors.grey93};
+        }
+      `;
+    }
+  }}
 
   &:nth-child(even) {
     background-color: ${(props) => props.theme.colors.greyF1};

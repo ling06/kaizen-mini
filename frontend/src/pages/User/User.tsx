@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useGetUserQuery } from '@/entities/users';
 import { useMemo } from 'react';
 import { UserPermissions } from '@/widgets/userPermissions';
+import './styles.css';
 
 const tabs = [
   { name: 'Обучение', queryParam: 'education' },
