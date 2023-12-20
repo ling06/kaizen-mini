@@ -43,8 +43,8 @@ export const Options = styled.ul`
   width: 560px;
   max-height: 490px;
   background-color: white;
-  border: 2px solid ${props => props.theme.colors.realBlack};
-  border-radius: ${props => props.theme.utils.br};
+  border: 2px solid ${(props) => props.theme.colors.realBlack};
+  border-radius: ${(props) => props.theme.utils.br};
   overflow-y: auto;
 `;
 
@@ -53,16 +53,25 @@ export const Option = styled.li`
   flex-direction: column;
   padding: 15px 30px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 
   &:nth-child(even) {
     background-color: ${(props) => props.theme.colors.greyF1};
+  }
+  &:hover {
+    background-color: ${(props) => props.theme.colors.dark};
+    * {
+      color: ${props => props.theme.colors.realWhite};
+    }
   }
 `;
 
 export const OptionValue = styled(C.Text)`
   margin-bottom: 5px;
+  transition: color 0.2s ease-in-out;
 `;
 
 export const OptionDescription = styled(C.Text)`
   font-weight: 400;
+  transition: color 0.2s ease-in-out;
 `;

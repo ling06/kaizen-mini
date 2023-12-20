@@ -28,10 +28,9 @@ const titleStyles = css`
 `;
 export function User() {
   const { userId } = useParams();
-  const { data } = useGetUserQuery(`${userId}`, {
+  const { data, isLoading } = useGetUserQuery(`${userId}`, {
     skip: !userId,
   });
-  console.log(data?.data);
 
   const panels = useMemo(() => {
     return [
@@ -40,11 +39,17 @@ export function User() {
         id: 'education',
       },
       {
-        element: <UserPermissions userPermissions={data?.data.permissions} userRole={data?.data.role}/>,
+        element: isLoading ? null :(
+          <UserPermissions
+            userPermissions={data?.data.permissions}
+            userRole={data?.data.role}
+            userId={data?.data.id}
+          />
+        ),
         id: 'permissions',
       },
     ];
-  }, [data?.data.permissions, data?.data.role]);
+  }, [data?.data.id, data?.data.permissions, data?.data.role]);
 
   return (
     <Layout styles={layoutStyles}>

@@ -5,9 +5,10 @@ import { Select } from '../Select';
 
 interface IRoleBlockProps {
   roleId: number;
+  onChange: (role: TRole) => void;
 }
 
-export function RoleBlock({ roleId }: IRoleBlockProps) {
+export function RoleBlock({ roleId, onChange }: IRoleBlockProps) {
   const {data} = useGetRolesQuery(null);
   const [role, setRole] = useState<TRole | null>(null);
   const [isChanged, setIsChanged] = useState(false);
@@ -18,9 +19,10 @@ export function RoleBlock({ roleId }: IRoleBlockProps) {
     if(!currentRole) return;
     setRole(currentRole);
   }, [data, roleId])
-  const handleSelect = (option: TRole) => {
-    setRole(option);
+  const handleSelect = (role: TRole) => {
+    setRole(role);
     setIsChanged(true);
+    onChange(role);
   }
 
   return (

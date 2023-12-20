@@ -16,6 +16,8 @@ const checkBoxMargin = css`
 `;
 
 export function PermissionsBlock({ permissions, userPermissions }: IPermissionsBlockProps) {
+  console.log(userPermissions);
+  
   const divided = useMemo(() => {
     const index = permissions.findIndex((permission) => !permission.code.includes('#'));
     if (index !== -1) {

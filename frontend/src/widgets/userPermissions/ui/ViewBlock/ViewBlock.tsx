@@ -24,6 +24,7 @@ export function ViewBlock({ viewPermissions, userViewPermissions }: Readonly<IVi
       };
     }
   }, [viewPermissions]);
+  
 
   return (
     <S.Container>

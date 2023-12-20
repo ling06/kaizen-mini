@@ -26,7 +26,7 @@ export function CheckboxGroup({ groupName, permissions, userPermissions }: Reado
               key={permission.code}
               name={permission.code}
               label={PERMISSIONS[`${permission.code.replace('#', '_')}`]}
-              checked={!!userPermissions.find((userPermission) => userPermission.code === permission.code)}
+              checked={!![...userPermissions].find((userPermission) => userPermission.code === permission.code)}
               isLabelBold={false}
               styles={checkBoxWidth}
             />

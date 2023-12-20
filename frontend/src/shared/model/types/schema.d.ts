@@ -66,6 +66,10 @@ export interface paths {
     /** Изменение урока */
     patch: operations["f8e128ca0c7bca86588a448a35d8181c"];
   };
+  "/api/course-lessons/next-lesson/{id}": {
+    /** Следующий урок */
+    get: operations["08c4fa31ce9d7a81eb5d45d20cdce820"];
+  };
   "/api/course-themes": {
     /** Темы */
     get: operations["99235737781fc67f83bfe518dc67f399"];
@@ -116,159 +120,149 @@ export interface paths {
     /** Список найденных пользователей для поля поиска пользователя */
     get: operations["a75927159322bd00ab8baddaaffd1ceb"];
   };
+  "/api/users/{id}/update-permissions": {
+    /** Изменение прав пользователя */
+    patch: operations["deb346455a84834c9d107daf92f522f3"];
+  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    CourseLessonController: number;
     /** Глава */
     CourseChapterSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        course_id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-        /**
-         * @description URL изображения
-         * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
-         */
-        image: string;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      course_id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      percentage: components["schemas"]["PercentageSchema"];
+      /**
+       * @description URL изображения
+       * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
+       */
+      image: string;
     };
     /** Урок */
     CourseLessonSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        theme_id: number;
-        /** @example Урок 1 */
-        title: string;
-        /** @example Описание урока 1 */
-        description: string;
-        /** @example null */
-        description_autosave: string;
-        /** @example 1 */
-        status: Record<string, never>;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      theme_id: number;
+      /** @example Урок 1 */
+      title: string;
+      /** @example Описание урока 1 */
+      description: string;
+      /** @example null */
+      description_autosave: string;
+      /** @example 1 */
+      status: Record<string, never>;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
     };
     /** Курс */
     CourseSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example Описание курса 1 */
-        description: string;
-        /** @example true */
-        is_open: boolean;
-        /** @example published */
-        status: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-        /**
-         * @description URL изображения
-         * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
-         */
-        image: string;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example Описание курса 1 */
+      description: string;
+      /** @example true */
+      is_open: boolean;
+      /** @example published */
+      status: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      percentage: components["schemas"]["PercentageSchema"];
+      /**
+       * @description URL изображения
+       * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
+       */
+      image: string;
     };
     /** Тема */
     CourseThemeSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        chapter_id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-      };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      chapter_id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
     };
     /** Изображение */
     ImageSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example images/upload/b14bf311-f518-4ece-b80f-df753a142d25.jpg */
-        src: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        width: number | null;
-        /** @example 1 */
-        height: number | null;
-        /** @example 2023-12-08T14:33:07.000000Z */
-        created_at: string;
-        /** @example 2023-12-08T14:33:07.000000Z */
-        updated_at: string;
-        /** @example http://localhost:3010/images/upload/b14bf311-f518-4ece-b80f-df753a142d25.jpg */
-        url: string;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example images/upload/b14bf311-f518-4ece-b80f-df753a142d25.jpg */
+      src: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      width: number | null;
+      /** @example 1 */
+      height: number | null;
+      /** @example 2023-12-08T14:33:07.000000Z */
+      created_at: string;
+      /** @example 2023-12-08T14:33:07.000000Z */
+      updated_at: string;
+      /** @example http://localhost:3010/images/upload/b14bf311-f518-4ece-b80f-df753a142d25.jpg */
+      url: string;
     };
     /** Проценты */
     PercentageSchema: {
-      data: {
-        /** @example 10 */
-        lessonCouunt: number;
-        /** @example 5 */
-        checkedLessonCount: number;
-        /** @example 50 */
-        percentage: number;
-      };
+      /** @example 10 */
+      lessonCouunt: number;
+      /** @example 5 */
+      checkedLessonCount: number;
+      /** @example 50 */
+      percentage: number;
     };
     /** Право доступа */
     PermissionSchema: {
@@ -300,170 +294,159 @@ export interface components {
     };
     /** Глава */
     SingleCourseChapterSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        course_id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-        themes: components["schemas"]["SingleCourseThemeSchema"][];
-        /**
-         * @description URL изображения
-         * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
-         */
-        image: string;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      course_id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      percentage: components["schemas"]["PercentageSchema"];
+      themes: components["schemas"]["SingleCourseThemeSchema"][];
+      /**
+       * @description URL изображения
+       * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
+       */
+      image: string;
     };
     /** Урок */
     SingleCourseLessonSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        theme_id: number;
-        /** @example Урок 1 */
-        title: string;
-        /** @example Описание урока 1 */
-        description: string;
-        /** @example null */
-        description_autosave: string;
-        /** @example 1 */
-        status: Record<string, never>;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        breadCrumbs: {
-          chapter: {
-            /** @example 10 */
-            allQuantity: number;
-            /** @example 1 */
-            id: number;
-            /** @example Курс 1 */
-            name: string;
-            /** @example 1 */
-            position: number;
-          };
-          theme: {
-            /** @example 10 */
-            allQuantity: number;
-            /** @example 1 */
-            id: number;
-            /** @example Тема 1 */
-            name: string;
-            /** @example 1 */
-            position: number;
-          };
-          lesson: {
-            /** @example 10 */
-            allQuantity: number;
-            /** @example 1 */
-            id: number;
-            /** @example Урок 1 */
-            name: string;
-            /** @example 1 */
-            position: number;
-          };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      theme_id: number;
+      /** @example Урок 1 */
+      title: string;
+      /** @example Описание урока 1 */
+      description: string;
+      /** @example null */
+      description_autosave: string;
+      /** @example 1 */
+      status: Record<string, never>;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      breadCrumbs: {
+        chapter: {
+          /** @example 10 */
+          allQuantity: number;
+          /** @example 1 */
+          id: number;
+          /** @example Курс 1 */
+          name: string;
+          /** @example 1 */
+          position: number;
+        };
+        theme: {
+          /** @example 10 */
+          allQuantity: number;
+          /** @example 1 */
+          id: number;
+          /** @example Тема 1 */
+          name: string;
+          /** @example 1 */
+          position: number;
+        };
+        lesson: {
+          /** @example 10 */
+          allQuantity: number;
+          /** @example 1 */
+          id: number;
+          /** @example Урок 1 */
+          name: string;
+          /** @example 1 */
+          position: number;
         };
       };
     };
     /** Курс */
     SingleCourseSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example Описание курса 1 */
-        description: string;
-        /** @example true */
-        is_open: boolean;
-        /** @example published */
-        status: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-        chapters: components["schemas"]["CourseChapterSchema"][];
-        /**
-         * @description URL изображения
-         * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
-         */
-        image: string;
-      };
+      /** @example 4 */
+      id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example Описание курса 1 */
+      description: string;
+      /** @example true */
+      is_open: boolean;
+      /** @example published */
+      status: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      percentage: components["schemas"]["PercentageSchema"];
+      chapters: components["schemas"]["CourseChapterSchema"][];
+      /**
+       * @description URL изображения
+       * @example http://localhost:3010/images/upload/4b827664-032a-42c8-b671-d391af9d1a12.webp
+       */
+      image: string;
     };
     /** Тема */
     SingleCourseThemeSchema: {
-      data: {
-        /** @example 4 */
-        id: number;
-        /** @example 1 */
-        chapter_id: number;
-        /** @example Курс 1 */
-        title: string;
-        /** @example 1 */
-        user_id: number;
-        /** @example 1 */
-        position: number;
-        /** @example 2022-01-01 12:00:00 */
-        date: string;
-        /** @example 2022-01-01 12:00:00 */
-        updated_at: string;
-        /** @example false */
-        is_deleted: boolean;
-        /** @example false */
-        isChecked: boolean;
-        percentage: components["schemas"]["PercentageSchema"];
-        lessons: components["schemas"]["CourseLessonSchema"][];
-      };
+      /** @example 4 */
+      id: number;
+      /** @example 1 */
+      chapter_id: number;
+      /** @example Курс 1 */
+      title: string;
+      /** @example 1 */
+      user_id: number;
+      /** @example 1 */
+      position: number;
+      /** @example 2022-01-01 12:00:00 */
+      date: string;
+      /** @example 2022-01-01 12:00:00 */
+      updated_at: string;
+      /** @example false */
+      is_deleted: boolean;
+      /** @example false */
+      isChecked: boolean;
+      lessons: components["schemas"]["CourseLessonSchema"][];
     };
     /** Пользователь (расширенная информация) */
     UserExtendedSchema: {
-      data: {
-        /** @example 5398 */
-        id: number;
-        /** @example Алексей Поваров */
-        name: string | null;
-        /** @example Povarov */
-        username: string | null;
-        /** @example 1 */
-        isActive: number | null;
-        /** @example 2023-12-04 10:56:35 */
-        lastAction: unknown;
-        role: components["schemas"]["RoleSchema"];
-        permissions: components["schemas"]["PermissionSchema"][];
-      };
+      /** @example 5398 */
+      id: number;
+      /** @example Алексей Поваров */
+      name: string | null;
+      /** @example Povarov */
+      username: string | null;
+      /** @example 1 */
+      isActive: number | null;
+      /** @example 2023-12-04 10:56:35 */
+      lastAction: unknown;
+      role: components["schemas"]["RoleSchema"];
+      permissions: components["schemas"]["PermissionSchema"][];
     };
     /** Пользователь */
     UserSchema: {
@@ -484,15 +467,6 @@ export interface components {
     };
   };
   responses: {
-    /** @description Ok */
-    200: {
-      content: {
-        "application/json": {
-          /** @example success */
-          result?: string;
-        };
-      };
-    };
     /** @description Message: Unauthorized */
     401: {
       content: {
@@ -595,7 +569,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: components["schemas"]["CourseChapterSchema"][];
+            data: components["schemas"]["CourseChapterSchema"][];
           };
         };
       };
@@ -670,7 +644,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["SingleCourseChapterSchema"];
+          "application/json": {
+            data: components["schemas"]["SingleCourseChapterSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -854,7 +830,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["SingleCourseSchema"];
+          "application/json": {
+            data: components["schemas"]["SingleCourseSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -1096,15 +1074,6 @@ export interface operations {
           };
         };
       };
-      /** @description Message: Unauthorized */
-      401: {
-        content: {
-          "application/json": {
-            /** @example Unauthorized */
-            error?: string;
-          };
-        };
-      };
     };
   };
   /** Изменение урока */
@@ -1204,6 +1173,44 @@ export interface operations {
       };
     };
   };
+  /** Следующий урок */
+  "08c4fa31ce9d7a81eb5d45d20cdce820": {
+    parameters: {
+      path: {
+        /**
+         * @description ID текущего урока
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            data: {
+              /**
+               * @description ID следующего урока
+               * @example 1
+               */
+              lesson: number;
+              /**
+               * @description ID следующей темы
+               * @example 1
+               */
+              theme: number;
+              /**
+               * @description ID следующей главы
+               * @example 1
+               */
+              chapter: number;
+            };
+          };
+        };
+      };
+    };
+  };
   /** Темы */
   "99235737781fc67f83bfe518dc67f399": {
     responses: {
@@ -1280,7 +1287,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["CourseThemeSchema"];
+          "application/json": {
+            data: components["schemas"]["CourseThemeSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -1388,7 +1397,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["ImageSchema"];
+          "application/json": {
+            data: components["schemas"]["ImageSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -1630,6 +1641,57 @@ export interface operations {
         content: {
           "application/json": {
             data: components["schemas"]["UserSchema"][];
+          };
+        };
+      };
+    };
+  };
+  /** Изменение прав пользователя */
+  deb346455a84834c9d107daf92f522f3: {
+    parameters: {
+      path: {
+        /**
+         * @description ID пользователя
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          /**
+           * @description ID роли
+           * @example 1
+           */
+          role_id: number | null;
+          /**
+           * @description Права доступа
+           * @example [
+           *   "view",
+           *   "view#news"
+           * ]
+           */
+          permissions?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
           };
         };
       };
