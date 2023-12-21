@@ -3,44 +3,56 @@ import * as S from './styles';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { getPermissions } from '../../lib/getPermissions';
 import { useUpdateUserPermissionsMutation } from '@/entities/users';
-import { TRole } from '@/entities/role';
+import { useState } from 'react';
+import { SaveRole } from '@/features/saveRole';
 
 interface IButtonsGroupProps {
   formEl: React.MutableRefObject<null>;
   userId: number;
-  onSave: (role: TRole) => void;
 }
 
-export function ButtonsGroup({ formEl, userId, onSave }: IButtonsGroupProps) {
-  const {setLoaderActive} = useActions();
+export function ButtonsGroup({ formEl, userId }: IButtonsGroupProps) {
+  const { setLoaderActive } = useActions();
   const [updateUserPermissions] = useUpdateUserPermissionsMutation();
+  const [isModal, setIsModal] = useState(false);
 
   const handleUpdatePermissions = (event: React.MouseEvent) => {
     event.preventDefault();
     if (!formEl.current) return;
     const permissions = getPermissions(formEl.current);
-    updateUserPermissions({userId, permissions}).then((res) => {
-      setLoaderActive(false); 
-      if('data' in res && res.data.data && res.data.data.role) {
-        console.log(111);
-        onSave(res.data.data.role);
-      }
-      if('error' in res) {
+    updateUserPermissions({ userId, permissions }).then((res) => {
+      setLoaderActive(false);
+      if ('error' in res) {
         alert(`Что-то пошло не так: ${res.error}`);
       }
     });
     setLoaderActive(true);
-  }
+  };
+
+  const handleCloseModal = () => {
+    setIsModal(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const handleOpenModal = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setIsModal(true);
+    document.body.style.overflow = 'hidden';
+  };
 
   return (
     <S.ButtonsGroup>
       <S.Divider />
-      {/* Сохраняет набор выбранных прав как роль */}
-      <NoBgButton text="сохранить как роль">
+      {/* Открывает модальное окно для сохранения новой роли 
+      или редактирования существующей */}
+      <NoBgButton text="сохранить как роль" onClick={handleOpenModal}>
         <S.SaveIcon />
       </NoBgButton>
+      {isModal && <SaveRole onClose={handleCloseModal} />}
       {/* Сохраняет выбранные права */}
-      <NoBgButton text="сохранить" onClick={handleUpdatePermissions}>
+      <NoBgButton
+        text="сохранить"
+        onClick={handleUpdatePermissions}>
         <S.SaveIcon />
       </NoBgButton>
     </S.ButtonsGroup>

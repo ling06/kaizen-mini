@@ -1,5 +1,5 @@
 import { api } from '@/shared/api';
-import { TRole, TRoles } from '../model/types';
+import { TNewRole, TRole, TRoles, TUpdateRole } from '../model/types';
 
 export const roleApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -11,7 +11,24 @@ export const roleApi = api.injectEndpoints({
       query: (id) => `roles/${id}`,
       providesTags: ['Role'],
     }),
+    createRole: build.mutation<TRole, TNewRole>({
+      query: (role) => ({
+        url: 'roles',
+        method: 'POST',
+        body: role,
+      }),
+      invalidatesTags: ['Roles'],
+    }),
+    updateRole: build.mutation<TRole, TUpdateRole & { roleId: string }>({
+      query: ({ roleId, ...role }) => ({
+        url: `roles/${roleId}`,
+        method: 'PATCH',
+        body: role,
+      }),
+      invalidatesTags: ['Role', 'Roles'],
+    }),
   }),
 });
 
-export const {useGetRoleQuery, useGetRolesQuery} = roleApi;
+export const { useGetRoleQuery, useGetRolesQuery, useCreateRoleMutation, useUpdateRoleMutation } =
+  roleApi;

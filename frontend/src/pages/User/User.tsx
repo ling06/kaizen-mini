@@ -21,7 +21,7 @@ const tabs = [
 
 const layoutStyles = css`
   max-width: 1266px;
-  padding-top: 68px;
+  padding: 68px 0;
 `;
 
 const titleStyles = css`

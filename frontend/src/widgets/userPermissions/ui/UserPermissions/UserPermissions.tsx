@@ -87,7 +87,7 @@ export function UserPermissions({ userRole, userId, userPermissions=[] }: Readon
           />
         </>
       )}
-      <ButtonsGroup formEl={formRef} userId={userId} onSave={handleRoleChange}/>
+      <ButtonsGroup formEl={formRef} userId={userId}/>
     </S.Form>
   );
 }

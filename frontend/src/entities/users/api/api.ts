@@ -44,7 +44,7 @@ export const usersApi = api.injectEndpoints({
           role_id,
         },
       }),
-      // invalidatesTags: ['User'],
+      invalidatesTags: ['User'],
     }),
   }),
 });
