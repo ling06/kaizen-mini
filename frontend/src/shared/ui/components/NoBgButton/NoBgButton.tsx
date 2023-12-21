@@ -3,7 +3,7 @@ import * as S from './styles';
 
 interface INoBgButtonProps {
   text: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
   styles?: RuleSet<object>;
   children?: React.ReactNode;
 }

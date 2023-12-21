@@ -1,14 +1,14 @@
 import { useGetPermissionsQuery } from '@/entities/permissions';
 import { ViewBlock } from '../ViewBlock';
 import * as S from './styles';
-import { TExtendedUser, useUpdateUserPermissionsMutation } from '@/entities/users';
+import { TExtendedUser } from '@/entities/users';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { PermissionsBlock } from '../PermissionsBlock';
 import { RoleBlock } from '@/features/setRole';
 import { TRole } from '@/entities/role';
-import { useState } from 'react';
-import { useActions } from '@/shared/lib/hooks/useActions';
-import { NoBgButton } from '@/shared/ui/components';
+import { useRef, useState } from 'react';
+import { ORIGINAL_ROLE } from '../../model/constants';
+import { ButtonsGroup } from '../ButtonsGroup';
 
 interface IUserPermissionsProps {
   userPermissions: TExtendedUser['permissions'] | undefined;
@@ -16,27 +16,14 @@ interface IUserPermissionsProps {
   userId: number;
 }
 
-export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsProps>) {
-  const { setLoaderActive } = useActions();
-  const [role, setRole] = useState<TRole | null>(userRole ?? null);
+export function UserPermissions({ userRole, userId, userPermissions=[] }: Readonly<IUserPermissionsProps>) {
+  const [role, setRole] = useState<TRole | null>(userRole ?? {...ORIGINAL_ROLE, permissions: userPermissions});
   const { data, isError } = useGetPermissionsQuery(null);
-  const [updateUserPermissions] = useUpdateUserPermissionsMutation();
   const [isOriginal, setIsOriginal] = useState<boolean>(false);
+  const formRef = useRef(null);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const data = new FormData(event.target as HTMLFormElement);
-    const formData = Object.fromEntries(data.entries());
-    const permissions = Object.keys(formData).map((key) => key);
-
-    updateUserPermissions({
-      userId,
-      role_id: role?.id ?? null,
-      permissions: permissions,
-    }).then((res) => {
-      setLoaderActive(false);
-    });
-    setLoaderActive(true);
   };
 
   const handleRoleChange = (role: TRole) => {
@@ -53,15 +40,14 @@ export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsP
   }
 
   return (
-    <S.Form onSubmit={handleSubmit}>
-      {role && (
-        <RoleBlock
-          userId={userId}
-          isOriginal={isOriginal}
-          roleId={role?.id}
-          onChange={handleRoleChange}
-        />
-      )}
+    <S.Form onSubmit={handleSubmit} ref={formRef}>
+      <RoleBlock
+        userPermissions={userPermissions ?? []}
+        userId={userId}
+        isOriginal={isOriginal}
+        roleId={role?.id}
+        onChange={handleRoleChange}
+      />
       {data && role && (
         <>
           <ViewBlock
@@ -101,15 +87,7 @@ export function UserPermissions({ userRole, userId }: Readonly<IUserPermissionsP
           />
         </>
       )}
-      <S.ButtonsGroup>
-        <S.Divider />
-        <NoBgButton text="сохранить как роль">
-          <S.SaveIcon />
-        </NoBgButton>
-        <NoBgButton text="сохранить">
-          <S.SaveIcon />
-        </NoBgButton>
-      </S.ButtonsGroup>
+      <ButtonsGroup formEl={formRef} userId={userId} onSave={handleRoleChange}/>
     </S.Form>
   );
 }

@@ -58,6 +58,7 @@ export const Option = styled.li<{ $isInitial?: boolean}>`
   ${props => {
     if (props.$isInitial) {
       return css`
+        pointer-events: none;
         * {
           color: ${props => props.theme.colors.grey93};
         }

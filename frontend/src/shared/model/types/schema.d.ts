@@ -103,10 +103,14 @@ export interface paths {
   "/api/roles": {
     /** Список ролей */
     get: operations["8b150689fdb24b3de912b09517f91093"];
+    /** Добавление роли */
+    post: operations["75578e4b497821a1a7cb26dfb52f39e3"];
   };
   "/api/roles/{id}": {
     /** Роль */
     get: operations["c4efcba3e30eb822aadfb7c48bb89015"];
+    /** Изменение роли */
+    patch: operations["521270c7f2f5a394c0cd2fa128849e62"];
   };
   "/api/users": {
     /** Список пользователей */
@@ -128,12 +132,53 @@ export interface paths {
     /** Изменение прав пользователя */
     patch: operations["deb346455a84834c9d107daf92f522f3"];
   };
+  "/api/users/check-lesson/{courseLesson}": {
+    /** Установка отметки о прохождении урока */
+    patch: operations["261357a5ec6c49237a4ddcffb2be0d11"];
+  };
+  "/api/users/get-users-progress/{course}": {
+    /** Получение прогресса пользователя */
+    get: operations["fe6f1b604d592ad52ed068062e6842dc"];
+  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /** Хлебные крошки */
+    BreadCrumbsSchema: {
+      chapter: {
+        /** @example 10 */
+        allQuantity: number;
+        /** @example 1 */
+        id: number;
+        /** @example Курс 1 */
+        name: string;
+        /** @example 1 */
+        position: number;
+      };
+      theme: {
+        /** @example 10 */
+        allQuantity: number;
+        /** @example 1 */
+        id: number;
+        /** @example Тема 1 */
+        name: string;
+        /** @example 1 */
+        position: number;
+      };
+      lesson: {
+        /** @example 10 */
+        allQuantity: number;
+        /** @example 1 */
+        id: number;
+        /** @example Урок 1 */
+        name: string;
+        /** @example 1 */
+        position: number;
+      };
+    };
     /** Глава */
     CourseChapterSchema: {
       /** @example 4 */
@@ -350,38 +395,7 @@ export interface components {
       is_deleted: boolean;
       /** @example false */
       isChecked: boolean;
-      breadCrumbs: {
-        chapter: {
-          /** @example 10 */
-          allQuantity: number;
-          /** @example 1 */
-          id: number;
-          /** @example Курс 1 */
-          name: string;
-          /** @example 1 */
-          position: number;
-        };
-        theme: {
-          /** @example 10 */
-          allQuantity: number;
-          /** @example 1 */
-          id: number;
-          /** @example Тема 1 */
-          name: string;
-          /** @example 1 */
-          position: number;
-        };
-        lesson: {
-          /** @example 10 */
-          allQuantity: number;
-          /** @example 1 */
-          id: number;
-          /** @example Урок 1 */
-          name: string;
-          /** @example 1 */
-          position: number;
-        };
-      };
+      breadCrumbs: components["schemas"]["BreadCrumbsSchema"];
     };
     /** Курс */
     SingleCourseSchema: {
@@ -1546,6 +1560,52 @@ export interface operations {
       };
     };
   };
+  /** Добавление роли */
+  "75578e4b497821a1a7cb26dfb52f39e3": {
+    requestBody?: {
+      content: {
+        "application/json": {
+          /**
+           * @description Название роли
+           * @example Пользователь
+           */
+          name: string;
+          /**
+           * @description Описание роли
+           * @example Только видит новости, курсы, базу знаний
+           */
+          description: string;
+          /**
+           * @description Права доступа
+           * @example [
+           *   "view",
+           *   "view#news"
+           * ]
+           */
+          permissions: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            data: components["schemas"]["RoleSchema"];
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
+          };
+        };
+      };
+    };
+  };
   /** Роль */
   c4efcba3e30eb822aadfb7c48bb89015: {
     parameters: {
@@ -1572,6 +1632,56 @@ export interface operations {
           "application/json": {
             /** @example Unauthorized */
             error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Изменение роли */
+  "521270c7f2f5a394c0cd2fa128849e62": {
+    parameters: {
+      path: {
+        /**
+         * @description ID роли
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          /**
+           * @description Описание роли
+           * @example Только видит новости, курсы, базу знаний
+           */
+          description: string;
+          /**
+           * @description Права доступа
+           * @example [
+           *   "view",
+           *   "view#news"
+           * ]
+           */
+          permissions: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            data: components["schemas"]["RoleSchema"];
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
           };
         };
       };
@@ -1614,7 +1724,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["UserExtendedSchema"];
+          "application/json": {
+            data: components["schemas"]["UserExtendedSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -1676,7 +1788,9 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["UserExtendedSchema"];
+          "application/json": {
+            data: components["schemas"]["UserExtendedSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */
@@ -1711,7 +1825,7 @@ export interface operations {
            *   "view#news"
            * ]
            */
-          permissions?: string[];
+          permissions: string[];
         };
       };
     };
@@ -1719,7 +1833,75 @@ export interface operations {
       /** @description Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["UserExtendedSchema"];
+          "application/json": {
+            data: components["schemas"]["UserExtendedSchema"];
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Установка отметки о прохождении урока */
+  "261357a5ec6c49237a4ddcffb2be0d11": {
+    parameters: {
+      path: {
+        /**
+         * @description ID урока
+         * @example 1
+         */
+        courseLesson: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            data: {
+              lesson: number;
+              theme: number;
+              chapter: number;
+            };
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            message?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Получение прогресса пользователя */
+  fe6f1b604d592ad52ed068062e6842dc: {
+    parameters: {
+      path: {
+        /**
+         * @description ID курса
+         * @example 1
+         */
+        course: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            data: components["schemas"]["BreadCrumbsSchema"];
+          };
         };
       };
       /** @description Message: Unauthorized */

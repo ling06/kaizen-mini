@@ -4,25 +4,26 @@ import { TRole, useGetRolesQuery } from '@/entities/role';
 import { Select } from '../Select';
 import { useUpdateUserRoleMutation } from '@/entities/users';
 import { useActions } from '@/shared/lib/hooks/useActions';
+import { ORIGINAL_ROLE } from '@/widgets/userPermissions/model/constants';
 
 interface IRoleBlockProps {
-  roleId: number;
+  roleId: number | undefined;
   onChange: (role: TRole) => void;
   isOriginal: boolean;
   userId: number;
+  userPermissions: TRole['permissions'];
 }
 
-const ORIGINAL_ROLE = {
-  id: 0,
-  name: 'Самобытный',
-  description: '',
-  permissions: [],
-};
-
-export function RoleBlock({ roleId, onChange, isOriginal = false, userId }: IRoleBlockProps) {
+export function RoleBlock({
+  userPermissions,
+  roleId,
+  onChange,
+  isOriginal = false,
+  userId,
+}: Readonly<IRoleBlockProps>) {
   const { setLoaderActive } = useActions();
   const { data } = useGetRolesQuery(null);
-  const [role, setRole] = useState<TRole | null>(null);
+  const [role, setRole] = useState<TRole>({ ...ORIGINAL_ROLE, permissions: [...userPermissions] });
   const [isChanged, setIsChanged] = useState(false);
   const [updateUserRole] = useUpdateUserRoleMutation();
 
