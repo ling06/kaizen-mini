@@ -38,6 +38,14 @@ export interface paths {
     /** Изменение главы */
     patch: operations["5d5c9933c9da53bc200af1106a52a6d2"];
   };
+  "/api/course-chapters/{id}/soft-delete": {
+    /** Мягкое удаление главы */
+    patch: operations["ffdfad2df28107af584cda82c4ded610"];
+  };
+  "/api/course-chapters/{id}/restore": {
+    /** Восстановление мягко удалённой главы */
+    patch: operations["07b9ac1fa1f7f5710962937fad35e9bc"];
+  };
   "/api/courses": {
     /** Список курсов */
     get: operations["df5cfe3ec2c1d6bdc815652059af1502"];
@@ -47,10 +55,18 @@ export interface paths {
   "/api/courses/{id}": {
     /** Курс */
     get: operations["9d444899c0eea57b198b07745dfeb99b"];
-    /** Удаление курса */
+    /** Полное удаление курса */
     delete: operations["96ec6735185fdd95188d94afd17c82ce"];
     /** Изменение курса */
     patch: operations["c35c9f942c8a9f341b47e2f6ed448dc4"];
+  };
+  "/api/courses/{id}/soft-delete": {
+    /** Мягкое удаление курса */
+    patch: operations["646c36eae651cd9bfb611e54cbefc324"];
+  };
+  "/api/courses/{id}/restore": {
+    /** Восстановление мягко удалённого курса */
+    patch: operations["70a13fdc4beea9d1768508caa63f9b4b"];
   };
   "/api/course-lessons": {
     /** Уроки */
@@ -61,10 +77,18 @@ export interface paths {
   "/api/course-lessons/{id}": {
     /** Урок */
     get: operations["795a084ea4dead029288810c071277e1"];
-    /** Удаление урока */
+    /** Полное удаление урока */
     delete: operations["2eb7b86e2ef034b818679fdc33c19ac5"];
     /** Изменение урока */
     patch: operations["f8e128ca0c7bca86588a448a35d8181c"];
+  };
+  "/api/course-lessons/{id}/soft-delete": {
+    /** Мягкое удаление урока */
+    patch: operations["e5f0aa807cb98bec1c6ffd778a201003"];
+  };
+  "/api/course-lessons/{id}/restore": {
+    /** Восстановление мягко удалённого урока */
+    patch: operations["c38bfc5ebd9a2644498e9dacb4bfbcd2"];
   };
   "/api/course-lessons/next-lesson/{id}": {
     /** Следующий урок */
@@ -79,14 +103,26 @@ export interface paths {
   "/api/course-themes/{id}": {
     /** Тема */
     get: operations["ee31c51b86f06e6043e7f0e80fa8f8ab"];
-    /** Удаление темы */
+    /** Полное удаление темы */
     delete: operations["1f30e165b543542c3e70f3e8917b9aef"];
     /** Изменение темы */
     patch: operations["7d79533aea438123258c17d4df61e7dd"];
   };
+  "/api/course-themes/{id}/soft-delete": {
+    /** Мягкое удаление темы */
+    patch: operations["27cccb79a94eeba6d85fa6ebd8f80622"];
+  };
+  "/api/course-themes/{id}/restore": {
+    /** Восстановление мягко удалённой темы */
+    patch: operations["6778a1d02ee17fcedafc9285e8039dcf"];
+  };
   "/api/images": {
     /** Загрузка изображения */
     post: operations["d22af348accbe27bb606c9a03014356f"];
+  };
+  "/api/images/ckeditor-image-store": {
+    /** Загрузка изображения кнопкой в CKEditor */
+    post: operations["d48d090cd9747e64c0ccdb8d53c0c58d"];
   };
   "/api/permissions": {
     /** Список прав доступа */
@@ -764,6 +800,70 @@ export interface operations {
       };
     };
   };
+  /** Мягкое удаление главы */
+  ffdfad2df28107af584cda82c4ded610: {
+    parameters: {
+      path: {
+        /**
+         * @description ID главы
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Восстановление мягко удалённой главы */
+  "07b9ac1fa1f7f5710962937fad35e9bc": {
+    parameters: {
+      path: {
+        /**
+         * @description ID главы
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
   /** Список курсов */
   df5cfe3ec2c1d6bdc815652059af1502: {
     responses: {
@@ -864,7 +964,7 @@ export interface operations {
       };
     };
   };
-  /** Удаление курса */
+  /** Полное удаление курса */
   "96ec6735185fdd95188d94afd17c82ce": {
     parameters: {
       path: {
@@ -927,6 +1027,70 @@ export interface operations {
             extension: string;
           }, number]>;
         };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Мягкое удаление курса */
+  "646c36eae651cd9bfb611e54cbefc324": {
+    parameters: {
+      path: {
+        /**
+         * @description ID курса
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Восстановление мягко удалённого курса */
+  "70a13fdc4beea9d1768508caa63f9b4b": {
+    parameters: {
+      path: {
+        /**
+         * @description ID курса
+         * @example 1
+         */
+        id: number;
       };
     };
     responses: {
@@ -1071,7 +1235,7 @@ export interface operations {
       };
     };
   };
-  /** Удаление урока */
+  /** Полное удаление урока */
   "2eb7b86e2ef034b818679fdc33c19ac5": {
     parameters: {
       path: {
@@ -1186,6 +1350,70 @@ export interface operations {
           "application/json": {
             /** @example Unauthorized */
             message?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Мягкое удаление урока */
+  e5f0aa807cb98bec1c6ffd778a201003: {
+    parameters: {
+      path: {
+        /**
+         * @description ID урока
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Восстановление мягко удалённого урока */
+  c38bfc5ebd9a2644498e9dacb4bfbcd2: {
+    parameters: {
+      path: {
+        /**
+         * @description ID урока
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
           };
         };
       };
@@ -1321,7 +1549,7 @@ export interface operations {
       };
     };
   };
-  /** Удаление темы */
+  /** Полное удаление темы */
   "1f30e165b543542c3e70f3e8917b9aef": {
     parameters: {
       path: {
@@ -1401,6 +1629,70 @@ export interface operations {
       };
     };
   };
+  /** Мягкое удаление темы */
+  "27cccb79a94eeba6d85fa6ebd8f80622": {
+    parameters: {
+      path: {
+        /**
+         * @description ID темы
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Восстановление мягко удалённой темы */
+  "6778a1d02ee17fcedafc9285e8039dcf": {
+    parameters: {
+      path: {
+        /**
+         * @description ID темы
+         * @example 1
+         */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** @example success */
+            result?: string;
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
   /** Загрузка изображения */
   d22af348accbe27bb606c9a03014356f: {
     requestBody: {
@@ -1417,6 +1709,40 @@ export interface operations {
         content: {
           "application/json": {
             data: components["schemas"]["ImageSchema"];
+          };
+        };
+      };
+      /** @description Message: Unauthorized */
+      401: {
+        content: {
+          "application/json": {
+            /** @example Unauthorized */
+            error?: string;
+          };
+        };
+      };
+    };
+  };
+  /** Загрузка изображения кнопкой в CKEditor */
+  d48d090cd9747e64c0ccdb8d53c0c58d: {
+    requestBody: {
+      content: {
+        "multipart/form-data": {
+          /** @description Загружаемый файл */
+          upload: Record<string, never>;
+        };
+      };
+    };
+    responses: {
+      /** @description Ok */
+      200: {
+        content: {
+          "application/json": {
+            /**
+             * @description URL загруженного изображения
+             * @example http://localhost:3010/images/upload/b14bf311-f518-4ece-b80f-df753a142d25.jpg
+             */
+            url: string;
           };
         };
       };

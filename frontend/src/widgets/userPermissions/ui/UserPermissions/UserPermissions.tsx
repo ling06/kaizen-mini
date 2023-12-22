@@ -6,9 +6,11 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import { PermissionsBlock } from '../PermissionsBlock';
 import { RoleBlock } from '@/features/setRole';
 import { TRole } from '@/entities/role';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ORIGINAL_ROLE } from '../../model/constants';
 import { ButtonsGroup } from '../ButtonsGroup';
+import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
+import { useActions } from '@/shared/lib/hooks/useActions';
 
 interface IUserPermissionsProps {
   userPermissions: TExtendedUser['permissions'] | undefined;
@@ -16,11 +18,20 @@ interface IUserPermissionsProps {
   userId: number;
 }
 
-export function UserPermissions({ userRole, userId, userPermissions=[] }: Readonly<IUserPermissionsProps>) {
-  const [role, setRole] = useState<TRole>(userRole ?? {...ORIGINAL_ROLE, permissions: userPermissions});
+export function UserPermissions({
+  userRole,
+  userId,
+  userPermissions = [],
+}: Readonly<IUserPermissionsProps>) {
+  const [role, setRole] = useState<TRole | null>(null);
   const { data, isError } = useGetPermissionsQuery(null);
-  const [isOriginal, setIsOriginal] = useState<boolean>(false);
+  const isOriginal = useTypedSelector((state) => state.saveRole.isOriginal);
+  const { setRoleOriginal } = useActions();
   const formRef = useRef(null);
+
+  useEffect(() => {
+    setRole(userRole ?? { ...ORIGINAL_ROLE, permissions: userPermissions });
+  }, [userPermissions, userRole]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,11 +39,11 @@ export function UserPermissions({ userRole, userId, userPermissions=[] }: Readon
 
   const handleRoleChange = (role: TRole) => {
     setRole(role);
-    setIsOriginal(false);
+    setRoleOriginal(false);
   };
 
   const handleSetOriginalRole = () => {
-    setIsOriginal(true);
+    setRoleOriginal(true);
   };
 
   if (!data && isError) {
@@ -40,7 +51,9 @@ export function UserPermissions({ userRole, userId, userPermissions=[] }: Readon
   }
 
   return (
-    <S.Form onSubmit={handleSubmit} ref={formRef}>
+    <S.Form
+      onSubmit={handleSubmit}
+      ref={formRef}>
       <RoleBlock
         userPermissions={userPermissions ?? []}
         userId={userId}
@@ -87,7 +100,12 @@ export function UserPermissions({ userRole, userId, userPermissions=[] }: Readon
           />
         </>
       )}
-      <ButtonsGroup formEl={formRef} userId={userId} role={role} isOriginal={isOriginal}/>
+      <ButtonsGroup
+        formEl={formRef}
+        userId={userId}
+        role={role}
+        isOriginal={isOriginal}
+      />
     </S.Form>
   );
 }

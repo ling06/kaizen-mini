@@ -17,15 +17,15 @@ export const roleApi = api.injectEndpoints({
         method: 'POST',
         body: role,
       }),
-      invalidatesTags: ['Roles', 'User'],
+      invalidatesTags: ['Roles'],
     }),
-    updateRole: build.mutation<TRole, TUpdateRole & { roleId: string }>({
+    updateRole: build.mutation<TRole, TUpdateRole & { roleId: number }>({
       query: ({ roleId, ...role }) => ({
         url: `roles/${roleId}`,
         method: 'PATCH',
         body: role,
       }),
-      invalidatesTags: ['Role', 'Roles'],
+      invalidatesTags: ['Role', 'Roles', 'User'],
     }),
   }),
 });

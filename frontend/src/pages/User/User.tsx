@@ -5,7 +5,6 @@ import { CustomTabs } from '@/features/tabs';
 import { nanoid } from '@reduxjs/toolkit';
 import { useParams } from 'react-router-dom';
 import { useGetUserQuery } from '@/entities/users';
-import { useMemo } from 'react';
 import { UserPermissions } from '@/widgets/userPermissions';
 import './styles.css';
 
@@ -33,8 +32,7 @@ export function User() {
     skip: !userId,
   });
 
-  const panels = useMemo(() => {
-    return [
+  const panels = [
       {
         element: <div>В разработке...</div>,
         id: 'education',
@@ -50,7 +48,6 @@ export function User() {
         id: 'permissions',
       },
     ];
-  }, [data?.data.id, data?.data.permissions, data?.data.role]);
 
   return (
     <Layout styles={layoutStyles}>

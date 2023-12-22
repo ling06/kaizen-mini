@@ -7,7 +7,7 @@ import { NEW_ROLE } from '../../model/constants';
 
 export function StepOne() {
   const { data, isError, isLoading } = useGetRolesQuery(null);
-  const {setStep, setRoleName, setRoleDescription, setIsRoleNew} = useActions();
+  const { setStep, setRoleName, setRoleDescription, setIsRoleNew, setRoleId } = useActions();
 
   const handleNextStep = (name: string, descr: string, isNew: boolean = false) => {
     setStep(2);
@@ -31,14 +31,20 @@ export function StepOne() {
                 key={role.id}
                 name={role.name}
                 description={role.description}
-                onClick={handleNextStep}
+                onClick={(name, descr) => {
+                  handleNextStep(name, descr);
+                  setRoleId(role.id);
+                }}
               />
             );
           })}
         <Role
           name={NEW_ROLE.name}
           description={NEW_ROLE.description}
-          onClick={(name, descr) => handleNextStep(name, descr, true)}
+          onClick={(name, descr) => {
+            handleNextStep(name, descr, true);
+            setRoleId(null);
+          }}
         />
       </S.RolesList>
     </>

@@ -10,11 +10,11 @@ interface IButtonsGroupProps {
   formEl: React.MutableRefObject<null>;
   userId: number;
   isOriginal?: boolean;
-  role: TRole;
+  role: TRole | null;
 }
 
-export function ButtonsGroup({ formEl, userId, isOriginal=false, role }: IButtonsGroupProps) {
-  const { setLoaderActive, setStep, setRoleName, setRoleDescription, setIsRoleNew } = useActions();
+export function ButtonsGroup({ formEl, userId, isOriginal = false, role }: IButtonsGroupProps) {
+  const { setLoaderActive, setStep, setRoleName, setRoleDescription, setIsRoleNew, setRoleId } = useActions();
   const [updateUserPermissions] = useUpdateUserPermissionsMutation();
   const [isModal, setIsModal] = useState(false);
 
@@ -42,12 +42,13 @@ export function ButtonsGroup({ formEl, userId, isOriginal=false, role }: IButton
     setIsModal(true);
     document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = '16px';
-    if(!isOriginal) {
+    if (!isOriginal && role) {
       setStep(2);
       setRoleName(role.name);
       setRoleDescription(role.description);
       setIsRoleNew(false);
     }
+    setRoleId(role?.id ?? null);
   };
 
   return (
@@ -55,10 +56,18 @@ export function ButtonsGroup({ formEl, userId, isOriginal=false, role }: IButton
       <S.Divider />
       {/* Открывает модальное окно для сохранения новой роли 
       или редактирования существующей */}
-      <NoBgButton text={isOriginal ? 'сохранить как роль' : 'изменить роль'} onClick={handleOpenModal}>
+      <NoBgButton
+        text={isOriginal ? 'сохранить как роль' : 'изменить роль'}
+        onClick={handleOpenModal}>
         {isOriginal ? <S.SaveIcon /> : <S.EditIcon />}
       </NoBgButton>
-      {isModal && <SaveRole onClose={handleCloseModal} formEl={formEl}/>}
+      {isModal && (
+        <SaveRole
+          userId={userId}
+          onClose={handleCloseModal}
+          formEl={formEl}
+        />
+      )}
       {/* Сохраняет выбранные права */}
       <NoBgButton
         text="сохранить"

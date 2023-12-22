@@ -5,17 +5,22 @@ import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { StepTwo } from '../StepTwo';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { getPermissions } from '../..';
-import { useCreateRoleMutation } from '@/entities/role';
+import { useCreateRoleMutation, useUpdateRoleMutation } from '@/entities/role';
+import { useUpdateUserRoleMutation } from '@/entities/users';
 
 interface ISaveRoleProps {
   onClose: () => void;
   formEl: React.MutableRefObject<null>;
+  userId: number;
 }
 
-export function SaveRole({ onClose, formEl }: ISaveRoleProps) {
+export function SaveRole({ onClose, formEl, userId }: ISaveRoleProps) {
   const { setStep, setLoaderActive } = useActions();
-  const { step, roleDescription, roleName, isNew } = useTypedSelector((state) => state.saveRole);
+  const { step, roleDescription, roleName, isNew, roleId } = useTypedSelector((state) => state.saveRole);
   const [createRole] = useCreateRoleMutation();
+  const [updateRole] = useUpdateRoleMutation();
+  const [updateUserRole] = useUpdateUserRoleMutation();
+  const { setRoleOriginal } = useActions();
 
   const handleClose = useCallback(() => {
     setStep(1);
@@ -37,12 +42,50 @@ export function SaveRole({ onClose, formEl }: ISaveRoleProps) {
         description: roleDescription,
         permissions,
       }).then((res) => {
-        setLoaderActive(false);
-        if('error' in res) {
+        if ('data' in res && res.data) {
+          handleClose();
+          updateUserRole({
+            userId,
+            role_id: res.data.data.id,
+          }).then((res) => {
+            if ('error' in res) {
+              alert(res.error);
+            }
+            setRoleOriginal(false);
+            setLoaderActive(false);
+          });
+        }
+
+        if ('error' in res) {
           alert(res.error);
+          setLoaderActive(false);
         }
       });
       setLoaderActive(true);
+    }
+    if (!isNew && roleId) {
+      updateRole({
+        roleId,
+        description: roleDescription,
+        permissions,
+      }).then((res) => {
+        handleClose();
+        setRoleOriginal(false);
+        setLoaderActive(false);
+        if ('error' in res) {
+          alert(res.error);
+        }
+        updateUserRole({
+          userId,
+          role_id: res.data.data.id,
+        }).then((res) => {
+          if ('error' in res) {
+            alert(res.error);
+          }
+          setRoleOriginal(false);
+          setLoaderActive(false);
+        });
+      });
     }
   };
 
