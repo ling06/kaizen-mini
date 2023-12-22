@@ -6,6 +6,7 @@ export const Container = styled.div<{ $isAvatar: boolean }>`
   justify-content: center;
   width: 42px;
   height: 42px;
+  position: relative;
   border-radius: 50%;
   border: 1px solid ${(props) => props.theme.colors.greyF1};
   overflow: hidden;
