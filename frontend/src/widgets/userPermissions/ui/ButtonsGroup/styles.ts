@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as C from '@/shared/ui/assets/styles/components';
 import saveIcon from '@assets/images/Save.svg';
+import editIcon from '@assets/images/editIconBlue.svg';
 
 export const ButtonsGroup = styled.div`
   display: flex;
@@ -25,4 +26,9 @@ export const Divider = styled.div`
 export const SaveIcon = styled(C.Icon)`
   margin-right: 5px;
   background-image: url(${saveIcon});
+`;
+
+export const EditIcon = styled(C.Icon)`
+  margin-right: 5px;
+  background-image: url(${editIcon});
 `;

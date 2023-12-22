@@ -17,7 +17,7 @@ export const roleApi = api.injectEndpoints({
         method: 'POST',
         body: role,
       }),
-      invalidatesTags: ['Roles'],
+      invalidatesTags: ['Roles', 'User'],
     }),
     updateRole: build.mutation<TRole, TUpdateRole & { roleId: string }>({
       query: ({ roleId, ...role }) => ({

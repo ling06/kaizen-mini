@@ -98,9 +98,11 @@ export const SvgIcon = styled.svg.attrs({
 interface IInputWithStateProps {
   $isChanged?: boolean;
   $isValid?: boolean;
+  $isDisabled?: boolean;
 }
 
 export const InputWithState = styled(Input)<IInputWithStateProps>`
+  pointer-events: ${(props) => (props.$isDisabled ? 'none' : 'auto')};
   ${(props) => {
     if (props.$isChanged && props.$isValid) {
       return css`
@@ -272,16 +274,16 @@ export const FlexColumn = styled(FlexContainer)`
 `;
 
 export const ScrollBar = css`
-    overflow: auto;
-    scrollbar-gutter: stable;
-    scrollbar-width: 10px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: 10px;
 
-    &::-webkit-scrollbar {
-      width: 10px; 
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: #f1f1f1;
-      border-radius: 5px;
-    }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
 `;
