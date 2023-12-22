@@ -17,7 +17,7 @@ interface IUserPermissionsProps {
 }
 
 export function UserPermissions({ userRole, userId, userPermissions=[] }: Readonly<IUserPermissionsProps>) {
-  const [role, setRole] = useState<TRole | null>(userRole ?? {...ORIGINAL_ROLE, permissions: userPermissions});
+  const [role, setRole] = useState<TRole>(userRole ?? {...ORIGINAL_ROLE, permissions: userPermissions});
   const { data, isError } = useGetPermissionsQuery(null);
   const [isOriginal, setIsOriginal] = useState<boolean>(false);
   const formRef = useRef(null);
@@ -87,7 +87,7 @@ export function UserPermissions({ userRole, userId, userPermissions=[] }: Readon
           />
         </>
       )}
-      <ButtonsGroup formEl={formRef} userId={userId}/>
+      <ButtonsGroup formEl={formRef} userId={userId} role={role} isOriginal={isOriginal}/>
     </S.Form>
   );
 }

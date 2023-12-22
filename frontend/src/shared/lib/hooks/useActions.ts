@@ -9,6 +9,7 @@ import { actions as lessonActions } from '@/store/lesson/lesson.slice';
 import { actions as competitionActions } from '@/store/competition/competition.slice';
 import {actions as accessesActions} from '@/pages/User/model/accesses.slice';
 import {actions as newsActions} from '@/store/news/news.slice';
+import {actions as saveRoleActions} from '@/features/saveRole';
 
 const rootActions = {
   ...userActions,
@@ -19,6 +20,7 @@ const rootActions = {
   ...competitionActions,
   ...newsActions,
   ...accessesActions,
+  ...saveRoleActions,
 };
 
 export const useActions = () => {
