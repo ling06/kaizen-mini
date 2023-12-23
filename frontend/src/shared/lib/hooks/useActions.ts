@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions as modalActions } from '@/store/modal/modal.slice';
-import { actions as userActions } from '@/entities/user';
+import { actions as authActions } from '@/entities/auth';
 import { actions as courseActions } from '@/store/course/course.slice';
 import { actions as loaderActions } from '@/store/loader/loader.slice';
 import { actions as lessonActions } from '@/store/lesson/lesson.slice';
@@ -12,7 +12,7 @@ import {actions as newsActions} from '@/store/news/news.slice';
 import {actions as saveRoleActions} from '@/features/saveRole';
 
 const rootActions = {
-  ...userActions,
+  ...authActions,
   ...modalActions,
   ...courseActions,
   ...loaderActions,

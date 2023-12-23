@@ -1,11 +1,10 @@
 import { SearchUserInput } from '@/features/usersFilter/ui/SearchUserInput';
 import { css } from 'styled-components';
 import { UsersList } from './ui/UsersList';
-import { User } from '@/entities/user/ui/User';
 import { useNavigate } from 'react-router-dom';
 import { BigTitle } from '@/shared/ui/components';
 import { Layout, WhiteBox } from '@/shared/ui/layouts';
-import { useGetUsersQuery, useSearchUsersQuery } from '@/entities/users';
+import { User, useGetUsersQuery, useSearchUsersQuery } from '@/entities/users';
 import { LoadingSmall } from '@/components/LoadingSmall';
 import { useState } from 'react';
 import { NoResult } from './ui/NoResult';

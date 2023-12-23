@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-  import {reducer as userReducer} from '@/entities/user';
+  import {reducer as authReducer} from '@/entities/auth';
 import { reducer as modalReducer } from '../../../store/modal/modal.slice';
 import { reducer as courseReducer } from '../../../store/course/course.slice';
 import { reducer as loaderReducer } from '../../../store/loader/loader.slice';
@@ -11,7 +11,7 @@ import {reducer as saveRoleReducer} from '@/features/saveRole';
 import { api } from '../../api';
 
 const reducer = combineReducers({
-  user: userReducer,
+  user: authReducer,
   modal: modalReducer,
   course: courseReducer,
   loader: loaderReducer,

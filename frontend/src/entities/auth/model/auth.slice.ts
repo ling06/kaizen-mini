@@ -4,13 +4,13 @@ export interface IUserInitialState {
   token: null | string;
 }
 
-const UserInitialState: IUserInitialState = {
+const initialState: IUserInitialState = {
   token: null,
 }
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: UserInitialState,
+  initialState: initialState,
   reducers: {
     setAuthToken: (state, { payload }) => {
       state.token = payload;

@@ -4,11 +4,11 @@ import { RuleSet } from 'styled-components';
 import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 
 import { useEffect, useState } from 'react';
-import { selectUser } from '../../api/api';
-import { User as TUser } from '../..';
+import { selectUser } from '../../../auth/api/api';
+import { TMeData } from '../../../auth';
 
 interface IUserProps {
-  readonly userData: TUser['data'];
+  readonly userData: TMeData['data'];
   readonly styles?: RuleSet<object>;
   readonly onClick: () => void;
   readonly checkCurrent?: boolean;

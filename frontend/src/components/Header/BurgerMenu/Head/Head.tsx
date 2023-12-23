@@ -4,7 +4,7 @@ import { useTypedSelector } from '@/shared/lib/hooks/useTypedSelector';
 import { getUsername } from '@/shared/lib/getUsername';
 import { useEffect } from 'react';
 import { UserAvatar } from '@/shared/ui/components';
-import { selectUser } from '@/entities/user';
+import { selectUser } from '@/entities/auth';
 
 interface IHead {
   onClose: () => void;

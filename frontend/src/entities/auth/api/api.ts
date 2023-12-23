@@ -1,5 +1,5 @@
 import { api } from '@/shared/api';
-import { LoginErrorRes, LoginReq, LoginRes, LogoutRes, User } from '../model/types';
+import { LoginErrorRes, LoginReq, LoginRes, LogoutRes, TMeData } from '../model/types';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,7 +16,7 @@ export const userApi = api.injectEndpoints({
         method: 'POST',
       })
     }),
-    getMe: builder.query<User, null>({
+    getMe: builder.query<TMeData, null>({
       query: () => ({
         url: 'auth/me',
         method: 'GET',
